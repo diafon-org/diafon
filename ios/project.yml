@@ -1,0 +1,66 @@
+# xcodegen project spec — https://github.com/yonaskolb/XcodeGen
+# Generate the Xcode project with:  xcodegen generate
+# (install xcodegen:  brew install xcodegen)
+
+name: Latin2
+
+options:
+  bundleIdPrefix: com.latin2
+  deploymentTarget:
+    iOS: "16.0"
+  xcodeVersion: "15.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+
+targets:
+
+  # ── Container app ─────────────────────────────────────────────────────────
+  Latin2:
+    type: application
+    platform: iOS
+    sources:
+      - path: Latin2App
+    info:
+      path: Latin2App/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.latin2.app
+        INFOPLIST_FILE: Latin2App/Info.plist
+    dependencies:
+      - target: Latin2Keyboard
+        embed: true
+
+  # ── Keyboard extension ────────────────────────────────────────────────────
+  Latin2Keyboard:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Latin2Keyboard
+        excludes:
+          - "**/*.json"   # handled as resource below
+          - Info.plist
+      - path: Latin2Keyboard/Resources
+        buildPhase: resources
+    info:
+      path: Latin2Keyboard/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.latin2.app.keyboard
+        INFOPLIST_FILE: Latin2Keyboard/Info.plist
+
+  # ── Unit tests ────────────────────────────────────────────────────────────
+  Latin2KeyboardTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Latin2KeyboardTests
+      - path: Latin2Keyboard/MappingEngine.swift   # test the engine directly
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.latin2.app.keyboard.tests
+    dependencies:
+      - target: Latin2Keyboard

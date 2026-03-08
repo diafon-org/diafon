@@ -7,7 +7,8 @@
     "author": "latin2.0"
   },
   "mappings": {
-    "ny": "ņ",
-    "yy": "y"
+    "nyy": "ny",
+    "ny":  "ņ",
+    "yy":  "y"
   }
 }

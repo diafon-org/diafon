@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "name": "Latin Extended",
+    "description": "Extended Latin characters based on English International keyboard. Combines common digraphs and punctuation sequences into single Unicode code points.",
+    "version": "1.0.0",
+    "base_keyboard": "English International",
+    "author": "latin2.0"
+  },
+  "mappings": {
+    "nyy": "ny",
+    "ny":  "ņ",
+    "yy":  "y"
+  }
+}
