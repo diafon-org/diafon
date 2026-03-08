@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "latin2"
+version = "1.0.0"
+description = "Cross-platform keyboard enhancement — auto-replace typed sequences with Unicode characters"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = [
+    "pynput>=1.7",
+    "PyQt6>=6.5",
+]
+
+[project.scripts]
+latin2 = "latin2.tray_app:main"
+
+[tool.setuptools.packages.find]
+include = ["latin2*", "engine*", "ui*"]
+
+[tool.setuptools.package-data]
+"latin2" = ["assets/*.png"]
+"*"       = ["mappings/*.json"]
