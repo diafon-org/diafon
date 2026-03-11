@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "name": "Latin Extended — Hungarian",
+    "description": "Single-char representations of all Hungarian consonant digraphs and special vowels.",
+    "version": "1.1.0",
+    "base_keyboard": "English International",
+    "author": "latin22"
+  },
+  "modifier_keys": ["y", "q", "w", "x"],
+  "mappings": {
+    "ny": "n̗",  "Ny": "N̗",
+    "ly": "l̗",  "Ly": "L̗",
+    "ty": "t̗",  "Ty": "T̗",
+    "dy": "d̗",  "Dy": "D̗",
+    "gy": "d̗",  "Gy": "D̗",
+    "sy": "s̗",  "Sy": "S̗",
+    "zy": "z̗",  "Zy": "Z̗",
+    "cy": "c̗",  "Cy": "C̗",
+    "cw": "ʣ",  "Cw": "ǲ",
+    "cx": "ʣ̗",  "Cx": "ǲ̗",
+    "dw": "ʣ",  "Dw": "ǲ",
+    "dx": "ʣ̗",  "Dx": "ǲ̗",
+
+    "aq": "á",  "Aq": "Á",
+    "eq": "é",  "Eq": "É",
+    "iq": "í",  "Iq": "Í",
+    "oq": "ó",  "Oq": "Ó",
+    "uq": "ú",  "Uq": "Ú",
+
+    "ow": "ö",  "Ow": "Ö",
+    "uw": "ü",  "Uw": "Ü",
+
+    "ox": "ő",  "Ox": "Ő",
+    "ux": "ű",  "Ux": "Ű"
+  }
+}

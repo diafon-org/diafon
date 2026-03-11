@@ -14,7 +14,8 @@ final class KeyboardViewController: UIInputViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        engine = MappingEngine(mappings: loadMappings())
+        let (mappings, modifiers) = loadMappings()
+        engine = MappingEngine(mappings: mappings, modifierKeys: modifiers)
 
         keyboardView = KeyboardView()
         keyboardView.delegate = self
@@ -41,16 +42,24 @@ final class KeyboardViewController: UIInputViewController {
 
     // MARK: - Mappings
 
-    private func loadMappings() -> [String: String] {
-        // The JSON is bundled inside the keyboard extension target as "mappings.json".
+    private struct MappingsFile: Decodable {
+        let mappings: [String: String]
+        let modifierKeys: [String]?
+        enum CodingKeys: String, CodingKey {
+            case mappings
+            case modifierKeys = "modifier_keys"
+        }
+    }
+
+    private func loadMappings() -> (mappings: [String: String], modifierKeys: Set<Character>) {
         guard
             let url  = Bundle(for: KeyboardViewController.self)
                          .url(forResource: "mappings", withExtension: "json"),
             let data = try? Data(contentsOf: url),
-            let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-            let map  = json["mappings"] as? [String: String]
-        else { return [:] }
-        return map
+            let file = try? JSONDecoder().decode(MappingsFile.self, from: data)
+        else { return ([:], []) }
+        let modifiers = Set((file.modifierKeys ?? []).compactMap { $0.first })
+        return (file.mappings, modifiers)
     }
 
     // MARK: - Applying engine result
@@ -79,19 +88,16 @@ extension KeyboardViewController: KeyboardViewDelegate {
             apply(engine.process(c))
 
         case .space:
-            apply(engine.flush())   // flush any pending match before the space
+            engine.flush()
             proxy.insertText(" ")
 
         case .returnKey:
-            apply(engine.flush())
+            engine.flush()
             proxy.insertText("\n")
 
         case .backspace:
             engine.reset()
             proxy.deleteBackward()
-
-        case .globe:
-            advanceToNextInputMode()
 
         case .shift, .switchToMode:
             break   // managed inside KeyboardView

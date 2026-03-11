@@ -2,12 +2,13 @@
 # Generate the Xcode project with:  xcodegen generate
 # (install xcodegen:  brew install xcodegen)
 
-name: Latin2
+name: Latin22
 
 options:
-  bundleIdPrefix: com.latin2
+  bundleIdPrefix: com.latin22
   deploymentTarget:
     iOS: "16.0"
+    macOS: "13.0"
   xcodeVersion: "15.0"
   createIntermediateGroups: true
 
@@ -19,48 +20,73 @@ settings:
 targets:
 
   # ── Container app ─────────────────────────────────────────────────────────
-  Latin2:
+  Latin22:
     type: application
     platform: iOS
     sources:
-      - path: Latin2App
+      - path: Latin22App
+      - path: Latin22Keyboard/Resources/mappings.json
+        buildPhase: resources
     info:
-      path: Latin2App/Info.plist
+      path: Latin22App/Info.plist
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.latin2.app
-        INFOPLIST_FILE: Latin2App/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.latin22.app
+        INFOPLIST_FILE: Latin22App/Info.plist
     dependencies:
-      - target: Latin2Keyboard
+      - target: Latin22Keyboard
         embed: true
 
   # ── Keyboard extension ────────────────────────────────────────────────────
-  Latin2Keyboard:
+  Latin22Keyboard:
     type: app-extension
     platform: iOS
     sources:
-      - path: Latin2Keyboard
+      - path: Latin22Keyboard
         excludes:
           - "**/*.json"   # handled as resource below
           - Info.plist
-      - path: Latin2Keyboard/Resources
+      - path: Latin22Keyboard/Resources
         buildPhase: resources
     info:
-      path: Latin2Keyboard/Info.plist
+      path: Latin22Keyboard/Info.plist
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.latin2.app.keyboard
-        INFOPLIST_FILE: Latin2Keyboard/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.latin22.app.keyboard
+        INFOPLIST_FILE: Latin22Keyboard/Info.plist
 
   # ── Unit tests ────────────────────────────────────────────────────────────
-  Latin2KeyboardTests:
+  Latin22KeyboardTests:
     type: bundle.unit-test
     platform: iOS
     sources:
-      - path: Latin2KeyboardTests
-      - path: Latin2Keyboard/MappingEngine.swift   # test the engine directly
+      - path: Latin22KeyboardTests
+      - path: Latin22Keyboard/MappingEngine.swift   # test the engine directly
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.latin2.app.keyboard.tests
+
+  # ── macOS input method ────────────────────────────────────────────────────
+  Latin22Mac:
+    type: application
+    platform: macOS
+    sources:
+      - path: Latin22Mac
+        excludes:
+          - Info.plist
+      - path: Latin22Keyboard/MappingEngine.swift   # shared with iOS
+      - path: Latin22Keyboard/Resources/mappings.json
+        buildPhase: resources
+    info:
+      path: Latin22Mac/Info.plist
+    entitlements:
+      path: Latin22Mac/Latin22Mac.entitlements
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.latin22.mac
+        INFOPLIST_FILE: Latin22Mac/Info.plist
+        MACOSX_DEPLOYMENT_TARGET: "13.0"
+        CODE_SIGN_ENTITLEMENTS: Latin22Mac/Latin22Mac.entitlements
     dependencies:
-      - target: Latin2Keyboard
+      - sdk: InputMethodKit.framework
+      - target: Latin22Keyboard

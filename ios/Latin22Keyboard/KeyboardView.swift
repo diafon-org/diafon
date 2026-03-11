@@ -20,7 +20,6 @@ enum KeyActionType: Equatable {
     case space
     case returnKey
     case backspace
-    case globe
     case shift
     case switchToMode(KeyboardMode)
 }
@@ -48,16 +47,17 @@ final class KeyboardView: UIView {
 
     private var keyButtons: [UIButton: KeyModel] = [:]
     private var deleteTimer: Timer?
+    private var lastBuiltSize: CGSize = .zero
 
     // MARK: Layout constants (recalculated from actual bounds in layoutSubviews)
 
     private let rowCount     = 4
-    private let topPad:    CGFloat = 10
-    private let bottomPad: CGFloat = 10
-    private let rowGap:    CGFloat = 10
+    private let topPad:    CGFloat = 8
+    private let bottomPad: CGFloat = 4
+    private let rowGap:    CGFloat = 11
     private let keyGap:    CGFloat = 6
     private let sidePad:   CGFloat = 3
-    private let cornerR:   CGFloat = 5
+    private let cornerR:   CGFloat = 10
 
     // MARK: - Init
 
@@ -72,13 +72,16 @@ final class KeyboardView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        guard bounds.size != lastBuiltSize else { return }
+        lastBuiltSize = bounds.size
         buildKeys()
     }
 
     override func traitCollectionDidChange(_ prev: UITraitCollection?) {
         super.traitCollectionDidChange(prev)
         backgroundColor = kbBg
-        buildKeys()
+        lastBuiltSize = .zero   // force rebuild with new colours
+        setNeedsLayout()
     }
 
     // MARK: - Build
@@ -86,6 +89,7 @@ final class KeyboardView: UIView {
     private func buildKeys() {
         subviews.forEach { $0.removeFromSuperview() }
         keyButtons.removeAll()
+        lastBuiltSize = bounds.size
 
         let rows = currentRows
         let rowH = (bounds.height - topPad - bottomPad
@@ -113,10 +117,12 @@ final class KeyboardView: UIView {
         let btn = UIButton(type: .custom)
         btn.frame = frame
         btn.layer.cornerRadius = cornerR
-        btn.layer.shadowColor  = UIColor.black.cgColor
-        btn.layer.shadowOffset = CGSize(width: 0, height: 1)
-        btn.layer.shadowOpacity = 0.28
-        btn.layer.shadowRadius  = 0
+        btn.layer.shadowColor   = UIColor.black.cgColor
+        btn.layer.shadowOffset  = CGSize(width: 0, height: 1)
+        btn.layer.shadowOpacity = 0.35
+        btn.layer.shadowRadius  = 0.5
+        btn.layer.shadowPath    = UIBezierPath(roundedRect: CGRect(origin: .zero, size: frame.size),
+                                              cornerRadius: cornerR).cgPath
         btn.clipsToBounds = false
 
         btn.setTitle(key.label, for: .normal)
@@ -160,55 +166,54 @@ final class KeyboardView: UIView {
         let row1 = "qwertyuiop".map { letter(String($0)) }
         let row2 = "asdfghjkl".map  { letter(String($0)) }
 
-        let shiftLabel: String
-        switch shiftState {
-        case .off:    shiftLabel = "⇧"
-        case .once:   shiftLabel = "⇧"
-        case .locked: shiftLabel = "⇪"
-        }
+        let shiftLabel = shiftState == .locked ? "⇪" : "⇧"
         var row3: [KeyModel] = [
             KeyModel(label: shiftLabel,  action: .shift,     widthWeight: 1.5, style: .function)
         ]
         "zxcvbnm".forEach { row3.append(letter(String($0))) }
         row3.append(KeyModel(label: "⌫", action: .backspace, widthWeight: 1.5, style: .function))
 
-        let row4: [KeyModel] = [
+        var row4: [KeyModel] = [
             KeyModel(label: "123",    action: .switchToMode(.numeric), widthWeight: 1.5, style: .function),
-            KeyModel(label: "🌐",    action: .globe,                   widthWeight: 1.0, style: .function),
+        ]
+        row4.append(contentsOf: [
             KeyModel(label: "space", action: .space,                   widthWeight: 4.5, style: .spaceBar),
             KeyModel(label: "return",action: .returnKey,               widthWeight: 2.0, style: .returnStyle),
-        ]
+        ])
+
         return [row1, row2, row3, row4]
     }
 
     private func numericRows() -> [[KeyModel]] {
         let row1 = "1234567890".map { KeyModel(label: String($0), action: .character(String($0))) }
         let row2 = ["-","/",":",";","(",")",  "$","&","@","\""].map { KeyModel(label: $0, action: .character($0)) }
-        var row3: [KeyModel] = [
-            KeyModel(label: "#+=", action: .switchToMode(.symbols), widthWeight: 1.5, style: .function)
-        ]
-        [".", ",", "?", "!", "'"].forEach { row3.append(KeyModel(label: $0, action: .character($0))) }
-        row3.append(KeyModel(label: "⌫", action: .backspace, widthWeight: 1.5, style: .function))
-        return [row1, row2, row3, bottomRow(modeLabel: "ABC", modeTarget: .alpha)]
+        return [row1, row2, punctuationRow(modeKey: KeyModel(label: "#+=", action: .switchToMode(.symbols), widthWeight: 1.5, style: .function)), bottomRow(modeLabel: "ABC", modeTarget: .alpha)]
     }
 
     private func symbolRows() -> [[KeyModel]] {
         let row1 = ["[","]","{","}","#","%","^","*","+","="].map { KeyModel(label: $0, action: .character($0)) }
         let row2 = ["_","\\","|","~","<",">","€","£","¥","•"].map { KeyModel(label: $0, action: .character($0)) }
-        var row3: [KeyModel] = [
-            KeyModel(label: "123", action: .switchToMode(.numeric), widthWeight: 1.5, style: .function)
-        ]
-        [".", ",", "?", "!", "'"].forEach { row3.append(KeyModel(label: $0, action: .character($0))) }
-        row3.append(KeyModel(label: "⌫", action: .backspace, widthWeight: 1.5, style: .function))
-        return [row1, row2, row3, bottomRow(modeLabel: "ABC", modeTarget: .alpha)]
+        return [row1, row2, punctuationRow(modeKey: KeyModel(label: "123", action: .switchToMode(.numeric), widthWeight: 1.5, style: .function)), bottomRow(modeLabel: "ABC", modeTarget: .alpha)]
     }
 
-    private func bottomRow(modeLabel: String, modeTarget: KeyboardMode) -> [KeyModel] {[
-        KeyModel(label: modeLabel, action: .switchToMode(modeTarget), widthWeight: 1.5, style: .function),
-        KeyModel(label: "🌐",     action: .globe,                    widthWeight: 1.0, style: .function),
-        KeyModel(label: "space",  action: .space,                    widthWeight: 4.5, style: .spaceBar),
-        KeyModel(label: "return", action: .returnKey,                widthWeight: 2.0, style: .returnStyle),
-    ]}
+    /// Builds the shared punctuation row used in numeric and symbol modes.
+    private func punctuationRow(modeKey: KeyModel) -> [KeyModel] {
+        var row = [modeKey]
+        [".", ",", "?", "!", "'"].forEach { row.append(KeyModel(label: $0, action: .character($0))) }
+        row.append(KeyModel(label: "⌫", action: .backspace, widthWeight: 1.5, style: .function))
+        return row
+    }
+
+    private func bottomRow(modeLabel: String, modeTarget: KeyboardMode) -> [KeyModel] {
+        var items: [KeyModel] = [
+            KeyModel(label: modeLabel, action: .switchToMode(modeTarget), widthWeight: 1.5, style: .function),
+        ]
+        items.append(contentsOf: [
+            KeyModel(label: "space",  action: .space,                    widthWeight: 4.5, style: .spaceBar),
+            KeyModel(label: "return", action: .returnKey,                widthWeight: 2.0, style: .returnStyle),
+        ])
+        return items
+    }
 
     // MARK: - Actions
 
@@ -263,7 +268,7 @@ final class KeyboardView: UIView {
             // Auto-cancel one-shot shift after a character is typed
             if shiftState == .once {
                 shiftState = .off
-                DispatchQueue.main.async { self.buildKeys() }
+                buildKeys()
             }
             delegate?.keyboardView(self, didProduceAction: action)
 
@@ -277,32 +282,33 @@ final class KeyboardView: UIView {
     private var isDark: Bool { traitCollection.userInterfaceStyle == .dark }
 
     private var kbBg: UIColor {
-        isDark ? UIColor(white: 0.17, alpha: 1)
-               : UIColor(red: 0.82, green: 0.84, blue: 0.87, alpha: 1)
+        isDark ? UIColor(white: 0.13, alpha: 1)
+               : UIColor(red: 0.659, green: 0.690, blue: 0.722, alpha: 1)
     }
     private var keyText: UIColor { isDark ? .white : .black }
     private var shiftActiveColor: UIColor { UIColor.systemBlue.withAlphaComponent(0.85) }
 
     private func bgColor(for style: KeyStyleType) -> UIColor {
         switch style {
-        case .character:   return isDark ? UIColor(white: 0.38, alpha: 1) : .white
+        case .character:   return isDark ? UIColor(white: 0.40, alpha: 1) : .white
         case .function,
              .spaceBar,
-             .returnStyle: return isDark ? UIColor(white: 0.23, alpha: 1) : UIColor(white: 0.69, alpha: 1)
+             .returnStyle: return isDark ? UIColor(white: 0.24, alpha: 1) : UIColor(white: 0.66, alpha: 1)
         }
     }
 
     private func highlight(for style: KeyStyleType) -> UIColor {
         switch style {
-        case .character:   return isDark ? UIColor(white: 0.55, alpha: 1) : UIColor(white: 0.85, alpha: 1)
-        default:           return isDark ? UIColor(white: 0.35, alpha: 1) : UIColor(white: 0.58, alpha: 1)
+        case .character:   return isDark ? UIColor(white: 0.56, alpha: 1) : UIColor(white: 0.85, alpha: 1)
+        default:           return isDark ? UIColor(white: 0.34, alpha: 1) : UIColor(white: 0.55, alpha: 1)
         }
     }
 
     private func font(for style: KeyStyleType) -> UIFont {
         switch style {
-        case .character:  return .systemFont(ofSize: 22, weight: .light)
+        case .character:  return .systemFont(ofSize: 22, weight: .regular)
         default:          return .systemFont(ofSize: 15, weight: .regular)
         }
     }
 }
+
