@@ -1,36 +1,105 @@
 {
   "meta": {
-    "name": "Latin Extended — Hungarian",
-    "description": "Single-char representations of all Hungarian consonant digraphs and special vowels.",
-    "version": "1.1.0",
-    "base_keyboard": "English International",
+    "name": "Latin22 — Hungarian progression",
+    "version": "2.0.0",
     "author": "latin22"
   },
-  "modifier_keys": ["y", "q", "w", "x"],
-  "mappings": {
-    "ny": "n̗",  "Ny": "N̗",
-    "ly": "l̗",  "Ly": "L̗",
-    "ty": "t̗",  "Ty": "T̗",
-    "dy": "d̗",  "Dy": "D̗",
-    "gy": "d̗",  "Gy": "D̗",
-    "sy": "s̗",  "Sy": "S̗",
-    "zy": "z̗",  "Zy": "Z̗",
-    "cy": "c̗",  "Cy": "C̗",
-    "cw": "ʣ",  "Cw": "ǲ",
-    "cx": "ʣ̗",  "Cx": "ǲ̗",
-    "dw": "ʣ",  "Dw": "ǲ",
-    "dx": "ʣ̗",  "Dx": "ǲ̗",
+  "profiles": [
+    {
+      "id": "00000000-0000-0000-0000-000000000002",
+      "name": "Hungarian (vowels only)",
+      "modifier_keys": ["q", "w", "x"],
+      "mappings": {
+        "aq": "á",  "Aq": "Á",
+        "eq": "é",  "Eq": "É",
+        "iq": "í",  "Iq": "Í",
+        "oq": "ó",  "Oq": "Ó",
+        "uq": "ú",  "Uq": "Ú",
 
-    "aq": "á",  "Aq": "Á",
-    "eq": "é",  "Eq": "É",
-    "iq": "í",  "Iq": "Í",
-    "oq": "ó",  "Oq": "Ó",
-    "uq": "ú",  "Uq": "Ú",
+        "ow": "ö",  "Ow": "Ö",
+        "uw": "ü",  "Uw": "Ü",
 
-    "ow": "ö",  "Ow": "Ö",
-    "uw": "ü",  "Uw": "Ü",
+        "ox": "ő",  "Ox": "Ő",
+        "ux": "ű",  "Ux": "Ű"
+      }
+    },
+    {
+      "id": "00000000-0000-0000-0000-000000000001",
+      "name": "Hungarian (full)",
+      "modifier_keys": ["y", "q", "w", "x"],
+      "mappings": {
+        "ny": "n̗",  "Ny": "N̗",
+        "ly": "l̗",  "Ly": "L̗",
+        "ty": "t̗",  "Ty": "T̗",
+        "dy": "d̗",  "Dy": "D̗",
+        "gy": "d̗",  "Gy": "D̗",
+        "sy": "s̗",  "Sy": "S̗",
+        "zy": "z̗",  "Zy": "Z̗",
+        "cy": "c̗",  "Cy": "C̗",
 
-    "ox": "ő",  "Ox": "Ő",
-    "ux": "ű",  "Ux": "Ű"
-  }
+        "cw": "đ",   "Cw": "Đ",
+        "cx": "đ̗",   "Cx": "Đ̗",
+        "dw": "đ",   "Dw": "Đ",
+        "dx": "đ̗",   "Dx": "Đ̗",
+
+        "aq": "á",  "Aq": "Á",
+        "eq": "é",  "Eq": "É",
+        "iq": "í",  "Iq": "Í",
+        "oq": "ó",  "Oq": "Ó",
+        "uq": "ú",  "Uq": "Ú",
+
+        "ow": "ö",  "Ow": "Ö",
+        "uw": "ü",  "Uw": "Ü",
+
+        "ox": "ő",  "Ox": "Ő",
+        "ux": "ű",  "Ux": "Ű"
+      }
+    },
+    {
+      "id": "00000000-0000-0000-0000-000000000003",
+      "name": "Hungarian (+ geminate consonants)",
+      "modifier_keys": ["y", "q", "w", "x",
+                        "b", "c", "d", "f", "g", "h", "j", "k",
+                        "l", "m", "n", "p", "r", "s", "t", "v", "z"],
+      "mappings": {
+        "ny": "n̗",  "Ny": "N̗",
+        "ly": "l̗",  "Ly": "L̗",
+        "ty": "t̗",  "Ty": "T̗",
+        "dy": "d̗",  "Dy": "D̗",
+        "gy": "d̗",  "Gy": "D̗",
+        "sy": "s̗",  "Sy": "S̗",
+        "zy": "z̗",  "Zy": "Z̗",
+        "cy": "c̗",  "Cy": "C̗",
+
+        "cw": "đ",   "Cw": "Đ",
+        "cx": "đ̗",   "Cx": "Đ̗",
+        "dw": "đ",   "Dw": "Đ",
+        "dx": "đ̗",   "Dx": "Đ̗",
+
+        "aq": "á",  "Aq": "Á",
+        "eq": "é",  "Eq": "É",
+        "iq": "í",  "Iq": "Í",
+        "oq": "ó",  "Oq": "Ó",
+        "uq": "ú",  "Uq": "Ú",
+
+        "ow": "ö",  "Ow": "Ö",
+        "uw": "ü",  "Uw": "Ü",
+
+        "ox": "ő",  "Ox": "Ő",
+        "ux": "ű",  "Ux": "Ű",
+
+        "bb": "b\u0301",  "cc": "c\u0301",  "dd": "d\u0301",
+        "ff": "f\u0301",  "gg": "g\u0301",  "hh": "h\u0301",
+        "jj": "j\u0301",  "kk": "k\u0301",  "ll": "l\u0301",
+        "mm": "m\u0301",  "nn": "n\u0301",  "pp": "p\u0301",
+        "rr": "r\u0301",  "ss": "s\u0301",  "tt": "t\u0301",
+        "vv": "v\u0301",  "zz": "z\u0301",
+
+        "nyy": "n\u0348",  "lyy": "l\u0348",
+        "tyy": "t\u0348",  "dyy": "d\u0348",
+        "gyy": "d\u0348",  "syy": "s\u0348",
+        "zyy": "z\u0348",  "cyy": "c\u0348"
+      }
+    }
+  ]
 }

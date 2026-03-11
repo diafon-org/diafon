@@ -1,126 +1,85 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject private var store: ProfileStore
 
-    private let steps = [
+    private let installSteps = [
         "Open the Settings app.",
         "Go to General → Keyboard → Keyboards.",
-        "Tap Add New Keyboard…",
+        "Tap \"Add New Keyboard…\"",
         "Select Latin22 from the list.",
-        "While typing anywhere, tap the 🌐 key to switch to Latin22.",
-        "Tap 🌐 again to switch back to your default keyboard.",
     ]
-
-    // MARK: - Display types
-
-    private struct MappingRow: Identifiable {
-        let id: String          // lowercase input key
-        let input: String       // e.g. "ny"
-        let inputUpper: String? // e.g. "Ny", nil if variant absent
-        let output: String      // e.g. "n̗"
-        let outputUpper: String?
-    }
-
-    private struct MappingGroup: Identifiable {
-        let id: String          // modifier char
-        let rows: [MappingRow]
-    }
-
-    // MARK: - Groups derived from active profile
-
-    private var groups: [MappingGroup] {
-        let profile = store.activeProfile
-        let modifiers = profile.modifierKeys
-
-        var byModifier: [String: [MappingRow]] = [:]
-        for (input, output) in profile.mappings {
-            guard let firstChar = input.first, firstChar.isLowercase || firstChar.isNumber,
-                  let lastChar  = input.last.map(String.init),
-                  modifiers.contains(lastChar)
-            else { continue }
-
-            let capitalised = String(input.prefix(1).uppercased() + input.dropFirst())
-            let upper       = profile.mappings[capitalised]
-            let row = MappingRow(
-                id: input,
-                input: input,
-                inputUpper: upper != nil ? capitalised : nil,
-                output: output,
-                outputUpper: upper
-            )
-            byModifier[lastChar, default: []].append(row)
-        }
-
-        return modifiers.compactMap { mod in
-            guard let rows = byModifier[mod], !rows.isEmpty else { return nil }
-            return MappingGroup(id: mod, rows: rows.sorted { $0.input < $1.input })
-        }
-    }
-
-    // MARK: - Body
 
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("Setup")) {
-                    ForEach(Array(steps.enumerated()), id: \.offset) { i, step in
+
+                // ── What is it ────────────────────────────────────────────
+                Section("What is it") {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Latin22 is a keyboard that lets you type accented and special characters using short, phonetic two-key sequences — no layout switching, no long-press menus.")
+                        Text("You type a base letter followed by a modifier key. The keyboard instantly substitutes the correct character. Everything stays on the standard QWERTY layout you already know.")
+                    }
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .padding(.vertical, 4)
+                }
+
+                // ── How to install ────────────────────────────────────────
+                Section("How to install") {
+                    ForEach(Array(installSteps.enumerated()), id: \.offset) { i, step in
                         HStack(alignment: .top, spacing: 12) {
                             Text("\(i + 1)")
                                 .font(.caption.bold())
-                                .foregroundColor(.secondary)
+                                .foregroundStyle(.secondary)
                                 .frame(width: 18, alignment: .center)
                             Text(step)
-                                .font(.body)
                         }
                         .padding(.vertical, 2)
                     }
                 }
 
-                ForEach(groups) { group in
-                    Section(header: Text("modifier: \(group.id)")) {
-                        ForEach(group.rows) { row in
-                            HStack(spacing: 8) {
-                                // Input column
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(row.input)
-                                        .font(.system(.body, design: .monospaced))
-                                    if let up = row.inputUpper {
-                                        Text(up)
-                                            .font(.system(.caption, design: .monospaced))
-                                            .foregroundColor(.secondary)
-                                    }
-                                }
-                                .frame(width: 44, alignment: .leading)
-
-                                Image(systemName: "arrow.right")
-                                    .foregroundColor(.secondary)
-                                    .font(.caption)
-
-                                // Output column
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(row.output)
-                                        .font(.system(.body, design: .monospaced))
-                                    if let up = row.outputUpper {
-                                        Text(up)
-                                            .font(.system(.caption, design: .monospaced))
-                                            .foregroundColor(.secondary)
-                                    }
-                                }
-                            }
-                        }
+                // ── How to use ────────────────────────────────────────────
+                Section("How to use") {
+                    VStack(alignment: .leading, spacing: 10) {
+                        HowToRow(symbol: "1.circle",
+                                 title: "Type a sequence",
+                                 text: "Press a base letter, then the modifier key. For example: \"a\" + \"q\" → á, \"o\" + \"w\" → ö.")
+                        HowToRow(symbol: "2.circle",
+                                 title: "Substitution fires immediately",
+                                 text: "The characters appear the moment you press the modifier — no confirmation needed.")
+                        HowToRow(symbol: "3.circle",
+                                 title: "Escape by repeating the modifier",
+                                 text: "Press the modifier twice to cancel substitution and get the raw letters: \"ny\" + \"y\" → ny.")
+                        HowToRow(symbol: "4.circle",
+                                 title: "Switch keyboards",
+                                 text: "Use the globe key (system bar, below the keyboard) to cycle to other keyboards.")
                     }
-                }
-
-                Section(header: Text("How it works")) {
-                    Text("Type any sequence — the substitution fires the moment the modifier key is pressed. Press the modifier twice to revert: ny+y → \"ny\".")
-                        .font(.callout)
-                        .foregroundColor(.secondary)
-                        .padding(.vertical, 4)
+                    .padding(.vertical, 4)
                 }
             }
-            .navigationTitle(store.activeProfile.name)
+            .navigationTitle("Latin22")
             .navigationBarTitleDisplayMode(.large)
+        }
+    }
+}
+
+// MARK: - HowToRow
+
+private struct HowToRow: View {
+    let symbol: String
+    let title: String
+    let text: String
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: symbol)
+                .foregroundStyle(Color.accentColor)
+                .font(.title3)
+                .frame(width: 28)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title).font(.body.bold())
+                Text(text).font(.callout).foregroundStyle(.secondary)
+            }
         }
     }
 }
@@ -129,5 +88,3 @@ struct ContentView: View {
     ContentView()
         .environmentObject(ProfileStore())
 }
-
-

@@ -13,10 +13,13 @@ struct KeyModel {
     let action: KeyActionType
     var widthWeight: CGFloat = 1.0
     var style: KeyStyleType = .character
+    var symbolName: String? = nil
 }
 
 enum KeyActionType: Equatable {
     case character(String)
+    case nextKeyboard
+    case emojiKeyboard
     case space
     case returnKey
     case backspace
@@ -26,7 +29,7 @@ enum KeyActionType: Equatable {
 
 enum KeyStyleType { case character, function, spaceBar, returnStyle }
 
-enum KeyboardMode: Equatable { case alpha, numeric, symbols }
+enum KeyboardMode: Equatable { case alpha, numeric, symbols, emoji }
 
 enum ShiftState { case off, once, locked }
 
@@ -42,12 +45,22 @@ final class KeyboardView: UIView {
 
     weak var delegate: KeyboardViewDelegate?
 
+    /// Set to true when the system emoji keyboard is installed.
+    /// Triggers a layout rebuild so the 😊 button appears/disappears automatically.
+    var showsEmojiKey: Bool = false {
+        didSet { guard oldValue != showsEmojiKey else { return }; lastBuiltSize = .zero; setNeedsLayout() }
+    }
+
     private(set) var mode: KeyboardMode = .alpha
     private(set) var shiftState: ShiftState = .off
 
     private var keyButtons: [UIButton: KeyModel] = [:]
     private var deleteTimer: Timer?
     private var lastBuiltSize: CGSize = .zero
+    private var calloutView: UIView?
+    private var emojiPicker: EmojiPickerView?
+
+
 
     // MARK: Layout constants (recalculated from actual bounds in layoutSubviews)
 
@@ -57,7 +70,7 @@ final class KeyboardView: UIView {
     private let rowGap:    CGFloat = 11
     private let keyGap:    CGFloat = 6
     private let sidePad:   CGFloat = 3
-    private let cornerR:   CGFloat = 10
+    private let cornerR:   CGFloat = 5
 
     // MARK: - Init
 
@@ -65,7 +78,7 @@ final class KeyboardView: UIView {
     required init?(coder: NSCoder) { super.init(coder: coder); setup() }
 
     private func setup() {
-        backgroundColor = kbBg
+        backgroundColor = .clear
     }
 
     // MARK: - Layout
@@ -79,7 +92,6 @@ final class KeyboardView: UIView {
 
     override func traitCollectionDidChange(_ prev: UITraitCollection?) {
         super.traitCollectionDidChange(prev)
-        backgroundColor = kbBg
         lastBuiltSize = .zero   // force rebuild with new colours
         setNeedsLayout()
     }
@@ -87,9 +99,17 @@ final class KeyboardView: UIView {
     // MARK: - Build
 
     private func buildKeys() {
-        subviews.forEach { $0.removeFromSuperview() }
-        keyButtons.removeAll()
         lastBuiltSize = bounds.size
+        // Remove key subviews, preserving the emoji picker if present.
+        subviews.filter { $0 !== emojiPicker }.forEach { $0.removeFromSuperview() }
+        keyButtons.removeAll()
+        calloutView = nil
+
+        if mode == .emoji {
+            showEmojiView()
+            return
+        }
+        hideEmojiView()
 
         let rows = currentRows
         let rowH = (bounds.height - topPad - bottomPad
@@ -117,17 +137,31 @@ final class KeyboardView: UIView {
         let btn = UIButton(type: .custom)
         btn.frame = frame
         btn.layer.cornerRadius = cornerR
-        btn.layer.shadowColor   = UIColor.black.cgColor
-        btn.layer.shadowOffset  = CGSize(width: 0, height: 1)
-        btn.layer.shadowOpacity = 0.35
-        btn.layer.shadowRadius  = 0.5
-        btn.layer.shadowPath    = UIBezierPath(roundedRect: CGRect(origin: .zero, size: frame.size),
-                                              cornerRadius: cornerR).cgPath
-        btn.clipsToBounds = false
+        btn.layer.shadowColor      = UIColor.black.cgColor
+        btn.layer.shadowOffset     = CGSize(width: 0, height: 1)
+        btn.layer.shadowOpacity    = 0.35
+        btn.layer.shadowRadius     = 0.5
+        btn.layer.shadowPath       = UIBezierPath(roundedRect: CGRect(origin: .zero, size: frame.size),
+                                                 cornerRadius: cornerR).cgPath
+        btn.clipsToBounds          = false
+        // Cache the composited button+shadow as a bitmap so it isn't
+        // recomposited on every frame — critical in the memory-limited
+        // keyboard extension process.
+        btn.layer.shouldRasterize       = true
+        btn.layer.rasterizationScale    = UIScreen.main.scale
 
-        btn.setTitle(key.label, for: .normal)
-        btn.titleLabel?.font = font(for: key.style)
-        btn.setTitleColor(keyText, for: .normal)
+        let symConf = UIImage.SymbolConfiguration(pointSize: 17, weight: .light)
+        if let sym = key.symbolName,
+           let img = UIImage(systemName: sym)?
+                       .withConfiguration(symConf)
+                       .withRenderingMode(.alwaysTemplate) {
+            btn.setImage(img, for: .normal)
+            btn.tintColor = keyText
+        } else {
+            btn.setTitle(key.label, for: .normal)
+            btn.titleLabel?.font = font(for: key.style)
+            btn.setTitleColor(keyText, for: .normal)
+        }
         btn.backgroundColor = bgColor(for: key.style)
 
         btn.addTarget(self, action: #selector(down(_:)),  for: .touchDown)
@@ -155,6 +189,7 @@ final class KeyboardView: UIView {
         case .alpha:   return alphaRows()
         case .numeric: return numericRows()
         case .symbols: return symbolRows()
+        case .emoji:   return []   // handled by EmojiPickerView overlay
         }
     }
 
@@ -166,20 +201,29 @@ final class KeyboardView: UIView {
         let row1 = "qwertyuiop".map { letter(String($0)) }
         let row2 = "asdfghjkl".map  { letter(String($0)) }
 
-        let shiftLabel = shiftState == .locked ? "⇪" : "⇧"
+        let shiftSym: String = {
+            switch shiftState {
+            case .off:    return "shift"
+            case .once:   return "shift.fill"
+            case .locked: return "capslock.fill"
+            }
+        }()
         var row3: [KeyModel] = [
-            KeyModel(label: shiftLabel,  action: .shift,     widthWeight: 1.5, style: .function)
+            KeyModel(label: "", action: .shift,     widthWeight: 1.5, style: .function, symbolName: shiftSym)
         ]
         "zxcvbnm".forEach { row3.append(letter(String($0))) }
-        row3.append(KeyModel(label: "⌫", action: .backspace, widthWeight: 1.5, style: .function))
+        row3.append(KeyModel(label: "", action: .backspace, widthWeight: 1.5, style: .function, symbolName: "delete.backward"))
 
-        var row4: [KeyModel] = [
-            KeyModel(label: "123",    action: .switchToMode(.numeric), widthWeight: 1.5, style: .function),
-        ]
-        row4.append(contentsOf: [
-            KeyModel(label: "space", action: .space,                   widthWeight: 4.5, style: .spaceBar),
-            KeyModel(label: "return",action: .returnKey,               widthWeight: 2.0, style: .returnStyle),
-        ])
+        let emojiKey  = KeyModel(label: "😊", action: .emojiKeyboard, widthWeight: 1.5, style: .function)
+        let numKey    = KeyModel(label: "123",  action: .switchToMode(.numeric), widthWeight: 1.5, style: .function)
+        let spaceW: CGFloat = showsEmojiKey ? 4.5 : 6.0
+        let row4: [KeyModel] = showsEmojiKey
+            ? [numKey, emojiKey,
+               KeyModel(label: "space",  action: .space,     widthWeight: spaceW, style: .spaceBar),
+               KeyModel(label: "return", action: .returnKey, widthWeight: 2.0,    style: .returnStyle)]
+            : [numKey,
+               KeyModel(label: "space",  action: .space,     widthWeight: spaceW, style: .spaceBar),
+               KeyModel(label: "return", action: .returnKey, widthWeight: 2.0,    style: .returnStyle)]
 
         return [row1, row2, row3, row4]
     }
@@ -205,14 +249,11 @@ final class KeyboardView: UIView {
     }
 
     private func bottomRow(modeLabel: String, modeTarget: KeyboardMode) -> [KeyModel] {
-        var items: [KeyModel] = [
+        return [
             KeyModel(label: modeLabel, action: .switchToMode(modeTarget), widthWeight: 1.5, style: .function),
+            KeyModel(label: "space",   action: .space,                    widthWeight: 5.5, style: .spaceBar),
+            KeyModel(label: "return",  action: .returnKey,                widthWeight: 2.0, style: .returnStyle),
         ]
-        items.append(contentsOf: [
-            KeyModel(label: "space",  action: .space,                    widthWeight: 4.5, style: .spaceBar),
-            KeyModel(label: "return", action: .returnKey,                widthWeight: 2.0, style: .returnStyle),
-        ])
-        return items
     }
 
     // MARK: - Actions
@@ -220,6 +261,7 @@ final class KeyboardView: UIView {
     @objc private func down(_ sender: UIButton) {
         guard let m = keyButtons[sender] else { return }
         sender.backgroundColor = highlight(for: m.style)
+        if case .character(let s) = m.action { showCallout(for: sender, character: s) }
     }
 
     @objc private func up(_ sender: UIButton) {
@@ -228,6 +270,7 @@ final class KeyboardView: UIView {
         if m.action == .shift, shiftState != .off {
             sender.backgroundColor = shiftActiveColor
         }
+        hideCallout()
     }
 
     @objc private func tapped(_ sender: UIButton) {
@@ -249,6 +292,38 @@ final class KeyboardView: UIView {
         }
     }
 
+    // MARK: - Key callout
+
+    private func showCallout(for btn: UIButton, character: String) {
+        hideCallout()
+        guard btn.frame.minY > topPad + 4 else { return }  // skip top row
+        let calloutH: CGFloat = 48
+        let calloutW = max(btn.frame.width + 8, CGFloat(44))
+        let x = max(4, min(btn.frame.midX - calloutW / 2, bounds.width - calloutW - 4))
+        let y = btn.frame.minY - calloutH - 2
+        let v = UIView(frame: CGRect(x: x, y: y, width: calloutW, height: calloutH))
+        v.isUserInteractionEnabled = false
+        v.backgroundColor = bgColor(for: .character)
+        v.layer.cornerRadius = 10
+        v.layer.shadowColor   = UIColor.black.cgColor
+        v.layer.shadowOpacity = 0.20
+        v.layer.shadowRadius  = 4
+        v.layer.shadowOffset  = CGSize(width: 0, height: -1)
+        let lbl = UILabel(frame: v.bounds)
+        lbl.text = character
+        lbl.font = .systemFont(ofSize: 26, weight: .light)
+        lbl.textColor = keyText
+        lbl.textAlignment = .center
+        v.addSubview(lbl)
+        addSubview(v)
+        calloutView = v
+    }
+
+    private func hideCallout() {
+        calloutView?.removeFromSuperview()
+        calloutView = nil
+    }
+
     private func handleAction(_ action: KeyActionType) {
         switch action {
         case .shift:
@@ -261,14 +336,32 @@ final class KeyboardView: UIView {
 
         case .switchToMode(let m):
             mode = m
-            if m == .alpha { shiftState = .off }
+            if m == .alpha || m == .emoji { shiftState = .off }
             buildKeys()
 
         case .character:
-            // Auto-cancel one-shot shift after a character is typed
+            // Auto-cancel one-shot shift after a character is typed.
+            // Relabel buttons in-place instead of calling buildKeys() —
+            // avoids allocating/deallocating 35+ UIButton objects per keypress.
             if shiftState == .once {
                 shiftState = .off
-                buildKeys()
+                for (btn, model) in keyButtons {
+                    if case .character(let s) = model.action, s.count == 1, s == s.uppercased(), s != s.lowercased() {
+                        let lower = s.lowercased()
+                        btn.setTitle(lower, for: .normal)
+                        keyButtons[btn] = KeyModel(label: lower, action: .character(lower),
+                                                   widthWeight: model.widthWeight, style: model.style)
+                    }
+                    if model.action == .shift {
+                        btn.backgroundColor = bgColor(for: .function)
+                        let symConf = UIImage.SymbolConfiguration(pointSize: 17, weight: .light)
+                        if let img = UIImage(systemName: "shift")?                                     .withConfiguration(symConf)
+                                     .withRenderingMode(.alwaysTemplate) {
+                            btn.setImage(img, for: .normal)
+                            btn.tintColor = keyText
+                        }
+                    }
+                }
             }
             delegate?.keyboardView(self, didProduceAction: action)
 
@@ -281,27 +374,19 @@ final class KeyboardView: UIView {
 
     private var isDark: Bool { traitCollection.userInterfaceStyle == .dark }
 
-    private var kbBg: UIColor {
-        isDark ? UIColor(white: 0.13, alpha: 1)
-               : UIColor(red: 0.659, green: 0.690, blue: 0.722, alpha: 1)
-    }
+    // System keyboard colours (measured from iOS 26 on iPhone 14).
+
     private var keyText: UIColor { isDark ? .white : .black }
     private var shiftActiveColor: UIColor { UIColor.systemBlue.withAlphaComponent(0.85) }
 
     private func bgColor(for style: KeyStyleType) -> UIColor {
-        switch style {
-        case .character:   return isDark ? UIColor(white: 0.40, alpha: 1) : .white
-        case .function,
-             .spaceBar,
-             .returnStyle: return isDark ? UIColor(white: 0.24, alpha: 1) : UIColor(white: 0.66, alpha: 1)
-        }
+        isDark ? UIColor(red: 0.227, green: 0.227, blue: 0.247, alpha: 1)   // #3A3A3F
+               : UIColor(red: 0.675, green: 0.694, blue: 0.729, alpha: 1)   // #ACB1BA
     }
 
     private func highlight(for style: KeyStyleType) -> UIColor {
-        switch style {
-        case .character:   return isDark ? UIColor(white: 0.56, alpha: 1) : UIColor(white: 0.85, alpha: 1)
-        default:           return isDark ? UIColor(white: 0.34, alpha: 1) : UIColor(white: 0.55, alpha: 1)
-        }
+        isDark ? UIColor(red: 0.320, green: 0.320, blue: 0.340, alpha: 1)
+               : UIColor(red: 0.530, green: 0.545, blue: 0.573, alpha: 1)
     }
 
     private func font(for style: KeyStyleType) -> UIFont {
@@ -309,6 +394,46 @@ final class KeyboardView: UIView {
         case .character:  return .systemFont(ofSize: 22, weight: .regular)
         default:          return .systemFont(ofSize: 15, weight: .regular)
         }
+    }
+
+    // MARK: - Emoji view helpers
+
+    private func showEmojiView() {
+        let picker: EmojiPickerView
+        if let existing = emojiPicker {
+            picker = existing
+        } else {
+            picker = EmojiPickerView()
+            picker.delegate = self
+            emojiPicker = picker
+        }
+        guard picker.superview == nil else { return }
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(picker)
+        NSLayoutConstraint.activate([
+            picker.leadingAnchor.constraint(equalTo: leadingAnchor),
+            picker.trailingAnchor.constraint(equalTo: trailingAnchor),
+            picker.topAnchor.constraint(equalTo: topAnchor),
+            picker.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+    }
+
+    private func hideEmojiView() {
+        emojiPicker?.removeFromSuperview()
+    }
+}
+
+// MARK: - EmojiPickerViewDelegate
+
+extension KeyboardView: EmojiPickerViewDelegate {
+    func emojiPickerView(_ view: EmojiPickerView, didSelectEmoji emoji: String) {
+        delegate?.keyboardView(self, didProduceAction: .character(emoji))
+    }
+    func emojiPickerViewDidDismiss(_ view: EmojiPickerView) {
+        mode = .alpha
+        shiftState = .off
+        lastBuiltSize = .zero   // force full rebuild
+        setNeedsLayout()
     }
 }
 

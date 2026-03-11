@@ -4,93 +4,106 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject private var store: ProfileStore
-    @State private var showingNewProfileEditor = false
-    @State private var profileToEdit: Profile? = nil
+
+    /// Language groups — extend this array to add more languages.
+    private let languages: [LanguageLevel] = [
+        LanguageLevel(
+            language: "Hungarian",
+            levels: [
+                LevelInfo(
+                    profile: .hungarianVowels,
+                    number: 1,
+                    name: "Accented vowels",
+                    description: "Covers the full Hungarian vowel set: á é í ó ú ö ü ő ű.\nUse q, w, x as modifiers after a vowel."
+                ),
+                LevelInfo(
+                    profile: .hungarianFull,
+                    number: 2,
+                    name: "+ Consonant digraphs",
+                    description: "Adds ny, ly, ty, sz, zs, cs, dz, dzs and variants.\nUse y, w, x after a consonant."
+                ),
+                LevelInfo(
+                    profile: .hungarianDoubled,
+                    number: 3,
+                    name: "+ Geminate consonants",
+                    description: "Adds long (geminate) consonants.\nq geminates any consonant; x palatises and geminates."
+                ),
+            ]
+        )
+    ]
 
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("Presets")) {
-                    ForEach(Profile.presets) { profile in
-                        ProfileRow(profile: profile, isActive: store.activeProfileID == profile.id)
-                            .contentShape(Rectangle())
-                            .onTapGesture { store.activate(profile) }
+                ForEach(languages) { lang in
+                    Section(lang.language) {
+                        ForEach(lang.levels) { level in
+                            LevelRow(level: level, isActive: store.activeProfileID == level.profile.id)
+                                .contentShape(Rectangle())
+                                .onTapGesture { store.activate(level.profile) }
+                        }
                     }
                 }
 
-                Section(header: Text("My Profiles")) {
-                    ForEach(store.userProfiles) { profile in
-                        ProfileRow(profile: profile, isActive: store.activeProfileID == profile.id)
-                            .contentShape(Rectangle())
-                            .onTapGesture { store.activate(profile) }
-                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                                Button(role: .destructive) {
-                                    store.deleteUserProfile(profile)
-                                } label: {
-                                    Label("Delete", systemImage: "trash")
-                                }
-                                Button {
-                                    profileToEdit = profile
-                                } label: {
-                                    Label("Edit", systemImage: "pencil")
-                                }
-                                .tint(.blue)
-                            }
-                    }
-
-                    Button {
-                        showingNewProfileEditor = true
-                    } label: {
-                        Label("New Profile…", systemImage: "plus.circle")
-                    }
+                Section("Note") {
+                    Text("Each level includes everything from the levels below it. Start at level 1 and move up as you get comfortable.")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                        .padding(.vertical, 2)
                 }
             }
-            .navigationTitle("Profiles")
+            .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.large)
-            .sheet(isPresented: $showingNewProfileEditor) {
-                ProfileEditorView(existing: nil)
-                    .environmentObject(store)
-            }
-            .sheet(item: $profileToEdit) { profile in
-                ProfileEditorView(existing: profile)
-                    .environmentObject(store)
-            }
         }
     }
 }
 
-// MARK: - ProfileRow
+// MARK: - Models
 
-private struct ProfileRow: View {
+private struct LanguageLevel: Identifiable {
+    let language: String
+    let levels: [LevelInfo]
+    var id: String { language }
+}
+
+private struct LevelInfo: Identifiable {
     let profile: Profile
+    let number: Int
+    let name: String
+    let description: String
+    var id: String { profile.id.uuidString }
+}
+
+// MARK: - LevelRow
+
+private struct LevelRow: View {
+    let level: LevelInfo
     let isActive: Bool
 
     var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 2) {
-                Text(profile.name)
-                    .font(.body)
-                Text(subtitle)
+        HStack(alignment: .top, spacing: 14) {
+            Text("\(level.number)")
+                .font(.headline)
+                .foregroundStyle(isActive ? Color.white : Color.accentColor)
+                .frame(width: 28, height: 28)
+                .background(isActive ? Color.accentColor : Color.clear)
+                .clipShape(RoundedRectangle(cornerRadius: 6))
+                .overlay(RoundedRectangle(cornerRadius: 6).stroke(Color.accentColor, lineWidth: 1.5))
+            VStack(alignment: .leading, spacing: 4) {
+                Text(level.name).font(.body.bold())
+                Text(level.description)
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             }
             Spacer()
             if isActive {
                 Image(systemName: "checkmark")
-                    .foregroundColor(.accentColor)
+                    .foregroundStyle(Color.accentColor)
                     .fontWeight(.semibold)
+                    .padding(.top, 4)
             }
         }
-        .padding(.vertical, 2)
-    }
-
-    private var subtitle: String {
-        // Count only lowercase/numeric-first keys — these are the canonical sequences.
-        let seqCount = profile.mappings.keys.filter {
-            $0.first?.isLowercase == true || $0.first?.isNumber == true
-        }.count
-        let mods = profile.modifierKeys.joined(separator: ", ")
-        return "\(seqCount) sequence\(seqCount == 1 ? "" : "s") · modifiers: \(mods)"
+        .padding(.vertical, 4)
     }
 }
 

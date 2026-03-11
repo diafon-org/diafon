@@ -8,7 +8,7 @@ struct Latin22App: App {
         WindowGroup {
             TabView {
                 ContentView()
-                    .tabItem { Label("Reference", systemImage: "keyboard") }
+                    .tabItem { Label("Info", systemImage: "info.circle") }
                 SettingsView()
                     .tabItem { Label("Settings", systemImage: "slider.horizontal.3") }
             }

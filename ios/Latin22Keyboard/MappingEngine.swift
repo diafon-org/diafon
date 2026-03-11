@@ -1,15 +1,20 @@
 /// Modifier-key based mapping engine.
 ///
-/// Sequences ending in a declared modifier key (e.g. `y` for Hungarian) fire
-/// **immediately** when the modifier is pressed — there is no lookahead delay.
+/// Sequences ending in a declared modifier key fire **immediately** when the
+/// modifier is pressed — there is no lookahead delay.
 ///
 /// **Escape**: pressing the same modifier key a second time in a row undoes the
 /// last substitution and outputs the original input literally.
-/// Example: `n`+`y` → `ņ`, then another `y` → reverts to `ny`.
+/// Example: `n`+`y` → `n̗`, then another `y` → reverts to `ny`.
+///
+/// **Upgrade**: if the mapping table contains a longer sequence that is exactly
+/// `lastSubstitution.input + char`, the engine fires the longer form instead of
+/// escaping. Example with `nyy → n̗̗` in the table: `ny` → `n̗`, then `y` upgrades
+/// to `n̗̗`; a further `y` then escapes that back to `nyy`.
 ///
 /// **Backspace-expand**: the first backspace after a substitution re-expands
 /// the output back to the original input sequence rather than deleting one char.
-/// Example: after `ny` → `ņ`, backspace → restores `ny`.
+/// Example: after `ny` → `n̗`, backspace → restores `ny`.
 ///
 /// **Caller contract**:
 ///   1. After visually inserting a character via the text proxy, call `process(_:)`.
@@ -64,6 +69,14 @@ final class MappingEngine {
         lastSubstitution = nil
     }
 
+    /// Call when the user deletes backward.
+    /// Pops the last buffered character so the engine stays in sync with the
+    /// text field — unlike reset(), earlier context is preserved.
+    func processBackspace() {
+        lastSubstitution = nil
+        if !buffer.isEmpty { buffer.removeLast() }
+    }
+
     // MARK: - Private
 
     private func processNormal(_ char: Character) -> ProcessResult {
@@ -74,11 +87,19 @@ final class MappingEngine {
     }
 
     private func processModifier(_ char: Character) -> ProcessResult {
-        // Escape: a second modifier press immediately after a substitution reverts it.
+        // Upgrade or escape: a modifier pressed right after a substitution.
         if let sub = lastSubstitution, sub.input.last == char {
+            // If a longer mapping exists for sub.input+char, fire it as an upgrade
+            // (e.g. nyy → n̗̗ after ny → n̗) instead of reverting.
+            let extended = sub.input + String(char)
+            if let upgrade = mappings[extended] {
+                lastSubstitution = (extended, upgrade)
+                buffer = ""
+                return .replace(deleteCount: sub.output.count + 1, insert: upgrade)
+            }
+            // No upgrade: revert (escape behaviour).
             lastSubstitution = nil
             buffer = sub.input
-            // The escape key was already inserted by the caller; include it in deleteCount.
             return .replace(deleteCount: sub.output.count + 1, insert: sub.input)
         }
 

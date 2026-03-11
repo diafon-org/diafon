@@ -1,10 +1,27 @@
 /// UIInputViewController subclass — wires the keyboard view to the engine and text proxy.
 import UIKit
 
+// MARK: - EmojiTextField
+
+/// Invisible text field whose textInputMode is always the system emoji keyboard.
+/// Becoming first responder hands input focus to the emoji keyboard.
+private final class EmojiTextField: UITextField {
+    override var textInputMode: UITextInputMode? {
+        UITextInputMode.activeInputModes.first { $0.primaryLanguage == "emoji" }
+    }
+}
+
+// MARK: - KeyboardViewController
+
 final class KeyboardViewController: UIInputViewController {
+
+    // iOS 26 shows the globe at the system level below the keyboard.
+    // Returning false prevents iOS from injecting its own globe button into our view.
+    override var needsInputModeSwitchKey: Bool { false }
 
     private var keyboardView: KeyboardView!
     private var engine: MappingEngine!
+    private let emojiTextField = EmojiTextField()
 
     // Fixed keyboard height (portrait phone).  Landscape / iPad gets same value for now.
     private let keyboardHeight: CGFloat = 226
@@ -14,25 +31,40 @@ final class KeyboardViewController: UIInputViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let (mappings, modifiers) = loadMappings()
-        engine = MappingEngine(mappings: mappings, modifierKeys: modifiers)
-
         keyboardView = KeyboardView()
         keyboardView.delegate = self
+        keyboardView.showsEmojiKey = UITextInputMode.activeInputModes.contains { $0.primaryLanguage == "emoji" }
         keyboardView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(keyboardView)
+
+        // Hidden text field used to hand focus to the system emoji keyboard.
+        emojiTextField.frame = .zero
+        emojiTextField.alpha = 0
+        view.addSubview(emojiTextField)
 
         NSLayoutConstraint.activate([
             keyboardView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             keyboardView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             keyboardView.topAnchor.constraint(equalTo: view.topAnchor),
-            keyboardView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            keyboardView.heightAnchor.constraint(equalToConstant: keyboardHeight),
         ])
 
         // Tell the system how tall this keyboard should be.
         let hc = view.heightAnchor.constraint(equalToConstant: keyboardHeight)
         hc.priority = UILayoutPriority(999)
         hc.isActive = true
+
+        // Initial load — ensures engine is never nil before viewWillAppear.
+        let (mappings, modifiers) = loadMappings()
+        engine = MappingEngine(mappings: mappings, modifierKeys: modifiers)
+    }
+
+    // Reload mappings each time the keyboard appears so profile changes
+    // made in the app take effect without restarting the extension process.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let (mappings, modifiers) = loadMappings()
+        engine = MappingEngine(mappings: mappings, modifierKeys: modifiers)
     }
 
     // Reset engine whenever the user moves to a different text field.
@@ -42,24 +74,45 @@ final class KeyboardViewController: UIInputViewController {
 
     // MARK: - Mappings
 
-    private struct MappingsFile: Decodable {
+    /// Minimal decodable shape of a profile stored by the app in App Group defaults.
+    private struct ActiveProfileData: Decodable {
         let mappings: [String: String]
-        let modifierKeys: [String]?
-        enum CodingKeys: String, CodingKey {
-            case mappings
-            case modifierKeys = "modifier_keys"
+        let modifierKeys: [String]
+    }
+
+    /// Shape of `mappings.json` — v2.0.0 multi-profile format.
+    private struct MappingsFile: Decodable {
+        struct Entry: Decodable {
+            let mappings: [String: String]
+            let modifierKeys: [String]
+            enum CodingKeys: String, CodingKey {
+                case mappings
+                case modifierKeys = "modifier_keys"
+            }
         }
+        let profiles: [Entry]
     }
 
     private func loadMappings() -> (mappings: [String: String], modifierKeys: Set<Character>) {
+        // 1. Use the active profile written by the app to the shared App Group defaults.
+        if let suite = UserDefaults(suiteName: "group.com.latin22.shared"),
+           let data  = suite.data(forKey: "activeProfile"),
+           let prof  = try? JSONDecoder().decode(ActiveProfileData.self, from: data) {
+            let mods = Set(prof.modifierKeys.compactMap { $0.first })
+            return (prof.mappings, mods)
+        }
+
+        // 2. Fall back to the first profile in the bundled mappings.json.
         guard
-            let url  = Bundle(for: KeyboardViewController.self)
-                         .url(forResource: "mappings", withExtension: "json"),
-            let data = try? Data(contentsOf: url),
-            let file = try? JSONDecoder().decode(MappingsFile.self, from: data)
+            let url   = Bundle(for: KeyboardViewController.self)
+                          .url(forResource: "mappings", withExtension: "json"),
+            let data  = try? Data(contentsOf: url),
+            let file  = try? JSONDecoder().decode(MappingsFile.self, from: data),
+            let first = file.profiles.first
         else { return ([:], []) }
-        let modifiers = Set((file.modifierKeys ?? []).compactMap { $0.first })
-        return (file.mappings, modifiers)
+
+        let mods = Set(first.modifierKeys.compactMap { $0.first })
+        return (first.mappings, mods)
     }
 
     // MARK: - Applying engine result
@@ -96,8 +149,14 @@ extension KeyboardViewController: KeyboardViewDelegate {
             proxy.insertText("\n")
 
         case .backspace:
-            engine.reset()
+            engine.processBackspace()
             proxy.deleteBackward()
+
+        case .nextKeyboard:
+            advanceToNextInputMode()
+
+        case .emojiKeyboard:
+            emojiTextField.becomeFirstResponder()
 
         case .shift, .switchToMode:
             break   // managed inside KeyboardView

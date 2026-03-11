@@ -9,8 +9,39 @@ options:
   deploymentTarget:
     iOS: "16.0"
     macOS: "13.0"
-  xcodeVersion: "15.0"
+  xcodeVersion: "16.0"
   createIntermediateGroups: true
+
+schemes:
+  Latin22:
+    build:
+      targets:
+        Latin22: all
+        Latin22Keyboard: all
+    run:
+      config: Debug
+      executable: Latin22
+    archive:
+      config: Release
+  Latin22Keyboard:
+    build:
+      targets:
+        Latin22Keyboard: all
+    run:
+      config: Debug
+  Latin22KeyboardTests:
+    build:
+      targets:
+        Latin22KeyboardTests: all
+    test:
+      targets:
+        - Latin22KeyboardTests
+  Latin22Mac:
+    build:
+      targets:
+        Latin22Mac: all
+    run:
+      config: Debug
 
 settings:
   base:
@@ -29,10 +60,20 @@ targets:
         buildPhase: resources
     info:
       path: Latin22App/Info.plist
+      properties:
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UILaunchScreen: {}
+    entitlements:
+      path: Latin22App/Latin22.entitlements
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.latin22.app
         INFOPLIST_FILE: Latin22App/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Latin22App/Latin22.entitlements
     dependencies:
       - target: Latin22Keyboard
         embed: true
@@ -46,14 +87,28 @@ targets:
         excludes:
           - "**/*.json"   # handled as resource below
           - Info.plist
+          - "*.entitlements"
       - path: Latin22Keyboard/Resources
         buildPhase: resources
     info:
       path: Latin22Keyboard/Info.plist
+      properties:
+        CFBundleDisplayName: "Latin22"
+        NSExtension:
+          NSExtensionAttributes:
+            IsASCIICapable: false
+            PrefersRightToLeft: false
+            PrimaryLanguage: en-US
+            RequestsOpenAccess: false
+          NSExtensionPointIdentifier: com.apple.keyboard-input-mode
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).KeyboardViewController
+    entitlements:
+      path: Latin22Keyboard/Latin22Keyboard.entitlements
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.latin22.app.keyboard
         INFOPLIST_FILE: Latin22Keyboard/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Latin22Keyboard/Latin22Keyboard.entitlements
 
   # ── Unit tests ────────────────────────────────────────────────────────────
   Latin22KeyboardTests:
@@ -89,4 +144,3 @@ targets:
         CODE_SIGN_ENTITLEMENTS: Latin22Mac/Latin22Mac.entitlements
     dependencies:
       - sdk: InputMethodKit.framework
-      - target: Latin22Keyboard

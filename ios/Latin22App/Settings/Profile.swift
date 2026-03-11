@@ -14,62 +14,50 @@ struct Profile: Identifiable, Codable, Hashable {
 
 extension Profile {
 
-    /// All preset profiles shipped with the app. Order determines display order.
-    static let presets: [Profile] = [.hungarianFull, .hungarianVowels]
+    // Fixed preset UUIDs — stable across reinstalls.
+    private static let idFull     = UUID(uuidString: "00000000-0000-0000-0000-000000000001")!
+    private static let idVowels   = UUID(uuidString: "00000000-0000-0000-0000-000000000002")!
+    private static let idGeminate = UUID(uuidString: "00000000-0000-0000-0000-000000000003")!
 
-    /// Full Hungarian Latin22 layout — consonant digraphs + accented vowels.
-    /// UUID is fixed so the active-profile preference survives reinstalls.
-    static let hungarianFull = Profile(
-        id: UUID(uuidString: "00000000-0000-0000-0000-000000000001")!,
-        name: "Hungarian (full)",
-        isPreset: true,
-        mappings: [
-            // Palatised consonants
-            "ny": "n̗",  "Ny": "N̗",
-            "ly": "l̗",  "Ly": "L̗",
-            "ty": "t̗",  "Ty": "T̗",
-            "dy": "d̗",  "Dy": "D̗",
-            "gy": "d̗",  "Gy": "D̗",
-            "sy": "s̗",  "Sy": "S̗",
-            "zy": "z̗",  "Zy": "Z̗",
-            "cy": "c̗",  "Cy": "C̗",
-            // Compound voiced consonants
-            "cw": "ʣ",  "Cw": "ǲ",
-            "cx": "ʣ̗",  "Cx": "ǲ̗",
-            "dw": "ʣ",  "Dw": "ǲ",
-            "dx": "ʣ̗",  "Dx": "ǲ̗",
-            // Long (acute) vowels
-            "aq": "á",  "Aq": "Á",
-            "eq": "é",  "Eq": "É",
-            "iq": "í",  "Iq": "Í",
-            "oq": "ó",  "Oq": "Ó",
-            "uq": "ú",  "Uq": "Ú",
-            // Umlaut vowels
-            "ow": "ö",  "Ow": "Ö",
-            "uw": "ü",  "Uw": "Ü",
-            // Double-acute vowels
-            "ox": "ő",  "Ox": "Ő",
-            "ux": "ű",  "Ux": "Ű",
-        ],
-        modifierKeys: ["y", "q", "w", "x"]
-    )
+    /// All preset profiles, loaded from the bundled mappings.json.
+    static let presets: [Profile] = loadPresets()
 
-    /// Vowels-only subset — useful when consonant digraphs aren't needed.
-    static let hungarianVowels = Profile(
-        id: UUID(uuidString: "00000000-0000-0000-0000-000000000002")!,
-        name: "Hungarian (vowels only)",
-        isPreset: true,
-        mappings: [
-            "aq": "á",  "Aq": "Á",
-            "eq": "é",  "Eq": "É",
-            "iq": "í",  "Iq": "Í",
-            "oq": "ó",  "Oq": "Ó",
-            "uq": "ú",  "Uq": "Ú",
-            "ow": "ö",  "Ow": "Ö",
-            "uw": "ü",  "Uw": "Ü",
-            "ox": "ő",  "Ox": "Ő",
-            "ux": "ű",  "Ux": "Ű",
-        ],
-        modifierKeys: ["q", "w", "x"]
-    )
+    static var hungarianFull:    Profile { presets.first { $0.id == idFull     }! }
+    static var hungarianVowels:  Profile { presets.first { $0.id == idVowels   }! }
+    static var hungarianDoubled: Profile { presets.first { $0.id == idGeminate }! }
+
+    // MARK: - JSON loading
+
+    private struct PresetsFile: Decodable {
+        struct Entry: Decodable {
+            let id: String
+            let name: String
+            let mappings: [String: String]
+            let modifierKeys: [String]
+            enum CodingKeys: String, CodingKey {
+                case id, name, mappings
+                case modifierKeys = "modifier_keys"
+            }
+        }
+        let profiles: [Entry]
+    }
+
+    static func loadPresets(from bundle: Bundle = .main) -> [Profile] {
+        guard
+            let url  = bundle.url(forResource: "mappings", withExtension: "json"),
+            let data = try? Data(contentsOf: url),
+            let file = try? JSONDecoder().decode(PresetsFile.self, from: data)
+        else { return [] }
+
+        return file.profiles.compactMap { entry in
+            guard let id = UUID(uuidString: entry.id) else { return nil }
+            return Profile(
+                id: id,
+                name: entry.name,
+                isPreset: true,
+                mappings: entry.mappings,
+                modifierKeys: entry.modifierKeys
+            )
+        }
+    }
 }

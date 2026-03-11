@@ -41,7 +41,7 @@ struct ProfileEditorView: View {
 
                 Section(
                     header: Text("Modifier Keys"),
-                    footer: Text("Comma-separated keys that trigger substitution when pressed, e.g. "y, q, w, x".")
+                    footer: Text("Comma-separated keys that trigger substitution when pressed, e.g. \"y, q, w, x\".")
                 ) {
                     TextField("e.g. y, q, w, x", text: $modifierText)
                         .font(.system(.body, design: .monospaced))
