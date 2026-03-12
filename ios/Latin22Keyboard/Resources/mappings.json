@@ -41,16 +41,12 @@
             "ox": "ő",
             "Ox": "Ő",
             "ux": "ű",
-            "Ux": "Ű",
-            "cw": "đ",
-            "Cw": "Đ",
-            "dw": "đ",
-            "Dw": "Đ"
+            "Ux": "Ű"
           }
         },
         {
-          "id": "hu-palatal",
-          "name": "Palatalization",
+          "id": "hu-single",
+          "name": "Single chars for palatalized consonants and dz",
           "description": "n̗ l̗ t̗ d̗ s̗ z̗ c̗ via ‑y; palatalized dž (đ̗/Đ̗) via cx or dx.",
           "level": 2,
           "modifier_keys": [
@@ -75,7 +71,11 @@
             "cx": "đ̗",
             "Cx": "Đ̗",
             "dx": "đ̗",
-            "Dx": "Đ̗"
+            "Dx": "Đ̗",
+            "cw": "đ",
+            "Cw": "Đ",
+            "dw": "đ",
+            "Dw": "Đ"
           }
         },
         {
