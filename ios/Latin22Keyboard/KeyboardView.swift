@@ -25,6 +25,7 @@ enum KeyActionType: Equatable {
     case backspace
     case shift
     case switchToMode(KeyboardMode)
+    case switchLanguage(String)
 }
 
 enum KeyStyleType { case character, function, spaceBar, returnStyle }
@@ -51,6 +52,14 @@ final class KeyboardView: UIView {
         didSet { guard oldValue != showsEmojiKey else { return }; lastBuiltSize = .zero; setNeedsLayout() }
     }
 
+    /// All languages to offer in the picker. KVC keeps this up to date.
+    var availableLanguages: [(id: String, name: String)] = []
+
+    /// ID of the currently active language. Updates the space bar label and triggers rebuild.
+    var currentLanguageID: String = "" {
+        didSet { guard oldValue != currentLanguageID else { return }; lastBuiltSize = .zero; setNeedsLayout() }
+    }
+
     private(set) var mode: KeyboardMode = .alpha
     private(set) var shiftState: ShiftState = .off
 
@@ -58,6 +67,7 @@ final class KeyboardView: UIView {
     private var deleteTimer: Timer?
     private var lastBuiltSize: CGSize = .zero
     private var calloutView: UIView?
+    private var langPickerView: UIView?
     private var emojiPicker: EmojiPickerView?
 
 
@@ -99,6 +109,7 @@ final class KeyboardView: UIView {
     // MARK: - Build
 
     private func buildKeys() {
+        hideLangPicker()
         lastBuiltSize = bounds.size
         // Remove key subviews, preserving the emoji picker if present.
         subviews.filter { $0 !== emojiPicker }.forEach { $0.removeFromSuperview() }
@@ -116,18 +127,41 @@ final class KeyboardView: UIView {
                     - CGFloat(rowCount - 1) * rowGap) / CGFloat(rowCount)
         var y = topPad
 
-        for row in rows {
-            let totalW = row.reduce(0) { $0 + $1.widthWeight }
-            let gapsW  = CGFloat(row.count - 1) * keyGap
+        // Pre-compute row-0 key width so row 1 ("asdfghjkl") can match it.
+        let isAlpha = (mode == .alpha)
+        let row0KeyW: CGFloat = {
+            guard isAlpha, let row0 = rows.first else { return 0 }
+            let totalW = row0.reduce(0) { $0 + $1.widthWeight }
+            let gapsW  = CGFloat(row0.count - 1) * keyGap
             let usable = bounds.width - 2 * sidePad - gapsW
-            var x = sidePad
+            return usable / totalW
+        }()
 
-            for key in row {
-                let w = usable * key.widthWeight / totalW
-                let btn = makeButton(key, frame: CGRect(x: x, y: y, width: w, height: rowH))
-                addSubview(btn)
-                keyButtons[btn] = key
-                x += w + keyGap
+        for (rowIndex, row) in rows.enumerated() {
+            // Alpha row 1: same key width as row 0, centred with equal side padding.
+            if isAlpha && rowIndex == 1 && row0KeyW > 0 {
+                let rowContentW = CGFloat(row.count) * row0KeyW
+                                + CGFloat(row.count - 1) * keyGap
+                var x = (bounds.width - rowContentW) / 2
+                for key in row {
+                    let btn = makeButton(key, frame: CGRect(x: x, y: y, width: row0KeyW, height: rowH))
+                    addSubview(btn)
+                    keyButtons[btn] = key
+                    x += row0KeyW + keyGap
+                }
+            } else {
+                let totalW = row.reduce(0) { $0 + $1.widthWeight }
+                let gapsW  = CGFloat(row.count - 1) * keyGap
+                let usable = bounds.width - 2 * sidePad - gapsW
+                var x = sidePad
+
+                for key in row {
+                    let w = usable * key.widthWeight / totalW
+                    let btn = makeButton(key, frame: CGRect(x: x, y: y, width: w, height: rowH))
+                    addSubview(btn)
+                    keyButtons[btn] = key
+                    x += w + keyGap
+                }
             }
             y += rowH + rowGap
         }
@@ -174,6 +208,12 @@ final class KeyboardView: UIView {
             btn.addGestureRecognizer(lp)
         }
 
+        if key.action == .space, availableLanguages.count > 1 {
+            let lp = UILongPressGestureRecognizer(target: self, action: #selector(spaceLong(_:)))
+            lp.minimumPressDuration = 0.4
+            btn.addGestureRecognizer(lp)
+        }
+
         // Highlight shift/mode key when active
         if key.action == .shift, shiftState != .off {
             btn.backgroundColor = shiftActiveColor
@@ -216,8 +256,9 @@ final class KeyboardView: UIView {
 
         let emojiKey  = KeyModel(label: "😊", action: .switchToMode(.emoji), widthWeight: 1.5, style: .function)
         let numKey    = KeyModel(label: "123",  action: .switchToMode(.numeric), widthWeight: 1.5, style: .function)
+        let spaceLbl  = availableLanguages.count > 1 ? currentLanguageID.uppercased() : "space"
         let row4: [KeyModel] = [numKey, emojiKey,
-               KeyModel(label: "space",  action: .space,     widthWeight: 4.5, style: .spaceBar),
+               KeyModel(label: spaceLbl,  action: .space,     widthWeight: 4.5, style: .spaceBar),
                KeyModel(label: "return", action: .returnKey, widthWeight: 2.0, style: .returnStyle)]
 
         return [row1, row2, row3, row4]
@@ -287,6 +328,61 @@ final class KeyboardView: UIView {
         }
     }
 
+    @objc private func spaceLong(_ g: UILongPressGestureRecognizer) {
+        guard g.state == .began, let btn = g.view as? UIButton else { return }
+        if langPickerView != nil { hideLangPicker() } else { showLangPicker(above: btn) }
+    }
+
+    // MARK: - Language picker
+
+    private func showLangPicker(above spaceBtn: UIButton) {
+        guard availableLanguages.count > 1 else { return }
+        let btnW: CGFloat = 48
+        let btnH: CGFloat = 36
+        let gap:  CGFloat = 12
+        let totalW = CGFloat(availableLanguages.count) * btnW
+                   + CGFloat(availableLanguages.count - 1) * gap
+        let x = max(4, min(spaceBtn.frame.midX - totalW / 2, bounds.width - totalW - 4))
+        let y = spaceBtn.frame.minY - btnH - 8
+
+        let container = UIView(frame: CGRect(x: x, y: y, width: totalW, height: btnH))
+        container.backgroundColor = bgColor(for: .character)
+        container.layer.cornerRadius = 10
+        container.layer.shadowColor   = UIColor.black.cgColor
+        container.layer.shadowOpacity = 0.25
+        container.layer.shadowRadius  = 6
+        container.layer.shadowOffset  = CGSize(width: 0, height: -2)
+        container.isUserInteractionEnabled = true
+
+        for (i, lang) in availableLanguages.enumerated() {
+            let isCurrent = lang.id == currentLanguageID
+            let code = String(lang.id.prefix(2)).uppercased()
+            let btn = UIButton(type: .custom)
+            btn.frame = CGRect(x: CGFloat(i) * (btnW + gap), y: 0, width: btnW, height: btnH)
+            btn.setTitle(code, for: .normal)
+            btn.titleLabel?.font      = .systemFont(ofSize: 15, weight: isCurrent ? .bold : .regular)
+            btn.setTitleColor(isCurrent ? .white : keyText, for: .normal)
+            btn.backgroundColor = isCurrent ? UIColor.systemBlue : .clear
+            btn.layer.cornerRadius  = 6
+            btn.tag = i
+            btn.addTarget(self, action: #selector(langPickerTapped(_:)), for: .touchUpInside)
+            container.addSubview(btn)
+        }
+        addSubview(container)
+        langPickerView = container
+    }
+
+    private func hideLangPicker() {
+        langPickerView?.removeFromSuperview()
+        langPickerView = nil
+    }
+
+    @objc private func langPickerTapped(_ sender: UIButton) {
+        let lang = availableLanguages[sender.tag]
+        hideLangPicker()
+        handleAction(.switchLanguage(lang.id))
+    }
+
     // MARK: - Key callout
 
     private func showCallout(for btn: UIButton, character: String) {
@@ -320,6 +416,7 @@ final class KeyboardView: UIView {
     }
 
     private func handleAction(_ action: KeyActionType) {
+        hideLangPicker()
         switch action {
         case .shift:
             switch shiftState {

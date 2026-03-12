@@ -1,105 +1,179 @@
 {
   "meta": {
-    "name": "Latin22 — Hungarian progression",
-    "version": "2.0.0",
+    "name": "Latin22 — multilingual",
+    "version": "3.2.0",
     "author": "latin22"
   },
-  "profiles": [
+  "default_language_id": "hu",
+  "default_layer_ids": [
+    "hu-vowels"
+  ],
+  "languages": [
     {
-      "id": "00000000-0000-0000-0000-000000000002",
-      "name": "Hungarian (vowels only)",
-      "modifier_keys": ["q", "w", "x"],
-      "mappings": {
-        "aq": "á",  "Aq": "Á",
-        "eq": "é",  "Eq": "É",
-        "iq": "í",  "Iq": "Í",
-        "oq": "ó",  "Oq": "Ó",
-        "uq": "ú",  "Uq": "Ú",
-
-        "ow": "ö",  "Ow": "Ö",
-        "uw": "ü",  "Uw": "Ü",
-
-        "ox": "ő",  "Ox": "Ő",
-        "ux": "ű",  "Ux": "Ű"
-      }
+      "id": "hu",
+      "name": "Hungarian",
+      "layers": [
+        {
+          "id": "hu-vowels",
+          "name": "Vowels & dž characters",
+          "description": "á é í ó ú via ‑q; ö ü via ‑w; ő ű via ‑x; đ/Đ via cw or dw.",
+          "level": 1,
+          "modifier_keys": [
+            "q",
+            "w",
+            "x"
+          ],
+          "mappings": {
+            "aq": "á",
+            "Aq": "Á",
+            "eq": "é",
+            "Eq": "É",
+            "iq": "í",
+            "Iq": "Í",
+            "oq": "ó",
+            "Oq": "Ó",
+            "uq": "ú",
+            "Uq": "Ú",
+            "ow": "ö",
+            "Ow": "Ö",
+            "uw": "ü",
+            "Uw": "Ü",
+            "ox": "ő",
+            "Ox": "Ő",
+            "ux": "ű",
+            "Ux": "Ű",
+            "cw": "đ",
+            "Cw": "Đ",
+            "dw": "đ",
+            "Dw": "Đ"
+          }
+        },
+        {
+          "id": "hu-palatal",
+          "name": "Palatalization",
+          "description": "n̗ l̗ t̗ d̗ s̗ z̗ c̗ via ‑y; palatalized dž (đ̗/Đ̗) via cx or dx.",
+          "level": 2,
+          "modifier_keys": [
+            "y",
+            "x"
+          ],
+          "mappings": {
+            "ny": "n̗",
+            "Ny": "N̗",
+            "ly": "l̗",
+            "Ly": "L̗",
+            "ty": "t̗",
+            "Ty": "T̗",
+            "dy": "d̗",
+            "Dy": "D̗",
+            "sy": "s̗",
+            "Sy": "S̗",
+            "zy": "z̗",
+            "Zy": "Z̗",
+            "cy": "c̗",
+            "Cy": "C̗",
+            "cx": "đ̗",
+            "Cx": "Đ̗",
+            "dx": "đ̗",
+            "Dx": "Đ̗"
+          }
+        },
+        {
+          "id": "hu-doubling",
+          "name": "Doubling",
+          "description": "Long consonant via ‑q (b́ ć … ź); extra-long palatalized via ‑yy (n͈ l͈ …); long/extra-long dž via cww/dww or cxx/dxx.",
+          "level": 3,
+          "modifier_keys": [
+            "q",
+            "y",
+            "w",
+            "x"
+          ],
+          "mappings": {
+            "bq": "b́",
+            "cq": "ć",
+            "dq": "d́",
+            "fq": "f́",
+            "gq": "ǵ",
+            "hq": "h́",
+            "jq": "j́",
+            "kq": "ḱ",
+            "lq": "ĺ",
+            "mq": "ḿ",
+            "nq": "ń",
+            "pq": "ṕ",
+            "rq": "ŕ",
+            "sq": "ś",
+            "tq": "t́",
+            "vq": "v́",
+            "zq": "ź",
+            "nyy": "n͈",
+            "lyy": "l͈",
+            "tyy": "t͈",
+            "dyy": "d͈",
+            "syy": "s͈",
+            "zyy": "z͈",
+            "cyy": "c͈",
+            "cww": "đ́",
+            "dww": "đ́",
+            "cxx": "đ͈",
+            "dxx": "đ͈"
+          }
+        }
+      ]
     },
     {
-      "id": "00000000-0000-0000-0000-000000000001",
-      "name": "Hungarian (full)",
-      "modifier_keys": ["y", "q", "w", "x"],
-      "mappings": {
-        "ny": "n̗",  "Ny": "N̗",
-        "ly": "l̗",  "Ly": "L̗",
-        "ty": "t̗",  "Ty": "T̗",
-        "dy": "d̗",  "Dy": "D̗",
-        "gy": "d̗",  "Gy": "D̗",
-        "sy": "s̗",  "Sy": "S̗",
-        "zy": "z̗",  "Zy": "Z̗",
-        "cy": "c̗",  "Cy": "C̗",
-
-        "cw": "đ",   "Cw": "Đ",
-        "cx": "đ̗",   "Cx": "Đ̗",
-        "dw": "đ",   "Dw": "Đ",
-        "dx": "đ̗",   "Dx": "Đ̗",
-
-        "aq": "á",  "Aq": "Á",
-        "eq": "é",  "Eq": "É",
-        "iq": "í",  "Iq": "Í",
-        "oq": "ó",  "Oq": "Ó",
-        "uq": "ú",  "Uq": "Ú",
-
-        "ow": "ö",  "Ow": "Ö",
-        "uw": "ü",  "Uw": "Ü",
-
-        "ox": "ő",  "Ox": "Ő",
-        "ux": "ű",  "Ux": "Ű"
-      }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000003",
-      "name": "Hungarian (+ geminate consonants)",
-      "modifier_keys": ["y", "q", "w", "x"],
-      "mappings": {
-        "ny": "n̗",  "Ny": "N̗",
-        "ly": "l̗",  "Ly": "L̗",
-        "ty": "t̗",  "Ty": "T̗",
-        "dy": "d̗",  "Dy": "D̗",
-        "gy": "d̗",  "Gy": "D̗",
-        "sy": "s̗",  "Sy": "S̗",
-        "zy": "z̗",  "Zy": "Z̗",
-        "cy": "c̗",  "Cy": "C̗",
-
-        "cw": "đ",   "Cw": "Đ",
-        "cx": "đ̗",   "Cx": "Đ̗",
-        "dw": "đ",   "Dw": "Đ",
-        "dx": "đ̗",   "Dx": "Đ̗",
-        "cww": "đ\u0301",  "dww": "đ\u0301",
-        "cxx": "đ\u0348",  "dxx": "đ\u0348",
-
-        "aq": "á",  "Aq": "Á",
-        "eq": "é",  "Eq": "É",
-        "iq": "í",  "Iq": "Í",
-        "oq": "ó",  "Oq": "Ó",
-        "uq": "ú",  "Uq": "Ú",
-
-        "ow": "ö",  "Ow": "Ö",
-        "uw": "ü",  "Uw": "Ü",
-
-        "ox": "ő",  "Ox": "Ő",
-        "ux": "ű",  "Ux": "Ű",
-
-        "bq": "b\u0301",  "cq": "c\u0301",  "dq": "d\u0301",
-        "fq": "f\u0301",  "gq": "g\u0301",  "hq": "h\u0301",
-        "jq": "j\u0301",  "kq": "k\u0301",  "lq": "l\u0301",
-        "mq": "m\u0301",  "nq": "n\u0301",  "pq": "p\u0301",
-        "rq": "r\u0301",  "sq": "s\u0301",  "tq": "t\u0301",
-        "vq": "v\u0301",  "zq": "z\u0301",
-
-        "nyy": "n\u0348",  "lyy": "l\u0348",
-        "tyy": "t\u0348",  "dyy": "d\u0348",
-        "gyy": "d\u0348",  "syy": "s\u0348",
-        "zyy": "z\u0348",  "cyy": "c\u0348"
-      }
+      "id": "en",
+      "name": "English",
+      "layers": [
+        {
+          "id": "en-diacritics",
+          "name": "Diacritics",
+          "description": "Common accented letters for borrowed words. ‑q = acute (é á í ó ú ç); ‑w = grave/umlaut (è à ò ù ï ñ); ‑x = circumflex (ê â ô û î).",
+          "level": 1,
+          "modifier_keys": [
+            "q",
+            "w",
+            "x"
+          ],
+          "mappings": {
+            "aq": "á",
+            "Aq": "Á",
+            "eq": "é",
+            "Eq": "É",
+            "iq": "í",
+            "Iq": "Í",
+            "oq": "ó",
+            "Oq": "Ó",
+            "uq": "ú",
+            "Uq": "Ú",
+            "cq": "ç",
+            "Cq": "Ç",
+            "aw": "à",
+            "Aw": "À",
+            "ew": "è",
+            "Ew": "È",
+            "ow": "ò",
+            "Ow": "Ò",
+            "uw": "ù",
+            "Uw": "Ù",
+            "iw": "ï",
+            "Iw": "Ï",
+            "nw": "ñ",
+            "Nw": "Ñ",
+            "ax": "â",
+            "Ax": "Â",
+            "ex": "ê",
+            "Ex": "Ê",
+            "ix": "î",
+            "Ix": "Î",
+            "ox": "ô",
+            "Ox": "Ô",
+            "ux": "û",
+            "Ux": "Û"
+          }
+        }
+      ]
     }
   ]
 }

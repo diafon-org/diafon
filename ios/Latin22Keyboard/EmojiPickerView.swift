@@ -145,8 +145,6 @@ final class EmojiPickerView: UIView {
 
         // Collection view
         collectionView.register(EmojiCell.self, forCellWithReuseIdentifier: "cell")
-        collectionView.dataSource = self
-        collectionView.delegate = self
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -180,6 +178,17 @@ final class EmojiPickerView: UIView {
     override func traitCollectionDidChange(_ prev: UITraitCollection?) {
         super.traitCollectionDidChange(prev)
         applyColors()
+    }
+
+    // Set data source lazily once we have real bounds — avoids
+    // UICollectionViewFlowLayout asserting 0-items-per-row at init time.
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if collectionView.dataSource == nil, bounds.width > 0 {
+            collectionView.dataSource = self
+            collectionView.delegate = self
+            collectionView.reloadData()
+        }
     }
 
     private func refreshCategoryHighlight() {

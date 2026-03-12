@@ -3,68 +3,92 @@ import Combine
 
 // MARK: - ProfileStore
 
-/// Manages preset and user-created profiles and tracks the active one.
+/// Manages language+layer selection and user-created profiles.
 ///
-/// Persistence uses `UserDefaults` with the App Group suite
-/// (`group.com.latin22.shared`) so the keyboard extension can read the active
-/// profile without an IPC round-trip.  When the entitlement is not yet
-/// provisioned the initialiser falls back to `UserDefaults.standard`
-/// automatically — the app still works, but the keyboard extension will keep
-/// reading its bundled `mappings.json`.
+/// The active language ID and layer IDs are stored in both UserDefaults.standard
+/// and the shared App Group suite so the keyboard extension can read and write them.
 final class ProfileStore: ObservableObject {
 
     // MARK: - Shared defaults
 
     static let appGroupID = "group.com.latin22.shared"
 
-    private let defaults: UserDefaults = {
+    private let shared: UserDefaults = {
         UserDefaults(suiteName: appGroupID) ?? .standard
     }()
 
     // MARK: - Keys
 
     private enum Keys {
-        static let activeProfileID  = "activeProfileID"
+        static let activeLanguageID = "activeLanguageID"
+        static let activeLayerIDs   = "activeLayerIDs"
         static let userProfiles     = "userProfiles"
-        /// Full active-profile JSON written here so the keyboard extension can
-        /// decode it directly via JSONDecoder without needing the Profile type.
-        static let activeProfileJSON = "activeProfile"
     }
 
-    // MARK: - Published state
+    // MARK: - State
 
+    let allLanguages: [Language]
+
+    @Published private(set) var activeLanguageID: String
+    @Published private(set) var activeLayerIDs: Set<String>
     @Published private(set) var userProfiles: [Profile] = []
-    @Published private(set) var activeProfileID: UUID
 
-    var allProfiles: [Profile] { Profile.presets + userProfiles }
-
-    var activeProfile: Profile {
-        allProfiles.first { $0.id == activeProfileID } ?? Profile.presets[0]
+    var activeLanguage: Language {
+        allLanguages.first { $0.id == activeLanguageID }
+            ?? allLanguages.first
+            ?? Language(id: "", name: "", layers: [])
     }
 
     // MARK: - Init
 
     init() {
-        if let stored = UserDefaults.standard.string(forKey: Keys.activeProfileID),
-           let id = UUID(uuidString: stored) {
-            activeProfileID = id
+        let cfg = LanguagesConfig.load()
+        allLanguages = cfg.languages
+
+        let storedLangID = shared.string(forKey: Keys.activeLanguageID)
+                            ?? UserDefaults.standard.string(forKey: Keys.activeLanguageID)
+                            ?? cfg.defaultLanguageID
+        activeLanguageID = storedLangID
+
+        if let stored = shared.stringArray(forKey: Keys.activeLayerIDs)
+                        ?? UserDefaults.standard.stringArray(forKey: Keys.activeLayerIDs) {
+            activeLayerIDs = Set(stored)
         } else {
-            activeProfileID = Profile.presets[0].id
+            activeLayerIDs = Set(cfg.defaultLayerIDs)
         }
 
-        if let data = UserDefaults.standard.data(forKey: Keys.userProfiles),
+        if let data    = UserDefaults.standard.data(forKey: Keys.userProfiles),
            let decoded = try? JSONDecoder().decode([Profile].self, from: data) {
             userProfiles = decoded
         }
+
+        persistMergedProfile()
+    }
+    func activateLanguage(_ id: String) {
+        guard id != activeLanguageID else { return }
+        activeLanguageID = id
+        UserDefaults.standard.set(id, forKey: Keys.activeLanguageID)
+        shared.set(id, forKey: Keys.activeLanguageID)
+
+        // If none of the stored layer IDs belong to the new language, enable its first layer.
+        if let lang = allLanguages.first(where: { $0.id == id }),
+           lang.layers.allSatisfy({ !activeLayerIDs.contains($0.id) }),
+           let first = lang.layers.min(by: { $0.level < $1.level }) {
+            activeLayerIDs.insert(first.id)
+            UserDefaults.standard.set(Array(activeLayerIDs), forKey: Keys.activeLayerIDs)
+            shared.set(Array(activeLayerIDs), forKey: Keys.activeLayerIDs)
+        }
+        persistMergedProfile()
     }
 
-    // MARK: - Activate
+    // MARK: - Layer toggling
 
-    func activate(_ profile: Profile) {
-        activeProfileID = profile.id
-        UserDefaults.standard.set(profile.id.uuidString, forKey: Keys.activeProfileID)
-        defaults.set(profile.id.uuidString, forKey: Keys.activeProfileID)
-        persistActiveProfileJSON()
+    func setLayer(_ layerID: String, active: Bool) {
+        if active { activeLayerIDs.insert(layerID) }
+        else      { activeLayerIDs.remove(layerID) }
+        UserDefaults.standard.set(Array(activeLayerIDs), forKey: Keys.activeLayerIDs)
+        shared.set(Array(activeLayerIDs), forKey: Keys.activeLayerIDs)
+        persistMergedProfile()
     }
 
     // MARK: - User profile CRUD
@@ -75,15 +99,13 @@ final class ProfileStore: ObservableObject {
     }
 
     func updateUserProfile(_ profile: Profile) {
-        guard let index = userProfiles.firstIndex(where: { $0.id == profile.id }) else { return }
-        userProfiles[index] = profile
+        guard let i = userProfiles.firstIndex(where: { $0.id == profile.id }) else { return }
+        userProfiles[i] = profile
         persistUserProfiles()
-        if activeProfileID == profile.id { persistActiveProfileJSON() }
     }
 
     func deleteUserProfile(_ profile: Profile) {
         userProfiles.removeAll { $0.id == profile.id }
-        if activeProfileID == profile.id { activate(Profile.presets[0]) }
         persistUserProfiles()
     }
 
@@ -95,11 +117,11 @@ final class ProfileStore: ObservableObject {
         }
     }
 
-    /// Writes the full active profile as JSON to the shared App Group defaults
-    /// so the keyboard extension can read it with a simple JSONDecoder call.
-    private func persistActiveProfileJSON() {
-        if let data = try? JSONEncoder().encode(activeProfile) {
-            defaults.set(data, forKey: Keys.activeProfileJSON)
-        }
+    /// Writes the active language ID and layer IDs to the App Group so the
+    /// keyboard extension can merge its own profile without needing the app.
+    private func persistMergedProfile() {
+        shared.set(activeLanguageID, forKey: Keys.activeLanguageID)
+        shared.set(Array(activeLayerIDs), forKey: Keys.activeLayerIDs)
     }
 }
+

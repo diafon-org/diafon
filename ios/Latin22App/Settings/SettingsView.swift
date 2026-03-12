@@ -5,48 +5,15 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject private var store: ProfileStore
 
-    /// Language groups — extend this array to add more languages.
-    private let languages: [LanguageLevel] = [
-        LanguageLevel(
-            language: "Hungarian",
-            levels: [
-                LevelInfo(
-                    profile: .hungarianVowels,
-                    number: 1,
-                    name: "Accented vowels",
-                    description: "Covers the full Hungarian vowel set: á é í ó ú ö ü ő ű.\nUse q, w, x as modifiers after a vowel."
-                ),
-                LevelInfo(
-                    profile: .hungarianFull,
-                    number: 2,
-                    name: "+ Consonant digraphs",
-                    description: "Adds ny, ly, ty, sz, zs, cs, dz, dzs and variants.\nUse y, w, x after a consonant."
-                ),
-                LevelInfo(
-                    profile: .hungarianDoubled,
-                    number: 3,
-                    name: "+ Geminate consonants",
-                    description: "Adds long (geminate) consonants.\nq geminates any consonant; x palatises and geminates."
-                ),
-            ]
-        )
-    ]
-
     var body: some View {
         NavigationView {
             List {
-                ForEach(languages) { lang in
-                    Section(lang.language) {
-                        ForEach(lang.levels) { level in
-                            LevelRow(level: level, isActive: store.activeProfileID == level.profile.id)
-                                .contentShape(Rectangle())
-                                .onTapGesture { store.activate(level.profile) }
-                        }
-                    }
+                ForEach(store.allLanguages) { lang in
+                    languageSection(for: lang)
                 }
 
-                Section("Note") {
-                    Text("Each level includes everything from the levels below it. Start at level 1 and move up as you get comfortable.")
+                Section("About") {
+                    Text("Enable the layers you are comfortable with. Higher layers add more shortcuts; when two layers define the same sequence, the higher level wins. Start with layer 1 and work your way up.")
                         .font(.callout)
                         .foregroundStyle(.secondary)
                         .padding(.vertical, 2)
@@ -56,54 +23,89 @@ struct SettingsView: View {
             .navigationBarTitleDisplayMode(.large)
         }
     }
+
+    @ViewBuilder
+    private func languageSection(for lang: Language) -> some View {
+        let isActive = store.activeLanguageID == lang.id
+        Section {
+            // Language selection row
+            Button {
+                store.activateLanguage(lang.id)
+            } label: {
+                HStack(spacing: 12) {
+                    Image(systemName: "globe")
+                        .foregroundStyle(isActive ? Color.accentColor : .secondary)
+                    Text(lang.name)
+                        .font(.headline)
+                        .foregroundStyle(.primary)
+                    Spacer()
+                    Image(systemName: isActive ? "checkmark.circle.fill" : "circle")
+                        .foregroundStyle(isActive ? Color.accentColor : .secondary)
+                }
+            }
+            .buttonStyle(.plain)
+
+            // Layer toggles, shown only for the selected language
+            if isActive {
+                ForEach(lang.layers.sorted { $0.level < $1.level }) { layer in
+                    LayerRow(layer: layer)
+                }
+            }
+        }
+    }
 }
 
-// MARK: - Models
+// MARK: - LayerRow
 
-private struct LanguageLevel: Identifiable {
-    let language: String
-    let levels: [LevelInfo]
-    var id: String { language }
-}
-
-private struct LevelInfo: Identifiable {
-    let profile: Profile
-    let number: Int
-    let name: String
-    let description: String
-    var id: String { profile.id.uuidString }
-}
-
-// MARK: - LevelRow
-
-private struct LevelRow: View {
-    let level: LevelInfo
-    let isActive: Bool
+private struct LayerRow: View {
+    @EnvironmentObject private var store: ProfileStore
+    let layer: Layer
 
     var body: some View {
         HStack(alignment: .top, spacing: 14) {
-            Text("\(level.number)")
+            Text("\(layer.level)")
                 .font(.headline)
-                .foregroundStyle(isActive ? Color.white : Color.accentColor)
+                .foregroundStyle(isActive ? .white : Color.accentColor)
                 .frame(width: 28, height: 28)
                 .background(isActive ? Color.accentColor : Color.clear)
                 .clipShape(RoundedRectangle(cornerRadius: 6))
-                .overlay(RoundedRectangle(cornerRadius: 6).stroke(Color.accentColor, lineWidth: 1.5))
-            VStack(alignment: .leading, spacing: 4) {
-                Text(level.name).font(.body.bold())
-                Text(level.description)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 6)
+                        .stroke(Color.accentColor, lineWidth: 1.5)
+                )
+            VStack(alignment: .leading, spacing: 6) {
+                Text(layer.name).font(.body.bold())
+                mappingPairs
             }
             Spacer()
-            if isActive {
-                Image(systemName: "checkmark")
-                    .foregroundStyle(Color.accentColor)
-                    .fontWeight(.semibold)
-                    .padding(.top, 4)
-            }
+            Toggle("", isOn: activeBinding)
+                .labelsHidden()
         }
         .padding(.vertical, 4)
+    }
+
+    private var isActive: Bool {
+        store.activeLayerIDs.contains(layer.id)
+    }
+
+    private var activeBinding: Binding<Bool> {
+        Binding(
+            get: { store.activeLayerIDs.contains(layer.id) },
+            set: { store.setLayer(layer.id, active: $0) }
+        )
+    }
+
+    /// Compact list of lowercase input→output pairs rendered as a flowing caption.
+    private var mappingPairs: some View {
+        let pairs = layer.mappings
+            .filter { $0.key == $0.key.lowercased() }
+            .sorted { $0.key < $1.key }
+            .map    { "\($0.key)→\($0.value)" }
+            .joined(separator: "  ")
+        return Text(pairs)
+            .font(.system(.caption, design: .monospaced))
+            .foregroundStyle(.secondary)
+            .lineSpacing(3)
     }
 }
 
@@ -113,3 +115,4 @@ private struct LevelRow: View {
     SettingsView()
         .environmentObject(ProfileStore())
 }
+

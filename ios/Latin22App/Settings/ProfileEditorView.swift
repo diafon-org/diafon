@@ -144,7 +144,7 @@ struct MappingEntry: Identifiable {
         .environmentObject(ProfileStore())
 }
 
-#Preview("Clone from preset") {
-    ProfileEditorView(existing: .hungarianVowels)
+#Preview("Edit existing") {
+    ProfileEditorView(existing: nil)
         .environmentObject(ProfileStore())
 }

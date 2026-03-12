@@ -58,6 +58,7 @@ final class KeyboardViewController: UIInputViewController {
         // Initial load — ensures engine is never nil before viewWillAppear.
         let (mappings, modifiers) = loadMappings()
         engine = MappingEngine(mappings: mappings, modifierKeys: modifiers)
+        syncKeyboardLanguages()
     }
 
     // Reload mappings each time the keyboard appears so profile changes
@@ -66,8 +67,8 @@ final class KeyboardViewController: UIInputViewController {
         super.viewWillAppear(animated)
         let (mappings, modifiers) = loadMappings()
         engine = MappingEngine(mappings: mappings, modifierKeys: modifiers)
-        // Re-check here because activeInputModes may not be fully populated at viewDidLoad.
         keyboardView.showsEmojiKey = UITextInputMode.activeInputModes.contains { $0.primaryLanguage == "emoji" }
+        syncKeyboardLanguages()
     }
 
     // Reset engine whenever the user moves to a different text field.
@@ -77,45 +78,88 @@ final class KeyboardViewController: UIInputViewController {
 
     // MARK: - Mappings
 
-    /// Minimal decodable shape of a profile stored by the app in App Group defaults.
-    private struct ActiveProfileData: Decodable {
-        let mappings: [String: String]
-        let modifierKeys: [String]
-    }
-
-    /// Shape of `mappings.json` — v2.0.0 multi-profile format.
+    /// Shape of `mappings.json` — v3.x language+layers format.
     private struct MappingsFile: Decodable {
-        struct Entry: Decodable {
-            let mappings: [String: String]
+        struct Layer: Decodable {
+            let id: String
             let modifierKeys: [String]
+            let mappings: [String: String]
             enum CodingKeys: String, CodingKey {
-                case mappings
+                case id, mappings
                 case modifierKeys = "modifier_keys"
             }
         }
-        let profiles: [Entry]
+        struct LanguageEntry: Decodable {
+            let id: String
+            let name: String
+            let layers: [Layer]
+        }
+        let languages: [LanguageEntry]
+        let defaultLanguageID: String
+        let defaultLayerIDs:   [String]
+        enum CodingKeys: String, CodingKey {
+            case languages
+            case defaultLanguageID = "default_language_id"
+            case defaultLayerIDs   = "default_layer_ids"
+        }
     }
 
-    private func loadMappings() -> (mappings: [String: String], modifierKeys: Set<Character>) {
-        // 1. Use the active profile written by the app to the shared App Group defaults.
-        if let suite = UserDefaults(suiteName: "group.com.latin22.shared"),
-           let data  = suite.data(forKey: "activeProfile"),
-           let prof  = try? JSONDecoder().decode(ActiveProfileData.self, from: data) {
-            let mods = Set(prof.modifierKeys.compactMap { $0.first })
-            return (prof.mappings, mods)
-        }
-
-        // 2. Fall back to the first profile in the bundled mappings.json.
+    /// Parses bundled mappings.json once; cached for the lifetime of the view controller.
+    private lazy var mappingsFile: MappingsFile? = {
         guard
-            let url   = Bundle(for: KeyboardViewController.self)
+            let url  = Bundle(for: KeyboardViewController.self)
                           .url(forResource: "mappings", withExtension: "json"),
-            let data  = try? Data(contentsOf: url),
-            let file  = try? JSONDecoder().decode(MappingsFile.self, from: data),
-            let first = file.profiles.first
+            let data = try? Data(contentsOf: url)
+        else { return nil }
+        return try? JSONDecoder().decode(MappingsFile.self, from: data)
+    }()
+
+    private func loadMappings() -> (mappings: [String: String], modifierKeys: Set<Character>) {
+        guard let file = mappingsFile else { return ([:], []) }
+
+        let suite        = UserDefaults(suiteName: "group.com.latin22.shared")
+        let activeLangID = suite?.string(forKey: "activeLanguageID") ?? file.defaultLanguageID
+        let layerIDs     = Set(suite?.stringArray(forKey: "activeLayerIDs") ?? file.defaultLayerIDs)
+
+        guard let lang = file.languages.first(where: { $0.id == activeLangID })
+                         ?? file.languages.first
         else { return ([:], []) }
 
-        let mods = Set(first.modifierKeys.compactMap { $0.first })
-        return (first.mappings, mods)
+        let activeLayers = lang.layers
+            .filter  { layerIDs.contains($0.id) }
+            .sorted  { $0.id < $1.id }   // stable merge order
+        var mergedMappings: [String: String] = [:]
+        var mergedMods:     Set<Character>   = []
+        for layer in activeLayers {
+            mergedMappings.merge(layer.mappings) { _, new in new }
+            mergedMods.formUnion(layer.modifierKeys.compactMap { $0.first })
+        }
+        return (mergedMappings, mergedMods)
+    }
+
+    private func syncKeyboardLanguages() {
+        guard let file = mappingsFile else { return }
+        let suite        = UserDefaults(suiteName: "group.com.latin22.shared")
+        let activeLangID = suite?.string(forKey: "activeLanguageID") ?? file.defaultLanguageID
+        keyboardView.availableLanguages = file.languages.map { (id: $0.id, name: $0.name) }
+        keyboardView.currentLanguageID  = activeLangID
+    }
+
+    private func switchLanguage(to langID: String) {
+        guard let file = mappingsFile,
+              let lang = file.languages.first(where: { $0.id == langID })
+        else { return }
+        let defaultLayerIDs = lang.layers
+            .sorted { $0.id < $1.id }
+            .prefix(1)
+            .map(\.id)
+        let suite = UserDefaults(suiteName: "group.com.latin22.shared")
+        suite?.set(langID,            forKey: "activeLanguageID")
+        suite?.set(defaultLayerIDs,   forKey: "activeLayerIDs")
+        let (mappings, modifiers) = loadMappings()
+        engine = MappingEngine(mappings: mappings, modifierKeys: modifiers)
+        engine.reset()
+        keyboardView.currentLanguageID = langID
     }
 
     // MARK: - Applying engine result
@@ -160,6 +204,9 @@ extension KeyboardViewController: KeyboardViewDelegate {
 
         case .emojiKeyboard:
             emojiTextField.becomeFirstResponder()
+
+        case .switchLanguage(let id):
+            switchLanguage(to: id)
 
         case .shift, .switchToMode:
             break   // managed inside KeyboardView
