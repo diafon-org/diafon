@@ -38,7 +38,8 @@ final class KeyboardViewController: UIInputViewController {
         view.addSubview(keyboardView)
 
         // Hidden text field used to hand focus to the system emoji keyboard.
-        emojiTextField.frame = .zero
+        // Needs a non-zero frame to participate in the responder chain.
+        emojiTextField.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
         emojiTextField.alpha = 0
         view.addSubview(emojiTextField)
 
@@ -65,6 +66,8 @@ final class KeyboardViewController: UIInputViewController {
         super.viewWillAppear(animated)
         let (mappings, modifiers) = loadMappings()
         engine = MappingEngine(mappings: mappings, modifierKeys: modifiers)
+        // Re-check here because activeInputModes may not be fully populated at viewDidLoad.
+        keyboardView.showsEmojiKey = UITextInputMode.activeInputModes.contains { $0.primaryLanguage == "emoji" }
     }
 
     // Reset engine whenever the user moves to a different text field.

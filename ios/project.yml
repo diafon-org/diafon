@@ -96,5 +96,6 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.latin22.app.keyboard
         INFOPLIST_FILE: Latin22Keyboard/Info.plist
         CODE_SIGN_ENTITLEMENTS: Latin22Keyboard/Latin22Keyboard.entitlements
+        CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION: YES
 
 

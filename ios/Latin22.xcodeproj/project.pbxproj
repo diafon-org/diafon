@@ -285,6 +285,7 @@
 		2CEDCB82FF51A3F58A4F4F29 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = Latin22Keyboard/Latin22Keyboard.entitlements;
 				INFOPLIST_FILE = Latin22Keyboard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -359,6 +360,7 @@
 		782978A53684EE5FA5020E8F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = Latin22Keyboard/Latin22Keyboard.entitlements;
 				INFOPLIST_FILE = Latin22Keyboard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
