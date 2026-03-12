@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		09E0B98E9F3BEEB29C29369E /* MappingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30722AD70E2F28BF7FFF19B /* MappingEngine.swift */; };
+		0B230A7B35E618116CF3B433 /* KeyboardSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6FC89D9A658406DCF245B7 /* KeyboardSettingsView.swift */; };
 		0BC3629337757DB7B0FDA5AF /* ProfileEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7E4683A2812274D2362E2C /* ProfileEditorView.swift */; };
 		0DAD8D82758B2BC874792E3C /* ProfileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D1765E0D5EE9F64D9FA60D /* ProfileStore.swift */; };
 		0F3A14DE64D91D7ADCB6C8EA /* mappings.json in Resources */ = {isa = PBXBuildFile; fileRef = 433AAFBADF9FF03AC269E037 /* mappings.json */; };
@@ -60,6 +61,7 @@
 		B30722AD70E2F28BF7FFF19B /* MappingEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingEngine.swift; sourceTree = "<group>"; };
 		C1D1765E0D5EE9F64D9FA60D /* ProfileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStore.swift; sourceTree = "<group>"; };
 		C3D8852D60270B39F29B9302 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CB6FC89D9A658406DCF245B7 /* KeyboardSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardSettingsView.swift; sourceTree = "<group>"; };
 		D1ED9112748396F4924C49DD /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		D5A687060E4919E30512A34B /* Latin22.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Latin22.entitlements; sourceTree = "<group>"; };
 		E66C9C6ADFCC17686880EE81 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 		031F629896B1F151B2AF9A5C /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				CB6FC89D9A658406DCF245B7 /* KeyboardSettingsView.swift */,
 				D1ED9112748396F4924C49DD /* Profile.swift */,
 				4B7E4683A2812274D2362E2C /* ProfileEditorView.swift */,
 				C1D1765E0D5EE9F64D9FA60D /* ProfileStore.swift */,
@@ -235,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				434D3CD2E6DB33CA592A71F5 /* ContentView.swift in Sources */,
+				0B230A7B35E618116CF3B433 /* KeyboardSettingsView.swift in Sources */,
 				A36B8CBC50E9880B5FDE9854 /* Latin22App.swift in Sources */,
 				B9B58EFCA9398C4CAE4539E1 /* Profile.swift in Sources */,
 				0BC3629337757DB7B0FDA5AF /* ProfileEditorView.swift in Sources */,
