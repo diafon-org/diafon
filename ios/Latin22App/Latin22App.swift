@@ -17,6 +17,7 @@ struct Latin22App: App {
 private struct RootView: View {
     var body: some View {
         VStack(spacing: 0) {
+            TryOutBar()
             TabView {
                 ContentView()
                     .tabItem { Label("Info", systemImage: "info.circle") }
@@ -25,9 +26,7 @@ private struct RootView: View {
                 KeyboardSettingsView()
                     .tabItem { Label("Keyboard", systemImage: "keyboard") }
             }
-            TryOutBar()
         }
-        .ignoresSafeArea(.keyboard)   // let the system push the bar up with the keyboard
     }
 }
 
@@ -38,7 +37,6 @@ private struct TryOutBar: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Divider()
             HStack(spacing: 8) {
                 Image(systemName: "keyboard")
                     .foregroundStyle(.secondary)
@@ -60,6 +58,7 @@ private struct TryOutBar: View {
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
             .background(.bar)
+            Divider()
         }
     }
 }
