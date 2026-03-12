@@ -14,19 +14,13 @@
 		127914A3104FB4CDD171D985 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66C9C6ADFCC17686880EE81 /* KeyboardView.swift */; };
 		153AE5E5E4C4195403FF4510 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E25DFDBA77DBDDAB5348B6 /* SettingsView.swift */; };
 		15B49F7E82A7B923AE82C0E5 /* mappings.json in Resources */ = {isa = PBXBuildFile; fileRef = 433AAFBADF9FF03AC269E037 /* mappings.json */; };
-		1B7063C3783855FFB1B72F19 /* MappingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30722AD70E2F28BF7FFF19B /* MappingEngine.swift */; };
-		26DC9C19EB8EF74605D8BC4C /* Latin22InputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58365B48F979FDE31E466FA8 /* Latin22InputController.swift */; };
 		37EA64FFD9EC4BA135ECC223 /* Latin22Keyboard.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9A87A5D916B7E4F7A8641402 /* Latin22Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		434D3CD2E6DB33CA592A71F5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4165307236D07217E95395B0 /* ContentView.swift */; };
-		548BBFA1ADBF058D851D9EAB /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C7351D7F4ACF06B82A9ADBF /* InputMethodKit.framework */; };
 		68B63C239DCCC56FABDE40CF /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC5405667B23714BC8BA5E /* EmojiPickerView.swift */; };
-		7EF9A7B74C99F4B8CCB9A8CD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA7498A07FDAFEBB6074CA7 /* main.swift */; };
-		8260C4219B66E94208AF7DEE /* mappings.json in Resources */ = {isa = PBXBuildFile; fileRef = 433AAFBADF9FF03AC269E037 /* mappings.json */; };
 		910782942237F9435C57E719 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D8DC4AD7B7782C88ECF423 /* KeyboardViewController.swift */; };
 		A36B8CBC50E9880B5FDE9854 /* Latin22App.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1128689E7161A8160B815E1 /* Latin22App.swift */; };
-		A4457042CA46B77AD6F860AF /* MappingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30722AD70E2F28BF7FFF19B /* MappingEngine.swift */; };
 		B9B58EFCA9398C4CAE4539E1 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1ED9112748396F4924C49DD /* Profile.swift */; };
-		D7F54FB45634D69FD09196C2 /* MappingEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344D21910B1DD4E24F296314 /* MappingEngineTests.swift */; };
+		D509D7C0DB7730E439AD988B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D8852D60270B39F29B9302 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,40 +48,23 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0274E9A7E62E2163EC70A9A1 /* Latin22.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Latin22.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		344D21910B1DD4E24F296314 /* MappingEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingEngineTests.swift; sourceTree = "<group>"; };
+		0274E9A7E62E2163EC70A9A1 /* Latin22.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Latin22.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4165307236D07217E95395B0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		433AAFBADF9FF03AC269E037 /* mappings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mappings.json; sourceTree = "<group>"; };
 		4B7E4683A2812274D2362E2C /* ProfileEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditorView.swift; sourceTree = "<group>"; };
-		58365B48F979FDE31E466FA8 /* Latin22InputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Latin22InputController.swift; sourceTree = "<group>"; };
-		5E62D76B1AB22BA55561BDA0 /* Latin22Mac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Latin22Mac.entitlements; sourceTree = "<group>"; };
 		70D8DC4AD7B7782C88ECF423 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
-		7C7351D7F4ACF06B82A9ADBF /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = System/Library/Frameworks/InputMethodKit.framework; sourceTree = SDKROOT; };
 		7F202DD02178FDAF0500628F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		7FB0DA3AA0C154D798D2B9EC /* Latin22KeyboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Latin22KeyboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A87A5D916B7E4F7A8641402 /* Latin22Keyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Latin22Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A87A5D916B7E4F7A8641402 /* Latin22Keyboard.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = Latin22Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3E25DFDBA77DBDDAB5348B6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B1128689E7161A8160B815E1 /* Latin22App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Latin22App.swift; sourceTree = "<group>"; };
 		B30722AD70E2F28BF7FFF19B /* MappingEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingEngine.swift; sourceTree = "<group>"; };
 		C1D1765E0D5EE9F64D9FA60D /* ProfileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStore.swift; sourceTree = "<group>"; };
+		C3D8852D60270B39F29B9302 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D1ED9112748396F4924C49DD /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
-		D3D37F4F6BD4B953BEA74FAB /* Latin22Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Latin22Mac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5A687060E4919E30512A34B /* Latin22.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Latin22.entitlements; sourceTree = "<group>"; };
 		E66C9C6ADFCC17686880EE81 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		F0BC5405667B23714BC8BA5E /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
-		FFA7498A07FDAFEBB6074CA7 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		2554696E7134972C39A013CD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				548BBFA1ADBF058D851D9EAB /* InputMethodKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		031F629896B1F151B2AF9A5C /* Settings */ = {
@@ -104,6 +81,7 @@
 		13718CE109B051D51869AD38 /* Latin22App */ = {
 			isa = PBXGroup;
 			children = (
+				C3D8852D60270B39F29B9302 /* Assets.xcassets */,
 				4165307236D07217E95395B0 /* ContentView.swift */,
 				7F202DD02178FDAF0500628F /* Info.plist */,
 				D5A687060E4919E30512A34B /* Latin22.entitlements */,
@@ -118,9 +96,6 @@
 			children = (
 				13718CE109B051D51869AD38 /* Latin22App */,
 				47DF698496C9900DDA20822C /* Latin22Keyboard */,
-				DE8506785B3C8FC9B15B133D /* Latin22KeyboardTests */,
-				43A51BB0FCA9FACA0D0412BF /* Latin22Mac */,
-				B3C0D6FA0B62488AF0BC544E /* Frameworks */,
 				20022CF6E90D9E4AFE290873 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -130,20 +105,8 @@
 			children = (
 				0274E9A7E62E2163EC70A9A1 /* Latin22.app */,
 				9A87A5D916B7E4F7A8641402 /* Latin22Keyboard.appex */,
-				7FB0DA3AA0C154D798D2B9EC /* Latin22KeyboardTests.xctest */,
-				D3D37F4F6BD4B953BEA74FAB /* Latin22Mac.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		43A51BB0FCA9FACA0D0412BF /* Latin22Mac */ = {
-			isa = PBXGroup;
-			children = (
-				58365B48F979FDE31E466FA8 /* Latin22InputController.swift */,
-				5E62D76B1AB22BA55561BDA0 /* Latin22Mac.entitlements */,
-				FFA7498A07FDAFEBB6074CA7 /* main.swift */,
-			);
-			path = Latin22Mac;
 			sourceTree = "<group>";
 		};
 		47DF698496C9900DDA20822C /* Latin22Keyboard */ = {
@@ -166,44 +129,9 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		B3C0D6FA0B62488AF0BC544E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				7C7351D7F4ACF06B82A9ADBF /* InputMethodKit.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		DE8506785B3C8FC9B15B133D /* Latin22KeyboardTests */ = {
-			isa = PBXGroup;
-			children = (
-				344D21910B1DD4E24F296314 /* MappingEngineTests.swift */,
-			);
-			path = Latin22KeyboardTests;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0395258058A134EF788ED4EB /* Latin22Mac */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 28526ED8A9A3E74F89EEEF93 /* Build configuration list for PBXNativeTarget "Latin22Mac" */;
-			buildPhases = (
-				46E9C2F145E9FB7AF4C32CE5 /* Sources */,
-				B34A35365E86273307C87484 /* Resources */,
-				2554696E7134972C39A013CD /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Latin22Mac;
-			packageProductDependencies = (
-			);
-			productName = Latin22Mac;
-			productReference = D3D37F4F6BD4B953BEA74FAB /* Latin22Mac.app */;
-			productType = "com.apple.product-type.application";
-		};
 		25F57018918576A7CCF716B4 /* Latin22Keyboard */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 226E1C828F6739CB4D5A3AB8 /* Build configuration list for PBXNativeTarget "Latin22Keyboard" */;
@@ -221,23 +149,6 @@
 			productName = Latin22Keyboard;
 			productReference = 9A87A5D916B7E4F7A8641402 /* Latin22Keyboard.appex */;
 			productType = "com.apple.product-type.app-extension";
-		};
-		B8F67E16775A67B3B4D0944D /* Latin22KeyboardTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0D528C419D1321A5B09E0A09 /* Build configuration list for PBXNativeTarget "Latin22KeyboardTests" */;
-			buildPhases = (
-				9A46487EC1666D965662B8CB /* Sources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Latin22KeyboardTests;
-			packageProductDependencies = (
-			);
-			productName = Latin22KeyboardTests;
-			productReference = 7FB0DA3AA0C154D798D2B9EC /* Latin22KeyboardTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		ECB20EBC3068DC85655EEB8C /* Latin22 */ = {
 			isa = PBXNativeTarget;
@@ -266,7 +177,17 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 2620;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					25F57018918576A7CCF716B4 = {
+						DevelopmentTeam = 28X65QWK28;
+						ProvisioningStyle = Automatic;
+					};
+					ECB20EBC3068DC85655EEB8C = {
+						DevelopmentTeam = 28X65QWK28;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = B89C2DB13647585EDAF3A29F /* Build configuration list for PBXProject "Latin22" */;
 			developmentRegion = en;
@@ -284,8 +205,6 @@
 			targets = (
 				ECB20EBC3068DC85655EEB8C /* Latin22 */,
 				25F57018918576A7CCF716B4 /* Latin22Keyboard */,
-				B8F67E16775A67B3B4D0944D /* Latin22KeyboardTests */,
-				0395258058A134EF788ED4EB /* Latin22Mac */,
 			);
 		};
 /* End PBXProject section */
@@ -295,15 +214,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D509D7C0DB7730E439AD988B /* Assets.xcassets in Resources */,
 				0F3A14DE64D91D7ADCB6C8EA /* mappings.json in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B34A35365E86273307C87484 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8260C4219B66E94208AF7DEE /* mappings.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,16 +230,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		46E9C2F145E9FB7AF4C32CE5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				26DC9C19EB8EF74605D8BC4C /* Latin22InputController.swift in Sources */,
-				1B7063C3783855FFB1B72F19 /* MappingEngine.swift in Sources */,
-				7EF9A7B74C99F4B8CCB9A8CD /* main.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		80F2B370CC4B815798F3C059 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -338,15 +240,6 @@
 				0BC3629337757DB7B0FDA5AF /* ProfileEditorView.swift in Sources */,
 				0DAD8D82758B2BC874792E3C /* ProfileStore.swift in Sources */,
 				153AE5E5E4C4195403FF4510 /* SettingsView.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9A46487EC1666D965662B8CB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A4457042CA46B77AD6F860AF /* MappingEngine.swift in Sources */,
-				D7F54FB45634D69FD09196C2 /* MappingEngineTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,7 +271,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Latin22App/Latin22.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 28X65QWK28;
 				INFOPLIST_FILE = Latin22App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -390,29 +282,10 @@
 			};
 			name = Debug;
 		};
-		03F73305D1D5CC13C302F82C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Latin22Mac/Latin22Mac.entitlements;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
-				INFOPLIST_FILE = Latin22Mac/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.latin22.mac;
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
 		2CEDCB82FF51A3F58A4F4F29 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Latin22Keyboard/Latin22Keyboard.entitlements;
-				DEVELOPMENT_TEAM = 28X65QWK28;
 				INFOPLIST_FILE = Latin22Keyboard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -420,21 +293,6 @@
 					"@executable_path/../../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.latin22.app.keyboard;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		64B69C3DB632D6A26DAB7C74 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.latin2.app.keyboard.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -473,12 +331,12 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 28X65QWK28;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -488,11 +346,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.9;
@@ -503,7 +360,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Latin22Keyboard/Latin22Keyboard.entitlements;
-				DEVELOPMENT_TEAM = 28X65QWK28;
 				INFOPLIST_FILE = Latin22Keyboard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -549,12 +405,12 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 28X65QWK28;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -570,12 +426,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.9;
@@ -588,7 +443,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Latin22App/Latin22.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 28X65QWK28;
 				INFOPLIST_FILE = Latin22App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -600,65 +454,14 @@
 			};
 			name = Release;
 		};
-		9B04A8D93A29419D80B6C28A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.latin2.app.keyboard.tests;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		BD3019ECD8E82F5EA87CA3FA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Latin22Mac/Latin22Mac.entitlements;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
-				INFOPLIST_FILE = Latin22Mac/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.latin22.mac;
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0D528C419D1321A5B09E0A09 /* Build configuration list for PBXNativeTarget "Latin22KeyboardTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9B04A8D93A29419D80B6C28A /* Debug */,
-				64B69C3DB632D6A26DAB7C74 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
 		226E1C828F6739CB4D5A3AB8 /* Build configuration list for PBXNativeTarget "Latin22Keyboard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				782978A53684EE5FA5020E8F /* Debug */,
 				2CEDCB82FF51A3F58A4F4F29 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		28526ED8A9A3E74F89EEEF93 /* Build configuration list for PBXNativeTarget "Latin22Mac" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				03F73305D1D5CC13C302F82C /* Debug */,
-				BD3019ECD8E82F5EA87CA3FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

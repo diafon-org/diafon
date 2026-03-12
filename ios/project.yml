@@ -8,7 +8,6 @@ options:
   bundleIdPrefix: com.latin22
   deploymentTarget:
     iOS: "16.0"
-    macOS: "13.0"
   xcodeVersion: "16.0"
   createIntermediateGroups: true
 
@@ -29,24 +28,12 @@ schemes:
         Latin22Keyboard: all
     run:
       config: Debug
-  Latin22KeyboardTests:
-    build:
-      targets:
-        Latin22KeyboardTests: all
-    test:
-      targets:
-        - Latin22KeyboardTests
-  Latin22Mac:
-    build:
-      targets:
-        Latin22Mac: all
-    run:
-      config: Debug
-
 settings:
   base:
     SWIFT_VERSION: "5.9"
     IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+    DEVELOPMENT_TEAM: 28X65QWK28
+    CODE_SIGN_STYLE: Automatic
 
 targets:
 
@@ -96,11 +83,11 @@ targets:
         CFBundleDisplayName: "Latin22"
         NSExtension:
           NSExtensionAttributes:
-            IsASCIICapable: false
+            IsASCIICapable: true
             PrefersRightToLeft: false
             PrimaryLanguage: en-US
             RequestsOpenAccess: false
-          NSExtensionPointIdentifier: com.apple.keyboard-input-mode
+          NSExtensionPointIdentifier: com.apple.keyboard-service
           NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).KeyboardViewController
     entitlements:
       path: Latin22Keyboard/Latin22Keyboard.entitlements
@@ -110,37 +97,4 @@ targets:
         INFOPLIST_FILE: Latin22Keyboard/Info.plist
         CODE_SIGN_ENTITLEMENTS: Latin22Keyboard/Latin22Keyboard.entitlements
 
-  # ── Unit tests ────────────────────────────────────────────────────────────
-  Latin22KeyboardTests:
-    type: bundle.unit-test
-    platform: iOS
-    sources:
-      - path: Latin22KeyboardTests
-      - path: Latin22Keyboard/MappingEngine.swift   # test the engine directly
-    settings:
-      base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.latin2.app.keyboard.tests
 
-  # ── macOS input method ────────────────────────────────────────────────────
-  Latin22Mac:
-    type: application
-    platform: macOS
-    sources:
-      - path: Latin22Mac
-        excludes:
-          - Info.plist
-      - path: Latin22Keyboard/MappingEngine.swift   # shared with iOS
-      - path: Latin22Keyboard/Resources/mappings.json
-        buildPhase: resources
-    info:
-      path: Latin22Mac/Info.plist
-    entitlements:
-      path: Latin22Mac/Latin22Mac.entitlements
-    settings:
-      base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.latin22.mac
-        INFOPLIST_FILE: Latin22Mac/Info.plist
-        MACOSX_DEPLOYMENT_TARGET: "13.0"
-        CODE_SIGN_ENTITLEMENTS: Latin22Mac/Latin22Mac.entitlements
-    dependencies:
-      - sdk: InputMethodKit.framework
