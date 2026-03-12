@@ -7,63 +7,73 @@ private struct EmojiCategory {
     let emoji: [String]
 }
 
+// Curated / trimmed emoji list — most-used only
 private let kEmojiCategories: [EmojiCategory] = [
     EmojiCategory(symbolName: "face.smiling", emoji: [
-        "😀","😃","😄","😁","😆","😅","🤣","😂","🙂","🙃","😉","😊","😇",
-        "🥰","😍","🤩","😘","☺️","😋","😛","😜","🤪","😝","🤑","🤗","🤔",
-        "🤐","🤨","😐","😑","😏","😒","🙄","😬","😌","😔","😪","😴","😷",
-        "🤒","🤕","🤧","🥵","🥶","😵","🤯","🤠","😎","🤓","😕","😟","🙁",
-        "☹️","😮","😲","😳","🥺","😦","😨","😰","😥","😢","😭","😱","😤",
-        "😡","😠","🤬","😈","👿","💀","💩","🤡","👹","👺","👻","👽","👾",
-        "🤖","👋","🤚","🖐","✋","🖖","👌","✌️","🤞","🤟","🤘","👈","👉",
-        "👆","👇","👍","👎","✊","👊","👏","🙌","🤝","🙏","💪","💋",
-        "👶","👦","👧","🧑","👨","👩","👴","👵",
+        "😀","😂","🤣","😊","😍","🥰","😘","😎","🤔","🙄","😅","😆","😁",
+        "😢","😭","😤","😡","🤯","🥺","😳","😱","🤗","😏","🙃","😴","😷",
+        "🤒","😵","👿","💀","💩","🤡","👻","🤖",
+        "👋","👌","✌️","🤞","👍","👎","👏","🙏","💪","🖕",
     ]),
     EmojiCategory(symbolName: "pawprint", emoji: [
-        "🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐨","🐯","🦁","🐮","🐷",
-        "🐸","🐵","🙈","🙉","🙊","🐔","🐧","🐦","🐤","🦆","🦅","🦉","🦇",
-        "🐺","🐴","🦄","🦋","🐛","🐝","🐌","🐞","🐜","🕷","🦂","🐢","🐍",
-        "🦎","🐙","🦑","🦐","🦀","🐡","🐠","🐟","🐬","🐳","🦈","🐊","🐘",
-        "🦒","🐕","🐈","🐾",
-        "🌵","🎄","🌲","🌳","🌴","🌱","🌿","☘️","🍀","🍃","🍂","🍁","🍄",
-        "🌾","💐","🌷","🌹","🌺","🌸","🌼","🌻","🌞","🌙","⭐","🌟","☁️",
-        "🌈","❄️","🔥","💧","🌊",
+        "🐶","🐱","🐭","🐰","🦊","🐻","🐼","🐯","🦁","🐸","🐵","🙈","🙉","🙊",
+        "🐧","🦆","🦉","🦋","🐝","🐢","🐍","🐙","🐬","🐳","🦈","🐘","🦄",
+        "🌸","🌻","🌈","❄️","🔥","💧","🌊","⭐","🌙","🌞",
     ]),
     EmojiCategory(symbolName: "fork.knife", emoji: [
-        "🍎","🍐","🍊","🍋","🍌","🍉","🍇","🍓","🫐","🍒","🍑","🥭","🍍",
-        "🥝","🍅","🥥","🥑","🍆","🥔","🥕","🌽","🥒","🥬","🥦","🧄","🧅",
-        "🥜","🌰","🍞","🥐","🥖","🧀","🥚","🍳","🥞","🧇","🥓","🍗","🍖",
-        "🌭","🍔","🍟","🍕","🌮","🌯","🥙","🍜","🍝","🍛","🍣","🍱","🥟",
-        "🍤","🍰","🎂","🧁","🍭","🍬","🍫","🍿","🍩","🍪","🍯",
-        "🧃","🥤","🧋","🍵","☕","🍺","🥂","🍷","🥃","🍸","🍹","🍾",
+        "🍕","🍔","🌮","🌯","🍜","🍣","🍱","🍗","🥩","🌭","🍟","🥗","🍩","🎂",
+        "🍺","☕","🧋","🥂","🍷","🍸","🥃",
+        "🍎","🍊","🍋","🍌","🍉","🍇","🍓","🍒","🥑","🥕","🌽","🥦",
     ]),
-    EmojiCategory(symbolName: "car", emoji: [
-        "🚗","🚕","🚙","🚌","🏎","🚓","🚑","🚒","🛻","🚚","🚛","🏍","🛵",
-        "🚲","🛴","⛽","🚨","🚥","🚦","🛑","⚓","⛵","🚤","🛥","🚢","✈️",
-        "🛩","💺","🚁","🚀","🛸",
-        "🌍","🌎","🌏","🧭","🏔","⛰","🌋","🏕","🏖","🏜","🏝","🏠","🏡",
-        "🏢","🏥","🏦","🏨","🏪","🏫","🏬","🏭","🏯","🏰","⛪","🕌","⛩",
-        "🌁","🌃","🌄","🌅","🌆","🌇","🌉","🗺","🗼","🗽",
-    ]),
-    EmojiCategory(symbolName: "lightbulb", emoji: [
-        "📱","💻","⌨️","🖥","📷","📸","📹","🎥","📺","📻","🔋","🔌","💡",
-        "🔦","💸","💵","💰","💳","💎","⚖️","🔧","🔨","⚒","🛠","🔩","🧲",
-        "🔪","⚔️","🛡","🔭","🔬","💊","💉","🧬","🧹","🧺","🚽","🚿","🛁",
-        "🧴","🧼","🛒","🚪","🛏","🛋",
-        "🎊","🎉","🎈","🎀","🎁","🏆","🥇","⚽","🏀","🏈","⚾","🎾","🏐",
-        "🎱","🏓","🎯","🎮","🎲","🧩","🎨","🎬","🎤","🎧","🎼","🎹","🥁",
-        "🎷","🎺","🎸","🎻",
+    EmojiCategory(symbolName: "sportscourt", emoji: [
+        "⚽","🏀","🏈","⚾","🎾","🏐","🎱","🏓","🎯","🎮","🕹","🧩","🎲",
+        "🏆","🥇","🥈","🥉","🎉","🎊","🎈","🎁","🎀","🎬","🎤","🎧","🎸","🎹","🥁",
     ]),
     EmojiCategory(symbolName: "heart", emoji: [
-        "❤️","🧡","💛","💚","💙","💜","🖤","🤍","🤎","💔","💕","💞","💓",
-        "💗","💖","💘","💝","☮️","✅","❌","⭕","🛑","⛔","🚫","💯","⚠️",
-        "✔️","➕","➖","➗","✖️","™️","©️","®️","❗","❕","❓","❔","‼️","⁉️",
-        "🔴","🟠","🟡","🟢","🔵","🟣","⚫","⚪",
-        "🟥","🟧","🟨","🟩","🟦","🟪","🟫","⬛","⬜",
-        "🔶","🔷","🔸","🔹","🔺","🔻","💠","🔘",
-        "🏁","🚩","🎌","🏴","🏳️","🏳️‍🌈","🏴‍☠️",
+        "❤️","🧡","💛","💚","💙","💜","🖤","🤍","💔","💕","💖","💘","💝",
+        "✅","❌","💯","⚠️","🚫","❗","❓","‼️",
+        "🔴","🟡","🟢","🔵","⚫","⚪",
+        "🏁","🚩","🏳️‍🌈","🏴‍☠️",
     ]),
 ]
+
+// MARK: - Clip data
+
+struct CoubClip {
+    let id: String
+    let title: String
+    var url: String { "https://coub.com/view/\(id)" }
+}
+
+private struct ClipCategory {
+    let symbolName: String
+    let name: String
+    let clips: [CoubClip]
+}
+
+private func loadClipCategories() -> [ClipCategory] {
+    guard
+        let url  = Bundle(for: EmojiPickerView.self).url(forResource: "clips", withExtension: "json"),
+        let data = try? Data(contentsOf: url),
+        let root = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+        let cats = root["categories"] as? [[String: Any]]
+    else { return [] }
+
+    return cats.compactMap { cat in
+        guard
+            let sym     = cat["symbolName"]  as? String,
+            let name    = cat["name"]         as? String,
+            let rawClips = cat["clips"]       as? [[String: Any]]
+        else { return nil }
+        let clips = rawClips.compactMap { c -> CoubClip? in
+            guard let id = c["id"] as? String, let title = c["title"] as? String else { return nil }
+            return CoubClip(id: id, title: title)
+        }
+        return ClipCategory(symbolName: sym, name: name, clips: clips)
+    }
+}
+
+private let kClipCategories: [ClipCategory] = loadClipCategories()
 
 // MARK: - Protocol
 
@@ -83,7 +93,10 @@ final class EmojiPickerView: UIView {
     private let abcButton = UIButton(type: .custom)
     private let categoryStack = UIStackView()
     private var categoryButtons: [UIButton] = []
-    private var selectedCategory = 0
+    private var selectedCategory = 0   // 0..<kEmojiCategories.count = emoji; above = clips
+
+    private var isClipsTab: Bool { selectedCategory >= kEmojiCategories.count }
+    private var clipsIndex: Int  { selectedCategory - kEmojiCategories.count }
 
     override init(frame: CGRect) {
         let layout = UICollectionViewFlowLayout()
@@ -113,10 +126,25 @@ final class EmojiPickerView: UIView {
         tabBar.addSubview(categoryStack)
 
         let symConf = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular)
+        // Emoji category tabs
         for (i, cat) in kEmojiCategories.enumerated() {
             let btn = UIButton(type: .custom)
             btn.tag = i
             if let img = UIImage(systemName: cat.symbolName)?
+                            .withConfiguration(symConf)
+                            .withRenderingMode(.alwaysTemplate) {
+                btn.setImage(img, for: .normal)
+            }
+            btn.addTarget(self, action: #selector(categoryTapped(_:)), for: .touchUpInside)
+            categoryButtons.append(btn)
+            categoryStack.addArrangedSubview(btn)
+        }
+        // Clips tabs (film.stack icon per category)
+        for (i, cat) in kClipCategories.enumerated() {
+            let btn = UIButton(type: .custom)
+            btn.tag = kEmojiCategories.count + i
+            let sym = cat.symbolName.isEmpty ? "film.stack" : cat.symbolName
+            if let img = UIImage(systemName: sym)?
                             .withConfiguration(symConf)
                             .withRenderingMode(.alwaysTemplate) {
                 btn.setImage(img, for: .normal)
@@ -143,8 +171,9 @@ final class EmojiPickerView: UIView {
             categoryStack.bottomAnchor.constraint(equalTo: tabBar.bottomAnchor),
         ])
 
-        // Collection view
-        collectionView.register(EmojiCell.self, forCellWithReuseIdentifier: "cell")
+        // Collection view — two cell types: emoji and clips
+        collectionView.register(EmojiCell.self,  forCellWithReuseIdentifier: "emoji")
+        collectionView.register(ClipCell.self,   forCellWithReuseIdentifier: "clip")
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -213,12 +242,20 @@ final class EmojiPickerView: UIView {
 
 extension EmojiPickerView: UICollectionViewDataSource {
     func collectionView(_ cv: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        kEmojiCategories[selectedCategory].emoji.count
+        isClipsTab
+            ? kClipCategories[clipsIndex].clips.count
+            : kEmojiCategories[selectedCategory].emoji.count
     }
     func collectionView(_ cv: UICollectionView, cellForItemAt ip: IndexPath) -> UICollectionViewCell {
-        let cell = cv.dequeueReusableCell(withReuseIdentifier: "cell", for: ip) as! EmojiCell
-        cell.label.text = kEmojiCategories[selectedCategory].emoji[ip.item]
-        return cell
+        if isClipsTab {
+            let cell = cv.dequeueReusableCell(withReuseIdentifier: "clip", for: ip) as! ClipCell
+            cell.configure(with: kClipCategories[clipsIndex].clips[ip.item])
+            return cell
+        } else {
+            let cell = cv.dequeueReusableCell(withReuseIdentifier: "emoji", for: ip) as! EmojiCell
+            cell.label.text = kEmojiCategories[selectedCategory].emoji[ip.item]
+            return cell
+        }
     }
 }
 
@@ -226,17 +263,45 @@ extension EmojiPickerView: UICollectionViewDataSource {
 
 extension EmojiPickerView: UICollectionViewDelegate {
     func collectionView(_ cv: UICollectionView, didSelectItemAt ip: IndexPath) {
-        let emoji = kEmojiCategories[selectedCategory].emoji[ip.item]
-        delegate?.emojiPickerView(self, didSelectEmoji: emoji)
+        if isClipsTab {
+            let clip = kClipCategories[clipsIndex].clips[ip.item]
+            delegate?.emojiPickerView(self, didSelectEmoji: clip.url)
+        } else {
+            let emoji = kEmojiCategories[selectedCategory].emoji[ip.item]
+            delegate?.emojiPickerView(self, didSelectEmoji: emoji)
+        }
     }
 }
 
 extension EmojiPickerView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ cv: UICollectionView, layout _: UICollectionViewLayout,
                         sizeForItemAt _: IndexPath) -> CGSize {
-        let cols = floor(cv.bounds.width / 40)
-        let side = cols > 0 ? floor(cv.bounds.width / cols) : 40
-        return CGSize(width: side, height: side)
+        if isClipsTab {
+            // Clips: 2 columns, taller cells with title
+            let cols: CGFloat = 2
+            let gap:  CGFloat = 8
+            let w = floor((cv.bounds.width - gap * (cols + 1)) / cols)
+            return CGSize(width: w, height: w * 0.65)
+        } else {
+            let cols = floor(cv.bounds.width / 40)
+            let side = cols > 0 ? floor(cv.bounds.width / cols) : 40
+            return CGSize(width: side, height: side)
+        }
+    }
+
+    func collectionView(_ cv: UICollectionView, layout _: UICollectionViewLayout,
+                        insetForSectionAt _: Int) -> UIEdgeInsets {
+        isClipsTab ? UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8) : .zero
+    }
+
+    func collectionView(_ cv: UICollectionView, layout _: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt _: Int) -> CGFloat {
+        isClipsTab ? 8 : 0
+    }
+
+    func collectionView(_ cv: UICollectionView, layout _: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt _: Int) -> CGFloat {
+        isClipsTab ? 8 : 0
     }
 }
 
@@ -256,4 +321,88 @@ private final class EmojiCell: UICollectionViewCell {
         ])
     }
     required init?(coder: NSCoder) { fatalError() }
+}
+
+// MARK: - ClipCell
+
+private final class ClipCell: UICollectionViewCell {
+    private let thumbView = UIImageView()
+    private let titleLabel = UILabel()
+    private let linkIcon = UIImageView()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        contentView.layer.cornerRadius = 8
+        contentView.clipsToBounds = true
+
+        thumbView.contentMode = .scaleAspectFill
+        thumbView.backgroundColor = UIColor.systemIndigo.withAlphaComponent(0.25)
+        thumbView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(thumbView)
+
+        // Play icon overlay
+        let symConf = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium)
+        linkIcon.image = UIImage(systemName: "play.circle.fill", withConfiguration: symConf)
+        linkIcon.tintColor = .white
+        linkIcon.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(linkIcon)
+
+        // Title bar at bottom
+        let bar = UIView()
+        bar.backgroundColor = UIColor.black.withAlphaComponent(0.55)
+        bar.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(bar)
+
+        titleLabel.font = .systemFont(ofSize: 11, weight: .medium)
+        titleLabel.textColor = .white
+        titleLabel.numberOfLines = 1
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        bar.addSubview(titleLabel)
+
+        NSLayoutConstraint.activate([
+            thumbView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            thumbView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            thumbView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            thumbView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+
+            linkIcon.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            linkIcon.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+
+            bar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            bar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            bar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            bar.heightAnchor.constraint(equalToConstant: 22),
+
+            titleLabel.leadingAnchor.constraint(equalTo: bar.leadingAnchor, constant: 6),
+            titleLabel.trailingAnchor.constraint(equalTo: bar.trailingAnchor, constant: -6),
+            titleLabel.centerYAnchor.constraint(equalTo: bar.centerYAnchor),
+        ])
+    }
+    required init?(coder: NSCoder) { fatalError() }
+
+    func configure(with clip: CoubClip) {
+        titleLabel.text = clip.title
+        // Load thumbnail from Coub's thumb CDN — tiny JPEG, no auth required.
+        // Falls back gracefully to the indigo placeholder if network is unavailable
+        // (keyboard without RequestsOpenAccess shows placeholder; with access shows image).
+        let thumbURL = URL(string: "https://coub.com/api/v2/coubs/\(clip.id)")
+        thumbView.image = nil
+        if let url = thumbURL {
+            URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
+                guard
+                    let data = data,
+                    let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                    let imageVersions = json["image_versions"] as? [String: Any],
+                    let versions = imageVersions["versions"] as? [String: Any],
+                    let small = (versions["small"] ?? versions["med"] ?? versions["big"]) as? [String: Any],
+                    let imgURLStr = small["url"] as? String,
+                    let imgURL = URL(string: imgURLStr)
+                else { return }
+                URLSession.shared.dataTask(with: imgURL) { data, _, _ in
+                    guard let data = data, let img = UIImage(data: data) else { return }
+                    DispatchQueue.main.async { self?.thumbView.image = img }
+                }.resume()
+            }.resume()
+        }
+    }
 }

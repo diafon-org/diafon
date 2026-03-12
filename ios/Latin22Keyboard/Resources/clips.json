@@ -1,0 +1,34 @@
+{
+  "categories": [
+    {
+      "id": "funny",
+      "name": "Funny",
+      "symbolName": "face.smiling",
+      "clips": [
+        { "id": "3c4yo",  "title": "Deal with it" },
+        { "id": "25dlk",  "title": "Surprised Pikachu" },
+        { "id": "1la5s",  "title": "This is fine" },
+        { "id": "2hz9n",  "title": "Nope" },
+        { "id": "1lzcp",  "title": "OMG cat" },
+        { "id": "3gio7",  "title": "Unexpected" },
+        { "id": "262b8",  "title": "Mind blown" },
+        { "id": "1lm1r",  "title": "Facepalm" }
+      ]
+    },
+    {
+      "id": "reactions",
+      "name": "Reactions",
+      "symbolName": "hand.thumbsup",
+      "clips": [
+        { "id": "1lzcp",  "title": "Yes!" },
+        { "id": "2hz9n",  "title": "No way" },
+        { "id": "3gio7",  "title": "Whatever" },
+        { "id": "262b8",  "title": "Amazing" },
+        { "id": "1la5s",  "title": "Okay" },
+        { "id": "25dlk",  "title": "Really?" },
+        { "id": "1lm1r",  "title": "Wow" },
+        { "id": "3c4yo",  "title": "Cool" }
+      ]
+    }
+  ]
+}

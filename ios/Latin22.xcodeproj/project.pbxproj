@@ -16,6 +16,7 @@
 		153AE5E5E4C4195403FF4510 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E25DFDBA77DBDDAB5348B6 /* SettingsView.swift */; };
 		15B49F7E82A7B923AE82C0E5 /* mappings.json in Resources */ = {isa = PBXBuildFile; fileRef = 433AAFBADF9FF03AC269E037 /* mappings.json */; };
 		37EA64FFD9EC4BA135ECC223 /* Latin22Keyboard.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9A87A5D916B7E4F7A8641402 /* Latin22Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3BDC2B3E5C97EE5128556BA1 /* clips.json in Resources */ = {isa = PBXBuildFile; fileRef = 8147810170EB40F65AB4241F /* clips.json */; };
 		434D3CD2E6DB33CA592A71F5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4165307236D07217E95395B0 /* ContentView.swift */; };
 		68B63C239DCCC56FABDE40CF /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC5405667B23714BC8BA5E /* EmojiPickerView.swift */; };
 		910782942237F9435C57E719 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D8DC4AD7B7782C88ECF423 /* KeyboardViewController.swift */; };
@@ -55,6 +56,7 @@
 		4B7E4683A2812274D2362E2C /* ProfileEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditorView.swift; sourceTree = "<group>"; };
 		70D8DC4AD7B7782C88ECF423 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		7F202DD02178FDAF0500628F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8147810170EB40F65AB4241F /* clips.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = clips.json; sourceTree = "<group>"; };
 		9A87A5D916B7E4F7A8641402 /* Latin22Keyboard.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = Latin22Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3E25DFDBA77DBDDAB5348B6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B1128689E7161A8160B815E1 /* Latin22App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Latin22App.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 		6EE5B86EAD833781A91654F9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8147810170EB40F65AB4241F /* clips.json */,
 				433AAFBADF9FF03AC269E037 /* mappings.json */,
 			);
 			path = Resources;
@@ -226,6 +229,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BDC2B3E5C97EE5128556BA1 /* clips.json in Resources */,
 				15B49F7E82A7B923AE82C0E5 /* mappings.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
