@@ -133,7 +133,6 @@ final class KeyboardView: UIView {
         // Remove key button subviews (emoji picker stays in hierarchy, just hidden).
         subviews.filter { $0 !== emojiPicker }.forEach { $0.removeFromSuperview() }
         keyButtons.removeAll()
-        calloutView = nil
 
         if mode == .emoji {
             showEmojiView()
