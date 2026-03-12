@@ -214,7 +214,12 @@ final class KeyboardView: UIView {
         } else {
             btn.setTitle(key.label, for: .normal)
             btn.titleLabel?.font = font(for: key.style)
-            btn.setTitleColor(keyText, for: .normal)
+            // Subdued muted color for the language code on the space bar
+            let isLangSpace = key.action == .space && availableLanguages.count > 1
+            btn.setTitleColor(isLangSpace ? keyText.withAlphaComponent(0.45) : keyText, for: .normal)
+            if isLangSpace {
+                btn.titleLabel?.font = .systemFont(ofSize: 13, weight: .regular)
+            }
         }
         btn.backgroundColor = bgColor(for: key.style)
 
@@ -281,7 +286,7 @@ final class KeyboardView: UIView {
             row4.append(KeyModel(label: "😊", action: .switchToMode(.emoji), widthWeight: 1.5, style: .function))
         }
         row4.append(KeyModel(label: spaceLbl, action: .space,     widthWeight: showsEmojiKey ? 4.5 : 6.0, style: .spaceBar))
-        row4.append(KeyModel(label: "return", action: .returnKey, widthWeight: 2.0, style: .returnStyle))
+        row4.append(KeyModel(label: "", action: .returnKey, widthWeight: 2.0, style: .returnStyle, symbolName: "return"))
 
         return [row1, row2, row3, row4]
     }
