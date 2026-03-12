@@ -56,6 +56,9 @@ targets:
         UILaunchScreen: {}
     entitlements:
       path: Latin22App/Latin22.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.latin22.shared
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.latin22.app
@@ -91,6 +94,9 @@ targets:
           NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).KeyboardViewController
     entitlements:
       path: Latin22Keyboard/Latin22Keyboard.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.latin22.shared
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.latin22.app.keyboard

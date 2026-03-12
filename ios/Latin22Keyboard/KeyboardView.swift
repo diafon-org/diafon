@@ -214,16 +214,11 @@ final class KeyboardView: UIView {
         "zxcvbnm".forEach { row3.append(letter(String($0))) }
         row3.append(KeyModel(label: "", action: .backspace, widthWeight: 1.5, style: .function, symbolName: "delete.backward"))
 
-        let emojiKey  = KeyModel(label: "😊", action: .emojiKeyboard, widthWeight: 1.5, style: .function)
+        let emojiKey  = KeyModel(label: "😊", action: .switchToMode(.emoji), widthWeight: 1.5, style: .function)
         let numKey    = KeyModel(label: "123",  action: .switchToMode(.numeric), widthWeight: 1.5, style: .function)
-        let spaceW: CGFloat = showsEmojiKey ? 4.5 : 6.0
-        let row4: [KeyModel] = showsEmojiKey
-            ? [numKey, emojiKey,
-               KeyModel(label: "space",  action: .space,     widthWeight: spaceW, style: .spaceBar),
-               KeyModel(label: "return", action: .returnKey, widthWeight: 2.0,    style: .returnStyle)]
-            : [numKey,
-               KeyModel(label: "space",  action: .space,     widthWeight: spaceW, style: .spaceBar),
-               KeyModel(label: "return", action: .returnKey, widthWeight: 2.0,    style: .returnStyle)]
+        let row4: [KeyModel] = [numKey, emojiKey,
+               KeyModel(label: "space",  action: .space,     widthWeight: 4.5, style: .spaceBar),
+               KeyModel(label: "return", action: .returnKey, widthWeight: 2.0, style: .returnStyle)]
 
         return [row1, row2, row3, row4]
     }
