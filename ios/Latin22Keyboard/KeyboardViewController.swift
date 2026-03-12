@@ -1,27 +1,12 @@
 /// UIInputViewController subclass — wires the keyboard view to the engine and text proxy.
 import UIKit
 
-// MARK: - EmojiTextField
-
-/// Invisible text field whose textInputMode is always the system emoji keyboard.
-/// Becoming first responder hands input focus to the emoji keyboard.
-private final class EmojiTextField: UITextField {
-    override var textInputMode: UITextInputMode? {
-        UITextInputMode.activeInputModes.first { $0.primaryLanguage == "emoji" }
-    }
-}
-
 // MARK: - KeyboardViewController
 
 final class KeyboardViewController: UIInputViewController {
 
-    // iOS 26 shows the globe at the system level below the keyboard.
-    // Returning false prevents iOS from injecting its own globe button into our view.
-    override var needsInputModeSwitchKey: Bool { false }
-
     private var keyboardView: KeyboardView!
-    private var engine: MappingEngine!
-    private let emojiTextField = EmojiTextField()
+    private var engine: MappingEngine?
 
     // Fixed keyboard height (portrait phone).  Landscape / iPad gets same value for now.
     private let keyboardHeight: CGFloat = 226
@@ -37,12 +22,6 @@ final class KeyboardViewController: UIInputViewController {
         keyboardView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(keyboardView)
 
-        // Hidden text field used to hand focus to the system emoji keyboard.
-        // Needs a non-zero frame to participate in the responder chain.
-        emojiTextField.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
-        emojiTextField.alpha = 0
-        view.addSubview(emojiTextField)
-
         NSLayoutConstraint.activate([
             keyboardView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             keyboardView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -55,10 +34,18 @@ final class KeyboardViewController: UIInputViewController {
         hc.priority = UILayoutPriority(999)
         hc.isActive = true
 
-        // Initial load — ensures engine is never nil before viewWillAppear.
+        // Initial load — ensures engine is ready before viewWillAppear.
         let (mappings, modifiers) = loadMappings()
         engine = MappingEngine(mappings: mappings, modifierKeys: modifiers)
+        applyKeyboardPrefs()
         syncKeyboardLanguages()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // Sync prefs after the view is fully on-screen (active input modes
+        // may not be populated until after the keyboard is visible).
+        applyKeyboardPrefs()
     }
 
     // Reload mappings each time the keyboard appears so profile changes
@@ -67,13 +54,18 @@ final class KeyboardViewController: UIInputViewController {
         super.viewWillAppear(animated)
         let (mappings, modifiers) = loadMappings()
         engine = MappingEngine(mappings: mappings, modifierKeys: modifiers)
-        keyboardView.showsEmojiKey = UITextInputMode.activeInputModes.contains { $0.primaryLanguage == "emoji" }
+        applyKeyboardPrefs()
         syncKeyboardLanguages()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        keyboardView.cancelDeleteTimer()
     }
 
     // Reset engine whenever the user moves to a different text field.
     override func textWillChange(_ textInput: (any UITextInput)?) {
-        engine.reset()
+        engine?.reset()
     }
 
     // MARK: - Mappings
@@ -145,6 +137,15 @@ final class KeyboardViewController: UIInputViewController {
         keyboardView.currentLanguageID  = activeLangID
     }
 
+    private func applyKeyboardPrefs() {
+        let suite = UserDefaults(suiteName: "group.com.latin22.shared")
+        let emojiPref    = (suite?.object(forKey: "emojiKeyEnabled")    as? Bool) ?? true
+        let spacebarPref = (suite?.object(forKey: "spacebarLangSwitch") as? Bool) ?? true
+        let systemHasEmoji = UITextInputMode.activeInputModes.contains { $0.primaryLanguage == "emoji" }
+        keyboardView.showsEmojiKey             = emojiPref && systemHasEmoji
+        keyboardView.spacebarLangSwitchEnabled = spacebarPref
+    }
+
     private func switchLanguage(to langID: String) {
         guard let file = mappingsFile,
               let lang = file.languages.first(where: { $0.id == langID })
@@ -158,14 +159,14 @@ final class KeyboardViewController: UIInputViewController {
         suite?.set(defaultLayerIDs,   forKey: "activeLayerIDs")
         let (mappings, modifiers) = loadMappings()
         engine = MappingEngine(mappings: mappings, modifierKeys: modifiers)
-        engine.reset()
+        engine?.reset()
         keyboardView.currentLanguageID = langID
     }
 
     // MARK: - Applying engine result
 
-    private func apply(_ result: MappingEngine.ProcessResult) {
-        guard case .replace(let n, let text) = result else { return }
+    private func apply(_ result: MappingEngine.ProcessResult?) {
+        guard let result, case .replace(let n, let text) = result else { return }
         let proxy = textDocumentProxy
         (0 ..< n).forEach { _ in proxy.deleteBackward() }
         proxy.insertText(text)
@@ -185,25 +186,25 @@ extension KeyboardViewController: KeyboardViewDelegate {
             // Insert the character first so the user sees it immediately, then correct.
             proxy.insertText(s)
             guard let c = s.unicodeScalars.first.map(Character.init) else { return }
-            apply(engine.process(c))
+            apply(engine?.process(c))
 
         case .space:
-            engine.flush()
+            engine?.flush()
             proxy.insertText(" ")
 
         case .returnKey:
-            engine.flush()
+            engine?.flush()
             proxy.insertText("\n")
 
         case .backspace:
-            engine.processBackspace()
+            engine?.processBackspace()
             proxy.deleteBackward()
 
         case .nextKeyboard:
             advanceToNextInputMode()
 
         case .emojiKeyboard:
-            emojiTextField.becomeFirstResponder()
+            break   // handled inside KeyboardView via EmojiPickerView
 
         case .switchLanguage(let id):
             switchLanguage(to: id)

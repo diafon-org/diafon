@@ -28,8 +28,6 @@
 			<true/>
 			<key>PrefersRightToLeft</key>
 			<false/>
-			<key>PrimaryLanguage</key>
-			<string>en-US</string>
 			<key>RequestsOpenAccess</key>
 			<false/>
 		</dict>

@@ -20,9 +20,11 @@ final class ProfileStore: ObservableObject {
     // MARK: - Keys
 
     private enum Keys {
-        static let activeLanguageID = "activeLanguageID"
-        static let activeLayerIDs   = "activeLayerIDs"
-        static let userProfiles     = "userProfiles"
+        static let activeLanguageID        = "activeLanguageID"
+        static let activeLayerIDs          = "activeLayerIDs"
+        static let userProfiles            = "userProfiles"
+        static let emojiKeyEnabled         = "emojiKeyEnabled"
+        static let spacebarLangSwitch      = "spacebarLangSwitch"
     }
 
     // MARK: - State
@@ -32,6 +34,8 @@ final class ProfileStore: ObservableObject {
     @Published private(set) var activeLanguageID: String
     @Published private(set) var activeLayerIDs: Set<String>
     @Published private(set) var userProfiles: [Profile] = []
+    @Published var emojiKeyEnabled: Bool = true
+    @Published var spacebarLangSwitch: Bool = true
 
     var activeLanguage: Language {
         allLanguages.first { $0.id == activeLanguageID }
@@ -62,6 +66,10 @@ final class ProfileStore: ObservableObject {
             userProfiles = decoded
         }
 
+        // Keyboard appearance prefs — default to true if not yet set
+        emojiKeyEnabled    = (shared.object(forKey: Keys.emojiKeyEnabled)    as? Bool) ?? true
+        spacebarLangSwitch = (shared.object(forKey: Keys.spacebarLangSwitch) as? Bool) ?? true
+
         persistMergedProfile()
     }
     func activateLanguage(_ id: String) {
@@ -79,6 +87,18 @@ final class ProfileStore: ObservableObject {
             shared.set(Array(activeLayerIDs), forKey: Keys.activeLayerIDs)
         }
         persistMergedProfile()
+    }
+
+    // MARK: - Keyboard appearance prefs
+
+    func setEmojiKeyEnabled(_ value: Bool) {
+        emojiKeyEnabled = value
+        shared.set(value, forKey: Keys.emojiKeyEnabled)
+    }
+
+    func setSpacebarLangSwitch(_ value: Bool) {
+        spacebarLangSwitch = value
+        shared.set(value, forKey: Keys.spacebarLangSwitch)
     }
 
     // MARK: - Layer toggling

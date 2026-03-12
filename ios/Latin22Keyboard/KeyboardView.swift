@@ -60,6 +60,11 @@ final class KeyboardView: UIView {
         didSet { guard oldValue != currentLanguageID else { return }; lastBuiltSize = .zero; setNeedsLayout() }
     }
 
+    /// When false the long-press language picker on the space bar is suppressed.
+    var spacebarLangSwitchEnabled: Bool = true {
+        didSet { guard oldValue != spacebarLangSwitchEnabled else { return }; lastBuiltSize = .zero; setNeedsLayout() }
+    }
+
     private(set) var mode: KeyboardMode = .alpha
     private(set) var shiftState: ShiftState = .off
 
@@ -68,8 +73,7 @@ final class KeyboardView: UIView {
     private var lastBuiltSize: CGSize = .zero
     private var calloutView: UIView?
     private var langPickerView: UIView?
-    private var emojiPicker: EmojiPickerView?
-
+    private var emojiPicker: EmojiPickerView!
 
 
     // MARK: Layout constants (recalculated from actual bounds in layoutSubviews)
@@ -89,6 +93,22 @@ final class KeyboardView: UIView {
 
     private func setup() {
         backgroundColor = .clear
+        // Add the emoji picker once and keep it in the hierarchy permanently.
+        // Showing/hiding via isHidden avoids addSubview + NSLayoutConstraint.activate
+        // being called from inside layoutSubviews, which corrupts UIKit's internal
+        // layout tables and causes the *** key cannot be nil crash.
+        let picker = EmojiPickerView()
+        picker.delegate = self
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        picker.isHidden = true
+        addSubview(picker)
+        NSLayoutConstraint.activate([
+            picker.leadingAnchor.constraint(equalTo: leadingAnchor),
+            picker.trailingAnchor.constraint(equalTo: trailingAnchor),
+            picker.topAnchor.constraint(equalTo: topAnchor),
+            picker.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+        emojiPicker = picker
     }
 
     // MARK: - Layout
@@ -111,7 +131,7 @@ final class KeyboardView: UIView {
     private func buildKeys() {
         hideLangPicker()
         lastBuiltSize = bounds.size
-        // Remove key subviews, preserving the emoji picker if present.
+        // Remove key button subviews (emoji picker stays in hierarchy, just hidden).
         subviews.filter { $0 !== emojiPicker }.forEach { $0.removeFromSuperview() }
         keyButtons.removeAll()
         calloutView = nil
@@ -208,7 +228,7 @@ final class KeyboardView: UIView {
             btn.addGestureRecognizer(lp)
         }
 
-        if key.action == .space, availableLanguages.count > 1 {
+        if key.action == .space, availableLanguages.count > 1, spacebarLangSwitchEnabled {
             let lp = UILongPressGestureRecognizer(target: self, action: #selector(spaceLong(_:)))
             lp.minimumPressDuration = 0.4
             btn.addGestureRecognizer(lp)
@@ -254,12 +274,14 @@ final class KeyboardView: UIView {
         "zxcvbnm".forEach { row3.append(letter(String($0))) }
         row3.append(KeyModel(label: "", action: .backspace, widthWeight: 1.5, style: .function, symbolName: "delete.backward"))
 
-        let emojiKey  = KeyModel(label: "😊", action: .switchToMode(.emoji), widthWeight: 1.5, style: .function)
-        let numKey    = KeyModel(label: "123",  action: .switchToMode(.numeric), widthWeight: 1.5, style: .function)
-        let spaceLbl  = availableLanguages.count > 1 ? currentLanguageID.uppercased() : "space"
-        let row4: [KeyModel] = [numKey, emojiKey,
-               KeyModel(label: spaceLbl,  action: .space,     widthWeight: 4.5, style: .spaceBar),
-               KeyModel(label: "return", action: .returnKey, widthWeight: 2.0, style: .returnStyle)]
+        let numKey   = KeyModel(label: "123", action: .switchToMode(.numeric), widthWeight: 1.5, style: .function)
+        let spaceLbl = availableLanguages.count > 1 ? currentLanguageID.uppercased() : "space"
+        var row4: [KeyModel] = [numKey]
+        if showsEmojiKey {
+            row4.append(KeyModel(label: "😊", action: .switchToMode(.emoji), widthWeight: 1.5, style: .function))
+        }
+        row4.append(KeyModel(label: spaceLbl, action: .space,     widthWeight: showsEmojiKey ? 4.5 : 6.0, style: .spaceBar))
+        row4.append(KeyModel(label: "return", action: .returnKey, widthWeight: 2.0, style: .returnStyle))
 
         return [row1, row2, row3, row4]
     }
@@ -322,10 +344,15 @@ final class KeyboardView: UIView {
                 self.delegate?.keyboardView(self, didProduceAction: .backspace)
             }
         case .ended, .cancelled, .failed:
-            deleteTimer?.invalidate()
-            deleteTimer = nil
+            cancelDeleteTimer()
         default: break
         }
+    }
+
+    /// Cancel the repeat-delete timer — call from KVC's viewWillDisappear.
+    func cancelDeleteTimer() {
+        deleteTimer?.invalidate()
+        deleteTimer = nil
     }
 
     @objc private func spaceLong(_ g: UILongPressGestureRecognizer) {
@@ -437,23 +464,28 @@ final class KeyboardView: UIView {
             // avoids allocating/deallocating 35+ UIButton objects per keypress.
             if shiftState == .once {
                 shiftState = .off
+                // Collect mutations first — mutating keyButtons while iterating
+                // over it is undefined behaviour and causes the nil-key crash.
+                var updates: [(UIButton, KeyModel)] = []
                 for (btn, model) in keyButtons {
                     if case .character(let s) = model.action, s.count == 1, s == s.uppercased(), s != s.lowercased() {
                         let lower = s.lowercased()
                         btn.setTitle(lower, for: .normal)
-                        keyButtons[btn] = KeyModel(label: lower, action: .character(lower),
-                                                   widthWeight: model.widthWeight, style: model.style)
+                        updates.append((btn, KeyModel(label: lower, action: .character(lower),
+                                                      widthWeight: model.widthWeight, style: model.style)))
                     }
                     if model.action == .shift {
                         btn.backgroundColor = bgColor(for: .function)
                         let symConf = UIImage.SymbolConfiguration(pointSize: 17, weight: .light)
-                        if let img = UIImage(systemName: "shift")?                                     .withConfiguration(symConf)
-                                     .withRenderingMode(.alwaysTemplate) {
+                        if let img = UIImage(systemName: "shift")?
+                                         .withConfiguration(symConf)
+                                         .withRenderingMode(.alwaysTemplate) {
                             btn.setImage(img, for: .normal)
                             btn.tintColor = keyText
                         }
                     }
                 }
+                for (btn, model) in updates { keyButtons[btn] = model }
             }
             delegate?.keyboardView(self, didProduceAction: action)
 
@@ -491,27 +523,12 @@ final class KeyboardView: UIView {
     // MARK: - Emoji view helpers
 
     private func showEmojiView() {
-        let picker: EmojiPickerView
-        if let existing = emojiPicker {
-            picker = existing
-        } else {
-            picker = EmojiPickerView()
-            picker.delegate = self
-            emojiPicker = picker
-        }
-        guard picker.superview == nil else { return }
-        picker.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(picker)
-        NSLayoutConstraint.activate([
-            picker.leadingAnchor.constraint(equalTo: leadingAnchor),
-            picker.trailingAnchor.constraint(equalTo: trailingAnchor),
-            picker.topAnchor.constraint(equalTo: topAnchor),
-            picker.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        emojiPicker.isHidden = false
+        bringSubviewToFront(emojiPicker)
     }
 
     private func hideEmojiView() {
-        emojiPicker?.removeFromSuperview()
+        emojiPicker.isHidden = true
     }
 }
 
