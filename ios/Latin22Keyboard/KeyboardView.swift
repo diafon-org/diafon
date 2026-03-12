@@ -71,7 +71,6 @@ final class KeyboardView: UIView {
     private var keyButtons: [UIButton: KeyModel] = [:]
     private var deleteTimer: Timer?
     private var lastBuiltSize: CGSize = .zero
-    private var calloutView: UIView?
     private var langPickerView: UIView?
     private var emojiPicker: EmojiPickerView!
 
@@ -324,7 +323,6 @@ final class KeyboardView: UIView {
     @objc private func down(_ sender: UIButton) {
         guard let m = keyButtons[sender] else { return }
         sender.backgroundColor = highlight(for: m.style)
-        if case .character(let s) = m.action { showCallout(for: sender, character: s) }
     }
 
     @objc private func up(_ sender: UIButton) {
@@ -333,7 +331,6 @@ final class KeyboardView: UIView {
         if m.action == .shift, shiftState != .off {
             sender.backgroundColor = shiftActiveColor
         }
-        hideCallout()
     }
 
     @objc private func tapped(_ sender: UIButton) {
@@ -413,38 +410,6 @@ final class KeyboardView: UIView {
         let lang = availableLanguages[sender.tag]
         hideLangPicker()
         handleAction(.switchLanguage(lang.id))
-    }
-
-    // MARK: - Key callout
-
-    private func showCallout(for btn: UIButton, character: String) {
-        hideCallout()
-        guard btn.frame.minY > topPad + 4 else { return }  // skip top row
-        let calloutH: CGFloat = 48
-        let calloutW = max(btn.frame.width + 8, CGFloat(44))
-        let x = max(4, min(btn.frame.midX - calloutW / 2, bounds.width - calloutW - 4))
-        let y = btn.frame.minY - calloutH - 2
-        let v = UIView(frame: CGRect(x: x, y: y, width: calloutW, height: calloutH))
-        v.isUserInteractionEnabled = false
-        v.backgroundColor = bgColor(for: .character)
-        v.layer.cornerRadius = 10
-        v.layer.shadowColor   = UIColor.black.cgColor
-        v.layer.shadowOpacity = 0.20
-        v.layer.shadowRadius  = 4
-        v.layer.shadowOffset  = CGSize(width: 0, height: -1)
-        let lbl = UILabel(frame: v.bounds)
-        lbl.text = character
-        lbl.font = .systemFont(ofSize: 26, weight: .light)
-        lbl.textColor = keyText
-        lbl.textAlignment = .center
-        v.addSubview(lbl)
-        addSubview(v)
-        calloutView = v
-    }
-
-    private func hideCallout() {
-        calloutView?.removeFromSuperview()
-        calloutView = nil
     }
 
     private func handleAction(_ action: KeyActionType) {
