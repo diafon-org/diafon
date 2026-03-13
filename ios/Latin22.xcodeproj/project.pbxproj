@@ -20,6 +20,7 @@
 		434D3CD2E6DB33CA592A71F5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4165307236D07217E95395B0 /* ContentView.swift */; };
 		68B63C239DCCC56FABDE40CF /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC5405667B23714BC8BA5E /* EmojiPickerView.swift */; };
 		910782942237F9435C57E719 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D8DC4AD7B7782C88ECF423 /* KeyboardViewController.swift */; };
+		93E028925F192AEECBDCF99A /* emojis.json in Resources */ = {isa = PBXBuildFile; fileRef = 61572305A801F80BE51E9A1C /* emojis.json */; };
 		A36B8CBC50E9880B5FDE9854 /* Latin22App.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1128689E7161A8160B815E1 /* Latin22App.swift */; };
 		B9B58EFCA9398C4CAE4539E1 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1ED9112748396F4924C49DD /* Profile.swift */; };
 		D509D7C0DB7730E439AD988B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D8852D60270B39F29B9302 /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 		4165307236D07217E95395B0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		433AAFBADF9FF03AC269E037 /* mappings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mappings.json; sourceTree = "<group>"; };
 		4B7E4683A2812274D2362E2C /* ProfileEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditorView.swift; sourceTree = "<group>"; };
+		61572305A801F80BE51E9A1C /* emojis.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = emojis.json; sourceTree = "<group>"; };
 		70D8DC4AD7B7782C88ECF423 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		7F202DD02178FDAF0500628F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8147810170EB40F65AB4241F /* clips.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = clips.json; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				8147810170EB40F65AB4241F /* clips.json */,
+				61572305A801F80BE51E9A1C /* emojis.json */,
 				433AAFBADF9FF03AC269E037 /* mappings.json */,
 			);
 			path = Resources;
@@ -230,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BDC2B3E5C97EE5128556BA1 /* clips.json in Resources */,
+				93E028925F192AEECBDCF99A /* emojis.json in Resources */,
 				15B49F7E82A7B923AE82C0E5 /* mappings.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

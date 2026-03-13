@@ -3,15 +3,20 @@ import UIKit
 // MARK: - Emoji data (loaded from emojis.json)
 //
 // emojis.json schema:
-//   tabs:  [{ id, symbolName }]          — ordered tab definitions
-//   emoji: [{ char, tabs: [tabId, ...] }]  — master list; tabs:[] = unused (not shown)
+//   tabs:  [{ id, symbolName }]                        — ordered tab definitions
+//   emoji: [{ char, name, tabs: [tabId, ...] }]         — master list; tabs:[] = unused
 //
 // To add/remove/reassign emoji, edit emojis.json only — no code changes needed.
+
+private struct EmojiEntry {
+    let char: String
+    let name: String
+}
 
 private struct EmojiTab {
     let id: String
     let symbolName: String
-    var emoji: [String] = []
+    var entries: [EmojiEntry] = []
 }
 
 private func loadEmojiTabs() -> [EmojiTab] {
@@ -37,12 +42,14 @@ private func loadEmojiTabs() -> [EmojiTab] {
             let char = entry["char"] as? String,
             let assignedIDs = entry["tabs"] as? [String]
         else { continue }
+        let name = entry["name"] as? String ?? ""
+        let emojiEntry = EmojiEntry(char: char, name: name)
         for tid in assignedIDs {
-            if let i = tabIndex[tid] { tabs[i].emoji.append(char) }
+            if let i = tabIndex[tid] { tabs[i].entries.append(emojiEntry) }
         }
     }
     // Drop tabs that ended up with no emoji
-    return tabs.filter { !$0.emoji.isEmpty }
+    return tabs.filter { !$0.entries.isEmpty }
 }
 
 private let kEmojiTabs: [EmojiTab] = loadEmojiTabs()
@@ -254,7 +261,7 @@ extension EmojiPickerView: UICollectionViewDataSource {
     func collectionView(_ cv: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         isClipsTab
             ? kClipCategories[clipsIndex].clips.count
-            : kEmojiTabs[selectedCategory].emoji.count
+            : kEmojiTabs[selectedCategory].entries.count
     }
     func collectionView(_ cv: UICollectionView, cellForItemAt ip: IndexPath) -> UICollectionViewCell {
         if isClipsTab {
@@ -263,7 +270,8 @@ extension EmojiPickerView: UICollectionViewDataSource {
             return cell
         } else {
             let cell = cv.dequeueReusableCell(withReuseIdentifier: "emoji", for: ip) as! EmojiCell
-            cell.label.text = kEmojiTabs[selectedCategory].emoji[ip.item]
+            let entry = kEmojiTabs[selectedCategory].entries[ip.item]
+            cell.configure(char: entry.char, name: entry.name)
             return cell
         }
     }
@@ -277,7 +285,7 @@ extension EmojiPickerView: UICollectionViewDelegate {
             let clip = kClipCategories[clipsIndex].clips[ip.item]
             delegate?.emojiPickerView(self, didSelectEmoji: clip.url)
         } else {
-            let emoji = kEmojiTabs[selectedCategory].emoji[ip.item]
+            let emoji = kEmojiTabs[selectedCategory].entries[ip.item].char
             delegate?.emojiPickerView(self, didSelectEmoji: emoji)
         }
     }
@@ -318,19 +326,26 @@ extension EmojiPickerView: UICollectionViewDelegateFlowLayout {
 // MARK: - EmojiCell
 
 private final class EmojiCell: UICollectionViewCell {
-    let label = UILabel()
+    private let emojiLabel = UILabel()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        label.font = .systemFont(ofSize: 28)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(label)
+        emojiLabel.font = .systemFont(ofSize: 28)
+        emojiLabel.textAlignment = .center
+        emojiLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(emojiLabel)
         NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            emojiLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            emojiLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
         ])
     }
     required init?(coder: NSCoder) { fatalError() }
+
+    // name is loaded from emojis.json and carried in EmojiEntry but not displayed —
+    // it serves as documentation/searchability in the JSON file.
+    func configure(char: String, name: String) {
+        emojiLabel.text = char
+    }
 }
 
 // MARK: - ClipCell
