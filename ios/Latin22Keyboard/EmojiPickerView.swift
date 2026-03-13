@@ -1,41 +1,51 @@
 import UIKit
 
-// MARK: - Data
+// MARK: - Emoji data (loaded from emojis.json)
+//
+// emojis.json schema:
+//   tabs:  [{ id, symbolName }]          — ordered tab definitions
+//   emoji: [{ char, tabs: [tabId, ...] }]  — master list; tabs:[] = unused (not shown)
+//
+// To add/remove/reassign emoji, edit emojis.json only — no code changes needed.
 
-private struct EmojiCategory {
+private struct EmojiTab {
+    let id: String
     let symbolName: String
-    let emoji: [String]
+    var emoji: [String] = []
 }
 
-// Curated / trimmed emoji list — most-used only
-private let kEmojiCategories: [EmojiCategory] = [
-    EmojiCategory(symbolName: "face.smiling", emoji: [
-        "😀","😂","🤣","😊","😍","🥰","😘","😎","🤔","🙄","😅","😆","😁",
-        "😢","😭","😤","😡","🤯","🥺","😳","😱","🤗","😏","🙃","😴","😷",
-        "🤒","😵","👿","💀","💩","🤡","👻","🤖",
-        "👋","👌","✌️","🤞","👍","👎","👏","🙏","💪","🖕",
-    ]),
-    EmojiCategory(symbolName: "pawprint", emoji: [
-        "🐶","🐱","🐭","🐰","🦊","🐻","🐼","🐯","🦁","🐸","🐵","🙈","🙉","🙊",
-        "🐧","🦆","🦉","🦋","🐝","🐢","🐍","🐙","🐬","🐳","🦈","🐘","🦄",
-        "🌸","🌻","🌈","❄️","🔥","💧","🌊","⭐","🌙","🌞",
-    ]),
-    EmojiCategory(symbolName: "fork.knife", emoji: [
-        "🍕","🍔","🌮","🌯","🍜","🍣","🍱","🍗","🥩","🌭","🍟","🥗","🍩","🎂",
-        "🍺","☕","🧋","🥂","🍷","🍸","🥃",
-        "🍎","🍊","🍋","🍌","🍉","🍇","🍓","🍒","🥑","🥕","🌽","🥦",
-    ]),
-    EmojiCategory(symbolName: "sportscourt", emoji: [
-        "⚽","🏀","🏈","⚾","🎾","🏐","🎱","🏓","🎯","🎮","🕹","🧩","🎲",
-        "🏆","🥇","🥈","🥉","🎉","🎊","🎈","🎁","🎀","🎬","🎤","🎧","🎸","🎹","🥁",
-    ]),
-    EmojiCategory(symbolName: "heart", emoji: [
-        "❤️","🧡","💛","💚","💙","💜","🖤","🤍","💔","💕","💖","💘","💝",
-        "✅","❌","💯","⚠️","🚫","❗","❓","‼️",
-        "🔴","🟡","🟢","🔵","⚫","⚪",
-        "🏁","🚩","🏳️‍🌈","🏴‍☠️",
-    ]),
-]
+private func loadEmojiTabs() -> [EmojiTab] {
+    guard
+        let url  = Bundle(for: EmojiPickerView.self).url(forResource: "emojis", withExtension: "json"),
+        let data = try? Data(contentsOf: url),
+        let root = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+        let rawTabs  = root["tabs"]  as? [[String: Any]],
+        let rawEmoji = root["emoji"] as? [[String: Any]]
+    else { return [] }
+
+    var tabs = rawTabs.compactMap { t -> EmojiTab? in
+        guard let id = t["id"] as? String, let sym = t["symbolName"] as? String else { return nil }
+        return EmojiTab(id: id, symbolName: sym)
+    }
+    // Index tabs by id for fast lookup
+    var tabIndex = [String: Int]()
+    for (i, t) in tabs.enumerated() { tabIndex[t.id] = i }
+
+    // Distribute emoji into tabs preserving order
+    for entry in rawEmoji {
+        guard
+            let char = entry["char"] as? String,
+            let assignedIDs = entry["tabs"] as? [String]
+        else { continue }
+        for tid in assignedIDs {
+            if let i = tabIndex[tid] { tabs[i].emoji.append(char) }
+        }
+    }
+    // Drop tabs that ended up with no emoji
+    return tabs.filter { !$0.emoji.isEmpty }
+}
+
+private let kEmojiTabs: [EmojiTab] = loadEmojiTabs()
 
 // MARK: - Clip data
 
@@ -93,10 +103,10 @@ final class EmojiPickerView: UIView {
     private let abcButton = UIButton(type: .custom)
     private let categoryStack = UIStackView()
     private var categoryButtons: [UIButton] = []
-    private var selectedCategory = 0   // 0..<kEmojiCategories.count = emoji; above = clips
+    private var selectedCategory = 0   // 0..<kEmojiTabs.count = emoji; above = clips
 
-    private var isClipsTab: Bool { selectedCategory >= kEmojiCategories.count }
-    private var clipsIndex: Int  { selectedCategory - kEmojiCategories.count }
+    private var isClipsTab: Bool { selectedCategory >= kEmojiTabs.count }
+    private var clipsIndex: Int  { selectedCategory - kEmojiTabs.count }
 
     override init(frame: CGRect) {
         let layout = UICollectionViewFlowLayout()
@@ -127,7 +137,7 @@ final class EmojiPickerView: UIView {
 
         let symConf = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular)
         // Emoji category tabs
-        for (i, cat) in kEmojiCategories.enumerated() {
+        for (i, cat) in kEmojiTabs.enumerated() {
             let btn = UIButton(type: .custom)
             btn.tag = i
             if let img = UIImage(systemName: cat.symbolName)?
@@ -142,7 +152,7 @@ final class EmojiPickerView: UIView {
         // Clips tabs (film.stack icon per category)
         for (i, cat) in kClipCategories.enumerated() {
             let btn = UIButton(type: .custom)
-            btn.tag = kEmojiCategories.count + i
+            btn.tag = kEmojiTabs.count + i
             let sym = cat.symbolName.isEmpty ? "film.stack" : cat.symbolName
             if let img = UIImage(systemName: sym)?
                             .withConfiguration(symConf)
@@ -244,7 +254,7 @@ extension EmojiPickerView: UICollectionViewDataSource {
     func collectionView(_ cv: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         isClipsTab
             ? kClipCategories[clipsIndex].clips.count
-            : kEmojiCategories[selectedCategory].emoji.count
+            : kEmojiTabs[selectedCategory].emoji.count
     }
     func collectionView(_ cv: UICollectionView, cellForItemAt ip: IndexPath) -> UICollectionViewCell {
         if isClipsTab {
@@ -253,7 +263,7 @@ extension EmojiPickerView: UICollectionViewDataSource {
             return cell
         } else {
             let cell = cv.dequeueReusableCell(withReuseIdentifier: "emoji", for: ip) as! EmojiCell
-            cell.label.text = kEmojiCategories[selectedCategory].emoji[ip.item]
+            cell.label.text = kEmojiTabs[selectedCategory].emoji[ip.item]
             return cell
         }
     }
@@ -267,7 +277,7 @@ extension EmojiPickerView: UICollectionViewDelegate {
             let clip = kClipCategories[clipsIndex].clips[ip.item]
             delegate?.emojiPickerView(self, didSelectEmoji: clip.url)
         } else {
-            let emoji = kEmojiCategories[selectedCategory].emoji[ip.item]
+            let emoji = kEmojiTabs[selectedCategory].emoji[ip.item]
             delegate?.emojiPickerView(self, didSelectEmoji: emoji)
         }
     }
