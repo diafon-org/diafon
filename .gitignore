@@ -1,0 +1,20 @@
+# Xcode user-specific state (window layout, editor positions)
+**/*.xcuserstate
+
+# Xcode derived data & build products
+DerivedData/
+build/
+*.xcarchive
+
+# Swift Package Manager
+.build/
+*.resolved
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
