@@ -79,4 +79,41 @@ final class MappingEngineTests: XCTestCase {
         _ = e.process("n")
         XCTAssertEqual(e.process("y"), .replace(deleteCount: 2, insert: "ņ"))
     }
+
+    // MARK: - Cross-modifier composite mappings
+
+    func testCrossModifierCompositeFires() {
+        // After ny→ņ, pressing q looks up "nyq" composite and fires it.
+        let e = engine(["ny": "ņ", "nyq": "ǹ"], modifiers: ["y", "q"])
+        _ = e.process("n")
+        _ = e.process("y")   // fires: ny→ņ  (deleteCount=2)
+        XCTAssertEqual(e.process("q"), .replace(deleteCount: 2, insert: "ǹ"))
+    }
+
+    func testCrossModifierWithNoMappingFallsThrough() {
+        // No "nyq" mapping — q falls through to normal buffer processing (no doubling).
+        let e = engine(["ny": "ņ"], modifiers: ["y", "q"])
+        _ = e.process("n")
+        _ = e.process("y")   // fires: ny→ņ
+        XCTAssertEqual(e.process("q"), .none)
+    }
+
+    func testQAfterQSubstitutionStillEscapes() {
+        // aq→á (q-triggered), then q escapes back to aq — unchanged behaviour.
+        let e = engine(["aq": "á"], modifiers: ["q"])
+        _ = e.process("a")
+        _ = e.process("q")   // fires: aq→á
+        XCTAssertEqual(e.process("q"), .replace(deleteCount: 2, insert: "aq"))
+    }
+
+    func testSmartEscapeRevertsToParentOutput() {
+        // nyq→ǹ, then q triggers smart escape: strip "q" from "nyq" → "ny"→ņ exists.
+        // Capital letters do not have composite mappings.
+        let e = engine(["ny": "ņ", "nyq": "ǹ"], modifiers: ["y", "q"])
+        _ = e.process("n")
+        _ = e.process("y")   // fires: ny→ņ
+        _ = e.process("q")   // fires composite: nyq→ǹ
+        // another q: sub.input="nyq", last=="q" → escape, smart escape strips "q"→"ny"→ņ
+        XCTAssertEqual(e.process("q"), .replace(deleteCount: 2, insert: "ņ"))
+    }
 }

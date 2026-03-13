@@ -63,9 +63,11 @@ final class KeyboardViewController: UIInputViewController {
         keyboardView.cancelDeleteTimer()
     }
 
-    // Reset engine whenever the user moves to a different text field.
+    // Reset engine and discard any pending writes whenever focus leaves the field.
     override func textWillChange(_ textInput: (any UITextInput)?) {
         engine?.reset()
+        writeQueue.removeAll(keepingCapacity: true)
+        isDrainingWrites = false
     }
 
     // MARK: - Mappings
@@ -163,13 +165,87 @@ final class KeyboardViewController: UIInputViewController {
         keyboardView.currentLanguageID = langID
     }
 
-    // MARK: - Applying engine result
+    // MARK: - Input queue
+    //
+    // The engine is called synchronously on touch-down so its state is always
+    // in step with the key sequence — regardless of IPC timing.
+    // The resulting write operations (insert / delete) are queued and applied
+    // to the proxy on the next run-loop pass.
+    //
+    // Consecutive inserts are merged into one item so a burst of plain characters
+    // costs a single proxy.insertText() call. Substitutions reclaim preceding
+    // queued inserts in-memory (no IPC) before falling back to deleteBackward().
 
-    private func apply(_ result: MappingEngine.ProcessResult?) {
-        guard let result, case .replace(let n, let text) = result else { return }
+    private enum QueuedWrite {
+        case insert(String)
+        case delete
+    }
+
+    private var writeQueue: ContiguousArray<QueuedWrite> = []
+    private var isDrainingWrites = false
+
+    // MARK: Engine integration (called synchronously on touch-down)
+
+    private func enqueueChar(_ c: Character, raw: String) {
+        if case .replace(let n, let text) = engine?.process(c) {
+            enqueueReplace(deleteCount: n, insert: text)
+        } else {
+            enqueueInsert(raw)
+        }
+    }
+
+    private func enqueueInsert(_ s: String) {
+        // Merge with the last queued insert so bursts become one insertText() call.
+        if !writeQueue.isEmpty, case .insert(let prev) = writeQueue[writeQueue.count - 1] {
+            writeQueue[writeQueue.count - 1] = .insert(prev + s)
+        } else {
+            writeQueue.append(.insert(s))
+        }
+        scheduleDrain()
+    }
+
+    private func enqueueReplace(deleteCount n: Int, insert text: String) {
+        // Reclaim up to n-1 chars from the tail of the write queue in-memory
+        // (they haven't reached the proxy yet — zero IPC needed).
+        // Any remainder targets text already committed to the proxy.
+        var remaining = n - 1
+        while remaining > 0, !writeQueue.isEmpty {
+            guard case .insert(let s) = writeQueue[writeQueue.count - 1] else { break }
+            if s.count <= remaining {
+                remaining -= s.count
+                writeQueue.removeLast()
+            } else {
+                writeQueue[writeQueue.count - 1] = .insert(String(s.dropLast(remaining)))
+                remaining = 0
+            }
+        }
+        for _ in 0..<remaining { writeQueue.append(.delete) }
+        writeQueue.append(.insert(text))
+        scheduleDrain()
+    }
+
+    private func scheduleDrain() {
+        guard !isDrainingWrites else { return }
+        isDrainingWrites = true
+        DispatchQueue.main.async { [weak self] in self?.drainWrites() }
+    }
+
+    private func drainWrites() {
+        let items = writeQueue
+        writeQueue.removeAll(keepingCapacity: true)
+        isDrainingWrites = false
         let proxy = textDocumentProxy
-        (0 ..< n).forEach { _ in proxy.deleteBackward() }
-        proxy.insertText(text)
+        for item in items {
+            switch item {
+            case .insert(let s): proxy.insertText(s)
+            case .delete:        proxy.deleteBackward()
+            }
+        }
+        // Catch up if new writes arrived during IPC.
+        if !writeQueue.isEmpty {
+            isDrainingWrites = true
+            DispatchQueue.main.async { [weak self] in self?.drainWrites() }
+        }
     }
 }
 
@@ -178,27 +254,27 @@ final class KeyboardViewController: UIInputViewController {
 extension KeyboardViewController: KeyboardViewDelegate {
 
     func keyboardView(_ view: KeyboardView, didProduceAction action: KeyActionType) {
-        let proxy = textDocumentProxy
-
         switch action {
 
         case .character(let s):
-            // Insert the character first so the user sees it immediately, then correct.
-            proxy.insertText(s)
-            guard let c = s.unicodeScalars.first.map(Character.init) else { return }
-            apply(engine?.process(c))
+            if let c = s.unicodeScalars.first.map(Character.init) {
+                enqueueChar(c, raw: s)  // engine called synchronously here
+            } else {
+                enqueueInsert(s)        // emoji / multi-scalar, bypass engine
+            }
 
         case .space:
-            engine?.flush()
-            proxy.insertText(" ")
+            engine?.reset()
+            enqueueInsert(" ")
 
         case .returnKey:
-            engine?.flush()
-            proxy.insertText("\n")
+            engine?.reset()
+            enqueueInsert("\n")
 
         case .backspace:
             engine?.processBackspace()
-            proxy.deleteBackward()
+            writeQueue.append(.delete)
+            scheduleDrain()
 
         case .nextKeyboard:
             advanceToNextInputMode()

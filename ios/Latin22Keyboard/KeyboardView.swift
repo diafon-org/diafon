@@ -92,6 +92,9 @@ final class KeyboardView: UIView {
 
     private func setup() {
         backgroundColor = .clear
+        // Allow two fingers to touch different keys simultaneously without
+        // the second touch cancelling the first (fixes rapid two-thumb typing).
+        isMultipleTouchEnabled = true
         // Add the emoji picker once and keep it in the hierarchy permanently.
         // Showing/hiding via isHidden avoids addSubview + NSLayoutConstraint.activate
         // being called from inside layoutSubviews, which corrupts UIKit's internal
@@ -322,6 +325,9 @@ final class KeyboardView: UIView {
     @objc private func down(_ sender: UIButton) {
         guard let m = keyButtons[sender] else { return }
         sender.backgroundColor = highlight(for: m.style)
+        // Fire character actions immediately on touch-down so rapid tapping
+        // can never lose a key between press and lift.
+        if case .character = m.action { handleAction(m.action) }
     }
 
     @objc private func up(_ sender: UIButton) {
@@ -334,6 +340,8 @@ final class KeyboardView: UIView {
 
     @objc private func tapped(_ sender: UIButton) {
         guard let m = keyButtons[sender] else { return }
+        // .character was already dispatched on touchDown — skip to avoid double-fire.
+        if case .character = m.action { return }
         handleAction(m.action)
     }
 
@@ -411,6 +419,10 @@ final class KeyboardView: UIView {
         handleAction(.switchLanguage(lang.id))
     }
 
+    // Tracks whether the last typed character was non-alphanumeric so that
+    // pressing space after punctuation can auto-return to alpha mode.
+    private var lastCharWasNonAlnum = false
+
     private func handleAction(_ action: KeyActionType) {
         hideLangPicker()
         switch action {
@@ -427,7 +439,9 @@ final class KeyboardView: UIView {
             if m == .alpha || m == .emoji { shiftState = .off }
             buildKeys()
 
-        case .character:
+        case .character(let s):
+            // Track whether this char is non-alphanumeric for space auto-switch.
+            lastCharWasNonAlnum = s.unicodeScalars.allSatisfy { !CharacterSet.alphanumerics.contains($0) }
             // Auto-cancel one-shot shift after a character is typed.
             // Relabel buttons in-place instead of calling buildKeys() —
             // avoids allocating/deallocating 35+ UIButton objects per keypress.
@@ -456,6 +470,16 @@ final class KeyboardView: UIView {
                 }
                 for (btn, model) in updates { keyButtons[btn] = model }
             }
+            delegate?.keyboardView(self, didProduceAction: action)
+
+        case .space:
+            // Auto-return to alpha mode after punctuation (e.g. comma + space).
+            if mode != .alpha && lastCharWasNonAlnum {
+                mode = .alpha
+                shiftState = .off
+                buildKeys()
+            }
+            lastCharWasNonAlnum = false
             delegate?.keyboardView(self, didProduceAction: action)
 
         default:
