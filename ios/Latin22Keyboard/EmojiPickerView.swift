@@ -92,6 +92,48 @@ private func loadClipCategories() -> [ClipCategory] {
 
 private let kClipCategories: [ClipCategory] = loadClipCategories()
 
+// MARK: - Frequency store
+
+private enum EmojiFrequencyStore {
+    private static let udKey  = "emojiFrequency"
+    private static let suite  = "group.com.latin22.shared"
+
+    static func record(_ emoji: String) {
+        var freq = load()
+        freq[emoji, default: 0] += 1
+        // Prune to top 200 to bound storage size.
+        if freq.count > 200 {
+            let pruned = freq.sorted { $0.value > $1.value }.prefix(200)
+            freq = Dictionary(uniqueKeysWithValues: pruned.map { ($0.key, $0.value) })
+        }
+        save(freq)
+    }
+
+    static func topEmoji(limit: Int = 40) -> [String] {
+        load()
+            .sorted { $0.value > $1.value }
+            .prefix(limit)
+            .map(\.key)
+    }
+
+    private static func load() -> [String: Int] {
+        guard
+            let ud   = UserDefaults(suiteName: suite),
+            let data = ud.data(forKey: udKey),
+            let dict = try? JSONDecoder().decode([String: Int].self, from: data)
+        else { return [:] }
+        return dict
+    }
+
+    private static func save(_ freq: [String: Int]) {
+        guard
+            let ud   = UserDefaults(suiteName: suite),
+            let data = try? JSONEncoder().encode(freq)
+        else { return }
+        ud.set(data, forKey: udKey)
+    }
+}
+
 // MARK: - Protocol
 
 protocol EmojiPickerViewDelegate: AnyObject {
@@ -110,10 +152,15 @@ final class EmojiPickerView: UIView {
     private let abcButton = UIButton(type: .custom)
     private let categoryStack = UIStackView()
     private var categoryButtons: [UIButton] = []
-    private var selectedCategory = 0   // 0..<kEmojiTabs.count = emoji; above = clips
+    /// Index 0 = frequency tab; 1..<1+kEmojiTabs.count = emoji tabs; above = clips.
+    private var selectedCategory = 0
+    private var frequentEmoji: [String] = []
+    private let emptyFreqLabel = UILabel()
 
-    private var isClipsTab: Bool { selectedCategory >= kEmojiTabs.count }
-    private var clipsIndex: Int  { selectedCategory - kEmojiTabs.count }
+    private var isFrequencyTab: Bool { selectedCategory == 0 }
+    private var isClipsTab: Bool { !isFrequencyTab && selectedCategory >= 1 + kEmojiTabs.count }
+    private var emojiTabIndex: Int  { selectedCategory - 1 }          // valid only when !isFrequencyTab && !isClipsTab
+    private var clipsIndex: Int     { selectedCategory - 1 - kEmojiTabs.count }  // valid only when isClipsTab
 
     override init(frame: CGRect) {
         let layout = UICollectionViewFlowLayout()
@@ -143,10 +190,22 @@ final class EmojiPickerView: UIView {
         tabBar.addSubview(categoryStack)
 
         let symConf = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular)
+        // Frequency tab (index 0) — clock icon, matches system keyboard "recently used".
+        let freqBtn = UIButton(type: .custom)
+        freqBtn.tag = 0
+        if let img = UIImage(systemName: "clock.arrow.circlepath")?
+                        .withConfiguration(symConf)
+                        .withRenderingMode(.alwaysTemplate) {
+            freqBtn.setImage(img, for: .normal)
+        }
+        freqBtn.addTarget(self, action: #selector(categoryTapped(_:)), for: .touchUpInside)
+        categoryButtons.append(freqBtn)
+        categoryStack.addArrangedSubview(freqBtn)
+
         // Emoji category tabs
         for (i, cat) in kEmojiTabs.enumerated() {
             let btn = UIButton(type: .custom)
-            btn.tag = i
+            btn.tag = i + 1   // +1 to account for the frequency tab at index 0
             if let img = UIImage(systemName: cat.symbolName)?
                             .withConfiguration(symConf)
                             .withRenderingMode(.alwaysTemplate) {
@@ -159,7 +218,7 @@ final class EmojiPickerView: UIView {
         // Clips tabs (film.stack icon per category)
         for (i, cat) in kClipCategories.enumerated() {
             let btn = UIButton(type: .custom)
-            btn.tag = kEmojiTabs.count + i
+            btn.tag = 1 + kEmojiTabs.count + i   // +1 for frequency tab
             let sym = cat.symbolName.isEmpty ? "film.stack" : cat.symbolName
             if let img = UIImage(systemName: sym)?
                             .withConfiguration(symConf)
@@ -204,6 +263,21 @@ final class EmojiPickerView: UIView {
         ])
 
         refreshCategoryHighlight()
+
+        // Empty-state label for the frequency tab.
+        emptyFreqLabel.text = "Emoji you use often will appear here"
+        emptyFreqLabel.font = .systemFont(ofSize: 13, weight: .regular)
+        emptyFreqLabel.textAlignment = .center
+        emptyFreqLabel.numberOfLines = 0
+        emptyFreqLabel.translatesAutoresizingMaskIntoConstraints = false
+        emptyFreqLabel.isHidden = true
+        addSubview(emptyFreqLabel)
+        NSLayoutConstraint.activate([
+            emptyFreqLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            emptyFreqLabel.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor),
+            emptyFreqLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
+            emptyFreqLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+        ])
     }
 
     // MARK: - Appearance
@@ -219,6 +293,7 @@ final class EmojiPickerView: UIView {
         tabBar.backgroundColor = tab
         abcButton.setTitleColor(fg, for: .normal)
         categoryButtons.forEach { $0.tintColor = fg }
+        emptyFreqLabel.textColor = fg.withAlphaComponent(0.45)
     }
 
     override func traitCollectionDidChange(_ prev: UITraitCollection?) {
@@ -231,6 +306,9 @@ final class EmojiPickerView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         if collectionView.dataSource == nil, bounds.width > 0 {
+            // Pre-load the frequency list so the clock tab is populated on first open.
+            frequentEmoji = EmojiFrequencyStore.topEmoji()
+            emptyFreqLabel.isHidden = !frequentEmoji.isEmpty
             collectionView.dataSource = self
             collectionView.delegate = self
             collectionView.reloadData()
@@ -245,6 +323,11 @@ final class EmojiPickerView: UIView {
 
     @objc private func categoryTapped(_ sender: UIButton) {
         selectedCategory = sender.tag
+        if isFrequencyTab {
+            frequentEmoji = EmojiFrequencyStore.topEmoji()
+        }
+        let isEmpty = isFrequencyTab && frequentEmoji.isEmpty
+        emptyFreqLabel.isHidden = !isEmpty
         refreshCategoryHighlight()
         collectionView.reloadData()
         collectionView.setContentOffset(.zero, animated: false)
@@ -259,21 +342,25 @@ final class EmojiPickerView: UIView {
 
 extension EmojiPickerView: UICollectionViewDataSource {
     func collectionView(_ cv: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        isClipsTab
-            ? kClipCategories[clipsIndex].clips.count
-            : kEmojiTabs[selectedCategory].entries.count
+        if isFrequencyTab  { return frequentEmoji.count }
+        if isClipsTab      { return kClipCategories[clipsIndex].clips.count }
+        return kEmojiTabs[emojiTabIndex].entries.count
     }
     func collectionView(_ cv: UICollectionView, cellForItemAt ip: IndexPath) -> UICollectionViewCell {
+        if isFrequencyTab {
+            let cell = cv.dequeueReusableCell(withReuseIdentifier: "emoji", for: ip) as! EmojiCell
+            cell.configure(char: frequentEmoji[ip.item], name: "")
+            return cell
+        }
         if isClipsTab {
             let cell = cv.dequeueReusableCell(withReuseIdentifier: "clip", for: ip) as! ClipCell
             cell.configure(with: kClipCategories[clipsIndex].clips[ip.item])
             return cell
-        } else {
-            let cell = cv.dequeueReusableCell(withReuseIdentifier: "emoji", for: ip) as! EmojiCell
-            let entry = kEmojiTabs[selectedCategory].entries[ip.item]
-            cell.configure(char: entry.char, name: entry.name)
-            return cell
         }
+        let cell = cv.dequeueReusableCell(withReuseIdentifier: "emoji", for: ip) as! EmojiCell
+        let entry = kEmojiTabs[emojiTabIndex].entries[ip.item]
+        cell.configure(char: entry.char, name: entry.name)
+        return cell
     }
 }
 
@@ -285,7 +372,13 @@ extension EmojiPickerView: UICollectionViewDelegate {
             let clip = kClipCategories[clipsIndex].clips[ip.item]
             delegate?.emojiPickerView(self, didSelectEmoji: clip.url)
         } else {
-            let emoji = kEmojiTabs[selectedCategory].entries[ip.item].char
+            let emoji: String
+            if isFrequencyTab {
+                emoji = frequentEmoji[ip.item]
+            } else {
+                emoji = kEmojiTabs[emojiTabIndex].entries[ip.item].char
+            }
+            EmojiFrequencyStore.record(emoji)
             delegate?.emojiPickerView(self, didSelectEmoji: emoji)
         }
     }

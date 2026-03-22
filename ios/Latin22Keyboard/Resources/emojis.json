@@ -1,240 +1,1826 @@
 {
   "tabs": [
-    {"id": "faces", "symbolName": "face.smiling"},
-    {"id": "animals", "symbolName": "pawprint"},
-    {"id": "food", "symbolName": "fork.knife"},
-    {"id": "fun", "symbolName": "sportscourt"},
-    {"id": "symbols", "symbolName": "heart"}
+    {
+      "id": "faces",
+      "symbolName": "face.smiling"
+    },
+    {
+      "id": "animals",
+      "symbolName": "pawprint"
+    },
+    {
+      "id": "food",
+      "symbolName": "fork.knife"
+    },
+    {
+      "id": "fun",
+      "symbolName": "sportscourt"
+    },
+    {
+      "id": "symbols",
+      "symbolName": "heart"
+    }
   ],
   "emoji": [
-    {"char": "😀", "cp": "U+1F600", "tabs": ["faces"], "name": "Grinning Face"},
-    {"char": "😂", "cp": "U+1F602", "tabs": ["faces"], "name": "Face With Tears Of Joy"},
-    {"char": "🤣", "cp": "U+1F923", "tabs": ["faces"], "name": "Rolling On The Floor Laughing"},
-    {"char": "😊", "cp": "U+1F60A", "tabs": ["faces"], "name": "Smiling Face With Smiling Eyes"},
-    {"char": "😍", "cp": "U+1F60D", "tabs": ["faces"], "name": "Smiling Face With Heart-Shaped Eyes"},
-    {"char": "🥰", "cp": "U+1F970", "tabs": ["faces"], "name": "Smiling Face With Smiling Eyes And Three Hearts"},
-    {"char": "😘", "cp": "U+1F618", "tabs": ["faces"], "name": "Face Throwing A Kiss"},
-    {"char": "😎", "cp": "U+1F60E", "tabs": ["faces"], "name": "Smiling Face With Sunglasses"},
-    {"char": "🤔", "cp": "U+1F914", "tabs": ["faces"], "name": "Thinking Face"},
-    {"char": "🙄", "cp": "U+1F644", "tabs": ["faces"], "name": "Face With Rolling Eyes"},
-    {"char": "😅", "cp": "U+1F605", "tabs": ["faces"], "name": "Smiling Face With Open Mouth And Cold Sweat"},
-    {"char": "😆", "cp": "U+1F606", "tabs": ["faces"], "name": "Smiling Face With Open Mouth And Tightly-Closed Eyes"},
-    {"char": "😁", "cp": "U+1F601", "tabs": ["faces"], "name": "Grinning Face With Smiling Eyes"},
-    {"char": "😢", "cp": "U+1F622", "tabs": ["faces"], "name": "Crying Face"},
-    {"char": "😭", "cp": "U+1F62D", "tabs": ["faces"], "name": "Loudly Crying Face"},
-    {"char": "😤", "cp": "U+1F624", "tabs": ["faces"], "name": "Face With Look Of Triumph"},
-    {"char": "😡", "cp": "U+1F621", "tabs": ["faces"], "name": "Pouting Face"},
-    {"char": "🤯", "cp": "U+1F92F", "tabs": ["faces"], "name": "Shocked Face With Exploding Head"},
-    {"char": "🥺", "cp": "U+1F97A", "tabs": ["faces"], "name": "Face With Pleading Eyes"},
-    {"char": "😳", "cp": "U+1F633", "tabs": ["faces"], "name": "Flushed Face"},
-    {"char": "😱", "cp": "U+1F631", "tabs": ["faces"], "name": "Face Screaming In Fear"},
-    {"char": "🤗", "cp": "U+1F917", "tabs": ["faces"], "name": "Hugging Face"},
-    {"char": "😏", "cp": "U+1F60F", "tabs": ["faces"], "name": "Smirking Face"},
-    {"char": "🙃", "cp": "U+1F643", "tabs": ["faces"], "name": "Upside-Down Face"},
-    {"char": "😴", "cp": "U+1F634", "tabs": ["faces"], "name": "Sleeping Face"},
-    {"char": "😷", "cp": "U+1F637", "tabs": ["faces"], "name": "Face With Medical Mask"},
-    {"char": "🤒", "cp": "U+1F912", "tabs": ["faces"], "name": "Face With Thermometer"},
-    {"char": "😵", "cp": "U+1F635", "tabs": ["faces"], "name": "Dizzy Face"},
-    {"char": "👿", "cp": "U+1F47F", "tabs": ["faces"], "name": "Imp"},
-    {"char": "💀", "cp": "U+1F480", "tabs": ["faces"], "name": "Skull"},
-    {"char": "💩", "cp": "U+1F4A9", "tabs": ["faces"], "name": "Pile Of Poo"},
-    {"char": "🤡", "cp": "U+1F921", "tabs": ["faces"], "name": "Clown Face"},
-    {"char": "👻", "cp": "U+1F47B", "tabs": ["faces"], "name": "Ghost"},
-    {"char": "🤖", "cp": "U+1F916", "tabs": ["faces"], "name": "Robot Face"},
-    {"char": "👋", "cp": "U+1F44B", "tabs": ["faces"], "name": "Waving Hand Sign"},
-    {"char": "👌", "cp": "U+1F44C", "tabs": ["faces"], "name": "Ok Hand Sign"},
-    {"char": "✌️", "cp": "U+270C", "tabs": ["faces"], "name": "Victory Hand"},
-    {"char": "🤞", "cp": "U+1F91E", "tabs": ["faces"], "name": "Hand With Index And Middle Fingers Crossed"},
-    {"char": "👍", "cp": "U+1F44D", "tabs": ["faces"], "name": "Thumbs Up Sign"},
-    {"char": "👎", "cp": "U+1F44E", "tabs": ["faces"], "name": "Thumbs Down Sign"},
-    {"char": "👏", "cp": "U+1F44F", "tabs": ["faces"], "name": "Clapping Hands Sign"},
-    {"char": "🙏", "cp": "U+1F64F", "tabs": ["faces"], "name": "Person With Folded Hands"},
-    {"char": "💪", "cp": "U+1F4AA", "tabs": ["faces"], "name": "Flexed Biceps"},
-    {"char": "🖕", "cp": "U+1F595", "tabs": ["faces"], "name": "Reversed Hand With Middle Finger Extended"},
-    {"char": "😃", "cp": "U+1F603", "tabs": [], "name": "Smiling Face With Open Mouth"},
-    {"char": "😄", "cp": "U+1F604", "tabs": [], "name": "Smiling Face With Open Mouth And Smiling Eyes"},
-    {"char": "🙂", "cp": "U+1F642", "tabs": [], "name": "Slightly Smiling Face"},
-    {"char": "🙁", "cp": "U+1F641", "tabs": [], "name": "Slightly Frowning Face"},
-    {"char": "😐", "cp": "U+1F610", "tabs": [], "name": "Neutral Face"},
-    {"char": "😑", "cp": "U+1F611", "tabs": [], "name": "Expressionless Face"},
-    {"char": "😒", "cp": "U+1F612", "tabs": [], "name": "Unamused Face"},
-    {"char": "😬", "cp": "U+1F62C", "tabs": [], "name": "Grimacing Face"},
-    {"char": "😌", "cp": "U+1F60C", "tabs": [], "name": "Relieved Face"},
-    {"char": "😔", "cp": "U+1F614", "tabs": [], "name": "Pensive Face"},
-    {"char": "😪", "cp": "U+1F62A", "tabs": [], "name": "Sleepy Face"},
-    {"char": "🤧", "cp": "U+1F927", "tabs": [], "name": "Sneezing Face"},
-    {"char": "🥵", "cp": "U+1F975", "tabs": [], "name": "Overheated Face"},
-    {"char": "🥶", "cp": "U+1F976", "tabs": [], "name": "Freezing Face"},
-    {"char": "🤠", "cp": "U+1F920", "tabs": [], "name": "Face With Cowboy Hat"},
-    {"char": "🤓", "cp": "U+1F913", "tabs": [], "name": "Nerd Face"},
-    {"char": "😕", "cp": "U+1F615", "tabs": [], "name": "Confused Face"},
-    {"char": "☹️", "cp": "U+2639", "tabs": [], "name": "White Frowning Face"},
-    {"char": "😦", "cp": "U+1F626", "tabs": [], "name": "Frowning Face With Open Mouth"},
-    {"char": "😨", "cp": "U+1F628", "tabs": [], "name": "Fearful Face"},
-    {"char": "😰", "cp": "U+1F630", "tabs": [], "name": "Face With Open Mouth And Cold Sweat"},
-    {"char": "😥", "cp": "U+1F625", "tabs": [], "name": "Disappointed But Relieved Face"},
-    {"char": "😠", "cp": "U+1F620", "tabs": [], "name": "Angry Face"},
-    {"char": "🤬", "cp": "U+1F92C", "tabs": [], "name": "Serious Face With Symbols Covering Mouth"},
-    {"char": "😈", "cp": "U+1F608", "tabs": [], "name": "Smiling Face With Horns"},
-    {"char": "👹", "cp": "U+1F479", "tabs": [], "name": "Japanese Ogre"},
-    {"char": "👺", "cp": "U+1F47A", "tabs": [], "name": "Japanese Goblin"},
-    {"char": "👽", "cp": "U+1F47D", "tabs": [], "name": "Extraterrestrial Alien"},
-    {"char": "👾", "cp": "U+1F47E", "tabs": [], "name": "Alien Monster"},
-    {"char": "🤚", "cp": "U+1F91A", "tabs": [], "name": "Raised Back Of Hand"},
-    {"char": "🖐", "cp": "U+1F590", "tabs": [], "name": "Raised Hand With Fingers Splayed"},
-    {"char": "✋", "cp": "U+270B", "tabs": [], "name": "Raised Hand"},
-    {"char": "🖖", "cp": "U+1F596", "tabs": [], "name": "Raised Hand With Part Between Middle And Ring Fingers"},
-    {"char": "🤟", "cp": "U+1F91F", "tabs": [], "name": "I Love You Hand Sign"},
-    {"char": "🤘", "cp": "U+1F918", "tabs": [], "name": "Of The Horns"},
-    {"char": "👈", "cp": "U+1F448", "tabs": [], "name": "White Left Pointing Backhand Index"},
-    {"char": "👉", "cp": "U+1F449", "tabs": [], "name": "White Right Pointing Backhand Index"},
-    {"char": "👆", "cp": "U+1F446", "tabs": [], "name": "White Up Pointing Backhand Index"},
-    {"char": "👇", "cp": "U+1F447", "tabs": [], "name": "White Down Pointing Backhand Index"},
-    {"char": "✊", "cp": "U+270A", "tabs": [], "name": "Raised Fist"},
-    {"char": "👊", "cp": "U+1F44A", "tabs": [], "name": "Fisted Hand Sign"},
-    {"char": "🙌", "cp": "U+1F64C", "tabs": [], "name": "Person Raising Both Hands In Celebration"},
-    {"char": "🤝", "cp": "U+1F91D", "tabs": [], "name": "Handshake"},
-    {"char": "💋", "cp": "U+1F48B", "tabs": [], "name": "Kiss Mark"},
-    {"char": "👶", "cp": "U+1F476", "tabs": [], "name": "Baby"},
-    {"char": "👦", "cp": "U+1F466", "tabs": [], "name": "Boy"},
-    {"char": "👧", "cp": "U+1F467", "tabs": [], "name": "Girl"},
-    {"char": "🧑", "cp": "U+1F9D1", "tabs": [], "name": "Adult"},
-    {"char": "👨", "cp": "U+1F468", "tabs": [], "name": "Man"},
-    {"char": "👩", "cp": "U+1F469", "tabs": [], "name": "Woman"},
-    {"char": "👴", "cp": "U+1F474", "tabs": [], "name": "Older Man"},
-    {"char": "👵", "cp": "U+1F475", "tabs": [], "name": "Older Woman"},
-
-    {"char": "🐶", "cp": "U+1F436", "tabs": ["animals"], "name": "Dog Face"},
-    {"char": "🐱", "cp": "U+1F431", "tabs": ["animals"], "name": "Cat Face"},
-    {"char": "🐭", "cp": "U+1F42D", "tabs": ["animals"], "name": "Mouse Face"},
-    {"char": "🐰", "cp": "U+1F430", "tabs": ["animals"], "name": "Rabbit Face"},
-    {"char": "🦊", "cp": "U+1F98A", "tabs": ["animals"], "name": "Fox Face"},
-    {"char": "🐻", "cp": "U+1F43B", "tabs": ["animals"], "name": "Bear Face"},
-    {"char": "🐼", "cp": "U+1F43C", "tabs": ["animals"], "name": "Panda Face"},
-    {"char": "🐯", "cp": "U+1F42F", "tabs": ["animals"], "name": "Tiger Face"},
-    {"char": "🦁", "cp": "U+1F981", "tabs": ["animals"], "name": "Lion Face"},
-    {"char": "🐸", "cp": "U+1F438", "tabs": ["animals"], "name": "Frog Face"},
-    {"char": "🐵", "cp": "U+1F435", "tabs": ["animals"], "name": "Monkey Face"},
-    {"char": "🙈", "cp": "U+1F648", "tabs": ["animals"], "name": "See-No-Evil Monkey"},
-    {"char": "🙉", "cp": "U+1F649", "tabs": ["animals"], "name": "Hear-No-Evil Monkey"},
-    {"char": "🙊", "cp": "U+1F64A", "tabs": ["animals"], "name": "Speak-No-Evil Monkey"},
-    {"char": "🐧", "cp": "U+1F427", "tabs": ["animals"], "name": "Penguin"},
-    {"char": "🦆", "cp": "U+1F986", "tabs": ["animals"], "name": "Duck"},
-    {"char": "🦉", "cp": "U+1F989", "tabs": ["animals"], "name": "Owl"},
-    {"char": "🦋", "cp": "U+1F98B", "tabs": ["animals"], "name": "Butterfly"},
-    {"char": "🐝", "cp": "U+1F41D", "tabs": ["animals"], "name": "Honeybee"},
-    {"char": "🐢", "cp": "U+1F422", "tabs": ["animals"], "name": "Turtle"},
-    {"char": "🐍", "cp": "U+1F40D", "tabs": ["animals"], "name": "Snake"},
-    {"char": "🐙", "cp": "U+1F419", "tabs": ["animals"], "name": "Octopus"},
-    {"char": "🐬", "cp": "U+1F42C", "tabs": ["animals"], "name": "Dolphin"},
-    {"char": "🐳", "cp": "U+1F433", "tabs": ["animals"], "name": "Spouting Whale"},
-    {"char": "🦈", "cp": "U+1F988", "tabs": ["animals"], "name": "Shark"},
-    {"char": "🐘", "cp": "U+1F418", "tabs": ["animals"], "name": "Elephant"},
-    {"char": "🦄", "cp": "U+1F984", "tabs": ["animals"], "name": "Unicorn Face"},
-    {"char": "🌸", "cp": "U+1F338", "tabs": ["animals"], "name": "Cherry Blossom"},
-    {"char": "🌻", "cp": "U+1F33B", "tabs": ["animals"], "name": "Sunflower"},
-    {"char": "🌈", "cp": "U+1F308", "tabs": ["animals"], "name": "Rainbow"},
-    {"char": "❄️", "cp": "U+2744", "tabs": ["animals"], "name": "Snowflake"},
-    {"char": "🔥", "cp": "U+1F525", "tabs": ["animals"], "name": "Fire"},
-    {"char": "💧", "cp": "U+1F4A7", "tabs": ["animals"], "name": "Droplet"},
-    {"char": "🌊", "cp": "U+1F30A", "tabs": ["animals"], "name": "Water Wave"},
-    {"char": "⭐", "cp": "U+2B50", "tabs": ["animals"], "name": "White Medium Star"},
-    {"char": "🌙", "cp": "U+1F319", "tabs": ["animals"], "name": "Crescent Moon"},
-    {"char": "🌞", "cp": "U+1F31E", "tabs": ["animals"], "name": "Sun With Face"},
-
-    {"char": "🍕", "cp": "U+1F355", "tabs": ["food"], "name": "Slice Of Pizza"},
-    {"char": "🍔", "cp": "U+1F354", "tabs": ["food"], "name": "Hamburger"},
-    {"char": "🌮", "cp": "U+1F32E", "tabs": ["food"], "name": "Taco"},
-    {"char": "🌯", "cp": "U+1F32F", "tabs": ["food"], "name": "Burrito"},
-    {"char": "🍜", "cp": "U+1F35C", "tabs": ["food"], "name": "Steaming Bowl"},
-    {"char": "🍣", "cp": "U+1F363", "tabs": ["food"], "name": "Sushi"},
-    {"char": "🍱", "cp": "U+1F371", "tabs": ["food"], "name": "Bento Box"},
-    {"char": "🍗", "cp": "U+1F357", "tabs": ["food"], "name": "Poultry Leg"},
-    {"char": "🥩", "cp": "U+1F969", "tabs": ["food"], "name": "Cut Of Meat"},
-    {"char": "🌭", "cp": "U+1F32D", "tabs": ["food"], "name": "Hot Dog"},
-    {"char": "🍟", "cp": "U+1F35F", "tabs": ["food"], "name": "French Fries"},
-    {"char": "🥗", "cp": "U+1F957", "tabs": ["food"], "name": "Green Salad"},
-    {"char": "🍩", "cp": "U+1F369", "tabs": ["food"], "name": "Doughnut"},
-    {"char": "🎂", "cp": "U+1F382", "tabs": ["food"], "name": "Birthday Cake"},
-    {"char": "🍺", "cp": "U+1F37A", "tabs": ["food"], "name": "Beer Mug"},
-    {"char": "☕", "cp": "U+2615", "tabs": ["food"], "name": "Hot Beverage"},
-    {"char": "🧋", "cp": "U+1F9CB", "tabs": ["food"], "name": "Bubble Tea"},
-    {"char": "🥂", "cp": "U+1F942", "tabs": ["food"], "name": "Clinking Glasses"},
-    {"char": "🍷", "cp": "U+1F377", "tabs": ["food"], "name": "Wine Glass"},
-    {"char": "🍸", "cp": "U+1F378", "tabs": ["food"], "name": "Cocktail Glass"},
-    {"char": "🥃", "cp": "U+1F943", "tabs": ["food"], "name": "Tumbler Glass"},
-    {"char": "🍎", "cp": "U+1F34E", "tabs": ["food"], "name": "Red Apple"},
-    {"char": "🍊", "cp": "U+1F34A", "tabs": ["food"], "name": "Tangerine"},
-    {"char": "🍋", "cp": "U+1F34B", "tabs": ["food"], "name": "Lemon"},
-    {"char": "🍌", "cp": "U+1F34C", "tabs": ["food"], "name": "Banana"},
-    {"char": "🍉", "cp": "U+1F349", "tabs": ["food"], "name": "Watermelon"},
-    {"char": "🍇", "cp": "U+1F347", "tabs": ["food"], "name": "Grapes"},
-    {"char": "🍓", "cp": "U+1F353", "tabs": ["food"], "name": "Strawberry"},
-    {"char": "🍒", "cp": "U+1F352", "tabs": ["food"], "name": "Cherries"},
-    {"char": "🥑", "cp": "U+1F951", "tabs": ["food"], "name": "Avocado"},
-    {"char": "🥕", "cp": "U+1F955", "tabs": ["food"], "name": "Carrot"},
-    {"char": "🌽", "cp": "U+1F33D", "tabs": ["food"], "name": "Ear Of Maize"},
-    {"char": "🥦", "cp": "U+1F966", "tabs": ["food"], "name": "Broccoli"},
-
-    {"char": "⚽", "cp": "U+26BD", "tabs": ["fun"], "name": "Soccer Ball"},
-    {"char": "🏀", "cp": "U+1F3C0", "tabs": ["fun"], "name": "Basketball And Hoop"},
-    {"char": "🏈", "cp": "U+1F3C8", "tabs": ["fun"], "name": "American Football"},
-    {"char": "⚾", "cp": "U+26BE", "tabs": ["fun"], "name": "Baseball"},
-    {"char": "🎾", "cp": "U+1F3BE", "tabs": ["fun"], "name": "Tennis Racquet And Ball"},
-    {"char": "🏐", "cp": "U+1F3D0", "tabs": ["fun"], "name": "Volleyball"},
-    {"char": "🎱", "cp": "U+1F3B1", "tabs": ["fun"], "name": "Billiards"},
-    {"char": "🏓", "cp": "U+1F3D3", "tabs": ["fun"], "name": "Table Tennis Paddle And Ball"},
-    {"char": "🎯", "cp": "U+1F3AF", "tabs": ["fun"], "name": "Direct Hit"},
-    {"char": "🎮", "cp": "U+1F3AE", "tabs": ["fun"], "name": "Video Game"},
-    {"char": "🕹", "cp": "U+1F579", "tabs": ["fun"], "name": "Joystick"},
-    {"char": "🧩", "cp": "U+1F9E9", "tabs": ["fun"], "name": "Jigsaw Puzzle Piece"},
-    {"char": "🎲", "cp": "U+1F3B2", "tabs": ["fun"], "name": "Game Die"},
-    {"char": "🏆", "cp": "U+1F3C6", "tabs": ["fun"], "name": "Trophy"},
-    {"char": "🥇", "cp": "U+1F947", "tabs": ["fun"], "name": "First Place Medal"},
-    {"char": "🥈", "cp": "U+1F948", "tabs": ["fun"], "name": "Second Place Medal"},
-    {"char": "🥉", "cp": "U+1F949", "tabs": ["fun"], "name": "Third Place Medal"},
-    {"char": "🎉", "cp": "U+1F389", "tabs": ["fun"], "name": "Party Popper"},
-    {"char": "🎊", "cp": "U+1F38A", "tabs": ["fun"], "name": "Confetti Ball"},
-    {"char": "🎈", "cp": "U+1F388", "tabs": ["fun"], "name": "Balloon"},
-    {"char": "🎁", "cp": "U+1F381", "tabs": ["fun"], "name": "Wrapped Present"},
-    {"char": "🎀", "cp": "U+1F380", "tabs": ["fun"], "name": "Ribbon"},
-    {"char": "🎬", "cp": "U+1F3AC", "tabs": ["fun"], "name": "Clapper Board"},
-    {"char": "🎤", "cp": "U+1F3A4", "tabs": ["fun"], "name": "Microphone"},
-    {"char": "🎧", "cp": "U+1F3A7", "tabs": ["fun"], "name": "Headphone"},
-    {"char": "🎸", "cp": "U+1F3B8", "tabs": ["fun"], "name": "Guitar"},
-    {"char": "🎹", "cp": "U+1F3B9", "tabs": ["fun"], "name": "Musical Keyboard"},
-    {"char": "🥁", "cp": "U+1F941", "tabs": ["fun"], "name": "Drum With Drumsticks"},
-
-    {"char": "❤️", "cp": "U+2764", "tabs": ["symbols"], "name": "Heavy Black Heart"},
-    {"char": "🧡", "cp": "U+1F9E1", "tabs": ["symbols"], "name": "Orange Heart"},
-    {"char": "💛", "cp": "U+1F49B", "tabs": ["symbols"], "name": "Yellow Heart"},
-    {"char": "💚", "cp": "U+1F49A", "tabs": ["symbols"], "name": "Green Heart"},
-    {"char": "💙", "cp": "U+1F499", "tabs": ["symbols"], "name": "Blue Heart"},
-    {"char": "💜", "cp": "U+1F49C", "tabs": ["symbols"], "name": "Purple Heart"},
-    {"char": "🖤", "cp": "U+1F5A4", "tabs": ["symbols"], "name": "Black Heart"},
-    {"char": "🤍", "cp": "U+1F90D", "tabs": ["symbols"], "name": "White Heart"},
-    {"char": "💔", "cp": "U+1F494", "tabs": ["symbols"], "name": "Broken Heart"},
-    {"char": "💕", "cp": "U+1F495", "tabs": ["symbols"], "name": "Two Hearts"},
-    {"char": "💖", "cp": "U+1F496", "tabs": ["symbols"], "name": "Sparkling Heart"},
-    {"char": "💘", "cp": "U+1F498", "tabs": ["symbols"], "name": "Heart With Arrow"},
-    {"char": "💝", "cp": "U+1F49D", "tabs": ["symbols"], "name": "Heart With Ribbon"},
-    {"char": "✅", "cp": "U+2705", "tabs": ["symbols"], "name": "White Heavy Check Mark"},
-    {"char": "❌", "cp": "U+274C", "tabs": ["symbols"], "name": "Cross Mark"},
-    {"char": "💯", "cp": "U+1F4AF", "tabs": ["symbols"], "name": "Hundred Points Symbol"},
-    {"char": "⚠️", "cp": "U+26A0", "tabs": ["symbols"], "name": "Warning Sign"},
-    {"char": "🚫", "cp": "U+1F6AB", "tabs": ["symbols"], "name": "No Entry Sign"},
-    {"char": "❗", "cp": "U+2757", "tabs": ["symbols"], "name": "Heavy Exclamation Mark Symbol"},
-    {"char": "❓", "cp": "U+2753", "tabs": ["symbols"], "name": "Black Question Mark Ornament"},
-    {"char": "‼️", "cp": "U+203C", "tabs": ["symbols"], "name": "Double Exclamation Mark"},
-    {"char": "🔴", "cp": "U+1F534", "tabs": ["symbols"], "name": "Large Red Circle"},
-    {"char": "🟡", "cp": "U+1F7E1", "tabs": ["symbols"], "name": "Large Yellow Circle"},
-    {"char": "🟢", "cp": "U+1F7E2", "tabs": ["symbols"], "name": "Large Green Circle"},
-    {"char": "🔵", "cp": "U+1F535", "tabs": ["symbols"], "name": "Large Blue Circle"},
-    {"char": "⚫", "cp": "U+26AB", "tabs": ["symbols"], "name": "Medium Black Circle"},
-    {"char": "⚪", "cp": "U+26AA", "tabs": ["symbols"], "name": "Medium White Circle"},
-    {"char": "🏁", "cp": "U+1F3C1", "tabs": ["symbols"], "name": "Chequered Flag"},
-    {"char": "🚩", "cp": "U+1F6A9", "tabs": ["symbols"], "name": "Triangular Flag On Post"},
-    {"char": "🏳️‍🌈", "cp": "U+1F3F3 U+1F308", "tabs": ["symbols"], "name": "Waving White Flag"},
-    {"char": "🏴‍☠️", "cp": "U+1F3F4 U+2620", "tabs": ["symbols"], "name": "Waving Black Flag"}
+    {
+      "char": "😀",
+      "cp": "U+1F600",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Grinning Face"
+    },
+    {
+      "char": "😂",
+      "cp": "U+1F602",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Face With Tears Of Joy"
+    },
+    {
+      "char": "🤣",
+      "cp": "U+1F923",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Rolling On The Floor Laughing"
+    },
+    {
+      "char": "😊",
+      "cp": "U+1F60A",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Smiling Face With Smiling Eyes"
+    },
+    {
+      "char": "😍",
+      "cp": "U+1F60D",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Smiling Face With Heart-Shaped Eyes"
+    },
+    {
+      "char": "🥰",
+      "cp": "U+1F970",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Smiling Face With Smiling Eyes And Three Hearts"
+    },
+    {
+      "char": "😘",
+      "cp": "U+1F618",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Face Throwing A Kiss"
+    },
+    {
+      "char": "😎",
+      "cp": "U+1F60E",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Smiling Face With Sunglasses"
+    },
+    {
+      "char": "🤔",
+      "cp": "U+1F914",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Thinking Face"
+    },
+    {
+      "char": "🙄",
+      "cp": "U+1F644",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Face With Rolling Eyes"
+    },
+    {
+      "char": "😅",
+      "cp": "U+1F605",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Smiling Face With Open Mouth And Cold Sweat"
+    },
+    {
+      "char": "😆",
+      "cp": "U+1F606",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Smiling Face With Open Mouth And Tightly-Closed Eyes"
+    },
+    {
+      "char": "😁",
+      "cp": "U+1F601",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Grinning Face With Smiling Eyes"
+    },
+    {
+      "char": "😢",
+      "cp": "U+1F622",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Crying Face"
+    },
+    {
+      "char": "😭",
+      "cp": "U+1F62D",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Loudly Crying Face"
+    },
+    {
+      "char": "😤",
+      "cp": "U+1F624",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Face With Look Of Triumph"
+    },
+    {
+      "char": "😡",
+      "cp": "U+1F621",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Pouting Face"
+    },
+    {
+      "char": "🤯",
+      "cp": "U+1F92F",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Shocked Face With Exploding Head"
+    },
+    {
+      "char": "🥺",
+      "cp": "U+1F97A",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Face With Pleading Eyes"
+    },
+    {
+      "char": "😳",
+      "cp": "U+1F633",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Flushed Face"
+    },
+    {
+      "char": "😱",
+      "cp": "U+1F631",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Face Screaming In Fear"
+    },
+    {
+      "char": "🤗",
+      "cp": "U+1F917",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Hugging Face"
+    },
+    {
+      "char": "😏",
+      "cp": "U+1F60F",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Smirking Face"
+    },
+    {
+      "char": "🙃",
+      "cp": "U+1F643",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Upside-Down Face"
+    },
+    {
+      "char": "😴",
+      "cp": "U+1F634",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Sleeping Face"
+    },
+    {
+      "char": "😷",
+      "cp": "U+1F637",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Face With Medical Mask"
+    },
+    {
+      "char": "🤒",
+      "cp": "U+1F912",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Face With Thermometer"
+    },
+    {
+      "char": "😵",
+      "cp": "U+1F635",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Dizzy Face"
+    },
+    {
+      "char": "👿",
+      "cp": "U+1F47F",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Imp"
+    },
+    {
+      "char": "💀",
+      "cp": "U+1F480",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Skull"
+    },
+    {
+      "char": "💩",
+      "cp": "U+1F4A9",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Pile Of Poo"
+    },
+    {
+      "char": "🤡",
+      "cp": "U+1F921",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Clown Face"
+    },
+    {
+      "char": "👻",
+      "cp": "U+1F47B",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Ghost"
+    },
+    {
+      "char": "🤖",
+      "cp": "U+1F916",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Robot Face"
+    },
+    {
+      "char": "👋",
+      "cp": "U+1F44B",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Waving Hand Sign"
+    },
+    {
+      "char": "👌",
+      "cp": "U+1F44C",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Ok Hand Sign"
+    },
+    {
+      "char": "✌️",
+      "cp": "U+270C",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Victory Hand"
+    },
+    {
+      "char": "🤞",
+      "cp": "U+1F91E",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Hand With Index And Middle Fingers Crossed"
+    },
+    {
+      "char": "👍",
+      "cp": "U+1F44D",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Thumbs Up Sign"
+    },
+    {
+      "char": "👎",
+      "cp": "U+1F44E",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Thumbs Down Sign"
+    },
+    {
+      "char": "👏",
+      "cp": "U+1F44F",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Clapping Hands Sign"
+    },
+    {
+      "char": "🙏",
+      "cp": "U+1F64F",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Person With Folded Hands"
+    },
+    {
+      "char": "💪",
+      "cp": "U+1F4AA",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Flexed Biceps"
+    },
+    {
+      "char": "🖕",
+      "cp": "U+1F595",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Reversed Hand With Middle Finger Extended"
+    },
+    {
+      "char": "😃",
+      "cp": "U+1F603",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Smiling Face With Open Mouth"
+    },
+    {
+      "char": "😄",
+      "cp": "U+1F604",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Smiling Face With Open Mouth And Smiling Eyes"
+    },
+    {
+      "char": "🙂",
+      "cp": "U+1F642",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Slightly Smiling Face"
+    },
+    {
+      "char": "🙁",
+      "cp": "U+1F641",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Slightly Frowning Face"
+    },
+    {
+      "char": "😐",
+      "cp": "U+1F610",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Neutral Face"
+    },
+    {
+      "char": "😑",
+      "cp": "U+1F611",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Expressionless Face"
+    },
+    {
+      "char": "😒",
+      "cp": "U+1F612",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Unamused Face"
+    },
+    {
+      "char": "😬",
+      "cp": "U+1F62C",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Grimacing Face"
+    },
+    {
+      "char": "😌",
+      "cp": "U+1F60C",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Relieved Face"
+    },
+    {
+      "char": "😔",
+      "cp": "U+1F614",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Pensive Face"
+    },
+    {
+      "char": "😪",
+      "cp": "U+1F62A",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Sleepy Face"
+    },
+    {
+      "char": "🤧",
+      "cp": "U+1F927",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Sneezing Face"
+    },
+    {
+      "char": "🥵",
+      "cp": "U+1F975",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Overheated Face"
+    },
+    {
+      "char": "🥶",
+      "cp": "U+1F976",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Freezing Face"
+    },
+    {
+      "char": "🤠",
+      "cp": "U+1F920",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Face With Cowboy Hat"
+    },
+    {
+      "char": "🤓",
+      "cp": "U+1F913",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Nerd Face"
+    },
+    {
+      "char": "😕",
+      "cp": "U+1F615",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Confused Face"
+    },
+    {
+      "char": "☹️",
+      "cp": "U+2639",
+      "tabs": [
+        "faces"
+      ],
+      "name": "White Frowning Face"
+    },
+    {
+      "char": "😦",
+      "cp": "U+1F626",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Frowning Face With Open Mouth"
+    },
+    {
+      "char": "😨",
+      "cp": "U+1F628",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Fearful Face"
+    },
+    {
+      "char": "😰",
+      "cp": "U+1F630",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Face With Open Mouth And Cold Sweat"
+    },
+    {
+      "char": "😥",
+      "cp": "U+1F625",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Disappointed But Relieved Face"
+    },
+    {
+      "char": "😠",
+      "cp": "U+1F620",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Angry Face"
+    },
+    {
+      "char": "🤬",
+      "cp": "U+1F92C",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Serious Face With Symbols Covering Mouth"
+    },
+    {
+      "char": "😈",
+      "cp": "U+1F608",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Smiling Face With Horns"
+    },
+    {
+      "char": "👹",
+      "cp": "U+1F479",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Japanese Ogre"
+    },
+    {
+      "char": "👺",
+      "cp": "U+1F47A",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Japanese Goblin"
+    },
+    {
+      "char": "👽",
+      "cp": "U+1F47D",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Extraterrestrial Alien"
+    },
+    {
+      "char": "👾",
+      "cp": "U+1F47E",
+      "tabs": [
+        "faces"
+      ],
+      "name": "Alien Monster"
+    },
+    {
+      "char": "🤚",
+      "cp": "U+1F91A",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Raised Back Of Hand"
+    },
+    {
+      "char": "🖐",
+      "cp": "U+1F590",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Raised Hand With Fingers Splayed"
+    },
+    {
+      "char": "✋",
+      "cp": "U+270B",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Raised Hand"
+    },
+    {
+      "char": "🖖",
+      "cp": "U+1F596",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Raised Hand With Part Between Middle And Ring Fingers"
+    },
+    {
+      "char": "🤟",
+      "cp": "U+1F91F",
+      "tabs": [
+        "fun"
+      ],
+      "name": "I Love You Hand Sign"
+    },
+    {
+      "char": "🤘",
+      "cp": "U+1F918",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Of The Horns"
+    },
+    {
+      "char": "👈",
+      "cp": "U+1F448",
+      "tabs": [
+        "fun"
+      ],
+      "name": "White Left Pointing Backhand Index"
+    },
+    {
+      "char": "👉",
+      "cp": "U+1F449",
+      "tabs": [
+        "fun"
+      ],
+      "name": "White Right Pointing Backhand Index"
+    },
+    {
+      "char": "👆",
+      "cp": "U+1F446",
+      "tabs": [
+        "fun"
+      ],
+      "name": "White Up Pointing Backhand Index"
+    },
+    {
+      "char": "👇",
+      "cp": "U+1F447",
+      "tabs": [
+        "fun"
+      ],
+      "name": "White Down Pointing Backhand Index"
+    },
+    {
+      "char": "✊",
+      "cp": "U+270A",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Raised Fist"
+    },
+    {
+      "char": "👊",
+      "cp": "U+1F44A",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Fisted Hand Sign"
+    },
+    {
+      "char": "🙌",
+      "cp": "U+1F64C",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Person Raising Both Hands In Celebration"
+    },
+    {
+      "char": "🤝",
+      "cp": "U+1F91D",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Handshake"
+    },
+    {
+      "char": "💋",
+      "cp": "U+1F48B",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Kiss Mark"
+    },
+    {
+      "char": "👶",
+      "cp": "U+1F476",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Baby"
+    },
+    {
+      "char": "👦",
+      "cp": "U+1F466",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Boy"
+    },
+    {
+      "char": "👧",
+      "cp": "U+1F467",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Girl"
+    },
+    {
+      "char": "🧑",
+      "cp": "U+1F9D1",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Adult"
+    },
+    {
+      "char": "👨",
+      "cp": "U+1F468",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Man"
+    },
+    {
+      "char": "👩",
+      "cp": "U+1F469",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Woman"
+    },
+    {
+      "char": "👴",
+      "cp": "U+1F474",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Older Man"
+    },
+    {
+      "char": "👵",
+      "cp": "U+1F475",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Older Woman"
+    },
+    {
+      "char": "🐶",
+      "cp": "U+1F436",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Dog Face"
+    },
+    {
+      "char": "🐱",
+      "cp": "U+1F431",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Cat Face"
+    },
+    {
+      "char": "🐭",
+      "cp": "U+1F42D",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Mouse Face"
+    },
+    {
+      "char": "🐰",
+      "cp": "U+1F430",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Rabbit Face"
+    },
+    {
+      "char": "🦊",
+      "cp": "U+1F98A",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Fox Face"
+    },
+    {
+      "char": "🐻",
+      "cp": "U+1F43B",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Bear Face"
+    },
+    {
+      "char": "🐼",
+      "cp": "U+1F43C",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Panda Face"
+    },
+    {
+      "char": "🐯",
+      "cp": "U+1F42F",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Tiger Face"
+    },
+    {
+      "char": "🦁",
+      "cp": "U+1F981",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Lion Face"
+    },
+    {
+      "char": "🐸",
+      "cp": "U+1F438",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Frog Face"
+    },
+    {
+      "char": "🐵",
+      "cp": "U+1F435",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Monkey Face"
+    },
+    {
+      "char": "🙈",
+      "cp": "U+1F648",
+      "tabs": [
+        "animals"
+      ],
+      "name": "See-No-Evil Monkey"
+    },
+    {
+      "char": "🙉",
+      "cp": "U+1F649",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Hear-No-Evil Monkey"
+    },
+    {
+      "char": "🙊",
+      "cp": "U+1F64A",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Speak-No-Evil Monkey"
+    },
+    {
+      "char": "🐧",
+      "cp": "U+1F427",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Penguin"
+    },
+    {
+      "char": "🦆",
+      "cp": "U+1F986",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Duck"
+    },
+    {
+      "char": "🦉",
+      "cp": "U+1F989",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Owl"
+    },
+    {
+      "char": "🦋",
+      "cp": "U+1F98B",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Butterfly"
+    },
+    {
+      "char": "🐝",
+      "cp": "U+1F41D",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Honeybee"
+    },
+    {
+      "char": "🐢",
+      "cp": "U+1F422",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Turtle"
+    },
+    {
+      "char": "🐍",
+      "cp": "U+1F40D",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Snake"
+    },
+    {
+      "char": "🐙",
+      "cp": "U+1F419",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Octopus"
+    },
+    {
+      "char": "🐬",
+      "cp": "U+1F42C",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Dolphin"
+    },
+    {
+      "char": "🐳",
+      "cp": "U+1F433",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Spouting Whale"
+    },
+    {
+      "char": "🦈",
+      "cp": "U+1F988",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Shark"
+    },
+    {
+      "char": "🐘",
+      "cp": "U+1F418",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Elephant"
+    },
+    {
+      "char": "🦄",
+      "cp": "U+1F984",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Unicorn Face"
+    },
+    {
+      "char": "🌸",
+      "cp": "U+1F338",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Cherry Blossom"
+    },
+    {
+      "char": "🌻",
+      "cp": "U+1F33B",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Sunflower"
+    },
+    {
+      "char": "🌈",
+      "cp": "U+1F308",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Rainbow"
+    },
+    {
+      "char": "❄️",
+      "cp": "U+2744",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Snowflake"
+    },
+    {
+      "char": "🔥",
+      "cp": "U+1F525",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Fire"
+    },
+    {
+      "char": "💧",
+      "cp": "U+1F4A7",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Droplet"
+    },
+    {
+      "char": "🌊",
+      "cp": "U+1F30A",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Water Wave"
+    },
+    {
+      "char": "⭐",
+      "cp": "U+2B50",
+      "tabs": [
+        "animals"
+      ],
+      "name": "White Medium Star"
+    },
+    {
+      "char": "🌙",
+      "cp": "U+1F319",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Crescent Moon"
+    },
+    {
+      "char": "🌞",
+      "cp": "U+1F31E",
+      "tabs": [
+        "animals"
+      ],
+      "name": "Sun With Face"
+    },
+    {
+      "char": "🍕",
+      "cp": "U+1F355",
+      "tabs": [
+        "food"
+      ],
+      "name": "Slice Of Pizza"
+    },
+    {
+      "char": "🍔",
+      "cp": "U+1F354",
+      "tabs": [
+        "food"
+      ],
+      "name": "Hamburger"
+    },
+    {
+      "char": "🌮",
+      "cp": "U+1F32E",
+      "tabs": [
+        "food"
+      ],
+      "name": "Taco"
+    },
+    {
+      "char": "🌯",
+      "cp": "U+1F32F",
+      "tabs": [
+        "food"
+      ],
+      "name": "Burrito"
+    },
+    {
+      "char": "🍜",
+      "cp": "U+1F35C",
+      "tabs": [
+        "food"
+      ],
+      "name": "Steaming Bowl"
+    },
+    {
+      "char": "🍣",
+      "cp": "U+1F363",
+      "tabs": [
+        "food"
+      ],
+      "name": "Sushi"
+    },
+    {
+      "char": "🍱",
+      "cp": "U+1F371",
+      "tabs": [
+        "food"
+      ],
+      "name": "Bento Box"
+    },
+    {
+      "char": "🍗",
+      "cp": "U+1F357",
+      "tabs": [
+        "food"
+      ],
+      "name": "Poultry Leg"
+    },
+    {
+      "char": "🥩",
+      "cp": "U+1F969",
+      "tabs": [
+        "food"
+      ],
+      "name": "Cut Of Meat"
+    },
+    {
+      "char": "🌭",
+      "cp": "U+1F32D",
+      "tabs": [
+        "food"
+      ],
+      "name": "Hot Dog"
+    },
+    {
+      "char": "🍟",
+      "cp": "U+1F35F",
+      "tabs": [
+        "food"
+      ],
+      "name": "French Fries"
+    },
+    {
+      "char": "🥗",
+      "cp": "U+1F957",
+      "tabs": [
+        "food"
+      ],
+      "name": "Green Salad"
+    },
+    {
+      "char": "🍩",
+      "cp": "U+1F369",
+      "tabs": [
+        "food"
+      ],
+      "name": "Doughnut"
+    },
+    {
+      "char": "🎂",
+      "cp": "U+1F382",
+      "tabs": [
+        "food"
+      ],
+      "name": "Birthday Cake"
+    },
+    {
+      "char": "🍺",
+      "cp": "U+1F37A",
+      "tabs": [
+        "food"
+      ],
+      "name": "Beer Mug"
+    },
+    {
+      "char": "☕",
+      "cp": "U+2615",
+      "tabs": [
+        "food"
+      ],
+      "name": "Hot Beverage"
+    },
+    {
+      "char": "🧋",
+      "cp": "U+1F9CB",
+      "tabs": [
+        "food"
+      ],
+      "name": "Bubble Tea"
+    },
+    {
+      "char": "🥂",
+      "cp": "U+1F942",
+      "tabs": [
+        "food"
+      ],
+      "name": "Clinking Glasses"
+    },
+    {
+      "char": "🍷",
+      "cp": "U+1F377",
+      "tabs": [
+        "food"
+      ],
+      "name": "Wine Glass"
+    },
+    {
+      "char": "🍸",
+      "cp": "U+1F378",
+      "tabs": [
+        "food"
+      ],
+      "name": "Cocktail Glass"
+    },
+    {
+      "char": "🥃",
+      "cp": "U+1F943",
+      "tabs": [
+        "food"
+      ],
+      "name": "Tumbler Glass"
+    },
+    {
+      "char": "🍎",
+      "cp": "U+1F34E",
+      "tabs": [
+        "food"
+      ],
+      "name": "Red Apple"
+    },
+    {
+      "char": "🍊",
+      "cp": "U+1F34A",
+      "tabs": [
+        "food"
+      ],
+      "name": "Tangerine"
+    },
+    {
+      "char": "🍋",
+      "cp": "U+1F34B",
+      "tabs": [
+        "food"
+      ],
+      "name": "Lemon"
+    },
+    {
+      "char": "🍌",
+      "cp": "U+1F34C",
+      "tabs": [
+        "food"
+      ],
+      "name": "Banana"
+    },
+    {
+      "char": "🍉",
+      "cp": "U+1F349",
+      "tabs": [
+        "food"
+      ],
+      "name": "Watermelon"
+    },
+    {
+      "char": "🍇",
+      "cp": "U+1F347",
+      "tabs": [
+        "food"
+      ],
+      "name": "Grapes"
+    },
+    {
+      "char": "🍓",
+      "cp": "U+1F353",
+      "tabs": [
+        "food"
+      ],
+      "name": "Strawberry"
+    },
+    {
+      "char": "🍒",
+      "cp": "U+1F352",
+      "tabs": [
+        "food"
+      ],
+      "name": "Cherries"
+    },
+    {
+      "char": "🥑",
+      "cp": "U+1F951",
+      "tabs": [
+        "food"
+      ],
+      "name": "Avocado"
+    },
+    {
+      "char": "🥕",
+      "cp": "U+1F955",
+      "tabs": [
+        "food"
+      ],
+      "name": "Carrot"
+    },
+    {
+      "char": "🌽",
+      "cp": "U+1F33D",
+      "tabs": [
+        "food"
+      ],
+      "name": "Ear Of Maize"
+    },
+    {
+      "char": "🥦",
+      "cp": "U+1F966",
+      "tabs": [
+        "food"
+      ],
+      "name": "Broccoli"
+    },
+    {
+      "char": "⚽",
+      "cp": "U+26BD",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Soccer Ball"
+    },
+    {
+      "char": "🏀",
+      "cp": "U+1F3C0",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Basketball And Hoop"
+    },
+    {
+      "char": "🏈",
+      "cp": "U+1F3C8",
+      "tabs": [
+        "fun"
+      ],
+      "name": "American Football"
+    },
+    {
+      "char": "⚾",
+      "cp": "U+26BE",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Baseball"
+    },
+    {
+      "char": "🎾",
+      "cp": "U+1F3BE",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Tennis Racquet And Ball"
+    },
+    {
+      "char": "🏐",
+      "cp": "U+1F3D0",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Volleyball"
+    },
+    {
+      "char": "🎱",
+      "cp": "U+1F3B1",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Billiards"
+    },
+    {
+      "char": "🏓",
+      "cp": "U+1F3D3",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Table Tennis Paddle And Ball"
+    },
+    {
+      "char": "🎯",
+      "cp": "U+1F3AF",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Direct Hit"
+    },
+    {
+      "char": "🎮",
+      "cp": "U+1F3AE",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Video Game"
+    },
+    {
+      "char": "🕹",
+      "cp": "U+1F579",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Joystick"
+    },
+    {
+      "char": "🧩",
+      "cp": "U+1F9E9",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Jigsaw Puzzle Piece"
+    },
+    {
+      "char": "🎲",
+      "cp": "U+1F3B2",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Game Die"
+    },
+    {
+      "char": "🏆",
+      "cp": "U+1F3C6",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Trophy"
+    },
+    {
+      "char": "🥇",
+      "cp": "U+1F947",
+      "tabs": [
+        "fun"
+      ],
+      "name": "First Place Medal"
+    },
+    {
+      "char": "🥈",
+      "cp": "U+1F948",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Second Place Medal"
+    },
+    {
+      "char": "🥉",
+      "cp": "U+1F949",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Third Place Medal"
+    },
+    {
+      "char": "🎉",
+      "cp": "U+1F389",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Party Popper"
+    },
+    {
+      "char": "🎊",
+      "cp": "U+1F38A",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Confetti Ball"
+    },
+    {
+      "char": "🎈",
+      "cp": "U+1F388",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Balloon"
+    },
+    {
+      "char": "🎁",
+      "cp": "U+1F381",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Wrapped Present"
+    },
+    {
+      "char": "🎀",
+      "cp": "U+1F380",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Ribbon"
+    },
+    {
+      "char": "🎬",
+      "cp": "U+1F3AC",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Clapper Board"
+    },
+    {
+      "char": "🎤",
+      "cp": "U+1F3A4",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Microphone"
+    },
+    {
+      "char": "🎧",
+      "cp": "U+1F3A7",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Headphone"
+    },
+    {
+      "char": "🎸",
+      "cp": "U+1F3B8",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Guitar"
+    },
+    {
+      "char": "🎹",
+      "cp": "U+1F3B9",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Musical Keyboard"
+    },
+    {
+      "char": "🥁",
+      "cp": "U+1F941",
+      "tabs": [
+        "fun"
+      ],
+      "name": "Drum With Drumsticks"
+    },
+    {
+      "char": "❤️",
+      "cp": "U+2764",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Heavy Black Heart"
+    },
+    {
+      "char": "🧡",
+      "cp": "U+1F9E1",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Orange Heart"
+    },
+    {
+      "char": "💛",
+      "cp": "U+1F49B",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Yellow Heart"
+    },
+    {
+      "char": "💚",
+      "cp": "U+1F49A",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Green Heart"
+    },
+    {
+      "char": "💙",
+      "cp": "U+1F499",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Blue Heart"
+    },
+    {
+      "char": "💜",
+      "cp": "U+1F49C",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Purple Heart"
+    },
+    {
+      "char": "🖤",
+      "cp": "U+1F5A4",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Black Heart"
+    },
+    {
+      "char": "🤍",
+      "cp": "U+1F90D",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "White Heart"
+    },
+    {
+      "char": "💔",
+      "cp": "U+1F494",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Broken Heart"
+    },
+    {
+      "char": "💕",
+      "cp": "U+1F495",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Two Hearts"
+    },
+    {
+      "char": "💖",
+      "cp": "U+1F496",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Sparkling Heart"
+    },
+    {
+      "char": "💘",
+      "cp": "U+1F498",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Heart With Arrow"
+    },
+    {
+      "char": "💝",
+      "cp": "U+1F49D",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Heart With Ribbon"
+    },
+    {
+      "char": "✅",
+      "cp": "U+2705",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "White Heavy Check Mark"
+    },
+    {
+      "char": "❌",
+      "cp": "U+274C",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Cross Mark"
+    },
+    {
+      "char": "💯",
+      "cp": "U+1F4AF",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Hundred Points Symbol"
+    },
+    {
+      "char": "⚠️",
+      "cp": "U+26A0",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Warning Sign"
+    },
+    {
+      "char": "🚫",
+      "cp": "U+1F6AB",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "No Entry Sign"
+    },
+    {
+      "char": "❗",
+      "cp": "U+2757",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Heavy Exclamation Mark Symbol"
+    },
+    {
+      "char": "❓",
+      "cp": "U+2753",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Black Question Mark Ornament"
+    },
+    {
+      "char": "‼️",
+      "cp": "U+203C",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Double Exclamation Mark"
+    },
+    {
+      "char": "🔴",
+      "cp": "U+1F534",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Large Red Circle"
+    },
+    {
+      "char": "🟡",
+      "cp": "U+1F7E1",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Large Yellow Circle"
+    },
+    {
+      "char": "🟢",
+      "cp": "U+1F7E2",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Large Green Circle"
+    },
+    {
+      "char": "🔵",
+      "cp": "U+1F535",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Large Blue Circle"
+    },
+    {
+      "char": "⚫",
+      "cp": "U+26AB",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Medium Black Circle"
+    },
+    {
+      "char": "⚪",
+      "cp": "U+26AA",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Medium White Circle"
+    },
+    {
+      "char": "🏁",
+      "cp": "U+1F3C1",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Chequered Flag"
+    },
+    {
+      "char": "🚩",
+      "cp": "U+1F6A9",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Triangular Flag On Post"
+    },
+    {
+      "char": "🏳️‍🌈",
+      "cp": "U+1F3F3 U+1F308",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Waving White Flag"
+    },
+    {
+      "char": "🏴‍☠️",
+      "cp": "U+1F3F4 U+2620",
+      "tabs": [
+        "symbols"
+      ],
+      "name": "Waving Black Flag"
+    }
   ]
 }

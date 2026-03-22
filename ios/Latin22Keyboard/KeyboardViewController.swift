@@ -8,8 +8,8 @@ final class KeyboardViewController: UIInputViewController {
     private var keyboardView: KeyboardView!
     private var engine: MappingEngine?
 
-    // Fixed keyboard height (portrait phone).  Landscape / iPad gets same value for now.
-    private let keyboardHeight: CGFloat = 226
+    // Fixed keyboard height — matches iOS 26 Liquid Glass key area on iPhone 14 portrait.
+    private let keyboardHeight: CGFloat = 216
 
     // MARK: - Lifecycle
 
@@ -18,7 +18,8 @@ final class KeyboardViewController: UIInputViewController {
 
         keyboardView = KeyboardView()
         keyboardView.delegate = self
-        keyboardView.showsEmojiKey = UITextInputMode.activeInputModes.contains { $0.primaryLanguage == "emoji" }
+        // showsEmojiKey is updated in applyKeyboardPrefs() which runs once the
+        // background engine load completes — avoids blocking on activeInputModes here.
         keyboardView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(keyboardView)
 
@@ -34,11 +35,27 @@ final class KeyboardViewController: UIInputViewController {
         hc.priority = UILayoutPriority(999)
         hc.isActive = true
 
-        // Initial load — ensures engine is ready before viewWillAppear.
-        let (mappings, modifiers) = loadMappings()
-        engine = MappingEngine(mappings: mappings, modifierKeys: modifiers)
-        applyKeyboardPrefs()
-        syncKeyboardLanguages()
+        // Rounded top corners — match system keyboard container shape.
+        view.layer.cornerRadius = 12
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.clipsToBounds = true
+
+        // Decode mappings.json + create engine on a background thread so the
+        // keyboard appears instantly without blocking the main thread.
+        loadMappingsInBackground()
+
+        // iOS 26 Liquid Glass: keyboard background is a blurred chrome material,
+        // not a solid color. UIVisualEffectView handles both light and dark automatically.
+        view.backgroundColor = .clear
+        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .systemChromeMaterial))
+        blur.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(blur, at: 0)
+        NSLayoutConstraint.activate([
+            blur.topAnchor.constraint(equalTo: view.topAnchor),
+            blur.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            blur.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            blur.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -52,6 +69,12 @@ final class KeyboardViewController: UIInputViewController {
     // made in the app take effect without restarting the extension process.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        guard cachedMappingsFile != nil else {
+            // First launch — engine is being loaded in background by viewDidLoad's
+            // loadMappingsInBackground(); nothing to do here.
+            return
+        }
+        // Subsequent appearances — cached file is ready, rebuild engine fast.
         let (mappings, modifiers) = loadMappings()
         engine = MappingEngine(mappings: mappings, modifierKeys: modifiers)
         applyKeyboardPrefs()
@@ -98,18 +121,60 @@ final class KeyboardViewController: UIInputViewController {
         }
     }
 
-    /// Parses bundled mappings.json once; cached for the lifetime of the view controller.
-    private lazy var mappingsFile: MappingsFile? = {
-        guard
-            let url  = Bundle(for: KeyboardViewController.self)
-                          .url(forResource: "mappings", withExtension: "json"),
-            let data = try? Data(contentsOf: url)
-        else { return nil }
-        return try? JSONDecoder().decode(MappingsFile.self, from: data)
-    }()
+    /// Parses bundled mappings.json once on a background queue; thread-safe via
+    /// `isLoadingMappings`. Only accessed/written on the main thread after decode.
+    private var cachedMappingsFile: MappingsFile? = nil
+    private var isLoadingMappings = false
+
+    // MARK: - Background mapping load
+
+    /// Decodes mappings.json and creates the engine on a background thread, then
+    /// posts results to the main thread. Safe to call multiple times — only runs once.
+    private func loadMappingsInBackground() {
+        guard !isLoadingMappings, cachedMappingsFile == nil else { return }
+        isLoadingMappings = true
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            guard
+                let url  = Bundle(for: KeyboardViewController.self)
+                              .url(forResource: "mappings", withExtension: "json"),
+                let data = try? Data(contentsOf: url),
+                let file = try? JSONDecoder().decode(MappingsFile.self, from: data)
+            else {
+                DispatchQueue.main.async { self.isLoadingMappings = false }
+                return
+            }
+            let suite        = UserDefaults(suiteName: "group.com.latin22.shared")
+            let activeLangID = suite?.string(forKey: "activeLanguageID") ?? file.defaultLanguageID
+            let layerIDs     = Set(suite?.stringArray(forKey: "activeLayerIDs") ?? file.defaultLayerIDs)
+            guard let lang = file.languages.first(where: { $0.id == activeLangID })
+                             ?? file.languages.first else {
+                DispatchQueue.main.async { self.isLoadingMappings = false }
+                return
+            }
+            let activeLayers = lang.layers
+                .filter { layerIDs.contains($0.id) }
+                .sorted { $0.id < $1.id }
+            var mergedMappings: [String: String] = [:]
+            var mergedMods:     Set<Character>   = []
+            for layer in activeLayers {
+                mergedMappings.merge(layer.mappings) { _, new in new }
+                mergedMods.formUnion(layer.modifierKeys.compactMap { $0.first })
+            }
+            let eng = MappingEngine(mappings: mergedMappings, modifierKeys: mergedMods)
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.cachedMappingsFile = file
+                self.engine = eng
+                self.isLoadingMappings = false
+                self.applyKeyboardPrefs()
+                self.syncKeyboardLanguages()
+            }
+        }
+    }
 
     private func loadMappings() -> (mappings: [String: String], modifierKeys: Set<Character>) {
-        guard let file = mappingsFile else { return ([:], []) }
+        guard let file = cachedMappingsFile else { return ([:], []) }
 
         let suite        = UserDefaults(suiteName: "group.com.latin22.shared")
         let activeLangID = suite?.string(forKey: "activeLanguageID") ?? file.defaultLanguageID
@@ -132,7 +197,7 @@ final class KeyboardViewController: UIInputViewController {
     }
 
     private func syncKeyboardLanguages() {
-        guard let file = mappingsFile else { return }
+        guard let file = cachedMappingsFile else { return }
         let suite        = UserDefaults(suiteName: "group.com.latin22.shared")
         let activeLangID = suite?.string(forKey: "activeLanguageID") ?? file.defaultLanguageID
         keyboardView.availableLanguages = file.languages.map { (id: $0.id, name: $0.name) }
@@ -149,18 +214,30 @@ final class KeyboardViewController: UIInputViewController {
     }
 
     private func switchLanguage(to langID: String) {
-        guard let file = mappingsFile,
+        guard let file = cachedMappingsFile,
               let lang = file.languages.first(where: { $0.id == langID })
         else { return }
         let defaultLayerIDs = lang.layers
             .sorted { $0.id < $1.id }
             .prefix(1)
             .map(\.id)
+        let layerIDSet = Set(defaultLayerIDs)
         let suite = UserDefaults(suiteName: "group.com.latin22.shared")
-        suite?.set(langID,            forKey: "activeLanguageID")
-        suite?.set(defaultLayerIDs,   forKey: "activeLayerIDs")
-        let (mappings, modifiers) = loadMappings()
-        engine = MappingEngine(mappings: mappings, modifierKeys: modifiers)
+        suite?.set(langID,          forKey: "activeLanguageID")
+        suite?.set(defaultLayerIDs, forKey: "activeLayerIDs")
+
+        // Build mappings directly from the resolved lang+layers instead of
+        // re-reading UserDefaults (write may not have flushed yet).
+        let activeLayers = lang.layers
+            .filter  { layerIDSet.contains($0.id) }
+            .sorted  { $0.id < $1.id }
+        var mergedMappings: [String: String] = [:]
+        var mergedMods:     Set<Character>   = []
+        for layer in activeLayers {
+            mergedMappings.merge(layer.mappings) { _, new in new }
+            mergedMods.formUnion(layer.modifierKeys.compactMap { $0.first })
+        }
+        engine = MappingEngine(mappings: mergedMappings, modifierKeys: mergedMods)
         engine?.reset()
         keyboardView.currentLanguageID = langID
     }

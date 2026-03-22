@@ -72,18 +72,18 @@ final class KeyboardView: UIView {
     private var deleteTimer: Timer?
     private var lastBuiltSize: CGSize = .zero
     private var langPickerView: UIView?
-    private var emojiPicker: EmojiPickerView!
+    private var emojiPicker: EmojiPickerView?
 
 
     // MARK: Layout constants (recalculated from actual bounds in layoutSubviews)
 
     private let rowCount     = 4
-    private let topPad:    CGFloat = 8
+    private let topPad:    CGFloat = 12
     private let bottomPad: CGFloat = 4
-    private let rowGap:    CGFloat = 11
+    private let rowGap:    CGFloat = 10
     private let keyGap:    CGFloat = 6
     private let sidePad:   CGFloat = 3
-    private let cornerR:   CGFloat = 5
+    private let cornerR:   CGFloat = 6
 
     // MARK: - Init
 
@@ -95,22 +95,8 @@ final class KeyboardView: UIView {
         // Allow two fingers to touch different keys simultaneously without
         // the second touch cancelling the first (fixes rapid two-thumb typing).
         isMultipleTouchEnabled = true
-        // Add the emoji picker once and keep it in the hierarchy permanently.
-        // Showing/hiding via isHidden avoids addSubview + NSLayoutConstraint.activate
-        // being called from inside layoutSubviews, which corrupts UIKit's internal
-        // layout tables and causes the *** key cannot be nil crash.
-        let picker = EmojiPickerView()
-        picker.delegate = self
-        picker.translatesAutoresizingMaskIntoConstraints = false
-        picker.isHidden = true
-        addSubview(picker)
-        NSLayoutConstraint.activate([
-            picker.leadingAnchor.constraint(equalTo: leadingAnchor),
-            picker.trailingAnchor.constraint(equalTo: trailingAnchor),
-            picker.topAnchor.constraint(equalTo: topAnchor),
-            picker.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
-        emojiPicker = picker
+        // EmojiPickerView is created lazily on first use (see showEmojiView)
+        // so that emoji JSON parsing never blocks the initial keyboard appearance.
     }
 
     // MARK: - Layout
@@ -133,8 +119,8 @@ final class KeyboardView: UIView {
     private func buildKeys() {
         hideLangPicker()
         lastBuiltSize = bounds.size
-        // Remove key button subviews (emoji picker stays in hierarchy, just hidden).
-        subviews.filter { $0 !== emojiPicker }.forEach { $0.removeFromSuperview() }
+        // Remove key button subviews only — leave the emoji picker in the hierarchy if present.
+        subviews.filter { $0 !== (emojiPicker as UIView?) }.forEach { $0.removeFromSuperview() }
         keyButtons.removeAll()
 
         if mode == .emoji {
@@ -193,17 +179,17 @@ final class KeyboardView: UIView {
         btn.frame = frame
         btn.layer.cornerRadius = cornerR
         btn.layer.shadowColor      = UIColor.black.cgColor
-        btn.layer.shadowOffset     = CGSize(width: 0, height: 1)
-        btn.layer.shadowOpacity    = 0.35
-        btn.layer.shadowRadius     = 0.5
+        btn.layer.shadowOffset     = CGSize(width: 0, height: 0.5)
+        btn.layer.shadowOpacity    = 0.18
+        btn.layer.shadowRadius     = 1.0
         btn.layer.shadowPath       = UIBezierPath(roundedRect: CGRect(origin: .zero, size: frame.size),
                                                  cornerRadius: cornerR).cgPath
         btn.clipsToBounds          = false
-        // Cache the composited button+shadow as a bitmap so it isn't
-        // recomposited on every frame — critical in the memory-limited
-        // keyboard extension process.
-        btn.layer.shouldRasterize       = true
-        btn.layer.rasterizationScale    = UIScreen.main.scale
+        // Rasterize key buttons so they aren't recomposited on every frame.
+        // NOTE: do NOT rasterize when over a UIVisualEffectView — it would bake in
+        // a snapshot of the blur rather than compositing live. The shadow path is
+        // pre-computed above so layer draw cost is minimal without rasterisation.
+        btn.layer.shouldRasterize       = false
 
         let symConf = UIImage.SymbolConfiguration(pointSize: 17, weight: .light)
         if let sym = key.symbolName,
@@ -284,10 +270,12 @@ final class KeyboardView: UIView {
         let spaceLbl = availableLanguages.count > 1 ? currentLanguageID.uppercased() : "space"
         var row4: [KeyModel] = [numKey]
         if showsEmojiKey {
-            row4.append(KeyModel(label: "😊", action: .switchToMode(.emoji), widthWeight: 1.5, style: .function))
+            row4.append(KeyModel(label: "", action: .switchToMode(.emoji), widthWeight: 1.5, style: .function, symbolName: "face.smiling"))
         }
-        row4.append(KeyModel(label: spaceLbl, action: .space,     widthWeight: showsEmojiKey ? 4.5 : 6.0, style: .spaceBar))
-        row4.append(KeyModel(label: "", action: .returnKey, widthWeight: 2.0, style: .returnStyle, symbolName: "return"))
+        // Without emoji: 123(1.5) + space(5.5) + return(2.0) = 9.0
+        // With emoji:    123(1.5) + emoji(1.5) + space(4.0) + return(2.0) = 9.0
+        row4.append(KeyModel(label: spaceLbl, action: .space,     widthWeight: showsEmojiKey ? 4.0 : 5.5, style: .spaceBar))
+        row4.append(KeyModel(label: "",      action: .returnKey, widthWeight: 2.0, style: .returnStyle, symbolName: "return"))
 
         return [row1, row2, row3, row4]
     }
@@ -308,15 +296,15 @@ final class KeyboardView: UIView {
     private func punctuationRow(modeKey: KeyModel) -> [KeyModel] {
         var row = [modeKey]
         [".", ",", "?", "!", "'"].forEach { row.append(KeyModel(label: $0, action: .character($0))) }
-        row.append(KeyModel(label: "⌫", action: .backspace, widthWeight: 1.5, style: .function))
+        row.append(KeyModel(label: "", action: .backspace, widthWeight: 1.5, style: .function, symbolName: "delete.backward"))
         return row
     }
 
     private func bottomRow(modeLabel: String, modeTarget: KeyboardMode) -> [KeyModel] {
         return [
             KeyModel(label: modeLabel, action: .switchToMode(modeTarget), widthWeight: 1.5, style: .function),
-            KeyModel(label: "space",   action: .space,                    widthWeight: 5.5, style: .spaceBar),
-            KeyModel(label: "return",  action: .returnKey,                widthWeight: 2.0, style: .returnStyle),
+            KeyModel(label: "space",   action: .space,                    widthWeight: 4.5, style: .spaceBar),
+            KeyModel(label: "",        action: .returnKey,                widthWeight: 2.0, style: .returnStyle, symbolName: "return"),
         ]
     }
 
@@ -489,26 +477,53 @@ final class KeyboardView: UIView {
 
     // MARK: - Appearance
 
+    // Two-tone iOS keyboard colours matched to system values:
+    //   char keys  – #FFFFFF (light) / #3D3D3D (dark)
+    //   func keys  – #ADB4BC (light) / #2D2D2D (dark)
+    private static let charKeyLight = UIColor.white
+    private static let charKeyDark  = UIColor(red: 0.239, green: 0.239, blue: 0.239, alpha: 1) // #3D3D3D
+    private static let funcKeyLight = UIColor(red: 0.678, green: 0.706, blue: 0.737, alpha: 1) // #ADB4BC
+    private static let funcKeyDark  = UIColor(red: 0.176, green: 0.176, blue: 0.176, alpha: 1) // #2D2D2D
+    private static let charHlLight  = UIColor(red: 0.80,  green: 0.80,  blue: 0.82,  alpha: 1)
+    private static let charHlDark   = UIColor(red: 0.40,  green: 0.40,  blue: 0.40,  alpha: 1)
+    private static let funcHlLight  = UIColor(red: 0.54,  green: 0.56,  blue: 0.58,  alpha: 1)
+    private static let funcHlDark   = UIColor(red: 0.28,  green: 0.28,  blue: 0.28,  alpha: 1)
+
     private var isDark: Bool { traitCollection.userInterfaceStyle == .dark }
 
-    // System keyboard colours (measured from iOS 26 on iPhone 14).
-
-    private var keyText: UIColor { isDark ? .white : .black }
+    private var keyText: UIColor {
+        UIColor { tc in tc.userInterfaceStyle == .dark ? .white : .black }
+    }
     private var shiftActiveColor: UIColor { UIColor.systemBlue.withAlphaComponent(0.85) }
 
     private func bgColor(for style: KeyStyleType) -> UIColor {
-        isDark ? UIColor(red: 0.227, green: 0.227, blue: 0.247, alpha: 1)   // #3A3A3F
-               : UIColor(red: 0.675, green: 0.694, blue: 0.729, alpha: 1)   // #ACB1BA
+        UIColor { tc in
+            let dark = tc.userInterfaceStyle == .dark
+            switch style {
+            case .character:
+                return dark ? Self.charKeyDark : Self.charKeyLight
+            case .spaceBar, .function, .returnStyle:
+                return dark ? Self.funcKeyDark : Self.funcKeyLight
+            }
+        }
     }
 
     private func highlight(for style: KeyStyleType) -> UIColor {
-        isDark ? UIColor(red: 0.320, green: 0.320, blue: 0.340, alpha: 1)
-               : UIColor(red: 0.530, green: 0.545, blue: 0.573, alpha: 1)
+        UIColor { tc in
+            let dark = tc.userInterfaceStyle == .dark
+            switch style {
+            case .character:
+                return dark ? Self.charHlDark : Self.charHlLight
+            case .spaceBar, .function, .returnStyle:
+                return dark ? Self.funcHlDark : Self.funcHlLight
+            }
+        }
     }
 
     private func font(for style: KeyStyleType) -> UIFont {
         switch style {
-        case .character:  return .systemFont(ofSize: 22, weight: .regular)
+        case .character:  return .systemFont(ofSize: 22, weight: .light)
+        case .spaceBar:   return .systemFont(ofSize: 16, weight: .regular)
         default:          return .systemFont(ofSize: 15, weight: .regular)
         }
     }
@@ -516,12 +531,27 @@ final class KeyboardView: UIView {
     // MARK: - Emoji view helpers
 
     private func showEmojiView() {
-        emojiPicker.isHidden = false
-        bringSubviewToFront(emojiPicker)
+        if emojiPicker == nil {
+            // First use — create and pin the picker now so JSON parsing happens
+            // off the critical keyboard-appearance path.
+            let picker = EmojiPickerView()
+            picker.delegate = self
+            picker.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(picker)
+            NSLayoutConstraint.activate([
+                picker.leadingAnchor.constraint(equalTo: leadingAnchor),
+                picker.trailingAnchor.constraint(equalTo: trailingAnchor),
+                picker.topAnchor.constraint(equalTo: topAnchor),
+                picker.bottomAnchor.constraint(equalTo: bottomAnchor),
+            ])
+            emojiPicker = picker
+        }
+        emojiPicker!.isHidden = false
+        bringSubviewToFront(emojiPicker!)
     }
 
     private func hideEmojiView() {
-        emojiPicker.isHidden = true
+        emojiPicker?.isHidden = true
     }
 }
 
