@@ -35,6 +35,11 @@ settings:
     DEVELOPMENT_TEAM: 28X65QWK28
     CODE_SIGN_STYLE: Automatic
 
+packages:
+  KeyboardKit:
+    url: https://github.com/KeyboardKit/KeyboardKit
+    minorVersion: 10.3.1
+
 targets:
 
   # ── Container app ─────────────────────────────────────────────────────────
@@ -67,6 +72,7 @@ targets:
     dependencies:
       - target: Latin22Keyboard
         embed: true
+      - package: KeyboardKit
 
   # ── Keyboard extension ────────────────────────────────────────────────────
   Latin22Keyboard:
@@ -103,5 +109,7 @@ targets:
         INFOPLIST_FILE: Latin22Keyboard/Info.plist
         CODE_SIGN_ENTITLEMENTS: Latin22Keyboard/Latin22Keyboard.entitlements
         CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION: YES
+    dependencies:
+      - package: KeyboardKit
 
 

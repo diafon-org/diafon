@@ -64,6 +64,8 @@ final class MappingEngine {
         self.mappings = mappings
         self.modifierKeys = modifierKeys
         self.maxLen = mappings.keys.map(\.count).max() ?? 0
+        print("🔧 MappingEngine initialized with \(mappings.count) mappings, max length: \(maxLen)")
+        print("🔧 Modifier keys: \(modifierKeys)")
     }
 
     // MARK: - API
@@ -75,8 +77,10 @@ final class MappingEngine {
             lastSubstitution = nil
             buffer.append(char)
             if buffer.count > maxLen { buffer.removeFirst() }
+            print("  📝 Regular char '\(char)' → buffer: '\(buffer)'")
             return .none
         }
+        print("  🔑 Modifier key '\(char)' pressed, buffer: '\(buffer)'")
         return processModifier(char)
     }
 
@@ -149,10 +153,17 @@ final class MappingEngine {
 
     private func longestSuffixMatch(in str: String) -> (String, String)? {
         let limit = min(maxLen, str.count)
+        print("    🔍 Searching for match in '\(str)' (checking lengths \(limit) down to 2)")
         for length in stride(from: limit, through: 2, by: -1) {
             let suffix = String(str.suffix(length))
-            if let rep = mappings[suffix] { return (suffix, rep) }
+            if let rep = mappings[suffix] {
+                print("    ✅ Found mapping: '\(suffix)' → '\(rep)'")
+                return (suffix, rep)
+            } else {
+                print("    ❌ No mapping for '\(suffix)'")
+            }
         }
+        print("    ⚠️ No match found")
         return nil
     }
 }
