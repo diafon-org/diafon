@@ -1,0 +1,31 @@
+# Ordinal feature scales. Index distance along these drives near-merge detection.
+# These are ARTICULATORY axes; a "point" is defined by the base tuple only.
+
+consonant:
+  place:   [bilabial, labiodental, dental, alveolar, postalveolar, retroflex,
+            alveolopalatal, palatal, labiovelar, velar, uvular, pharyngeal, glottal]
+  manner:  [plosive, affricate, fricative, nasal, trill, tap,
+            lateral-approximant, approximant]
+  voice:   [vl, vd]          # voiceless, voiced
+
+vowel:
+  height:   [close, near-close, close-mid, mid, open-mid, near-open, open]
+  backness: [front, central, back]
+  round:    [false, true]
+
+# Modifier features are STRIPPED to obtain the base (point). They do not create
+# points; they ride on top and are what keep the inventory minimal. Each will get
+# a systematic modifier char in phase 2.
+modifiers:
+  - long            # ː   phonemic length / gemination
+  - nasal           # ̃    nasalised vowel
+  - palatalized     # ʲ    Russian soft series
+  - pharyngealized  # ˤ    Arabic emphatics
+  - labialized      # ʷ    Latin labiovelars
+  - aspirated       # ʰ    Mandarin fortis series (replaces voicing contrast)
+  - rhotic          # ˞    r-coloured vowel (English NURSE)
+
+# Suprasegmental, tracked at language level, not per segment:
+suprasegmental:
+  - tone            # Mandarin
+  - stress          # EN ES IT RU DE EL (lexically contrastive)
