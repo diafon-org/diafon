@@ -14,6 +14,8 @@ def derive(all_ph, features):
         candidates to fuse across languages
     suspicious: (n_rare, ipa_a, ipa_b, shared_langs) — co-occurring ≤1-step pairs propped up
         by ≤2 languages, candidate allophones-entered-as-phonemes (advisory)
+    rhotic: (ipa_a, ipa_b, shared_langs) — cross-manner rhotic pairs that co-occur, minus the
+        reviewed r~ɾ contrast; the near-merge finder is blind to these (advisory)
     """
     points = {}
     for code, phs in all_ph.items():
@@ -45,7 +47,8 @@ def derive(all_ph, features):
 
     near = _near_merges(points, all_ph, features)
     suspicious = _suspicious_cooccurrence(points, all_ph, features)
-    return points, violations, near, suspicious
+    rhotic = _rhotic_cooccurrence(points, all_ph)
+    return points, violations, near, suspicious, rhotic
 
 
 def _dist(a, b, features):
@@ -130,5 +133,38 @@ def _suspicious_cooccurrence(points, all_ph, features, max_rare=2):
             continue
         shared = sorted(set(points[x]["languages"]) & set(points[y]["languages"]))
         out.append((min(na, nb), ia, ib, shared))
+    out.sort()
+    return out
+
+
+# Rhotics that co-occur as a reviewed genuine contrast.
+_RHOTIC_CONTRAST = {
+    frozenset(("r", "ɾ")),   # Spanish alveolar trill vs tap (perro / pero)
+}
+
+
+def _is_rhotic(base):
+    """An r-sound: any trill/tap, or an alveolar/retroflex central approximant."""
+    return base[0] == "C" and (
+        base[2] in ("trill", "tap")
+        or (base[2] == "approximant" and base[1] in ("alveolar", "retroflex")))
+
+
+def _rhotic_cooccurrence(points, all_ph):
+    """The near-merge finder only compares SAME-manner points, so it never sees the rhotic
+    family (trill / tap / approximant / retroflex). List rhotic pairs that co-occur in some
+    language (= a real contrast) minus the reviewed _RHOTIC_CONTRAST — a fresh one is a
+    cross-manner rhotic distinction that wants a witness check. Advisory."""
+    rho = [k for k in points if _is_rhotic(k)]
+    co = _cooccurring(all_ph)
+    out = []
+    for x, y in itertools.combinations(rho, 2):
+        if frozenset((x, y)) not in co:
+            continue
+        ia, ib = points[x]["canonical_ipa"], points[y]["canonical_ipa"]
+        if frozenset((ia, ib)) in _RHOTIC_CONTRAST:
+            continue
+        shared = sorted(set(points[x]["languages"]) & set(points[y]["languages"]))
+        out.append((ia, ib, shared))
     out.sort()
     return out

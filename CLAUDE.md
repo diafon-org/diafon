@@ -29,10 +29,12 @@ data/features.yaml          feature scales + modifier list (drives distance metr
 data/languages/<code>.yaml  one file per language — THIS is where you edit inventories
 src/diaphone/model.py       base tuples, modifier→diacritic map, strip_mods
 src/diaphone/loader.py      load + expand modifier series (long/nasal/secondary)
-src/diaphone/derive.py      minimal points, injectivity validation, near-merge finder
+src/diaphone/derive.py      minimal points, injectivity, near-merge + suspicious + rhotic finders
+src/diaphone/merges.py      Phase-2 merge ledger: fold fine-grained points → general inventory
 src/diaphone/report.py      JSON + Markdown output
 src/diaphone/cli.py         `diaphone` entry point
-out/                        generated (gitignored): points.json, mappings.json, report.md
+out/                        generated (gitignored): points.json, general_inventory.json,
+                            mappings.json, report.md
 ```
 
 ## Run / test
@@ -99,13 +101,25 @@ same-language neighbour — the shape of an allophone. Reviewed genuine contrast
   - **MERGE — no significant witness:** `ɯ`~`ɨ` (close back vs central unrounded) — every major
     language has one or the other, never both, and the two symbols are used interchangeably;
     recover by a back-vs-central diacritic in Phase 2.
+  - **Rhotics (cross-manner — invisible to the same-manner finder).** KEEP `r` (trill) ~ `ɾ`
+    (tap) — Spanish *perro/pero*, significant. KEEP the retroflex central approximant `ɻ`/`ʐ`
+    (Mandarin ⟨r⟩) — Dravidian Tamil/Malayalam contrast `ɻ`~`r`, significant. **MERGE** `ɹ`
+    (English's only rhotic) → `ɻ`: no language contrasts the two central approximants
+    (Eng-`ɹ` ≈ Mand-`ɻ`, Q4), no recovery diacritic. Note `ʁ` is NOT a rhotic merge — Arabic
+    contrasts `ʁ` (ghayn) ~ `r` (rā). (The retroflex *sibilants* `ʂ ʐ tʂ` still merge via
+    underdot — only Toda/Mapudungun, exotic, contrast them; the retroflex *approximant* is
+    different, defended by Dravidian.)
   - **RESOLVED as allophones (removed):** `ç`, `ɸ`, `ɐ` — see the allophone guard above.
-  - **No open near-merges remain.** Every ≤1-step pair is decided: KEEP (witnessed),
-    MERGE-via-diacritic (exotic/no witness), or removed (allophone). Applying the merges +
-    assigning the recovery diacritics is Phase 2.
-- **Phase 2 (not started):** assign the label char per point + one systematic char per
-  modifier, driven off `out/points.json`. Do NOT start phase 2 until the point set is
-  frozen.
+  - **No open near-merges remain** — same-manner *and* the cross-manner rhotic family are both
+    swept. Every pair is decided: KEEP (witnessed), MERGE-via-diacritic (exotic), MERGE-outright
+    (no witness), or removed (allophone). Applying the merges is Phase 2 → general inventory ~61.
+- **Phase 2 (started — merge ledger):** `merges.py` holds the decided fusions (source→target,
+  recovery feature) and `apply_merges()` folds the fine-grained **70** into the general
+  inventory **61** (42 C · 19 V), written to `out/general_inventory.json`. Every fold is
+  invariant-safe (asserted: no language co-occurs a source with its target). **Still to do:**
+  assign the label char per general point + one systematic char per modifier + the recovery
+  diacritics (dental/retroflex/uvular → underdot; centralized → a vowel mark), driven off
+  `general_inventory.json`. See `docs/vowel-notation.md` (do the B1 recase first).
 
 ## Open decisions
 - LICENSE not chosen yet (Sz' decides — mirror weCan conventions if relevant).

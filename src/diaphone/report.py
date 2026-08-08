@@ -11,10 +11,13 @@ def points_to_json(points):
         feats = ({"place": p["base"][1], "manner": p["base"][2], "voice": p["base"][3]}
                  if p["kind"] == "C"
                  else {"height": p["base"][1], "backness": p["base"][2], "round": p["base"][3]})
-        out.append({
+        d = {
             "canonical_ipa": p["canonical_ipa"], "kind": p["kind"], "features": feats,
             "languages": p["languages"], "modifiers_seen": sorted(p["modifiers_seen"]),
-        })
+        }
+        if p.get("recovered"):
+            d["recovered"] = p["recovered"]      # general-inventory targets that absorbed a merge
+        out.append(d)
     out.sort(key=lambda x: (x["kind"], x["canonical_ipa"]))
     return out
 
@@ -29,7 +32,8 @@ def mappings_to_json(all_ph):
     return out
 
 
-def render_report(all_ph, points, violations, near, suspicious, features, languages):
+def render_report(all_ph, points, violations, near, suspicious, rhotic, general, folded,
+                  features, languages):
     PLACE = features["consonant"]["place"]
     MANNER = features["consonant"]["manner"]
     HEIGHT = features["vowel"]["height"]
@@ -92,14 +96,36 @@ def render_report(all_ph, points, violations, near, suspicious, features, langua
             L.append(f"- `{a}` ~ `{b}` · shares [{','.join(shared)}] · rarer in {n} lang")
     else:
         L.append("_None — every co-occurring near-neighbour is a reviewed genuine contrast._")
+
+    L.append("\n## Rhotic co-occurrences (cross-manner blind spot)\n")
+    L.append("The near-merge finder only compares same-manner points, so the rhotic family "
+             "(trill / tap / approximant / retroflex) is invisible to it. Rhotic pairs that "
+             "co-occur in a language (a real contrast), minus the reviewed `r`~`ɾ`:\n")
+    if rhotic:
+        for a, b, shared in rhotic:
+            L.append(f"- `{a}` ~ `{b}` · co-occur in [{','.join(shared)}]")
+    else:
+        L.append("_None beyond `r`~`ɾ` (Spanish trill/tap)._")
+
+    L.append("\n## General inventory (Phase-2 merge ledger applied)\n")
+    Cg = sum(1 for p in general.values() if p["kind"] == "C")
+    L.append(f"Fine-grained **{len(points)}** → general **{len(general)}** "
+             f"(C {Cg} · V {len(general) - Cg}) after {len(folded)} decided merges:\n")
+    for a, b, rec, note in folded:
+        r = f"recover **{rec}**" if rec else "no recovery (sub-phonemic everywhere)"
+        L.append(f"- {note} — {r}")
     return "\n".join(L)
 
 
-def write_outputs(all_ph, points, violations, near, suspicious, features, languages, out_dir):
+def write_outputs(all_ph, points, violations, near, suspicious, rhotic, general, folded,
+                  features, languages, out_dir):
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, "points.json"), "w", encoding="utf-8") as f:
         json.dump(points_to_json(points), f, ensure_ascii=False, indent=2)
+    with open(os.path.join(out_dir, "general_inventory.json"), "w", encoding="utf-8") as f:
+        json.dump(points_to_json(general), f, ensure_ascii=False, indent=2)
     with open(os.path.join(out_dir, "mappings.json"), "w", encoding="utf-8") as f:
         json.dump(mappings_to_json(all_ph), f, ensure_ascii=False, indent=2)
     with open(os.path.join(out_dir, "report.md"), "w", encoding="utf-8") as f:
-        f.write(render_report(all_ph, points, violations, near, suspicious, features, languages))
+        f.write(render_report(all_ph, points, violations, near, suspicious, rhotic,
+                              general, folded, features, languages))

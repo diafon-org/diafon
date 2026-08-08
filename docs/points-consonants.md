@@ -103,6 +103,12 @@ without creating a new point (see the end of this file).
 | `ɹ` | **r**ed | The English `r` — tongue near the ridge, no contact | 1 · EN |
 | `ʐ` (approx.) | Mandarin *rén* | Mandarin `r` — tongue curled back, gliding | 1 · ZH |
 
+> **Rhotic consolidation (Phase-2 merge).** English `ɹ` and Mandarin `ʐ`/`ɻ` are both central
+> approximant *r*s that no language contrasts (English-r ≈ Mandarin-r), so `ɹ` folds into `ɻ` —
+> no diacritic. The trill `r` and tap `ɾ` stay distinct (Spanish *perro*/*pero*), and so does the
+> retroflex approximant `ɻ` (Tamil/Malayalam contrast ழ `/ɻ/` ~ ர `/r/`). `ʁ` is a true dorsal
+> fricative, not a rhotic merge (Arabic contrasts *ghayn* `ʁ` ~ *rā* `r`).
+
 ---
 
 ## Resolved: two allophones removed

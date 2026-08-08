@@ -22,6 +22,11 @@ Artifact to share a link.*
 |---|---|
 | [vowel-notation.md](vowel-notation.md) | The plain-Latin label proposal for vowels, **with a full review** (§0): blockers, the derived-set diff, and the fix. Input to the point-set freeze. |
 
+The **merge ledger** (`src/diaphone/merges.py`) is now built: it folds the fine-grained **70**
+points into a **general inventory of 61** (42 C · 19 V), written to `out/general_inventory.json`,
+with each merged pair tagged by its recovery diacritic (dental/retroflex/uvular → underdot;
+centralized → a vowel mark). Char assignment is the remaining Phase-2 work.
+
 ## Open threads tracked in these docs
 
 - **Allophones entered as phonemes — resolved.** `ç` (German *ich*), `ɸ` (Japanese *fu*), and

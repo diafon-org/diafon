@@ -59,6 +59,9 @@
   .cell .ipa{font-family:var(--ipa);font-size:21px;line-height:1}
   .cell .ex{font-size:10px;color:var(--ink-faint);margin-top:3px;text-align:center;line-height:1.15}
   .cell.flag .ipa{color:var(--flag)}
+  .cell.merge{position:relative;border:1px dashed var(--accent)}
+  .cell.merge:hover,.cell.merge:focus-visible{border-color:var(--accent)}
+  .mbadge{position:absolute;top:3px;right:5px;font-family:var(--ipa);font-size:12px;line-height:1;color:var(--accent)}
 
   .vowelbox{max-width:640px;margin:6px auto 0}
   .trap{position:relative;width:100%;aspect-ratio:1.55/1}
@@ -69,6 +72,8 @@
   .vnode .ipa{font-family:var(--ipa);font-size:18px;line-height:1}
   .vnode .ex{font-size:9.5px;color:var(--ink-faint);margin-top:2px;line-height:1.1;text-align:center}
   .vnode.flag .ipa{color:var(--flag)}
+  .vnode.merge{border:1px dashed var(--accent)}
+  .vnode.merge:hover,.vnode.merge:focus-visible{border-color:var(--accent)}
   .vlabel{position:absolute;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint)}
 
   h2 .count{font-family:var(--ipa);font-size:15px;color:var(--ink-faint);font-weight:400;margin-left:8px}
@@ -86,6 +91,17 @@
   .r .name b{font-weight:600}
   .r .desc{font-size:12.5px;color:var(--ink-soft);margin-top:1px}
   .r .langs{font-size:10.5px;color:var(--ink-faint);margin-top:3px;letter-spacing:.02em}
+  .r.merge{border-style:dashed;border-color:var(--accent)}
+  .r .mdesc{font-size:12px;color:var(--accent);margin-top:3px}
+  .ledger{margin-top:20px;background:var(--panel);border:1px solid var(--panel-edge);border-radius:14px;padding:20px 24px}
+  .ledger p{font-size:14px;color:var(--ink-soft);margin:0 0 14px;max-width:74ch}
+  .ledger table{border-collapse:collapse;width:100%;min-width:460px;font-size:13px}
+  .ledger th,.ledger td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--panel-edge);white-space:nowrap}
+  .ledger th{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);font-weight:600}
+  .ledger .src{font-family:var(--ipa);color:var(--accent);font-weight:600}
+  .ledger .tgt{font-family:var(--ipa)}
+  .ledger .ar{color:var(--ink-faint);padding:0 4px}
+  .ledger td.rec,.ledger td.why{color:var(--ink-soft)}
   .mods{margin-top:18px;display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:13.5px;align-items:baseline;max-width:760px}
   .mods .m{font-family:var(--ipa);color:var(--accent);font-weight:600;white-space:nowrap}
   .mods .d{color:var(--ink-soft)}
@@ -206,6 +222,27 @@
     <span class="m">˞ rhotic</span><span class="d"><b>Add "r" colour.</b> American <i>bird</i> (ɝ), Mandarin <i>er</i>.</span>
   </div>
 
+  <h2>Phase-2 merge ledger</h2>
+  <p class="sub">Fine-grained 70 points → a general inventory of <b>61</b>; these nine points fold in Phase 2,
+    each distinction recovered later by a diacritic (or left sub-phonemic). Sources are marked
+    <span style="color:var(--accent)">⤳</span> in the grids and lists above.</p>
+  <div class="ledger">
+    <div class="scroll">
+      <table>
+        <tr><th>source → target</th><th>recover</th><th>why merged</th></tr>
+        <tr><td><span class="src">t̪</span><span class="ar">⤳</span><span class="tgt">t</span></td><td class="rec">dental (underdot)</td><td class="why">Venda — exotic-only witness</td></tr>
+        <tr><td><span class="src">d̪</span><span class="ar">⤳</span><span class="tgt">d</span></td><td class="rec">dental (underdot)</td><td class="why">Venda — exotic-only witness</td></tr>
+        <tr><td><span class="src">ʂ</span><span class="ar">⤳</span><span class="tgt">ʃ</span></td><td class="rec">retroflex (underdot)</td><td class="why">Toda — exotic-only witness</td></tr>
+        <tr><td><span class="src">ʐ</span><span class="ar">⤳</span><span class="tgt">ʒ</span></td><td class="rec">retroflex (underdot)</td><td class="why">Toda — exotic-only witness (fricative ж only)</td></tr>
+        <tr><td><span class="src">tʂ</span><span class="ar">⤳</span><span class="tgt">tʃ</span></td><td class="rec">retroflex (underdot)</td><td class="why">Mapudungun — exotic-only witness</td></tr>
+        <tr><td><span class="src">ʁ</span><span class="ar">⤳</span><span class="tgt">ɣ</span></td><td class="rec">uvular (underdot)</td><td class="why">Tsakhur — exotic-only witness</td></tr>
+        <tr><td><span class="src">ɹ</span><span class="ar">⤳</span><span class="tgt">ɻ</span></td><td class="rec">—</td><td class="why">Eng-r ≈ Mand-r</td></tr>
+        <tr><td><span class="src">æ</span><span class="ar">⤳</span><span class="tgt">a</span></td><td class="rec">—</td><td class="why">no witness</td></tr>
+        <tr><td><span class="src">ɨ</span><span class="ar">⤳</span><span class="tgt">ɯ</span></td><td class="rec">centralized (vowel diacritic)</td><td class="why">no significant witness</td></tr>
+      </table>
+    </div>
+  </div>
+
   <footer>70 points across 16 languages (12 core targets + witnesses TR ET VI KO). Example words are
     anchors for the ear, not exact equivalences — the same point sounds slightly different language to
     language. Built from <code>out/points.json</code>.</footer>
@@ -293,6 +330,14 @@ const V=[
 ["ɒ","British lot / Hungarian hat","An open 'o' — back and rounded.","HU","open","back",1,0]
 ];
 const ID=s=>"p-"+s.replace(/[^a-zA-Z0-9]/g,c=>"_"+c.charCodeAt(0));
+// Phase-2 merge ledger: fine-grained sources that fold into a general-inventory target.
+const MERGE={"t̪":{into:"t",rec:"dental"},"d̪":{into:"d",rec:"dental"},
+             "ʂ":{into:"ʃ",rec:"retroflex"},"tʂ":{into:"tʃ",rec:"retroflex"},
+             "ʁ":{into:"ɣ",rec:"uvular"},"ɹ":{into:"ɻ",rec:""},
+             "æ":{into:"a",rec:""},"ɨ":{into:"ɯ",rec:"centralized"}};
+// ʐ is ambiguous (fricative vs approximant) — only the FRICATIVE ж folds; key on manner.
+function cMerge(r){const ipa=r[3],mn=r[0];if(ipa==="ʐ")return mn==="fricative"?{into:"ʒ",rec:"retroflex"}:null;return MERGE[ipa]||null;}
+function vMerge(v){return MERGE[v[0]]||null;}
 const cmap={};
 C.forEach(r=>cmap[r[0]+"|"+r[1]+"|"+r[2]]=r);
 // consonant grid
@@ -303,7 +348,7 @@ let body=MANNERS.map(mn=>{
   row+=PLACES.map(pl=>{
     const vl=cmap[mn+"|"+pl+"|vl"], vd=cmap[mn+"|"+pl+"|vd"];
     if(!vl&&!vd) return "<td><div class='cell empty'></div></td>";
-    const btn=r=>`<button class='cell${r[7]?" flag":""}' data-t='${ID(r[3])}'><span class='ipa'>${r[3]}</span><span class='ex'>${r[4].split(" / ")[0]}</span></button>`;
+    const btn=r=>{const m=cMerge(r);return `<button class='cell${r[7]?" flag":""}${m?" merge":""}' data-t='${ID(r[3])}'>${m?"<span class='mbadge'>⤳</span>":""}<span class='ipa'>${r[3]}</span><span class='ex'>${r[4].split(" / ")[0]}</span></button>`;};
     const cells=[vl,vd].filter(Boolean).map(btn).join("");
     return "<td><div class='cellpair'>"+cells+"</div></td>";
   }).join("");
@@ -325,14 +370,15 @@ fr.setAttribute("points",[P("close","front"),P("close","back"),P("open","back"),
 svg.appendChild(fr);
 ["close-mid","open-mid"].forEach(h=>{const l=document.createElementNS("http://www.w3.org/2000/svg","line");const a=pos(h,"front"),c=pos(h,"back");l.setAttribute("x1",a.x);l.setAttribute("y1",a.y);l.setAttribute("x2",c.x);l.setAttribute("y2",c.y);l.setAttribute("class","axis");l.setAttribute("vector-effect","non-scaling-stroke");svg.appendChild(l);});
 trap.appendChild(svg);
-V.forEach(v=>{const[ipa,ex,plain,langs,h,b,rd,flag]=v;const p=pos(h,b);const el=document.createElement("button");el.className="vnode"+(flag?" flag":"");el.setAttribute("data-t",ID(ipa));el.style.left=(p.x+(rd?2.4:0))+"%";el.style.top=p.y+"%";el.innerHTML=`<span class='ipa'>${ipa}</span><span class='ex'>${ex.split(" / ")[0]}</span>`;trap.appendChild(el);});
+V.forEach(v=>{const[ipa,ex,plain,langs,h,b,rd,flag]=v;const m=vMerge(v);const p=pos(h,b);const el=document.createElement("button");el.className="vnode"+(flag?" flag":"")+(m?" merge":"");el.setAttribute("data-t",ID(ipa));el.style.left=(p.x+(rd?2.4:0))+"%";el.style.top=p.y+"%";el.innerHTML=`${m?"<span class='mbadge'>⤳</span>":""}<span class='ipa'>${ipa}</span><span class='ex'>${ex.split(" / ")[0]}</span>`;trap.appendChild(el);});
 [["FRONT",PAD.x+"%","1%"],["BACK",(100-PAD.x-8)+"%","1%"],["HIGH","1%",(PAD.y-3)+"%"],["LOW","1%",(100-PAD.y-2)+"%"]].forEach(([txt,l,tp])=>{const d=document.createElement("div");d.className="vlabel";d.textContent=txt;d.style.left=l;d.style.top=tp;trap.appendChild(d);});
 
 // reference lists
 const CONGROUP=[["plosive","Stops — air fully blocked, then released"],["affricate","Affricates — a stop released into a hiss"],["fricative","Fricatives — a continuous hiss or friction"],["nasal","Nasals — air redirected through the nose"],["trill","Trills & taps — the tongue vibrates or flicks"],["tap","tap"],["lateral-approximant","Approximants — barely-there, vowel-like consonants"],["approximant","approx"]];
 const refc=document.getElementById("reflists");
-function rowHTML(sym,ex,desc,langs,flag,cls){
-  return `<div class='r${flag?" flag":""}' id='${ID(sym)}'><div class='sym'>${sym}</div><div class='body'><div class='name'><b>${ex}</b></div><div class='desc'>${desc}</div><div class='langs'>${langs.split(" ").length} lang · ${langs}</div></div></div>`;
+function rowHTML(sym,ex,desc,langs,flag,merge){
+  const mline=merge?`<div class='mdesc'>⤳ folds into <b>${merge.into}</b> in the general inventory${merge.rec?", recover: "+merge.rec:""}</div>`:"";
+  return `<div class='r${flag?" flag":""}${merge?" merge":""}' id='${ID(sym)}'><div class='sym'>${sym}</div><div class='body'><div class='name'><b>${ex}</b></div><div class='desc'>${desc}</div>${mline}<div class='langs'>${langs.split(" ").length} lang · ${langs}</div></div></div>`;
 }
 let html="";
 // consonants grouped by manner (merge trill+tap, lateral+approx under one header)
@@ -347,7 +393,7 @@ const shown=new Set();
   const set=mns.split(",");
   const items=C.filter(r=>set.includes(r[0]));
   html+=`<div class='refgroup'><h3>${title}</h3><div class='rows'>`+
-    items.map(r=>rowHTML(r[3],r[4],r[5],r[6],r[7])).join("")+`</div></div>`;
+    items.map(r=>rowHTML(r[3],r[4],r[5],r[6],r[7],cMerge(r))).join("")+`</div></div>`;
 });
 // vowels grouped
 const VGROUP=[["close,near-close","High vowels — tongue near the roof"],["close-mid,mid","Mid vowels — tongue halfway"],["open-mid,near-open,open","Low vowels — mouth open, tongue down"]];
@@ -355,7 +401,7 @@ VGROUP.forEach(([hs,title])=>{
   const set=hs.split(",");
   const items=V.filter(v=>set.includes(v[4]));
   html+=`<div class='refgroup'><h3>${title}</h3><div class='rows'>`+
-    items.map(v=>rowHTML(v[0],v[1],v[2],v[3],v[7])).join("")+`</div></div>`;
+    items.map(v=>rowHTML(v[0],v[1],v[2],v[3],v[7],vMerge(v))).join("")+`</div></div>`;
 });
 refc.innerHTML=html;
 
