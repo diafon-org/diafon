@@ -9,7 +9,8 @@ import yaml
 from .model import cbase, vbase, MOD_DIA, load_features
 
 # canonical column order; files outside this list are appended alphabetically
-ORDER = ["EN", "DE", "ES", "FR", "IT", "LA", "EL", "RU", "AR", "HU", "ZH", "JA"]
+ORDER = ["EN", "DE", "ES", "FR", "IT", "LA", "EL", "RU", "AR", "HU", "ZH", "JA",
+         "TR", "ET", "VI", "KO"]  # witness languages added after the core 12
 
 
 def _load_language_files(lang_dir):

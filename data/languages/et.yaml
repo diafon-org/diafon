@@ -1,0 +1,37 @@
+# Estonian (Standard)  [ET]
+# Witness language: contrasts /o/~/ɤ/ (õ) cleanly — the close-mid back rounded vs
+# unrounded pair the core 12 only had as a non-co-occurring near-merge.
+# Estonian has no voiced obstruents: orthographic b d g are short/lenis /p t k/, so the
+# b~p / d~t / g~k distinction is one of quantity (length), not voice.
+# Simplified: three-way consonant quantity (short/long/overlong) reduced to binary long;
+# palatalisation included for the classic /t s l n/ set. [ʃ f] are loan phonemes.
+name: Estonian (Standard)
+family: Uralic (Finnic)
+consonants:
+- {ipa: p, pl: bilabial, mn: plosive, vc: vl}
+- {ipa: t, pl: alveolar, mn: plosive, vc: vl}
+- {ipa: k, pl: velar, mn: plosive, vc: vl}
+- {ipa: f, pl: labiodental, mn: fricative, vc: vl, st: loan}
+- {ipa: s, pl: alveolar, mn: fricative, vc: vl}
+- {ipa: ʃ, pl: postalveolar, mn: fricative, vc: vl, st: loan}
+- {ipa: h, pl: glottal, mn: fricative, vc: vl}
+- {ipa: v, pl: labiodental, mn: fricative, vc: vd, note: 'realised [ʋ] approximant'}
+- {ipa: m, pl: bilabial, mn: nasal, vc: vd}
+- {ipa: n, pl: alveolar, mn: nasal, vc: vd}
+- {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
+- {ipa: r, pl: alveolar, mn: trill, vc: vd}
+- {ipa: j, pl: palatal, mn: approximant, vc: vd}
+vowels:
+- {ipa: i, hi: close, bk: front, rd: false}
+- {ipa: y, hi: close, bk: front, rd: true, orth: ü}
+- {ipa: u, hi: close, bk: back, rd: true}
+- {ipa: e, hi: close-mid, bk: front, rd: false}
+- {ipa: ø, hi: close-mid, bk: front, rd: true, orth: ö}
+- {ipa: ɤ, hi: close-mid, bk: back, rd: false, orth: õ}
+- {ipa: o, hi: close-mid, bk: back, rd: true}
+- {ipa: æ, hi: near-open, bk: front, rd: false, orth: ä}
+- {ipa: ɑ, hi: open, bk: back, rd: false, orth: a}
+long_series: [i, y, u, e, ø, ɤ, o, æ, ɑ]
+secondary_series:
+- type: palatalized
+  applies_to: [t, s, l, n]

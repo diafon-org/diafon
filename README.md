@@ -28,5 +28,7 @@ tuples; the engine validates that no within-language contrast is lost.
 See `CLAUDE.md` for architecture, conventions, and roadmap.
 
 ## Status
-v0.1 — 72 points (51 consonant · 21 vowel), 7 modifiers, 0 merged contrasts.
-Phase 2 (label + modifier characters) is intentionally not started yet.
+70 points (49 consonant · 21 vowel), 7 modifiers, 0 merged contrasts.
+16 languages: the 12 core targets + 4 **witness** languages (Turkish, Estonian, Vietnamese,
+Korean) added to prove that near-merge pairs stay distinct where a significant language
+contrasts them. Phase 2 (label + modifier characters) is intentionally not started yet.

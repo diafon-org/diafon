@@ -53,15 +53,56 @@ pytest                   # runs the invariant guardrails
   Points come from contrastive units only.
 - Mandarin: lenis series entered as voiceless-unaspirated; the fortis series is generated
   via `secondary_series: aspirated`. Mandarin therefore uses no voiced stop points.
+- Korean: three-way plain/aspirated/**tense(fortis)** obstruents. The tense series reuses
+  the `long` modifier (fortis ≈ length — no language contrasts them; Seoul Korean has no
+  vowel length or geminates, so `long` is free). Aspiration stays its own modifier because
+  Korean contrasts fortis vs aspirated (`t͈`~`tʰ`). So: fortis ≈ long, but fortis ≠ aspirated.
 
-## Current state (v0.1)
-72 points (51 consonant · 21 vowel), 7 modifiers, 0 merged contrasts, 398 phoneme records.
+## Witness languages (Phase-1 decision-gate evidence)
+The 12 core languages are the notation's target; **TR ET VI KO** were added purely as
+*witnesses* — significant languages that phonemically contrast a near-merge pair, forcing
+the point to stay distinct. Turkish locks `u`~`ɯ` (*kul*/*kıl*); Estonian + Vietnamese lock
+`o`~`ɤ` (õ; ô/ơ). See the near-merge verdict table below for the full witness search.
+
+## Current state
+70 points (49 consonant · 21 vowel), 7 modifiers, 0 merged contrasts, 521 phoneme records,
+16 languages (12 core + 4 witnesses). Three allophones-entered-as-phonemes were removed:
+`ç` (German ich-laut → `x`), `ɸ` (Japanese *fu* → `h`), `ɐ` (German `-er` r-vocalisation;
+Vietnamese `ă` re-read as short `/a/`, a length pair — see vi.yaml `long_series`).
+
+## Allophone guard (suspicious co-occurrences)
+The near-merge finder only flags pairs that *don't* co-occur, so it is blind to allophones
+entered as phonemes (which co-occur with their parent). `derive()` also returns
+**suspicious co-occurrences**: rare points (≤2 languages) sitting one place/height step from a
+same-language neighbour — the shape of an allophone. Reviewed genuine contrasts live in
+`_CONFIRMED_CONTRAST` (derive.py) and are filtered out. This caught `ç`~`x`, `ɸ`~`h`, `a`~`ɐ`
+(all now resolved); the list is **empty** and `tests/test_invariants.py` asserts it stays so.
 
 ## Roadmap
 - **Phase 1 (done):** the database + derivation + invariant. ← we are here.
-- **Decision gate:** review the near-merge list in `out/report.md` and decide which
-  optional fusions to accept (Spanish dentals, JA `ɸ→f`/`ɯ→u`, the sibilant retroflex
-  pairs, etc.). Record decisions in data.
+- **Decision gate (in progress):** every near-merge was adversarially witness-searched.
+  **Principle (Sz):** a pair stays a distinct *point* only if a *significant* language
+  contrasts it; pairs held apart only by a rare/exotic language get **merged in the
+  general inventory and recovered by a diacritic later**. Verdicts:
+  - **KEEP (significant witness) — added the language:** `u`~`ɯ` (Turkish), `o`~`ɤ`
+    (Estonian, Vietnamese). **KEEP (advisory, by-construction):** `ɑ`~`ɒ` (RP; round is a
+    defining feature).
+  - **MERGE later via a place diacritic (exotic-only witness):** `t̪`~`t` / `d̪`~`d`
+    (Venda), `ʁ`~`ɣ` (Tsakhur/Kabardian), `ʃ`~`ʂ` & `ʒ`~`ʐ` (Toda), `tʃ`~`tʂ` (Mapudungun) —
+    the retroflex trio recovers via **underdot** (`ṣ ẓ`). Deferred to Phase 2; the fine-grained
+    set still lists both. (`f`~`ɸ`, Ewe: currently inactive — `ɸ` was removed as a JA allophone;
+    the merge applies only if Ewe is later added and reintroduces `ɸ`.)
+  - **MERGE — no witness at all:** `æ`~`a` — adversarial search (incl. Danish, whose crowded
+    low-front space resolves to `æ`~back `ɑ`, already kept) found nothing contrasting `/æ/`
+    with a same-length front/central `/a/`. No recovery diacritic needed; collapses in the
+    Phase-2 low-vowel carving. (`ç`~`ɕ` mooted — `ç` was removed as a German allophone.)
+  - **MERGE — no significant witness:** `ɯ`~`ɨ` (close back vs central unrounded) — every major
+    language has one or the other, never both, and the two symbols are used interchangeably;
+    recover by a back-vs-central diacritic in Phase 2.
+  - **RESOLVED as allophones (removed):** `ç`, `ɸ`, `ɐ` — see the allophone guard above.
+  - **No open near-merges remain.** Every ≤1-step pair is decided: KEEP (witnessed),
+    MERGE-via-diacritic (exotic/no witness), or removed (allophone). Applying the merges +
+    assigning the recovery diacritics is Phase 2.
 - **Phase 2 (not started):** assign the label char per point + one systematic char per
   modifier, driven off `out/points.json`. Do NOT start phase 2 until the point set is
   frozen.

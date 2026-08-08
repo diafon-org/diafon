@@ -29,7 +29,7 @@ def mappings_to_json(all_ph):
     return out
 
 
-def render_report(all_ph, points, violations, near, features, languages):
+def render_report(all_ph, points, violations, near, suspicious, features, languages):
     PLACE = features["consonant"]["place"]
     MANNER = features["consonant"]["manner"]
     HEIGHT = features["vowel"]["height"]
@@ -81,14 +81,25 @@ def render_report(all_ph, points, violations, near, features, languages):
     L.append("Optional fusions to decide before labelling — the rhotic trade-off, per pair:\n")
     for d, a, b, la, lb in near:
         L.append(f"- `{a}` ({','.join(la)}) ~ `{b}` ({','.join(lb)}) · dist {d}")
+
+    L.append("\n## Suspicious co-occurrences (candidate allophones)\n")
+    L.append("Rare points sitting one place/height step from a same-language neighbour — a real "
+             "contrast is expected to recur across languages, so a rare one propped up by ≤2 "
+             "languages may be an allophone entered as a phoneme. Reviewed genuine contrasts are "
+             "filtered out; what remains wants a look:\n")
+    if suspicious:
+        for n, a, b, shared in suspicious:
+            L.append(f"- `{a}` ~ `{b}` · shares [{','.join(shared)}] · rarer in {n} lang")
+    else:
+        L.append("_None — every co-occurring near-neighbour is a reviewed genuine contrast._")
     return "\n".join(L)
 
 
-def write_outputs(all_ph, points, violations, near, features, languages, out_dir):
+def write_outputs(all_ph, points, violations, near, suspicious, features, languages, out_dir):
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, "points.json"), "w", encoding="utf-8") as f:
         json.dump(points_to_json(points), f, ensure_ascii=False, indent=2)
     with open(os.path.join(out_dir, "mappings.json"), "w", encoding="utf-8") as f:
         json.dump(mappings_to_json(all_ph), f, ensure_ascii=False, indent=2)
     with open(os.path.join(out_dir, "report.md"), "w", encoding="utf-8") as f:
-        f.write(render_report(all_ph, points, violations, near, features, languages))
+        f.write(render_report(all_ph, points, violations, near, suspicious, features, languages))
