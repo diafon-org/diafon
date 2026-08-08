@@ -26,8 +26,8 @@ def main(argv=None):
     args = ap.parse_args(argv)
 
     features, languages, all_ph = load(args.data)
-    points, violations, near = derive(all_ph, features)
-    write_outputs(all_ph, points, violations, near, features, languages, args.out)
+    points, violations, near, suspicious = derive(all_ph, features)
+    write_outputs(all_ph, points, violations, near, suspicious, features, languages, args.out)
 
     C = sum(1 for p in points.values() if p["kind"] == "C")
     V = len(points) - C
@@ -38,9 +38,12 @@ def main(argv=None):
     print(f"modifiers used   : {len(mods)}  {mods}")
     print(f"merged contrasts : {len(violations)}")
     print(f"near-merge cands : {len(near)}")
+    print(f"suspicious co-occ: {len(suspicious)}")
     print(f"written to       : {os.path.abspath(args.out)}/")
     for v in violations:
         print("  VIOLATION", v)
+    for n, a, b, shared in suspicious:
+        print(f"  SUSPECT {a}~{b} (rarer in {n} lang; shares {','.join(shared)}) — allophone?")
     if args.strict and violations:
         sys.exit(1)
 

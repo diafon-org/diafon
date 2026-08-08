@@ -1,0 +1,296 @@
+<title>diaphone — consonants, explained</title>
+<style>
+  :root{
+    --paper:#f4f1ea; --ink:#1b1c1f; --ink-soft:#4a4c52; --ink-faint:#83858c;
+    --rule:#ddd8cc; --panel:#fbf9f4; --panel-edge:#e7e2d6;
+    --accent:#0f6e66; --accent-soft:#dcebe8;
+    --con:#365a86; --con-bg:#e7edf6; --vow:#9a5a12; --vow-bg:#f4ecda;
+    --flag:#9c342c;
+    --shadow:0 1px 0 #fff, 0 2px 8px rgba(30,26,15,.06);
+    --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Georgia,"Times New Roman",serif;
+    --ipa:"Charis SIL","Doulos SIL","Gentium Plus","DejaVu Serif",Georgia,serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#16181c; --ink:#e9e7e0; --ink-soft:#b3b2ac; --ink-faint:#7c7d80;
+      --rule:#2c2e34; --panel:#1c1f24; --panel-edge:#2c2f36;
+      --accent:#4fbdae; --accent-soft:#17322e;
+      --con:#89aede; --con-bg:#20293a; --vow:#d9a94e; --vow-bg:#322a1a; --flag:#e08a80;
+      --shadow:0 1px 0 rgba(255,255,255,.02), 0 2px 10px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"]{--paper:#f4f1ea;--ink:#1b1c1f;--ink-soft:#4a4c52;--ink-faint:#83858c;--rule:#ddd8cc;--panel:#fbf9f4;--panel-edge:#e7e2d6;--accent:#0f6e66;--accent-soft:#dcebe8;--con:#365a86;--con-bg:#e7edf6;--vow:#9a5a12;--vow-bg:#f4ecda;--flag:#9c342c;--shadow:0 1px 0 #fff,0 2px 8px rgba(30,26,15,.06)}
+  :root[data-theme="dark"]{--paper:#16181c;--ink:#e9e7e0;--ink-soft:#b3b2ac;--ink-faint:#7c7d80;--rule:#2c2e34;--panel:#1c1f24;--panel-edge:#2c2f36;--accent:#4fbdae;--accent-soft:#17322e;--con:#89aede;--con-bg:#20293a;--vow:#d9a94e;--vow-bg:#322a1a;--flag:#e08a80;--shadow:0 1px 0 rgba(255,255,255,.02),0 2px 10px rgba(0,0,0,.35)}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:clamp(20px,4vw,52px)}
+  header{border-bottom:1px solid var(--rule);padding-bottom:26px;margin-bottom:8px}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin:0 0 10px}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(30px,5vw,46px);line-height:1.05;margin:0 0 12px;letter-spacing:-.01em;text-wrap:balance}
+  h1 em{font-style:italic;color:var(--accent)}
+  .lede{font-size:16.5px;color:var(--ink-soft);max-width:64ch;margin:0}
+  h2{font-family:var(--serif);font-weight:600;font-size:24px;margin:46px 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:70ch}
+  .structure{margin-top:26px;background:var(--panel);border:1px solid var(--panel-edge);border-radius:14px;padding:22px 24px}
+  .structure h3{font-family:var(--serif);font-size:18px;margin:0 0 6px}
+  .structure p{font-size:14.5px;color:var(--ink-soft);margin:8px 0;max-width:72ch}
+  .structure b{color:var(--ink)}
+  figure{margin:14px 0 4px}
+  figure svg{max-width:100%;height:auto;color:var(--ink)}
+  figcaption{font-size:12.5px;color:var(--ink-faint);margin-top:8px;text-align:center}
+  .axes{display:flex;gap:26px;flex-wrap:wrap;margin-top:14px}
+  .axcard{flex:1;min-width:230px;border:1px solid var(--panel-edge);border-radius:10px;padding:14px 16px;background:var(--paper)}
+  .axcard h4{margin:0 0 4px;font-size:14px}
+  .axcard h4 .t{font-family:var(--ipa);font-weight:700}
+  .axcard.con h4 .t{color:var(--con)} .axcard.vow h4 .t{color:var(--vow)}
+  .axcard p{font-size:13px;color:var(--ink-soft);margin:6px 0 0}
+  .axcard code{font-family:var(--ipa);background:var(--panel);padding:1px 5px;border-radius:4px;border:1px solid var(--panel-edge);font-size:12.5px}
+
+  .scroll{overflow-x:auto;padding-bottom:6px}
+  table.grid{border-collapse:separate;border-spacing:5px;min-width:820px;margin:0 auto}
+  table.grid th{font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;padding:2px 3px;text-align:center;white-space:nowrap;vertical-align:bottom}
+  table.grid th.row{text-align:right;padding-right:9px;vertical-align:middle}
+  .cellpair{display:flex;gap:3px;justify-content:center}
+  .cell{width:66px;min-height:62px;border-radius:9px;padding:6px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--panel-edge);background:var(--panel);box-shadow:var(--shadow);cursor:pointer;font:inherit;color:inherit;transition:transform .08s,border-color .12s}
+  .cell:hover,.cell:focus-visible{transform:translateY(-2px);border-color:var(--accent);outline:none}
+  .cell.empty{background:transparent;border:1px dashed var(--rule);box-shadow:none;opacity:.45;cursor:default}
+  .cell.empty:hover{transform:none;border-color:var(--rule)}
+  .cell .ipa{font-family:var(--ipa);font-size:21px;line-height:1}
+  .cell .ex{font-size:10px;color:var(--ink-faint);margin-top:3px;text-align:center;line-height:1.15}
+  .cell.flag .ipa{color:var(--flag)}
+
+  h2 .count{font-family:var(--ipa);font-size:15px;color:var(--ink-faint);font-weight:400;margin-left:8px}
+  .refgroup{margin-top:24px}
+  .refgroup h3{font-family:var(--serif);font-size:16px;margin:0 0 2px;color:var(--accent);letter-spacing:.01em}
+  .refgroup .gnote{font-size:12.5px;color:var(--ink-faint);margin:0 0 12px}
+  .rows{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  @media(max-width:680px){.rows{grid-template-columns:1fr}}
+  .r{display:flex;gap:13px;align-items:baseline;padding:9px 12px;border:1px solid var(--panel-edge);border-radius:9px;background:var(--panel);scroll-margin-top:14px}
+  .r.hot{border-color:var(--accent);background:var(--accent-soft)}
+  .r .sym{font-family:var(--ipa);font-size:23px;line-height:1;flex:none;width:34px;text-align:center}
+  .r.flag .sym{color:var(--flag)}
+  .r .body{flex:1;min-width:0}
+  .r .name{font-size:13px}
+  .r .name b{font-weight:600}
+  .r .desc{font-size:12.5px;color:var(--ink-soft);margin-top:1px}
+  .r .langs{font-size:10.5px;color:var(--ink-faint);margin-top:3px;letter-spacing:.02em}
+  .mods{margin-top:18px;display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:13.5px;align-items:baseline;max-width:760px}
+  .mods .m{font-family:var(--ipa);color:var(--accent);font-weight:600;white-space:nowrap}
+  .mods .d{color:var(--ink-soft)}
+  .mods .d b{color:var(--ink)}
+  .legendbar{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0 0;font-size:12.5px;color:var(--ink-soft)}
+  .legendbar span{display:inline-flex;gap:7px;align-items:center}
+  .dot{width:11px;height:11px;border-radius:3px;display:inline-block}
+  footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--ink-faint)}
+  code{font-family:var(--ipa);background:var(--panel);padding:1px 5px;border-radius:4px;border:1px solid var(--panel-edge)}
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">diaphone · reading the inventory</p>
+    <h1>49 consonants, <em>each one explained</em></h1>
+    <p class="lede">Every distinct consonant the 16 languages need kept apart — 49 points in all.
+      This page shows how they're organised and gives each one a plain description and a word you
+      already know it from. Tap any tile to jump to its explanation.</p>
+  </header>
+
+  <div class="structure">
+    <h3>What a "point" is</h3>
+    <p>A <b>point</b> is the bare skeleton of a sound — nothing extra. For a consonant it's just three
+      facts: <b>where</b> in the mouth (place), <b>how</b> the air is blocked (manner), and whether the
+      voice is <b>on or off</b> (voicing). Two consonants from different languages are the
+      <em>same point</em> when those facts match.</p>
+    <p>Anything else — holding it longer, sending air through the nose, adding a puff or a "y" colour —
+      is a <b>modifier</b> that rides on top. Modifiers never make a new point; they decorate one.
+      That's the whole trick: a handful of points, plus a few modifiers, instead of hundreds of
+      one-off symbols.</p>
+
+    <figure>
+      <svg viewBox="0 0 720 150" role="img" aria-label="The phoneme n-palatalized-long equals the base point n plus two modifiers: palatalized and long.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+          </marker>
+        </defs>
+        <!-- phoneme -->
+        <rect x="8" y="46" width="150" height="58" rx="10" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <text x="83" y="70" text-anchor="middle" font-family="var(--ipa)" font-size="24" fill="currentColor">nʲː</text>
+        <text x="83" y="92" text-anchor="middle" font-size="11" fill="currentColor" opacity=".65">Russian «ннь»-type</text>
+        <text x="83" y="34" text-anchor="middle" font-size="11" fill="currentColor" opacity=".55">the phoneme you hear</text>
+        <!-- equals arrow -->
+        <line x1="166" y1="75" x2="212" y2="75" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar)"/>
+        <text x="189" y="66" text-anchor="middle" font-size="12" fill="currentColor" opacity=".7">breaks into</text>
+        <!-- point -->
+        <rect x="222" y="46" width="170" height="58" rx="10" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+        <text x="307" y="70" text-anchor="middle" font-family="var(--ipa)" font-size="24" fill="var(--accent)" font-weight="700">n</text>
+        <text x="307" y="92" text-anchor="middle" font-size="10.5" fill="var(--accent)">1 point · alveolar·nasal·voiced</text>
+        <text x="307" y="34" text-anchor="middle" font-size="11" fill="currentColor" opacity=".55">the base point</text>
+        <!-- plus -->
+        <text x="410" y="80" text-anchor="middle" font-size="22" fill="currentColor" opacity=".6">+</text>
+        <!-- modifiers -->
+        <rect x="432" y="40" width="130" height="30" rx="15" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="497" y="60" text-anchor="middle" font-size="12.5" fill="currentColor">palatalised ʲ</text>
+        <rect x="432" y="80" width="130" height="30" rx="15" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="497" y="100" text-anchor="middle" font-size="12.5" fill="currentColor">long ː</text>
+        <text x="497" y="30" text-anchor="middle" font-size="11" fill="currentColor" opacity=".55">modifiers ride on top</text>
+        <!-- brace to note -->
+        <line x1="578" y1="75" x2="606" y2="75" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+        <text x="612" y="66" font-size="11.5" fill="currentColor" opacity=".75">same «n» point</text>
+        <text x="612" y="82" font-size="11.5" fill="currentColor" opacity=".75">as English «net» —</text>
+        <text x="612" y="98" font-size="11.5" fill="currentColor" opacity=".75">no new point made</text>
+      </svg>
+      <figcaption>One phoneme = one base point + any modifiers. The modifiers decorate the point; they never create a new one.</figcaption>
+    </figure>
+
+    <div class="axes">
+      <div class="axcard con">
+        <h4>A consonant point = <span class="t">place · manner · voice</span></h4>
+        <p><b>Place</b> = where the blockage is (lips → throat). <b>Manner</b> = how you block the air
+          (full stop, hissy fricative, nasal…). <b>Voice</b> = are the vocal cords buzzing (<code>b</code>)
+          or silent (<code>p</code>). The grid below is laid out on exactly these axes.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Consonants <span class="count">49 points</span></h2>
+  <p class="sub">Columns run front-of-mouth → back-of-throat; rows are the manner. Voiceless is left,
+    voiced is right within a cell. <span style="color:var(--flag)">Red</span> symbols are points the
+    review flagged for a decision.</p>
+  <div class="scroll"><table class="grid" id="cgrid"></table></div>
+
+  <div class="legendbar">
+    <span><i class="dot" style="background:var(--con)"></i> consonant</span>
+    <span><i class="dot" style="background:var(--flag)"></i> flagged in review</span>
+    <span>tap a tile → its explanation highlights below</span>
+  </div>
+
+  <h2>Every consonant, in plain words</h2>
+  <p class="sub">The full list. Each entry: the symbol, a word you know it from, what your mouth does,
+    and which of the 16 languages use it.</p>
+  <div id="reflists"></div>
+
+  <h2>The 7 modifiers</h2>
+  <p class="sub">These ride on any point without creating a new one.</p>
+  <div class="mods">
+    <span class="m">ː long</span><span class="d"><b>Hold it longer.</b> Italian <i>nonno</i>, Estonian's three lengths.</span>
+    <span class="m">̃ nasal</span><span class="d"><b>Let air out the nose too.</b> French <i>bon</i>, Portuguese <i>ã</i>.</span>
+    <span class="m">ʰ aspirated</span><span class="d"><b>A puff of air after.</b> The <i>p</i> in English <i>pin</i>; Korean/Mandarin use it to contrast.</span>
+    <span class="m">ʲ palatalised</span><span class="d"><b>Add a "y" colour.</b> Russian soft consonants (<i>нь</i>).</span>
+    <span class="m">ʷ labialised</span><span class="d"><b>Add lip-rounding.</b> A "w" colour on a consonant.</span>
+    <span class="m">ˤ pharyngealised</span><span class="d"><b>Pull the tongue root back — "darker".</b> Arabic emphatic <i>ṭ, ṣ</i>.</span>
+    <span class="m">˞ rhotic</span><span class="d"><b>Add "r" colour.</b> American <i>bird</i> (ɝ), Mandarin <i>er</i>.</span>
+  </div>
+
+  <footer>70 points across 16 languages (12 core targets + witnesses TR ET VI KO). Example words are
+    anchors for the ear, not exact equivalences — the same point sounds slightly different language to
+    language. Built from <code>out/points.json</code>.</footer>
+</div>
+
+<script>
+const PLACES=["bilabial","labiodental","dental","alveolar","postalveolar","retroflex","alveolopalatal","palatal","velar","uvular","pharyngeal","glottal"];
+const PLABEL={bilabial:"Lips",labiodental:"Lip+teeth",dental:"Teeth",alveolar:"Ridge",postalveolar:"Post-ridge",retroflex:"Curled",alveolopalatal:"Soft-pal.",palatal:"Palate",velar:"Velum",uvular:"Uvula",pharyngeal:"Throat",glottal:"Glottis"};
+const MANNERS=["plosive","nasal","trill","tap","affricate","fricative","lateral-approximant","approximant"];
+const MLABEL={plosive:"Stop",nasal:"Nasal",trill:"Trill",tap:"Tap",affricate:"Affricate",fricative:"Fricative","lateral-approximant":"Lateral","approximant":"Glide"};
+// [manner,place,voice,ipa,example,plain,langs,flag]
+const C=[
+["plosive","bilabial","vl","p","spin","Lips pop apart, voice off.","EN DE ES FR IT LA EL RU HU ZH JA TR ET KO",0],
+["plosive","bilabial","vd","b","bat","A voiced p.","EN DE ES FR IT LA EL RU AR HU JA TR VI",0],
+["plosive","dental","vl","t̪","Spanish tú","T with the tongue tip on the upper teeth.","ES",0],
+["plosive","dental","vd","d̪","Spanish donde","D with the tongue on the teeth.","ES",0],
+["plosive","alveolar","vl","t","stop","Tongue taps the ridge behind the teeth, voice off.","EN DE FR IT LA EL RU AR HU ZH JA TR ET VI KO",0],
+["plosive","alveolar","vd","d","dog","A voiced t.","EN DE FR IT LA EL RU AR HU JA TR VI",0],
+["plosive","palatal","vl","c","Hungarian kutya","A t pressed to the hard palate — like 'ty'.","HU",0],
+["plosive","palatal","vd","ɟ","Hungarian magyar","Voiced palatal stop — Hungarian 'gy'.","HU",0],
+["plosive","velar","vl","k","skin","Back of tongue to the soft palate, voice off.","EN DE ES FR IT LA EL RU AR HU ZH JA TR ET VI KO",0],
+["plosive","velar","vd","g","go","A voiced k.","EN DE ES FR IT LA EL RU HU JA TR",0],
+["plosive","uvular","vl","q","Arabic Qurʼan","A k made far back, at the uvula.","AR",0],
+["plosive","glottal","vl","ʔ","uh-oh","The little catch in the throat between the vowels.","AR VI",0],
+["nasal","bilabial","vd","m","map","Lips shut, air out the nose.","EN DE ES FR IT LA EL RU AR HU ZH JA TR ET VI KO",0],
+["nasal","alveolar","vd","n","net","Tongue on the ridge, air out the nose.","EN DE ES FR IT LA EL RU AR HU ZH JA TR ET VI KO",0],
+["nasal","palatal","vd","ɲ","canyon / niño","The 'ny' sound.","ES FR IT HU VI",0],
+["nasal","velar","vd","ŋ","sing","The 'ng' sound.","EN DE ZH VI KO",0],
+["trill","alveolar","vd","r","Spanish perro","A rolled r — tongue vibrates on the ridge.","ES IT LA EL RU AR HU ET",0],
+["tap","alveolar","vd","ɾ","US butter / pero","A single quick flick of the tongue.","ES JA TR",0],
+["affricate","labiodental","vl","pf","German Pfund","A p released straight into f.","DE",0],
+["affricate","alveolar","vl","ts","cats / Zeit","A t released into s.","DE IT EL RU HU ZH JA",0],
+["affricate","alveolar","vd","dz","adze / mezzo","A voiced ts.","IT EL HU JA",0],
+["affricate","postalveolar","vl","tʃ","church","The 'ch' sound.","EN DE ES IT HU TR",0],
+["affricate","postalveolar","vd","dʒ","judge","The 'j' sound.","EN IT AR HU TR",0],
+["affricate","retroflex","vl","tʂ","Mandarin zhōng","'ch' with the tongue curled back.","ZH",0],
+["affricate","alveolopalatal","vl","tɕ","Mandarin jī / chi","A softer, more forward 'ch'.","RU ZH JA VI KO",0],
+["affricate","alveolopalatal","vd","dʑ","Japanese ji","A voiced soft 'ch'.","JA",0],
+["fricative","labiodental","vl","f","fan","Top teeth on lower lip, voice off.","EN DE ES FR IT LA EL RU AR HU ZH TR ET VI",0],
+["fricative","labiodental","vd","v","van","A voiced f.","EN DE FR IT EL RU HU TR ET VI",0],
+["fricative","dental","vl","θ","think","Tongue between the teeth, voice off.","EN ES EL AR",0],
+["fricative","dental","vd","ð","this","A voiced 'th'.","EN EL AR",0],
+["fricative","alveolar","vl","s","see","A hiss with the tongue near the ridge.","EN DE ES FR IT LA EL RU AR HU ZH JA TR ET VI KO",0],
+["fricative","alveolar","vd","z","zoo","A voiced s.","EN DE FR IT EL RU AR HU JA TR VI",0],
+["fricative","postalveolar","vl","ʃ","ship","The 'sh' sound.","EN DE FR IT AR HU TR ET",0],
+["fricative","postalveolar","vd","ʒ","measure","A voiced sh (as in 'genre').","EN DE FR HU TR",0],
+["fricative","retroflex","vl","ʂ","Mandarin shān","'sh' with the tongue curled back.","RU ZH",0],
+["fricative","retroflex","vd","ʐ","Russian ж","A voiced retroflex 'sh'.","RU",0],
+["fricative","alveolopalatal","vl","ɕ","Mandarin xī / shi","A soft, hissy 'sh', further forward.","ZH JA",0],
+["fricative","velar","vl","x","Scottish loch / jota","A raspy h at the back of the mouth.","DE ES EL RU AR ZH VI",0],
+["fricative","velar","vd","ɣ","Greek γάλα","The voiced version of loch's 'ch'.","EL VI",0],
+["fricative","uvular","vd","ʁ","French Paris","The throaty French/German 'r'.","DE FR AR",0],
+["fricative","pharyngeal","vl","ħ","Arabic ḥāʾ","A tight h squeezed from deep in the throat.","AR",0],
+["fricative","pharyngeal","vd","ʕ","Arabic ʿayn","A voiced throat-tightening sound.","AR",0],
+["fricative","glottal","vl","h","hat","A plain breath of air.","EN DE LA AR HU JA TR ET VI KO",0],
+["lateral-approximant","alveolar","vd","l","leaf","Tongue on the ridge, air flows round the sides.","EN DE ES FR IT LA EL RU AR HU ZH TR ET VI KO",0],
+["lateral-approximant","palatal","vd","ʎ","Italian figlio","An l with a 'y' colour — 'lyi'.","ES IT",0],
+["approximant","labiovelar","vd","w","wet","Lips rounded, gliding into the vowel.","EN ES FR IT LA AR ZH JA VI KO",0],
+["approximant","palatal","vd","j","yes","The 'y' glide.","EN DE ES FR IT LA RU AR HU ZH JA TR ET VI KO",0],
+["approximant","alveolar","vd","ɹ","red","The English r — tongue near the ridge, no contact.","EN",0],
+["approximant","retroflex","vd","ʐ","Mandarin rén","Mandarin r — tongue curled back, gliding.","ZH",0]
+];
+const ID=s=>"p-"+s.replace(/[^a-zA-Z0-9]/g,c=>"_"+c.charCodeAt(0));
+const cmap={};
+C.forEach(r=>cmap[r[0]+"|"+r[1]+"|"+r[2]]=r);
+// consonant grid
+const t=document.getElementById("cgrid");
+let head="<tr><th class='row'></th>"+PLACES.map(p=>"<th>"+PLABEL[p]+"</th>").join("")+"</tr>";
+let body=MANNERS.map(mn=>{
+  let row="<tr><th class='row'>"+MLABEL[mn]+"</th>";
+  row+=PLACES.map(pl=>{
+    const vl=cmap[mn+"|"+pl+"|vl"], vd=cmap[mn+"|"+pl+"|vd"];
+    if(!vl&&!vd) return "<td><div class='cell empty'></div></td>";
+    const btn=r=>`<button class='cell${r[7]?" flag":""}' data-t='${ID(r[3])}'><span class='ipa'>${r[3]}</span><span class='ex'>${r[4].split(" / ")[0]}</span></button>`;
+    const cells=[vl,vd].filter(Boolean).map(btn).join("");
+    return "<td><div class='cellpair'>"+cells+"</div></td>";
+  }).join("");
+  return row+"</tr>";
+}).join("");
+t.innerHTML=head+body;
+
+// reference lists
+const refc=document.getElementById("reflists");
+function rowHTML(sym,ex,desc,langs,flag,cls){
+  return `<div class='r${flag?" flag":""}' id='${ID(sym)}'><div class='sym'>${sym}</div><div class='body'><div class='name'><b>${ex}</b></div><div class='desc'>${desc}</div><div class='langs'>${langs.split(" ").length} lang · ${langs}</div></div></div>`;
+}
+let html="";
+// consonants grouped by manner (merge trill+tap, lateral+approx under one header)
+[["plosive","Stops — air fully blocked, then released"],
+ ["affricate","Affricates — a stop released into a hiss"],
+ ["fricative","Fricatives — a continuous hiss or friction"],
+ ["nasal","Nasals — air redirected through the nose"],
+ ["trill,tap","Trills & taps — the tongue vibrates or flicks once"],
+ ["lateral-approximant,approximant","Approximants — light, vowel-like consonants"]
+].forEach(([mns,title])=>{
+  const set=mns.split(",");
+  const items=C.filter(r=>set.includes(r[0]));
+  html+=`<div class='refgroup'><h3>${title}</h3><div class='rows'>`+
+    items.map(r=>rowHTML(r[3],r[4],r[5],r[6],r[7])).join("")+`</div></div>`;
+});
+refc.innerHTML=html;
+
+// interaction: tile -> highlight its row
+let last=null;
+document.querySelectorAll("[data-t]").forEach(b=>b.addEventListener("click",()=>{
+  const el=document.getElementById(b.getAttribute("data-t"));
+  if(!el)return;
+  if(last)last.classList.remove("hot");
+  el.classList.add("hot");last=el;
+  el.scrollIntoView({behavior:"smooth",block:"center"});
+}));
+</script>

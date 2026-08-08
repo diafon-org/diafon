@@ -18,8 +18,7 @@ consonants:
 - {ipa: z, pl: alveolar, mn: fricative, vc: vd}
 - {ipa: ʃ, pl: postalveolar, mn: fricative, vc: vl, orth: sch}
 - {ipa: ʒ, pl: postalveolar, mn: fricative, vc: vd, st: loan}
-- {ipa: ç, pl: palatal, mn: fricative, vc: vl, orth: ch(ich)}
-- {ipa: x, pl: velar, mn: fricative, vc: vl, orth: ch(ach)}
+- {ipa: x, pl: velar, mn: fricative, vc: vl, orth: ch, note: '[ç] ich-laut is the front allophone of this dorsal fricative (after front vowels), not a separate phoneme'}
 - {ipa: ʁ, pl: uvular, mn: fricative, vc: vd, orth: r}
 - {ipa: h, pl: glottal, mn: fricative, vc: vl}
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd}
@@ -42,5 +41,4 @@ vowels:
 - {ipa: u, hi: close, bk: back, rd: true}
 - {ipa: ʊ, hi: near-close, bk: back, rd: true}
 - {ipa: ə, hi: mid, bk: central, rd: false}
-- {ipa: ɐ, hi: near-open, bk: central, rd: false, orth: -er}
 long_series: [i, y, e, ø, a, o, u]

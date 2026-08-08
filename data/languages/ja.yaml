@@ -12,11 +12,10 @@ consonants:
 - {ipa: dz, pl: alveolar, mn: affricate, vc: vd}
 - {ipa: tɕ, pl: alveolopalatal, mn: affricate, vc: vl}
 - {ipa: dʑ, pl: alveolopalatal, mn: affricate, vc: vd}
-- {ipa: ɸ, pl: bilabial, mn: fricative, vc: vl, note: fu}
 - {ipa: s, pl: alveolar, mn: fricative, vc: vl}
 - {ipa: z, pl: alveolar, mn: fricative, vc: vd}
 - {ipa: ɕ, pl: alveolopalatal, mn: fricative, vc: vl}
-- {ipa: h, pl: glottal, mn: fricative, vc: vl}
+- {ipa: h, pl: glottal, mn: fricative, vc: vl, note: '[ɸ] before /u/ and [ç] before /i/ are allophones of /h/, not separate phonemes'}
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd}
 - {ipa: n, pl: alveolar, mn: nasal, vc: vd}
 - {ipa: r, pl: alveolar, mn: tap, vc: vd, note: single liquid}
