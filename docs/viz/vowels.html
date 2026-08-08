@@ -58,6 +58,9 @@
   .vnode .ipa{font-family:var(--ipa);font-size:18px;line-height:1}
   .vnode .ex{font-size:9.5px;color:var(--ink-faint);margin-top:2px;line-height:1.1;text-align:center}
   .vnode.flag .ipa{color:var(--flag)}
+  .vnode.merge{border:1px dashed var(--accent)}
+  .vnode.merge:hover,.vnode.merge:focus-visible{border-color:var(--accent)}
+  .mbadge{position:absolute;top:2px;right:4px;font-family:var(--ipa);font-size:11px;line-height:1;color:var(--accent)}
   .vlabel{position:absolute;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint)}
 
   h2 .count{font-family:var(--ipa);font-size:15px;color:var(--ink-faint);font-weight:400;margin-left:8px}
@@ -75,6 +78,17 @@
   .r .name b{font-weight:600}
   .r .desc{font-size:12.5px;color:var(--ink-soft);margin-top:1px}
   .r .langs{font-size:10.5px;color:var(--ink-faint);margin-top:3px;letter-spacing:.02em}
+  .r.merge{border-style:dashed;border-color:var(--accent)}
+  .r .mdesc{font-size:12px;color:var(--accent);margin-top:3px}
+  .ledger{margin-top:20px;background:var(--panel);border:1px solid var(--panel-edge);border-radius:14px;padding:20px 24px}
+  .ledger p{font-size:14px;color:var(--ink-soft);margin:0 0 14px;max-width:74ch}
+  .ledger table{border-collapse:collapse;width:100%;min-width:460px;font-size:13px}
+  .ledger th,.ledger td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--panel-edge);white-space:nowrap}
+  .ledger th{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);font-weight:600}
+  .ledger .src{font-family:var(--ipa);color:var(--accent);font-weight:600}
+  .ledger .tgt{font-family:var(--ipa)}
+  .ledger .ar{color:var(--ink-faint);padding:0 4px}
+  .ledger td.rec,.ledger td.why{color:var(--ink-soft)}
   .mods{margin-top:18px;display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:13.5px;align-items:baseline;max-width:760px}
   .mods .m{font-family:var(--ipa);color:var(--accent);font-weight:600;white-space:nowrap}
   .mods .d{color:var(--ink-soft)}
@@ -141,6 +155,20 @@
     <span class="m">˞ rhotic</span><span class="d"><b>Add "r" colour.</b> American <i>bird</i> (ɝ), Mandarin <i>er</i>.</span>
   </div>
 
+  <h2>Phase-2 merge ledger</h2>
+  <p class="sub">Fine-grained 70 points → a general inventory of <b>61</b>; these fold in Phase 2, each
+    distinction recovered later by a diacritic (or left sub-phonemic). Two of the nine merges are
+    vowels — shown below and marked <span style="color:var(--accent)">⤳</span> in the chart and list above.</p>
+  <div class="ledger">
+    <div class="scroll">
+      <table>
+        <tr><th>source → target</th><th>recover</th><th>why merged</th></tr>
+        <tr><td><span class="src">æ</span><span class="ar">⤳</span><span class="tgt">a</span></td><td class="rec">—</td><td class="why">no witness</td></tr>
+        <tr><td><span class="src">ɨ</span><span class="ar">⤳</span><span class="tgt">ɯ</span></td><td class="rec">centralized (vowel diacritic)</td><td class="why">no significant witness</td></tr>
+      </table>
+    </div>
+  </div>
+
   <footer>70 points across 16 languages (12 core targets + witnesses TR ET VI KO). Example words are
     anchors for the ear, not exact equivalences — the same point sounds slightly different language to
     language. Built from <code>out/points.json</code>.</footer>
@@ -172,6 +200,9 @@ const V=[
 ["ɒ","British lot / Hungarian hat","An open 'o' — back and rounded.","HU","open","back",1,0]
 ];
 const ID=s=>"p-"+s.replace(/[^a-zA-Z0-9]/g,c=>"_"+c.charCodeAt(0));
+// Phase-2 merge ledger: fine-grained vowel sources that fold into a general-inventory target.
+const MERGE={"æ":{into:"a",rec:""},"ɨ":{into:"ɯ",rec:"centralized"}};
+function vMerge(v){return MERGE[v[0]]||null;}
 // vowel trapezoid
 const HROW={close:0,"near-close":0.17,"close-mid":0.34,mid:0.5,"open-mid":0.66,"near-open":0.83,open:1};
 const BCOL={front:0,central:0.5,back:1};
@@ -187,13 +218,14 @@ fr.setAttribute("points",[P("close","front"),P("close","back"),P("open","back"),
 svg.appendChild(fr);
 ["close-mid","open-mid"].forEach(h=>{const l=document.createElementNS("http://www.w3.org/2000/svg","line");const a=pos(h,"front"),c=pos(h,"back");l.setAttribute("x1",a.x);l.setAttribute("y1",a.y);l.setAttribute("x2",c.x);l.setAttribute("y2",c.y);l.setAttribute("class","axis");l.setAttribute("vector-effect","non-scaling-stroke");svg.appendChild(l);});
 trap.appendChild(svg);
-V.forEach(v=>{const[ipa,ex,plain,langs,h,b,rd,flag]=v;const p=pos(h,b);const el=document.createElement("button");el.className="vnode"+(flag?" flag":"");el.setAttribute("data-t",ID(ipa));el.style.left=(p.x+(rd?2.4:0))+"%";el.style.top=p.y+"%";el.innerHTML=`<span class='ipa'>${ipa}</span><span class='ex'>${ex.split(" / ")[0]}</span>`;trap.appendChild(el);});
+V.forEach(v=>{const[ipa,ex,plain,langs,h,b,rd,flag]=v;const m=vMerge(v);const p=pos(h,b);const el=document.createElement("button");el.className="vnode"+(flag?" flag":"")+(m?" merge":"");el.setAttribute("data-t",ID(ipa));el.style.left=(p.x+(rd?2.4:0))+"%";el.style.top=p.y+"%";el.innerHTML=`${m?"<span class='mbadge'>⤳</span>":""}<span class='ipa'>${ipa}</span><span class='ex'>${ex.split(" / ")[0]}</span>`;trap.appendChild(el);});
 [["FRONT",PAD.x+"%","1%"],["BACK",(100-PAD.x-8)+"%","1%"],["HIGH","1%",(PAD.y-3)+"%"],["LOW","1%",(100-PAD.y-2)+"%"]].forEach(([txt,l,tp])=>{const d=document.createElement("div");d.className="vlabel";d.textContent=txt;d.style.left=l;d.style.top=tp;trap.appendChild(d);});
 
 // reference lists
 const refc=document.getElementById("reflists");
-function rowHTML(sym,ex,desc,langs,flag,cls){
-  return `<div class='r${flag?" flag":""}' id='${ID(sym)}'><div class='sym'>${sym}</div><div class='body'><div class='name'><b>${ex}</b></div><div class='desc'>${desc}</div><div class='langs'>${langs.split(" ").length} lang · ${langs}</div></div></div>`;
+function rowHTML(sym,ex,desc,langs,flag,merge){
+  const mline=merge?`<div class='mdesc'>⤳ folds into <b>${merge.into}</b> in the general inventory${merge.rec?", recover: "+merge.rec:""}</div>`:"";
+  return `<div class='r${flag?" flag":""}${merge?" merge":""}' id='${ID(sym)}'><div class='sym'>${sym}</div><div class='body'><div class='name'><b>${ex}</b></div><div class='desc'>${desc}</div>${mline}<div class='langs'>${langs.split(" ").length} lang · ${langs}</div></div></div>`;
 }
 let html="";
 // vowels grouped
@@ -202,7 +234,7 @@ VGROUP.forEach(([hs,title])=>{
   const set=hs.split(",");
   const items=V.filter(v=>set.includes(v[4]));
   html+=`<div class='refgroup'><h3>${title}</h3><div class='rows'>`+
-    items.map(v=>rowHTML(v[0],v[1],v[2],v[3],v[7])).join("")+`</div></div>`;
+    items.map(v=>rowHTML(v[0],v[1],v[2],v[3],v[7],vMerge(v))).join("")+`</div></div>`;
 });
 refc.innerHTML=html;
 

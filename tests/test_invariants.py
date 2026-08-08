@@ -3,19 +3,20 @@ import os
 
 from diaphone.loader import load
 from diaphone.derive import derive
+from diaphone.merges import apply_merges
 
 DATA = os.path.join(os.path.dirname(__file__), "..", "data")
 
 
 def _run():
     features, languages, all_ph = load(DATA)
-    points, violations, near, suspicious = derive(all_ph, features)
-    return features, languages, all_ph, points, violations, near, suspicious
+    points, violations, near, suspicious, rhotic = derive(all_ph, features)
+    return features, languages, all_ph, points, violations, near, suspicious, rhotic
 
 
 def test_no_merged_contrasts():
     """No language may map two distinct phonemes to the same (point, modifiers)."""
-    _, _, _, _, violations, _, _ = _run()
+    violations = _run()[4]
     assert violations == [], violations
 
 
@@ -53,3 +54,23 @@ def test_no_unreviewed_suspicious_cooccurrence():
     genuine contrast (in _CONFIRMED_CONTRAST). A fresh flag = a possible allophone to review."""
     suspicious = _run()[6]
     assert suspicious == [], suspicious
+
+
+def test_no_unreviewed_rhotic_cooccurrence():
+    """Cross-manner rhotic co-occurrences are all reviewed (only Spanish r~ɾ)."""
+    rhotic = _run()[7]
+    assert rhotic == [], rhotic
+
+
+def test_general_inventory_ledger():
+    """The Phase-2 merge ledger folds cleanly (apply_merges asserts safety) to 61 points."""
+    points = _run()[3]
+    general, folded = apply_merges(points)
+    assert len(folded) == 9, [f[0] for f in folded]
+    assert len(general) == len(points) - len(folded)
+    assert len(general) == 61, len(general)
+    # source points are gone; targets remain
+    assert ("C", "dental", "plosive", "vl") not in general        # t̪ folded into t
+    assert ("C", "alveolar", "approximant", "vd") not in general  # ɹ folded into ɻ
+    assert ("V", "near-open", "front", False) not in general      # æ folded into a
+    assert ("C", "retroflex", "approximant", "vd") in general     # ɻ kept (Dravidian witness)
