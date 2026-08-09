@@ -8,6 +8,7 @@ from .derive import derive
 from .merges import apply_merges
 from .labeler import load_labels, attach, validate
 from .report import write_outputs
+from .decode import decode
 
 
 def _default_data():
@@ -20,6 +21,18 @@ def _default_data():
 
 
 def main(argv=None):
+    if argv is None:
+        argv = sys.argv[1:]
+    if argv and argv[0] == "decode":
+        dp = argparse.ArgumentParser(prog="diaphone decode",
+                                     description="Notation -> a language's orthography.")
+        dp.add_argument("lang", choices=["hu", "zh", "en"], help="target orthography")
+        dp.add_argument("text", help="space-separated notation words, e.g. 'sqok sewp njawrw'")
+        dp.add_argument("--data", default=_default_data())
+        da = dp.parse_args(argv[1:])
+        print(decode(da.text, da.lang, da.data))
+        return
+
     ap = argparse.ArgumentParser(description="Derive the minimal diaphonemic point set.")
     ap.add_argument("--data", default=_default_data(), help="data directory")
     ap.add_argument("--out", default="out", help="output directory")
