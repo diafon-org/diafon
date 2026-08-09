@@ -54,9 +54,8 @@ vowels:
   y: ic          # round (c = round operator now that schwa freed it)
   ø: ec
   ɒ: ac          # rounding the open vowel backs it
-  œ: eo          # lax front round — pair (o = round+lower)
-  ʏ: io
-  ʌ: oa          # back open-mid unrounded — pair
+  ʏ: ij          # round+lower via the combined op `j` (frees front-round-lax from a bi-vowel)
+  œ: ej          # round+lower  — every vowel is now base or base+1op (ʌ folded into schwa)
   ɪ: iq
   ɛ: eq
   ʊ: uq
