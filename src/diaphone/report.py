@@ -17,6 +17,8 @@ def points_to_json(points):
         }
         if p.get("recovered"):
             d["recovered"] = p["recovered"]      # general-inventory targets that absorbed a merge
+        if p.get("label"):
+            d["label"] = p["label"]              # v0 Phase-2 character label
         out.append(d)
     out.sort(key=lambda x: (x["kind"], x["canonical_ipa"]))
     return out
@@ -33,7 +35,7 @@ def mappings_to_json(all_ph):
 
 
 def render_report(all_ph, points, violations, near, suspicious, rhotic, general, folded,
-                  features, languages):
+                  labels, label_issues, features, languages):
     PLACE = features["consonant"]["place"]
     MANNER = features["consonant"]["manner"]
     HEIGHT = features["vowel"]["height"]
@@ -114,18 +116,57 @@ def render_report(all_ph, points, violations, near, suspicious, rhotic, general,
     for a, b, rec, note in folded:
         r = f"recover **{rec}**" if rec else "no recovery (sub-phonemic everywhere)"
         L.append(f"- {note} — {r}")
+
+    L.append("\n## Labels — Phase-2 character scheme (v0 proposal)\n")
+    amb, dup = label_issues["ambiguous"], label_issues["duplicates"]
+    L.append(f"Vowels use the B1-recased operator scheme (self-segmenting). Consonants are a first "
+             f"pass. Decodability check: **{len(amb)}** base labels are NOT uniquely decodable "
+             f"(they split into other labels), **{len(dup)}** duplicates, "
+             f"**{len(label_issues['namespace'])}** namespace issues.\n")
+    if amb:
+        L.append("**Not decodable (consonant digraphs that collide with a letter sequence):**")
+        L.append("  " + ", ".join(f"`{lab}`(={ipa})" for ipa, lab in amb))
+        L.append("\nThese are the B1/m2 problem made concrete — the fix is to give consonants the "
+                 "same uppercase-continuation treatment as vowels, or reserved rare pairs.\n")
+    if label_issues["modifier_overlap"]:
+        ov = ", ".join(f"`{c}`={f}" for f, c in label_issues["modifier_overlap"].items())
+        L.append(f"_Modifier/quality overlap (OK — disambiguated by base type): {ov}._\n")
+    L.append("| point | label |   | point | label |")
+    L.append("|---|---|---|---|---|")
+    lab = [(p["canonical_ipa"], p.get("label") or "—") for p in
+           sorted(general.values(), key=lambda p: (p["kind"], p["canonical_ipa"]))]
+    half = (len(lab) + 1) // 2
+    for i in range(half):
+        a_ = f"`{lab[i][0]}` | `{lab[i][1]}`"
+        b_ = f"`{lab[i+half][0]}` | `{lab[i+half][1]}`" if i + half < len(lab) else " | "
+        L.append(f"| {a_} |   | {b_} |")
     return "\n".join(L)
 
 
+def labels_to_json(general, labels, label_issues):
+    return {
+        "points": {p["canonical_ipa"]: p["label"]
+                   for p in sorted(general.values(), key=lambda p: (p["kind"], p["canonical_ipa"]))
+                   if p.get("label")},
+        "modifiers": labels.get("modifiers", {}),
+        "recover": labels.get("recover", {}),
+        "issues": {"ambiguous": label_issues["ambiguous"],
+                   "duplicates": label_issues["duplicates"],
+                   "namespace": label_issues["namespace"]},
+    }
+
+
 def write_outputs(all_ph, points, violations, near, suspicious, rhotic, general, folded,
-                  features, languages, out_dir):
+                  labels, label_issues, features, languages, out_dir):
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, "points.json"), "w", encoding="utf-8") as f:
         json.dump(points_to_json(points), f, ensure_ascii=False, indent=2)
     with open(os.path.join(out_dir, "general_inventory.json"), "w", encoding="utf-8") as f:
         json.dump(points_to_json(general), f, ensure_ascii=False, indent=2)
+    with open(os.path.join(out_dir, "labels.json"), "w", encoding="utf-8") as f:
+        json.dump(labels_to_json(general, labels, label_issues), f, ensure_ascii=False, indent=2)
     with open(os.path.join(out_dir, "mappings.json"), "w", encoding="utf-8") as f:
         json.dump(mappings_to_json(all_ph), f, ensure_ascii=False, indent=2)
     with open(os.path.join(out_dir, "report.md"), "w", encoding="utf-8") as f:
         f.write(render_report(all_ph, points, violations, near, suspicious, rhotic,
-                              general, folded, features, languages))
+                              general, folded, labels, label_issues, features, languages))

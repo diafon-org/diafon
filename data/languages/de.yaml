@@ -25,7 +25,6 @@ consonants:
 - {ipa: n, pl: alveolar, mn: nasal, vc: vd}
 - {ipa: ŋ, pl: velar, mn: nasal, vc: vd}
 - {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
-- {ipa: j, pl: palatal, mn: approximant, vc: vd}
 vowels:
 - {ipa: i, hi: close, bk: front, rd: false}
 - {ipa: ɪ, hi: near-close, bk: front, rd: false}

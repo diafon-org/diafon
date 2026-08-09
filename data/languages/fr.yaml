@@ -19,14 +19,7 @@ consonants:
 - {ipa: n, pl: alveolar, mn: nasal, vc: vd}
 - {ipa: ɲ, pl: palatal, mn: nasal, vc: vd, orth: gn}
 - {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
-- {ipa: j, pl: palatal, mn: approximant, vc: vd}
-- {ipa: w, pl: labiovelar, mn: approximant, vc: vd}
-- ipa: ɥ
-  pl: palatal
-  mn: approximant
-  vc: vd
-  mod: [labialized]
-  note: huit
+# glides /j/ /w/ /ɥ/ removed — non-syllabic /i/ /u/ /y/, not consonant points
 vowels:
 - {ipa: i, hi: close, bk: front, rd: false}
 - {ipa: y, hi: close, bk: front, rd: true}

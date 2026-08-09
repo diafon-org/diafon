@@ -21,8 +21,6 @@ consonants:
 - {ipa: ʎ, pl: palatal, mn: lateral-approximant, vc: vd, st: marginal, note: yeísmo merges to j}
 - {ipa: r, pl: alveolar, mn: trill, vc: vd}
 - {ipa: ɾ, pl: alveolar, mn: tap, vc: vd}
-- {ipa: j, pl: palatal, mn: approximant, vc: vd}
-- {ipa: w, pl: labiovelar, mn: approximant, vc: vd}
 vowels:
 - {ipa: i, hi: close, bk: front, rd: false}
 - {ipa: e, hi: close-mid, bk: front, rd: false}
