@@ -67,11 +67,12 @@ the point to stay distinct. Turkish locks `u`~`ɯ` (*kul*/*kıl*); Estonian + Vi
 `o`~`ɤ` (õ; ô/ơ). See the near-merge verdict table below for the full witness search.
 
 ## Current state
-68 fine-grained points → **56 general** (37 C · 19 V) after 12 merges, 7 modifiers, 0 merged
-contrasts, 492 phoneme records, 16 languages (12 core + 4 witnesses). Removed (not points):
-`ç` (German ich-laut → `x`), `ɸ` (Japanese *fu* → `h`), `ɐ` (German `-er`), **Mandarin j/q/x
-`[tɕ tɕʰ ɕ]`** (complementary with the retroflex zh/ch/sh — allophones, see zh.yaml), and the
-**glides `/j/ /w/ /ɥ/`** (non-syllabic `/i/ /u/ /y/`). Vietnamese `ă` re-read as short `/a/`.
+68 fine-grained points → **55 general** (37 C · 18 V) after 13 merges, 0 merged contrasts, 491
+phoneme records, 16 languages (12 core + 4 witnesses). **Every point is a base or base + ONE
+operator** — no 2-operator points, no bi-vowels. Removed (not points): `ç` (German ich-laut → `x`),
+`ɸ` (Japanese *fu* → `h`), `ɐ` (German `-er`), **Mandarin j/q/x `[tɕ tɕʰ ɕ]`** (allophones of the
+retroflex series), the **glides `/j/ /w/ /ɥ/`**, and **`ʌ`** (folded into schwa: English STRUT =
+stressed `/ə/`, Korean ㅓ ≈ schwa). Vietnamese `ă` re-read as short `/a/`.
 
 ## Notation (Phase 2 — locked, round-tripped)
 `data/labels.yaml` gives one label per general point; `labeler.py` validates it, `out/labels.json`
@@ -81,8 +82,9 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
 - **Consonant operators** (never a bare label): `c`=affricate (`tc`=t͡s) · `q`=hush (`tq`=t͡ʃ, `sq`=ʃ)
   · `x`=dental/velar (`tx`=θ, `kx`=x) · `j`=palatal (`tj`=tʲ = /c/, Hungarian ty; `nj`=ɲ) · `w`=long
   (`tw`=tː, `rw`=trill). Off-grid combos: gutturals `ʔ`=`hj` `ħ`=`hq` `ʕ`=`hx`; emphatics `qx` (`tˤ`=`tqx`).
-- **Vowels**: 6 one-char cardinals `a e i o u y`(=ə) + operators `x`=back `q`=lower `c`=round
-  (schwa freed `c` from "central"). Three two-shift vowels are a pair: `io`=ʏ `eo`=œ `oa`=ʌ.
+- **Vowels**: 6 bases `a e i o u y`(=ə, which also carries English STRUT ʌ / Korean ㅓ) + operators
+  `q`=lower `x`=back `c`=round `j`=round+lower. Every vowel is base+1op — e.g. ü/ʏ = `ic`/`ij`, ö/œ =
+  `ec`/`ej`. No pairs, no 2-operator vowels.
 - **Modifiers ride on top, each one letter**: long `w`, palatalised `j`, aspirated `h`, labialised `u`,
   nasal `j` (vowels), rhotic `r`; pharyngealised is the lone 2-letter feature (`qx`). Stacking a
   feature on a 2-char point is the only source of 3-char labels (nasal `ɛ̃`=`eqj`).

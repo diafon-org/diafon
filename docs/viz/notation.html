@@ -2,142 +2,120 @@
 <style>
   :root{
     --paper:#f5f6f8; --card:#ffffff; --ink:#1a1d24; --muted:#5b6472;
-    --line:#dde1e8; --line2:#eceef2; --accent:#0e7c86; --accent-soft:#0e7c8614;
-    --ipa:#1a1d24; --warn:#9a5b1a;
+    --line:#dde1e8; --accent:#0e7c86; --accent-soft:#0e7c8612; --ipa:#1a1d24; --warn:#9a5b1a;
     --serif:"Charter","Iowan Old Style","Palatino Linotype",Georgia,serif;
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
     --mono:"SF Mono","JetBrains Mono","Menlo","Consolas",monospace;
   }
   @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
     --paper:#14161b; --card:#1b1e25; --ink:#e9ecf1; --muted:#98a1b0;
-    --line:#2a2e37; --line2:#23262e; --accent:#3ec8cf; --accent-soft:#3ec8cf1f;
-    --ipa:#eef1f5; --warn:#d69b53;
+    --line:#2a2e37; --accent:#3ec8cf; --accent-soft:#3ec8cf16; --ipa:#eef1f5; --warn:#d69b53;
   }}
   :root[data-theme="dark"]{
     --paper:#14161b; --card:#1b1e25; --ink:#e9ecf1; --muted:#98a1b0;
-    --line:#2a2e37; --line2:#23262e; --accent:#3ec8cf; --accent-soft:#3ec8cf1f;
-    --ipa:#eef1f5; --warn:#d69b53;
+    --line:#2a2e37; --accent:#3ec8cf; --accent-soft:#3ec8cf16; --ipa:#eef1f5; --warn:#d69b53;
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
     line-height:1.55;-webkit-font-smoothing:antialiased;font-size:15px}
-  .wrap{max-width:1080px;margin:0 auto;padding:clamp(1.4rem,4vw,3.2rem) clamp(1rem,4vw,2.4rem) 4rem}
-  header{border-bottom:1px solid var(--line);padding-bottom:1.6rem;margin-bottom:2.2rem}
-  h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.1rem,6vw,3.1rem);
-    letter-spacing:-.01em;margin:0 0 .3rem;text-wrap:balance}
-  .tag{color:var(--muted);font-size:1.02rem;max-width:60ch;margin:0}
-  .stats{display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;margin-top:1.3rem;
-    font-family:var(--mono);font-size:.82rem;color:var(--muted);
-    font-variant-numeric:tabular-nums}
+  .wrap{max-width:1000px;margin:0 auto;padding:clamp(1.4rem,4vw,3.2rem) clamp(1rem,4vw,2.4rem) 4rem}
+  header{border-bottom:1px solid var(--line);padding-bottom:1.5rem;margin-bottom:2rem}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.1rem,6vw,3rem);letter-spacing:-.01em;margin:0 0 .3rem}
+  .tag{color:var(--muted);max-width:62ch;margin:0}
+  .stats{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;margin-top:1.2rem;font-family:var(--mono);
+    font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
   .stats b{color:var(--accent);font-weight:600}
-  h2{font-family:var(--serif);font-weight:600;font-size:1.35rem;margin:2.8rem 0 .3rem;
-    letter-spacing:-.01em}
-  h2 .n{font-family:var(--mono);font-size:.72rem;color:var(--muted);font-weight:400;
-    letter-spacing:.02em;margin-left:.5rem;vertical-align:middle}
-  .lede{color:var(--muted);margin:.1rem 0 1.2rem;max-width:66ch}
-  code,.mono{font-family:var(--mono)}
-  /* operator legend */
-  .ops{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem}
-  .op{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:.75rem .85rem}
-  .op .k{font-family:var(--mono);font-size:1.25rem;color:var(--accent);font-weight:600}
-  .op .d{font-size:.86rem;color:var(--muted);margin-top:.15rem}
-  .op .e{font-family:var(--mono);font-size:.8rem;color:var(--ink);margin-top:.35rem;opacity:.85}
-  /* point tiles */
-  .manner{margin:1.1rem 0}
-  .manner-h{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--muted);margin-bottom:.5rem}
-  .tiles{display:flex;flex-wrap:wrap;gap:.45rem}
-  .tile{background:var(--card);border:1px solid var(--line);border-radius:8px;
-    min-width:60px;padding:.5rem .55rem .45rem;text-align:center;position:relative}
-  .tile .s{font-family:var(--serif);font-size:1.5rem;line-height:1;color:var(--ipa)}
-  .tile .l{font-family:var(--mono);font-size:.86rem;color:var(--accent);margin-top:.32rem;font-weight:600}
-  .tile.combo .l{color:var(--warn)}
-  /* vowel grid */
-  .vgrid{display:grid;grid-template-columns:auto repeat(3,1fr);gap:.4rem;align-items:center;
-    max-width:560px}
-  .vgrid .rh{font-family:var(--mono);font-size:.68rem;color:var(--muted);text-transform:uppercase;
-    letter-spacing:.05em;text-align:right;padding-right:.5rem}
-  .vgrid .ch{font-family:var(--mono);font-size:.68rem;color:var(--muted);text-transform:uppercase;
-    letter-spacing:.05em;text-align:center;padding-bottom:.2rem}
+  h2{font-family:var(--serif);font-weight:600;font-size:1.35rem;margin:2.6rem 0 .3rem}
+  .lede{color:var(--muted);margin:.1rem 0 1.1rem;max-width:66ch}
+  code{font-family:var(--mono)}
+  table{border-collapse:collapse;width:100%;font-size:.92rem}
+  .optab td,.optab th{border:1px solid var(--line);padding:.5rem .7rem;text-align:left}
+  .optab th{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--muted);font-weight:500;background:var(--accent-soft)}
+  .optab .k{font-family:var(--mono);font-size:1.2rem;color:var(--accent);font-weight:600}
+  .optab code{color:var(--ink)}
+  .manner{margin:1rem 0}
+  .manner-h{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.45rem}
+  .tiles{display:flex;flex-wrap:wrap;gap:.42rem}
+  .tile{background:var(--card);border:1px solid var(--line);border-radius:8px;min-width:60px;padding:.48rem .5rem .42rem;text-align:center}
+  .tile .s{font-family:var(--serif);font-size:1.45rem;line-height:1;color:var(--ipa)}
+  .tile .l{font-family:var(--mono);font-size:.85rem;color:var(--accent);margin-top:.3rem;font-weight:600}
+  .tile.two .l{color:var(--warn)}
+  .vgrid{display:grid;grid-template-columns:auto repeat(3,1fr);gap:.4rem;align-items:center;max-width:600px}
+  .vgrid .rh{font-family:var(--mono);font-size:.66rem;color:var(--muted);text-transform:uppercase;text-align:right;padding-right:.5rem}
+  .vgrid .ch{font-family:var(--mono);font-size:.66rem;color:var(--muted);text-transform:uppercase;text-align:center;padding-bottom:.2rem}
   .vcell{display:flex;gap:.35rem;justify-content:center;flex-wrap:wrap}
-  .table-note{color:var(--muted);font-size:.85rem;margin-top:.7rem}
-  /* reading examples */
-  .reads{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.7rem;margin-top:.4rem}
+  .reads{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.7rem;margin-top:.4rem}
   .read{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:.8rem .9rem}
   .read .pair{font-family:var(--mono);font-size:1.05rem}
   .read .pair .ar{color:var(--muted);margin:0 .4rem}
   .read .pair .lab{color:var(--accent);font-weight:600}
   .read .why{font-size:.84rem;color:var(--muted);margin-top:.3rem}
-  footer{margin-top:3rem;padding-top:1.3rem;border-top:1px solid var(--line);
-    color:var(--muted);font-size:.82rem;font-family:var(--mono)}
-  a{color:var(--accent)}
+  .note{color:var(--muted);font-size:.86rem;margin-top:.8rem}
+  footer{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem;font-family:var(--mono)}
+  .scroll{overflow-x:auto}
 </style>
 
 <div class="wrap">
   <header>
     <h1>diaphone</h1>
-    <p class="tag">A cross-linguistic phonemic point set and a plain-ASCII notation — one base
-      letter per sound, a handful of operators for the rest. No diacritics, no case, no modifier tier.</p>
+    <p class="tag">A cross-linguistic phonemic point set and a plain-ASCII notation. Every sound is a
+      base letter plus at most one operator — no diacritics, no case, no separate modifier layer.</p>
     <div class="stats">
-      <span><b>56</b> points · 37 C + 19 V</span>
+      <span><b>55</b> points · 37 C + 18 V</span>
       <span><b>16</b> languages</span>
-      <span><b>492</b> phonemes mapped</span>
+      <span><b>491</b> phonemes mapped</span>
       <span><b>0</b> collisions</span>
     </div>
   </header>
 
-  <h2>The five operators</h2>
-  <p class="lede">Every consonant is a base letter, optionally nudged by an operator. Operators are
-    never a label on their own, so a base+operator pair never splits ambiguously.</p>
-  <div class="ops">
-    <div class="op"><div class="k">c</div><div class="d">affricate</div><div class="e">tc = t͡s · dc = d͡z</div></div>
-    <div class="op"><div class="k">q</div><div class="d">hush (postalveolar)</div><div class="e">tq = t͡ʃ · sq = ʃ</div></div>
-    <div class="op"><div class="k">x</div><div class="d">dental / velar</div><div class="e">tx = θ · kx = x</div></div>
-    <div class="op"><div class="k">j</div><div class="d">palatal(ised)</div><div class="e">tj = tʲ · nj = ɲ</div></div>
-    <div class="op"><div class="k">w</div><div class="d">long (doubling)</div><div class="e">tw = tː · rw = trill</div></div>
-  </div>
+  <h2>The operators</h2>
+  <p class="lede">Five letters are never bases — they are the operators, and each does one job on a
+    consonant and another on a vowel. That is the whole system; "long / aspirated / palatalised" are
+    just names for what these do.</p>
+  <div class="scroll"><table class="optab">
+    <tr><th>op</th><th>on a consonant</th><th>on a vowel</th></tr>
+    <tr><td class="k">c</td><td>affricate — <code>tc</code>=t͡s</td><td>round — <code>ic</code>=y</td></tr>
+    <tr><td class="k">q</td><td>hush — <code>tq</code>=t͡ʃ, <code>sq</code>=ʃ</td><td>lower — <code>iq</code>=ɪ</td></tr>
+    <tr><td class="k">x</td><td>dental/velar — <code>tx</code>=θ, <code>kx</code>=x</td><td>back — <code>ix</code>=ɯ</td></tr>
+    <tr><td class="k">j</td><td>palatal — <code>tj</code>=c, <code>nj</code>=ɲ</td><td>round+lower — <code>ij</code>=ʏ</td></tr>
+    <tr><td class="k">w</td><td>long — <code>tw</code>=tː</td><td>long — <code>iw</code>=iː</td></tr>
+  </table></div>
+  <p class="note">Aspiration is a sixth, part-time operator: <code>h</code> (<code>ph</code>=pʰ). Two
+    stacked operators appear only for genuinely two-feature sounds — <code>tch</code>=t͡sʰ, <code>tqx</code>=tˤ.</p>
 
-  <h2>Consonants <span class="n">37 points · label in teal, off-grid combos in amber</span></h2>
+  <h2>Consonants <span style="font-family:var(--mono);font-size:.72rem;color:var(--muted)">· 37 points</span></h2>
   <div id="cons"></div>
 
-  <h2>Vowels <span class="n">19 points · 6 one-char cardinals incl. y = ə (schwa)</span></h2>
-  <p class="lede">Six one-char cardinals <code>a e i o u y</code> (<code>y</code> = schwa) plus <code>x</code> back, <code>q</code> lower, <code>c</code> round. Only three two-shift vowels (<code>io eo oa</code>) need a pair.</p>
+  <h2>Vowels <span style="font-family:var(--mono);font-size:.72rem;color:var(--muted)">· 18 points · bases a e i o u y(=ə)</span></h2>
+  <p class="lede">The three axes each get an operator — <code>q</code> lower, <code>x</code> back,
+    <code>c</code> round — and <code>j</code> is the combined round+lower. Every vowel is base or base+1op.</p>
   <div class="vgrid" id="vows"></div>
-  <p class="table-note">Vowel pairs (<code>io</code>=ʏ, <code>oa</code>=ʌ) overlap real diphthongs by
-    design — that single-vs-sequence question is resolved in the sequence layer, not here.</p>
-
-  <h2>Modifiers <span class="n">no tier — each is just another letter</span></h2>
-  <div class="ops" id="mods"></div>
+  <p class="note"><code>y</code>=ə is the central vowel — and it also carries English STRUT <code>ʌ</code> and Korean ㅓ, so it is not idle.</p>
 
   <h2>Reading it</h2>
   <div class="reads">
-    <div class="read"><div class="pair">t͡ʃ<span class="ar">→</span><span class="lab">tq</span></div>
-      <div class="why">Italian <i>cielo</i>. Hush affricate — merged with alveolo-palatal t͡ɕ.</div></div>
-    <div class="read"><div class="pair">ʂ<span class="ar">→</span><span class="lab">sq</span></div>
-      <div class="why">Mandarin <i>shān</i>. Retroflex folds into the hush — no sign, since sh/x are complementary.</div></div>
-    <div class="read"><div class="pair">tʲ<span class="ar">→</span><span class="lab">tj</span></div>
-      <div class="why">Russian <i>тётя</i>. Palatalisation is a plain <code>j</code>, no doubling.</div></div>
-    <div class="read"><div class="pair">tˤ<span class="ar">→</span><span class="lab">tqx</span></div>
-      <div class="why">Arabic <i>ṭāʾ</i>. Emphatics ride on the <code>qx</code> combo, like the gutturals.</div></div>
-    <div class="read"><div class="pair">t͈<span class="ar">→</span><span class="lab">tw</span></div>
-      <div class="why">Korean fortis. Reuses length — no vowel-length contrast to clash with.</div></div>
-    <div class="read"><div class="pair">ɛ̃<span class="ar">→</span><span class="lab">eqj</span></div>
-      <div class="why">French <i>vin</i>. ɛ (e-lower) plus nasal <code>j</code> on the vowel.</div></div>
+    <div class="read"><div class="pair">t͡ʃ<span class="ar">→</span><span class="lab">tq</span></div><div class="why">Italian <i>cielo</i> — hush affricate (merged with alveolo-palatal t͡ɕ).</div></div>
+    <div class="read"><div class="pair">ʂ<span class="ar">→</span><span class="lab">sq</span></div><div class="why">Mandarin <i>shān</i> — retroflex folds into the hush, no sign (sh/x are complementary).</div></div>
+    <div class="read"><div class="pair">c · tʲ<span class="ar">→</span><span class="lab">tj</span></div><div class="why">Hungarian <i>ty</i> = Russian soft <i>ть</i> — palatal, one letter.</div></div>
+    <div class="read"><div class="pair">ʏ<span class="ar">→</span><span class="lab">ij</span></div><div class="why">German lax <i>ü</i> (Glück) — round+lower on i.</div></div>
+    <div class="read"><div class="pair">t͈<span class="ar">→</span><span class="lab">tw</span></div><div class="why">Korean fortis — reuses length; no vowel-length contrast to clash with.</div></div>
+    <div class="read"><div class="pair">ə<span class="ar">→</span><span class="lab">y</span></div><div class="why">English schwa — the 6th base, so <i>the</i> = <code>dxy</code>.</div></div>
   </div>
 
-  <footer>56 general points · derived from 68 fine-grained · 12 merges · validated round-trip, 0 collisions</footer>
+  <footer>55 general points · 68 fine-grained · every point base or base+1 operator · round-trip 0 collisions</footer>
 </div>
 
 <script>
 const C = [
   ["plosive", "p=p b=b t=t d=d c=tj ɟ=dj k=k g=g q=kq ʔ=hj"],
-  ["nasal", "m=m n=n ɲ=nj ŋ=nx"],
   ["affricate", "pf=pc ts=tc dz=dc tʃ=tq dʒ=dq"],
   ["fricative", "f=f v=v θ=tx ð=dx s=s z=z ʃ=sq ʒ=zq x=kx ɣ=gx ħ=hq ʕ=hx h=h"],
+  ["nasal", "m=m n=n ɲ=nj ŋ=nx"],
   ["tap", "ɾ=r"], ["trill", "r=rw"],
   ["lateral", "l=l ʎ=lj"], ["approximant", "ʐ=rx"],
 ];
-const combo = new Set(["hj","hq","hx"]); // off-grid random combos
+const two = new Set([]);                // no 2-operator labels remain
 const cons = document.getElementById("cons");
 for (const [m, str] of C){
   const box = document.createElement("div"); box.className="manner";
@@ -145,20 +123,19 @@ for (const [m, str] of C){
   const row = document.createElement("div"); row.className="tiles";
   for (const pair of str.split(" ")){
     const [s,l] = pair.split("=");
-    const t = document.createElement("div");
-    t.className = "tile" + (combo.has(l)?" combo":"");
+    const t = document.createElement("div"); t.className="tile"+(two.has(l)?" two":"");
     t.innerHTML = `<div class="s">${s}</div><div class="l">${l}</div>`;
     row.appendChild(t);
   }
   box.appendChild(row); cons.appendChild(box);
 }
-// vowels by height x backness
 const V = {
-  "close":       {front:"i=i y=ic", central:"", back:"ɯ=ix u=u"},
-  "near-close":  {front:"ɪ=iq ʏ=io", central:"", back:"ʊ=uq"},
-  "close-mid":   {front:"e=e ø=ec", central:"ə=y", back:"ɤ=ex o=o"},
-  "open-mid":    {front:"ɛ=eq œ=eo", central:"", back:"ʌ=oa ɔ=oq"},
-  "open":        {front:"a=a", central:"", back:"ɑ=ax ɒ=ac"},
+  "close":      {front:"i=i y=ic", central:"", back:"u=u ɯ=ix"},
+  "near-close": {front:"ɪ=iq ʏ=ij", central:"", back:"ʊ=uq"},
+  "close-mid":  {front:"e=e ø=ec", central:"", back:"o=o ɤ=ex"},
+  "mid":        {front:"", central:"ə=y", back:""},
+  "open-mid":   {front:"ɛ=eq œ=ej", central:"", back:"ɔ=oq"},
+  "open":       {front:"", central:"a=a", back:"ɑ=ax ɒ=ac"},
 };
 const vg = document.getElementById("vows");
 vg.innerHTML = `<div></div><div class="ch">front</div><div class="ch">central</div><div class="ch">back</div>`;
@@ -168,22 +145,11 @@ for (const [h,cols] of Object.entries(V)){
     const cell = document.createElement("div"); cell.className="vcell";
     for (const pair of (cols[c]||"").split(" ").filter(Boolean)){
       const [s,l]=pair.split("=");
-      const t=document.createElement("div"); t.className="tile";
+      const t=document.createElement("div"); t.className="tile"+(two.has(l)?" two":"");
       t.innerHTML=`<div class="s">${s}</div><div class="l">${l}</div>`;
       cell.appendChild(t);
     }
     vg.appendChild(cell);
   }
-}
-const M = [
-  ["w","long","tw = tː"], ["j","palatalised","sj = sʲ"], ["qx","pharyngealised","tqx = tˤ"],
-  ["u","labialised","ku = kʷ"], ["h","aspirated","ph = pʰ"], ["j","nasal (vowel)","aj = ã"],
-  ["r","rhotic","ecr = ɝ"],
-];
-const md = document.getElementById("mods");
-for (const [k,d,e] of M){
-  const o=document.createElement("div"); o.className="op";
-  o.innerHTML=`<div class="k">${k}</div><div class="d">${d}</div><div class="e">${e}</div>`;
-  md.appendChild(o);
 }
 </script>

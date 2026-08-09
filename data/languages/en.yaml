@@ -30,7 +30,7 @@ vowels:
 - {ipa: ɪ, hi: near-close, bk: front, rd: false}
 - {ipa: ɛ, hi: open-mid, bk: front, rd: false}
 - {ipa: æ, hi: near-open, bk: front, rd: false}
-- {ipa: ʌ, hi: open-mid, bk: back, rd: false}
+# /ʌ/ (STRUT) is stressed /ə/ — same mid-central phoneme, complementary by stress, so not a point
 - {ipa: ɑ, hi: open, bk: back, rd: false}
 - {ipa: ɔ, hi: open-mid, bk: back, rd: true}
 - {ipa: ʊ, hi: near-close, bk: back, rd: true}

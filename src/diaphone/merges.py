@@ -26,6 +26,7 @@ LEDGER = [
     (("C", "alveolar", "approximant", "vd"), ("C", "retroflex", "approximant", "vd"), None,         "English ɹ ≈ Mandarin ɻ; no language contrasts them"),
     (("V", "near-open", "front", False),     ("V", "open", "central", False),        None,          "æ→a; no witness (Danish resolves to æ~back ɑ)"),
     (("V", "close", "central", False),       ("V", "close", "back", False),          "centralized", "ɨ→ɯ; no significant witness (major langs have one or the other)"),
+    (("V", "open-mid", "back", False),        ("V", "mid", "central", False),         None, "ʌ→ə; Korean ㅓ ≈ schwa, English STRUT = stressed schwa — no language contrasts them"),
 ]
 
 

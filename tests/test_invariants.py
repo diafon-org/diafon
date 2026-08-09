@@ -67,9 +67,9 @@ def test_general_inventory_ledger():
     """The Phase-2 merge ledger folds cleanly (apply_merges asserts safety) to 58 points."""
     points = _run()[3]
     general, folded = apply_merges(points)
-    assert len(folded) == 12, [f[0] for f in folded]
+    assert len(folded) == 13, [f[0] for f in folded]
     assert len(general) == len(points) - len(folded)
-    assert len(general) == 56, len(general)   # 68 fine - 12 merges (glides /j/ /w/ are not points)
+    assert len(general) == 55, len(general)   # 68 fine - 13 merges; ʌ folded into schwa
     # source points are gone; targets remain
     assert ("C", "dental", "plosive", "vl") not in general        # t̪ folded into t
     assert ("C", "alveolar", "approximant", "vd") not in general  # ɹ folded into ɻ
