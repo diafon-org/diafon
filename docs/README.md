@@ -1,10 +1,9 @@
 # diaphone — documentation
 
-- **The notation** (description): [viz/notation.html](viz/notation.html) — a single self-contained
-  page with the operator legend, consonant grid, vowel chart, and worked examples.
-- **Try it** (interactive): [viz/try.html](viz/try.html) — leads with the notation, then lets you
-  pick a language, see its filtered label inventory, and type notation to decode it back to the
-  language's spelling live (runs `decode.py`'s logic in-browser).
+- **The guide** (everything): [viz/guide.html](viz/guide.html) — the full notation (operators,
+  consonant grid, vowel chart, features) followed by a live decoder for English, Hungarian, and
+  Mandarin. Pick a language, type notation, watch it become that language's spelling. Self-contained.
+  (`viz/notation.html` and `viz/try.html` are the older split versions.)
 - **Authoritative sources**: point set → `out/points.json` (70 fine-grained) →
   `out/general_inventory.json` (**58 general**); notation → `data/labels.yaml` → `out/labels.json`.
   `CLAUDE.md` ("Notation") is the prose summary.
