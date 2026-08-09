@@ -4,6 +4,8 @@ ex: e
 f: f
 i: i
 ic: ü
+ix: i          # apical/buzzed vowel (zhī, shì, sì) — Pinyin writes it "i" too, but it is NOT front /i/,
+               #   so after zh/ch/sh it keeps the retroflex spelling instead of triggering j/q/x
 k: g
 kh: k
 kx: h

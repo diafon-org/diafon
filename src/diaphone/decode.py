@@ -13,6 +13,10 @@ import yaml
 
 VOWELS = set("aeiou")
 
+# Mandarin retroflex/alveolo-palatal series: (spelling before non-front vowel, spelling before front i/ü).
+# We merged Pinyin j/q/x into zh/ch/sh as allophones, so the following vowel decides the spelling.
+_ZH_RETRO = {"tq": ("zh", "j"), "tqh": ("ch", "q"), "sj": ("sh", "x")}
+
 # Lazy-mode convenience shortcuts, per language: {alias_label: canonical_label}. Applied only when
 # decode(..., lazy=True). Each alias is a base letter the language leaves free, standing in for a
 # heavier canonical label — never introducing ambiguity because the letter is unused otherwise. The
@@ -95,10 +99,18 @@ def decode_word(word, orth, lang):
         if lang == "hu" and t == "i" and _is_vowel(nxt):
             g = "j"                                   # i-glide onset -> j  (iow -> jó)
         elif lang == "zh":
-            if t == "i" and k == 0 and _is_vowel(nxt):
+            if t in _ZH_RETRO:
+                # the merged retroflex/alveolo-palatal series spells j/q/x before a front vowel
+                # (i or ü), zh/ch/sh otherwise — the Pinyin allophone split we folded away.
+                g = _ZH_RETRO[t][nxt in ("i", "ic")]
+            elif t == "ic" and prv in _ZH_RETRO:
+                g = "u"                               # ü is written "u" after j/q/x (ju, qu, xu)
+            elif t == "i" and k == 0 and _is_vowel(nxt):
                 g = "y"                               # i-glide onset -> y-
-            elif t == "u" and _is_vowel(prv):
-                g = "o"                               # final -u glide -> o  (kau -> gao)
+            elif t == "u" and prv == "a":
+                g = "o"                               # -u offglide spells "o" only after a: au->ao,
+                                                      #   but ou stays "ou" and medial u (uo) stays "u"
+                                                      # (apical vowel `ix` -> "i" comes from the orth map)
         out.append(g)
     result = "".join(out)
     return _apply_tone(result, tone) if tone is not None else result
