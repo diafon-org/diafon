@@ -76,9 +76,9 @@
   <div class="scroll"><table class="optab">
     <tr><th>op</th><th>on a consonant</th><th>on a vowel</th></tr>
     <tr><td class="k">c</td><td>affricate — <code>tc</code>=t͡s</td><td>round — <code>ic</code>=y</td></tr>
-    <tr><td class="k">q</td><td>hush — <code>tq</code>=t͡ʃ, <code>sq</code>=ʃ</td><td>round+lower — <code>iq</code>=ʏ</td></tr>
+    <tr><td class="k">q</td><td>hush — <code>tq</code>=t͡ʃ, <code>dq</code>=d͡ʒ</td><td>round+lower — <code>iq</code>=ʏ</td></tr>
     <tr><td class="k">x</td><td>dental/velar — <code>tx</code>=θ, <code>kx</code>=x</td><td>back — <code>ix</code>=ɯ</td></tr>
-    <tr><td class="k">j</td><td>palatal — <code>tj</code>=c, <code>nj</code>=ɲ</td><td>lower — <code>ij</code>=ɪ</td></tr>
+    <tr><td class="k">j</td><td>palatal — <code>sj</code>=ʃ, <code>tj</code>=c, <code>nj</code>=ɲ</td><td>lower — <code>ij</code>=ɪ</td></tr>
     <tr><td class="k">w</td><td>long — <code>tw</code>=tː</td><td>long — <code>iw</code>=iː</td></tr>
   </table></div>
   <p class="note">Aspiration is a sixth, part-time operator: <code>h</code> (<code>ph</code>=pʰ). Two
@@ -95,8 +95,8 @@
   <h2>Reading it</h2>
   <div class="reads">
     <div class="read"><div class="pair">t͡ʃ<span class="ar">→</span><span class="lab">tq</span></div><div class="why">Italian <i>cielo</i> — hush affricate (merged with alveolo-palatal t͡ɕ).</div></div>
-    <div class="read"><div class="pair">ʂ<span class="ar">→</span><span class="lab">sq</span></div><div class="why">Mandarin <i>shān</i> — retroflex folds into the hush, no sign (sh/x are complementary).</div></div>
-    <div class="read"><div class="pair">c · tʲ<span class="ar">→</span><span class="lab">tj</span></div><div class="why">Hungarian <i>ty</i> = Russian soft <i>ть</i> — palatal, one letter.</div></div>
+    <div class="read"><div class="pair">ʂ<span class="ar">→</span><span class="lab">sj</span></div><div class="why">Mandarin <i>shān</i> — retroflex folds into the hush (=<code>sj</code>), no sign.</div></div>
+    <div class="read"><div class="pair">s · sʲ<span class="ar">→</span><span class="lab">sj · sjj</span></div><div class="why">Hungarian <i>s</i>=ʃ is <code>sj</code>; Russian soft <i>сь</i> doubles to <code>sjj</code>.</div></div>
     <div class="read"><div class="pair">ʏ<span class="ar">→</span><span class="lab">iq</span></div><div class="why">German lax <i>ü</i> (Glück) — round+lower (q = c+j).</div></div>
     <div class="read"><div class="pair">t͈<span class="ar">→</span><span class="lab">tw</span></div><div class="why">Korean fortis — reuses length; no vowel-length contrast to clash with.</div></div>
     <div class="read"><div class="pair">ə<span class="ar">→</span><span class="lab">y</span></div><div class="why">English schwa — the 6th base, so <i>the</i> = <code>dxy</code>.</div></div>
@@ -109,9 +109,9 @@
 const C = [
   ["plosive", "p=p b=b t=t d=d c=tj ɟ=dj k=k g=g q=kq ʔ=hj"],
   ["affricate", "pf=pc ts=tc dz=dc tʃ=tq dʒ=dq"],
-  ["fricative", "f=f v=v θ=tx ð=dx s=s z=z ʃ=sq ʒ=zq x=kx ɣ=gx ħ=hq ʕ=hx h=h"],
+  ["fricative", "f=f v=v θ=tx ð=dx s=s z=z ʃ=sj ʒ=zj x=kx ɣ=gx ħ=hq ʕ=hx h=h"],
   ["nasal", "m=m n=n ɲ=nj ŋ=nx"],
-  ["tap", "ɾ=r"], ["trill", "r=rw"],
+  ["tap", "ɾ=rj"], ["trill", "r=r"],
   ["lateral", "l=l ʎ=lj"], ["approximant", "ʐ=rx"],
 ];
 const two = new Set([]);                // no 2-operator labels remain

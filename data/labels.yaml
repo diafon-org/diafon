@@ -32,8 +32,8 @@ consonants:
   ð: dx
   s: s
   z: z
-  ʃ: sq          # hush fricative; absorbs ɕ ʂ — no sign
-  ʒ: zq          # absorbs ʐ-fricative
+  ʃ: sj          # hush fricative = palatal `j` (Hungarian s); absorbs ɕ ʂ — no sign
+  ʒ: zj          # absorbs ʐ-fricative
   x: kx          # velar fricative
   ɣ: gx
   ħ: hq          # voiceless pharyngeal fricative (off-grid combo)
@@ -42,8 +42,8 @@ consonants:
   l: l
   ʎ: lj          # palatal lateral (= palatalised /l/)
   ʐ: rx          # retroflex approximant (Mandarin r)
-  r: rw          # trill (= long tap)
-  ɾ: r           # tap (default rhotic)
+  r: r           # trill = the base rhotic (8 languages); geminate/long trill = rw (forró)
+  ɾ: rj          # tap (marked; the rarer rhotic — 3 languages)
 
 vowels:
   i: i
@@ -69,7 +69,8 @@ vowels:
 
 modifiers:       # each is just a letter/combo — no separate tier
   long: w            # tw = tː · iw = iː
-  palatalized: j     # sj = sʲ
+  palatalized: j     # Cʲ = Cj (pj tj kj …); but on s/z it DOUBLES to jj (sʲ=sjj, zʲ=zjj),
+                     #   because sj/zj are the hush ʃ/ʒ — Russian шёл/сёл, ж/зь force the split
   pharyngealized: qx # tqx = tˤ  (Arabic emphatics — a fixed combo, like the gutturals)
   labialized: u      # ku = kʷ  (u = the round/labial glide)
   aspirated: h       # ph = pʰ
