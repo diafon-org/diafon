@@ -19,6 +19,9 @@ VOWELS = set("aeiou")
 # canonical orth file stays the source of truth; lazy is a typing convenience layered on top.
 LAZY_ALIASES = {
     "hu": {"a": "ac", "e": "ej"},   # Hungarian has no cardinal /a/,/e/, so bare a,e are free for /ɒ/,/ɛ/
+    # Mandarin: single letters whose Pinyin value we spell with an operator, but the bare letter is
+    # otherwise free (no trill /r/, no cardinal /e/, no glottal /h/) — so they can stand in Pinyin-style.
+    "zh": {"e": "ex", "h": "kx", "r": "rx"},   # e=/ɤ/, h=/x/ (Pinyin h), r=/ʐ/ (Pinyin r)
 }
 
 
@@ -53,7 +56,33 @@ def _is_vowel(tok):
     return tok and tok[0] in VOWELS
 
 
+# Pinyin tone diacritics, indexed [tone-1]; placement is a>e>(ou→o)>last vowel (the standard rule).
+_TONE_MARKS = {"a": "āáǎà", "e": "ēéěè", "i": "īíǐì", "o": "ōóǒò", "u": "ūúǔù", "ü": "ǖǘǚǜ"}
+
+
+def _apply_tone(pinyin, tone):
+    if tone in (0, 5):                                 # neutral tone — no diacritic
+        return pinyin
+    s = pinyin
+
+    def put(i):
+        return s[:i] + _TONE_MARKS[s[i]][tone - 1] + s[i + 1:]
+    if "a" in s:
+        return put(s.index("a"))
+    if "e" in s:
+        return put(s.index("e"))
+    if "ou" in s:
+        return put(s.index("o"))
+    for i in range(len(s) - 1, -1, -1):                # otherwise the last vowel takes the tone
+        if s[i] in _TONE_MARKS:
+            return put(i)
+    return s
+
+
 def decode_word(word, orth, lang):
+    tone = None
+    if lang == "zh" and len(word) > 1 and word[-1] in "012345":
+        tone, word = int(word[-1]), word[:-1]          # trailing digit on a syllable = its tone
     toks = tokenize(word, orth.keys())
     out = []
     for k, t in enumerate(toks):
@@ -71,7 +100,8 @@ def decode_word(word, orth, lang):
             elif t == "u" and _is_vowel(prv):
                 g = "o"                               # final -u glide -> o  (kau -> gao)
         out.append(g)
-    return "".join(out)
+    result = "".join(out)
+    return _apply_tone(result, tone) if tone is not None else result
 
 
 def decode(text, lang, data_dir="data", lazy=False):

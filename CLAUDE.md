@@ -53,8 +53,18 @@ out/                        generated (gitignored): points.json, general_invento
 pip install -e ".[dev]"
 diaphone                 # regenerates out/ and prints a summary
 diaphone --strict        # non-zero exit if any contrast is merged (use in CI)
+diaphone decode zh "sjan1 kxyn3 kau1"   # -> shān hěn gāo   (trailing digit 1-4 = Pinyin tone)
+diaphone decode hu "alma kert" --lazy   # -> alma kert      (--lazy: per-language shortcuts)
 pytest                   # runs the invariant guardrails
 ```
+
+## Decoding (`decode.py`)
+Notation → a language's spelling. Canonical labels live in `data/orth/<lang>.yaml`; two extras layer on:
+- **Mandarin tones** — a trailing digit `1-4` on a zh syllable places the Pinyin tone mark (`5`/none =
+  neutral); placement is the standard a > e > ou > last-vowel rule.
+- **Lazy mode** (`decode(..., lazy=True)` / `--lazy`) — opt-in, language-specific shortcuts in
+  `decode.LAZY_ALIASES`: HU bare `a`=/ɒ/, `e`=/ɛ/ (no cardinal /a/,/e/ in Hungarian); ZH `e`=/ɤ/,
+  `h`=/x/, `r`=/ʐ/ (Pinyin-style — those letters are otherwise free). Canonical files stay pure.
 
 ## Data conventions
 - `data/languages/*.yaml` short keys: `pl mn vc` (consonant place/manner/voice),

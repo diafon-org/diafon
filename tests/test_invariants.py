@@ -116,6 +116,21 @@ def test_decode_recovers_hungarian_exactly():
         assert decode(notation, "hu", DATA) == spelling, (notation, decode(notation, "hu", DATA))
 
 
+def test_decode_mandarin_tones():
+    """A trailing digit on a Mandarin syllable places the Pinyin tone mark (a>e>ou>last vowel)."""
+    from diaphone.decode import decode
+    assert decode("sjan1 kxyn3 kau1", "zh", DATA) == "shān hěn gāo"
+    assert decode("nic3", "zh", DATA) == "nǚ" and decode("he2", "zh", DATA, lazy=True) == "hé"
+    assert decode("de5", "zh", DATA) == "de"          # neutral tone: no diacritic
+
+
+def test_decode_mandarin_lazy_pinyin():
+    """Lazy mode lets the free single letters e/h/r stand in Pinyin-style."""
+    from diaphone.decode import decode
+    assert decode("hen3 hao3", "zh", DATA, lazy=True) == "hěn hǎo"   # h=/x/ (Pinyin h)
+    assert decode("ren2", "zh", DATA, lazy=True) == "rén"            # r=/ʐ/ (Pinyin r)
+
+
 def test_decode_lazy_mode_aliases():
     """Lazy mode adds free language-specific shortcuts as real labels; canonical omits them."""
     from diaphone.decode import load_orth, decode
