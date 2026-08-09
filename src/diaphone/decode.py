@@ -13,10 +13,23 @@ import yaml
 
 VOWELS = set("aeiou")
 
+# Lazy-mode convenience shortcuts, per language: {alias_label: canonical_label}. Applied only when
+# decode(..., lazy=True). Each alias is a base letter the language leaves free, standing in for a
+# heavier canonical label — never introducing ambiguity because the letter is unused otherwise. The
+# canonical orth file stays the source of truth; lazy is a typing convenience layered on top.
+LAZY_ALIASES = {
+    "hu": {"a": "ac", "e": "ej"},   # Hungarian has no cardinal /a/,/e/, so bare a,e are free for /ɒ/,/ɛ/
+}
 
-def load_orth(lang, data_dir="data"):
+
+def load_orth(lang, data_dir="data", lazy=False):
     with open(os.path.join(data_dir, "orth", f"{lang}.yaml"), encoding="utf-8") as f:
-        return {k: v for k, v in yaml.safe_load(f).items()}
+        orth = {k: v for k, v in yaml.safe_load(f).items()}
+    if lazy:
+        for alias, canon in LAZY_ALIASES.get(lang, {}).items():
+            if canon in orth and alias not in orth:
+                orth[alias] = orth[canon]
+    return orth
 
 
 def tokenize(word, labels):
@@ -61,6 +74,6 @@ def decode_word(word, orth, lang):
     return "".join(out)
 
 
-def decode(text, lang, data_dir="data"):
-    orth = load_orth(lang, data_dir)
+def decode(text, lang, data_dir="data", lazy=False):
+    orth = load_orth(lang, data_dir, lazy=lazy)
     return " ".join(decode_word(w, orth, lang) for w in text.split())

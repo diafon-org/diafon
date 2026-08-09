@@ -29,8 +29,10 @@ def main(argv=None):
         dp.add_argument("lang", choices=["hu", "zh", "en"], help="target orthography")
         dp.add_argument("text", help="space-separated notation words, e.g. 'sqok sewp njawrw'")
         dp.add_argument("--data", default=_default_data())
+        dp.add_argument("--lazy", action="store_true",
+                        help="allow language-specific shortcuts (e.g. HU bare a=/ɒ/, e=/ɛ/)")
         da = dp.parse_args(argv[1:])
-        print(decode(da.text, da.lang, da.data))
+        print(decode(da.text, da.lang, da.data, lazy=da.lazy))
         return
 
     ap = argparse.ArgumentParser(description="Derive the minimal diaphonemic point set.")
