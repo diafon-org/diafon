@@ -100,8 +100,8 @@
   <h2>Consonants <span class="n">37 points · label in teal, off-grid combos in amber</span></h2>
   <div id="cons"></div>
 
-  <h2>Vowels <span class="n">19 points · y = round operator</span></h2>
-  <p class="lede">Cardinals <code>a e i o u</code> plus <code>x</code> back, <code>c</code> central, <code>q</code> lower, <code>y</code> round. Rounding is <code>y</code>; only three lax/back vowels (<code>io eo oa</code>) still need a pair.</p>
+  <h2>Vowels <span class="n">19 points · 6 one-char cardinals incl. y = ə (schwa)</span></h2>
+  <p class="lede">Six one-char cardinals <code>a e i o u y</code> (<code>y</code> = schwa) plus <code>x</code> back, <code>q</code> lower, <code>c</code> round. Only three two-shift vowels (<code>io eo oa</code>) need a pair.</p>
   <div class="vgrid" id="vows"></div>
   <p class="table-note">Vowel pairs (<code>io</code>=ʏ, <code>oa</code>=ʌ) overlap real diphthongs by
     design — that single-vs-sequence question is resolved in the sequence layer, not here.</p>
@@ -130,7 +130,7 @@
 
 <script>
 const C = [
-  ["plosive", "p=p b=b t=t d=d c=kj ɟ=gj k=k g=g q=kq ʔ=hj"],
+  ["plosive", "p=p b=b t=t d=d c=tj ɟ=dj k=k g=g q=kq ʔ=hj"],
   ["nasal", "m=m n=n ɲ=nj ŋ=nx"],
   ["affricate", "pf=pc ts=tc dz=dc tʃ=tq dʒ=dq"],
   ["fricative", "f=f v=v θ=tx ð=dx s=s z=z ʃ=sq ʒ=zq x=kx ɣ=gx ħ=hq ʕ=hx h=h"],
@@ -154,11 +154,11 @@ for (const [m, str] of C){
 }
 // vowels by height x backness
 const V = {
-  "close":       {front:"i=i y=iy", central:"", back:"ɯ=ix u=u"},
+  "close":       {front:"i=i y=ic", central:"", back:"ɯ=ix u=u"},
   "near-close":  {front:"ɪ=iq ʏ=io", central:"", back:"ʊ=uq"},
-  "close-mid":   {front:"e=e ø=ey", central:"ə=ec", back:"ɤ=ex o=o"},
+  "close-mid":   {front:"e=e ø=ec", central:"ə=y", back:"ɤ=ex o=o"},
   "open-mid":    {front:"ɛ=eq œ=eo", central:"", back:"ʌ=oa ɔ=oq"},
-  "open":        {front:"a=a", central:"", back:"ɑ=ax ɒ=ay"},
+  "open":        {front:"a=a", central:"", back:"ɑ=ax ɒ=ac"},
 };
 const vg = document.getElementById("vows");
 vg.innerHTML = `<div></div><div class="ch">front</div><div class="ch">central</div><div class="ch">back</div>`;

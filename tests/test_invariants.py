@@ -98,7 +98,7 @@ def test_decode_recovers_hungarian_exactly():
     """Hungarian orthography is near-phonemic, so notation -> spelling must round-trip exactly."""
     from diaphone.decode import decode
     cases = {"sqok sewp njawrw": "sok szép nyár",
-             "keyseyneym sewpeqn": "köszönöm szépen",
-             "eqgj naygj kukjay": "egy nagy kutya"}
+             "kecsecnecm sewpeqn": "köszönöm szépen",
+             "eqdj nacdj kutjac": "egy nagy kutya"}
     for notation, spelling in cases.items():
         assert decode(notation, "hu", DATA) == spelling, (notation, decode(notation, "hu", DATA))
