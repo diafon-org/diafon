@@ -23,6 +23,15 @@ point, one systematic char per modifier.
 If a data edit breaks it, either the data is wrong or a new modifier/feature is needed —
 never "fix" it by deleting a phoneme.
 
+**Second invariant — notation decodability** (`src/diaphone/notation.py`): no phoneme's full label
+(point + modifier chars) may also read as a *sequence* of that language's phoneme labels. This is the
+linear-notation cousin of injectivity, and it catches what `labeler.py` cannot: a one-letter modifier
+is ambiguous exactly when its letter is *also* a base segment that can follow (`ku`=/kʷ/ vs /k/+/u/;
+`ph`=/pʰ/ vs /p/+/h/). The safe modifiers `w`/`j` have no phoneme twin (glides removed). Reviewed,
+accepted ambiguities live in `notation._ACCEPTED` (aspiration `Ch`, boundary-only; rhotic `yr`,
+vacuous — English has no trill); anything else fails `diaphone --strict` and the test. Latin `ku` was
+the one real collision → resolved by making labialised a fixed combo `cw` (`kcw`=kʷ).
+
 ## Layout
 ```
 data/features.yaml          feature scales + modifier list (drives distance metric)
@@ -31,6 +40,8 @@ src/diaphone/model.py       base tuples, modifier→diacritic map, strip_mods
 src/diaphone/loader.py      load + expand modifier series (long/nasal/secondary)
 src/diaphone/derive.py      minimal points, injectivity, near-merge + suspicious + rhotic finders
 src/diaphone/merges.py      Phase-2 merge ledger: fold fine-grained points → general inventory
+src/diaphone/notation.py    notation-decodability check: phoneme label vs same-language sequence
+src/diaphone/decode.py      notation → a language's spelling (greedy tokenise + per-lang rules)
 src/diaphone/report.py      JSON + Markdown output
 src/diaphone/cli.py         `diaphone` entry point
 out/                        generated (gitignored): points.json, general_inventory.json,
@@ -86,9 +97,10 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
 - **Vowels**: 6 bases `a e i o u y`(=ə, which also carries English STRUT ʌ / Korean ㅓ). Operators
   mirror the consonants — `c` and `j` primitive, `q`=`c+j`: `c`=round `j`=lower `q`=round+lower,
   `x`=back. Every vowel is base+1op — ü/ʏ = `ic`/`iq`, ö/œ = `ec`/`eq`, ɪ = `ij`. No pairs.
-- **Modifiers ride on top, one letter each**: long `w`, aspirated `h`, labialised `u`, nasal `j`
-  (vowels), rhotic `r`; palatalised `j` (`pj tj`…) but **`jj` on s/z** (`sʲ`=`sjj`, since `sj`/`zj`=ʃ/ʒ);
-  pharyngealised the lone 2-letter one (`qx`). Stacked features are the only 3-char labels (`ɛ̃`,`sʲ`).
+- **Modifiers ride on top, one letter each**: long `w`, aspirated `h` (nasal `h` on vowels), rhotic
+  `r`; palatalised `j` (`pj tj`…) but **`jj` on s/z** (`sʲ`=`sjj`, since `sj`/`zj`=ʃ/ʒ); pharyngealised
+  `qx` and labialised `cw` (`kcw`=kʷ) are the two fixed combos — labialised is NOT bare `u`, which
+  would collide with the vowel /u/ (Latin quī/cui); see the notation-decodability invariant above.
 - Validated: all **491** phonemes get a distinct label per language, **0 collisions**, and (now that
   the vowel pairs are gone) **no label decomposes** — every one is base or base + operators.
 

@@ -1,4 +1,8 @@
 # notation label -> HU grapheme. Decoder: src/diaphone/decode.py
+# Convenience aliases (below): Hungarian has no cardinal /a/ or /e/, so bare `a`/`e` are free to
+# stand in for `ac`(/ɒ/) and `ej`(/ɛ/) — greedy-longest still keeps aw/ac/ew/ec intact. Type "alma".
+a: a
+e: e
 ac: a
 aw: á
 b: b
