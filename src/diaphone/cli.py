@@ -74,7 +74,15 @@ def main(argv=None):
         print(f"  SUSPECT {a}~{b} (rarer in {n} lang; shares {','.join(shared)}) — allophone?")
     for a, b, shared in rhotic:
         print(f"  RHOTIC {a}~{b} co-occurs in {','.join(shared)} — cross-manner contrast?")
-    if args.strict and violations:
+
+    from .notation import find_collisions
+    collisions = find_collisions(all_ph, features, args.data)
+    print(f"notation collide : {sum(len(v) for v in collisions.values())} unreviewed")
+    for lang, hits in collisions.items():
+        for lab, ipas in hits:
+            print(f"  COLLISION [{lang}] {lab} = /{','.join(ipas)}/ also reads as a sequence")
+
+    if args.strict and (violations or collisions):
         sys.exit(1)
 
 

@@ -72,7 +72,9 @@ modifiers:       # each is just a letter/combo — no separate tier
   palatalized: j     # Cʲ = Cj (pj tj kj …); but on s/z it DOUBLES to jj (sʲ=sjj, zʲ=zjj),
                      #   because sj/zj are the hush ʃ/ʒ — Russian шёл/сёл, ж/зь force the split
   pharyngealized: qx # tqx = tˤ  (Arabic emphatics — a fixed combo, like the gutturals)
-  labialized: u      # ku = kʷ  (u = the round/labial glide)
+  labialized: cw     # kcw = kʷ  (c = round, as on vowels; +w makes it a dedicated combo. Bare `u`
+                     #   collided: ku = /kʷ/ vs /k/+/u/ — a real ambiguity in Latin quī/cui. Rare
+                     #   (Latin kʷ gʷ only); like the emphatic qx, a fixed combo dodges the clash.)
   aspirated: h       # ph = pʰ
   nasal: h           # vowels only: ah = ã  (h = aspiration on C, nasal on V; French has no /h/ and
                      #   only French has nasal vowels, so the two never collide)

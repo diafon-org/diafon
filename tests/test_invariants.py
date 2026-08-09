@@ -21,6 +21,16 @@ def test_no_merged_contrasts():
     assert violations == [], violations
 
 
+def test_notation_has_no_unreviewed_collisions():
+    """No phoneme's full label may be re-read as a sequence of that language's phonemes, unless the
+    ambiguity is a reviewed, accepted one (see notation._ACCEPTED). This is the notation-level cousin
+    of injectivity: `ku`=/kʷ/ vs /k/+/u/ was a real collision, now resolved (labialised = `cw`)."""
+    from diaphone.notation import find_collisions
+    features, languages, all_ph = load(DATA)
+    hits = find_collisions(all_ph, features, DATA)
+    assert hits == {}, f"unreviewed notation collisions: {hits}"
+
+
 def test_mapping_is_injective_per_language():
     """Belt-and-braces: re-check injectivity directly from the phoneme records."""
     _, _, all_ph, *_ = _run()
@@ -101,6 +111,7 @@ def test_decode_recovers_hungarian_exactly():
              "kecsecnecm sewpejn": "köszönöm szépen",
              "ejdj nacdj kutjac": "egy nagy kutya",
              "acswonj": "asszony",      # long /sː/ = sw (one s + long) -> geminated digraph ssz, not szsz
-             "hoswuw": "hosszú"}        # w after a consonant geminates it; w after a vowel is part of uw=ú
+             "hoswuw": "hosszú",        # w after a consonant geminates it; w after a vowel is part of uw=ú
+             "alma kert": "alma kert"}  # convenience aliases: bare a=/ɒ/ (ac), e=/ɛ/ (ej) — free in HU
     for notation, spelling in cases.items():
         assert decode(notation, "hu", DATA) == spelling, (notation, decode(notation, "hu", DATA))
