@@ -111,7 +111,17 @@ def test_decode_recovers_hungarian_exactly():
              "kecsecnecm sewpejn": "köszönöm szépen",
              "ejdj nacdj kutjac": "egy nagy kutya",
              "acswonj": "asszony",      # long /sː/ = sw (one s + long) -> geminated digraph ssz, not szsz
-             "hoswuw": "hosszú",        # w after a consonant geminates it; w after a vowel is part of uw=ú
-             "alma kert": "alma kert"}  # convenience aliases: bare a=/ɒ/ (ac), e=/ɛ/ (ej) — free in HU
+             "hoswuw": "hosszú"}        # w after a consonant geminates it; w after a vowel is part of uw=ú
     for notation, spelling in cases.items():
         assert decode(notation, "hu", DATA) == spelling, (notation, decode(notation, "hu", DATA))
+
+
+def test_decode_lazy_mode_aliases():
+    """Lazy mode adds free language-specific shortcuts as real labels; canonical omits them."""
+    from diaphone.decode import load_orth, decode
+    canon = load_orth("hu", DATA)
+    lazy = load_orth("hu", DATA, lazy=True)
+    assert "a" not in canon and "e" not in canon        # canonical label set excludes the shortcuts
+    assert lazy["a"] == "a" and lazy["e"] == "e"          # lazy adds bare a=/ɒ/, e=/ɛ/
+    assert decode("alma kert", "hu", DATA, lazy=True) == "alma kert"
+    assert decode("acswonj", "hu", DATA) == "asszony"     # canonical path unaffected
