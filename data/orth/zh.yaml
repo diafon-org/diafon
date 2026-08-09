@@ -1,10 +1,9 @@
 # notation label -> ZH grapheme. Decoder: src/diaphone/decode.py
 a: a
-ec: e
 ex: e
 f: f
 i: i
-iy: ü
+ic: ü
 k: g
 kh: k
 kx: h
@@ -24,3 +23,4 @@ th: t
 tq: zh
 tqh: ch
 u: u
+y: e

@@ -1,11 +1,10 @@
 # One label per general point (56). Flat: base + ONE operator. No tier, no case, no diacritics.
-# BASES: p b t d k g m n f v s z l h · tap r     (glides /j/ /w/ are just non-syllabic /i/ /u/ —
-#   removed, so y and w are free operators.)
+# BASES: p b t d k g m n f v s z l h · tap r (+ the 6 vowel letters a e i o u y, y = schwa).
 # CONSONANT OPERATORS (never a bare label):  c=affricate  q=hush  x=dental/velar  j=palatal  w=long
-#   coronal fan:  tc=ts · tq=tʃ · tx=θ · tj=tʲ      (fricatives: sq=ʃ)
+#   coronal fan:  tc=ts · tq=tʃ · tx=θ · tj=tʲ (= /c/, Hungarian ty)      (fricatives: sq=ʃ)
 # Off-grid rarities use fixed combos: gutturals ʔ=hj ħ=hq ʕ=hx ; emphatics ride on `qx`.
-# VOWELS: cardinals a e i o u + x(back) c(central) q(lower) y(round). io/eo/oa are the 3 lax/back
-#   vowels that need two shifts — written as a vowel pair (one letter = both shifts).
+# VOWELS: 6 one-char cardinals a e i o u y(=ə) + operators x(back) q(lower) c(round). io/eo/oa are
+#   the 3 two-shift vowels, written as a vowel pair (one letter = both shifts).
 
 consonants:
   p: p
@@ -14,8 +13,8 @@ consonants:
   d: d
   k: k
   g: g
-  c: kj          # palatal stop
-  ɟ: gj
+  c: tj          # palatal stop = palatalised /t/ (Hungarian ty); frees kj for /kʲ/
+  ɟ: dj          # palatal stop = palatalised /d/ (Hungarian gy)
   q: kq          # uvular stop
   ʔ: hj          # glottal stop (off-grid random combo)
   m: m
@@ -52,9 +51,9 @@ vowels:
   a: a
   o: o
   u: u
-  y: iy          # round (y = round operator)
-  ø: ey
-  ɒ: ay          # rounding the open vowel backs it
+  y: ic          # round (c = round operator now that schwa freed it)
+  ø: ec
+  ɒ: ac          # rounding the open vowel backs it
   œ: eo          # lax front round — pair (o = round+lower)
   ʏ: io
   ʌ: oa          # back open-mid unrounded — pair
@@ -65,13 +64,13 @@ vowels:
   ɯ: ix
   ɤ: ex
   ɑ: ax
-  ə: ec
+  ə: y           # schwa = the 6th base vowel letter (this is what freed c to mean "round")
 
 modifiers:       # each is just a letter/combo — no separate tier
   long: w            # tw = tː · iw = iː
   palatalized: j     # sj = sʲ
   pharyngealized: qx # tqx = tˤ  (Arabic emphatics — a fixed combo, like the gutturals)
-  labialized: y      # ky = kʷ  (y = round, on a consonant = labial — same operator as vowel round)
+  labialized: u      # ku = kʷ  (u = the round/labial glide)
   aspirated: h       # ph = pʰ
   nasal: j           # vowels only: aj = ã
-  rhotic: r          # English ɝ = ecr
+  rhotic: r          # English ɝ = yr (schwa + r)

@@ -76,16 +76,15 @@ contrasts, 492 phoneme records, 16 languages (12 core + 4 witnesses). Removed (n
 ## Notation (Phase 2 — locked, round-tripped)
 `data/labels.yaml` gives one label per general point; `labeler.py` validates it, `out/labels.json`
 regenerates it. **Every point is a base or base + ONE operator** — no tier, no case, no diacritics.
-- **Bases** `p b t d k g m n f v s z l h`, tap `r`. Glides `/j/ /w/ /ɥ/` are removed (non-syllabic
-  `/i/ /u/ /y/`), which frees `y` and `w` as operators.
+- **Bases** `p b t d k g m n f v s z l h`, tap `r`, and 6 vowel letters `a e i o u y` (`y`=schwa).
+  Glides `/j/ /w/ /ɥ/` are removed (non-syllabic `/i/ /u/ /y/`), which freed `y` and `w`.
 - **Consonant operators** (never a bare label): `c`=affricate (`tc`=t͡s) · `q`=hush (`tq`=t͡ʃ, `sq`=ʃ)
-  · `x`=dental/velar (`tx`=θ, `kx`=x) · `j`=palatal (`tj`=tʲ, `nj`=ɲ) · `w`=long (`tw`=tː, `rw`=trill).
-  Off-grid rarities are fixed combos: gutturals `ʔ`=`hj` `ħ`=`hq` `ʕ`=`hx`; emphatics on `qx` (`tˤ`=`tqx`).
-- **Vowels**: cardinals `a e i o u` + `x`=back `c`=central `q`=lower `y`=round. Three lax/back vowels
-  need two shifts and are written as a vowel pair: `io`=ʏ `eo`=œ `oa`=ʌ.
-- **Modifiers ride on top, each one letter**: long `w`, palatalised `j`, aspirated `h`, labialised `y`
-  (= round, same as the vowel operator), nasal `j` (vowels), rhotic `r`; pharyngealised is the lone
-  2-letter feature (`qx`). Stacking a
+  · `x`=dental/velar (`tx`=θ, `kx`=x) · `j`=palatal (`tj`=tʲ = /c/, Hungarian ty; `nj`=ɲ) · `w`=long
+  (`tw`=tː, `rw`=trill). Off-grid combos: gutturals `ʔ`=`hj` `ħ`=`hq` `ʕ`=`hx`; emphatics `qx` (`tˤ`=`tqx`).
+- **Vowels**: 6 one-char cardinals `a e i o u y`(=ə) + operators `x`=back `q`=lower `c`=round
+  (schwa freed `c` from "central"). Three two-shift vowels are a pair: `io`=ʏ `eo`=œ `oa`=ʌ.
+- **Modifiers ride on top, each one letter**: long `w`, palatalised `j`, aspirated `h`, labialised `u`,
+  nasal `j` (vowels), rhotic `r`; pharyngealised is the lone 2-letter feature (`qx`). Stacking a
   feature on a 2-char point is the only source of 3-char labels (nasal `ɛ̃`=`eqj`).
 - Validated: all **492** phonemes get a distinct label per language, **0 collisions**. The only
   decomposable labels are the 3 vowel pairs (`io eo oa` overlap diphthongs) → sequence layer.
