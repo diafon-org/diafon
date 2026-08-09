@@ -27,8 +27,6 @@ consonants:
 - {ipa: ɲ, pl: palatal, mn: nasal, vc: vd, orth: nh}
 - {ipa: ŋ, pl: velar, mn: nasal, vc: vd, orth: ng}
 - {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
-- {ipa: j, pl: palatal, mn: approximant, vc: vd}
-- {ipa: w, pl: labiovelar, mn: approximant, vc: vd, note: medial}
 secondary_series:
 - type: aspirated
   applies_to: [t]

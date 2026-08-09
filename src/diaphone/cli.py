@@ -6,6 +6,7 @@ import argparse
 from .loader import load
 from .derive import derive
 from .merges import apply_merges
+from .labeler import load_labels, attach, validate
 from .report import write_outputs
 
 
@@ -29,8 +30,11 @@ def main(argv=None):
     features, languages, all_ph = load(args.data)
     points, violations, near, suspicious, rhotic = derive(all_ph, features)
     general, folded = apply_merges(points)
+    labels = load_labels(args.data)
+    general = attach(general, labels)
+    label_issues = validate(labels)
     write_outputs(all_ph, points, violations, near, suspicious, rhotic,
-                  general, folded, features, languages, args.out)
+                  general, folded, labels, label_issues, features, languages, args.out)
 
     C = sum(1 for p in points.values() if p["kind"] == "C")
     V = len(points) - C
@@ -46,6 +50,10 @@ def main(argv=None):
     print(f"near-merge cands : {len(near)}")
     print(f"suspicious co-occ: {len(suspicious)}")
     print(f"rhotic co-occ    : {len(rhotic)}")
+    labelled = sum(1 for p in general.values() if p.get("label"))
+    print(f"labels (v0)      : {labelled}/{len(general)} labelled · "
+          f"{len(label_issues['ambiguous'])} not decodable · "
+          f"{len(label_issues['duplicates'])} dup · {len(label_issues['namespace'])} namespace")
     print(f"written to       : {os.path.abspath(args.out)}/")
     for v in violations:
         print("  VIOLATION", v)

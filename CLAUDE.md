@@ -67,10 +67,28 @@ the point to stay distinct. Turkish locks `u`~`ɯ` (*kul*/*kıl*); Estonian + Vi
 `o`~`ɤ` (õ; ô/ơ). See the near-merge verdict table below for the full witness search.
 
 ## Current state
-70 points (49 consonant · 21 vowel), 7 modifiers, 0 merged contrasts, 521 phoneme records,
-16 languages (12 core + 4 witnesses). Three allophones-entered-as-phonemes were removed:
-`ç` (German ich-laut → `x`), `ɸ` (Japanese *fu* → `h`), `ɐ` (German `-er` r-vocalisation;
-Vietnamese `ă` re-read as short `/a/`, a length pair — see vi.yaml `long_series`).
+68 fine-grained points → **56 general** (37 C · 19 V) after 12 merges, 7 modifiers, 0 merged
+contrasts, 492 phoneme records, 16 languages (12 core + 4 witnesses). Removed (not points):
+`ç` (German ich-laut → `x`), `ɸ` (Japanese *fu* → `h`), `ɐ` (German `-er`), **Mandarin j/q/x
+`[tɕ tɕʰ ɕ]`** (complementary with the retroflex zh/ch/sh — allophones, see zh.yaml), and the
+**glides `/j/ /w/ /ɥ/`** (non-syllabic `/i/ /u/ /y/`). Vietnamese `ă` re-read as short `/a/`.
+
+## Notation (Phase 2 — locked, round-tripped)
+`data/labels.yaml` gives one label per general point; `labeler.py` validates it, `out/labels.json`
+regenerates it. **Every point is a base or base + ONE operator** — no tier, no case, no diacritics.
+- **Bases** `p b t d k g m n f v s z l h`, tap `r`. Glides `/j/ /w/ /ɥ/` are removed (non-syllabic
+  `/i/ /u/ /y/`), which frees `y` and `w` as operators.
+- **Consonant operators** (never a bare label): `c`=affricate (`tc`=t͡s) · `q`=hush (`tq`=t͡ʃ, `sq`=ʃ)
+  · `x`=dental/velar (`tx`=θ, `kx`=x) · `j`=palatal (`tj`=tʲ, `nj`=ɲ) · `w`=long (`tw`=tː, `rw`=trill).
+  Off-grid rarities are fixed combos: gutturals `ʔ`=`hj` `ħ`=`hq` `ʕ`=`hx`; emphatics on `qx` (`tˤ`=`tqx`).
+- **Vowels**: cardinals `a e i o u` + `x`=back `c`=central `q`=lower `y`=round. Three lax/back vowels
+  need two shifts and are written as a vowel pair: `io`=ʏ `eo`=œ `oa`=ʌ.
+- **Modifiers ride on top, each one letter**: long `w`, palatalised `j`, aspirated `h`, labialised `y`
+  (= round, same as the vowel operator), nasal `j` (vowels), rhotic `r`; pharyngealised is the lone
+  2-letter feature (`qx`). Stacking a
+  feature on a 2-char point is the only source of 3-char labels (nasal `ɛ̃`=`eqj`).
+- Validated: all **492** phonemes get a distinct label per language, **0 collisions**. The only
+  decomposable labels are the 3 vowel pairs (`io eo oa` overlap diphthongs) → sequence layer.
 
 ## Allophone guard (suspicious co-occurrences)
 The near-merge finder only flags pairs that *don't* co-occur, so it is blind to allophones
@@ -113,13 +131,15 @@ same-language neighbour — the shape of an allophone. Reviewed genuine contrast
   - **No open near-merges remain** — same-manner *and* the cross-manner rhotic family are both
     swept. Every pair is decided: KEEP (witnessed), MERGE-via-diacritic (exotic), MERGE-outright
     (no witness), or removed (allophone). Applying the merges is Phase 2 → general inventory ~61.
-- **Phase 2 (started — merge ledger):** `merges.py` holds the decided fusions (source→target,
-  recovery feature) and `apply_merges()` folds the fine-grained **70** into the general
-  inventory **61** (42 C · 19 V), written to `out/general_inventory.json`. Every fold is
-  invariant-safe (asserted: no language co-occurs a source with its target). **Still to do:**
-  assign the label char per general point + one systematic char per modifier + the recovery
-  diacritics (dental/retroflex/uvular → underdot; centralized → a vowel mark), driven off
-  `general_inventory.json`. See `docs/vowel-notation.md` (do the B1 recase first).
+- **Phase 2 (done — merge ledger + notation):** `merges.py` folds the fine-grained **70** into the
+  general inventory **58** (39 C · 19 V) via 12 merges; `apply_merges()` asserts safety per
+  `(target, recovery-mark)` per language. **No recovery diacritics** — every consonant-place merge
+  is `recover=None`: within the 16 languages nothing contrasts dental~alveolar, retroflex~postalveolar
+  (Mandarin's are complementary allophones), or uvular~velar, so the fold is lossless-in-practice and
+  needs no sign. `labels.yaml` assigns the flat notation (see "Notation" above); all 518 phonemes
+  round-trip to distinct per-language labels. **Superseded verdicts:** the old "retroflex trio via
+  underdot" and "tʃ/tɕ kept" plans below are obsolete — the retroflex/alveolo-palatal sibilants now
+  fold into the postalveolar with no mark, and `tʃ~tɕ` merged.
 
 ## Open decisions
 - LICENSE not chosen yet (Sz' decides — mirror weCan conventions if relevant).

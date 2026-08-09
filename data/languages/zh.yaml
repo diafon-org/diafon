@@ -7,20 +7,20 @@ consonants:
 - {ipa: t, pl: alveolar, mn: plosive, vc: vl, orth: d}
 - {ipa: k, pl: velar, mn: plosive, vc: vl, orth: g}
 - {ipa: ts, pl: alveolar, mn: affricate, vc: vl, orth: z}
+# The alveolo-palatal series j/q/x [tɕ tɕʰ ɕ] is NOT phonemic: it is in complementary
+# distribution with zh/ch/sh (retroflex) — it occurs only before /i y/, where the retroflexes
+# never do — so it is an allophone, not a separate point (cf. the ç/ɸ removals). Only the
+# retroflex series is entered.
 - {ipa: tʂ, pl: retroflex, mn: affricate, vc: vl, orth: zh}
-- {ipa: tɕ, pl: alveolopalatal, mn: affricate, vc: vl, orth: j}
 - {ipa: f, pl: labiodental, mn: fricative, vc: vl}
 - {ipa: s, pl: alveolar, mn: fricative, vc: vl}
-- {ipa: ʂ, pl: retroflex, mn: fricative, vc: vl, orth: sh}
-- {ipa: ɕ, pl: alveolopalatal, mn: fricative, vc: vl, orth: x}
+- {ipa: ʂ, pl: retroflex, mn: fricative, vc: vl, orth: sh, note: '[ɕ] before /i y/ is the allophone j/x'}
 - {ipa: x, pl: velar, mn: fricative, vc: vl, orth: h}
 - {ipa: ʐ, pl: retroflex, mn: approximant, vc: vd, orth: r}
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd}
 - {ipa: n, pl: alveolar, mn: nasal, vc: vd}
 - {ipa: ŋ, pl: velar, mn: nasal, vc: vd, note: coda only}
 - {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
-- {ipa: w, pl: labiovelar, mn: approximant, vc: vd, note: medial}
-- {ipa: j, pl: palatal, mn: approximant, vc: vd, note: medial}
 vowels:
 - {ipa: i, hi: close, bk: front, rd: false}
 - {ipa: y, hi: close, bk: front, rd: true, orth: ü}
@@ -30,4 +30,4 @@ vowels:
 - {ipa: a, hi: open, bk: central, rd: false}
 secondary_series:
 - type: aspirated
-  applies_to: [p, t, k, ts, tʂ, tɕ]
+  applies_to: [p, t, k, ts, tʂ]

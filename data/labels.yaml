@@ -1,0 +1,77 @@
+# One label per general point (56). Flat: base + ONE operator. No tier, no case, no diacritics.
+# BASES: p b t d k g m n f v s z l h · tap r     (glides /j/ /w/ are just non-syllabic /i/ /u/ —
+#   removed, so y and w are free operators.)
+# CONSONANT OPERATORS (never a bare label):  c=affricate  q=hush  x=dental/velar  j=palatal  w=long
+#   coronal fan:  tc=ts · tq=tʃ · tx=θ · tj=tʲ      (fricatives: sq=ʃ)
+# Off-grid rarities use fixed combos: gutturals ʔ=hj ħ=hq ʕ=hx ; emphatics ride on `qx`.
+# VOWELS: cardinals a e i o u + x(back) c(central) q(lower) y(round). io/eo/oa are the 3 lax/back
+#   vowels that need two shifts — written as a vowel pair (one letter = both shifts).
+
+consonants:
+  p: p
+  b: b
+  t: t
+  d: d
+  k: k
+  g: g
+  c: kj          # palatal stop
+  ɟ: gj
+  q: kq          # uvular stop
+  ʔ: hj          # glottal stop (off-grid random combo)
+  m: m
+  n: n
+  ɲ: nj          # palatal nasal (= palatalised /n/)
+  ŋ: nx
+  ts: tc         # affricate operator c  (Pinyin c = /ts/)
+  dz: dc
+  pf: pc
+  tʃ: tq         # hush affricate, operator q (Pinyin q); absorbs tɕ tʂ — no sign
+  dʒ: dq         # absorbs dʑ
+  f: f
+  v: v
+  θ: tx
+  ð: dx
+  s: s
+  z: z
+  ʃ: sq          # hush fricative; absorbs ɕ ʂ — no sign
+  ʒ: zq          # absorbs ʐ-fricative
+  x: kx          # velar fricative
+  ɣ: gx
+  ħ: hq          # voiceless pharyngeal fricative (off-grid combo)
+  ʕ: hx          # voiced pharyngeal fricative
+  h: h
+  l: l
+  ʎ: lj          # palatal lateral (= palatalised /l/)
+  ʐ: rx          # retroflex approximant (Mandarin r)
+  r: rw          # trill (= long tap)
+  ɾ: r           # tap (default rhotic)
+
+vowels:
+  i: i
+  e: e
+  a: a
+  o: o
+  u: u
+  y: iy          # round (y = round operator)
+  ø: ey
+  ɒ: ay          # rounding the open vowel backs it
+  œ: eo          # lax front round — pair (o = round+lower)
+  ʏ: io
+  ʌ: oa          # back open-mid unrounded — pair
+  ɪ: iq
+  ɛ: eq
+  ʊ: uq
+  ɔ: oq
+  ɯ: ix
+  ɤ: ex
+  ɑ: ax
+  ə: ec
+
+modifiers:       # each is just a letter/combo — no separate tier
+  long: w            # tw = tː · iw = iː
+  palatalized: j     # sj = sʲ
+  pharyngealized: qx # tqx = tˤ  (Arabic emphatics — a fixed combo, like the gutturals)
+  labialized: y      # ky = kʷ  (y = round, on a consonant = labial — same operator as vowel round)
+  aspirated: h       # ph = pʰ
+  nasal: j           # vowels only: aj = ã
+  rhotic: r          # English ɝ = ecr
