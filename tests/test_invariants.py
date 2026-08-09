@@ -97,7 +97,7 @@ def test_label_scheme_decided_parts():
 def test_decode_recovers_hungarian_exactly():
     """Hungarian orthography is near-phonemic, so notation -> spelling must round-trip exactly."""
     from diaphone.decode import decode
-    cases = {"sqok sewp njawrw": "sok szép nyár",
+    cases = {"sjok sewp njawr": "sok szép nyár",
              "kecsecnecm sewpejn": "köszönöm szépen",
              "ejdj nacdj kutjac": "egy nagy kutya"}
     for notation, spelling in cases.items():

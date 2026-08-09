@@ -77,19 +77,20 @@ stressed `/ə/`, Korean ㅓ ≈ schwa). Vietnamese `ă` re-read as short `/a/`.
 ## Notation (Phase 2 — locked, round-tripped)
 `data/labels.yaml` gives one label per general point; `labeler.py` validates it, `out/labels.json`
 regenerates it. **Every point is a base or base + ONE operator** — no tier, no case, no diacritics.
-- **Bases** `p b t d k g m n f v s z l h`, tap `r`, and 6 vowel letters `a e i o u y` (`y`=schwa).
-  Glides `/j/ /w/ /ɥ/` are removed (non-syllabic `/i/ /u/ /y/`), which freed `y` and `w`.
-- **Consonant operators** (never a bare label): `c`=affricate (`tc`=t͡s) · `q`=hush (`tq`=t͡ʃ, `sq`=ʃ)
-  · `x`=dental/velar (`tx`=θ, `kx`=x) · `j`=palatal (`tj`=tʲ = /c/, Hungarian ty; `nj`=ɲ) · `w`=long
-  (`tw`=tː, `rw`=trill). Off-grid combos: gutturals `ʔ`=`hj` `ħ`=`hq` `ʕ`=`hx`; emphatics `qx` (`tˤ`=`tqx`).
+- **Bases** `p b t d k g m n f v s z l h`, the trill `r` (the common rhotic; tap `ɾ`=`rj`), and 6
+  vowel letters `a e i o u y` (`y`=schwa). Glides `/j/ /w/ /ɥ/` removed (non-syllabic `/i/ /u/ /y/`).
+- **Consonant operators** (never a bare label): `c`=affricate (`tc`=t͡s) · `q`=hush **affricate**
+  (`tq`=t͡ʃ) · `x`=dental/velar (`tx`=θ, `kx`=x) · `j`=palatal (`sj`=ʃ, `tj`=c/tʲ, `nj`=ɲ) · `w`=long
+  (`tw`=tː, geminate/long trill `rw`). So `q`=`c+j` (hush = affricate+palatal). Off-grid combos:
+  gutturals `ʔ`=`hj` `ħ`=`hq` `ʕ`=`hx`; emphatics `qx` (`tˤ`=`tqx`).
 - **Vowels**: 6 bases `a e i o u y`(=ə, which also carries English STRUT ʌ / Korean ㅓ). Operators
-  mirror the consonants — `c` and `j` are primitive, `q` = `c+j`: `c`=round `j`=lower `q`=round+lower,
+  mirror the consonants — `c` and `j` primitive, `q`=`c+j`: `c`=round `j`=lower `q`=round+lower,
   `x`=back. Every vowel is base+1op — ü/ʏ = `ic`/`iq`, ö/œ = `ec`/`eq`, ɪ = `ij`. No pairs.
-- **Modifiers ride on top, each one letter**: long `w`, palatalised `j`, aspirated `h`, labialised `u`,
-  nasal `j` (vowels), rhotic `r`; pharyngealised is the lone 2-letter feature (`qx`). Stacking a
-  feature on a 2-char point is the only source of 3-char labels (nasal `ɛ̃`=`eqj`).
-- Validated: all **492** phonemes get a distinct label per language, **0 collisions**. The only
-  decomposable labels are the 3 vowel pairs (`io eo oa` overlap diphthongs) → sequence layer.
+- **Modifiers ride on top, one letter each**: long `w`, aspirated `h`, labialised `u`, nasal `j`
+  (vowels), rhotic `r`; palatalised `j` (`pj tj`…) but **`jj` on s/z** (`sʲ`=`sjj`, since `sj`/`zj`=ʃ/ʒ);
+  pharyngealised the lone 2-letter one (`qx`). Stacked features are the only 3-char labels (`ɛ̃`,`sʲ`).
+- Validated: all **491** phonemes get a distinct label per language, **0 collisions**, and (now that
+  the vowel pairs are gone) **no label decomposes** — every one is base or base + operators.
 
 ## Allophone guard (suspicious co-occurrences)
 The near-merge finder only flags pairs that *don't* co-occur, so it is blind to allophones
