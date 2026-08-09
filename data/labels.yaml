@@ -74,5 +74,6 @@ modifiers:       # each is just a letter/combo — no separate tier
   pharyngealized: qx # tqx = tˤ  (Arabic emphatics — a fixed combo, like the gutturals)
   labialized: u      # ku = kʷ  (u = the round/labial glide)
   aspirated: h       # ph = pʰ
-  nasal: j           # vowels only: aj = ã
+  nasal: h           # vowels only: ah = ã  (h = aspiration on C, nasal on V; French has no /h/ and
+                     #   only French has nasal vowels, so the two never collide)
   rhotic: r          # English ɝ = yr (schwa + r)
