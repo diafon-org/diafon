@@ -82,9 +82,9 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
 - **Consonant operators** (never a bare label): `c`=affricate (`tc`=t͡s) · `q`=hush (`tq`=t͡ʃ, `sq`=ʃ)
   · `x`=dental/velar (`tx`=θ, `kx`=x) · `j`=palatal (`tj`=tʲ = /c/, Hungarian ty; `nj`=ɲ) · `w`=long
   (`tw`=tː, `rw`=trill). Off-grid combos: gutturals `ʔ`=`hj` `ħ`=`hq` `ʕ`=`hx`; emphatics `qx` (`tˤ`=`tqx`).
-- **Vowels**: 6 bases `a e i o u y`(=ə, which also carries English STRUT ʌ / Korean ㅓ) + operators
-  `q`=lower `x`=back `c`=round `j`=round+lower. Every vowel is base+1op — e.g. ü/ʏ = `ic`/`ij`, ö/œ =
-  `ec`/`ej`. No pairs, no 2-operator vowels.
+- **Vowels**: 6 bases `a e i o u y`(=ə, which also carries English STRUT ʌ / Korean ㅓ). Operators
+  mirror the consonants — `c` and `j` are primitive, `q` = `c+j`: `c`=round `j`=lower `q`=round+lower,
+  `x`=back. Every vowel is base+1op — ü/ʏ = `ic`/`iq`, ö/œ = `ec`/`eq`, ɪ = `ij`. No pairs.
 - **Modifiers ride on top, each one letter**: long `w`, palatalised `j`, aspirated `h`, labialised `u`,
   nasal `j` (vowels), rhotic `r`; pharyngealised is the lone 2-letter feature (`qx`). Stacking a
   feature on a 2-char point is the only source of 3-char labels (nasal `ɛ̃`=`eqj`).

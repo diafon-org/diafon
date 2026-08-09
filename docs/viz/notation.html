@@ -76,9 +76,9 @@
   <div class="scroll"><table class="optab">
     <tr><th>op</th><th>on a consonant</th><th>on a vowel</th></tr>
     <tr><td class="k">c</td><td>affricate — <code>tc</code>=t͡s</td><td>round — <code>ic</code>=y</td></tr>
-    <tr><td class="k">q</td><td>hush — <code>tq</code>=t͡ʃ, <code>sq</code>=ʃ</td><td>lower — <code>iq</code>=ɪ</td></tr>
+    <tr><td class="k">q</td><td>hush — <code>tq</code>=t͡ʃ, <code>sq</code>=ʃ</td><td>round+lower — <code>iq</code>=ʏ</td></tr>
     <tr><td class="k">x</td><td>dental/velar — <code>tx</code>=θ, <code>kx</code>=x</td><td>back — <code>ix</code>=ɯ</td></tr>
-    <tr><td class="k">j</td><td>palatal — <code>tj</code>=c, <code>nj</code>=ɲ</td><td>round+lower — <code>ij</code>=ʏ</td></tr>
+    <tr><td class="k">j</td><td>palatal — <code>tj</code>=c, <code>nj</code>=ɲ</td><td>lower — <code>ij</code>=ɪ</td></tr>
     <tr><td class="k">w</td><td>long — <code>tw</code>=tː</td><td>long — <code>iw</code>=iː</td></tr>
   </table></div>
   <p class="note">Aspiration is a sixth, part-time operator: <code>h</code> (<code>ph</code>=pʰ). Two
@@ -88,8 +88,7 @@
   <div id="cons"></div>
 
   <h2>Vowels <span style="font-family:var(--mono);font-size:.72rem;color:var(--muted)">· 18 points · bases a e i o u y(=ə)</span></h2>
-  <p class="lede">The three axes each get an operator — <code>q</code> lower, <code>x</code> back,
-    <code>c</code> round — and <code>j</code> is the combined round+lower. Every vowel is base or base+1op.</p>
+  <p class="lede"><code>c</code> round and <code>j</code> lower are primitive; <code>q</code> is their combination <code>c+j</code> = round+lower — exactly as on the consonants. Every vowel is base or base+1op.</p>
   <div class="vgrid" id="vows"></div>
   <p class="note"><code>y</code>=ə is the central vowel — and it also carries English STRUT <code>ʌ</code> and Korean ㅓ, so it is not idle.</p>
 
@@ -98,7 +97,7 @@
     <div class="read"><div class="pair">t͡ʃ<span class="ar">→</span><span class="lab">tq</span></div><div class="why">Italian <i>cielo</i> — hush affricate (merged with alveolo-palatal t͡ɕ).</div></div>
     <div class="read"><div class="pair">ʂ<span class="ar">→</span><span class="lab">sq</span></div><div class="why">Mandarin <i>shān</i> — retroflex folds into the hush, no sign (sh/x are complementary).</div></div>
     <div class="read"><div class="pair">c · tʲ<span class="ar">→</span><span class="lab">tj</span></div><div class="why">Hungarian <i>ty</i> = Russian soft <i>ть</i> — palatal, one letter.</div></div>
-    <div class="read"><div class="pair">ʏ<span class="ar">→</span><span class="lab">ij</span></div><div class="why">German lax <i>ü</i> (Glück) — round+lower on i.</div></div>
+    <div class="read"><div class="pair">ʏ<span class="ar">→</span><span class="lab">iq</span></div><div class="why">German lax <i>ü</i> (Glück) — round+lower (q = c+j).</div></div>
     <div class="read"><div class="pair">t͈<span class="ar">→</span><span class="lab">tw</span></div><div class="why">Korean fortis — reuses length; no vowel-length contrast to clash with.</div></div>
     <div class="read"><div class="pair">ə<span class="ar">→</span><span class="lab">y</span></div><div class="why">English schwa — the 6th base, so <i>the</i> = <code>dxy</code>.</div></div>
   </div>
@@ -131,10 +130,10 @@ for (const [m, str] of C){
 }
 const V = {
   "close":      {front:"i=i y=ic", central:"", back:"u=u ɯ=ix"},
-  "near-close": {front:"ɪ=iq ʏ=ij", central:"", back:"ʊ=uq"},
+  "near-close": {front:"ɪ=ij ʏ=iq", central:"", back:"ʊ=uj"},
   "close-mid":  {front:"e=e ø=ec", central:"", back:"o=o ɤ=ex"},
   "mid":        {front:"", central:"ə=y", back:""},
-  "open-mid":   {front:"ɛ=eq œ=ej", central:"", back:"ɔ=oq"},
+  "open-mid":   {front:"ɛ=ej œ=eq", central:"", back:"ɔ=oj"},
   "open":       {front:"", central:"a=a", back:"ɑ=ax ɒ=ac"},
 };
 const vg = document.getElementById("vows");
