@@ -51,15 +51,17 @@ vowels:
   a: a
   o: o
   u: u
-  y: ic          # round (c = round operator now that schwa freed it)
+  # vowel operators mirror the consonants: c and j are primitive, q = c+j.
+  #   c = round · j = lower · q = round+lower  (as c+j = hush on consonants)
+  y: ic          # round
   ø: ec
   ɒ: ac          # rounding the open vowel backs it
-  ʏ: ij          # round+lower via the combined op `j` (frees front-round-lax from a bi-vowel)
-  œ: ej          # round+lower  — every vowel is now base or base+1op (ʌ folded into schwa)
-  ɪ: iq
-  ɛ: eq
-  ʊ: uq
-  ɔ: oq
+  ɪ: ij          # lower
+  ɛ: ej
+  ʊ: uj
+  ɔ: oj
+  ʏ: iq          # round+lower  (= c+j)
+  œ: eq
   ɯ: ix
   ɤ: ex
   ɑ: ax
