@@ -44,9 +44,12 @@ def decode_word(word, orth, lang):
     toks = tokenize(word, orth.keys())
     out = []
     for k, t in enumerate(toks):
-        g = orth.get(t, t)
         nxt = toks[k + 1] if k + 1 < len(toks) else None
         prv = toks[k - 1] if k else None
+        if t == "w" and out:                          # long: geminate the previous grapheme.
+            out[-1] = out[-1][0] + out[-1]            #   double its first letter — sz->ssz, t->tt (Hungarian rule)
+            continue                                  #   (long *vowels* arrive as one label, aw=á, never a bare w)
+        g = orth.get(t, t)
         if lang == "hu" and t == "i" and _is_vowel(nxt):
             g = "j"                                   # i-glide onset -> j  (iow -> jó)
         elif lang == "zh":

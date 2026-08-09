@@ -99,6 +99,8 @@ def test_decode_recovers_hungarian_exactly():
     from diaphone.decode import decode
     cases = {"sjok sewp njawr": "sok szép nyár",
              "kecsecnecm sewpejn": "köszönöm szépen",
-             "ejdj nacdj kutjac": "egy nagy kutya"}
+             "ejdj nacdj kutjac": "egy nagy kutya",
+             "acswonj": "asszony",      # long /sː/ = sw (one s + long) -> geminated digraph ssz, not szsz
+             "hoswuw": "hosszú"}        # w after a consonant geminates it; w after a vowel is part of uw=ú
     for notation, spelling in cases.items():
         assert decode(notation, "hu", DATA) == spelling, (notation, decode(notation, "hu", DATA))
