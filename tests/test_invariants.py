@@ -124,6 +124,17 @@ def test_decode_mandarin_tones():
     assert decode("de5", "zh", DATA) == "de"          # neutral tone: no diacritic
 
 
+def test_decode_mandarin_finals_and_palatals():
+    """Multi-vowel finals and the j/q/x <-> zh/ch/sh split driven by the following vowel."""
+    from diaphone.decode import decode
+    d = lambda s: decode(s, "zh", DATA)
+    assert d("tou1") == "dōu" and d("kxau3") == "hǎo" and d("kuo2") == "guó"   # ou stays ou; au->ao; uo
+    # merged retroflex/alveolo-palatal series: front i/ü -> j/q/x (+ ü->u); else zh/ch/sh
+    assert d("tqi1") == "jī" and d("sji1") == "xī" and d("tqic1") == "jū" and d("sjic1") == "xū"
+    # apical/buzzed vowel `ix` keeps the retroflex spelling: zhī, shì, sì
+    assert d("tqix1") == "zhī" and d("sjix4") == "shì" and d("six4") == "sì"
+
+
 def test_decode_mandarin_lazy_pinyin():
     """Lazy mode lets the free single letters e/h/r stand in Pinyin-style."""
     from diaphone.decode import decode

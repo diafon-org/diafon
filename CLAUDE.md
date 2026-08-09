@@ -59,9 +59,14 @@ pytest                   # runs the invariant guardrails
 ```
 
 ## Decoding (`decode.py`)
-Notation → a language's spelling. Canonical labels live in `data/orth/<lang>.yaml`; two extras layer on:
+Notation → a language's spelling. Canonical labels live in `data/orth/<lang>.yaml`; extras layer on:
 - **Mandarin tones** — a trailing digit `1-4` on a zh syllable places the Pinyin tone mark (`5`/none =
   neutral); placement is the standard a > e > ou > last-vowel rule.
+- **Mandarin finals/palatals** — vowel labels concatenate into finals; the -u offglide spells "o" only
+  after `a` (au→ao; ou/uo keep u). Because we folded Pinyin j/q/x into zh/ch/sh (`_ZH_RETRO`), the
+  *following vowel* picks the spelling: front `i`/`ic`(ü) → j/q/x (+ ü→u), else zh/ch/sh. The
+  apical/buzzed vowel (zhī, shì, sì) is written `ix` — Pinyin also spells it "i", but it is not front
+  `/i/`, so it keeps the retroflex spelling. So `tqi1`=jī but `tqix1`=zhī; `sji1`=xī but `sjix4`=shì.
 - **Lazy mode** (`decode(..., lazy=True)` / `--lazy`) — opt-in, language-specific shortcuts in
   `decode.LAZY_ALIASES`: HU bare `a`=/ɒ/, `e`=/ɛ/ (no cardinal /a/,/e/ in Hungarian); ZH `e`=/ɤ/,
   `h`=/x/, `r`=/ʐ/ (Pinyin-style — those letters are otherwise free). Canonical files stay pure.
