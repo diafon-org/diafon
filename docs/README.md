@@ -1,8 +1,10 @@
 # diaphone — documentation
 
+- **Try it** (interactive): [viz/try.html](viz/try.html) — pick a language, see its filtered label
+  inventory, and type notation to decode it back to the language's spelling live (runs `decode.py`'s
+  logic in-browser).
 - **What the points are** and **how to write them**: [viz/notation.html](viz/notation.html) —
-  a single self-contained page with the operator legend, consonant grid, vowel chart, and worked
-  examples. Open it directly, or see the published version linked from the repo notes.
+  a single self-contained page with the operator legend, consonant grid, vowel chart, and examples.
 - **Authoritative sources**: point set → `out/points.json` (70 fine-grained) →
   `out/general_inventory.json` (**58 general**); notation → `data/labels.yaml` → `out/labels.json`.
   `CLAUDE.md` ("Notation") is the prose summary.
