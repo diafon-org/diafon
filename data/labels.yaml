@@ -54,17 +54,19 @@ vowels:
   # Triangular vowel model (see docs/viz/vowel-triangle.html). Bases i e a o u sit on the edges;
   # everything else is base + ONE operator:
   #   c = toggle rounding (front gains it: ic=y, ec=ø; back loses it: uc=ɯ, oc=ɤ; apex marks back: ac=ɑ)
-  #   j = lax (ij=ɪ, ej=ɛ, uj=ʊ, oj=ɔ)   ·   q = c+j, front-round lax (iq=ʏ, eq=œ)
-  #   x = centralise → schwa (ax=ə)      ·   ɒ merged into ɔ (only HU had it; no lang contrasts ɒ~ɔ)
+  #   j = step to the adjacent in-between vowel — FRONT steps down (ij=ɪ, ej=ɛ), BACK steps up
+  #       (oj=ʊ, aj=ɔ); the base tells you which way, so `uj` is unused (nothing sits above u).
+  #   q = c+j, front-round in-between (iq=ʏ, eq=œ)   ·   x = centralise → schwa (ax=ə)
+  #   ɒ merged into ɔ (only HU had it; no lang contrasts ɒ~ɔ).
   y: ic          # close front rounded  (i + round)
   ø: ec
   ɯ: uc          # close back UNrounded  (u de-rounded)
   ɤ: oc
-  ɪ: ij          # lax
+  ɪ: ij          # front, one step down
   ɛ: ej
-  ʊ: uj
-  ɔ: oj
-  ʏ: iq          # front-round lax  (c + j) — French œ, German ʏ keep this operator alive
+  ʊ: oj          # back, one step up (from o)
+  ɔ: aj          # back, one step up (from a) — a-based, matching the ear (HU short a landed here)
+  ʏ: iq          # front-round in-between  (c + j) — French œ, German ʏ keep this operator alive
   œ: eq
   ɑ: ac          # open back  (apex: rounding is moot, so c marks the back one)
   ə: ax          # schwa = the centre; centralise. Base letter `y` is retired.

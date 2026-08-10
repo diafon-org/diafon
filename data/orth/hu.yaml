@@ -1,4 +1,5 @@
 # notation label -> HU grapheme. Decoder: src/diaphone/decode.py
+aj: a
 aw: á
 b: b
 d: d
@@ -22,7 +23,6 @@ m: m
 n: n
 nj: ny
 o: o
-oj: a
 ow: ó
 p: p
 r: r

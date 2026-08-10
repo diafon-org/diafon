@@ -121,7 +121,8 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   gutturals `ʔ`=`hj` `ħ`=`hq` `ʕ`=`hx`; emphatics `qx` (`tˤ`=`tqx`).
 - **Vowels** (17, triangular — see `docs/viz/vowel-triangle.html`): 5 cardinal bases `a e i o u` on the
   triangle edges; operators `c`=toggle-rounding (front gains: `ic`=y `ec`=ø; back loses: `uc`=ɯ `oc`=ɤ;
-  apex marks back: `ac`=ɑ), `j`=lax (`ij`=ɪ `ej`=ɛ `uj`=ʊ `oj`=ɔ), `q`=`c+j` front-round-lax (`iq`=ʏ
+  apex marks back: `ac`=ɑ), `j`=step to the adjacent in-between vowel (front steps down `ij`=ɪ `ej`=ɛ;
+  back steps up `oj`=ʊ `aj`=ɔ — so ɔ is a-based; `uj` unused), `q`=`c+j` front-round (`iq`=ʏ
   `eq`=œ — French œ / German ʏ keep it), `x`=centralise→schwa (`ax`=ə, which also carries English STRUT
   ʌ / Korean ㅓ). Every vowel is base+1op. **ɒ→ɔ merged** (only HU had ɒ, nothing contrasts it); œ→ø and
   ʏ→y were tried and **reverted** — the injectivity check caught them collapsing French *jeûne/jeune*
