@@ -18,10 +18,10 @@ Status legend: ✓ decided · ◻ open.
 | aspirated `h` | **one dot above** | ṗ ṫ k̇ · ċ (tsʰ) · ċ̦ (tʃʰ) | ✓ |
 | labialised (`c` on k/g) | **two dots above** (diaeresis) | k̈ g̈ | ✓ — diaeresis = rounding, same as vowels ü ö |
 | pf `pc` | diaeresis `p̈` (on p — no clash with k/g) | p̈ | ◻ p̈, or its own accent |
-| pharyngealised (`qx`) | **dot below** | ṭ ḍ ṣ ð̣ | ✓ (ð̣ follows the dental glyph) |
+| pharyngealised (`qx`) | **dot below** | ṭ ḍ ṣ · ðˤ→ẓ | ✓ (ðˤ uses ẓ, the Arabic-Latin form, since ð is already ṿ) |
+| dental `x` | underdot on f/v | tx→**f̣** · dx→**ṿ** | ✓ (f/v = nearest fricatives; underdot marks dental) |
+| velar `x` | underdot on k/g | kx→**ḳ** · gx→**g̣** | ✓ (k/g fricativised) |
 | long `w` | doubled letter (tight-set) | tt … | ✓ |
-| dental `x` | — | θ / ð | ◻ (upper-index? under/over dot?) |
-| velar `x` | — | x / ɣ | ◻ |
 
 **No superscripts.** Secondary articulations are dots: aspirated = one dot above, labialised = two dots
 above (= rounding), pharyngealised = dot below. So kʰ=k̇ vs kʷ=k̈ vs kˤ (n/a) never collide.
@@ -45,13 +45,15 @@ Render note: for the round in-between (ʏ, œ), build the below-dot into the bas
 top so the upper dots don't skid — `ụ̈` = U+1EE5 + U+0308, `ọ̈` = U+1ECD + U+0308.
 
 ## The dot system
-One coherent scheme across both halves — always on distinct base letters, so nothing clashes:
-- **diaeresis `¨` = rounding** — vowels ü ö, consonants k̈ g̈ (labialised).
-- **one dot above** — vowel back-in-between (ȯ ȧ) / consonant aspirated (ṗ ṫ k̇).
-- **one dot below** — vowel front-in-between (ị ẹ) / consonant pharyngealised (ṭ ḍ ṣ).
+Dot count/position carries the feature; the base letter tells you which one (like your operators:
+`x` is dental on t, velar on k). Always on distinct letters, so nothing clashes:
+- **`¨` two dots above = rounding** — vowels ü ö, consonants k̈ g̈ (labialised), p̈ (pf).
+- **`˙` one dot above = aspirated / raised** — consonant aspirated (ṗ ṫ k̇), vowel back-in-between (ȯ ȧ).
+- **`.` one dot below** — base-dependent: emphatic on t/d/s (ṭ ḍ ṣ), velar-fricative on k/g (ḳ g̣),
+  dental on f/v (f̣ ṿ), vowel front-in-between on i/e (ị ẹ).
+
+Nice side effect: **k** now runs the full set — k · k̇ (aspirated) · k̈ (labialised) · ḳ (velar fricative).
 
 ## Still open
 - **the a-family** — a, ɑ (ac), ɔ (aj/ȧ) — settle the three together
-- **dental θ/ð and velar x/ɣ** — upper-index / dot idea (dots are now spent, so likely a stroke/letter)
-- **pf** — `p̈` or its own accent
 - **rhotic** vowel mark (no superscript)
