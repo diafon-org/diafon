@@ -1,10 +1,10 @@
-# One label per general point (56). Flat: base + ONE operator. No tier, no case, no diacritics.
-# BASES: p b t d k g m n f v s z l h · tap r (+ the 6 vowel letters a e i o u y, y = schwa).
+# One label per general point. Flat: base + ONE operator. No tier, no case, no diacritics.
+# CONSONANT BASES: p b t d k g m n f v s z l h · trill r.
 # CONSONANT OPERATORS (never a bare label):  c=affricate  q=hush  x=dental/velar  j=palatal  w=long
-#   coronal fan:  tc=ts · tq=tʃ · tx=θ · tj=tʲ (= /c/, Hungarian ty)      (fricatives: sq=ʃ)
+#   coronal fan:  tc=ts · tq=tʃ · tx=θ · tj=tʲ (= /c/, Hungarian ty)      (fricatives: sj=ʃ)
 # Off-grid rarities use fixed combos: gutturals ʔ=hj ħ=hq ʕ=hx ; emphatics ride on `qx`.
-# VOWELS: 6 one-char cardinals a e i o u y(=ə) + operators x(back) q(lower) c(round). io/eo/oa are
-#   the 3 two-shift vowels, written as a vowel pair (one letter = both shifts).
+# VOWEL BASES: a e i o u (the cardinals; `y` is NOT a base anymore). VOWEL OPERATORS: c=toggle-rounding,
+#   j=lax, q=c+j (front-round lax), x=centralise→schwa. Triangular; see docs/viz/vowel-triangle.html.
 
 consonants:
   p: p
@@ -51,21 +51,23 @@ vowels:
   a: a
   o: o
   u: u
-  # vowel operators mirror the consonants: c and j are primitive, q = c+j.
-  #   c = round · j = lower · q = round+lower  (as c+j = hush on consonants)
-  y: ic          # round
+  # Triangular vowel model (see docs/viz/vowel-triangle.html). Bases i e a o u sit on the edges;
+  # everything else is base + ONE operator:
+  #   c = toggle rounding (front gains it: ic=y, ec=ø; back loses it: uc=ɯ, oc=ɤ; apex marks back: ac=ɑ)
+  #   j = lax (ij=ɪ, ej=ɛ, uj=ʊ, oj=ɔ)   ·   q = c+j, front-round lax (iq=ʏ, eq=œ)
+  #   x = centralise → schwa (ax=ə)      ·   ɒ merged into ɔ (only HU had it; no lang contrasts ɒ~ɔ)
+  y: ic          # close front rounded  (i + round)
   ø: ec
-  ɒ: ac          # rounding the open vowel backs it
-  ɪ: ij          # lower
+  ɯ: uc          # close back UNrounded  (u de-rounded)
+  ɤ: oc
+  ɪ: ij          # lax
   ɛ: ej
   ʊ: uj
   ɔ: oj
-  ʏ: iq          # round+lower  (= c+j)
+  ʏ: iq          # front-round lax  (c + j) — French œ, German ʏ keep this operator alive
   œ: eq
-  ɯ: ix
-  ɤ: ex
-  ɑ: ax
-  ə: y           # schwa = the 6th base vowel letter (this is what freed c to mean "round")
+  ɑ: ac          # open back  (apex: rounding is moot, so c marks the back one)
+  ə: ax          # schwa = the centre; centralise. Base letter `y` is retired.
 
 modifiers:       # each is just a letter/combo — no separate tier
   long: w            # tw = tː · iw = iː

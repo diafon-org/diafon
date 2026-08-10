@@ -1,7 +1,4 @@
 # notation label -> HU grapheme. Decoder: src/diaphone/decode.py
-# (Convenience aliases like bare a=/ɒ/, e=/ɛ/ are NOT here — they live in decode.LAZY_ALIASES and
-# apply only in lazy mode, keeping this file the canonical label set.)
-ac: a
 aw: á
 b: b
 d: d
@@ -25,6 +22,7 @@ m: m
 n: n
 nj: ny
 o: o
+oj: a
 ow: ó
 p: p
 r: r
@@ -37,6 +35,5 @@ tq: cs
 u: u
 uw: ú
 v: v
-y: y
 z: z
 zj: zs

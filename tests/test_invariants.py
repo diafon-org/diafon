@@ -74,12 +74,13 @@ def test_no_unreviewed_rhotic_cooccurrence():
 
 
 def test_general_inventory_ledger():
-    """The Phase-2 merge ledger folds cleanly (apply_merges asserts safety) to 58 points."""
+    """The Phase-2 merge ledger folds cleanly (apply_merges asserts safety)."""
     points = _run()[3]
     general, folded = apply_merges(points)
-    assert len(folded) == 13, [f[0] for f in folded]
+    assert len(folded) == 14, [f[0] for f in folded]
     assert len(general) == len(points) - len(folded)
-    assert len(general) == 55, len(general)   # 68 fine - 13 merges; ʌ folded into schwa
+    assert len(general) == 54, len(general)   # 68 fine - 14 merges (ʌ→ə, ɒ→ɔ among them)
+    assert ("V", "open", "back", True) not in general             # ɒ folded into ɔ
     # source points are gone; targets remain
     assert ("C", "dental", "plosive", "vl") not in general        # t̪ folded into t
     assert ("C", "alveolar", "approximant", "vd") not in general  # ɹ folded into ɻ
@@ -91,9 +92,7 @@ def test_general_inventory_ledger():
 
 def test_label_scheme_decided_parts():
     """Labels are unique, namespaces disjoint, and the operator scheme is self-segmenting: every
-    base+operator label (sc, tq, kx, tj, …) decodes uniquely. The ONLY labels that decompose are
-    the intended cluster-style overlaps — vowel pairs (iu=y) and the trill (rw = long tap). Both
-    are monophthong/single-vs-sequence questions for the sequence layer, not decoding failures."""
+    base+operator label (tc, tq, kx, tj, …) decodes uniquely; nothing should decompose ambiguously."""
     labels = load_labels(DATA)
     issues = validate(labels)
     assert issues["duplicates"] == {}, issues["duplicates"]
@@ -109,8 +108,8 @@ def test_decode_recovers_hungarian_exactly():
     from diaphone.decode import decode
     cases = {"sjok sewp njawr": "sok szép nyár",
              "kecsecnecm sewpejn": "köszönöm szépen",
-             "ejdj nacdj kutjac": "egy nagy kutya",
-             "acswonj": "asszony",      # long /sː/ = sw (one s + long) -> geminated digraph ssz, not szsz
+             "ejdj nojdj kutjoj": "egy nagy kutya",   # HU short a = /ɒ/ -> ɔ = `oj` (after the ɒ→ɔ merge)
+             "ojswonj": "asszony",     # long /sː/ = sw -> geminated digraph ssz, not szsz
              "hoswuw": "hosszú"}        # w after a consonant geminates it; w after a vowel is part of uw=ú
     for notation, spelling in cases.items():
         assert decode(notation, "hu", DATA) == spelling, (notation, decode(notation, "hu", DATA))
@@ -119,7 +118,7 @@ def test_decode_recovers_hungarian_exactly():
 def test_decode_mandarin_tones():
     """A trailing digit on a Mandarin syllable places the Pinyin tone mark (a>e>ou>last vowel)."""
     from diaphone.decode import decode
-    assert decode("sjan1 kxyn3 kau1", "zh", DATA) == "shān hěn gāo"
+    assert decode("sjan1 kxaxn3 kau1", "zh", DATA) == "shān hěn gāo"
     assert decode("nic3", "zh", DATA) == "nǚ" and decode("he2", "zh", DATA, lazy=True) == "hé"
     assert decode("de5", "zh", DATA) == "de"          # neutral tone: no diacritic
 
@@ -142,8 +141,8 @@ def test_decode_mandarin_finals_and_palatals():
     assert d("tou1") == "dōu" and d("kxau3") == "hǎo" and d("kuo2") == "guó"   # ou stays ou; au->ao; uo
     # merged retroflex/alveolo-palatal series: front i/ü -> j/q/x (+ ü->u); else zh/ch/sh
     assert d("tqi1") == "jī" and d("sji1") == "xī" and d("tqic1") == "jū" and d("sjic1") == "xū"
-    # apical/buzzed vowel `ix` keeps the retroflex spelling: zhī, shì, sì
-    assert d("tqix1") == "zhī" and d("sjix4") == "shì" and d("six4") == "sì"
+    # apical/buzzed vowel `uc` keeps the retroflex spelling: zhī, shì, sì
+    assert d("tquc1") == "zhī" and d("sjuc4") == "shì" and d("suc4") == "sì"
 
 
 def test_decode_mandarin_lazy_pinyin():
@@ -154,7 +153,7 @@ def test_decode_mandarin_lazy_pinyin():
     assert z("zhong1 guo2") == "zhōng guó" and z("ren2") == "rén" and z("cai4") == "cài"
     assert z("bao3") == "bǎo" and z("dao4") == "dào"                 # lenis stops pass through
     # canonical examples still decode in lazy mode (p/t/k are NOT overridden -> stay lenis notation)
-    assert z("sjan1 kxyn3 kau1") == "shān hěn gāo"
+    assert z("sjan1 kxaxn3 kau1") == "shān hěn gāo"
     assert decode("pa4", "zh", DATA) == "bà"                          # canonical: bare p = lenis
 
 
@@ -166,4 +165,4 @@ def test_decode_lazy_mode_aliases():
     assert "a" not in canon and "e" not in canon        # canonical label set excludes the shortcuts
     assert lazy["a"] == "a" and lazy["e"] == "e"          # lazy adds bare a=/ɒ/, e=/ɛ/
     assert decode("alma kert", "hu", DATA, lazy=True) == "alma kert"
-    assert decode("acswonj", "hu", DATA) == "asszony"     # canonical path unaffected
+    assert decode("ojswonj", "hu", DATA) == "asszony"     # canonical path unaffected
