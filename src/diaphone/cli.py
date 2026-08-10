@@ -34,15 +34,21 @@ def main(argv=None):
         da = dp.parse_args(argv[1:])
         print(decode(da.text, da.lang, da.data, lazy=da.lazy))
         return
-    if argv and argv[0] == "ipa":
-        ip = argparse.ArgumentParser(prog="diaphone ipa",
-                                     description="Notation -> universal IPA (language-independent).")
-        ip.add_argument("text", help="space-separated notation words, e.g. 'sjan1 kxyn3 kau1'")
-        ip.add_argument("--data", default=_default_data())
-        ia = ip.parse_args(argv[1:])
-        from .render import to_ipa
-        features, languages, all_ph = load(ia.data)
-        print(to_ipa(ia.text, all_ph, features, ia.data))
+    if argv and argv[0] in ("ipa", "native", "render"):
+        from .engine import render, targets
+        rp = argparse.ArgumentParser(prog="diaphone render",
+                                     description="Notation -> a target (ipa, native, or a language).")
+        if argv[0] == "render":
+            rp.add_argument("target", choices=targets())
+            rest = argv[1:]
+        else:
+            rest = [argv[0], *argv[1:]]          # `diaphone ipa …` / `native …` = render <that>
+            rp.add_argument("target", choices=targets())
+        rp.add_argument("text", help="space-separated notation words, e.g. 'sjan1 kxyn3 kau1'")
+        rp.add_argument("--data", default=_default_data())
+        rp.add_argument("--lazy", action="store_true")
+        ra = rp.parse_args(rest)
+        print(render(ra.text, ra.target, ra.data, lazy=ra.lazy))
         return
 
     ap = argparse.ArgumentParser(description="Derive the minimal diaphonemic point set.")

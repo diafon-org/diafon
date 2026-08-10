@@ -123,6 +123,19 @@ def test_decode_mandarin_tones():
     assert decode("de5", "zh", DATA) == "de"          # neutral tone: no diacritic
 
 
+def test_engine_render_targets():
+    """One engine renders universal targets (ipa/native) and languages uniformly."""
+    from diaphone.engine import render
+    assert render("sjan1", "ipa", DATA) == "ʃan¹"
+    assert render("sjan1", "native", DATA) == "șan¹"          # native Latin+diacritics view
+    assert render("njawr", "native", DATA) == "ņár"           # nj→ņ, aw→á (long)
+    assert render("tqx", "native", DATA) == "t̤"               # pharyngealised = two dots below
+    assert render("ajswonj", "hu", DATA) == "asszony"          # language target still works
+    import pytest
+    with pytest.raises(ValueError):
+        render("x", "klingon", DATA)
+
+
 def test_notation_to_ipa_universal():
     """Notation renders to language-independent IPA: point labels + modifier diacritics + tone."""
     from diaphone.render import to_ipa
