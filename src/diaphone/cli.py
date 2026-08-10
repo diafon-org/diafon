@@ -34,6 +34,16 @@ def main(argv=None):
         da = dp.parse_args(argv[1:])
         print(decode(da.text, da.lang, da.data, lazy=da.lazy))
         return
+    if argv and argv[0] == "ipa":
+        ip = argparse.ArgumentParser(prog="diaphone ipa",
+                                     description="Notation -> universal IPA (language-independent).")
+        ip.add_argument("text", help="space-separated notation words, e.g. 'sjan1 kxyn3 kau1'")
+        ip.add_argument("--data", default=_default_data())
+        ia = ip.parse_args(argv[1:])
+        from .render import to_ipa
+        features, languages, all_ph = load(ia.data)
+        print(to_ipa(ia.text, all_ph, features, ia.data))
+        return
 
     ap = argparse.ArgumentParser(description="Derive the minimal diaphonemic point set.")
     ap.add_argument("--data", default=_default_data(), help="data directory")
