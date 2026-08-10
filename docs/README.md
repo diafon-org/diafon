@@ -4,6 +4,11 @@
   consonant grid, vowel chart, features) followed by a live decoder for English, Hungarian, and
   Mandarin. Pick a language, type notation, watch it become that language's spelling. Self-contained.
   (`viz/notation.html` and `viz/try.html` are the older split versions.)
+- **The vowel triangle** (adopted redesign): [viz/vowel-triangle.html](viz/vowel-triangle.html) — the
+  vowels as a triangle: cardinals on the edges, one operator off for the rest (`c`=toggle-rounding,
+  `j`=lax, `q`=c+j, `x`=centralise→schwa), schwa at the centre, nasal as an overlay. **17 oral + 4
+  nasal**, only `ɒ→ɔ` merged (œ/ʏ kept — French *jeûne/jeune*, German ü/ö). NOTE: this is the agreed
+  next-gen vowel model; `labels.yaml`/orth/guide still run the old 18-vowel scheme until the code sync.
 - **Authoritative sources**: point set → `out/points.json` (70 fine-grained) →
   `out/general_inventory.json` (**58 general**); notation → `data/labels.yaml` → `out/labels.json`.
   `CLAUDE.md` ("Notation") is the prose summary.
