@@ -25,10 +25,30 @@ one point iff their base tuples match; two phonemes in the same language may sha
 point only if a modifier distinguishes them. The minimal set is the distinct base
 tuples; the engine validates that no within-language contrast is lost.
 
-See `CLAUDE.md` for architecture, conventions, and roadmap.
+See `CLAUDE.md` for architecture and `docs/native-view.md` for the native-view spec.
+
+## Notation & rendering
+Every point gets a plain-ASCII label (`data/labels.yaml`): consonant bases + operators
+`c q x j w`, vowel bases `a e i o u` + operators `c j q x` on the triangular vowel model
+(`docs/viz/vowel-triangle.html`). One engine renders a notation string to any **target** —
+universal (`ipa`, `native`) or a language's spelling — and the same phonemes spell themselves
+differently per target:
+
+```
+diaphone render native "sjok sewp njawr"   # -> șok sép ņár
+diaphone render ipa    "sjok sewp njawr"   # -> ʃok seːp ɲaːr
+diaphone render hu     "sjok sewp njawr"   # -> sok szép nyár
+diaphone render zh     "sjan1 kxaxn3 kau1" # -> shān hěn gāo   (tones by trailing digit)
+```
+
+Two invariants keep it honest, both enforced by `diaphone --strict` and the tests:
+**injectivity** (no language collapses two phonemes to one `(point, modifiers)`) and
+**notation decodability** (no label re-reads as a sequence of that language's labels).
 
 ## Status
-70 points (49 consonant · 21 vowel), 7 modifiers, 0 merged contrasts.
-16 languages: the 12 core targets + 4 **witness** languages (Turkish, Estonian, Vietnamese,
-Korean) added to prove that near-merge pairs stay distinct where a significant language
-contrasts them. Phase 2 (label + modifier characters) is intentionally not started yet.
+**54 general points** (37 consonant · 17 vowel) folded from 68 fine-grained via 14 reviewed
+merges · 491 phonemes · 7 modifiers · **0 merged contrasts, 0 notation collisions**.
+16 languages: 12 core targets + 4 **witnesses** (Turkish, Estonian, Vietnamese, Korean) that
+prove near-merge pairs stay distinct where a significant language contrasts them.
+The native Latin-diacritics view is fully specified (`docs/native-view.md`); a bespoke font
+and a macOS input method are the next build steps.
