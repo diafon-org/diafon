@@ -42,6 +42,7 @@ src/diaphone/derive.py      minimal points, injectivity, near-merge + suspicious
 src/diaphone/merges.py      Phase-2 merge ledger: fold fine-grained points → general inventory
 src/diaphone/notation.py    notation-decodability check: phoneme label vs same-language sequence
 src/diaphone/decode.py      notation → a language's spelling (greedy tokenise + per-lang rules)
+src/diaphone/render.py      notation → universal targets (IPA now; latin22 "nice repr" next)
 src/diaphone/report.py      JSON + Markdown output
 src/diaphone/cli.py         `diaphone` entry point
 out/                        generated (gitignored): points.json, general_inventory.json,
@@ -57,6 +58,12 @@ diaphone decode zh "sjan1 kxyn3 kau1"   # -> shān hěn gāo   (trailing digit 1
 diaphone decode hu "alma kert" --lazy   # -> alma kert      (--lazy: per-language shortcuts)
 pytest                   # runs the invariant guardrails
 ```
+
+## Universal render (`render.py`)
+`decode.py` gives a *language's* spelling; `render.to_ipa` gives the *universal* IPA — each point label
+maps back to its general point's canonical IPA, each modifier becomes a diacritic (long ː, palatalised ʲ,
+aspirated ʰ, labialised ʷ, nasal ̃, rhotic ˞, pharyngealised ˤ), trailing tone digit → superscript.
+`diaphone ipa "sjan1 kxyn3 kau1"` → `ʃan¹ xən³ kau¹`. This is the base for the coming latin22 "nice repr".
 
 ## Decoding (`decode.py`)
 Notation → a language's spelling. Canonical labels live in `data/orth/<lang>.yaml`; extras layer on:

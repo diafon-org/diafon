@@ -124,6 +124,17 @@ def test_decode_mandarin_tones():
     assert decode("de5", "zh", DATA) == "de"          # neutral tone: no diacritic
 
 
+def test_notation_to_ipa_universal():
+    """Notation renders to language-independent IPA: point labels + modifier diacritics + tone."""
+    from diaphone.render import to_ipa
+    features, languages, all_ph = load(DATA)
+    f = lambda s: to_ipa(s, all_ph, features, DATA)
+    assert f("sjan") == "ʃan" and f("tx") == "θ" and f("nj") == "ɲ" and f("kx") == "x"
+    assert f("pha") == "pʰa" and f("tw") == "tː" and f("sjj") == "sʲ" and f("tqx") == "tˤ"
+    assert f("kcw"[:2]) == "kʷ"                       # labialised k
+    assert f("sjan1") == "ʃan¹"                        # trailing tone digit -> superscript
+
+
 def test_decode_mandarin_finals_and_palatals():
     """Multi-vowel finals and the j/q/x <-> zh/ch/sh split driven by the following vowel."""
     from diaphone.decode import decode
