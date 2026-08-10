@@ -67,9 +67,12 @@ Notation → a language's spelling. Canonical labels live in `data/orth/<lang>.y
   *following vowel* picks the spelling: front `i`/`ic`(ü) → j/q/x (+ ü→u), else zh/ch/sh. The
   apical/buzzed vowel (zhī, shì, sì) is written `ix` — Pinyin also spells it "i", but it is not front
   `/i/`, so it keeps the retroflex spelling. So `tqi1`=jī but `tqix1`=zhī; `sji1`=xī but `sjix4`=shì.
-- **Lazy mode** (`decode(..., lazy=True)` / `--lazy`) — opt-in, language-specific shortcuts in
-  `decode.LAZY_ALIASES`: HU bare `a`=/ɒ/, `e`=/ɛ/ (no cardinal /a/,/e/ in Hungarian); ZH `e`=/ɤ/,
-  `h`=/x/, `r`=/ʐ/ (Pinyin-style — those letters are otherwise free). Canonical files stay pure.
+- **Lazy mode** (`decode(..., lazy=True)` / `--lazy`) — opt-in shortcuts in `decode.LAZY_ALIASES`
+  (grapheme map, overriding canonical): HU bare `a`=/ɒ/, `e`=/ɛ/. ZH ≈ **"type Pinyin"** — the
+  sibilant/affricate initials + `o` spell literally (`xiao`=xiǎo, `shi`=shì, `zhong`=zhōng, `cai`=cài),
+  so the sh/x apical/front split is carried by the user's own Pinyin spelling. The one set NOT added is
+  the aspirated stops `p/t/k` (they clash with the notation, where p/t/k are the *lenis* series) — so
+  canonical still decodes in lazy mode; use `ph/th/kh` for aspirated stops. Canonical files stay pure.
 
 ## Data conventions
 - `data/languages/*.yaml` short keys: `pl mn vc` (consonant place/manner/voice),

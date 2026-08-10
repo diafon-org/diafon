@@ -17,15 +17,18 @@ VOWELS = set("aeiou")
 # We merged Pinyin j/q/x into zh/ch/sh as allophones, so the following vowel decides the spelling.
 _ZH_RETRO = {"tq": ("zh", "j"), "tqh": ("ch", "q"), "sj": ("sh", "x")}
 
-# Lazy-mode convenience shortcuts, per language: {alias_label: canonical_label}. Applied only when
-# decode(..., lazy=True). Each alias is a base letter the language leaves free, standing in for a
-# heavier canonical label — never introducing ambiguity because the letter is unused otherwise. The
-# canonical orth file stays the source of truth; lazy is a typing convenience layered on top.
+# Lazy-mode shortcuts, per language: {alias_label: grapheme}. Applied (overriding the canonical map)
+# only when decode(..., lazy=True). The canonical orth file stays the source of truth; lazy is an
+# opt-in typing convenience layered on top.
+#   HU: no cardinal /a/,/e/, so bare a,e are free to spell /ɒ/,/ɛ/.
+#   ZH: "type Pinyin". The initials/finals below spell themselves literally, so `xiao`=xiǎo, `shi`=shì,
+#       `zhong`=zhōng, `zao`=zǎo, `cai`=cài. The one Pinyin letter set NOT added is the aspirated stops
+#       p/t/k — those clash with the notation (where p/t/k are the *lenis* series), so canonical still
+#       works in lazy mode; for aspirated stops use the notation ph/th/kh. m/n/l/f/s/b/d/g coincide.
 LAZY_ALIASES = {
-    "hu": {"a": "ac", "e": "ej"},   # Hungarian has no cardinal /a/,/e/, so bare a,e are free for /ɒ/,/ɛ/
-    # Mandarin: single letters whose Pinyin value we spell with an operator, but the bare letter is
-    # otherwise free (no trill /r/, no cardinal /e/, no glottal /h/) — so they can stand in Pinyin-style.
-    "zh": {"e": "ex", "h": "kx", "r": "rx"},   # e=/ɤ/, h=/x/ (Pinyin h), r=/ʐ/ (Pinyin r)
+    "hu": {"a": "a", "e": "e"},
+    "zh": {"b": "b", "d": "d", "g": "g", "z": "z", "c": "c", "zh": "zh", "ch": "ch",
+           "sh": "sh", "r": "r", "j": "j", "q": "q", "x": "x", "h": "h", "e": "e", "o": "o"},
 }
 
 
@@ -33,9 +36,7 @@ def load_orth(lang, data_dir="data", lazy=False):
     with open(os.path.join(data_dir, "orth", f"{lang}.yaml"), encoding="utf-8") as f:
         orth = {k: v for k, v in yaml.safe_load(f).items()}
     if lazy:
-        for alias, canon in LAZY_ALIASES.get(lang, {}).items():
-            if canon in orth and alias not in orth:
-                orth[alias] = orth[canon]
+        orth = {**orth, **LAZY_ALIASES.get(lang, {})}   # lazy shortcuts win over canonical labels
     return orth
 
 

@@ -136,10 +136,15 @@ def test_decode_mandarin_finals_and_palatals():
 
 
 def test_decode_mandarin_lazy_pinyin():
-    """Lazy mode lets the free single letters e/h/r stand in Pinyin-style."""
+    """Lazy Mandarin = type Pinyin: initials/finals spell literally, incl. p/t/k = aspirated."""
     from diaphone.decode import decode
-    assert decode("hen3 hao3", "zh", DATA, lazy=True) == "hěn hǎo"   # h=/x/ (Pinyin h)
-    assert decode("ren2", "zh", DATA, lazy=True) == "rén"            # r=/ʐ/ (Pinyin r)
+    z = lambda s: decode(s, "zh", DATA, lazy=True)
+    assert z("ni3 hao3") == "nǐ hǎo" and z("xiao3") == "xiǎo" and z("shi4") == "shì"
+    assert z("zhong1 guo2") == "zhōng guó" and z("ren2") == "rén" and z("cai4") == "cài"
+    assert z("bao3") == "bǎo" and z("dao4") == "dào"                 # lenis stops pass through
+    # canonical examples still decode in lazy mode (p/t/k are NOT overridden -> stay lenis notation)
+    assert z("sjan1 kxyn3 kau1") == "shān hěn gāo"
+    assert decode("pa4", "zh", DATA) == "bà"                          # canonical: bare p = lenis
 
 
 def test_decode_lazy_mode_aliases():
