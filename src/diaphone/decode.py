@@ -111,7 +111,7 @@ def decode_word(word, orth, lang):
             elif t == "u" and prv == "a":
                 g = "o"                               # -u offglide spells "o" only after a: au->ao,
                                                       #   but ou stays "ou" and medial u (uo) stays "u"
-                                                      # (apical vowel `ix` -> "i" comes from the orth map)
+                                                      # (apical vowel `uc` -> "i" comes from the orth map)
         out.append(g)
     result = "".join(out)
     return _apply_tone(result, tone) if tone is not None else result

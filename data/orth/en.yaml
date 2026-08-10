@@ -1,6 +1,8 @@
 # notation label -> EN grapheme. Decoder: src/diaphone/decode.py
 a: a
-ax: o
+ac: o
+ax: u
+axr: er
 b: b
 d: d
 dq: j
@@ -29,7 +31,5 @@ tx: th
 u: oo
 uj: oo
 v: v
-y: u
-yr: er
 z: z
 zj: zh

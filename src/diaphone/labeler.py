@@ -44,7 +44,7 @@ def validate(labels):
     vow = labels.get("vowels", {})
     allmap = {**cons, **vow}
     labelset = set(allmap.values())
-    VOW = set("aeiouy")   # y is the 6th vowel letter (= schwa); never a consonant-initial
+    VOW = set("aeiou")    # vowel-initial letters; `y` retired as a base (schwa is now `ax`)
 
     seen = {}
     for ipa, lab in allmap.items():

@@ -27,6 +27,7 @@ LEDGER = [
     (("V", "near-open", "front", False),     ("V", "open", "central", False),        None,          "æ→a; no witness (Danish resolves to æ~back ɑ)"),
     (("V", "close", "central", False),       ("V", "close", "back", False),          "centralized", "ɨ→ɯ; no significant witness (major langs have one or the other)"),
     (("V", "open-mid", "back", False),        ("V", "mid", "central", False),         None, "ʌ→ə; Korean ㅓ ≈ schwa, English STRUT = stressed schwa — no language contrasts them"),
+    (("V", "open", "back", True),             ("V", "open-mid", "back", True),        None, "ɒ→ɔ; only HU has ɒ (short a) and it has no ɔ — no language contrasts them (keeps back+round)"),
 ]
 
 

@@ -103,7 +103,7 @@ the point to stay distinct. Turkish locks `u`~`ɯ` (*kul*/*kıl*); Estonian + Vi
 `o`~`ɤ` (õ; ô/ơ). See the near-merge verdict table below for the full witness search.
 
 ## Current state
-68 fine-grained points → **55 general** (37 C · 18 V) after 13 merges, 0 merged contrasts, 491
+68 fine-grained points → **54 general** (37 C · 17 V) after 14 merges, 0 merged contrasts, 491
 phoneme records, 16 languages (12 core + 4 witnesses). **Every point is a base or base + ONE
 operator** — no 2-operator points, no bi-vowels. Removed (not points): `ç` (German ich-laut → `x`),
 `ɸ` (Japanese *fu* → `h`), `ɐ` (German `-er`), **Mandarin j/q/x `[tɕ tɕʰ ɕ]`** (allophones of the
@@ -113,19 +113,23 @@ stressed `/ə/`, Korean ㅓ ≈ schwa). Vietnamese `ă` re-read as short `/a/`.
 ## Notation (Phase 2 — locked, round-tripped)
 `data/labels.yaml` gives one label per general point; `labeler.py` validates it, `out/labels.json`
 regenerates it. **Every point is a base or base + ONE operator** — no tier, no case, no diacritics.
-- **Bases** `p b t d k g m n f v s z l h`, the trill `r` (the common rhotic; tap `ɾ`=`rj`), and 6
-  vowel letters `a e i o u y` (`y`=schwa). Glides `/j/ /w/ /ɥ/` removed (non-syllabic `/i/ /u/ /y/`).
+- **Bases** `p b t d k g m n f v s z l h`, the trill `r` (the common rhotic; tap `ɾ`=`rj`), and 5
+  vowel letters `a e i o u` (`y` retired — schwa is now `ax`). Glides `/j/ /w/ /ɥ/` removed.
 - **Consonant operators** (never a bare label): `c`=affricate (`tc`=t͡s) · `q`=hush **affricate**
   (`tq`=t͡ʃ) · `x`=dental/velar (`tx`=θ, `kx`=x) · `j`=palatal (`sj`=ʃ, `tj`=c/tʲ, `nj`=ɲ) · `w`=long
   (`tw`=tː, geminate/long trill `rw`). So `q`=`c+j` (hush = affricate+palatal). Off-grid combos:
   gutturals `ʔ`=`hj` `ħ`=`hq` `ʕ`=`hx`; emphatics `qx` (`tˤ`=`tqx`).
-- **Vowels**: 6 bases `a e i o u y`(=ə, which also carries English STRUT ʌ / Korean ㅓ). Operators
-  mirror the consonants — `c` and `j` primitive, `q`=`c+j`: `c`=round `j`=lower `q`=round+lower,
-  `x`=back. Every vowel is base+1op — ü/ʏ = `ic`/`iq`, ö/œ = `ec`/`eq`, ɪ = `ij`. No pairs.
+- **Vowels** (17, triangular — see `docs/viz/vowel-triangle.html`): 5 cardinal bases `a e i o u` on the
+  triangle edges; operators `c`=toggle-rounding (front gains: `ic`=y `ec`=ø; back loses: `uc`=ɯ `oc`=ɤ;
+  apex marks back: `ac`=ɑ), `j`=lax (`ij`=ɪ `ej`=ɛ `uj`=ʊ `oj`=ɔ), `q`=`c+j` front-round-lax (`iq`=ʏ
+  `eq`=œ — French œ / German ʏ keep it), `x`=centralise→schwa (`ax`=ə, which also carries English STRUT
+  ʌ / Korean ㅓ). Every vowel is base+1op. **ɒ→ɔ merged** (only HU had ɒ, nothing contrasts it); œ→ø and
+  ʏ→y were tried and **reverted** — the injectivity check caught them collapsing French *jeûne/jeune*
+  (no French vowel length to recover) and German ü/ö.
 - **Modifiers ride on top, one letter each**: long `w`, aspirated `h` (nasal `h` on vowels), rhotic
   `r`; palatalised `j` (`pj tj`…) but **`jj` on s/z** (`sʲ`=`sjj`, since `sj`/`zj`=ʃ/ʒ); pharyngealised
-  `qx` and labialised `cw` (`kcw`=kʷ) are the two fixed combos — labialised is NOT bare `u`, which
-  would collide with the vowel /u/ (Latin quī/cui); see the notation-decodability invariant above.
+  `qx`; labialised is `c` on k/g (`kc`=kʷ — those bases have no affricate, so the round `c` slot is
+  free), NOT bare `u`, which would collide with the vowel /u/ (Latin quī/cui). See the notation invariant.
 - Validated: all **491** phonemes get a distinct label per language, **0 collisions**, and (now that
   the vowel pairs are gone) **no label decomposes** — every one is base or base + operators.
 

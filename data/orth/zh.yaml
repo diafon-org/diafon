@@ -1,11 +1,9 @@
 # notation label -> ZH grapheme. Decoder: src/diaphone/decode.py
 a: a
-ex: e
+ax: e
 f: f
 i: i
 ic: ü
-ix: i          # apical/buzzed vowel (zhī, shì, sì) — Pinyin writes it "i" too, but it is NOT front /i/,
-               #   so after zh/ch/sh it keeps the retroflex spelling instead of triggering j/q/x
 k: g
 kh: k
 kx: h
@@ -13,6 +11,7 @@ l: l
 m: m
 n: n
 nx: ng
+oc: e
 p: b
 ph: p
 rx: r
@@ -25,4 +24,4 @@ th: t
 tq: zh
 tqh: ch
 u: u
-y: e
+uc: i
