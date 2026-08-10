@@ -14,9 +14,9 @@ Status legend: ✓ decided · ◻ open.
 | palatal `j` | comma-below | sj→ș · zj→z̦ · nj→ņ · lj→ļ · tj→ț · dj→ḑ | ✓ |
 | affricate `c` | letter | tc→**c** · dc→**đ** | ✓ |
 | hush `q` (affricate+palatal) | letter + comma-below | tq→**c̦** · dq→**đ̦** | ✓ (dʒ=đ̦; `j` is the informal alt) |
-| aspirated `h` | superscript **ʰ** | pʰ tʰ kʰ · cʰ (tsʰ) · c̦ʰ (tʃʰ) | ✓ |
-| labialised (`c` on k/g) | superscript **ʷ** | kʷ gʷ | ✓ |
-| pharyngealised (`qx`) | superscript **ˤ** (or dot-below ṭ ḍ ṣ) | tˤ dˤ sˤ ðˤ | ◻ superscript vs dot-below |
+| aspirated `h` | **overdot** ˙ | ṗ ṫ k̇ · ċ (tsʰ) · ċ̦ (tʃʰ) | ✓ |
+| pharyngealised (`qx`) | **dot-below** | ṭ ḍ ṣ ð̣ | ✓ |
+| labialised (`c` on k/g) | superscript **ʷ** | kʷ gʷ | ✓ (stays superscript: kʰ=k̇ vs kʷ would collide) |
 | long `w` | doubled letter (tight-set) | tt … | ✓ |
 | dental `x` | — | θ / ð | ◻ (upper-index? under/over dot?) |
 | velar `x` | — | x / ɣ | ◻ |
@@ -41,9 +41,13 @@ Gutturals/uvular keep their letters where they exist (ʔ ħ ʕ q).
 Render note: for the round in-between (ʏ, œ), build the below-dot into the base and add the diaeresis on
 top so the upper dots don't skid — `ụ̈` = U+1EE5 + U+0308, `ọ̈` = U+1ECD + U+0308.
 
+## The dot theme
+Dots run through both halves, always on distinct base letters so nothing clashes:
+vowels — front in-between = dot-below (ị ẹ), back in-between = dot-above (ȯ ȧ);
+consonants — aspirated = dot-above (ṗ ṫ k̇), pharyngealised = dot-below (ṭ ḍ ṣ).
+
 ## Still open
 - **the a-family** — a, ɑ (ac), ɔ (aj/ȧ) — settle the three together
 - **dental θ/ð and velar x/ɣ** — upper-index / dot idea
-- **pharyngealised** — superscript ˤ vs dot-below
 - **pf** — superscript f
 - **rhotic** vowel mark
