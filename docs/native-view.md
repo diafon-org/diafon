@@ -12,6 +12,8 @@ Status legend: ✓ decided · ◻ open.
 | operator / point | mark | glyphs | |
 |---|---|---|---|
 | palatal `j` | comma-below | sj→ș · zj→z̦ · nj→ņ · lj→ļ · tj→ț · dj→ḑ | ✓ |
+| palatalised *modifier* (Russian) | comma-below (acute on s/z) | pʲ→p̦ · kʲ→k̦ … · sʲ→**ś** · zʲ→**ź** | ✓ (tʲ=`tj`=ț etc. — same glyph) |
+| trill / tap / retroflex `r` | — / comma-below / dot-below | r → **r** · ɾ `rj` → **r̦** · ʐ `rx` → **ṛ** | ✓ |
 | affricate `c` | letter | tc→**c** · dc→**đ** | ✓ |
 | hush `q` (affricate+palatal) | letter + comma-below | tq→**c̦** · dq→**đ̦** | ✓ (dʒ=đ̦; `j` is the informal alt) |
 | dental / velar `x` (fricativise) | **one dot below** | tx→**ṭ** · dx→**ḍ** · kx→**ḳ** · gx→**g̣** | ✓ (θ/ð/x/ɣ = the homorganic fricative) |

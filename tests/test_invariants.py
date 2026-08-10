@@ -131,6 +131,8 @@ def test_engine_render_targets():
     assert render("njawr", "native", DATA) == "ņár"           # nj→ņ, aw→á (long)
     assert render("tqx", "native", DATA) == "t̤"               # pharyngealised = two dots below
     assert render("ajswonj", "hu", DATA) == "asszony"          # language target still works
+    assert render("sjj zjj", "native", DATA) == "ś ź"          # palatalised s/z (comma taken by ʃ/ʒ)
+    assert render("r rj rx", "native", DATA) == "r r̦ ṛ"        # trill / tap / retroflex
     import pytest
     with pytest.raises(ValueError):
         render("x", "klingon", DATA)
