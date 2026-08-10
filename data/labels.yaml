@@ -41,9 +41,8 @@ consonants:
   h: h
   l: l
   ʎ: lj          # palatal lateral (= palatalised /l/)
-  ʐ: rx          # retroflex approximant (Mandarin r)
-  r: r           # trill = the base rhotic (8 languages); geminate/long trill = rw (forró)
-  ɾ: rj          # tap (marked; the rarer rhotic — 3 languages)
+  r: r           # trill = the generic R slot; also absorbs the retroflex approximant ɻ (EN/ZH ⟨r⟩) and ɹ
+  ɾ: rj          # tap (marked; the rarer rhotic — Spanish perro/pero)
 
 vowels:
   i: i

@@ -1,10 +1,15 @@
 """Universal `native` target: notation → the Latin+diacritics native view (see docs/native-view.md).
 
 Like `render.ipa_labels`, this is a language-independent label→glyph map, built from a hand-assigned
-per-point base glyph plus generative modifier diacritics. All cells are decided (see the doc): the
-palatalised modifier is comma-below (ś ź on s/z, since comma there is taken by ʃ/ʒ), the tap is r̦ and
-the retroflex ṛ. A modifier label that coincides with a point label (Russian tʲ=`tj`=c) keeps the
-point glyph.
+per-point base glyph plus generative modifier diacritics. All cells are decided (see the doc). The
+palatal marking is a clean one-line/two-line family (latin22's scheme, which renders better than the
+combining comma): the palatal *points* wear a single vertical line below (U+0329 — t̩ n̩ l̩ s̩ …), and the
+palatalised *modifier* (soft consonants) wears the double vertical line below (U+0348 — p͈ s͈ …). The
+tap is ṛ (underdot — the retroflex approximant was merged into the plain r, freeing the dot; in a
+language-specific view the same underdot may instead flag Mandarin's retroflex ⟨r⟩). A modifier label
+that coincides with a point label (Russian tʲ=`tj`=c) keeps the point glyph — so the coronal soft
+series (tʲ nʲ lʲ dʲ) reads as the palatal points t̩ n̩ l̩ d̩, and only the non-coronal soft consonants
+(pʲ kʲ …, sʲ=`sjj` zʲ=`zjj`) wear the double line.
 """
 import unicodedata
 
@@ -14,25 +19,26 @@ from .notation import _label_maps, _mod_chars
 # combining marks
 _DA, _DB = "̇", "̣"        # one dot above / below
 _DDA, _DDB = "̈", "̤"      # two dots above (diaeresis) / two dots below
-_CB = "̦"                   # comma below
+_VLB = "̩"                  # U+0329 combining vertical line below (single — the palatal points; latin22's mark, renders cleaner than the comma)
+_DVLB = "͈"                 # U+0348 combining double vertical line below (soft/palatalised — the two-line partner of _VLB)
 _TILDE, _ACUTE, _RHOT = "̃", "́", "˞"
 
 # point label -> native base glyph
 _CONS = {
     "p": "p", "b": "b", "t": "t", "d": "d", "k": "k", "g": "g",
-    "tj": "ț", "dj": "d̦", "kq": "q", "hj": "ʔ",           # ț ḑ q ʔ
-    "m": "m", "n": "n", "nj": "ņ", "nx": "ŋ",                    # ņ ŋ
+    "tj": "t" + _VLB, "dj": "d" + _VLB, "kq": "q", "hj": "ʔ",       # t̩ d̩ (palatal, vertical line) · q ʔ
+    "m": "m", "n": "n", "nj": "n" + _VLB, "nx": "ŋ",               # n̩ ŋ
     "tc": "c", "dc": "đ", "pc": "p̈",                            # c đ p̈
-    "tq": "c̦", "dq": "đ̦",                                 # c̦ đ̦
-    "f": "f", "v": "v", "tx": "ṭ", "dx": "ḍ",                  # ṭ ḍ (dental)
-    "s": "s", "z": "z", "sj": "ș", "zj": "z̦",                   # ș z̦
-    "kx": "ḳ", "gx": "g̣", "hq": "ħ", "hx": "ʕ", "h": "h",  # ḳ g̣ ħ ʕ
-    "l": "l", "lj": "ļ", "rx": "ṛ", "r": "r", "rj": "r̦",   # ļ · ṛ (retroflex, dot below) · r · r̦ (tap, comma)
+    "tq": "c" + _VLB, "dq": "đ" + _VLB,                            # c̩ đ̩ (hush = affricate + palatal line)
+    "f": "f", "v": "v", "tx": "ṭ", "dx": "ḍ",                  # ṭ ḍ (dental)
+    "s": "s", "z": "z", "sj": "s" + _VLB, "zj": "z" + _VLB,        # s̩ z̩ (ʃ ʒ, palatal line)
+    "kx": "ḳ", "gx": "g̣", "hq": "ħ", "hx": "ʕ", "h": "h",  # ḳ g̣ ħ ʕ
+    "l": "l", "lj": "l" + _VLB, "r": "r", "rj": "ṛ",   # l̩ · r (trill) · ṛ (tap, underdot — freed by the ɻ→r merge)
 }
 _VOW = {
     "i": "i", "e": "e", "a": "a", "o": "o", "u": "u",
-    "ic": "ü", "ec": "ö", "uc": "ı", "oc": "ọ",        # ü ö ı ọ
-    "ij": "ị", "ej": "ẹ", "oj": "ȯ", "aj": "ȧ",     # ị ẹ ȯ ȧ
+    "ic": "ü", "ec": "ö", "uc": "ı", "oc": "ọ",        # ü ö ı ọ
+    "ij": "ị", "ej": "ẹ", "oj": "ȯ", "aj": "ȧ",     # ị ẹ ȯ ȧ
     "iq": "ụ̈", "eq": "ọ̈",                            # ụ̈ ọ̈
     "ac": "â", "ax": "ə",                                        # â ə
 }
@@ -55,7 +61,7 @@ def _apply(base, label, mods, is_vowel):
         elif m == "pharyngealized":
             g = "ẓ" if label == "dx" else g + _DDB                         # ðˤ→ẓ ; else two dots below
         elif m == "palatalized":
-            g = g + (_ACUTE if label in ("s", "z") else _CB)  # ś ź on s/z (comma taken by ʃ/ʒ), else comma-below
+            g = g + _DVLB           # U+0348 double vertical line below — the soft/tense mark, two-line partner of the single-line palatal points
         elif m == "rhotic":
             g = "ɚ" if g == "ə" else g + _RHOT                        # ə→ɚ ; else ˞ fallback
     return unicodedata.normalize("NFC", g)   # precompose where possible (a+́ → á)

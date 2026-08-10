@@ -6,10 +6,11 @@ Every merge is witness-decided (see CLAUDE.md "Decision gate") and invariant-saf
 co-occurs a source with its target, so folding never collapses a within-language contrast —
 `apply_merges` asserts this.
 
-The three consonant place features (dental, retroflex, uvular) all recover with the **underdot**
-(one diacritic, "the marked exotic congener of this base letter"); each base letter has at most
-one such congener, so the underdot is unambiguous per letter. Vowel `centralized` is a separate
-vowel diacritic. Actual character assignment is the rest of Phase 2.
+Every consonant-place merge landed on `recover=None`: within the 16 languages nothing contrasts
+dental~alveolar, retroflex~postalveolar/alveolar, or uvular~velar, so the folds are lossless in
+practice and carry no recovery mark. (Retroflex is thus unmarked everywhere — the sibilants fold
+into the postalveolar, and the approximant ɻ folds into the plain rhotic r.) Only the vowel
+`centralized` (ɨ→ɯ) keeps a recovery mark.
 """
 
 # (source_base, target_base, recover, note)
@@ -24,6 +25,7 @@ LEDGER = [
     (("C", "alveolopalatal", "affricate", "vd"),  ("C", "postalveolar", "affricate", "vd"),  None, "dʑ→dʒ; voiced 'ch'"),
     (("C", "uvular", "fricative", "vd"),     ("C", "velar", "fricative", "vd"),        None, "ʁ→ɣ; only exotic Tsakhur/Kabardian contrast them"),
     (("C", "alveolar", "approximant", "vd"), ("C", "retroflex", "approximant", "vd"), None,         "English ɹ ≈ Mandarin ɻ; no language contrasts them"),
+    (("C", "retroflex", "approximant", "vd"), ("C", "alveolar", "trill", "vd"),       None,         "ɻ→r; retroflex is unmarked everywhere else (sibilants fold too), and no language has the retroflex approximant AND a trill/tap — EN/ZH ⟨r⟩ become the generic R slot. ɹ→ɻ→r"),
     (("V", "near-open", "front", False),     ("V", "open", "central", False),        None,          "æ→a; no witness (Danish resolves to æ~back ɑ)"),
     (("V", "close", "central", False),       ("V", "close", "back", False),          "centralized", "ɨ→ɯ; no significant witness (major langs have one or the other)"),
     (("V", "open-mid", "back", False),        ("V", "mid", "central", False),         None, "ʌ→ə; Korean ㅓ ≈ schwa, English STRUT = stressed schwa — no language contrasts them"),
