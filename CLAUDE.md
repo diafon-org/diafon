@@ -42,7 +42,9 @@ src/diaphone/derive.py      minimal points, injectivity, near-merge + suspicious
 src/diaphone/merges.py      Phase-2 merge ledger: fold fine-grained points → general inventory
 src/diaphone/notation.py    notation-decodability check: phoneme label vs same-language sequence
 src/diaphone/decode.py      notation → a language's spelling (greedy tokenise + per-lang rules)
-src/diaphone/render.py      notation → universal targets (IPA now; latin22 "nice repr" next)
+src/diaphone/render.py      notation → universal IPA target
+src/diaphone/native.py      notation → the native Latin+diacritics view (docs/native-view.md)
+src/diaphone/engine.py      ONE render entry: render(text, target) — ipa/native (universal) + languages
 src/diaphone/report.py      JSON + Markdown output
 src/diaphone/cli.py         `diaphone` entry point
 out/                        generated (gitignored): points.json, general_inventory.json,
