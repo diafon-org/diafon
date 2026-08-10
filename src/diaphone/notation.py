@@ -28,10 +28,10 @@ _ACCEPTED = {
     ("KO", "kh"): "aspirated /kʰ/ vs /k/+/h/ — boundary only",
     ("KO", "tqh"): "aspirated affricate /tɕʰ/ vs /tʃ/+/h/ — boundary only, same aspiration family",
     ("VI", "th"): "aspirated /tʰ/ vs /t/+/h/ — boundary only",
-    # Rhotic `r` = /ɝ/ vs schwa+trill. Vacuous here: English is the only rhotic-vowel language and has
-    # no trill (its /r/ is the approximant ɻ = `rx`), so `yr` cannot be re-read. Kept as one letter;
-    # would only bite a language with BOTH rhotic vowels and a trill — none of the 16.
-    ("EN", "yr"): "rhotic /ɝ/ vs /ə/+trill — English has no trill, so unambiguous in practice",
+    # Rhotic vowel /ɝ/ = `axr` (schwa + rhotic `r`) now re-reads as /ə/+/r/ because English's ⟨r⟩,
+    # after the ɻ→r merge, is labelled `r`. Not a real contrast: English does not oppose /ɝ/ to
+    # /ə/+/r/ — a tautomorphemic /ər/ IS r-coloured to ɝ; the split is boundary-only. Accepted.
+    ("EN", "axr"): "rhotic /ɝ/ vs /ə/+/r/ — non-contrastive in English (ər = ɝ); boundary only",
 }
 
 

@@ -11,14 +11,14 @@ Status legend: ✓ decided · ◻ open.
 
 | operator / point | mark | glyphs | |
 |---|---|---|---|
-| palatal `j` | comma-below | sj→ș · zj→z̦ · nj→ņ · lj→ļ · tj→ț · dj→ḑ | ✓ |
-| palatalised *modifier* (Russian) | comma-below (acute on s/z) | pʲ→p̦ · kʲ→k̦ … · sʲ→**ś** · zʲ→**ź** | ✓ (tʲ=`tj`=ț etc. — same glyph) |
-| trill / tap / retroflex `r` | — / comma-below / dot-below | r → **r** · ɾ `rj` → **r̦** · ʐ `rx` → **ṛ** | ✓ |
+| palatal `j` | **single vertical line below** `U+0329` | sj→**s̩** · zj→**z̩** · nj→**n̩** · lj→**l̩** · tj→**t̩** · dj→**d̩** | ✓ (latin22's mark — renders cleaner than the combining comma, and pairs as one-line vs the two-line soft) |
+| palatalised *modifier* (Russian) | **double vertical line below** `U+0348` | pʲ→**p͈** · kʲ→**k͈** … · sʲ→**s͈** · zʲ→**z͈** | ✓ (latin22's *soft/tense* mark; the two-line partner of the single-line palatal points; coronal soft tʲ nʲ lʲ dʲ = `tj nj lj dj` = the palatal points t̩ n̩ l̩ d̩) |
+| trill / tap `r` | — / **dot-below** | r → **r** · ɾ `rj` → **ṛ** | ✓ (retroflex approximant merged into r; ṛ freed for the tap) |
 | affricate `c` | letter | tc→**c** · dc→**đ** | ✓ |
-| hush `q` (affricate+palatal) | letter + comma-below | tq→**c̦** · dq→**đ̦** | ✓ (dʒ=đ̦; `j` is the informal alt) |
+| hush `q` (affricate+palatal) | letter + **vertical line below** | tq→**c̩** · dq→**đ̩** | ✓ (dʒ=đ̩; the palatal line rides the affricate) |
 | dental / velar `x` (fricativise) | **one dot below** | tx→**ṭ** · dx→**ḍ** · kx→**ḳ** · gx→**g̣** | ✓ (θ/ð/x/ɣ = the homorganic fricative) |
 | pharyngealised (`qx`) | **two dots below** | tˤ→**t̤** · dˤ→**d̤** · sˤ→**s̤** · ðˤ→**ẓ** | ✓ |
-| aspirated `h` | **one dot above** | ṗ ṫ k̇ · ċ (tsʰ) · ċ̦ (tʃʰ) | ✓ |
+| aspirated `h` | **one dot above** | ṗ ṫ k̇ · ċ (tsʰ) · ċ̩ (tʃʰ, dot above + palatal line) | ✓ |
 | labialised (`c` on k/g) | **two dots above** (diaeresis) | k̈ g̈ | ✓ — diaeresis = rounding, same as vowels ü ö |
 | pf `pc` | diaeresis `p̈` (on p — no clash with k/g) | p̈ | ✓ |
 | long `w` | doubled letter (tight-set) | tt … | ✓ |
@@ -47,8 +47,11 @@ Dot count/position carries the feature; the base letter says which (like your op
 on t, velar on k). Always on distinct letters, so nothing clashes:
 - **two dots above `¨` = rounding** — vowels ü ö · consonants k̈ g̈ (labialised), p̈ (pf).
 - **one dot above `˙`** — consonant aspirated (ṗ ṫ k̇) · vowel back-in-between (ȯ ȧ).
-- **one dot below** — consonant fricativise (ṭ ḍ ḳ g̣) · vowel front-in-between (ị ẹ) / open-back exotics.
+- **one dot below** — consonant fricativise (ṭ ḍ ḳ g̣) · vowel front-in-between (ị ẹ) / open-back exotics · the tap **ṛ**.
+  The tap's dot is the one glyph whose meaning is **language-specific**: universally ṛ = tap (ES/JA/TR), but a Mandarin-flavoured view may read it as the retroflex ⟨r⟩ — safe because no language has both a tap and a retroflex approximant, so ṛ stays unambiguous within any one language.
 - **two dots below** — consonant pharyngealised (t̤ d̤ s̤).
+- **single vertical line below `U+0329`** — the palatal points (t̩ n̩ l̩ s̩ z̩ d̩ · hush c̩ đ̩); latin22's mark, renders more reliably than the combining comma it replaced.
+- **double vertical line below `U+0348`** — consonant palatalised / *soft* (p͈ k͈ · s͈ z͈): the two-line partner of the palatal single line. One codepoint, side by side, no stacking; doubles as the IPA tense/fortis sign (Korean t͈). So **one line = palatal · two lines = soft**.
 
 Side effect: **k** runs the full set — k · k̇ (aspirated) · k̈ (labialised) · ḳ (velar fricative).
 

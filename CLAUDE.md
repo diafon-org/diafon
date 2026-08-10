@@ -105,7 +105,7 @@ the point to stay distinct. Turkish locks `u`~`ɯ` (*kul*/*kıl*); Estonian + Vi
 `o`~`ɤ` (õ; ô/ơ). See the near-merge verdict table below for the full witness search.
 
 ## Current state
-68 fine-grained points → **54 general** (37 C · 17 V) after 14 merges, 0 merged contrasts, 491
+68 fine-grained points → **53 general** (36 C · 17 V) after 15 merges, 0 merged contrasts, 491
 phoneme records, 16 languages (12 core + 4 witnesses). **Every point is a base or base + ONE
 operator** — no 2-operator points, no bi-vowels. Removed (not points): `ç` (German ich-laut → `x`),
 `ɸ` (Japanese *fu* → `h`), `ɐ` (German `-er`), **Mandarin j/q/x `[tɕ tɕʰ ɕ]`** (allophones of the
@@ -166,26 +166,36 @@ same-language neighbour — the shape of an allophone. Reviewed genuine contrast
     language has one or the other, never both, and the two symbols are used interchangeably;
     recover by a back-vs-central diacritic in Phase 2.
   - **Rhotics (cross-manner — invisible to the same-manner finder).** KEEP `r` (trill) ~ `ɾ`
-    (tap) — Spanish *perro/pero*, significant. KEEP the retroflex central approximant `ɻ`/`ʐ`
-    (Mandarin ⟨r⟩) — Dravidian Tamil/Malayalam contrast `ɻ`~`r`, significant. **MERGE** `ɹ`
-    (English's only rhotic) → `ɻ`: no language contrasts the two central approximants
-    (Eng-`ɹ` ≈ Mand-`ɻ`, Q4), no recovery diacritic. Note `ʁ` is NOT a rhotic merge — Arabic
-    contrasts `ʁ` (ghayn) ~ `r` (rā). (The retroflex *sibilants* `ʂ ʐ tʂ` still merge via
-    underdot — only Toda/Mapudungun, exotic, contrast them; the retroflex *approximant* is
-    different, defended by Dravidian.)
+    (tap) — Spanish *perro/pero*, significant. **MERGE** the retroflex approximant `ɻ`/`ʐ`
+    (Mandarin/English ⟨r⟩) → the plain trill `r`, and `ɹ` → `ɻ` → `r` with it: no language in the
+    16 has the retroflex approximant *and* a trill/tap, so EN/ZH ⟨r⟩ collapse into the generic **R
+    slot** (realised approximant/trill/retroflex per language, contrasted nowhere), no recovery
+    mark. This *reverses* the earlier "KEEP ɻ, Dravidian witness" verdict — retroflex is unmarked
+    everywhere (the sibilants fold too), so singling out the approximant was the odd one out; rather
+    than load a Tamil/Malayalam witness to defend a distinction the 16 never use, we drop it. Note
+    `ʁ` is NOT a rhotic merge — Arabic contrasts `ʁ` (ghayn) ~ `r` (rā). (The retroflex *sibilants*
+    `ʂ ʐ tʂ` also fold into the postalveolar with no mark — Mandarin's are complementary allophones.)
   - **RESOLVED as allophones (removed):** `ç`, `ɸ`, `ɐ` — see the allophone guard above.
   - **No open near-merges remain** — same-manner *and* the cross-manner rhotic family are both
     swept. Every pair is decided: KEEP (witnessed), MERGE-via-diacritic (exotic), MERGE-outright
     (no witness), or removed (allophone). Applying the merges is Phase 2 → general inventory ~61.
-- **Phase 2 (done — merge ledger + notation):** `merges.py` folds the fine-grained **70** into the
-  general inventory **58** (39 C · 19 V) via 12 merges; `apply_merges()` asserts safety per
-  `(target, recovery-mark)` per language. **No recovery diacritics** — every consonant-place merge
-  is `recover=None`: within the 16 languages nothing contrasts dental~alveolar, retroflex~postalveolar
-  (Mandarin's are complementary allophones), or uvular~velar, so the fold is lossless-in-practice and
-  needs no sign. `labels.yaml` assigns the flat notation (see "Notation" above); all 518 phonemes
-  round-trip to distinct per-language labels. **Superseded verdicts:** the old "retroflex trio via
-  underdot" and "tʃ/tɕ kept" plans below are obsolete — the retroflex/alveolo-palatal sibilants now
-  fold into the postalveolar with no mark, and `tʃ~tɕ` merged.
+- **Phase 2 (done — merge ledger + notation):** `merges.py` folds the fine-grained **68** into the
+  general inventory **53** (36 C · 17 V) via 15 merges; `apply_merges()` asserts safety per
+  `(target, recovery-mark)` per language. **No recovery diacritics on consonants** — every
+  consonant-place merge is `recover=None`: within the 16 languages nothing contrasts dental~alveolar,
+  retroflex~postalveolar/alveolar (Mandarin's are complementary allophones), or uvular~velar, so the
+  fold is lossless-in-practice and needs no sign. Retroflex is therefore **unmarked everywhere** — the
+  sibilants `ʂ ʐ tʂ` fold into the postalveolar, and the approximant `ɻ` folds into the plain trill
+  `r`. `labels.yaml` assigns the flat notation (see "Notation" above); all 491 phonemes round-trip to
+  distinct per-language labels. **Superseded verdicts:** the old "retroflex trio via underdot",
+  "tʃ/tɕ kept", and "KEEP ɻ (Dravidian witness)" plans below are obsolete — the retroflex sibilants
+  *and* the approximant now fold with no mark, and `tʃ~tɕ` merged.
+- **Native-view diacritics may carry language-specific minor meaning** (accepted deliberately, against
+  the universal-phonemic-base principle but bounded): a native glyph's mark can mean one thing
+  universally and another in a specific language's rendering *iff no language contrasts the two* — so it
+  stays injective within every language. Case in point: the underdot `ṛ` = tap (ES/JA/TR) universally,
+  but a Mandarin-flavoured view may read it as the retroflex ⟨r⟩. This is a *rendering-layer* licence
+  only; the point inventory itself stays strictly universal. See `docs/native-view.md`.
 
 ## Open decisions
 - LICENSE not chosen yet (Sz' decides — mirror weCan conventions if relevant).

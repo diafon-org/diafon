@@ -77,17 +77,18 @@ def test_general_inventory_ledger():
     """The Phase-2 merge ledger folds cleanly (apply_merges asserts safety)."""
     points = _run()[3]
     general, folded = apply_merges(points)
-    assert len(folded) == 14, [f[0] for f in folded]
+    assert len(folded) == 15, [f[0] for f in folded]
     assert len(general) == len(points) - len(folded)
-    assert len(general) == 54, len(general)   # 68 fine - 14 merges (ʌ→ə, ɒ→ɔ among them)
+    assert len(general) == 53, len(general)   # 68 fine - 15 merges (ʌ→ə, ɒ→ɔ, ɻ→r among them)
     assert ("V", "open", "back", True) not in general             # ɒ folded into ɔ
     # source points are gone; targets remain
     assert ("C", "dental", "plosive", "vl") not in general        # t̪ folded into t
-    assert ("C", "alveolar", "approximant", "vd") not in general  # ɹ folded into ɻ
+    assert ("C", "alveolar", "approximant", "vd") not in general  # ɹ folded into ɻ (then ɻ→r)
     assert ("V", "near-open", "front", False) not in general      # æ folded into a
     assert ("C", "alveolopalatal", "affricate", "vl") not in general  # tɕ folded into tʃ
     assert ("C", "alveolopalatal", "fricative", "vl") not in general  # ɕ folded into ʃ
-    assert ("C", "retroflex", "approximant", "vd") in general     # ɻ kept (Dravidian witness)
+    assert ("C", "retroflex", "approximant", "vd") not in general  # ɻ folded into the plain trill r
+    assert ("C", "alveolar", "trill", "vd") in general            # the generic R slot (absorbs ɻ/ɹ)
 
 
 def test_label_scheme_decided_parts():
@@ -127,12 +128,14 @@ def test_engine_render_targets():
     """One engine renders universal targets (ipa/native) and languages uniformly."""
     from diaphone.engine import render
     assert render("sjan1", "ipa", DATA) == "ʃan¹"
-    assert render("sjan1", "native", DATA) == "șan¹"          # native Latin+diacritics view
-    assert render("njawr", "native", DATA) == "ņár"           # nj→ņ, aw→á (long)
+    assert render("sjan1", "native", DATA) == "s̩an¹"          # native Latin+diacritics view (palatal = vertical line)
+    assert render("njawr", "native", DATA) == "n̩ár"           # nj→n̩, aw→á (long)
     assert render("tqx", "native", DATA) == "t̤"               # pharyngealised = two dots below
     assert render("ajswonj", "hu", DATA) == "asszony"          # language target still works
-    assert render("sjj zjj", "native", DATA) == "ś ź"          # palatalised s/z (comma taken by ʃ/ʒ)
-    assert render("r rj rx", "native", DATA) == "r r̦ ṛ"        # trill / tap / retroflex
+    assert render("sjj zjj", "native", DATA) == "s͈ z͈"        # palatalised s/z = U+0348 double vertical line below
+    assert render("pj kj", "native", DATA) == "p͈ k͈"          # soft (palatalised) consonants: U+0348
+    assert render("tj nj", "native", DATA) == "t̩ n̩"            # coronal soft = palatal points: single vertical line
+    assert render("r rj", "native", DATA) == "r ṛ"             # trill r / tap ṛ (retroflex merged into r)
     import pytest
     with pytest.raises(ValueError):
         render("x", "klingon", DATA)
