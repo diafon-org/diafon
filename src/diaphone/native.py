@@ -27,7 +27,7 @@ _TILDE, _ACUTE, _RHOT = "̃", "́", "˞"
 _CONS = {
     "p": "p", "b": "b", "t": "t", "d": "d", "k": "k", "g": "g",
     "tj": "t" + _VLB, "dj": "d" + _VLB, "kq": "q", "hj": "ʔ",       # t̩ d̩ (palatal, vertical line) · q ʔ
-    "m": "m", "n": "n", "nj": "n" + _VLB, "nx": "ŋ",               # n̩ ŋ
+    "m": "m", "n": "n", "nj": "n" + _VLB, "nx": "ṇ",               # n̩ (palatal) · ṇ (velar ŋ = x-operator dot-below)
     "tc": "c", "dc": "đ", "pc": "p̈",                            # c đ p̈
     "tq": "c" + _VLB, "dq": "đ" + _VLB,                            # c̩ đ̩ (hush = affricate + palatal line)
     "f": "f", "v": "v", "tx": "ṭ", "dx": "ḍ",                  # ṭ ḍ (dental)
