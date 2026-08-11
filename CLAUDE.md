@@ -121,7 +121,7 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   (`tq`=t͡ʃ) · `x`=dental/velar (`tx`=θ, `kx`=x) · `j`=palatal (`sj`=ʃ, `tj`=c/tʲ, `nj`=ɲ) · `w`=long
   (`tw`=tː, geminate/long trill `rw`). So `q`=`c+j` (hush = affricate+palatal). Off-grid combos:
   gutturals `ʔ`=`hj` `ħ`=`hq` `ʕ`=`hx`; emphatics `qx` (`tˤ`=`tqx`).
-- **Vowels** (17, triangular — see `docs/viz/vowel-triangle.html`): 5 cardinal bases `a e i o u` on the
+- **Vowels** (17, triangular — see `docs/viz/notation.html`): 5 cardinal bases `a e i o u` on the
   triangle edges; operators `c`=toggle-rounding (front gains: `ic`=y `ec`=ø; back loses: `uc`=ɯ `oc`=ɤ;
   apex marks back: `ac`=ɑ), `j`=**lower one step, uniformly** — each in-between vowel is its higher
   neighbour lowered (`ij`=ɪ `ej`=ɛ `uj`=ʊ `oj`=ɔ); `a` is already lowest so `aj` is unused. So ɔ is
