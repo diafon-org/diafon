@@ -29,21 +29,22 @@ Status legend: ✓ decided · ◻ open.
 
 | operator / point | mark | glyphs | |
 |---|---|---|---|
-| round `c` — front (gains round) | diaeresis | ic→ü · ec→ö | ✓ |
-| de-rounded back `c` — `uc`/`oc` | **horn** | ɯ→**ư** · ɤ→**ơ** | ✓ (Vietnamese ư/ơ; horn = "back, rounding removed" — keeps the below-dot free for `j`) |
+| `c` = flip front↔back (rounded pair) | **diaeresis** | u→**ü** (y) · o→**ö** (ø) | ✓ |
+| `c` = flip front↔back (unrounded) | **diaeresis** | i→**ï** (ɯ) · e→**ë** (ɤ) · a→**ä** (ɑ) | ✓ (one rule: diaeresis crosses the front/back divide, keeping rounding; base letter stays above the dot-below `j` slot) |
 | long `w` | acute; +round → double-acute | á é í ó ú · ő ű | ✓ |
 | nasal `h` | tilde | ã õ ẽ … | ✓ |
 | lower `j` (one step) | **one dot below**, uniform | ij→ị · ej→ẹ · uj→**ụ** (ʊ) · oj→**ọ** (ɔ) | ✓ (`j` lowers front *and* back the same way; `iq`=ụ̈ `eq`=ọ̈ add the diaeresis for `c`) |
-| open back `ac` (ɑ) | **ring** | **å** (distinct; ɑ~ɔ is a real EN/FR contrast) | ✓ |
 | schwa `ax` | the letter | ə | ✓ |
 | rhotic `axr` (ɝ) | hooked schwa | **ɚ** | ✓ |
 
-**`j` = lower one step, uniformly** (ij=ɪ ej=ɛ uj=ʊ oj=ɔ) → **one dot below on every j-vowel** (ị ẹ ụ ọ);
-the base letter says front vs back. This is clean because the back de-rounded pair moved to **horns**
-(ư ơ), vacating dot-below for `j`. The low vowels now read **a · å (ɑ, `ac`) · ọ (ɔ, `oj`) · ə** — all
-distinct. **Hungarian á/a = `a`(w)/`ac`** — a clean c-pair, since HU short a /ɒ/ folds into ɑ. Round
-in-between (ʏ, œ): below-dot + diaeresis — `ụ̈` = U+1EE5 + U+0308. Unattested lengths compose: `ojw`=ɔː
-→ ọ́ (the long acute rides any vowel glyph).
+Two clean rules carry the vowels. **Diaeresis = flip front↔back** (keeping rounding): u/o→ü/ö are the
+front-rounded y/ø, and i/e/a→**ï/ë/ä** are the back-unrounded ɯ/ɤ/ɑ — one mark, symmetric on both sides,
+and it sits *above*, so it never touches the dot-below `j` slot. **`j` = lower one step, uniformly**
+(ij=ɪ ej=ɛ uj=ʊ oj=ɔ) → **one dot below on every j-vowel** (ị ẹ ụ ọ); the base letter says front vs back.
+So the low vowels read **a · ä (ɑ, `ac`) · ọ (ɔ, `oj`) · ə** — all distinct, and **Hungarian á/a renders
+as á/ä**, a clean a-family pair (HU short a /ɒ/ folds into ɑ; base `a` is the common low vowel, 13
+languages, only French contrasts a~ɑ). Round in-between (ʏ, œ): below-dot + diaeresis — `ụ̈` = U+1EE5 +
+U+0308. Unattested lengths compose: `ojw`=ɔː → ọ́ (the long acute rides any vowel glyph).
 
 ## The dot system
 Dot count/position carries the feature; the base letter says which (like your operators — `x` is dental

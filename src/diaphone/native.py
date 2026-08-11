@@ -37,10 +37,10 @@ _CONS = {
 }
 _VOW = {
     "i": "i", "e": "e", "a": "a", "o": "o", "u": "u",
-    "ic": "ü", "ec": "ö", "uc": "ư", "oc": "ơ",        # ü ö · ư ơ (back de-rounded = horn; frees dot-below for j)
+    "ic": "ü", "ec": "ö", "uc": "ï", "oc": "ë",        # diaeresis = flip front↔back: ü ö (u/o → front y/ø) · ï ë (i/e → back ɯ/ɤ)
     "ij": "ị", "ej": "ẹ", "uj": "ụ", "oj": "ọ",     # j = lower one step = dot below (front & back uniform)
     "iq": "ụ̈", "eq": "ọ̈",                            # ụ̈ ọ̈ (q = c+j: below-dot + diaeresis)
-    "ac": "å", "ax": "ə",                                        # å (ɑ, back a — distinct from ȧ=ɔ) · ə
+    "ac": "ä", "ax": "ə",                                        # ä = a flipped to the back = ɑ (same diaeresis logic) · ə
 }
 
 
