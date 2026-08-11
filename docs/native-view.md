@@ -33,16 +33,17 @@ Status legend: ✓ decided · ◻ open.
 | de-rounded back `c` — `uc`/`oc` | **horn** | ɯ→**ư** · ɤ→**ơ** | ✓ (Vietnamese ư/ơ; horn = "back, rounding removed" — keeps the below-dot free for `j`) |
 | long `w` | acute; +round → double-acute | á é í ó ú · ő ű | ✓ |
 | nasal `h` | tilde | ã õ ẽ … | ✓ |
-| in-between `j` — front (down) | one dot below | ij→ị · ej→ẹ · iq→ụ̈ · eq→ọ̈ | ✓ |
-| in-between `j` — back (up) | one dot above | oj→ȯ (ʊ) · aj→**ȧ** (ɔ) | ✓ |
-| open back `ac` (ɑ) | **ring** | **å** (distinct from ȧ=ɔ; ɑ~ɔ is a real EN/FR contrast) | ✓ |
+| lower `j` (one step) | **one dot below**, uniform | ij→ị · ej→ẹ · uj→**ụ** (ʊ) · oj→**ọ** (ɔ) | ✓ (`j` lowers front *and* back the same way; `iq`=ụ̈ `eq`=ọ̈ add the diaeresis for `c`) |
+| open back `ac` (ɑ) | **ring** | **å** (distinct; ɑ~ɔ is a real EN/FR contrast) | ✓ |
 | schwa `ax` | the letter | ə | ✓ |
 | rhotic `axr` (ɝ) | hooked schwa | **ɚ** | ✓ |
 
-The a-family reads distinct now: **a · å (ɑ) · ȧ (ɔ) · ə** — plain / ring / overdot / schwa. The back
-de-rounded pair get **horns** (ư ơ), a mark family of their own, so **dot-below now means only `j`**
-(front in-between ị ẹ). Round in-between (ʏ, œ): below-dot + diaeresis — `ụ̈` = U+1EE5 + U+0308.
-Unattested lengths compose too: `ojw`=ʊː → ȯ́, `ajw`=ɔː → ȧ́ (the long acute rides any vowel glyph).
+**`j` = lower one step, uniformly** (ij=ɪ ej=ɛ uj=ʊ oj=ɔ) → **one dot below on every j-vowel** (ị ẹ ụ ọ);
+the base letter says front vs back. This is clean because the back de-rounded pair moved to **horns**
+(ư ơ), vacating dot-below for `j`. The low vowels now read **a · å (ɑ, `ac`) · ọ (ɔ, `oj`) · ə** — all
+distinct. **Hungarian á/a = `a`(w)/`ac`** — a clean c-pair, since HU short a /ɒ/ folds into ɑ. Round
+in-between (ʏ, œ): below-dot + diaeresis — `ụ̈` = U+1EE5 + U+0308. Unattested lengths compose: `ojw`=ɔː
+→ ọ́ (the long acute rides any vowel glyph).
 
 ## The dot system
 Dot count/position carries the feature; the base letter says which (like your operators — `x` is dental

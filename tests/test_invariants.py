@@ -109,8 +109,8 @@ def test_decode_recovers_hungarian_exactly():
     from diaphone.decode import decode
     cases = {"sjok sewp njawr": "sok szép nyár",
              "kecsecnecm sewpejn": "köszönöm szépen",
-             "ejdj najdj kutjaj": "egy nagy kutya",   # HU short a = /ɒ/ -> ɔ = `aj` (ɔ is a-based: aj)
-             "ajswonj": "asszony",     # long /sː/ = sw -> geminated digraph ssz, not szsz
+             "ejdj nacdj kutjac": "egy nagy kutya",   # HU short a = /ɒ/ -> ɑ = `ac` (HU á/a = a/ac)
+             "acswonj": "asszony",     # long /sː/ = sw -> geminated digraph ssz, not szsz
              "hoswuw": "hosszú"}        # w after a consonant geminates it; w after a vowel is part of uw=ú
     for notation, spelling in cases.items():
         assert decode(notation, "hu", DATA) == spelling, (notation, decode(notation, "hu", DATA))
@@ -132,13 +132,13 @@ def test_engine_render_targets():
     assert render("njawr", "native", DATA) == "n̩ár"           # nj→n̩, aw→á (long)
     assert render("tqx", "native", DATA) == "t̤"               # pharyngealised = two dots below
     assert render("nx", "native", DATA) == "ṇ"                # velar nasal ŋ = x-operator dot-below (like ṭ ḳ)
-    assert render("ajswonj", "hu", DATA) == "asszony"          # language target still works
+    assert render("acswonj", "hu", DATA) == "asszony"          # language target still works (HU a = ac)
     assert render("sjj zjj", "native", DATA) == "s͈ z͈"        # palatalised s/z = U+0348 double vertical line below
     assert render("pj kj", "native", DATA) == "p͈ k͈"          # soft (palatalised) consonants: U+0348
     assert render("tj nj", "native", DATA) == "t̩ n̩"            # coronal soft = palatal points: single vertical line
     assert render("r rj", "native", DATA) == "r ṛ"             # trill r / tap ṛ (retroflex merged into r)
     assert render("uc oc ac", "native", DATA) == "ư ơ å"       # back de-rounded = horn; ɑ = ring (a-family distinct)
-    assert render("ojw", "native", DATA) == "ȯ́" and render("ojw", "ipa", DATA) == "ʊː"  # unattested length composes
+    assert render("ojw", "native", DATA) == "ọ́" and render("ojw", "ipa", DATA) == "ɔː"  # oj=ɔ (lowered o); length composes
     import pytest
     with pytest.raises(ValueError):
         render("x", "klingon", DATA)
@@ -186,4 +186,4 @@ def test_decode_lazy_mode_aliases():
     assert "a" not in canon and "e" not in canon        # canonical label set excludes the shortcuts
     assert lazy["a"] == "a" and lazy["e"] == "e"          # lazy adds bare a=/ɒ/, e=/ɛ/
     assert decode("alma kert", "hu", DATA, lazy=True) == "alma kert"
-    assert decode("ajswonj", "hu", DATA) == "asszony"     # canonical path unaffected
+    assert decode("acswonj", "hu", DATA) == "asszony"     # canonical path unaffected

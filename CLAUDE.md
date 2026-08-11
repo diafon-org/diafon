@@ -123,10 +123,12 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   gutturals `ʔ`=`hj` `ħ`=`hq` `ʕ`=`hx`; emphatics `qx` (`tˤ`=`tqx`).
 - **Vowels** (17, triangular — see `docs/viz/vowel-triangle.html`): 5 cardinal bases `a e i o u` on the
   triangle edges; operators `c`=toggle-rounding (front gains: `ic`=y `ec`=ø; back loses: `uc`=ɯ `oc`=ɤ;
-  apex marks back: `ac`=ɑ), `j`=step to the adjacent in-between vowel (front steps down `ij`=ɪ `ej`=ɛ;
-  back steps up `oj`=ʊ `aj`=ɔ — so ɔ is a-based; `uj` unused), `q`=`c+j` front-round (`iq`=ʏ
-  `eq`=œ — French œ / German ʏ keep it), `x`=centralise→schwa (`ax`=ə, which also carries English STRUT
-  ʌ / Korean ㅓ). Every vowel is base+1op. **ɒ→ɔ merged** (only HU had ɒ, nothing contrasts it); œ→ø and
+  apex marks back: `ac`=ɑ), `j`=**lower one step, uniformly** — each in-between vowel is its higher
+  neighbour lowered (`ij`=ɪ `ej`=ɛ `uj`=ʊ `oj`=ɔ); `a` is already lowest so `aj` is unused. So ɔ is
+  o-based (the lowered o). `q`=`c+j` front-round lowered (`iq`=ʏ `eq`=œ — French œ / German ʏ keep it),
+  `x`=centralise→schwa (`ax`=ə, which also carries English STRUT ʌ / Korean ㅓ). Every vowel is base+1op.
+  **ɒ→ɑ merged** (`ac`): only HU had ɒ; its short a is open back, adjacent to ɑ — so **HU á/a = `a`/`ac`**,
+  a clean c-pair, and the ear keeps ɔ (`oj`) for the languages that have it (DE EN FR IT VI). œ→ø and
   ʏ→y were tried and **reverted** — the injectivity check caught them collapsing French *jeûne/jeune*
   (no French vowel length to recover) and German ü/ö.
 - **Modifiers ride on top, one letter each**: long `w`, aspirated `h` (nasal `h` on vowels), rhotic

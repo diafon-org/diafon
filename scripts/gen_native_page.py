@@ -55,12 +55,12 @@ HELP = {
             "note": "Universal IPA — the diaphonemic phonemes themselves. Modifiers become diacritics "
                     "(ː ʲ ʰ ʷ ̃ ˞ ˤ); a trailing digit 1–5 becomes a tone superscript.",
             "ex": [["sjan1 kxaxn3 kau1", "ʃan xən kau + tones"], ["pjatj njawrw", "palatalised + long"],
-                   ["ojw", "ʊː — length composes on any vowel"]]},
+                   ["ojw", "ɔː — length composes on any vowel"]]},
     "hu": {"name": "HU", "lazy": True, "lazyhint": "bare a = ɒ, e = ɛ",
            "note": "Hungarian orthography is near-phonemic, so it round-trips exactly. Long `w` geminates "
                    "the previous grapheme (sz→ssz). Lazy mode frees the bare cardinals a/e for /ɒ/,/ɛ/.",
            "ex": [["sjok sewp njawr", "sok szép nyár"], ["kecsecnecm sewpejn", "köszönöm szépen"],
-                  ["ejdj najdj kutjaj", "egy nagy kutya"], ["hoswuw", "hosszú"]]},
+                  ["ejdj nacdj kutjac", "egy nagy kutya"], ["hoswuw", "hosszú"]]},
     "zh": {"name": "ZH", "lazy": True, "lazyhint": "≈ type Pinyin (xiao, shi, zhong)",
            "note": "Recovers Pinyin. End a syllable with 1–4 for its tone (5/none = neutral). The merged "
                    "retroflex/alveolo-palatal series spells j/q/x before front i/ü, else zh/ch/sh. Lazy mode "
@@ -101,7 +101,7 @@ def build():
         vows.append({"ipa": ip, "label": lab, "native": v["native"], "x": x, "y": y,
                      "cat": "base" if len(lab) == 1 else lab[1], "nasal": 1 if ip in NASAL_IPA else 0})
     nasals = [{"ipa": s, "label": lab, "native": nat.get(lab, "?")}
-              for s, lab in [("ɛ̃", "ejh"), ("ɑ̃", "ach"), ("ɔ̃", "ajh"), ("œ̃", "eqh")]]
+              for s, lab in [("ɛ̃", "ejh"), ("ɑ̃", "ach"), ("ɔ̃", "ojh"), ("œ̃", "eqh")]]
 
     mod_examples = [("long (Cː)", "tw", "geminate"), ("long (Vː)", "aw", "acute"),
                     ("nasal (Ṽ)", "ejh", "tilde"), ("aspirated", "ph", "dot above"),
