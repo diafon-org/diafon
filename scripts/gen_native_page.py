@@ -342,9 +342,9 @@ window.__engine={urend,decode};
 /* tryout: language-specific target + help */
 const TARGETS=[
   {key:"native",name:"native",fn:v=>urend(v,D.nat),brk:true},
-  {key:"native-hu",name:"HU◦native",fn:v=>urend(v,D.natHu),brk:true},
   {key:"ipa",name:"IPA",fn:v=>urend(v,D.ipa)},
   {key:"hu",name:"HU",lang:"hu",fn:(v,lz)=>decode(v,"hu",lz)},
+  {key:"native-hu",name:"HU · native",fn:v=>urend(v,D.natHu),brk:true},
   {key:"zh",name:"ZH",lang:"zh",fn:(v,lz)=>decode(v,"zh",lz)},
   {key:"en",name:"EN",lang:"en",fn:v=>decode(v,"en",false)},
 ];
