@@ -10,6 +10,8 @@ point's canonical IPA, and each modifier char becomes an IPA diacritic. A traili
 a superscript. Greedy longest-match tokenisation makes modifier-bearing labels (sjj=sʲ, kc=kʷ) win
 over their bare-point prefixes (sj=ʃ, k=k).
 """
+import unicodedata
+
 from .decode import tokenize
 from .labeler import load_labels
 from .notation import _label_maps, _mod_chars
@@ -36,7 +38,7 @@ def ipa_labels(all_ph, features, data_dir="data"):
     # Systematic long forms so an unattested length (e.g. `ojw`=ʊː) composes instead of leaking a `w`.
     for pl in base2ipa:
         out.setdefault(pl + _mod_chars({"long"}, pl, mod_map), base2ipa[pl] + _MOD_IPA["long"])
-    return out
+    return {lab: unicodedata.normalize("NFC", ipa) for lab, ipa in out.items()}  # precompose (a+̃ → ã)
 
 
 def to_ipa(text, all_ph, features, data_dir="data"):

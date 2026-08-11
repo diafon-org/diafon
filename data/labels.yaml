@@ -81,7 +81,7 @@ modifiers:       # each is just a letter/combo — no separate tier
                      #   Bare `u` was wrong: ku = /kʷ/ collided with /k/+/u/ (Latin quī/cui). Only
                      #   Latin kʷ gʷ exist; the notation-decodability invariant guards against a
                      #   future labialised p/t (pc=pf, tc=ts would collide — it would flag).
-  aspirated: h       # ph = pʰ
-  nasal: h           # vowels only: ah = ã  (h = aspiration on C, nasal on V; French has no /h/ and
-                     #   only French has nasal vowels, so the two never collide)
+  aspirated: h       # ph = pʰ  (on consonants)
+  nasal: "~"         # vowels only: a~ = ã.  A DEDICATED operator, not `h` (which is also the /h/ base):
+                     #   the tilde matches the native glyph and can never be misread as a base + /h/.
   rhotic: r          # English ɝ = yr (schwa + r)

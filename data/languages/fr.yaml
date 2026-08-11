@@ -33,4 +33,6 @@ vowels:
 - {ipa: a, hi: open, bk: central, rd: false}
 - {ipa: ɑ, hi: open, bk: back, rd: false, st: marginal}
 - {ipa: ə, hi: mid, bk: central, rd: false}
-nasal_series: [ɛ, ɑ, ɔ, œ]
+nasal_series: [e, a, o]   # ẽ ã õ — the French nasals as nasalised cardinals (simplified base).
+                          # œ̃ dropped: brin~brun is merging into ɛ̃ across modern French, so we model
+                          # the 3-way system (bon=õ, banc=ã, brin=ẽ). Re-add œ for conservative French.
