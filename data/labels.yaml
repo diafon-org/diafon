@@ -50,7 +50,7 @@ vowels:
   a: a
   o: o
   u: u
-  # Triangular vowel model (see docs/viz/vowel-triangle.html). Bases i e a o u sit on the edges;
+  # Triangular vowel model (see docs/viz/notation.html). Bases i e a o u sit on the edges;
   # everything else is base + ONE operator:
   #   c = toggle rounding (front gains it: ic=y, ec=ø; back loses it: uc=ɯ, oc=ɤ; apex marks back: ac=ɑ)
   #   j = LOWER one step, uniformly — each in-between vowel is its higher neighbour lowered:
