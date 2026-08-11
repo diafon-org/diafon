@@ -32,7 +32,7 @@ Status legend: ✓ decided · ◻ open.
 | `c` = flip front↔back (rounded pair) | **diaeresis** | u→**ü** (y) · o→**ö** (ø) | ✓ |
 | `c` = flip front↔back (unrounded) | **diaeresis** | i→**ï** (ɯ) · e→**ë** (ɤ) · a→**ä** (ɑ) | ✓ (one rule: diaeresis crosses the front/back divide, keeping rounding; base letter stays above the dot-below `j` slot) |
 | long `w` | acute; +round → double-acute | á é í ó ú · ő ű | ✓ |
-| nasal `~` (dedicated operator) | tilde | a~→**ã** · e~→**ẽ** · o~→**õ** | ✓ (French, 3-way: brin ẽ · banc ã · bon õ; `~` not `h`, which is a base) |
+| nasal `y` (dedicated operator) | tilde | ay→**ã** · ey→**ẽ** · oy→**õ** | ✓ (French, 3-way: brin ẽ · banc ã · bon õ; `y` = the one free letter, not `h` which is a base) |
 | lower `j` (one step) | **one dot below**, uniform | ij→ị · ej→ẹ · uj→**ụ** (ʊ) · oj→**ọ** (ɔ) | ✓ (`j` lowers front *and* back the same way; `iq`=ụ̈ `eq`=ọ̈ add the diaeresis for `c`) |
 | schwa `ax` | the letter | ə | ✓ |
 | rhotic `axr` (ɝ) | hooked schwa | **ɚ** | ✓ |

@@ -82,6 +82,6 @@ modifiers:       # each is just a letter/combo — no separate tier
                      #   Latin kʷ gʷ exist; the notation-decodability invariant guards against a
                      #   future labialised p/t (pc=pf, tc=ts would collide — it would flag).
   aspirated: h       # ph = pʰ  (on consonants)
-  nasal: "~"         # vowels only: a~ = ã.  A DEDICATED operator, not `h` (which is also the /h/ base):
-                     #   the tilde matches the native glyph and can never be misread as a base + /h/.
+  nasal: "y"         # vowels only: ay = ã.  A DEDICATED operator on the one free letter (`y`, the retired
+                     #   vowel base) — not `h` (also the /h/ base) and not a symbol. Renders as the tilde.
   rhotic: r          # English ɝ = yr (schwa + r)
