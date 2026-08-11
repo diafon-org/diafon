@@ -33,6 +33,9 @@ def ipa_labels(all_ph, features, data_dir="data"):
                 continue
             full = pl + _mod_chars(ph["mods"], pl, mod_map)
             out[full] = base2ipa[pl] + "".join(_MOD_IPA.get(m, "") for m in sorted(ph["mods"]))
+    # Systematic long forms so an unattested length (e.g. `ojw`=ʊː) composes instead of leaking a `w`.
+    for pl in base2ipa:
+        out.setdefault(pl + _mod_chars({"long"}, pl, mod_map), base2ipa[pl] + _MOD_IPA["long"])
     return out
 
 
