@@ -47,7 +47,7 @@ Two invariants keep it honest, both enforced by `diaphone --strict` and the test
 
 ## Status
 **53 general points** (36 consonant · 17 vowel) folded from 68 fine-grained via 15 reviewed
-merges · 491 phonemes · 7 modifiers · **0 merged contrasts, 0 notation collisions**.
+merges · 490 phonemes · 7 modifiers · **0 merged contrasts, 0 notation collisions**.
 16 languages: 12 core targets + 4 **witnesses** (Turkish, Estonian, Vietnamese, Korean) that
 prove near-merge pairs stay distinct where a significant language contrasts them.
 The native Latin-diacritics view is fully specified (`docs/native-view.md`); a bespoke font

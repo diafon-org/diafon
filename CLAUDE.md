@@ -56,7 +56,7 @@ out/                        generated (gitignored): points.json, general_invento
 pip install -e ".[dev]"
 diaphone                 # regenerates out/ and prints a summary
 diaphone --strict        # non-zero exit if any contrast is merged (use in CI)
-diaphone decode zh "sjan1 kxyn3 kau1"   # -> shān hěn gāo   (trailing digit 1-4 = Pinyin tone)
+diaphone decode zh "sjan1 kxaxn3 kau1"   # -> shān hěn gāo   (trailing digit 1-4 = Pinyin tone)
 diaphone decode hu "alma kert" --lazy   # -> alma kert      (--lazy: per-language shortcuts)
 pytest                   # runs the invariant guardrails
 ```
@@ -65,7 +65,7 @@ pytest                   # runs the invariant guardrails
 `decode.py` gives a *language's* spelling; `render.to_ipa` gives the *universal* IPA — each point label
 maps back to its general point's canonical IPA, each modifier becomes a diacritic (long ː, palatalised ʲ,
 aspirated ʰ, labialised ʷ, nasal ̃, rhotic ˞, pharyngealised ˤ), trailing tone digit → superscript.
-`diaphone ipa "sjan1 kxyn3 kau1"` → `ʃan¹ xən³ kau¹`. This is the base for the coming latin22 "nice repr".
+`diaphone ipa "sjan1 kxaxn3 kau1"` → `ʃan¹ xən³ kau¹`. The native Latin+diacritics counterpart is `native.py` (see docs/native-view.md).
 
 ## Decoding (`decode.py`)
 Notation → a language's spelling. Canonical labels live in `data/orth/<lang>.yaml`; extras layer on:
@@ -74,8 +74,8 @@ Notation → a language's spelling. Canonical labels live in `data/orth/<lang>.y
 - **Mandarin finals/palatals** — vowel labels concatenate into finals; the -u offglide spells "o" only
   after `a` (au→ao; ou/uo keep u). Because we folded Pinyin j/q/x into zh/ch/sh (`_ZH_RETRO`), the
   *following vowel* picks the spelling: front `i`/`ic`(ü) → j/q/x (+ ü→u), else zh/ch/sh. The
-  apical/buzzed vowel (zhī, shì, sì) is written `ix` — Pinyin also spells it "i", but it is not front
-  `/i/`, so it keeps the retroflex spelling. So `tqi1`=jī but `tqix1`=zhī; `sji1`=xī but `sjix4`=shì.
+  apical/buzzed vowel (zhī, shì, sì) is written `uc` — Pinyin also spells it "i", but it is not front
+  `/i/`, so it keeps the retroflex spelling. So `tqi1`=jī but `tquc1`=zhī; `sji1`=xī but `sjuc4`=shì.
 - **Lazy mode** (`decode(..., lazy=True)` / `--lazy`) — opt-in shortcuts in `decode.LAZY_ALIASES`
   (grapheme map, overriding canonical): HU bare `a`=/ɒ/, `e`=/ɛ/. ZH ≈ **"type Pinyin"** — the
   sibilant/affricate initials + `o` spell literally (`xiao`=xiǎo, `shi`=shì, `zhong`=zhōng, `cai`=cài),
@@ -105,7 +105,7 @@ the point to stay distinct. Turkish locks `u`~`ɯ` (*kul*/*kıl*); Estonian + Vi
 `o`~`ɤ` (õ; ô/ơ). See the near-merge verdict table below for the full witness search.
 
 ## Current state
-68 fine-grained points → **53 general** (36 C · 17 V) after 15 merges, 0 merged contrasts, 491
+68 fine-grained points → **53 general** (36 C · 17 V) after 15 merges, 0 merged contrasts, 490
 phoneme records, 16 languages (12 core + 4 witnesses). **Every point is a base or base + ONE
 operator** — no 2-operator points, no bi-vowels. Removed (not points): `ç` (German ich-laut → `x`),
 `ɸ` (Japanese *fu* → `h`), `ɐ` (German `-er`), **Mandarin j/q/x `[tɕ tɕʰ ɕ]`** (allophones of the
@@ -137,7 +137,7 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   **`jj` on s/z** (`sʲ`=`sjj`, since `sj`/`zj`=ʃ/ʒ); pharyngealised
   `qx`; labialised is `c` on k/g (`kc`=kʷ — those bases have no affricate, so the round `c` slot is
   free), NOT bare `u`, which would collide with the vowel /u/ (Latin quī/cui). See the notation invariant.
-- Validated: all **491** phonemes get a distinct label per language, **0 collisions**, and (now that
+- Validated: all **490** phonemes get a distinct label per language, **0 collisions**, and (now that
   the vowel pairs are gone) **no label decomposes** — every one is base or base + operators.
 
 ## Allophone guard (suspicious co-occurrences)
@@ -190,7 +190,7 @@ same-language neighbour — the shape of an allophone. Reviewed genuine contrast
   retroflex~postalveolar/alveolar (Mandarin's are complementary allophones), or uvular~velar, so the
   fold is lossless-in-practice and needs no sign. Retroflex is therefore **unmarked everywhere** — the
   sibilants `ʂ ʐ tʂ` fold into the postalveolar, and the approximant `ɻ` folds into the plain trill
-  `r`. `labels.yaml` assigns the flat notation (see "Notation" above); all 491 phonemes round-trip to
+  `r`. `labels.yaml` assigns the flat notation (see "Notation" above); all 490 phonemes round-trip to
   distinct per-language labels. **Superseded verdicts:** the old "retroflex trio via underdot",
   "tʃ/tɕ kept", and "KEEP ɻ (Dravidian witness)" plans below are obsolete — the retroflex sibilants
   *and* the approximant now fold with no mark, and `tʃ~tɕ` merged.

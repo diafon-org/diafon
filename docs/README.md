@@ -12,11 +12,12 @@
   `CLAUDE.md` ("Notation") is the prose summary; `docs/native-view.md` is the native-view spec.
 
 ## The notation in one paragraph
-Flat scheme, base + operators, no diacritics/case/modifier-tier. Operators: `c`=affricate (`tc`=t͡s)
-· `q`=hush (`tq`=t͡ʃ, `sq`=ʃ) · `x`=dental/velar (`tx`=θ) · `j`=palatal (`tj`=tʲ) · `w`=long (`tw`=tː,
-`rw`=trill). Off-grid rarities are fixed combos (gutturals `ʔ`=`hj` `ħ`=`hq` `ʕ`=`hx`; emphatics on
-`qx`, `tˤ`=`tqx`). Vowels: cardinals `a e i o u` + `x`/`c`/`q` + rounding as a vowel pair (`iu`=y).
-All 518 phonemes round-trip to distinct per-language labels, 0 collisions.
+Flat scheme, base + one operator, no diacritics/case/tier. Consonant operators: `c`=affricate
+(`tc`=t͡s) · `q`=hush affricate (`tq`=t͡ʃ) · `x`=dental/velar (`tx`=θ, `kx`=x) · `j`=palatal (`sj`=ʃ,
+`nj`=ɲ, `tj`=c) · `w`=long. Off-grid rarities are fixed combos (gutturals `ʔ`=`hj` `ħ`=`hq` `ʕ`=`hx`;
+emphatics on `qx`, `tˤ`=`tqx`; labialised `kc`=kʷ). Vowels: cardinals `a e i o u` + `c` (flip
+front↔back) / `j` (lower one step) / `q` (c+j) / `x` (centralise→schwa); nasal is the `y` operator
+(`ay`=ã). All 490 phonemes round-trip to distinct per-language labels, 0 collisions.
 
 ## Resolved threads
 - **Allophones removed** (not points): `ç` (German), `ɸ` (Japanese), `ɐ` (German), and Mandarin

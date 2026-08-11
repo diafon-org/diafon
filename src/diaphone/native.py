@@ -10,6 +10,9 @@ language-specific view the same underdot may instead flag Mandarin's retroflex �
 that coincides with a point label (Russian tʲ=`tj`=c) keeps the point glyph — so the coronal soft
 series (tʲ nʲ lʲ dʲ) reads as the palatal points t̩ n̩ l̩ d̩, and only the non-coronal soft consonants
 (pʲ kʲ …, sʲ=`sjj` zʲ=`zjj`) wear the double line.
+
+Vowels: `j` lowers (one dot below — ị ẹ ụ ọ), the diaeresis flips front↔back (ü ö · ï ë ä), and nasal
+`y` is the tilde (ã ẽ õ). Pass `lang=` for a flavoured native view (HU ɑ→a); see `_LANG_OVERRIDE`.
 """
 import unicodedata
 
