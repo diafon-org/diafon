@@ -136,6 +136,8 @@ def test_engine_render_targets():
     assert render("pj kj", "native", DATA) == "p͈ k͈"          # soft (palatalised) consonants: U+0348
     assert render("tj nj", "native", DATA) == "t̩ n̩"            # coronal soft = palatal points: single vertical line
     assert render("r rj", "native", DATA) == "r ṛ"             # trill r / tap ṛ (retroflex merged into r)
+    assert render("uc oc ac", "native", DATA) == "ư ơ å"       # back de-rounded = horn; ɑ = ring (a-family distinct)
+    assert render("ojw", "native", DATA) == "ȯ́" and render("ojw", "ipa", DATA) == "ʊː"  # unattested length composes
     import pytest
     with pytest.raises(ValueError):
         render("x", "klingon", DATA)

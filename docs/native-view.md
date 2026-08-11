@@ -29,18 +29,20 @@ Status legend: ✓ decided · ◻ open.
 
 | operator / point | mark | glyphs | |
 |---|---|---|---|
-| round `c` | diaeresis | ic→ü · ec→ö | ✓ |
+| round `c` — front (gains round) | diaeresis | ic→ü · ec→ö | ✓ |
+| de-rounded back `c` — `uc`/`oc` | **horn** | ɯ→**ư** · ɤ→**ơ** | ✓ (Vietnamese ư/ơ; horn = "back, rounding removed" — keeps the below-dot free for `j`) |
 | long `w` | acute; +round → double-acute | á é í ó ú · ő ű | ✓ |
 | nasal `h` | tilde | ã õ ẽ … | ✓ |
 | in-between `j` — front (down) | one dot below | ij→ị · ej→ẹ · iq→ụ̈ · eq→ọ̈ | ✓ |
 | in-between `j` — back (up) | one dot above | oj→ȯ (ʊ) · aj→**ȧ** (ɔ) | ✓ |
-| de-rounded back `uc`/`oc` | — | ɯ→**ı** · ɤ→**ọ** | ✓ |
+| open back `ac` (ɑ) | **ring** | **å** (distinct from ȧ=ɔ; ɑ~ɔ is a real EN/FR contrast) | ✓ |
 | schwa `ax` | the letter | ə | ✓ |
-| open back `ac` (ɑ) | circumflex | **â** (French pâte = /ɑ/) | ✓ |
 | rhotic `axr` (ɝ) | hooked schwa | **ɚ** | ✓ |
 
-The a-family reads distinct now: **a · â (ɑ) · ȧ (ɔ)** — plain / circumflex / overdot.
-Round in-between (ʏ, œ): build the below-dot into the base then add diaeresis — `ụ̈` = U+1EE5 + U+0308.
+The a-family reads distinct now: **a · å (ɑ) · ȧ (ɔ) · ə** — plain / ring / overdot / schwa. The back
+de-rounded pair get **horns** (ư ơ), a mark family of their own, so **dot-below now means only `j`**
+(front in-between ị ẹ). Round in-between (ʏ, œ): below-dot + diaeresis — `ụ̈` = U+1EE5 + U+0308.
+Unattested lengths compose too: `ojw`=ʊː → ȯ́, `ajw`=ɔː → ȧ́ (the long acute rides any vowel glyph).
 
 ## The dot system
 Dot count/position carries the feature; the base letter says which (like your operators — `x` is dental

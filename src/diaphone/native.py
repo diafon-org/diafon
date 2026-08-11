@@ -37,10 +37,10 @@ _CONS = {
 }
 _VOW = {
     "i": "i", "e": "e", "a": "a", "o": "o", "u": "u",
-    "ic": "ü", "ec": "ö", "uc": "ı", "oc": "ọ",        # ü ö ı ọ
-    "ij": "ị", "ej": "ẹ", "oj": "ȯ", "aj": "ȧ",     # ị ẹ ȯ ȧ
-    "iq": "ụ̈", "eq": "ọ̈",                            # ụ̈ ọ̈
-    "ac": "â", "ax": "ə",                                        # â ə
+    "ic": "ü", "ec": "ö", "uc": "ư", "oc": "ơ",        # ü ö · ư ơ (back de-rounded = horn; frees dot-below for j)
+    "ij": "ị", "ej": "ẹ", "oj": "ȯ", "aj": "ȧ",     # j-front = dot below · j-back = dot above
+    "iq": "ụ̈", "eq": "ọ̈",                            # ụ̈ ọ̈ (q = c+j: below-dot + diaeresis)
+    "ac": "å", "ax": "ə",                                        # å (ɑ, back a — distinct from ȧ=ɔ) · ə
 }
 
 
@@ -80,6 +80,11 @@ def native_labels(all_ph, features, data_dir="data"):
             full = pl + _mod_chars(ph["mods"], pl, mod_map)
             # a modifier label that coincides with a point label (tʲ=`tj`=c) keeps the point glyph
             out.setdefault(full, _apply(base_of[pl], pl, ph["mods"], pl in _VOW))
+    # Systematic long forms for every point, so an unattested length (e.g. `ojw`=ʊː) still composes
+    # its diacritic instead of leaking a literal `w`. `w` is never a base, so no label collides.
+    for pl, base in base_of.items():
+        full = pl + _mod_chars({"long"}, pl, mod_map)
+        out.setdefault(full, _apply(base, pl, {"long"}, pl in _VOW))
     return out
 
 
