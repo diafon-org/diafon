@@ -47,8 +47,8 @@ HELP = {
     "native": {"name": "native", "lang": False,
                "note": "The universal Latin+diacritics view — pure code→glyph, no language. "
                        "One line below = palatal (t̩ s̩), two lines = soft/palatalised (p͈); dots carry the "
-                       "modifiers (above = aspirated/back-vowel, below = fricativise/front-vowel), horns = back "
-                       "de-rounded vowels (ư ơ).",
+                       "modifiers (dot above = aspirated, dot below = fricativise / lowered vowel), and "
+                       "diaeresis flips a vowel front↔back (ü ö = front-round y/ø · ï ë ä = back ɯ/ɤ/ɑ).",
                "ex": [["sjok sewp njawr", "sok szép nyár"], ["pjatj", "Russian пять — soft tʲ"],
                       ["sjj zjj kc gc", "soft s/z · labialised k/g"], ["tqx dqx", "Arabic emphatics"]]},
     "ipa": {"name": "IPA", "lang": False,
