@@ -67,10 +67,23 @@ def _apply(base, label, mods, is_vowel):
     return unicodedata.normalize("NFC", g)   # precompose where possible (a+́ → á)
 
 
-def native_labels(all_ph, features, data_dir="data"):
-    """{notation_label: native glyph} — point base glyph + modifier diacritics."""
+# Language-flavoured native overrides. A native glyph may mean something else in one language iff no
+# language contrasts the two, so it stays injective within that language (see docs/native-view.md).
+# HU has no base /a/ (only /ɒ/→ɑ and /aː/), so a Hungarian view can render ɑ (`ac`) as plain `a` — giving
+# the natural á/a — where the universal view must keep ä (French contrasts a~ɑ: patte/pâte).
+_LANG_OVERRIDE = {
+    "hu": {"ac": "a"},
+}
+NATIVE_LANGS = tuple(_LANG_OVERRIDE)   # languages that have a flavoured native view
+
+
+def native_labels(all_ph, features, data_dir="data", lang=None):
+    """{notation_label: native glyph} — point base glyph + modifier diacritics.
+
+    `lang` selects a flavoured native view: its base-glyph overrides (see `_LANG_OVERRIDE`) apply before
+    modifiers compose, so the whole family follows (HU `ac`→a, `acw`→á, `ach`→ã)."""
     label_of_base, mod_map = _label_maps(all_ph, features, data_dir)
-    base_of = {**_CONS, **_VOW}
+    base_of = {**_CONS, **_VOW, **_LANG_OVERRIDE.get(lang, {})}
     out = {lab: unicodedata.normalize("NFC", g) for lab, g in base_of.items()}  # bare points first — always win
     for phs in all_ph.values():
         for ph in phs:
@@ -91,8 +104,8 @@ def native_labels(all_ph, features, data_dir="data"):
 _TONE_SUP = {"1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵"}
 
 
-def to_native(text, all_ph, features, data_dir="data"):
-    labs = native_labels(all_ph, features, data_dir)
+def to_native(text, all_ph, features, data_dir="data", lang=None):
+    labs = native_labels(all_ph, features, data_dir, lang=lang)
     words = []
     for w in text.split():
         tone = ""

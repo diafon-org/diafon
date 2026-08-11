@@ -51,6 +51,12 @@ HELP = {
                        "diaeresis flips a vowel front↔back (ü ö = front-round y/ø · ï ë ä = back ɯ/ɤ/ɑ).",
                "ex": [["sjok sewp njawr", "sok szép nyár"], ["pjatj", "Russian пять — soft tʲ"],
                       ["sjj zjj kc gc", "soft s/z · labialised k/g"], ["tqx dqx", "Arabic emphatics"]]},
+    "native-hu": {"name": "HU◦native", "lang": False,
+                  "note": "The native view *flavoured* for Hungarian. HU has no base /a/, so its ɑ (`ac`) "
+                          "renders as plain a — giving the natural á/a (and alma → alma). A demonstration of "
+                          "the language-specific native licence; the universal `native` keeps ä, because "
+                          "French contrasts a~ɑ (patte/pâte).",
+                  "ex": [["aclmac", "alma"], ["nacdj kutjac", "nagy kutya"], ["sjok sewp njawr", "sok szép nyár"]]},
     "ipa": {"name": "IPA", "lang": False,
             "note": "Universal IPA — the diaphonemic phonemes themselves. Modifiers become diacritics "
                     "(ː ʲ ʰ ʷ ̃ ˞ ˤ); a trailing digit 1–5 becomes a tone superscript.",
@@ -80,6 +86,7 @@ def build():
     general, _ = apply_merges(points)
     general = attach(general, load_labels(DATA))
     nat = {k: NFC(v) for k, v in native_labels(all_ph, features, DATA).items()}
+    nat_hu = {k: NFC(v) for k, v in native_labels(all_ph, features, DATA, lang="hu").items()}
     ipa = ipa_labels(all_ph, features, DATA)
 
     cons, ipa2vow = [], {}
@@ -114,7 +121,7 @@ def build():
     orth = {lg: load_orth(lg, DATA) for lg in ("hu", "zh", "en")}
     return {
         "cons": cons, "place": PLACE, "manner": MANNER, "vows": vows, "nasals": nasals, "mods": mods,
-        "nat": nat, "ipa": ipa, "keys": keys, "orth": orth, "lazy": LAZY_ALIASES,
+        "nat": nat, "natHu": nat_hu, "ipa": ipa, "keys": keys, "orth": orth, "lazy": LAZY_ALIASES,
         "zhRetro": _ZH_RETRO, "tone": _TONE_MARKS, "help": HELP,
         "counts": {"C": len(cons), "V": len(vows), "total": len(cons) + len(vows)},
     }
@@ -335,6 +342,7 @@ window.__engine={urend,decode};
 /* tryout: language-specific target + help */
 const TARGETS=[
   {key:"native",name:"native",fn:v=>urend(v,D.nat),brk:true},
+  {key:"native-hu",name:"HU◦native",fn:v=>urend(v,D.natHu),brk:true},
   {key:"ipa",name:"IPA",fn:v=>urend(v,D.ipa)},
   {key:"hu",name:"HU",lang:"hu",fn:(v,lz)=>decode(v,"hu",lz)},
   {key:"zh",name:"ZH",lang:"zh",fn:(v,lz)=>decode(v,"zh",lz)},
