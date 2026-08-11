@@ -46,12 +46,13 @@ as á/ä**, a clean a-family pair (HU short a /ɒ/ folds into ɑ; base `a` is th
 languages, only French contrasts a~ɑ). Round in-between (ʏ, œ): below-dot + diaeresis — `ụ̈` = U+1EE5 +
 U+0308. Unattested lengths compose: `ojw`=ɔː → ọ́ (the long acute rides any vowel glyph).
 
-## The dot system
-Dot count/position carries the feature; the base letter says which (like your operators — `x` is dental
-on t, velar on k). Always on distinct letters, so nothing clashes:
-- **two dots above `¨` = rounding** — vowels ü ö · consonants k̈ g̈ (labialised), p̈ (pf).
-- **one dot above `˙`** — consonant aspirated (ṗ ṫ k̇) · vowel back-in-between (ȯ ȧ).
-- **one dot below** — consonant fricativise (ṭ ḍ ḳ g̣) · vowel front-in-between (ị ẹ) / open-back exotics · the tap **ṛ**.
+## The mark system
+The mark carries the feature; the base letter says which (like the operators — `x` is dental
+on t, velar on k). Marks live on distinct letters (or vowel vs consonant), so nothing clashes:
+- **diaeresis `¨` (two dots above)** — vowels: flip front↔back (ü ö · ï ë ä) · consonants: labialised k̈ g̈, pf p̈.
+- **one dot above `˙`** — consonant aspirated (ṗ ṫ k̇).
+- **tilde `˜` (above)** — nasal vowel (ã ẽ õ), the `y` operator.
+- **one dot below** — consonant fricativise (ṭ ḍ ḳ g̣) · vowel lowered `j` (ị ẹ ụ ọ) · the tap **ṛ**.
   The tap's dot is the one glyph whose meaning is **language-specific**: universally ṛ = tap (ES/JA/TR), but a Mandarin-flavoured view may read it as the retroflex ⟨r⟩ — safe because no language has both a tap and a retroflex approximant, so ṛ stays unambiguous within any one language.
 - **two dots below** — consonant pharyngealised (t̤ d̤ s̤).
 - **single vertical line below `U+0329`** — the palatal points (t̩ n̩ l̩ s̩ z̩ d̩ · hush c̩ đ̩); latin22's mark, renders more reliably than the combining comma it replaced.
