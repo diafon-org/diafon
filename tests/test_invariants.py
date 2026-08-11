@@ -139,6 +139,9 @@ def test_engine_render_targets():
     assert render("r rj", "native", DATA) == "r ṛ"             # trill r / tap ṛ (retroflex merged into r)
     assert render("uc oc ac", "native", DATA) == "ï ë ä"       # diaeresis flips front↔back (ɯ ɤ ɑ from i e a)
     assert render("ic ec", "native", DATA) == "ü ö"            # the rounded side of the same rule (y ø from u o)
+    assert render("aw ac", "native", DATA) == "á ä"            # universal native keeps ä for ɑ
+    assert render("aw ac", "native-hu", DATA) == "á a"         # HU-flavoured native: ɑ→a (HU has no base /a/) → á/a
+    assert render("aclmac", "native-hu", DATA) == "alma"       # so Hungarian words read naturally
     assert render("ojw", "native", DATA) == "ọ́" and render("ojw", "ipa", DATA) == "ɔː"  # oj=ɔ (lowered o); length composes
     import pytest
     with pytest.raises(ValueError):

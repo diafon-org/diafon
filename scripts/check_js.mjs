@@ -61,6 +61,7 @@ function check(name, got, want) { total++; if (got !== want) { fail++;
 
 for (const w of WORDS) {
   check(`native "${w}"`, urend(w, D.nat), py("render", ["native", w]));
+  check(`nat-hu "${w}"`, urend(w, D.natHu), py("render", ["native-hu", w]));
   check(`ipa    "${w}"`, urend(w, D.ipa), py("render", ["ipa", w]));
   check(`hu     "${w}"`, decode(w, "hu", false), py("decode", ["hu", w]));
   check(`hu·lazy"${w}"`, decode(w, "hu", true), py("decode", ["hu", w, "--lazy"]));
