@@ -108,10 +108,10 @@ def build():
         vows.append({"ipa": ip, "label": lab, "native": v["native"], "x": x, "y": y,
                      "cat": "base" if len(lab) == 1 else lab[1], "nasal": 1 if ip in NASAL_IPA else 0})
     nasals = [{"ipa": s, "label": lab, "native": nat.get(lab, "?")}
-              for s, lab in [("ẽ", "e~"), ("ã", "a~"), ("õ", "o~")]]
+              for s, lab in [("ẽ", "ey"), ("ã", "ay"), ("õ", "oy")]]
 
     mod_examples = [("long (Cː)", "tw", "geminate"), ("long (Vː)", "aw", "acute"),
-                    ("nasal (Ṽ)", "a~", "tilde (`~` operator)"), ("aspirated", "ph", "dot above"),
+                    ("nasal (Ṽ)", "ay", "tilde (`y` operator)"), ("aspirated", "ph", "dot above"),
                     ("labialised", "kc", "diaeresis"), ("pharyngealised", "tqx", "two dots below"),
                     ("soft (palatalised)", "pj", "double line below"), ("rhotic (V˞)", "axr", "hook")]
     mods = [{"name": nm, "label": lab, "native": nat.get(lab, "?"), "ipa": ipa.get(lab, "?"), "gloss": gl}
@@ -272,7 +272,7 @@ footer{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--line);color
   <h2>Vowels <span class="n" id="vN"></span></h2>
   <figure><svg id="tri" viewBox="0 0 840 700" role="img" aria-label="Vowel triangle"></svg></figure>
   <div class="legend" id="legend"></div>
-  <p class="lede" style="margin-top:1rem">Nasalisation is the <code>~</code> operator on any vowel — orthogonal
+  <p class="lede" style="margin-top:1rem">Nasalisation is the <code>y</code> operator on any vowel — orthogonal
   to the triangle. In the 16 languages only <b>French</b> carries it; modelled as three nasalised cardinals:</p>
   <div class="nasal-row" id="nasals"></div>
 
@@ -391,7 +391,7 @@ draw();run();
     const nt=el("text",{class:"nat",x:v.x,y:v.y+19});nt.textContent=v.native;g.appendChild(nt);
     if(v.nasal){const t=el("text",{class:"til",x:v.x+20,y:v.y-17});t.textContent="˜";g.appendChild(t);}
     svg.appendChild(g);}
-  const LEG=[["base","base","i e a o u"],["c","c","flip front↔back"],["j","j","lower one step"],["q","q","c + j (front-round)"],["x","x","centralise → ə"],["n","˜","nasal (+~)"]];
+  const LEG=[["base","base","i e a o u"],["c","c","flip front↔back"],["j","j","lower one step"],["q","q","c + j (front-round)"],["x","x","centralise → ə"],["n","˜","nasal (+y)"]];
   $("legend").innerHTML=LEG.map(([cls,code,desc])=>`<div class="leg"><span class="sw sw-${cls}"></span><code>${esc(code)}</code> <span>${esc(desc)}</span></div>`).join("");
   $("nasals").innerHTML=D.nasals.map(n=>`<div class="ntile"><div class="s">${esc(n.ipa)}</div><div class="l">${esc(n.label)}</div><div class="nat">${esc(n.native)}</div></div>`).join("");})();
 
