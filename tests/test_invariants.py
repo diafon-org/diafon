@@ -132,6 +132,8 @@ def test_engine_render_targets():
     assert render("njawr", "native", DATA) == "n̩ár"           # nj→n̩, aw→á (long)
     assert render("tqx", "native", DATA) == "t̤"               # pharyngealised = two dots below
     assert render("nx", "native", DATA) == "ṇ"                # velar nasal ŋ = x-operator dot-below (like ṭ ḳ)
+    assert render("e~ a~ o~", "native", DATA) == "ẽ ã õ"      # nasal = dedicated `~` operator (not h), tilde on cardinals
+    assert render("a~", "ipa", DATA) == "ã"
     assert render("acswonj", "hu", DATA) == "asszony"          # language target still works (HU a = ac)
     assert render("sjj zjj", "native", DATA) == "s͈ z͈"        # palatalised s/z = U+0348 double vertical line below
     assert render("pj kj", "native", DATA) == "p͈ k͈"          # soft (palatalised) consonants: U+0348

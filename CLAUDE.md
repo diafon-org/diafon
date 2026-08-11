@@ -131,8 +131,9 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   a clean c-pair, and the ear keeps ɔ (`oj`) for the languages that have it (DE EN FR IT VI). œ→ø and
   ʏ→y were tried and **reverted** — the injectivity check caught them collapsing French *jeûne/jeune*
   (no French vowel length to recover) and German ü/ö.
-- **Modifiers ride on top, one letter each**: long `w`, aspirated `h` (nasal `h` on vowels), rhotic
-  `r`; palatalised `j` (`pj tj`…) but **`jj` on s/z** (`sʲ`=`sjj`, since `sj`/`zj`=ʃ/ʒ); pharyngealised
+- **Modifiers ride on top, one letter each**: long `w`, aspirated `h` (consonants), **nasal `~`** (vowels,
+  a dedicated operator so it can't be misread as the /h/ base: `a~`=ã; French is 3-way ẽ ã õ, œ̃ dropped
+  as merging), rhotic `r`; palatalised `j` (`pj tj`…) but **`jj` on s/z** (`sʲ`=`sjj`, since `sj`/`zj`=ʃ/ʒ); pharyngealised
   `qx`; labialised is `c` on k/g (`kc`=kʷ — those bases have no affricate, so the round `c` slot is
   free), NOT bare `u`, which would collide with the vowel /u/ (Latin quī/cui). See the notation invariant.
 - Validated: all **491** phonemes get a distinct label per language, **0 collisions**, and (now that
