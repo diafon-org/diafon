@@ -47,7 +47,7 @@ function decode(text, lang, lazy) { let orth = { ...D.orth[lang] };
 
 // --- test corpus ---
 const WORDS = [
-  "sjok sewp njawr", "pjatj", "kecsecnecm sewpejn", "ajswonj", "hoswuw", "ejdj najdj kutjaj",
+  "sjok sewp njawr", "pjatj", "kecsecnecm sewpejn", "acswonj", "hoswuw", "ejdj nacdj kutjac",
   "kxaxn3 kau1", "sjan1 kxaxn3 kau1", "tqix1 sjuc4", "tqi1 sji1 tqic1 sjic1", "tquc1 sjuc4 suc4",
   "nic3", "de5", "tou1 kxau3 kuo2", "raxn2", "sjj zjj kc gc", "tqx dqx", "ph th kh",
   "alma kert", "ni3 hao3", "xiao3", "zhong1 guo2", "ren2", "cai4", "bao3 dao4", "pa4",

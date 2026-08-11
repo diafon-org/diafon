@@ -38,7 +38,7 @@ _CONS = {
 _VOW = {
     "i": "i", "e": "e", "a": "a", "o": "o", "u": "u",
     "ic": "ü", "ec": "ö", "uc": "ư", "oc": "ơ",        # ü ö · ư ơ (back de-rounded = horn; frees dot-below for j)
-    "ij": "ị", "ej": "ẹ", "oj": "ȯ", "aj": "ȧ",     # j-front = dot below · j-back = dot above
+    "ij": "ị", "ej": "ẹ", "uj": "ụ", "oj": "ọ",     # j = lower one step = dot below (front & back uniform)
     "iq": "ụ̈", "eq": "ọ̈",                            # ụ̈ ọ̈ (q = c+j: below-dot + diaeresis)
     "ac": "å", "ax": "ə",                                        # å (ɑ, back a — distinct from ȧ=ɔ) · ə
 }

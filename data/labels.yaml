@@ -4,7 +4,7 @@
 #   coronal fan:  tc=ts · tq=tʃ · tx=θ · tj=tʲ (= /c/, Hungarian ty)      (fricatives: sj=ʃ)
 # Off-grid rarities use fixed combos: gutturals ʔ=hj ħ=hq ʕ=hx ; emphatics ride on `qx`.
 # VOWEL BASES: a e i o u (the cardinals; `y` is NOT a base anymore). VOWEL OPERATORS: c=toggle-rounding,
-#   j=lax, q=c+j (front-round lax), x=centralise→schwa. Triangular; see docs/viz/vowel-triangle.html.
+#   j=lower one step, q=c+j (front-round lowered), x=centralise→schwa. Triangular.
 
 consonants:
   p: p
@@ -53,18 +53,18 @@ vowels:
   # Triangular vowel model (see docs/viz/vowel-triangle.html). Bases i e a o u sit on the edges;
   # everything else is base + ONE operator:
   #   c = toggle rounding (front gains it: ic=y, ec=ø; back loses it: uc=ɯ, oc=ɤ; apex marks back: ac=ɑ)
-  #   j = step to the adjacent in-between vowel — FRONT steps down (ij=ɪ, ej=ɛ), BACK steps up
-  #       (oj=ʊ, aj=ɔ); the base tells you which way, so `uj` is unused (nothing sits above u).
-  #   q = c+j, front-round in-between (iq=ʏ, eq=œ)   ·   x = centralise → schwa (ax=ə)
-  #   ɒ merged into ɔ (only HU had it; no lang contrasts ɒ~ɔ).
+  #   j = LOWER one step, uniformly — each in-between vowel is its higher neighbour lowered:
+  #       ij=ɪ, ej=ɛ, uj=ʊ, oj=ɔ. `a` is already lowest, so `aj` is unused.
+  #   q = c+j, front-round lowered (iq=ʏ, eq=œ)   ·   x = centralise → schwa (ax=ə)
+  #   ɒ merged into ɑ (=ac): HU short a is open back, adjacent to ɑ; only HU had it. So HU á/a = a/ac.
   y: ic          # close front rounded  (i + round)
   ø: ec
   ɯ: uc          # close back UNrounded  (u de-rounded)
   ɤ: oc
   ɪ: ij          # front, one step down
   ɛ: ej
-  ʊ: oj          # back, one step up (from o)
-  ɔ: aj          # back, one step up (from a) — a-based, matching the ear (HU short a landed here)
+  ʊ: uj          # back, one step down (from u)
+  ɔ: oj          # back, one step down (from o) — o-based (the lowered o)
   ʏ: iq          # front-round in-between  (c + j) — French œ, German ʏ keep this operator alive
   œ: eq
   ɑ: ac          # open back  (apex: rounding is moot, so c marks the back one)
