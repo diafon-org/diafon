@@ -123,6 +123,10 @@ stressed `/ə/`, Korean ㅓ ≈ schwa). Vietnamese `ă` re-read as short `/a/`.
 regenerates it. **Every point is a base or base + ONE operator** — no tier, no case, no diacritics.
 - **Bases** `p b t d k g m n f v s z l h`, the trill `r` (the common rhotic; tap `ɾ`=`rj`), and 5
   vowel letters `a e i o u` (`y` retired — schwa is now `ax`). Glides `/j/ /w/ /ɥ/` removed.
+- **One mechanism — SEVEN operators `c j q x w h y`, all base-dependent.** Four (`c j q x`) can form new
+  points; the rule per case: *base+letter is that point if it exists, otherwise the letter reads as the
+  modifier* (`sj`=ʃ point vs `pj`=pʲ modifier; `tc`=t͡s point vs `kc`=kʷ modifier). `w h y` only ever ride
+  as modifiers (`y` = emphatic on a consonant / nasal on a vowel).
 - **Consonant operators** (never a bare label): `c`=affricate (`tc`=t͡s) · `q`=hush **affricate**
   (`tq`=t͡ʃ) · `x`=dental/velar (`tx`=θ, `kx`=x) · `j`=palatal (`sj`=ʃ, `tj`=c/tʲ, `nj`=ɲ) · `w`=long
   (`tw`=tː, geminate/long trill `rw`). So `q`=`c+j` (hush = affricate+palatal). **Gutturals** are a 2×2 on
