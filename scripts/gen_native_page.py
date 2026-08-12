@@ -73,6 +73,13 @@ HELP = {
                    "lets you type Pinyin directly.",
            "ex": [["sjan1 kxaxn3 kau1", "shān hěn gāo"], ["nic3", "nǚ"],
                   ["tqi1 sji1 tquc1 sjuc4", "jī xī zhī shì"], ["zhong1 guo2", "lazy: zhōngguó"]]},
+    "native-zh": {"name": "ZH · native",
+                  "note": "The native view for Mandarin. Toggle **loose** to show its ⟨r⟩ (the *rén* sound) "
+                          "as **ṛ** — the retroflex approximant, using the underdot (the standard retroflex "
+                          "mark). It's merged into the plain trill `r` universally (no language contrasts them), "
+                          "so **strict** keeps r; loose surfaces the retroflex quality. Safe because Mandarin "
+                          "has no tap to clash with ṛ.",
+                  "ex": [["raxn2", "rén — 人 person"], ["sjan1 kxaxn3 kau1", "shān hěn gāo"]]},
     "en": {"name": "EN", "lang": False,
            "note": "English is not phonemic, so it recovers a faithful pronunciation spelling — not the "
                    "dictionary form. Type the sounds; read them back as English-ish letters.",
@@ -87,6 +94,7 @@ def build():
     general = attach(general, load_labels(DATA))
     nat = {k: NFC(v) for k, v in native_labels(all_ph, features, DATA).items()}
     nat_hu = {k: NFC(v) for k, v in native_labels(all_ph, features, DATA, lang="hu").items()}
+    nat_zh = {k: NFC(v) for k, v in native_labels(all_ph, features, DATA, lang="zh").items()}
     ipa = ipa_labels(all_ph, features, DATA)
 
     cons, ipa2vow = [], {}
@@ -121,7 +129,7 @@ def build():
     orth = {lg: load_orth(lg, DATA) for lg in ("hu", "zh", "en")}
     return {
         "cons": cons, "place": PLACE, "manner": MANNER, "vows": vows, "nasals": nasals, "mods": mods,
-        "nat": nat, "natHu": nat_hu, "ipa": ipa, "keys": keys, "orth": orth, "lazy": LAZY_ALIASES,
+        "nat": nat, "natHu": nat_hu, "natZh": nat_zh, "ipa": ipa, "keys": keys, "orth": orth, "lazy": LAZY_ALIASES,
         "zhRetro": _ZH_RETRO, "tone": _TONE_MARKS, "help": HELP,
         "counts": {"C": len(cons), "V": len(vows), "total": len(cons) + len(vows)},
     }
@@ -348,6 +356,7 @@ const TARGETS=[
   {key:"hu",name:"HU",loose:true,hint:"input: bare a=ɒ, e=ɛ",fn:(v,loose)=>decode(v,"hu",loose)},
   {key:"native-hu",name:"HU · native",loose:true,hint:"view: ɑ→a, so alma not älmä",fn:(v,loose)=>urend(v,loose?D.natHu:D.nat),brk:true},
   {key:"zh",name:"ZH",loose:true,hint:"input: ≈ type Pinyin",fn:(v,loose)=>decode(v,"zh",loose)},
+  {key:"native-zh",name:"ZH · native",loose:true,hint:"view: r→ṛ (the retroflex ⟨r⟩)",fn:(v,loose)=>urend(v,loose?D.natZh:D.nat),brk:true},
   {key:"en",name:"EN",fn:(v,loose)=>decode(v,"en",false)},
 ];
 let CUR="native";
