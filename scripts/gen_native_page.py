@@ -50,12 +50,13 @@ HELP = {
                        "a fricativised consonant (ṭ ḳ) or a lowered vowel (ẹ ọ). Diaeresis flips a vowel "
                        "front↔back (ü ö · ï ë ä). Tilde = nasal (ã).",
                "ex": [["sjok sewp njawr", "sok szép nyár"], ["pjatj", "Russian пять"],
-                      ["sjj zjj kc gc", "soft s/z · rounded k/g"], ["ty dy sy zy", "the Arabic emphatics"]]},
+                      ["ty dy sy zy", "the Arabic emphatics"],
+                      ["ejdj kisj kutjac aclsik acz acstacl aclactt", "a whole sentence (HU)"]]},
     "ipa": {"name": "IPA",
             "note": "The IPA value of each code, for reference. Modifiers appear as the standard "
                     "diacritics; a trailing digit becomes a tone superscript.",
             "ex": [["sjan1 kxaxn3 kau1", "shān hěn gāo"], ["pjatj njawrw", "soft + long"],
-                   ["ojw", "a long lowered o"]]},
+                   ["ojw", "a long lowered o"], ["ejdj kisj kutjac aclsik acz acstacl aclactt", "a whole sentence"]]},
     "hu": {"name": "HU",
            "note": "Hungarian, in both forms: the native view and the spelling (near-phonemic, so it "
                    "round-trips exactly; `w` doubles the previous letter, sz → ssz). Loose input frees the "
@@ -63,7 +64,8 @@ HELP = {
                    "(universally ä) as plain a — Hungarian has no other short a, so á/a stays unambiguous "
                    "and words read naturally (alma).",
            "ex": [["sjok sewp njawr", "sok szép nyár"], ["kecsecnecm sewpejn", "köszönöm szépen"],
-                  ["ejdj nacdj kutjac", "egy nagy kutya"], ["aclmac", "alma"], ["hoswuw", "hosszú"]]},
+                  ["aclmac", "alma"], ["hoswuw", "hosszú"],
+                  ["ejdj kisj kutjac aclsik acz acstacl aclactt", "egy kis kutya alszik az asztal alatt"]]},
     "zh": {"name": "ZH",
            "note": "Mandarin, in both forms: the native view and Pinyin. End a syllable with 1–4 for its "
                    "tone (5 or none = neutral); before a front vowel the hush series is spelled j/q/x, "
@@ -71,11 +73,13 @@ HELP = {
                    "Loose view writes Mandarin's r (as in rén) as ṛ, the underdot marking its retroflex "
                    "quality — Mandarin has no tapped r, so ṛ stays unambiguous.",
            "ex": [["sjan1 kxaxn3 kau1", "shān hěn gāo"], ["nic3", "nǚ"], ["raxn2", "rén"],
-                  ["tqi1 sji1 tquc1 sjuc4", "jī xī zhī shì"], ["zhong1 guo2", "loose: zhōngguó"]]},
+                  ["tqi1 sji1 tquc1 sjuc4", "jī xī zhī shì"],
+                  ["tqonx1 kuo2 tqha2 kxaxn3 kxau3", "zhōng guó chá hěn hǎo"]]},
     "en": {"name": "EN",
            "note": "English, in both forms: the native view and a spelling. English orthography is not "
                    "phonemic, so the spelling row is a readable pronunciation, not the dictionary form.",
-           "ex": [["sji sejlz fijsj", "she sells fish"], ["gud de", "good day"], ["baqd", "bird"]]},
+           "ex": [["sji sejlz fijsj", "she sells fish"], ["baqd", "bird"],
+                  ["dxax kat sijts acn dxax mat", "the cat sits on the mat"]]},
 }
 
 
