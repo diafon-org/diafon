@@ -51,10 +51,10 @@ HELP = {
                        "diaeresis flips a vowel front↔back (ü ö = front-round y/ø · ï ë ä = back ɯ/ɤ/ɑ).",
                "ex": [["sjok sewp njawr", "sok szép nyár"], ["pjatj", "Russian пять — soft tʲ"],
                       ["sjj zjj kc gc", "soft s/z · labialised k/g"], ["tqx dqx", "Arabic emphatics"]]},
-    "native-hu": {"name": "HU◦native", "lang": False,
-                  "note": "The native view *flavoured* for Hungarian. HU has no base /a/, so its ɑ (`ac`) "
-                          "renders as plain a — giving the natural á/a (and alma → alma). A demonstration of "
-                          "the language-specific native licence; the universal `native` keeps ä, because "
+    "native-hu": {"name": "HU · native",
+                  "note": "The native view for Hungarian. Toggle **loose** to apply HU's simplification: it "
+                          "has no base /a/, so ɑ (`ac`) renders as plain a — the natural á/a (alma, not älmä). "
+                          "**Strict** keeps the universal glyphs (ä), which the general view must, because "
                           "French contrasts a~ɑ (patte/pâte).",
                   "ex": [["aclmac", "alma"], ["nacdj kutjac", "nagy kutya"], ["sjok sewp njawr", "sok szép nyár"]]},
     "ipa": {"name": "IPA", "lang": False,
@@ -62,14 +62,14 @@ HELP = {
                     "(ː ʲ ʰ ʷ ̃ ˞ ˤ); a trailing digit 1–5 becomes a tone superscript.",
             "ex": [["sjan1 kxaxn3 kau1", "ʃan xən kau + tones"], ["pjatj njawrw", "palatalised + long"],
                    ["ojw", "ɔː — length composes on any vowel"]]},
-    "hu": {"name": "HU", "lazy": True, "lazyhint": "bare a = ɒ, e = ɛ",
+    "hu": {"name": "HU",
            "note": "Hungarian orthography is near-phonemic, so it round-trips exactly. Long `w` geminates "
-                   "the previous grapheme (sz→ssz). Lazy mode frees the bare cardinals a/e for /ɒ/,/ɛ/.",
+                   "the previous grapheme (sz→ssz). Loose mode frees the bare cardinals a/e to type /ɒ/,/ɛ/.",
            "ex": [["sjok sewp njawr", "sok szép nyár"], ["kecsecnecm sewpejn", "köszönöm szépen"],
                   ["ejdj nacdj kutjac", "egy nagy kutya"], ["hoswuw", "hosszú"]]},
-    "zh": {"name": "ZH", "lazy": True, "lazyhint": "≈ type Pinyin (xiao, shi, zhong)",
+    "zh": {"name": "ZH",
            "note": "Recovers Pinyin. End a syllable with 1–4 for its tone (5/none = neutral). The merged "
-                   "retroflex/alveolo-palatal series spells j/q/x before front i/ü, else zh/ch/sh. Lazy mode "
+                   "retroflex/alveolo-palatal series spells j/q/x before front i/ü, else zh/ch/sh. Loose mode "
                    "lets you type Pinyin directly.",
            "ex": [["sjan1 kxaxn3 kau1", "shān hěn gāo"], ["nic3", "nǚ"],
                   ["tqi1 sji1 tquc1 sjuc4", "jī xī zhī shì"], ["zhong1 guo2", "lazy: zhōngguó"]]},
@@ -283,7 +283,7 @@ footer{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--line);color
   <div class="try">
     <div class="tabs" id="tabs" role="tablist"></div>
     <input id="in" spellcheck="false" value="sjok sewp njawr">
-    <label class="lazy" id="lazywrap"><input type="checkbox" id="lazy"> lazy mode <span class="hint" id="lazyhint"></span></label>
+    <label class="lazy" id="loosewrap"><input type="checkbox" id="loose"> loose <span style="opacity:.7">(not strict)</span> <span class="hint" id="loosehint"></span></label>
     <div class="bigout"><span class="v" id="oval"></span><span class="brk" id="obrk"></span></div>
     <div class="help"><p class="note" id="note"></p><div class="exs" id="exs"></div></div>
   </div>
@@ -340,29 +340,31 @@ function decode(text,lang,lazy){let orth={...D.orth[lang]};
 window.__engine={urend,decode};
 
 /* tryout: language-specific target + help */
+// Each language target carries a LOCAL strict/loose toggle. Loose (= "not strict") turns on that
+// language's simplifications — of the INPUT (lazy typing shortcuts) or of the VIEW (native overrides).
 const TARGETS=[
-  {key:"native",name:"native",fn:v=>urend(v,D.nat),brk:true},
-  {key:"ipa",name:"IPA",fn:v=>urend(v,D.ipa)},
-  {key:"hu",name:"HU",lang:"hu",fn:(v,lz)=>decode(v,"hu",lz)},
-  {key:"native-hu",name:"HU · native",fn:v=>urend(v,D.natHu),brk:true},
-  {key:"zh",name:"ZH",lang:"zh",fn:(v,lz)=>decode(v,"zh",lz)},
-  {key:"en",name:"EN",lang:"en",fn:v=>decode(v,"en",false)},
+  {key:"native",name:"native",fn:(v,loose)=>urend(v,D.nat),brk:true},
+  {key:"ipa",name:"IPA",fn:(v,loose)=>urend(v,D.ipa)},
+  {key:"hu",name:"HU",loose:true,hint:"input: bare a=ɒ, e=ɛ",fn:(v,loose)=>decode(v,"hu",loose)},
+  {key:"native-hu",name:"HU · native",loose:true,hint:"view: ɑ→a, so alma not älmä",fn:(v,loose)=>urend(v,loose?D.natHu:D.nat),brk:true},
+  {key:"zh",name:"ZH",loose:true,hint:"input: ≈ type Pinyin",fn:(v,loose)=>decode(v,"zh",loose)},
+  {key:"en",name:"EN",fn:(v,loose)=>decode(v,"en",false)},
 ];
 let CUR="native";
 const $=id=>document.getElementById(id);
-function run(){const T=TARGETS.find(t=>t.key===CUR),H=D.help[CUR],v=$("in").value,lazy=$("lazy").checked;
-  let val="";try{val=T.fn(v,lazy);}catch(e){val="—";}
+function run(){const T=TARGETS.find(t=>t.key===CUR),H=D.help[CUR],v=$("in").value,loose=$("loose").checked;
+  let val="";try{val=T.fn(v,loose);}catch(e){val="—";}
   $("oval").textContent=val;
   $("obrk").textContent=T.brk?ubrk(v):"";
   $("note").innerHTML=esc(H.note);
-  $("lazywrap").className="lazy"+(H.lazy?" show":"");
-  $("lazyhint").textContent=H.lazyhint?"· "+H.lazyhint:"";
+  $("loosewrap").className="lazy"+(T.loose?" show":"");
+  $("loosehint").textContent=T.hint?"· "+T.hint:"";
   $("exs").innerHTML=H.ex.map(([inp,gl])=>`<button data-in="${esc(inp)}"><b>${esc(inp)}</b><span class="g">${esc(gl)}</span></button>`).join("");
 }
 function draw(){$("tabs").innerHTML=TARGETS.map(t=>`<button class="tab${t.key===CUR?" on":""}" data-k="${t.key}">${esc(t.name)}</button>`).join("");}
-$("tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b){CUR=b.dataset.k;$("lazy").checked=false;draw();run();}});
+$("tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b){CUR=b.dataset.k;$("loose").checked=false;draw();run();}});
 $("exs").addEventListener("click",e=>{const b=e.target.closest("button");if(b){$("in").value=b.dataset.in;run();}});
-$("in").addEventListener("input",run);$("lazy").addEventListener("change",run);
+$("in").addEventListener("input",run);$("loose").addEventListener("change",run);
 draw();run();
 
 /* consonant grid — voiceless first */
