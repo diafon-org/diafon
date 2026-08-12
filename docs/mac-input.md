@@ -36,7 +36,11 @@ batch renderer (85/85)**, with these cache bounds:
 
 - **native / IPA — at most 3 keystrokes held.** A key is held only while the growing string is
   still a prefix of a longer label (`s` may yet become `sj`/`sjj`/`sw`/`sy`; `sjj` is the longest).
-  The held tail can render as 1–3 chars of marked text purely as feedback — commitment is automatic.
+- **The held tail is visible as underlined raw input, in place.** This is IMK *marked text*
+  (`setMarkedText`): the raw tail shows inline at the caret with the standard composition
+  underline, and each resolution replaces it via `insertText` — typing `sjok` reads
+  s̲ → s̲j̲ → s̩o̲ → s̩ok̲ → s̩ok. A ZH syllable stays underlined until its tone digit lands
+  (t̲q̲o̲n̲x̲1̲ → zhōng). Commitment stays automatic; the underline is pure feedback.
 - **HU / EN — one token extra**, for the two next-token rules (HU `i`→j before a vowel; `w`
   doubles the *previous* grapheme, so a consonant can't commit until the next key rules `w` out).
 - **ZH — one syllable held** (≤ ~7 keys, e.g. `tqonx1`). Pinyin is the tricky one, irreducibly:
