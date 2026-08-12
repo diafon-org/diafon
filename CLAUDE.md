@@ -28,8 +28,8 @@ never "fix" it by deleting a phoneme.
 linear-notation cousin of injectivity, and it catches what `labeler.py` cannot: a one-letter modifier
 is ambiguous exactly when its letter is *also* a base segment that can follow (`ku`=/kʷ/ vs /k/+/u/;
 `ph`=/pʰ/ vs /p/+/h/). The safe modifiers `w`/`j` have no phoneme twin (glides removed). Reviewed,
-accepted ambiguities live in `notation._ACCEPTED` (aspiration `Ch`, boundary-only; rhotic `yr`,
-vacuous — English has no trill); anything else fails `diaphone --strict` and the test. Latin `ku` was
+accepted ambiguities live in `notation._ACCEPTED` (only aspiration `Ch`, boundary-only — the rhotic
+overlap is gone since rhotic moved off `r` to `q`, `axq`); anything else fails `diaphone --strict` and the test. Latin `ku` was
 the one real collision → resolved by making labialised a fixed combo `cw` (`kcw`=kʷ).
 
 ## Layout
@@ -141,7 +141,8 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   (no French vowel length to recover) and German ü/ö.
 - **Modifiers ride on top, one letter each**: long `w`, aspirated `h` (consonants), **nasal `y`** (vowels —
   `y` is the one free letter after retiring the vowel base, so nasal gets a dedicated operator, not the /h/
-  base: `ay`=ã; French is 3-way ẽ ã õ, œ̃ dropped as merging), rhotic `r`; palatalised `j` (`pj tj`…) but
+  base: `ay`=ã; French is 3-way ẽ ã õ, œ̃ dropped as merging), rhotic **`q`** on the schwa (`axq`=ɝ — `q`
+  is inert on a central vowel, so no trill overlap; moved off `r`); palatalised `j` (`pj tj`…) but
   **`jj` on s/z** (`sʲ`=`sjj`, since `sj`/`zj`=ʃ/ʒ); pharyngealised
   `qx`; labialised is `c` on k/g (`kc`=kʷ — those bases have no affricate, so the round `c` slot is
   free), NOT bare `u`, which would collide with the vowel /u/ (Latin quī/cui). See the notation invariant.

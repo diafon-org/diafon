@@ -28,10 +28,8 @@ _ACCEPTED = {
     ("KO", "kh"): "aspirated /kʰ/ vs /k/+/h/ — boundary only",
     ("KO", "tqh"): "aspirated affricate /tɕʰ/ vs /tʃ/+/h/ — boundary only, same aspiration family",
     ("VI", "th"): "aspirated /tʰ/ vs /t/+/h/ — boundary only",
-    # Rhotic vowel /ɝ/ = `axr` (schwa + rhotic `r`) now re-reads as /ə/+/r/ because English's ⟨r⟩,
-    # after the ɻ→r merge, is labelled `r`. Not a real contrast: English does not oppose /ɝ/ to
-    # /ə/+/r/ — a tautomorphemic /ər/ IS r-coloured to ɝ; the split is boundary-only. Accepted.
-    ("EN", "axr"): "rhotic /ɝ/ vs /ə/+/r/ — non-contrastive in English (ər = ɝ); boundary only",
+    # (The old rhotic /ɝ/=`axr` ~ /ə/+/r/ ambiguity is gone: the rhotic modifier moved off `r` to `q`,
+    #  so ɝ = `axq` — `q` is inert on a central vowel, so the slot is unambiguous.)
 }
 
 
