@@ -29,13 +29,13 @@ _TILDE, _ACUTE, _RHOT = "̃", "́", "˞"
 # point label -> native base glyph
 _CONS = {
     "p": "p", "b": "b", "t": "t", "d": "d", "k": "k", "g": "g",
-    "tj": "t" + _VLB, "dj": "d" + _VLB, "kq": "q", "hj": "ʔ",       # t̩ d̩ (palatal, vertical line) · q ʔ
+    "tj": "t" + _VLB, "dj": "d" + _VLB, "kq": "q", "hj": "ḥ",       # t̩ d̩ (palatal) · q · ḥ = ʔ (glottal + underdot)
     "m": "m", "n": "n", "nj": "n" + _VLB, "nx": "ṇ",               # n̩ (palatal) · ṇ (velar ŋ = x-operator dot-below)
     "tc": "c", "dc": "đ", "pc": "p̈",                            # c đ p̈
     "tq": "c" + _VLB, "dq": "đ" + _VLB,                            # c̩ đ̩ (hush = affricate + palatal line)
     "f": "f", "v": "v", "tx": "ṭ", "dx": "ḍ",                  # ṭ ḍ (dental)
     "s": "s", "z": "z", "sj": "s" + _VLB, "zj": "z" + _VLB,        # s̩ z̩ (ʃ ʒ, palatal line)
-    "kx": "ḳ", "gx": "g̣", "hq": "ħ", "hx": "ʕ", "h": "h",  # ḳ g̣ ħ ʕ
+    "kx": "ḳ", "gx": "g̣", "hq": "ħ", "hx": "ħ̣", "h": "h",  # ḳ g̣ · ħ (pharyngeal, crossbar) · ħ̣ = ʕ (crossbar + underdot) · h
     "l": "l", "lj": "l" + _VLB, "r": "r", "rj": "ṛ",   # l̩ · r (trill) · ṛ (tap, underdot — freed by the ɻ→r merge)
 }
 _VOW = {
