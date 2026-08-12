@@ -87,17 +87,28 @@ HELP = {
 }
 
 
-# the four point-forming operators, consonant vs vowel (base-dependent)
+# THE seven attaching letters — one mechanism, all base-dependent. Four (c j q x) can form new points;
+# any of them reads as a modifier where base+letter isn't a point.
 OPS = [
-    {"op": "c", "cons": "affricate — a stop released as a fricative", "cons_ex": "tc = t͡s · dc = d͡z",
-     "vowel": "toggle rounding (front gains it, back loses it; at the apex, mark back)",
+    {"op": "c", "cons": "affricate; on k/g (no affricate) labialised; on h: pharyngeal (deeper)",
+     "cons_ex": "tc = t͡s · dc = d͡z · kc = kʷ · hc = ħ",
+     "vowel": "flip front↔back, keeping rounding (at the apex: mark back)",
      "vowel_ex": "ic = y · ec = ø · uc = ɯ · oc = ɤ · ac = ɑ"},
-    {"op": "j", "cons": "palatal — tongue body to the hard palate", "cons_ex": "sj = ʃ · tj = c · nj = ɲ · lj = ʎ",
+    {"op": "j", "cons": "palatal; where no palatal point exists: palatalised (soft); on h: the glottal stop",
+     "cons_ex": "sj = ʃ · tj = c · nj = ɲ · pj = pʲ · hj = ʔ",
      "vowel": "lower one step", "vowel_ex": "ij = ɪ · ej = ɛ · uj = ʊ · oj = ɔ"},
-    {"op": "q", "note": "= c + j", "cons": "hush affricate (affricate + palatal)", "cons_ex": "tq = t͡ʃ · dq = d͡ʒ",
-     "vowel": "c + j (rounded + lowered)", "vowel_ex": "iq = ʏ · eq = œ"},
-    {"op": "x", "cons": "dental/velar fricative — the fricative one step back", "cons_ex": "tx = θ · dx = ð · kx = x · gx = ɣ",
+    {"op": "q", "note": "= c + j", "cons": "hush affricate; on h: the voiced pharyngeal (deeper + marked)",
+     "cons_ex": "tq = t͡ʃ · dq = d͡ʒ · hq = ʕ",
+     "vowel": "c + j (rounded + lowered); on the schwa: rhotic", "vowel_ex": "iq = ʏ · eq = œ · aq = ɝ"},
+    {"op": "x", "cons": "the fricative one step back — dental on t/d, velar on k/g",
+     "cons_ex": "tx = θ · dx = ð · kx = x · gx = ɣ",
      "vowel": "centralise → schwa", "vowel_ex": "ax = ə"},
+    {"op": "w", "cons": "long (geminate)", "cons_ex": "tw = tː · sw = sː",
+     "vowel": "long", "vowel_ex": "aw = aː · iw = iː"},
+    {"op": "h", "cons": "aspirated", "cons_ex": "ph = pʰ · th = tʰ · kh = kʰ",
+     "vowel": "— (unused; h is also the /h/ base)", "vowel_ex": ""},
+    {"op": "y", "cons": "pharyngealised — the Arabic emphatics", "cons_ex": "ty = tˤ · dy = dˤ · sy = sˤ · zy = zˤ",
+     "vowel": "nasal", "vowel_ex": "ay = ã · ey = ẽ · oy = õ"},
 ]
 # the modifiers that ride on top of a finished point
 MODS_REF = [
@@ -321,14 +332,14 @@ footer{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--line);color
   on the articulatory grid, vowels on the triangle, then a tryout that converts your input into any target.</p>
   <div class="stats" id="stats"></div>
 
-  <h2>Operators <span class="n">base + one → a related point</span></h2>
-  <p class="lede">A label is a <b>base letter</b>, then at most <b>one operator</b> (which makes a *different*
-  point), then any <b>modifiers</b> (which ride on top). The four operators are <b>base-dependent</b> — the
-  same letter does one thing on a consonant, another on a vowel, like <code>x</code> = dental on t, velar on k.</p>
+  <h2>The seven operators <span class="n">c j q x w h y — one mechanism, base-dependent</span></h2>
+  <p class="lede">A label is a <b>base letter</b> plus attaching operators. Every operator is
+  <b>base-dependent</b> — the same letter does one thing on a consonant, another on a vowel
+  (<code>x</code> = dental on t, velar on k; <code>y</code> = emphatic on t, nasal on a). Four of them
+  (<code>c j q x</code>) can form <i>new points</i>; the rule that decides each case:
+  <b>base+letter is that point if it exists, otherwise the letter rides on top as a modifier</b>
+  (<code>sj</code>=ʃ a point, <code>pj</code>=pʲ a modifier; <code>tc</code>=t͡s a point, <code>kc</code>=kʷ a modifier).</p>
   <div class="scroll"><table class="ops"><thead><tr><th>op</th><th>on a consonant</th><th>on a vowel</th></tr></thead><tbody id="opsBody"></tbody></table></div>
-  <p class="note">The same letter can also be a <i>modifier</i> on a base where that point doesn't exist:
-  <code>sj</code>=ʃ (a point) but <code>pj</code>=pʲ (p + palatalised); <code>tc</code>=t͡s (a point) but
-  <code>kc</code>=kʷ (k + labialised). Rule: <b>base+op is that point if it exists, otherwise the letter rides as a modifier.</b></p>
 
   <h2>Consonants <span class="n" id="cN"></span></h2>
   <div class="scroll"><table class="grid"><thead id="cHead"></thead><tbody id="cBody"></tbody></table></div>
@@ -346,7 +357,9 @@ footer{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--line);color
   to the triangle. In the 16 languages only <b>French</b> carries it; modelled as three nasalised cardinals:</p>
   <div class="nasal-row" id="nasals"></div>
 
-  <h2>Modifiers <span class="n">ride on top — never new points</span></h2>
+  <h2>Modifiers <span class="n">the features that ride on top — never new points, one operator each</span></h2>
+  <p class="lede">The phonological layer: seven <b>features</b> that never create a point — they're stripped
+  off to find the base. Each maps to one of the operators above, read in its modifier role.</p>
   <div class="mods" id="mBody"></div>
   <div class="scroll" style="margin-top:.7rem"><table class="ops"><thead><tr><th>modifier</th><th>char</th><th>what it does</th><th>example</th></tr></thead><tbody id="modsRefBody"></tbody></table></div>
 
