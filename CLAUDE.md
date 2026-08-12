@@ -125,8 +125,10 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   vowel letters `a e i o u` (`y` retired — schwa is now `ax`). Glides `/j/ /w/ /ɥ/` removed.
 - **Consonant operators** (never a bare label): `c`=affricate (`tc`=t͡s) · `q`=hush **affricate**
   (`tq`=t͡ʃ) · `x`=dental/velar (`tx`=θ, `kx`=x) · `j`=palatal (`sj`=ʃ, `tj`=c/tʲ, `nj`=ɲ) · `w`=long
-  (`tw`=tː, geminate/long trill `rw`). So `q`=`c+j` (hush = affricate+palatal). Off-grid combos:
-  gutturals `ʔ`=`hj` `ħ`=`hq` `ʕ`=`hx`; emphatics `qx` (`tˤ`=`tqx`).
+  (`tw`=tː, geminate/long trill `rw`). So `q`=`c+j` (hush = affricate+palatal). **Gutturals** are a 2×2 on
+  `h`: `x`=one step deeper (glottal→pharyngeal, the `hx`=ħ sub-base), `j`=the second sound at that depth
+  (`hj`=ʔ the glottal stop, `hxj`=ʕ the voiced pharyngeal) — mirrors the native `h · ḥ · ħ · ħ̣`.
+  Emphatics ride on `qx` (`tˤ`=`tqx`).
 - **Vowels** (17, triangular — see `docs/viz/notation.html`): 5 cardinal bases `a e i o u` on the
   triangle edges; operators `c`=toggle-rounding (front gains: `ic`=y `ec`=ø; back loses: `uc`=ɯ `oc`=ɤ;
   apex marks back: `ac`=ɑ), `j`=**lower one step, uniformly** — each in-between vowel is its higher
