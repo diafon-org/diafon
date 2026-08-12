@@ -128,7 +128,7 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   (`tw`=tː, geminate/long trill `rw`). So `q`=`c+j` (hush = affricate+palatal). **Gutturals** are a 2×2 on
   `h` via the same c/j/q pattern: `c`=pharyngeal (deeper), `j`=the marked second sound, `q`=c+j=both — so
   `h` · `hj`=ʔ (glottal stop) · `hc`=ħ · `hq`=ʕ (voiced pharyngeal), each base+ONE operator, mirroring the
-  native `h · ḥ · ħ · ħ̣`. Emphatics ride on `qx` (`tˤ`=`tqx`).
+  native `h · ḥ · ħ · ħ̣`. Emphatics ride on `y` on the consonant (`tˤ`=`ty`; base-dependent — `y` is nasal on a vowel).
 - **Vowels** (17, triangular — see `docs/viz/notation.html`): 5 cardinal bases `a e i o u` on the
   triangle edges; operators `c`=toggle-rounding (front gains: `ic`=y `ec`=ø; back loses: `uc`=ɯ `oc`=ɤ;
   apex marks back: `ac`=ɑ), `j`=**lower one step, uniformly** — each in-between vowel is its higher
@@ -144,7 +144,7 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   base: `ay`=ã; French is 3-way ẽ ã õ, œ̃ dropped as merging), rhotic **`q`** on the schwa (`axq`=ɝ — `q`
   is inert on a central vowel, so no trill overlap; moved off `r`); palatalised `j` (`pj tj`…) but
   **`jj` on s/z** (`sʲ`=`sjj`, since `sj`/`zj`=ʃ/ʒ); pharyngealised
-  `qx`; labialised is `c` on k/g (`kc`=kʷ — those bases have no affricate, so the round `c` slot is
+  `y` on the consonant (base-dependent: nasal on a vowel, `ay`=ã); labialised is `c` on k/g (`kc`=kʷ — those bases have no affricate, so the round `c` slot is
   free), NOT bare `u`, which would collide with the vowel /u/ (Latin quī/cui). See the notation invariant.
 - Validated: all **490** phonemes get a distinct label per language, **0 collisions**, and (now that
   the vowel pairs are gone) **no label decomposes** — every one is base or base + operators.
