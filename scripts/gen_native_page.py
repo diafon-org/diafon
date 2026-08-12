@@ -50,7 +50,7 @@ HELP = {
                        "modifiers (dot above = aspirated, dot below = fricativise / lowered vowel), and "
                        "diaeresis flips a vowel front↔back (ü ö = front-round y/ø · ï ë ä = back ɯ/ɤ/ɑ).",
                "ex": [["sjok sewp njawr", "sok szép nyár"], ["pjatj", "Russian пять — soft tʲ"],
-                      ["sjj zjj kc gc", "soft s/z · labialised k/g"], ["ty dy dxy", "Arabic emphatics"]]},
+                      ["sjj zjj kc gc", "soft s/z · labialised k/g"], ["ty dy sy zy", "Arabic emphatics (tˤ dˤ sˤ zˤ)"]]},
     "native-hu": {"name": "HU · native",
                   "note": "The native view for Hungarian. Toggle **loose** to apply HU's simplification: it "
                           "has no base /a/, so ɑ (`ac`) renders as plain a — the natural á/a (alma, not älmä). "
