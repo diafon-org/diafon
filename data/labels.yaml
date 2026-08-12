@@ -4,7 +4,7 @@
 #   coronal fan:  tc=ts · tq=tʃ · tx=θ · tj=tʲ (= /c/, Hungarian ty)      (fricatives: sj=ʃ)
 # Gutturals form a 2×2 on `h` via the c/j/q pattern (like tc/tj/tq, where q = c+j): `c`=pharyngeal
 #   (deeper), `j`=the marked second sound (glottal stop / voiced), `q`=c+j=both. So h · hj=ʔ · hc=ħ ·
-#   hq=ʕ — base + ONE operator each (mirrors the native h · ḥ · ħ · ħ̣). Emphatics ride on `qx`.
+#   hq=ʕ — base + ONE operator each (mirrors the native h · ḥ · ħ · ħ̣). Emphatics ride on `y` (ty=tˤ).
 # VOWEL BASES: a e i o u (the cardinals; `y` is NOT a base anymore). VOWEL OPERATORS: c=toggle-rounding,
 #   j=lower one step, q=c+j (front-round lowered), x=centralise→schwa. Triangular.
 
@@ -76,7 +76,9 @@ modifiers:       # each is just a letter/combo — no separate tier
   long: w            # tw = tː · iw = iː
   palatalized: j     # Cʲ = Cj (pj tj kj …); but on s/z it DOUBLES to jj (sʲ=sjj, zʲ=zjj),
                      #   because sj/zj are the hush ʃ/ʒ — Russian шёл/сёл, ж/зь force the split
-  pharyngealized: qx # tqx = tˤ  (Arabic emphatics — a fixed combo, like the gutturals)
+  pharyngealized: "y" # ty = tˤ  (Arabic emphatics). Base-dependent like c/j: `y` is NASAL on a vowel
+                     #   (ay=ã) but PHARYNGEALISED on a consonant — `y` is unused on consonants, so it's
+                     #   free there. Base + ONE operator now (was the `qx` combo); ðˤ = dxy, not dxqx.
   labialized: c      # kc = kʷ, gc = gʷ  (c = round, as on vowels). Base-dependent like the other
                      #   operators (x is dental on tx=θ, velar on kx=x): c is the affricate on stops
                      #   that HAVE one, but k/g have no affricate, so kc/gc are free for labialised.

@@ -130,7 +130,7 @@ def test_engine_render_targets():
     assert render("sjan1", "ipa", DATA) == "ʃan¹"
     assert render("sjan1", "native", DATA) == "s̩an¹"          # native Latin+diacritics view (palatal = vertical line)
     assert render("njawr", "native", DATA) == "n̩ár"           # nj→n̩, aw→á (long)
-    assert render("tqx", "native", DATA) == "t̤"               # pharyngealised = two dots below
+    assert render("ty", "native", DATA) == "t̤"                # pharyngealised = `y` on a consonant (two dots below)
     assert render("nx", "native", DATA) == "ṇ"                # velar nasal ŋ = x-operator dot-below (like ṭ ḳ)
     assert render("h hj hc hq", "native", DATA) == "h ḥ ħ ħ̣"  # guttural 2×2 (c/j/q): c=pharyngeal, j=marked, q=c+j
     assert render("ey ay oy", "native", DATA) == "ẽ ã õ"      # nasal = dedicated `y` operator (not h), tilde on cardinals
@@ -157,7 +157,7 @@ def test_notation_to_ipa_universal():
     features, languages, all_ph = load(DATA)
     f = lambda s: to_ipa(s, all_ph, features, DATA)
     assert f("sjan") == "ʃan" and f("tx") == "θ" and f("nj") == "ɲ" and f("kx") == "x"
-    assert f("pha") == "pʰa" and f("tw") == "tː" and f("sjj") == "sʲ" and f("tqx") == "tˤ"
+    assert f("pha") == "pʰa" and f("tw") == "tː" and f("sjj") == "sʲ" and f("ty") == "tˤ"
     assert f("kcw"[:2]) == "kʷ"                       # labialised k
     assert f("sjan1") == "ʃan¹"                        # trailing tone digit -> superscript
 
