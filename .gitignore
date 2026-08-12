@@ -8,3 +8,4 @@ dist/
 .venv/
 .pytest_cache/
 .DS_Store
+mac/build/
