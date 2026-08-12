@@ -23,7 +23,10 @@ Status legend: ✓ decided · ◻ open.
 | pf `pc` | diaeresis `p̈` (on p — no clash with k/g) | p̈ | ✓ |
 | long `w` | doubled letter (tight-set) | tt … | ✓ |
 
-**No superscripts.** Gutturals/uvular keep their letters where they exist (ʔ ħ ʕ q).
+**Gutturals** are off-grid, so they get their own mini-scheme on the `h` base: **crossbar = one step
+deeper** (glottal → pharyngeal) and **underdot = the paired second sound** at that depth. So **h** = /h/,
+**ḥ** = ʔ (glottal + underdot = the stop), **ħ** = ħ (pharyngeal, the crossbar), **ħ̣** = ʕ (pharyngeal +
+underdot = the voiced one). The uvular stop keeps its letter **q**. **No superscripts anywhere.**
 
 ## Vowels
 
