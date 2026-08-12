@@ -24,13 +24,14 @@ def derive(all_ph, features):
             rec = points.setdefault(b, {
                 "base": b, "kind": ph["kind"],
                 "canonical_ipa": strip_mods(ph["ipa"]), "_cm": len(ph["mods"]),
-                "languages": {}, "modifiers_seen": set(),
+                "languages": {}, "modifiers_seen": set(), "members": set(),
             })
             if len(ph["mods"]) < rec["_cm"]:            # prefer fewest-modifier form
                 rec["canonical_ipa"] = strip_mods(ph["ipa"])
                 rec["_cm"] = len(ph["mods"])
             rec["languages"].setdefault(code, strip_mods(ph["ipa"]))
             rec["modifiers_seen"] |= set(ph["mods"])
+            rec["members"].add((code, frozenset(ph["mods"])))   # exact per-language claims, for merge safety
     for rec in points.values():
         rec.pop("_cm", None)
 

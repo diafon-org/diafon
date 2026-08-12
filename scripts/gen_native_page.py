@@ -107,7 +107,7 @@ MODS_REF = [
     ("palatalised", "`j` (but `jj` on s/z)", "secondary raise toward the palate — Russian's 'soft' series", "pj = pʲ · sjj = sʲ"),
     ("labialised", "`c` on k/g", "lip rounding added to the consonant", "kc = kʷ · gc = gʷ"),
     ("pharyngealised", "`y` on a consonant", "secondary throat constriction — Arabic emphatics", "ty = tˤ · sy = sˤ"),
-    ("rhotic", "`q` on the schwa", "r-colouring of the vowel", "axq = ɝ"),
+    ("rhotic", "`q` on the schwa", "r-colouring of the vowel; the label elides the x (ax+q → aq)", "aq = ɝ"),
 ]
 # what the features/sounds actually are, in plain words
 GLOSS = [
@@ -160,7 +160,7 @@ def build():
     mod_examples = [("long (Cː)", "tw", "geminate"), ("long (Vː)", "aw", "acute"),
                     ("nasal (Ṽ)", "ay", "tilde (`y` operator)"), ("aspirated", "ph", "dot above"),
                     ("labialised", "kc", "diaeresis"), ("pharyngealised", "ty", "two dots below"),
-                    ("soft (palatalised)", "pj", "double line below"), ("rhotic (V˞)", "axq", "hook")]
+                    ("soft (palatalised)", "pj", "double line below"), ("rhotic (V˞)", "aq", "hook")]
     mods = [{"name": nm, "label": lab, "native": nat.get(lab, "?"), "ipa": ipa.get(lab, "?"), "gloss": gl}
             for nm, lab, gl in mod_examples]
 

@@ -14,7 +14,7 @@ import unicodedata
 
 from .decode import tokenize
 from .labeler import load_labels
-from .notation import _label_maps, _mod_chars
+from .notation import _label_maps, _mod_chars, full_label
 
 # modifier feature -> IPA diacritic (combining marks for nasal/rhotic sit after the base char)
 _MOD_IPA = {"long": "ː", "palatalized": "ʲ", "aspirated": "ʰ", "labialized": "ʷ",
@@ -33,7 +33,7 @@ def ipa_labels(all_ph, features, data_dir="data"):
             pl = label_of_base.get(ph["base"])
             if pl is None:
                 continue
-            full = pl + _mod_chars(ph["mods"], pl, mod_map)
+            full = full_label(pl, ph["mods"], mod_map)
             out[full] = base2ipa[pl] + "".join(_MOD_IPA.get(m, "") for m in sorted(ph["mods"]))
     # Systematic long forms so an unattested length (e.g. `ojw`=ʊː) composes instead of leaking a `w`.
     for pl in base2ipa:

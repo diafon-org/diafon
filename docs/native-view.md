@@ -38,7 +38,7 @@ underdot = the voiced one). The uvular stop keeps its letter **q**. **No supersc
 | nasal `y` (dedicated operator) | tilde | ay→**ã** · ey→**ẽ** · oy→**õ** | ✓ (French, 3-way: brin ẽ · banc ã · bon õ; `y` = the one free letter, not `h` which is a base) |
 | lower `j` (one step) | **one dot below**, uniform | ij→ị · ej→ẹ · uj→**ụ** (ʊ) · oj→**ọ** (ɔ) | ✓ (`j` lowers front *and* back the same way; `iq`=ụ̈ `eq`=ọ̈ add the diaeresis for `c`) |
 | schwa `ax` | the letter | ə | ✓ |
-| rhotic `q` on schwa — `axq` (ɝ) | hooked schwa | **ɚ** | ✓ (moved off `r`: `q` is inert on a central vowel, so no trill overlap) |
+| rhotic `q` on schwa — `aq` (ɝ) | hooked schwa | **ɚ** | ✓ (irregular short label, ax+q with the x elided — like `sjj`; base stays the schwa, so IPA ə˞ / native ɚ stay true) |
 
 Two clean rules carry the vowels. **Diaeresis = flip front↔back** (keeping rounding): u/o→ü/ö are the
 front-rounded y/ø, and i/e/a→**ï/ë/ä** are the back-unrounded ɯ/ɤ/ɑ — one mark, symmetric on both sides,
