@@ -87,6 +87,45 @@ HELP = {
 }
 
 
+# the four point-forming operators, consonant vs vowel (base-dependent)
+OPS = [
+    {"op": "c", "cons": "affricate — a stop released as a fricative", "cons_ex": "tc = t͡s · dc = d͡z",
+     "vowel": "toggle rounding (front gains it, back loses it; at the apex, mark back)",
+     "vowel_ex": "ic = y · ec = ø · uc = ɯ · oc = ɤ · ac = ɑ"},
+    {"op": "j", "cons": "palatal — tongue body to the hard palate", "cons_ex": "sj = ʃ · tj = c · nj = ɲ · lj = ʎ",
+     "vowel": "lower one step", "vowel_ex": "ij = ɪ · ej = ɛ · uj = ʊ · oj = ɔ"},
+    {"op": "q", "note": "= c + j", "cons": "hush affricate (affricate + palatal)", "cons_ex": "tq = t͡ʃ · dq = d͡ʒ",
+     "vowel": "c + j (rounded + lowered)", "vowel_ex": "iq = ʏ · eq = œ"},
+    {"op": "x", "cons": "dental/velar fricative — the fricative one step back", "cons_ex": "tx = θ · dx = ð · kx = x · gx = ɣ",
+     "vowel": "centralise → schwa", "vowel_ex": "ax = ə"},
+]
+# the modifiers that ride on top of a finished point
+MODS_REF = [
+    ("long", "`w`", "holds the sound longer; for consonants a geminate (doubled)", "tw = tː · aw = aː"),
+    ("nasal", "`y` on a vowel", "air also flows through the nose (velum lowered)", "ay = ã · oy = õ"),
+    ("aspirated", "`h` on a consonant", "a puff of breath after a stop's release", "ph = pʰ · kh = kʰ"),
+    ("palatalised", "`j` (but `jj` on s/z)", "secondary raise toward the palate — Russian's 'soft' series", "pj = pʲ · sjj = sʲ"),
+    ("labialised", "`c` on k/g", "lip rounding added to the consonant", "kc = kʷ · gc = gʷ"),
+    ("pharyngealised", "`y` on a consonant", "secondary throat constriction — Arabic emphatics", "ty = tˤ · sy = sˤ"),
+    ("rhotic", "`q` on the schwa", "r-colouring of the vowel", "axq = ɝ"),
+]
+# what the features/sounds actually are, in plain words
+GLOSS = [
+    ("affricate", "A stop released straight into a fricative at the same place — t then s, fused into one sound.", "t͡s (cats), t͡ʃ (church)"),
+    ("palatal", "The tongue body humps up to the hard palate, the roof of the mouth.", "ɲ (Spanish niño), c (Hungarian tyúk)"),
+    ("hush / sibilant", "The 'hushing' s-sounds, made a little further back with a domed tongue.", "ʃ (ship), ʒ (measure)"),
+    ("dental vs velar (the `x` operator)", "Dental = tongue at the teeth (θ ð); velar = tongue at the soft palate (x ɣ). `x` picks the fricative one step *back* from its base.", "θ (thin), x (Scottish loch)"),
+    ("pharyngeal (ħ ʕ)", "Made deep in the throat by pulling the tongue root back toward the pharyngeal wall — Arabic ح and ع.", "ħ (Muḥammad), ʕ (ʿarab)"),
+    ("pharyngealisation — the emphatics", "A *secondary* throat constriction layered on an otherwise-normal consonant: the tongue root retracts and the whole syllable sounds lower and 'darker'. That's the only thing separating Arabic's emphatic tˤ dˤ sˤ zˤ from plain t d s z.", "Arabic صار sˤaːr 'became' vs سار saːr 'walked'"),
+    ("aspiration", "A puff of breath right after a stop is released (hold a hand to your mouth on English 'pin').", "pʰ tʰ kʰ"),
+    ("nasalisation", "The soft palate lowers so air escapes through the nose as well as the mouth.", "ã (French banc), õ (bon)"),
+    ("rhoticity", "R-colouring of a vowel — the tongue bunches or curls as if for an r, right through the vowel.", "ɝ (American 'bird')"),
+    ("labialisation", "Lip rounding added on top of a consonant.", "kʷ (Latin quis)"),
+    ("palatalisation — 'softening'", "A secondary raise of the tongue toward the palate, on top of a normal consonant — Russian's soft series.", "tʲ (Russian тётя)"),
+    ("length", "Holding a sound longer; for consonants that means a geminate (doubled).", "aː (long a), tː (Italian fatto)"),
+]
+
+
 def build():
     features, languages, all_ph = load(DATA)
     points, *_ = derive(all_ph, features)
@@ -131,6 +170,7 @@ def build():
         "cons": cons, "place": PLACE, "manner": MANNER, "vows": vows, "nasals": nasals, "mods": mods,
         "nat": nat, "natHu": nat_hu, "natZh": nat_zh, "ipa": ipa, "keys": keys, "orth": orth, "lazy": LAZY_ALIASES,
         "zhRetro": _ZH_RETRO, "tone": _TONE_MARKS, "help": HELP,
+        "ops": OPS, "modsRef": MODS_REF, "gloss": GLOSS,
         "counts": {"C": len(cons), "V": len(vows), "total": len(cons) + len(vows)},
     }
 
@@ -257,6 +297,19 @@ svg{width:100%;height:auto;display:block}
 .exs{display:flex;flex-wrap:wrap;gap:.4rem;margin:.7rem 0 0}
 .exs button{border:1px dashed var(--line);background:transparent;color:var(--accent);border-radius:.5rem;padding:.3rem .55rem;font:.8rem var(--mono);cursor:pointer;text-align:left}
 .exs button:hover{border-style:solid}.exs .g{color:var(--muted);margin-left:.4rem}
+table.ops{border-collapse:collapse;width:100%;min-width:520px}
+.ops th,.ops td{border:1px solid var(--line);padding:.55rem .8rem;text-align:left;vertical-align:top;font-size:.9rem}
+.ops thead th{font:600 .66rem/1.2 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--sunken)}
+.ops td b{color:var(--ink);font-weight:600}
+.ops .opc{font:700 1.35rem/1 var(--mono);color:var(--accent);text-align:center;white-space:nowrap}
+.ops .on{display:block;font:600 .62rem/1.3 var(--mono);color:var(--muted)}
+.ops .opex{font-family:var(--serif);color:var(--muted);font-size:.95rem}
+.ops .mc{font:600 .85rem/1 var(--mono);color:var(--accent);white-space:nowrap}
+.gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.6rem;margin:.7rem 0 0}
+.gitem{border:1px solid var(--line);border-radius:12px;padding:.7rem .85rem;background:var(--card)}
+.gt{font:600 .95rem/1.25 var(--sans);color:var(--ink)}
+.gw{color:var(--muted);font-size:.88rem;margin-top:.3rem}
+.ge{font-family:var(--serif);font-size:.9rem;color:var(--accent);margin-top:.35rem}
 footer{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.78rem;font-family:var(--mono)}
 </style>
 
@@ -268,13 +321,22 @@ footer{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--line);color
   on the articulatory grid, vowels on the triangle, then a tryout that converts your input into any target.</p>
   <div class="stats" id="stats"></div>
 
+  <h2>Operators <span class="n">base + one → a related point</span></h2>
+  <p class="lede">A label is a <b>base letter</b>, then at most <b>one operator</b> (which makes a *different*
+  point), then any <b>modifiers</b> (which ride on top). The four operators are <b>base-dependent</b> — the
+  same letter does one thing on a consonant, another on a vowel, like <code>x</code> = dental on t, velar on k.</p>
+  <div class="scroll"><table class="ops"><thead><tr><th>op</th><th>on a consonant</th><th>on a vowel</th></tr></thead><tbody id="opsBody"></tbody></table></div>
+  <p class="note">The same letter can also be a <i>modifier</i> on a base where that point doesn't exist:
+  <code>sj</code>=ʃ (a point) but <code>pj</code>=pʲ (p + palatalised); <code>tc</code>=t͡s (a point) but
+  <code>kc</code>=kʷ (k + labialised). Rule: <b>base+op is that point if it exists, otherwise the letter rides as a modifier.</b></p>
+
   <h2>Consonants <span class="n" id="cN"></span></h2>
   <div class="scroll"><table class="grid"><thead id="cHead"></thead><tbody id="cBody"></tbody></table></div>
   <div class="klegend">
     <span><span class="sw" style="background:var(--base-t);border:1.6px solid var(--base-c)"></span><b>voiceless</b> (left)</span>
     <span><span class="sw" style="background:var(--c-t);border:1.6px solid var(--c-c)"></span><b>voiced</b> (right)</span>
     <span>each tile — <b>IPA</b> · <code>input</code> · <span style="font-family:var(--serif)">native</span></span>
-    <span>gutturals sit in the pharyngeal/glottal columns (ʔ=<code>hj</code> ħ=<code>hq</code> ʕ=<code>hx</code>)</span>
+    <span>gutturals are a 2×2 on <code>h</code> (ʔ=<code>hj</code> ħ=<code>hc</code> ʕ=<code>hq</code>)</span>
   </div>
 
   <h2>Vowels <span class="n" id="vN"></span></h2>
@@ -286,6 +348,10 @@ footer{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--line);color
 
   <h2>Modifiers <span class="n">ride on top — never new points</span></h2>
   <div class="mods" id="mBody"></div>
+  <div class="scroll" style="margin-top:.7rem"><table class="ops"><thead><tr><th>modifier</th><th>char</th><th>what it does</th><th>example</th></tr></thead><tbody id="modsRefBody"></tbody></table></div>
+
+  <h2>The sounds, in words <span class="n">what the features mean</span></h2>
+  <div class="gloss" id="glossBody"></div>
 
   <h2>Tryout <span class="n">pick a target · read its help</span></h2>
   <div class="try">
@@ -406,6 +472,10 @@ draw();run();
   $("legend").innerHTML=LEG.map(([cls,code,desc])=>`<div class="leg"><span class="sw sw-${cls}"></span><code>${esc(code)}</code> <span>${esc(desc)}</span></div>`).join("");
   $("nasals").innerHTML=D.nasals.map(n=>`<div class="ntile"><div class="s">${esc(n.ipa)}</div><div class="l">${esc(n.label)}</div><div class="nat">${esc(n.native)}</div></div>`).join("");})();
 
+/* operators + modifiers reference + glossary */
+$("opsBody").innerHTML=D.ops.map(o=>`<tr><td class="opc">${esc(o.op)}${o.note?`<span class="on">${esc(o.note)}</span>`:""}</td><td><b>${esc(o.cons)}</b><br><span class="opex">${esc(o.cons_ex)}</span></td><td><b>${esc(o.vowel)}</b><br><span class="opex">${esc(o.vowel_ex)}</span></td></tr>`).join("");
+$("modsRefBody").innerHTML=D.modsRef.map(m=>`<tr><td><b>${esc(m[0])}</b></td><td class="mc">${esc(m[1].replace(/\x60/g,""))}</td><td>${esc(m[2])}</td><td class="opex">${esc(m[3])}</td></tr>`).join("");
+$("glossBody").innerHTML=D.gloss.map(g=>`<div class="gitem"><div class="gt">${esc(g[0])}</div><div class="gw">${esc(g[1])}</div><div class="ge">${esc(g[2])}</div></div>`).join("");
 /* modifiers + stats + theme */
 $("mBody").innerHTML=D.mods.map(m=>`<div class="mtile"><div class="nm">${esc(m.name)}</div><div class="big"><span class="lab">${esc(m.label)}</span><span class="ipa">${esc(m.ipa)}</span><span class="nat">${esc(m.native)}</span></div><div class="gl">${esc(m.gloss)}</div></div>`).join("");
 $("cN").textContent=D.counts.C+" points";$("vN").textContent=D.counts.V+" points";
