@@ -58,6 +58,8 @@ diaphone                 # regenerates out/ and prints a summary
 diaphone --strict        # non-zero exit if any contrast is merged (use in CI)
 diaphone decode zh "sjan1 kxaxn3 kau1"   # -> shān hěn gāo   (trailing digit 1-4 = Pinyin tone)
 diaphone decode hu "alma kert" --lazy   # -> alma kert      (--lazy: per-language shortcuts)
+diaphone export-json     # -> out/engine.json — the engine as pure data, for ports (Mac input method);
+                         #    tests/test_export.py proves the export is sufficient for a port
 pytest                   # runs the invariant guardrails
 ```
 
