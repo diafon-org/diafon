@@ -35,7 +35,7 @@ _CONS = {
     "tq": "c" + _VLB, "dq": "đ" + _VLB,                            # c̩ đ̩ (hush = affricate + palatal line)
     "f": "f", "v": "v", "tx": "ṭ", "dx": "ḍ",                  # ṭ ḍ (dental)
     "s": "s", "z": "z", "sj": "s" + _VLB, "zj": "z" + _VLB,        # s̩ z̩ (ʃ ʒ, palatal line)
-    "kx": "ḳ", "gx": "g̣", "hq": "ħ", "hx": "ħ̣", "h": "h",  # ḳ g̣ · ħ (pharyngeal, crossbar) · ħ̣ = ʕ (crossbar + underdot) · h
+    "kx": "ḳ", "gx": "g̣", "hx": "ħ", "hxj": "ħ̣", "h": "h",  # ḳ g̣ · hx=ħ (pharyngeal, crossbar) · hxj=ʕ (crossbar + underdot) · h
     "l": "l", "lj": "l" + _VLB, "r": "r", "rj": "ṛ",   # l̩ · r (trill) · ṛ (tap, underdot — freed by the ɻ→r merge)
 }
 _VOW = {

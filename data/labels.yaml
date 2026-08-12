@@ -2,7 +2,8 @@
 # CONSONANT BASES: p b t d k g m n f v s z l h · trill r.
 # CONSONANT OPERATORS (never a bare label):  c=affricate  q=hush  x=dental/velar  j=palatal  w=long
 #   coronal fan:  tc=ts · tq=tʃ · tx=θ · tj=tʲ (= /c/, Hungarian ty)      (fricatives: sj=ʃ)
-# Off-grid rarities use fixed combos: gutturals ʔ=hj ħ=hq ʕ=hx ; emphatics ride on `qx`.
+# Gutturals form a 2×2 on `h`: `x`=deeper (glottal→pharyngeal), `j`=the second sound at that depth.
+#   h · hj=ʔ · hx=ħ · hxj=ʕ  (mirrors the native h · ḥ · ħ · ħ̣). Emphatics ride on `qx`.
 # VOWEL BASES: a e i o u (the cardinals; `y` is NOT a base anymore). VOWEL OPERATORS: c=toggle-rounding,
 #   j=lower one step, q=c+j (front-round lowered), x=centralise→schwa. Triangular.
 
@@ -16,7 +17,7 @@ consonants:
   c: tj          # palatal stop = palatalised /t/ (Hungarian ty); frees kj for /kʲ/
   ɟ: dj          # palatal stop = palatalised /d/ (Hungarian gy)
   q: kq          # uvular stop
-  ʔ: hj          # glottal stop (off-grid random combo)
+  ʔ: hj          # glottal stop = h + `j` (the "second sound" at the glottis: the stop)
   m: m
   n: n
   ɲ: nj          # palatal nasal (= palatalised /n/)
@@ -36,8 +37,8 @@ consonants:
   ʒ: zj          # absorbs ʐ-fricative
   x: kx          # velar fricative
   ɣ: gx
-  ħ: hq          # voiceless pharyngeal fricative (off-grid combo)
-  ʕ: hx          # voiced pharyngeal fricative
+  ħ: hx          # voiceless pharyngeal fricative = h + `x` (one step deeper — the pharyngeal sub-base)
+  ʕ: hxj         # voiced pharyngeal fricative = hx + `j` (the "second sound" there: the voiced one)
   h: h
   l: l
   ʎ: lj          # palatal lateral (= palatalised /l/)

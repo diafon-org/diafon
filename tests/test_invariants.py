@@ -132,7 +132,7 @@ def test_engine_render_targets():
     assert render("njawr", "native", DATA) == "n̩ár"           # nj→n̩, aw→á (long)
     assert render("tqx", "native", DATA) == "t̤"               # pharyngealised = two dots below
     assert render("nx", "native", DATA) == "ṇ"                # velar nasal ŋ = x-operator dot-below (like ṭ ḳ)
-    assert render("h hj hq hx", "native", DATA) == "h ḥ ħ ħ̣"  # gutturals: crossbar = pharyngeal, underdot = the paired 2nd (ʔ, ʕ)
+    assert render("h hj hx hxj", "native", DATA) == "h ḥ ħ ħ̣"  # guttural 2×2: x=deeper (crossbar), j=paired-2nd (underdot)
     assert render("ey ay oy", "native", DATA) == "ẽ ã õ"      # nasal = dedicated `y` operator (not h), tilde on cardinals
     assert render("ay", "ipa", DATA) == "ã"
     assert render("acswonj", "hu", DATA) == "asszony"          # language target still works (HU a = ac)
