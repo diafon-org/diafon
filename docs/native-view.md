@@ -38,7 +38,7 @@ underdot = the voiced one). The uvular stop keeps its letter **q**. **No supersc
 | nasal `y` (dedicated operator) | tilde | ay→**ã** · ey→**ẽ** · oy→**õ** | ✓ (French, 3-way: brin ẽ · banc ã · bon õ; `y` = the one free letter, not `h` which is a base) |
 | lower `j` (one step) | **one dot below**, uniform | ij→ị · ej→ẹ · uj→**ụ** (ʊ) · oj→**ọ** (ɔ) | ✓ (`j` lowers front *and* back the same way; `iq`=ụ̈ `eq`=ọ̈ add the diaeresis for `c`) |
 | schwa `ax` | the letter | ə | ✓ |
-| rhotic `q` on schwa — `aq` (ɝ) | hooked schwa | **ɚ** | ✓ (irregular short label, ax+q with the x elided — like `sjj`; base stays the schwa, so IPA ə˞ / native ɚ stay true) |
+| rhotic `q` on schwa — `aq` (ɝ) | **r + dot above** | **ṙ** | ✓ (a vocalic r — completes the r-family r · ṛ · ṙ; label = ax+q with the x elided, like `sjj`) |
 
 Two clean rules carry the vowels. **Diaeresis = flip front↔back** (keeping rounding): u/o→ü/ö are the
 front-rounded y/ø, and i/e/a→**ï/ë/ä** are the back-unrounded ɯ/ɤ/ɑ — one mark, symmetric on both sides,
@@ -53,7 +53,7 @@ U+0308. Unattested lengths compose: `ojw`=ɔː → ọ́ (the long acute rides a
 The mark carries the feature; the base letter says which (like the operators — `x` is dental
 on t, velar on k). Marks live on distinct letters (or vowel vs consonant), so nothing clashes:
 - **diaeresis `¨` (two dots above)** — vowels: flip front↔back (ü ö · ï ë ä) · consonants: labialised k̈ g̈, pf p̈.
-- **one dot above `˙`** — consonant aspirated (ṗ ṫ k̇).
+- **one dot above `˙`** — consonant aspirated (ṗ ṫ k̇) · the rhotic vowel **ṙ** (vocalic r; r never aspirates, so no clash).
 - **tilde `˜` (above)** — nasal vowel (ã ẽ õ), the `y` operator.
 - **one dot below** — consonant fricativise (ṭ ḍ ḳ g̣) · vowel lowered `j` (ị ẹ ụ ọ) · the tap **ṛ**.
   The tap's dot is the one glyph whose meaning is **language-specific**: universally ṛ = tap (ES/JA/TR), but a Mandarin-flavoured view may read it as the retroflex ⟨r⟩ — safe because no language has both a tap and a retroflex approximant, so ṛ stays unambiguous within any one language.

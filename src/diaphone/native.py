@@ -24,7 +24,7 @@ _DA, _DB = "̇", "̣"        # one dot above / below
 _DDA, _DDB = "̈", "̤"      # two dots above (diaeresis) / two dots below
 _VLB = "̩"                  # U+0329 combining vertical line below (single — the palatal points; latin22's mark, renders cleaner than the comma)
 _DVLB = "͈"                 # U+0348 combining double vertical line below (soft/palatalised — the two-line partner of _VLB)
-_TILDE, _ACUTE, _RHOT = "̃", "́", "˞"
+_TILDE, _ACUTE = "̃", "́"
 
 # point label -> native base glyph
 _CONS = {
@@ -66,7 +66,7 @@ def _apply(base, label, mods, is_vowel):
         elif m == "palatalized":
             g = g + _DVLB           # U+0348 double vertical line below — the soft/tense mark, two-line partner of the single-line palatal points
         elif m == "rhotic":
-            g = "ɚ" if g == "ə" else g + _RHOT                        # ə→ɚ ; else ˞ fallback
+            g = "ṙ"                     # the r-coloured vowel = a vocalic r: dot ABOVE (r-family: r trill · ṛ tap · ṙ rhotic)
     return unicodedata.normalize("NFC", g)   # precompose where possible (a+́ → á)
 
 
