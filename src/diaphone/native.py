@@ -75,7 +75,9 @@ def _apply(base, label, mods, is_vowel):
 # HU has no base /a/ (only /ɒ/→ɑ and /aː/), so a Hungarian view can render ɑ (`ac`) as plain `a` — giving
 # the natural á/a — where the universal view must keep ä (French contrasts a~ɑ: patte/pâte).
 _LANG_OVERRIDE = {
-    "hu": {"ac": "a"},
+    "hu": {"ac": "a"},        # HU has no base /a/, so ɑ → plain a (á/a)
+    "zh": {"r": "ṛ"},         # Mandarin ⟨r⟩ is the retroflex approximant (merged into r); show it with the
+                              #   underdot (the standard retroflex mark) — safe, Mandarin has no tap
 }
 NATIVE_LANGS = tuple(_LANG_OVERRIDE)   # languages that have a flavoured native view
 
