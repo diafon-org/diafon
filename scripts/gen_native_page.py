@@ -171,7 +171,7 @@ def build():
     mod_examples = [("long (Cː)", "tw", "geminate"), ("long (Vː)", "aw", "acute"),
                     ("nasal (Ṽ)", "ay", "tilde (`y` operator)"), ("aspirated", "ph", "dot above"),
                     ("labialised", "kc", "diaeresis"), ("pharyngealised", "ty", "two dots below"),
-                    ("soft (palatalised)", "pj", "double line below"), ("rhotic (V˞)", "aq", "hook")]
+                    ("soft (palatalised)", "pj", "double line below"), ("rhotic (V˞)", "aq", "vocalic r — dot above")]
     mods = [{"name": nm, "label": lab, "native": nat.get(lab, "?"), "ipa": ipa.get(lab, "?"), "gloss": gl}
             for nm, lab, gl in mod_examples]
 
