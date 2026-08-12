@@ -44,97 +44,124 @@ NASAL_IPA = {"ɛ", "œ", "ɔ", "ɑ"}
 
 # language-specific tryout help (notes + example inputs; outputs are rendered live in the page)
 HELP = {
-    "native": {"name": "native", "lang": False,
-               "note": "The universal Latin+diacritics view — pure code→glyph, no language. "
-                       "One line below = palatal (t̩ s̩), two lines = soft/palatalised (p͈); dots carry the "
-                       "modifiers (dot above = aspirated, dot below = fricativise / lowered vowel), and "
-                       "diaeresis flips a vowel front↔back (ü ö = front-round y/ø · ï ë ä = back ɯ/ɤ/ɑ).",
-               "ex": [["sjok sewp njawr", "sok szép nyár"], ["pjatj", "Russian пять — soft tʲ"],
-                      ["sjj zjj kc gc", "soft s/z · labialised k/g"], ["ty dy sy zy", "Arabic emphatics (tˤ dˤ sˤ zˤ)"]]},
+    "native": {"name": "native",
+               "note": "The universal view — one glyph per point, Latin plus diacritics. One line below = "
+                       "palatal (t̩ s̩); two lines = soft (p͈). Dot above = aspirated (ṗ); dot below = "
+                       "a fricativised consonant (ṭ ḳ) or a lowered vowel (ẹ ọ). Diaeresis flips a vowel "
+                       "front↔back (ü ö · ï ë ä). Tilde = nasal (ã).",
+               "ex": [["sjok sewp njawr", "sok szép nyár"], ["pjatj", "Russian пять"],
+                      ["sjj zjj kc gc", "soft s/z · rounded k/g"], ["ty dy sy zy", "the Arabic emphatics"]]},
     "native-hu": {"name": "HU · native",
-                  "note": "The native view for Hungarian. Toggle **loose** to apply HU's simplification: it "
-                          "has no base /a/, so ɑ (`ac`) renders as plain a — the natural á/a (alma, not älmä). "
-                          "**Strict** keeps the universal glyphs (ä), which the general view must, because "
-                          "French contrasts a~ɑ (patte/pâte).",
+                  "note": "The native view for Hungarian. In loose mode the dark a (`ac`, universally ä) is "
+                          "written plain a — Hungarian has no other short a, so á/a stays unambiguous and "
+                          "words read naturally (alma). Strict keeps ä, which the universal view needs "
+                          "because French distinguishes patte/pâte.",
                   "ex": [["aclmac", "alma"], ["nacdj kutjac", "nagy kutya"], ["sjok sewp njawr", "sok szép nyár"]]},
-    "ipa": {"name": "IPA", "lang": False,
-            "note": "Universal IPA — the diaphonemic phonemes themselves. Modifiers become diacritics "
-                    "(ː ʲ ʰ ʷ ̃ ˞ ˤ); a trailing digit 1–5 becomes a tone superscript.",
-            "ex": [["sjan1 kxaxn3 kau1", "ʃan xən kau + tones"], ["pjatj njawrw", "palatalised + long"],
-                   ["ojw", "ɔː — length composes on any vowel"]]},
+    "ipa": {"name": "IPA",
+            "note": "The IPA value of each code, for reference. Modifiers appear as the standard "
+                    "diacritics; a trailing digit becomes a tone superscript.",
+            "ex": [["sjan1 kxaxn3 kau1", "shān hěn gāo"], ["pjatj njawrw", "soft + long"],
+                   ["ojw", "a long lowered o"]]},
     "hu": {"name": "HU",
-           "note": "Hungarian orthography is near-phonemic, so it round-trips exactly. Long `w` geminates "
-                   "the previous grapheme (sz→ssz). Loose mode frees the bare cardinals a/e to type /ɒ/,/ɛ/.",
+           "note": "Hungarian spelling is near-phonemic, so it round-trips exactly. `w` doubles the "
+                   "previous letter (sz → ssz). Loose mode frees the bare letters a and e for the "
+                   "Hungarian short a and e.",
            "ex": [["sjok sewp njawr", "sok szép nyár"], ["kecsecnecm sewpejn", "köszönöm szépen"],
                   ["ejdj nacdj kutjac", "egy nagy kutya"], ["hoswuw", "hosszú"]]},
     "zh": {"name": "ZH",
-           "note": "Recovers Pinyin. End a syllable with 1–4 for its tone (5/none = neutral). The merged "
-                   "retroflex/alveolo-palatal series spells j/q/x before front i/ü, else zh/ch/sh. Loose mode "
-                   "lets you type Pinyin directly.",
+           "note": "Writes Pinyin. End a syllable with 1–4 for its tone (5 or none = neutral). Before a "
+                   "front vowel the hush series is spelled j/q/x, otherwise zh/ch/sh. Loose mode lets you "
+                   "type Pinyin directly (xiao, shi, zhong).",
            "ex": [["sjan1 kxaxn3 kau1", "shān hěn gāo"], ["nic3", "nǚ"],
-                  ["tqi1 sji1 tquc1 sjuc4", "jī xī zhī shì"], ["zhong1 guo2", "lazy: zhōngguó"]]},
+                  ["tqi1 sji1 tquc1 sjuc4", "jī xī zhī shì"], ["zhong1 guo2", "loose: zhōngguó"]]},
     "native-zh": {"name": "ZH · native",
-                  "note": "The native view for Mandarin. Toggle **loose** to show its ⟨r⟩ (the *rén* sound) "
-                          "as **ṛ** — the retroflex approximant, using the underdot (the standard retroflex "
-                          "mark). It's merged into the plain trill `r` universally (no language contrasts them), "
-                          "so **strict** keeps r; loose surfaces the retroflex quality. Safe because Mandarin "
-                          "has no tap to clash with ṛ.",
+                  "note": "The native view for Mandarin. In loose mode its r (as in rén) is written ṛ — "
+                          "the underdot marking the retroflex quality. Strict keeps plain r. Mandarin has "
+                          "no tapped r, so ṛ stays unambiguous.",
                   "ex": [["raxn2", "rén — 人 person"], ["sjan1 kxaxn3 kau1", "shān hěn gāo"]]},
-    "en": {"name": "EN", "lang": False,
-           "note": "English is not phonemic, so it recovers a faithful pronunciation spelling — not the "
-                   "dictionary form. Type the sounds; read them back as English-ish letters.",
-           "ex": [["sji sejlz fijsj", "she sells fish"], ["gud de", "good day"], ["hu iz it", "who is it"]]},
+    "en": {"name": "EN",
+           "note": "English spelling is not phonemic, so this writes a readable pronunciation, not the "
+                   "dictionary form.",
+           "ex": [["sji sejlz fijsj", "she sells fish"], ["gud de", "good day"], ["baqd", "bird"]]},
 }
 
 
-# THE seven attaching letters — one mechanism, all base-dependent. Four (c j q x) can form new points;
-# any of them reads as a modifier where base+letter isn't a point.
-OPS = [
-    {"op": "c", "cons": "affricate; on k/g (no affricate) labialised; on h: pharyngeal (deeper)",
-     "cons_ex": "tc = t͡s · dc = d͡z · kc = kʷ · hc = ħ",
-     "vowel": "flip front↔back, keeping rounding (at the apex: mark back)",
-     "vowel_ex": "ic = y · ec = ø · uc = ɯ · oc = ɤ · ac = ɑ"},
-    {"op": "j", "cons": "palatal; where no palatal point exists: palatalised (soft); on h: the glottal stop",
-     "cons_ex": "sj = ʃ · tj = c · nj = ɲ · pj = pʲ · hj = ʔ",
-     "vowel": "lower one step", "vowel_ex": "ij = ɪ · ej = ɛ · uj = ʊ · oj = ɔ"},
-    {"op": "q", "note": "= c + j", "cons": "hush affricate; on h: the voiced pharyngeal (deeper + marked)",
-     "cons_ex": "tq = t͡ʃ · dq = d͡ʒ · hq = ʕ",
-     "vowel": "c + j (rounded + lowered); on the schwa: rhotic", "vowel_ex": "iq = ʏ · eq = œ · aq = ɝ"},
-    {"op": "x", "cons": "the fricative one step back — dental on t/d, velar on k/g",
-     "cons_ex": "tx = θ · dx = ð · kx = x · gx = ɣ",
-     "vowel": "centralise → schwa", "vowel_ex": "ax = ə"},
-    {"op": "w", "cons": "long (geminate)", "cons_ex": "tw = tː · sw = sː",
-     "vowel": "long", "vowel_ex": "aw = aː · iw = iː"},
-    {"op": "h", "cons": "aspirated", "cons_ex": "ph = pʰ · th = tʰ · kh = kʰ",
-     "vowel": "— (unused; h is also the /h/ base)", "vowel_ex": ""},
-    {"op": "y", "cons": "pharyngealised — the Arabic emphatics", "cons_ex": "ty = tˤ · dy = dˤ · sy = sˤ · zy = zˤ",
-     "vowel": "nasal", "vowel_ex": "ay = ã · ey = ẽ · oy = õ"},
+# The seven operators — one mechanism, all base-dependent. Four (c j q x) can form new points; any of
+# them reads as a modifier where base+letter isn't a point. Examples carry LABELS; the native glyph for
+# each is computed in build(), so the table can never drift from the engine.
+OPS_SPEC = [
+    ("c", None, "affricate; on k/g (no affricate) rounded; on h: pharyngeal (deeper)",
+     ["tc", "dc", "kc", "hc"],
+     "flip front↔back, keeping rounding (at the open apex: mark back)",
+     ["ic", "ec", "uc", "oc", "ac"]),
+    ("j", None, "palatal; where no palatal point exists: soft; on h: the glottal stop",
+     ["sj", "tj", "nj", "pj", "hj"],
+     "lower one step",
+     ["ij", "ej", "uj", "oj"]),
+    ("q", "= c + j", "hush affricate; on h: the voiced pharyngeal (deeper + marked)",
+     ["tq", "dq", "hq"],
+     "c + j (rounded + lowered); on the schwa: the r-coloured vowel",
+     ["iq", "eq", "aq"]),
+    ("x", None, "the fricative one step back — dental on t/d, velar on k/g",
+     ["tx", "dx", "kx", "gx"],
+     "centralise → the schwa",
+     ["ax"]),
+    ("w", None, "long (a doubled letter)", ["tw", "sw"], "long", ["aw", "iw"]),
+    ("h", None, "aspirated", ["ph", "th", "kh"], "— (unused; h is also a base sound)", []),
+    ("y", None, "emphatic (throat-darkened) — see the glossary", ["ty", "dy", "sy", "zy"],
+     "nasal", ["ay", "ey", "oy"]),
 ]
-# the modifiers that ride on top of a finished point
-MODS_REF = [
-    ("long", "`w`", "holds the sound longer; for consonants a geminate (doubled)", "tw = tː · aw = aː"),
-    ("nasal", "`y` on a vowel", "air also flows through the nose (velum lowered)", "ay = ã · oy = õ"),
-    ("aspirated", "`h` on a consonant", "a puff of breath after a stop's release", "ph = pʰ · kh = kʰ"),
-    ("palatalised", "`j` (but `jj` on s/z)", "secondary raise toward the palate — Russian's 'soft' series", "pj = pʲ · sjj = sʲ"),
-    ("labialised", "`c` on k/g", "lip rounding added to the consonant", "kc = kʷ · gc = gʷ"),
-    ("pharyngealised", "`y` on a consonant", "secondary throat constriction — Arabic emphatics", "ty = tˤ · sy = sˤ"),
-    ("rhotic", "`q` on the schwa", "r-colouring of the vowel; the label elides the x (ax+q → aq)", "aq = ɝ"),
+# the modifier features that ride on top of a finished point (labels; glyphs computed in build())
+MODS_SPEC = [
+    ("long", "w", "holds the sound longer; a consonant doubles", ["tw", "aw"]),
+    ("nasal", "y on a vowel", "air also flows through the nose", ["ay", "oy"]),
+    ("aspirated", "h on a consonant", "a puff of breath after the release", ["ph", "kh"]),
+    ("soft (palatalised)", "j — but jj on s/z", "a secondary raise toward the palate; Russian's soft series", ["pj", "sjj"]),
+    ("rounded (labialised)", "c on k/g", "lip rounding on the consonant", ["kc", "gc"]),
+    ("emphatic (pharyngealised)", "y on a consonant", "a secondary squeeze deep in the throat; Arabic", ["ty", "sy"]),
+    ("r-coloured (rhotic)", "q on the schwa", "the tongue holds an r-shape through the vowel; written aq", ["aq"]),
 ]
-# what the features/sounds actually are, in plain words
-GLOSS = [
-    ("affricate", "A stop released straight into a fricative at the same place — t then s, fused into one sound.", "t͡s (cats), t͡ʃ (church)"),
-    ("palatal", "The tongue body humps up to the hard palate, the roof of the mouth.", "ɲ (Spanish niño), c (Hungarian tyúk)"),
-    ("hush / sibilant", "The 'hushing' s-sounds, made a little further back with a domed tongue.", "ʃ (ship), ʒ (measure)"),
-    ("dental vs velar (the `x` operator)", "Dental = tongue at the teeth (θ ð); velar = tongue at the soft palate (x ɣ). `x` picks the fricative one step *back* from its base.", "θ (thin), x (Scottish loch)"),
-    ("pharyngeal (ħ ʕ)", "Made deep in the throat by pulling the tongue root back toward the pharyngeal wall — Arabic ح and ع.", "ħ (Muḥammad), ʕ (ʿarab)"),
-    ("pharyngealisation — the emphatics", "A *secondary* throat constriction layered on an otherwise-normal consonant: the tongue root retracts and the whole syllable sounds lower and 'darker'. That's the only thing separating Arabic's emphatic tˤ dˤ sˤ zˤ from plain t d s z.", "Arabic صار sˤaːr 'became' vs سار saːr 'walked'"),
-    ("aspiration", "A puff of breath right after a stop is released (hold a hand to your mouth on English 'pin').", "pʰ tʰ kʰ"),
-    ("nasalisation", "The soft palate lowers so air escapes through the nose as well as the mouth.", "ã (French banc), õ (bon)"),
-    ("rhoticity", "R-colouring of a vowel — the tongue bunches or curls as if for an r, right through the vowel.", "ɝ (American 'bird')"),
-    ("labialisation", "Lip rounding added on top of a consonant.", "kʷ (Latin quis)"),
-    ("palatalisation — 'softening'", "A secondary raise of the tongue toward the palate, on top of a normal consonant — Russian's soft series.", "tʲ (Russian тётя)"),
-    ("length", "Holding a sound longer; for consonants that means a geminate (doubled).", "aː (long a), tː (Italian fatto)"),
+# what the features actually are, in plain words. Examples: (label, real word) — glyphs computed.
+GLOSS_SPEC = [
+    ("affricate", "A stop released straight into a fricative at the same place — t then s, fused into one sound.",
+     [("tc", "cats"), ("tq", "church")]),
+    ("palatal", "The tongue body humps up against the hard palate, the roof of the mouth.",
+     [("nj", "Spanish niño"), ("tj", "Hungarian tyúk")]),
+    ("hush", "The hushing s-sounds, made a little further back with a domed tongue.",
+     [("sj", "ship"), ("zj", "measure")]),
+    ("dental · velar", "The x operator picks the fricative one step back from its base: at the teeth on t/d, at the soft palate on k/g.",
+     [("tx", "thin"), ("dx", "this"), ("kx", "Scottish loch")]),
+    ("pharyngeal", "Made deep in the throat by pulling the tongue root toward the back wall — Arabic ح and ع.",
+     [("hc", "Muḥammad"), ("hq", "ʿarab")]),
+    ("emphatic", "A normal consonant plus a second, deep-throat squeeze: the tongue root pulls back and the whole syllable darkens. This alone separates Arabic صاد from س — صار 'became' vs سار 'walked'.",
+     [("ty", "Arabic ط"), ("sy", "Arabic ص")]),
+    ("aspirated", "A puff of breath right after a stop's release — hold a hand to your mouth on English pin.",
+     [("ph", "pin"), ("kh", "kin")]),
+    ("nasal", "The soft palate lowers, so air flows through the nose as well as the mouth.",
+     [("ay", "French banc"), ("oy", "bon")]),
+    ("r-coloured", "The tongue bunches or curls as for an r, right through the vowel — a vocalic r.",
+     [("aq", "American bird = bṙd")]),
+    ("rounded", "Lip rounding on top of a consonant.",
+     [("kc", "Latin quis")]),
+    ("soft", "A secondary raise of the tongue toward the palate on a normal consonant — Russian's soft series.",
+     [("pj", "Russian пять"), ("sjj", "Russian ось")]),
+    ("long", "The sound is held longer; a long consonant is written doubled.",
+     [("aw", "Hungarian ház"), ("tw", "Italian fatto")]),
 ]
+
+
+def wiki_url(kind, a, b, c):
+    """Wikipedia article for a point, derived from its features (redirects cover naming variants)."""
+    if kind == "C":
+        place, manner, voice = a, b, c
+        manner = {"lateral-approximant": "lateral approximant", "tap": "tap and flap"}.get(manner, manner)
+        name = f"{place} {manner}" if manner == "nasal" else \
+            f"{'Voiceless' if voice == 'vl' else 'Voiced'} {place} {manner}"
+    else:
+        hi, bk, rd = a, b, c
+        name = "Mid central vowel" if (hi, bk) == ("mid", "central") else \
+            f"{hi} {bk} {'rounded' if rd else 'unrounded'} vowel"
+    return "https://en.wikipedia.org/wiki/" + (name[0].upper() + name[1:]).replace(" ", "_")
 
 
 def build():
@@ -155,15 +182,18 @@ def build():
         if p["kind"] == "C":
             _, place, manner, voice = p["base"]
             cons.append({"label": lab, "ipa": p["canonical_ipa"], "native": nat.get(lab, "?"),
-                         "place": place, "manner": manner, "voice": voice})
+                         "place": place, "manner": manner, "voice": voice,
+                         "wiki": wiki_url("C", place, manner, voice)})
         else:
-            ipa2vow[p["canonical_ipa"]] = {"label": lab, "native": nat.get(lab, "?")}
+            _, hi, bk, rd = p["base"]
+            ipa2vow[p["canonical_ipa"]] = {"label": lab, "native": nat.get(lab, "?"),
+                                           "wiki": wiki_url("V", hi, bk, rd)}
 
     vows = []
     for ip, (x, y) in GEO.items():
-        v = ipa2vow.get(ip, {"label": "?", "native": "?"})
+        v = ipa2vow.get(ip, {"label": "?", "native": "?", "wiki": ""})
         lab = v["label"]
-        vows.append({"ipa": ip, "label": lab, "native": v["native"], "x": x, "y": y,
+        vows.append({"ipa": ip, "label": lab, "native": v["native"], "x": x, "y": y, "wiki": v["wiki"],
                      "cat": "base" if len(lab) == 1 else lab[1], "nasal": 1 if ip in NASAL_IPA else 0})
     nasals = [{"ipa": s, "label": lab, "native": nat.get(lab, "?")}
               for s, lab in [("ẽ", "ey"), ("ã", "ay"), ("õ", "oy")]]
@@ -175,13 +205,23 @@ def build():
     mods = [{"name": nm, "label": lab, "native": nat.get(lab, "?"), "ipa": ipa.get(lab, "?"), "gloss": gl}
             for nm, lab, gl in mod_examples]
 
+    # spec tables → payload rows with computed native glyphs (never drift from the engine)
+    pair = lambda lab: {"lab": lab, "nat": nat.get(lab, "?")}
+    ops = [{"op": op, "note": note, "cons": cdesc, "cons_ex": [pair(l) for l in cl],
+            "vowel": vdesc, "vowel_ex": [pair(l) for l in vl]}
+           for op, note, cdesc, cl, vdesc, vl in OPS_SPEC]
+    mods_ref = [{"name": nm, "char": ch, "desc": d, "ex": [pair(l) for l in ls]}
+                for nm, ch, d, ls in MODS_SPEC]
+    gloss = [{"title": t, "text": tx, "ex": [{**pair(l), "word": w} for l, w in ls]}
+             for t, tx, ls in GLOSS_SPEC]
+
     keys = sorted(set(nat) | set(ipa), key=len, reverse=True)
     orth = {lg: load_orth(lg, DATA) for lg in ("hu", "zh", "en")}
     return {
         "cons": cons, "place": PLACE, "manner": MANNER, "vows": vows, "nasals": nasals, "mods": mods,
         "nat": nat, "natHu": nat_hu, "natZh": nat_zh, "ipa": ipa, "keys": keys, "orth": orth, "lazy": LAZY_ALIASES,
         "zhRetro": _ZH_RETRO, "tone": _TONE_MARKS, "help": HELP,
-        "ops": OPS, "modsRef": MODS_REF, "gloss": GLOSS,
+        "ops": ops, "modsRef": mods_ref, "gloss": gloss,
         "counts": {"C": len(cons), "V": len(vows), "total": len(cons) + len(vows)},
     }
 
@@ -259,9 +299,11 @@ table.grid{border-collapse:collapse;width:100%;min-width:760px}
 .cell{display:flex;gap:2px;justify-content:center;min-height:100%}
 .pt{flex:1;padding:.4rem .2rem;display:flex;flex-direction:column;align-items:center;gap:1px}
 .pt.vl{background:var(--base-t)}.pt.vd{background:var(--c-t)}
-.pt .ipa{font-family:var(--serif);font-size:1.3rem;line-height:1.1}
-.pt .lab{font:600 .72rem/1 var(--mono);color:var(--accent)}
-.pt .nat{font-family:var(--serif);font-size:1.15rem;color:var(--muted);line-height:1.2}
+.pt .nat{font-family:var(--serif);font-size:1.35rem;color:var(--ink);line-height:1.15}
+.pt .lab{font:600 .74rem/1 var(--mono);color:var(--accent)}
+.pt .ipa{font-family:var(--serif);font-size:.82rem;line-height:1.1;color:var(--muted)}
+a.wref{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--line)}
+a.wref:hover{color:var(--accent);border-bottom-color:var(--accent)}
 .klegend{display:flex;flex-wrap:wrap;gap:.5rem 1.3rem;margin:.8rem 0 0;font-size:.85rem;color:var(--muted)}
 .klegend .sw{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:.3rem}
 .klegend b{color:var(--ink)}.klegend code{font-family:var(--mono);color:var(--ink)}
@@ -270,9 +312,9 @@ svg{width:100%;height:auto;display:block}
 .edge{stroke:var(--line);stroke-width:2;fill:none;opacity:.7}
 .edgelab{fill:var(--muted);font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
 .centre-ring{fill:none;stroke:var(--x-c);stroke-width:1;opacity:.4}
-.chip-g .ipa{font-family:var(--serif);font-size:20px;text-anchor:middle;dominant-baseline:middle;fill:var(--ink)}
+.chip-g .nat{font-family:var(--serif);font-size:20px;text-anchor:middle;dominant-baseline:middle;fill:var(--ink)}
 .chip-g .lab{font-family:var(--mono);font-size:11px;text-anchor:middle;dominant-baseline:middle;font-weight:600}
-.chip-g .nat{font-family:var(--serif);font-size:14px;text-anchor:middle;dominant-baseline:middle;fill:var(--muted)}
+.chip-g .ipa{font-family:var(--serif);font-size:12px;text-anchor:middle;dominant-baseline:middle;fill:var(--muted)}
 .chip-g .til{fill:var(--n-c);font-family:var(--serif);font-size:14px;text-anchor:middle}
 .cat-base rect{fill:var(--base-t);stroke:var(--base-c)}.cat-base .lab{fill:var(--base-c)}
 .cat-c rect{fill:var(--c-t);stroke:var(--c-c)}.cat-c .lab{fill:var(--c-c)}
@@ -285,12 +327,12 @@ svg{width:100%;height:auto;display:block}
 .sw-base{background:var(--base-t);border-color:var(--base-c)}.sw-c{background:var(--c-t);border-color:var(--c-c)}.sw-j{background:var(--j-t);border-color:var(--j-c)}.sw-q{background:var(--q-t);border-color:var(--q-c)}.sw-x{background:var(--x-t);border-color:var(--x-c)}.sw-n{background:var(--n-t);border-color:var(--n-c)}
 .nasal-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.7rem}
 .ntile{background:var(--n-t);border:1.6px solid var(--n-c);border-radius:10px;padding:.4rem .7rem;text-align:center;min-width:62px}
-.ntile .s{font-family:var(--serif);font-size:1.35rem;color:var(--ink)}.ntile .l{font-family:var(--mono);font-size:.75rem;color:var(--n-c);font-weight:600;margin-top:.1rem}.ntile .nat{font-family:var(--serif);font-size:.95rem;color:var(--muted)}
+.ntile .nat{font-family:var(--serif);font-size:1.35rem;color:var(--ink)}.ntile .l{font-family:var(--mono);font-size:.75rem;color:var(--n-c);font-weight:600;margin-top:.1rem}.ntile .s{font-family:var(--serif);font-size:.85rem;color:var(--muted)}
 .mods{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.5rem;margin:.7rem 0 0}
 .mtile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.6rem .7rem}
 .mtile .nm{font:600 .72rem/1.2 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 .mtile .big{display:flex;align-items:baseline;gap:.5rem;margin-top:.35rem}
-.mtile .lab{font:600 .95rem/1 var(--mono);color:var(--accent)}.mtile .ipa{font-family:var(--serif);font-size:1.15rem}.mtile .nat{font-family:var(--serif);font-size:1.3rem;color:var(--ink)}.mtile .gl{font-size:.78rem;color:var(--muted);margin-top:.25rem}
+.mtile .nat{font-family:var(--serif);font-size:1.4rem;color:var(--ink)}.mtile .lab{font:600 .95rem/1 var(--mono);color:var(--accent)}.mtile .ipa{font-family:var(--serif);font-size:.85rem;color:var(--muted)}.mtile .gl{font-size:.78rem;color:var(--muted);margin-top:.25rem}
 .try{margin:.9rem 0 0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1.1rem}
 .tabs{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.8rem}
 .tab{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:.35rem .85rem;font:600 .8rem/1 var(--mono);cursor:pointer}
@@ -327,9 +369,9 @@ footer{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--line);color
 <div class="wrap">
   <div class="top"><div><span class="tag">diaphone</span><h1>The whole system</h1></div>
     <button class="toggle" id="tt" aria-label="toggle theme">theme</button></div>
-  <p class="lede">Every cross-linguistic point in three views at once — its <b>IPA</b> value, the ASCII
-  <b>input</b> combo you type, and the <b>native</b> Latin+diacritics glyph (set in Charis SIL). Consonants
-  on the articulatory grid, vowels on the triangle, then a tryout that converts your input into any target.</p>
+  <p class="lede">Every cross-linguistic point in three forms: the <b>native glyph</b> (how it's written),
+  the <b>input</b> you type, and — small, for reference — its IPA value, linked to Wikipedia. Consonants on
+  the articulatory grid, vowels on the triangle, then a tryout that converts your input into any target.</p>
   <div class="stats" id="stats"></div>
 
   <h2>The seven operators <span class="n">c j q x w h y — one mechanism, base-dependent</span></h2>
@@ -338,7 +380,10 @@ footer{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--line);color
   (<code>x</code> = dental on t, velar on k; <code>y</code> = emphatic on t, nasal on a). Four of them
   (<code>c j q x</code>) can form <i>new points</i>; the rule that decides each case:
   <b>base+letter is that point if it exists, otherwise the letter rides on top as a modifier</b>
-  (<code>sj</code>=ʃ a point, <code>pj</code>=pʲ a modifier; <code>tc</code>=t͡s a point, <code>kc</code>=kʷ a modifier).</p>
+  (<code>sj</code> → <span style="font-family:var(--serif)">s̩</span> is a point, <code>pj</code> →
+  <span style="font-family:var(--serif)">p͈</span> a modifier; <code>tc</code> →
+  <span style="font-family:var(--serif)">c</span> a point, <code>kc</code> →
+  <span style="font-family:var(--serif)">k̈</span> a modifier).</p>
   <div class="scroll"><table class="ops"><thead><tr><th>op</th><th>on a consonant</th><th>on a vowel</th></tr></thead><tbody id="opsBody"></tbody></table></div>
 
   <h2>Consonants <span class="n" id="cN"></span></h2>
@@ -346,8 +391,8 @@ footer{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--line);color
   <div class="klegend">
     <span><span class="sw" style="background:var(--base-t);border:1.6px solid var(--base-c)"></span><b>voiceless</b> (left)</span>
     <span><span class="sw" style="background:var(--c-t);border:1.6px solid var(--c-c)"></span><b>voiced</b> (right)</span>
-    <span>each tile — <b>IPA</b> · <code>input</code> · <span style="font-family:var(--serif)">native</span></span>
-    <span>gutturals are a 2×2 on <code>h</code> (ʔ=<code>hj</code> ħ=<code>hc</code> ʕ=<code>hq</code>)</span>
+    <span>each tile — <span style="font-family:var(--serif)"><b>native</b></span> · <code>input</code> · ipa (→ Wikipedia)</span>
+    <span>gutturals are a 2×2 on <code>h</code>: ḥ=<code>hj</code> · ħ=<code>hc</code> · ħ̣=<code>hq</code></span>
   </div>
 
   <h2>Vowels <span class="n" id="vN"></span></h2>
@@ -462,7 +507,7 @@ draw();run();
   const rows=D.manner.filter(([m])=>D.cons.some(c=>c.manner===m)).map(([m,ml])=>{
     const tds=D.place.map(([pl])=>{const pts=(byCell[m+"|"+pl]||[]).sort((a,b)=>rank(a.voice)-rank(b.voice));
       if(!pts.length)return "<td></td>";
-      const tiles=pts.map(p=>`<div class="pt ${p.voice==="vl"?"vl":"vd"}"><span class="ipa">${esc(p.ipa)}</span><span class="lab">${esc(p.label)}</span><span class="nat">${esc(p.native)}</span></div>`).join("");
+      const tiles=pts.map(p=>`<div class="pt ${p.voice==="vl"?"vl":"vd"}"><span class="nat">${esc(p.native)}</span><span class="lab">${esc(p.label)}</span><span class="ipa"><a class="wref" href="${esc(p.wiki)}" target="_blank" rel="noopener">${esc(p.ipa)}</a></span></div>`).join("");
       return `<td><div class="cell">${tiles}</div></td>`;}).join("");
     return `<tr><th>${esc(ml)}</th>${tds}</tr>`;});
   $("cBody").innerHTML=rows.join("");})();
@@ -476,24 +521,27 @@ draw();run();
   lab(420,132,"close",0);lab(240,400,"front · unrounded",52);lab(620,400,"back · rounded",-52);lab(430,652,"open",0);lab(430,398,"centre",0,11);
   for(const v of D.vows){const g=el("g",{class:"chip-g cat-"+v.cat});
     g.appendChild(el("rect",{x:v.x-27,y:v.y-30,width:54,height:60,rx:11}));
-    const ip=el("text",{class:"ipa",x:v.x,y:v.y-13});ip.textContent=v.ipa;g.appendChild(ip);
+    const nt=el("text",{class:"nat",x:v.x,y:v.y-13});nt.textContent=v.native;g.appendChild(nt);
     const lb=el("text",{class:"lab",x:v.x,y:v.y+3});lb.textContent=v.label;g.appendChild(lb);
-    const nt=el("text",{class:"nat",x:v.x,y:v.y+19});nt.textContent=v.native;g.appendChild(nt);
+    const a=el("a",{href:v.wiki,target:"_blank",rel:"noopener"});
+    const ip=el("text",{class:"ipa",x:v.x,y:v.y+19});ip.textContent=v.ipa;a.appendChild(ip);g.appendChild(a);
     if(v.nasal){const t=el("text",{class:"til",x:v.x+20,y:v.y-17});t.textContent="˜";g.appendChild(t);}
     svg.appendChild(g);}
   const LEG=[["base","base","i e a o u"],["c","c","flip front↔back"],["j","j","lower one step"],["q","q","c + j (front-round)"],["x","x","centralise → ə"],["n","˜","nasal (+y)"]];
   $("legend").innerHTML=LEG.map(([cls,code,desc])=>`<div class="leg"><span class="sw sw-${cls}"></span><code>${esc(code)}</code> <span>${esc(desc)}</span></div>`).join("");
-  $("nasals").innerHTML=D.nasals.map(n=>`<div class="ntile"><div class="s">${esc(n.ipa)}</div><div class="l">${esc(n.label)}</div><div class="nat">${esc(n.native)}</div></div>`).join("");})();
+  $("nasals").innerHTML=D.nasals.map(n=>`<div class="ntile"><div class="nat">${esc(n.native)}</div><div class="l">${esc(n.label)}</div><div class="s">${esc(n.ipa)}</div></div>`).join("");})();
 
 /* operators + modifiers reference + glossary */
-$("opsBody").innerHTML=D.ops.map(o=>`<tr><td class="opc">${esc(o.op)}${o.note?`<span class="on">${esc(o.note)}</span>`:""}</td><td><b>${esc(o.cons)}</b><br><span class="opex">${esc(o.cons_ex)}</span></td><td><b>${esc(o.vowel)}</b><br><span class="opex">${esc(o.vowel_ex)}</span></td></tr>`).join("");
-$("modsRefBody").innerHTML=D.modsRef.map(m=>`<tr><td><b>${esc(m[0])}</b></td><td class="mc">${esc(m[1].replace(/\x60/g,""))}</td><td>${esc(m[2])}</td><td class="opex">${esc(m[3])}</td></tr>`).join("");
-$("glossBody").innerHTML=D.gloss.map(g=>`<div class="gitem"><div class="gt">${esc(g[0])}</div><div class="gw">${esc(g[1])}</div><div class="ge">${esc(g[2])}</div></div>`).join("");
+const pairHTML=p=>`<b class="serif" style="font-family:var(--serif)">${esc(p.nat)}</b> <code>${esc(p.lab)}</code>`;
+const pairsHTML=ps=>ps.map(pairHTML).join(" · ");
+$("opsBody").innerHTML=D.ops.map(o=>`<tr><td class="opc">${esc(o.op)}${o.note?`<span class="on">${esc(o.note)}</span>`:""}</td><td><b>${esc(o.cons)}</b><br><span class="opex">${pairsHTML(o.cons_ex)}</span></td><td><b>${esc(o.vowel)}</b><br><span class="opex">${pairsHTML(o.vowel_ex)}</span></td></tr>`).join("");
+$("modsRefBody").innerHTML=D.modsRef.map(m=>`<tr><td><b>${esc(m.name)}</b></td><td class="mc">${esc(m.char)}</td><td>${esc(m.desc)}</td><td class="opex">${pairsHTML(m.ex)}</td></tr>`).join("");
+$("glossBody").innerHTML=D.gloss.map(g=>`<div class="gitem"><div class="gt">${esc(g.title)}</div><div class="gw">${esc(g.text)}</div><div class="ge">${g.ex.map(e=>`${pairHTML(e)}${e.word?` <span style="color:var(--muted)">— ${esc(e.word)}</span>`:""}`).join(" · ")}</div></div>`).join("");
 /* modifiers + stats + theme */
-$("mBody").innerHTML=D.mods.map(m=>`<div class="mtile"><div class="nm">${esc(m.name)}</div><div class="big"><span class="lab">${esc(m.label)}</span><span class="ipa">${esc(m.ipa)}</span><span class="nat">${esc(m.native)}</span></div><div class="gl">${esc(m.gloss)}</div></div>`).join("");
+$("mBody").innerHTML=D.mods.map(m=>`<div class="mtile"><div class="nm">${esc(m.name)}</div><div class="big"><span class="nat">${esc(m.native)}</span><span class="lab">${esc(m.label)}</span><span class="ipa">${esc(m.ipa)}</span></div><div class="gl">${esc(m.gloss)}</div></div>`).join("");
 $("cN").textContent=D.counts.C+" points";$("vN").textContent=D.counts.V+" points";
 $("stats").innerHTML=`<span class="chip"><b>${D.counts.total}</b> points</span><span class="chip"><b>${D.counts.C}</b> consonants</span><span class="chip"><b>${D.counts.V}</b> vowels</span><span class="chip"><b>7</b> modifiers</span><span class="chip"><b>16</b> languages</span>`;
-$("foot").textContent="diaphone · "+D.counts.total+" general points · Charis SIL · IPA · input · native · one input, any target";
+$("foot").textContent="diaphone · "+D.counts.total+" general points · native · input · ipa · one input, any target";
 const tt=$("tt");tt.addEventListener("click",()=>{const r=document.documentElement,c=r.getAttribute("data-theme");r.setAttribute("data-theme",c==="dark"?"light":c==="light"?"":"dark");tt.textContent=r.getAttribute("data-theme")||"theme";});
 </script>
 """
