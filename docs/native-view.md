@@ -17,7 +17,7 @@ Status legend: ✓ decided · ◻ open.
 | affricate `c` | letter | tc→**c** · dc→**đ** | ✓ |
 | hush `q` (affricate+palatal) | letter + **vertical line below** | tq→**c̩** · dq→**đ̩** | ✓ (dʒ=đ̩; the palatal line rides the affricate) |
 | dental / velar `x` (fricativise) | **one dot below** | tx→**ṭ** · dx→**ḍ** · kx→**ḳ** · gx→**g̣** | ✓ (θ/ð/x/ɣ = the homorganic fricative) |
-| pharyngealised (`y` on a consonant) | **two dots below** | tˤ→**t̤** · dˤ→**d̤** · sˤ→**s̤** · ðˤ→**ẓ** | ✓ |
+| pharyngealised (`y` on a consonant) | **two dots below** | tˤ→**t̤** · dˤ→**d̤** · sˤ→**s̤** · zˤ→**z̤** | ✓ |
 | aspirated `h` | **one dot above** | ṗ ṫ k̇ · ċ (tsʰ) · ċ̩ (tʃʰ, dot above + palatal line) | ✓ |
 | labialised (`c` on k/g) | **two dots above** (diaeresis) | k̈ g̈ | ✓ — diaeresis = rounding, same as vowels ü ö |
 | pf `pc` | diaeresis `p̈` (on p — no clash with k/g) | p̈ | ✓ |

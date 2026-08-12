@@ -31,4 +31,4 @@ vowels:
 long_series: [a, i, u]
 secondary_series:
 - type: pharyngealized
-  applies_to: [t, d, s, ð]
+  applies_to: [t, d, s, z]   # ظ modelled as zˤ (its usual spoken value), so the label is zy not dxy

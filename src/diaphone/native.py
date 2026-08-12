@@ -62,7 +62,7 @@ def _apply(base, label, mods, is_vowel):
         elif m == "labialized":
             g = g + _DDA                                                        # diaeresis
         elif m == "pharyngealized":
-            g = "ẓ" if label == "dx" else g + _DDB                         # ðˤ→ẓ ; else two dots below
+            g = g + _DDB                                                    # two dots below (emphatics t̤ d̤ s̤ z̤)
         elif m == "palatalized":
             g = g + _DVLB           # U+0348 double vertical line below — the soft/tense mark, two-line partner of the single-line palatal points
         elif m == "rhotic":
