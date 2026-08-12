@@ -34,6 +34,22 @@ def main(argv=None):
         da = dp.parse_args(argv[1:])
         print(decode(da.text, da.lang, da.data, lazy=da.lazy))
         return
+    if argv and argv[0] == "export-json":
+        import json
+        from .engine import export_data
+        xp = argparse.ArgumentParser(prog="diaphone export-json",
+                                     description="Export the conversion engine as pure data, for ports.")
+        xp.add_argument("--data", default=_default_data())
+        xp.add_argument("--out", default=os.path.join("out", "engine.json"))
+        xa = xp.parse_args(argv[1:])
+        data = export_data(xa.data)
+        os.makedirs(os.path.dirname(os.path.abspath(xa.out)), exist_ok=True)
+        with open(xa.out, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=1, sort_keys=True)
+        n_labels = len(data["keys"])
+        print(f"wrote {xa.out}: {len(data['maps'])} universal maps · {n_labels} labels · "
+              f"{len(data['orth'])} language orthographies")
+        return
     if argv and argv[0] in ("ipa", "native", "render"):
         from .engine import render, targets
         rp = argparse.ArgumentParser(prog="diaphone render",

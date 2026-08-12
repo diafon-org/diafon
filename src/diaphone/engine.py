@@ -32,3 +32,34 @@ def render(text, target, data_dir="data", lazy=False):
     if target in LANGUAGES:
         return decode(text, target, data_dir, lazy=lazy)
     raise ValueError(f"unknown target {target!r}; use one of: {', '.join(targets())}")
+
+
+def export_data(data_dir="data"):
+    """The conversion engine as pure data — for ports (the Mac input method, the web page).
+
+    Everything a consumer needs to reproduce `render()`: the label→glyph maps for every universal
+    target plus the greedy token order (`keys`), and per language its orthography map, lazy aliases,
+    and the two Mandarin tables. The per-language assembly *rules* stay code — they are small,
+    documented in decode.py, and a port proves itself by replaying a shared corpus against the CLI
+    (tests/test_export.py does exactly that with a minimal consumer built from this data alone).
+    """
+    from .native import native_labels, _TONE_SUP
+    from .render import ipa_labels
+    from .decode import load_orth, LAZY_ALIASES, _ZH_RETRO, _TONE_MARKS
+    features, _languages, all_ph = load(data_dir)
+    maps = {"native": native_labels(all_ph, features, data_dir),
+            "ipa": ipa_labels(all_ph, features, data_dir)}
+    for lg in NATIVE_LANGS:
+        maps[f"native-{lg}"] = native_labels(all_ph, features, data_dir, lang=lg)
+    keys = sorted(set().union(*(set(m) for m in maps.values())), key=len, reverse=True)
+    return {
+        "version": 1,
+        "targets": targets(),
+        "maps": maps,                                     # universal targets: label -> glyph
+        "keys": keys,                                     # greedy (longest-first) token order
+        "toneSup": dict(_TONE_SUP),                       # universal: trailing digit -> superscript
+        "orth": {lg: load_orth(lg, data_dir) for lg in LANGUAGES},   # language: label -> grapheme
+        "lazy": LAZY_ALIASES,                             # loose-input overlays per language
+        "zhRetro": _ZH_RETRO,                             # zh: hush initial -> (plain, before-front) spelling
+        "toneMarks": _TONE_MARKS,                         # zh: vowel -> tone-marked forms, tones 1-4
+    }

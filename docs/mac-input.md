@@ -59,7 +59,10 @@ Interaction details:
 
 ## Milestones
 
-1. **Export** — `diaphone export-json` (+ a test asserting it round-trips the corpus). ~½ day.
+1. **Export** — ✅ DONE. `diaphone export-json` → `out/engine.json` (11 KB: 4 universal maps,
+   130 labels, 3 orthographies + lazy/zh tables). `tests/test_export.py` proves sufficiency: a
+   minimal consumer built from the JSON alone reproduces `render()` over the corpus, every
+   target, strict and loose.
 2. **Skeleton** — Xcode project: `.app` bundle with `Info.plist` keys (`InputMethodConnectionName`,
    `TISInputSourceID`, icon), installs to `~/Library/Input Methods`, appears in
    System Settings → Keyboard → Input Sources. The "hello world" of IMK. ~1 day.
