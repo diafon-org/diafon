@@ -76,7 +76,13 @@ Notation → a language's spelling. Canonical labels live in `data/orth/<lang>.y
   *following vowel* picks the spelling: front `i`/`ic`(ü) → j/q/x (+ ü→u), else zh/ch/sh. The
   apical/buzzed vowel (zhī, shì, sì) is written `uc` — Pinyin also spells it "i", but it is not front
   `/i/`, so it keeps the retroflex spelling. So `tqi1`=jī but `tquc1`=zhī; `sji1`=xī but `sjuc4`=shì.
-- **Lazy mode** (`decode(..., lazy=True)` / `--lazy`) — opt-in shortcuts in `decode.LAZY_ALIASES`
+**Strict vs loose (per-language).** Every language has an optional **loose** ("not strict") mode — a
+*local* toggle that turns on that language's simplifications, of two kinds: the **input** (lazy typing
+shortcuts, `decode.LAZY_ALIASES`) and the **view** (native-glyph overrides, `native._LANG_OVERRIDE`, e.g.
+HU ɑ→a so *alma* not *älmä*). Strict is the canonical default; loose is opt-in and never changes the point
+set. The whole-system page surfaces it as one `loose (not strict)` toggle per language target.
+
+- **Lazy mode** (`decode(..., lazy=True)` / `--lazy`) — the *input* half of loose; opt-in shortcuts in `decode.LAZY_ALIASES`
   (grapheme map, overriding canonical): HU bare `a`=/ɒ/, `e`=/ɛ/. ZH ≈ **"type Pinyin"** — the
   sibilant/affricate initials + `o` spell literally (`xiao`=xiǎo, `shi`=shì, `zhong`=zhōng, `cai`=cài),
   so the sh/x apical/front split is carried by the user's own Pinyin spelling. The one set NOT added is
