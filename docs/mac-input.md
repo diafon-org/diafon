@@ -63,11 +63,11 @@ Interaction details:
    130 labels, 3 orthographies + lazy/zh tables). `tests/test_export.py` proves sufficiency: a
    minimal consumer built from the JSON alone reproduces `render()` over the corpus, every
    target, strict and loose.
-2. **Skeleton** — Xcode project: `.app` bundle with `Info.plist` keys (`InputMethodConnectionName`,
-   `TISInputSourceID`, icon), installs to `~/Library/Input Methods`, appears in
-   System Settings → Keyboard → Input Sources. The "hello world" of IMK. ~1 day.
-3. **Streamer.swift + check_swift** — port the *incremental committer* (`scripts/stream_poc.py`
-   is the reference), then corpus-validate: char-by-char feed must equal the batch CLI. ~1–2 days.
+2. **Skeleton** — ✅ DONE (no Xcode needed: plain `swiftc` + `mac/Makefile`). `mac/` holds the
+   `.app` bundle sources + `Info.plist`; `make install` copies to `~/Library/Input Methods`.
+3. **Streamer.swift + check_swift** — ✅ DONE. `mac/Sources/{Decoder,Streamer}.swift` port
+   decode.py + the incremental committer; `make check` replays the corpus through batch AND
+   char-by-char streaming: **480/480 byte-identical to the Python CLI**.
 4. **Wiring UX** — insertText per committed glyph, held-tail feedback, backspace/escape rules,
    the target menu, ZH syllable handling. ~2 days.
 5. **Polish** — codesign (Developer ID), notarize, a `make install` for local dev. ~1–2 days.
