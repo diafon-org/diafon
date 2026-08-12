@@ -28,8 +28,8 @@ _ACCEPTED = {
     ("KO", "kh"): "aspirated /kʰ/ vs /k/+/h/ — boundary only",
     ("KO", "tqh"): "aspirated affricate /tɕʰ/ vs /tʃ/+/h/ — boundary only, same aspiration family",
     ("VI", "th"): "aspirated /tʰ/ vs /t/+/h/ — boundary only",
-    # (The old rhotic /ɝ/=`axr` ~ /ə/+/r/ ambiguity is gone: the rhotic modifier moved off `r` to `q`,
-    #  so ɝ = `axq` — `q` is inert on a central vowel, so the slot is unambiguous.)
+    # (The old rhotic /ɝ/=`axr` ~ /ə/+/r/ ambiguity is gone: the rhotic modifier moved off `r` to `q`;
+    #  ɝ carries the irregular short label `aq` — see _IRREGULAR — which nothing re-reads.)
 }
 
 
@@ -42,6 +42,20 @@ def _mod_chars(mods, point_label, mod_map):
             ch = "jj"                      # sʲ=sjj, zʲ=zjj — because sj/zj are the hush ʃ/ʒ
         out += ch
     return out
+
+
+# Irregular full labels — reviewed exceptions where plain composition is clunky (cf. the s/z `jj` rule).
+# The rhotic vowel ɝ (the only one, English NURSE) elides the schwa's x: ax+q -> `aq`. The base stays
+# truthfully the schwa point (mid central), so IPA renders ə˞ and native ɚ; only the label is short.
+_IRREGULAR = {("ax", frozenset({"rhotic"})): "aq"}
+
+
+def full_label(point_label, mods, mod_map):
+    """The complete label for (point, modifiers): composed, unless a reviewed irregular applies."""
+    irr = _IRREGULAR.get((point_label, frozenset(mods)))
+    if irr is not None:
+        return irr
+    return point_label + _mod_chars(mods, point_label, mod_map)
 
 
 def _label_maps(all_ph, features, data_dir="data"):
@@ -73,7 +87,7 @@ def phoneme_labels(phs, label_of_base, mod_map):
         pl = label_of_base.get(ph["base"])
         if pl is None:
             continue
-        lab = pl + _mod_chars(ph["mods"], pl, mod_map)
+        lab = full_label(pl, ph["mods"], mod_map)
         out.setdefault(lab, []).append(ph["ipa"])
     return out
 

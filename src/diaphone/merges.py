@@ -45,15 +45,16 @@ def apply_merges(points):
     for k, v in points.items():
         general[k] = {**v, "languages": dict(v["languages"]),
                       "modifiers_seen": set(v.get("modifiers_seen", set())),
+                      "members": set(v.get("members", set())),
                       "recovered": list(v.get("recovered", []))}
-    # Safety is per (target, recovery-mark), not raw co-occurrence: a source may share a language
-    # with its target as long as their marks differ (so they stay distinct within that language).
-    # E.g. Mandarin ʂ→ʃ (underdot) and ɕ→ʃ (plain) both land on ʃ but never collapse — sh keeps
-    # the underdot, x does not. Two members with the SAME mark in one language WOULD collapse.
-    claimed = {}                       # target_key -> {(lang, mark)}
+    # Safety is per (lang, modifiers, recovery-mark) — the exact injectivity key. A source may share a
+    # language with its target as long as either the modifiers or the mark differ. E.g. Mandarin ʂ→ʃ
+    # (underdot) and ɕ→ʃ (plain) both land on ʃ but never collapse; and a target occupied only via a
+    # modifier (EN's rhotic vowel on a point) never blocks a plain fold into the same point.
+    claimed = {}                       # target_key -> {(lang, mods, mark)}
     def _claims(k):
         if k not in claimed:
-            claimed[k] = {(lg, None) for lg in general[k]["languages"]}  # the target's own members
+            claimed[k] = {(lg, mods, None) for lg, mods in general[k]["members"]}  # the target's own members
         return claimed[k]
     folded = []
     for src, tgt, rec, note in LEDGER:
@@ -62,15 +63,16 @@ def apply_merges(points):
         cl = _claims(tgt)              # capture target's claims BEFORE folding this source in
         s = general.pop(src)
         t = general[tgt]
-        for code in s["languages"]:
-            key = (code, rec)
+        for code, mods in s["members"]:
+            key = (code, mods, rec)
             assert key not in cl, \
                 f"unsafe merge: {s['canonical_ipa']}→{t['canonical_ipa']} collides in {code} " \
-                f"(both would be {t['canonical_ipa']} + {rec})"
+                f"(both would be {t['canonical_ipa']} + {sorted(mods)} + {rec})"
             cl.add(key)
         for code, ipa in s["languages"].items():
             t["languages"].setdefault(code, ipa)
         t["modifiers_seen"] |= s["modifiers_seen"]
+        t["members"] |= s["members"]
         t["recovered"].append({"ipa": s["canonical_ipa"], "recover": rec,
                                "langs": sorted(s["languages"])})
         folded.append((s["canonical_ipa"], t["canonical_ipa"], rec, note))

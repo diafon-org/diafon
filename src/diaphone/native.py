@@ -17,7 +17,7 @@ Vowels: `j` lowers (one dot below — ị ẹ ụ ọ), the diaeresis flips fron
 import unicodedata
 
 from .decode import tokenize
-from .notation import _label_maps, _mod_chars
+from .notation import _label_maps, _mod_chars, full_label
 
 # combining marks
 _DA, _DB = "̇", "̣"        # one dot above / below
@@ -95,7 +95,7 @@ def native_labels(all_ph, features, data_dir="data", lang=None):
             pl = label_of_base.get(ph["base"])
             if pl is None or pl not in base_of:
                 continue
-            full = pl + _mod_chars(ph["mods"], pl, mod_map)
+            full = full_label(pl, ph["mods"], mod_map)
             # a modifier label that coincides with a point label (tʲ=`tj`=c) keeps the point glyph
             out.setdefault(full, _apply(base_of[pl], pl, ph["mods"], pl in _VOW))
     # Systematic long forms for every point, so an unattested length (e.g. `ojw`=ʊː) still composes
