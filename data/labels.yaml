@@ -86,4 +86,4 @@ modifiers:       # each is just a letter/combo — no separate tier
   aspirated: h       # ph = pʰ  (on consonants)
   nasal: "y"         # vowels only: ay = ã.  A DEDICATED operator on the one free letter (`y`, the retired
                      #   vowel base) — not `h` (also the /h/ base) and not a symbol. Renders as the tilde.
-  rhotic: r          # English ɝ = yr (schwa + r)
+  rhotic: r          # English ɝ = axr (schwa + r); the one accepted boundary-only ambiguity (r overloads the trill)
