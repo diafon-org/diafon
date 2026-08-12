@@ -51,37 +51,30 @@ HELP = {
                        "front↔back (ü ö · ï ë ä). Tilde = nasal (ã).",
                "ex": [["sjok sewp njawr", "sok szép nyár"], ["pjatj", "Russian пять"],
                       ["sjj zjj kc gc", "soft s/z · rounded k/g"], ["ty dy sy zy", "the Arabic emphatics"]]},
-    "native-hu": {"name": "HU · native",
-                  "note": "The native view for Hungarian. In loose mode the dark a (`ac`, universally ä) is "
-                          "written plain a — Hungarian has no other short a, so á/a stays unambiguous and "
-                          "words read naturally (alma). Strict keeps ä, which the universal view needs "
-                          "because French distinguishes patte/pâte.",
-                  "ex": [["aclmac", "alma"], ["nacdj kutjac", "nagy kutya"], ["sjok sewp njawr", "sok szép nyár"]]},
     "ipa": {"name": "IPA",
             "note": "The IPA value of each code, for reference. Modifiers appear as the standard "
                     "diacritics; a trailing digit becomes a tone superscript.",
             "ex": [["sjan1 kxaxn3 kau1", "shān hěn gāo"], ["pjatj njawrw", "soft + long"],
                    ["ojw", "a long lowered o"]]},
     "hu": {"name": "HU",
-           "note": "Hungarian spelling is near-phonemic, so it round-trips exactly. `w` doubles the "
-                   "previous letter (sz → ssz). Loose mode frees the bare letters a and e for the "
-                   "Hungarian short a and e.",
+           "note": "Hungarian, in both forms: the native view and the spelling (near-phonemic, so it "
+                   "round-trips exactly; `w` doubles the previous letter, sz → ssz). Loose input frees the "
+                   "bare letters a and e for the Hungarian short a and e. Loose view writes the dark a "
+                   "(universally ä) as plain a — Hungarian has no other short a, so á/a stays unambiguous "
+                   "and words read naturally (alma).",
            "ex": [["sjok sewp njawr", "sok szép nyár"], ["kecsecnecm sewpejn", "köszönöm szépen"],
-                  ["ejdj nacdj kutjac", "egy nagy kutya"], ["hoswuw", "hosszú"]]},
+                  ["ejdj nacdj kutjac", "egy nagy kutya"], ["aclmac", "alma"], ["hoswuw", "hosszú"]]},
     "zh": {"name": "ZH",
-           "note": "Writes Pinyin. End a syllable with 1–4 for its tone (5 or none = neutral). Before a "
-                   "front vowel the hush series is spelled j/q/x, otherwise zh/ch/sh. Loose mode lets you "
-                   "type Pinyin directly (xiao, shi, zhong).",
-           "ex": [["sjan1 kxaxn3 kau1", "shān hěn gāo"], ["nic3", "nǚ"],
+           "note": "Mandarin, in both forms: the native view and Pinyin. End a syllable with 1–4 for its "
+                   "tone (5 or none = neutral); before a front vowel the hush series is spelled j/q/x, "
+                   "otherwise zh/ch/sh. Loose input lets you type Pinyin directly (xiao, shi, zhong). "
+                   "Loose view writes Mandarin's r (as in rén) as ṛ, the underdot marking its retroflex "
+                   "quality — Mandarin has no tapped r, so ṛ stays unambiguous.",
+           "ex": [["sjan1 kxaxn3 kau1", "shān hěn gāo"], ["nic3", "nǚ"], ["raxn2", "rén"],
                   ["tqi1 sji1 tquc1 sjuc4", "jī xī zhī shì"], ["zhong1 guo2", "loose: zhōngguó"]]},
-    "native-zh": {"name": "ZH · native",
-                  "note": "The native view for Mandarin. In loose mode its r (as in rén) is written ṛ — "
-                          "the underdot marking the retroflex quality. Strict keeps plain r. Mandarin has "
-                          "no tapped r, so ṛ stays unambiguous.",
-                  "ex": [["raxn2", "rén — 人 person"], ["sjan1 kxaxn3 kau1", "shān hěn gāo"]]},
     "en": {"name": "EN",
-           "note": "English spelling is not phonemic, so this writes a readable pronunciation, not the "
-                   "dictionary form.",
+           "note": "English, in both forms: the native view and a spelling. English orthography is not "
+                   "phonemic, so the spelling row is a readable pronunciation, not the dictionary form.",
            "ex": [["sji sejlz fijsj", "she sells fish"], ["gud de", "good day"], ["baqd", "bird"]]},
 }
 
@@ -343,9 +336,12 @@ svg{width:100%;height:auto;display:block}
 #in:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
 .lazy{display:none;align-items:center;gap:.4rem;margin:.6rem 0 0;font:.8rem var(--mono);color:var(--muted);cursor:pointer}
 .lazy.show{display:flex}.lazy input{accent-color:var(--accent);cursor:pointer}.lazy .hint{opacity:.8}
-.bigout{margin:1rem 0 0;padding:.8rem .2rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);min-height:3.4rem;display:flex;align-items:baseline;gap:.8rem;flex-wrap:wrap}
-.bigout .v{font-family:var(--serif);font-size:2rem;line-height:1.35;word-break:break-word}
-.bigout .brk{font:.78rem var(--mono);color:var(--muted)}
+.toggles{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem}
+.outs{margin:1rem 0 0;border-top:1px solid var(--line)}
+.orow{display:flex;align-items:baseline;gap:.9rem;flex-wrap:wrap;padding:.6rem .2rem;border-bottom:1px solid var(--line);min-height:3rem}
+.orow .k{font:600 .68rem/1.2 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);min-width:5rem}
+.orow .v{font-family:var(--serif);font-size:1.9rem;line-height:1.35;word-break:break-word}
+.orow .brk{font:.78rem var(--mono);color:var(--muted)}
 .help{margin:.9rem 0 0;color:var(--muted);font-size:.9rem}.help .note{max-width:74ch}
 .exs{display:flex;flex-wrap:wrap;gap:.4rem;margin:.7rem 0 0}
 .exs button{border:1px dashed var(--line);background:transparent;color:var(--accent);border-radius:.5rem;padding:.3rem .55rem;font:.8rem var(--mono);cursor:pointer;text-align:left}
@@ -415,8 +411,11 @@ footer{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--line);color
   <div class="try">
     <div class="tabs" id="tabs" role="tablist"></div>
     <input id="in" spellcheck="false" value="sjok sewp njawr">
-    <label class="lazy" id="loosewrap"><input type="checkbox" id="loose"> loose <span style="opacity:.7">(not strict)</span> <span class="hint" id="loosehint"></span></label>
-    <div class="bigout"><span class="v" id="oval"></span><span class="brk" id="obrk"></span></div>
+    <div class="toggles">
+      <label class="lazy" id="liwrap"><input type="checkbox" id="li"> loose input <span class="hint" id="lihint"></span></label>
+      <label class="lazy" id="lvwrap"><input type="checkbox" id="lv"> loose view <span class="hint" id="lvhint"></span></label>
+    </div>
+    <div class="outs" id="outs"></div>
     <div class="help"><p class="note" id="note"></p><div class="exs" id="exs"></div></div>
   </div>
 
@@ -471,33 +470,34 @@ function decode(text,lang,lazy){let orth={...D.orth[lang]};
   return text.trim().split(/\s+/).filter(Boolean).map(w=>decodeWord(w,orth,lang)).join(" ");}
 window.__engine={urend,decode};
 
-/* tryout: language-specific target + help */
-// Each language target carries a LOCAL strict/loose toggle. Loose (= "not strict") turns on that
-// language's simplifications — of the INPUT (lazy typing shortcuts) or of the VIEW (native overrides).
+/* tryout: one tab per language; the two simplifications are inner switches —
+   LOOSE INPUT (typing shortcuts) and LOOSE VIEW (that language's native-glyph reading). */
 const TARGETS=[
-  {key:"native",name:"native",fn:(v,loose)=>urend(v,D.nat),brk:true},
-  {key:"ipa",name:"IPA",fn:(v,loose)=>urend(v,D.ipa)},
-  {key:"hu",name:"HU",loose:true,hint:"input: bare a=ɒ, e=ɛ",fn:(v,loose)=>decode(v,"hu",loose)},
-  {key:"native-hu",name:"HU · native",loose:true,hint:"view: ɑ→a, so alma not älmä",fn:(v,loose)=>urend(v,loose?D.natHu:D.nat),brk:true},
-  {key:"zh",name:"ZH",loose:true,hint:"input: ≈ type Pinyin",fn:(v,loose)=>decode(v,"zh",loose)},
-  {key:"native-zh",name:"ZH · native",loose:true,hint:"view: r→ṛ (the retroflex ⟨r⟩)",fn:(v,loose)=>urend(v,loose?D.natZh:D.nat),brk:true},
-  {key:"en",name:"EN",fn:(v,loose)=>decode(v,"en",false)},
+  {key:"native",name:"native",rows:v=>[{k:"native",v:urend(v,D.nat),brk:true}]},
+  {key:"ipa",name:"IPA",rows:v=>[{k:"ipa",v:urend(v,D.ipa)}]},
+  {key:"hu",name:"HU",li:"bare a = ɒ · e = ɛ",lv:"ä → a (alma)",
+   rows:(v,li,lv)=>[{k:"native",v:urend(v,lv?D.natHu:D.nat),brk:true},{k:"spelling",v:decode(v,"hu",li)}]},
+  {key:"zh",name:"ZH",li:"type Pinyin (xiao, shi)",lv:"r → ṛ (retroflex)",
+   rows:(v,li,lv)=>[{k:"native",v:urend(v,lv?D.natZh:D.nat),brk:true},{k:"spelling",v:decode(v,"zh",li)}]},
+  {key:"en",name:"EN",
+   rows:v=>[{k:"native",v:urend(v,D.nat),brk:true},{k:"spelling",v:decode(v,"en",false)}]},
 ];
 let CUR="native";
 const $=id=>document.getElementById(id);
-function run(){const T=TARGETS.find(t=>t.key===CUR),H=D.help[CUR],v=$("in").value,loose=$("loose").checked;
-  let val="";try{val=T.fn(v,loose);}catch(e){val="—";}
-  $("oval").textContent=val;
-  $("obrk").textContent=T.brk?ubrk(v):"";
+function run(){const T=TARGETS.find(t=>t.key===CUR),H=D.help[CUR],v=$("in").value;
+  let rows=[];try{rows=T.rows(v,$("li").checked,$("lv").checked);}catch(e){rows=[{k:"",v:"—"}];}
+  $("outs").innerHTML=rows.map(r=>`<div class="orow"><span class="k">${esc(r.k)}</span><span class="v">${esc(r.v)}</span>${r.brk?`<span class="brk">${esc(ubrk(v))}</span>`:""}</div>`).join("");
   $("note").innerHTML=esc(H.note);
-  $("loosewrap").className="lazy"+(T.loose?" show":"");
-  $("loosehint").textContent=T.hint?"· "+T.hint:"";
+  $("liwrap").className="lazy"+(T.li?" show":"");
+  $("lvwrap").className="lazy"+(T.lv?" show":"");
+  $("lihint").textContent=T.li?"· "+T.li:"";
+  $("lvhint").textContent=T.lv?"· "+T.lv:"";
   $("exs").innerHTML=H.ex.map(([inp,gl])=>`<button data-in="${esc(inp)}"><b>${esc(inp)}</b><span class="g">${esc(gl)}</span></button>`).join("");
 }
 function draw(){$("tabs").innerHTML=TARGETS.map(t=>`<button class="tab${t.key===CUR?" on":""}" data-k="${t.key}">${esc(t.name)}</button>`).join("");}
-$("tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b){CUR=b.dataset.k;$("loose").checked=false;draw();run();}});
+$("tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b){CUR=b.dataset.k;$("li").checked=false;$("lv").checked=false;draw();run();}});
 $("exs").addEventListener("click",e=>{const b=e.target.closest("button");if(b){$("in").value=b.dataset.in;run();}});
-$("in").addEventListener("input",run);$("loose").addEventListener("change",run);
+$("in").addEventListener("input",run);$("li").addEventListener("change",run);$("lv").addEventListener("change",run);
 draw();run();
 
 /* consonant grid — voiceless first */
