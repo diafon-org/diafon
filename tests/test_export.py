@@ -60,13 +60,20 @@ def _apply_tone(py, tone, marks):
     return py
 
 
-def _lang(data, text, lang, lazy=False):
+def _lang(data, text, lang, lazy=False, endict=False):
     orth = dict(data["orth"][lang])
-    if lazy:
+    if lazy or (endict and lang == "en"):
         orth.update(data["lazy"].get(lang, {}))
+    endic = data["enDict"] if (endict and lang == "en") else None
+    canon = data["enCanon"]
     retro, marks = data["zhRetro"], data["toneMarks"]
     words = []
     for w in text.split():
+        if endic is not None:
+            key = "".join(canon.get(t, t) for t in _tok(w.lower(), orth.keys()))
+            if key in endic:
+                words.append(endic[key])
+                continue
         tone = None
         if lang == "zh" and len(w) > 1 and w[-1] in "012345":
             tone, w = int(w[-1]), w[:-1]
@@ -103,8 +110,9 @@ def test_export_data_is_sufficient_for_a_port():
             assert _uni(data, text, tgt) == render(text, tgt, DATA), (tgt, text)
         for lg in ("hu", "zh", "en"):
             assert _lang(data, text, lg) == render(text, lg, DATA), (lg, text)
-        for lg in ("hu", "zh"):     # EN loose = the dictionary view (data/en_dict.json), not exported yet
             assert _lang(data, text, lg, lazy=True) == render(text, lg, DATA, lazy=True), (lg, "lazy", text)
+        assert _lang(data, text, "en", lazy=True, endict=True) == \
+            render(text, "en", DATA, lazy=True, endict=True), ("en dict", text)
 
 
 def test_export_json_cli_writes_valid_json(tmp_path):

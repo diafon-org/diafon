@@ -41,11 +41,13 @@ function decodeWord(word, orth, lang) { let tone = null;
       else if (t === "u" && prv === "a") { g = "o"; } }
     out.push(g); }
   const res = out.join(""); return tone != null ? applyTone(res, tone) : res; }
-function decode(text, lang, lazy) { let orth = { ...D.orth[lang] };
-  if (lazy && D.lazy[lang]) orth = { ...orth, ...D.lazy[lang] };
-  const dict = (lang === "en" && lazy) ? D.enDict : null;
-  return text.trim().split(/\s+/).filter(Boolean).map(w =>
-    (dict && dict[w.toLowerCase()]) ? dict[w.toLowerCase()] : decodeWord(w, orth, lang)).join(" "); }
+function decode(text, lang, lazy, endict) { let orth = { ...D.orth[lang] };
+  if ((lazy || (endict && lang === "en")) && D.lazy[lang]) orth = { ...orth, ...D.lazy[lang] };
+  const dict = (lang === "en" && endict) ? D.enDict : null;
+  return text.trim().split(/\s+/).filter(Boolean).map(w => {
+    if (dict) { const key = tokenize(w.toLowerCase(), Object.keys(orth)).map(t => D.enCanon[t] || t).join("");
+      if (dict[key]) return dict[key]; }
+    return decodeWord(w, orth, lang); }).join(" "); }
 
 // --- test corpus ---
 const WORDS = [
@@ -71,7 +73,8 @@ for (const w of WORDS) {
   check(`zh     "${w}"`, decode(w, "zh", false), py("decode", ["zh", w]));
   check(`zh·lazy"${w}"`, decode(w, "zh", true), py("decode", ["zh", w, "--lazy"]));
   check(`en     "${w}"`, decode(w, "en", false), py("decode", ["en", w]));
-  check(`en·dict"${w}"`, decode(w, "en", true), py("decode", ["en", w, "--lazy"]));
+  check(`en·lazy"${w}"`, decode(w, "en", true), py("decode", ["en", w, "--lazy"]));
+  check(`en·dict"${w}"`, decode(w, "en", true, true), py("decode", ["en", w, "--lazy", "--dict"]));
 }
 console.log(`\n${total - fail}/${total} checks passed` + (fail ? `  — ${fail} MISMATCH` : "  — JS engine matches the Python CLI ✓"));
 process.exit(fail ? 1 : 0);

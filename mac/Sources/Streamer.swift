@@ -67,12 +67,14 @@ final class WordStreamer: Streaming {
     private let eng: Engine
     private let orth: [String: String]
     private let orthKeys: [String]
+    private let dict: Bool                       // EN dictionary view: hold the word, look it up at the boundary
     private var buf = ""
 
-    init(lang: String, loose: Bool, eng: Engine) {
+    init(lang: String, loose: Bool, dict: Bool = false, eng: Engine) {
         self.lang = lang
         self.eng = eng
-        (orth, orthKeys) = eng.orthLabels(for: lang, loose: loose)
+        self.dict = dict && lang == "en"
+        (orth, orthKeys) = eng.orthLabels(for: lang, loose: loose || (dict && lang == "en"))
     }
 
     var raw: String { buf }
@@ -85,6 +87,7 @@ final class WordStreamer: Streaming {
     func feed(_ c: Character) -> String {
         if c == " " { return flush() + " " }
         buf.append(c)
+        if dict { return "" }                    // dictionary view: the whole word commits at the boundary
         if lang == "zh" {
             if c.isNumber {                               // tone digit closes the syllable
                 let out = dec(buf)
@@ -112,13 +115,17 @@ final class WordStreamer: Streaming {
     }
 
     func flush() -> String {
-        let out = buf.isEmpty ? "" : dec(buf)
+        var out = ""
+        if !buf.isEmpty {
+            if dict, let real = enDictLookup(buf, orthKeys: orthKeys, eng: eng) { out = real }
+            else { out = dec(buf) }
+        }
         buf = ""
         return out
     }
 }
 
-func makeStreamer(target: String, loose: Bool, eng: Engine) -> Streaming {
+func makeStreamer(target: String, loose: Bool, dict: Bool = false, eng: Engine) -> Streaming {
     if eng.maps[target] != nil { return MapStreamer(target: target, eng: eng) }
-    return WordStreamer(lang: target, loose: loose, eng: eng)
+    return WordStreamer(lang: target, loose: loose, dict: dict, eng: eng)
 }

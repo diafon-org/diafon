@@ -188,13 +188,22 @@ def test_decode_mandarin_lazy_pinyin():
     assert decode("pa4", "zh", DATA) == "bà"                          # canonical: bare p = lenis
 
 
-def test_en_loose_view_is_real_spelling():
-    """EN loose = dictionary respelling (data/en_dict.json): real words where known, respell otherwise."""
+def test_en_simplified_input_aliases():
+    """EN loose INPUT: familiar digraphs (sh ch zh ng th dh) + bare j/y/w — free letters in English."""
     from diaphone.decode import decode
-    assert decode("dxax kat sijts acn", "en", DATA, lazy=True) == "the cat sits on"
-    assert decode("haxlo uaqld", "en", DATA, lazy=True) == "hello world"
-    assert decode("zorgblat dxax", "en", DATA, lazy=True) == "zowrgblat the"   # unknown -> respell fallback
-    assert decode("dxax kat", "en", DATA) == "thu kat"                          # strict unchanged
+    assert decode("shijp fijsh", "en", DATA, lazy=True) == "ship fish"
+    assert decode("sjijp", "en", DATA, lazy=True) == "ship"                # canonical still decodes
+
+
+def test_en_dictionary_view():
+    """EN dictionary view (--dict): real words where known, respell otherwise; aliases canonicalise."""
+    from diaphone.decode import decode
+    assert decode("dxax kat sijts acn", "en", DATA, endict=True) == "the cat sits on"
+    assert decode("dhax kat", "en", DATA, endict=True) == "the cat"        # typed with aliases -> same words
+    assert decode("haxlo uaqld", "en", DATA, endict=True) == "hello world"
+    assert decode("waqld yejlo", "en", DATA, lazy=True, endict=True) == "world yellow"
+    assert decode("zorgblat dxax", "en", DATA, endict=True) == "zowrgblat the"  # unknown -> respell fallback
+    assert decode("dxax kat", "en", DATA) == "thu kat"                     # strict unchanged
 
 
 def test_decode_lazy_mode_aliases():

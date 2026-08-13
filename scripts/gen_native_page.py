@@ -26,7 +26,7 @@ from diaphone.merges import apply_merges
 from diaphone.labeler import load_labels, attach
 from diaphone.render import ipa_labels
 from diaphone.native import native_labels
-from diaphone.decode import load_orth, en_dict, LAZY_ALIASES, _ZH_RETRO, _TONE_MARKS
+from diaphone.decode import load_orth, en_dict, LAZY_ALIASES, EN_CANON, _ZH_RETRO, _TONE_MARKS
 
 NFC = lambda s: unicodedata.normalize("NFC", s)
 
@@ -58,29 +58,28 @@ HELP = {
             "ex": [["sjan1 kxaxn3 kau1", "shān hěn gāo"], ["pjatj njawrw", "soft + long"],
                    ["ojw", "a long lowered o"], ["ejdj kisj kutjac aclsik acz acstacl aclactt", "a whole sentence"]]},
     "hu": {"name": "HU",
-           "note": "Hungarian, in both forms: the native view and the spelling (near-phonemic, so it "
-                   "round-trips exactly; `w` doubles the previous letter, sz → ssz). Loose input frees the "
-                   "bare letters a and e for the Hungarian short a and e. Loose view writes the dark a "
-                   "(universally ä) as plain a — Hungarian has no other short a, so á/a stays unambiguous "
-                   "and words read naturally (alma).",
+           "note": "Hungarian, in both forms: its native view (á/a — the dark a reads as plain a here, since "
+                   "Hungarian has no other short a; the universal view keeps ä) and the spelling, which is "
+                   "near-phonemic and round-trips exactly (`w` doubles the previous letter, sz → ssz). "
+                   "Loose input frees the bare letters a and e for the Hungarian short a and e.",
            "ex": [["sjok sewp njawr", "sok szép nyár"], ["kecsecnecm sewpejn", "köszönöm szépen"],
                   ["aclmac", "alma"], ["hoswuw", "hosszú"],
                   ["ejdj kisj kutjac aclsik acz acstacl aclactt", "egy kis kutya alszik az asztal alatt"]]},
     "zh": {"name": "ZH",
-           "note": "Mandarin, in both forms: the native view and Pinyin. End a syllable with 1–4 for its "
-                   "tone (5 or none = neutral); before a front vowel the hush series is spelled j/q/x, "
-                   "otherwise zh/ch/sh. Loose input lets you type Pinyin directly (xiao, shi, zhong). "
-                   "Loose view writes Mandarin's r (as in rén) as ṛ, the underdot marking its retroflex "
-                   "quality — Mandarin has no tapped r, so ṛ stays unambiguous.",
+           "note": "Mandarin, in both forms: its native view (its r shows the retroflex underdot, ṛ — Mandarin "
+                   "has no tapped r, so it stays unambiguous) and Pinyin. End a syllable with 1–4 for its tone "
+                   "(5 or none = neutral); before a front vowel the hush series is spelled j/q/x, otherwise "
+                   "zh/ch/sh. Loose input lets you type Pinyin directly (xiao, shi, zhong).",
            "ex": [["sjan1 kxaxn3 kau1", "shān hěn gāo"], ["nic3", "nǚ"], ["raxn2", "rén"],
                   ["tqi1 sji1 tquc1 sjuc4", "jī xī zhī shì"],
                   ["tqonx1 kuo2 tqha2 kxaxn3 kxau3", "zhōng guó chá hěn hǎo"]]},
     "en": {"name": "EN",
-           "note": "English, in both forms: the native view and a spelling. English orthography is not "
-                   "phonemic, so the strict spelling row is a readable pronunciation. Loose view looks each "
-                   "word up in a pronunciation dictionary (28k words, frequency-ranked) and writes the real "
-                   "spelling — unknown words fall back to the respelling.",
-           "ex": [["sji sejlz fijsj", "she sells fish"], ["baqd", "bird"], ["haxlo uaqld", "hello world"],
+           "note": "English, in both forms: the native view and a spelling. Loose input adds the familiar "
+                   "digraphs — sh ch zh ng th dh and bare j y w (all free letters in English) — so you can "
+                   "type shijp for ship. The dictionary switch looks each word up (28k words, frequency-"
+                   "ranked) and writes the real spelling; unknown words fall back to the respelling, and "
+                   "either spelling of a word (shijp/sjijp) finds it.",
+           "ex": [["shij sejlz fijsh", "she sells fish"], ["baqd", "bird"], ["haxlo waqld", "hello world"],
                   ["dxax kat sijts acn dxax mat", "the cat sits on the mat"]]},
 }
 
@@ -219,7 +218,7 @@ def build():
     return {
         "cons": cons, "place": PLACE, "manner": MANNER, "vows": vows, "nasals": nasals, "mods": mods,
         "nat": nat, "natHu": nat_hu, "natZh": nat_zh, "ipa": ipa, "keys": keys, "orth": orth, "lazy": LAZY_ALIASES,
-        "zhRetro": _ZH_RETRO, "tone": _TONE_MARKS, "help": HELP, "enDict": en_dict(DATA),
+        "zhRetro": _ZH_RETRO, "tone": _TONE_MARKS, "help": HELP, "enDict": en_dict(DATA), "enCanon": EN_CANON,
         "ops": ops, "modsRef": mods_ref, "gloss": gloss,
         "counts": {"C": len(cons), "V": len(vows), "total": len(cons) + len(vows)},
     }
@@ -419,7 +418,7 @@ footer{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--line);color
     <input id="in" spellcheck="false" value="sjok sewp njawr">
     <div class="toggles">
       <label class="lazy" id="liwrap"><input type="checkbox" id="li"> loose input <span class="hint" id="lihint"></span></label>
-      <label class="lazy" id="lvwrap"><input type="checkbox" id="lv"> loose view <span class="hint" id="lvhint"></span></label>
+      <label class="lazy" id="lvwrap"><input type="checkbox" id="lv"> <span id="lvText">loose view</span> <span class="hint" id="lvhint"></span></label>
     </div>
     <div class="outs" id="outs"></div>
     <div class="help"><p class="note" id="note"></p><div class="exs" id="exs"></div></div>
@@ -471,11 +470,13 @@ function decodeWord(word,orth,lang){let tone=null;
       else if(t==="u"&&prv==="a"){g="o";}}
     out.push(g);}
   const res=out.join("");return tone!=null?applyTone(res,tone):res;}
-function decode(text,lang,lazy){let orth={...D.orth[lang]};
-  if(lazy&&D.lazy[lang])orth={...orth,...D.lazy[lang]};
-  const dict=(lang==="en"&&lazy)?D.enDict:null;
-  return text.trim().split(/\s+/).filter(Boolean).map(w=>
-    (dict&&dict[w.toLowerCase()])?dict[w.toLowerCase()]:decodeWord(w,orth,lang)).join(" ");}
+function decode(text,lang,lazy,endict){let orth={...D.orth[lang]};
+  if((lazy||(endict&&lang==="en"))&&D.lazy[lang])orth={...orth,...D.lazy[lang]};
+  const dict=(lang==="en"&&endict)?D.enDict:null;
+  return text.trim().split(/\s+/).filter(Boolean).map(w=>{
+    if(dict){const key=tokenize(w.toLowerCase(),Object.keys(orth)).map(t=>D.enCanon[t]||t).join("");
+      if(dict[key])return dict[key];}
+    return decodeWord(w,orth,lang);}).join(" ");}
 window.__engine={urend,decode};
 
 /* tryout: one tab per language; the two simplifications are inner switches —
@@ -483,12 +484,12 @@ window.__engine={urend,decode};
 const TARGETS=[
   {key:"native",name:"native",rows:v=>[{k:"native",v:urend(v,D.nat),brk:true}]},
   {key:"ipa",name:"IPA",rows:v=>[{k:"ipa",v:urend(v,D.ipa)}]},
-  {key:"hu",name:"HU",li:"bare a = ɒ · e = ɛ",lv:"ä → a (alma)",
-   rows:(v,li,lv)=>[{k:"native",v:urend(v,lv?D.natHu:D.nat),brk:true},{k:"spelling",v:decode(v,"hu",li)}]},
-  {key:"zh",name:"ZH",li:"type Pinyin (xiao, shi)",lv:"r → ṛ (retroflex)",
-   rows:(v,li,lv)=>[{k:"native",v:urend(v,lv?D.natZh:D.nat),brk:true},{k:"spelling",v:decode(v,"zh",li)}]},
-  {key:"en",name:"EN",lv:"real spelling (dictionary)",
-   rows:(v,li,lv)=>[{k:"native",v:urend(v,D.nat),brk:true},{k:"spelling",v:decode(v,"en",lv)}]},
+  {key:"hu",name:"HU",li:"bare a = ɒ · e = ɛ",
+   rows:(v,li,lv)=>[{k:"native",v:urend(v,D.natHu),brk:true},{k:"spelling",v:decode(v,"hu",li)}]},
+  {key:"zh",name:"ZH",li:"type Pinyin (xiao, shi)",
+   rows:(v,li,lv)=>[{k:"native",v:urend(v,D.natZh),brk:true},{k:"spelling",v:decode(v,"zh",li)}]},
+  {key:"en",name:"EN",li:"sh ch zh ng th dh · j y w",lv:"real spelling (28k words)",lvLabel:"dictionary",
+   rows:(v,li,lv)=>[{k:"native",v:urend(v,D.nat),brk:true},{k:"spelling",v:decode(v,"en",li,lv)}]},
 ];
 let CUR="native";
 const $=id=>document.getElementById(id);
@@ -500,6 +501,7 @@ function run(){const T=TARGETS.find(t=>t.key===CUR),H=D.help[CUR],v=$("in").valu
   $("lvwrap").className="lazy"+(T.lv?" show":"");
   $("lihint").textContent=T.li?"· "+T.li:"";
   $("lvhint").textContent=T.lv?"· "+T.lv:"";
+  $("lvText").textContent=T.lvLabel||"loose view";
   $("exs").innerHTML=H.ex.map(([inp,gl])=>`<button data-in="${esc(inp)}"><b>${esc(inp)}</b><span class="g">${esc(gl)}</span></button>`).join("");
 }
 function draw(){$("tabs").innerHTML=TARGETS.map(t=>`<button class="tab${t.key===CUR?" on":""}" data-k="${t.key}">${esc(t.name)}</button>`).join("");}

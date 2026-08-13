@@ -16,4 +16,10 @@ final class Config {
         get { d.bool(forKey: "looseInput") }
         set { d.set(newValue, forKey: "looseInput") }
     }
+
+    /// EN only: the dictionary view — real English spelling where known.
+    var enDict: Bool {
+        get { d.bool(forKey: "enDict") }
+        set { d.set(newValue, forKey: "enDict") }
+    }
 }
