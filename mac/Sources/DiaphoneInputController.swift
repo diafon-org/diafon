@@ -104,8 +104,9 @@ public class DiaphoneInputController: IMKInputController {
         // longest glyph suffix known to the reverse map wins (covers geminates like șș)
         for take in stride(from: min(ns.length, reverseMaxLen), through: 1, by: -1) {
             let g = ns.substring(from: ns.length - take)
-            if let lab = reverseMap[g] {
-                s.seed(lab)
+            let wasCap = g.first?.isUppercase ?? false
+            if let lab = reverseMap[g] ?? reverseMap[g.lowercased()] {
+                s.seed(wasCap ? capFirst(lab) : lab)
                 let attrs: [NSAttributedString.Key: Any] = [.underlineStyle: NSUnderlineStyle.single.rawValue]
                 client.setMarkedText(NSAttributedString(string: s.raw, attributes: attrs),
                                      selectionRange: NSRange(location: (s.raw as NSString).length, length: 0),

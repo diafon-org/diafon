@@ -4,6 +4,24 @@ import Foundation
 
 let VOWELS: Set<Character> = ["a", "e", "i", "o", "u"]
 
+/// Capitalise the first character (combining marks ride along).
+func capFirst(_ s: String) -> String {
+    guard let f = s.first else { return s }
+    return String(f).uppercased() + s.dropFirst()
+}
+
+/// Case-insensitive tokenize: (lowercase tokens, per-token was-capitalised flags).
+func tokenizeCased(_ word: String, labels: [String]) -> ([String], [Bool]) {
+    let toks = tokenize(word.lowercased(), labels: labels)
+    var caps: [Bool] = []
+    var i = word.startIndex
+    for t in toks {
+        caps.append(word[i].isUppercase)
+        i = word.index(i, offsetBy: t.count)
+    }
+    return (toks, caps)
+}
+
 /// Greedy longest-match split of a word into known labels (labels must be sorted longest-first).
 func tokenize(_ word: String, labels: [String]) -> [String] {
     var toks: [String] = []
@@ -49,7 +67,7 @@ func decodeWord(_ word: String, orth: [String: String], orthKeys: [String], lang
         tone = d
         w = String(w.dropLast())
     }
-    let toks = tokenize(w, labels: orthKeys)
+    let (toks, caps) = tokenizeCased(w, labels: orthKeys)
     var out: [String] = []
     for (k, t) in toks.enumerated() {
         let nxt: String? = k + 1 < toks.count ? toks[k + 1] : nil
@@ -72,7 +90,7 @@ func decodeWord(_ word: String, orth: [String: String], orthKeys: [String], lang
                 g = "o"                                   // -u offglide spells o only after a (au -> ao)
             }
         }
-        out.append(g)
+        out.append(caps[k] ? capFirst(g) : g)
     }
     let res = out.joined()
     if let tn = tone { return applyTone(res, tone: tn, marks: eng.toneMarks) }
@@ -83,6 +101,7 @@ func decodeWord(_ word: String, orth: [String: String], orthKeys: [String], lang
 func renderUniversal(_ text: String, target: String, eng: Engine) -> String {
     let m = eng.maps[target] ?? [:]
     let labels = eng.labels(for: target)
+    let useCaps = target != "ipa"                        // IPA has no capitals
     return text.split(separator: " ").map { sub -> String in
         var w = String(sub)
         var tone = ""
@@ -90,7 +109,11 @@ func renderUniversal(_ text: String, target: String, eng: Engine) -> String {
             tone = sup
             w = String(w.dropLast())
         }
-        return tokenize(w, labels: labels).map { m[$0] ?? $0 }.joined() + tone
+        let (toks, caps) = tokenizeCased(w, labels: labels)
+        return zip(toks, caps).map { t, c in
+            let g = m[t] ?? t
+            return (useCaps && c) ? capFirst(g) : g
+        }.joined() + tone
     }.joined(separator: " ")
 }
 
@@ -106,7 +129,9 @@ func decodeText(_ text: String, lang: String, loose: Bool, endict: Bool = false,
     let (o, keys) = eng.orthLabels(for: lang, loose: loose || useDict)
     return text.split(separator: " ").map { sub -> String in
         let w = String(sub)
-        if useDict, let real = enDictLookup(w, orthKeys: keys, eng: eng) { return real }
+        if useDict, let real = enDictLookup(w, orthKeys: keys, eng: eng) {
+            return (w.first?.isUppercase ?? false) ? capFirst(real) : real
+        }
         return decodeWord(w, orth: o, orthKeys: keys, lang: lang, eng: eng)
     }.joined(separator: " ")
 }

@@ -85,6 +85,22 @@ def tokenize(word, labels):
     return toks
 
 
+def _cap(g):
+    """Capitalise the first character of a grapheme string (combining marks ride along)."""
+    return g[:1].upper() + g[1:] if g else g
+
+
+def tokenize_cased(word, labels):
+    """Case-insensitive tokenize: (lowercase tokens, per-token was-capitalised flags)."""
+    low = word.lower()
+    toks = tokenize(low, labels)
+    caps, i = [], 0
+    for t in toks:
+        caps.append(word[i].isupper())
+        i += len(t)
+    return toks, caps
+
+
 def _is_vowel(tok):
     return tok and tok[0] in VOWELS
 
@@ -116,7 +132,7 @@ def decode_word(word, orth, lang):
     tone = None
     if lang == "zh" and len(word) > 1 and word[-1] in "012345":
         tone, word = int(word[-1]), word[:-1]          # trailing digit on a syllable = its tone
-    toks = tokenize(word, orth.keys())
+    toks, caps = tokenize_cased(word, orth.keys())
     out = []
     for k, t in enumerate(toks):
         nxt = toks[k + 1] if k + 1 < len(toks) else None
@@ -140,7 +156,7 @@ def decode_word(word, orth, lang):
                 g = "o"                               # -u offglide spells "o" only after a: au->ao,
                                                       #   but ou stays "ou" and medial u (uo) stays "u"
                                                       # (apical vowel `uc` -> "i" comes from the orth map)
-        out.append(g)
+        out.append(_cap(g) if caps[k] else g)
     result = "".join(out)
     return _apply_tone(result, tone) if tone is not None else result
 
@@ -157,7 +173,7 @@ def decode(text, lang, data_dir="data", lazy=False, endict=False):
         if d is not None:
             key = "".join(EN_CANON.get(t, t) for t in tokenize(w.lower(), orth.keys()))
             if key in d:
-                words.append(d[key])
+                words.append(_cap(d[key]) if w[:1].isupper() else d[key])   # Dhuh -> The
                 continue
         words.append(decode_word(w, orth, lang))
     return " ".join(words)

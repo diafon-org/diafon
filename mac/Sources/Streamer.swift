@@ -21,12 +21,14 @@ final class MapStreamer: Streaming {
     private let map: [String: String]
     private let labels: [String]
     private let toneSup: [String: String]
+    private let useCaps: Bool                    // IPA has no capitals
     private var pending = ""
 
     init(target: String, eng: Engine) {
         map = eng.maps[target] ?? [:]
         labels = eng.labels(for: target)
         toneSup = eng.toneSup
+        useCaps = target != "ipa"
     }
 
     var raw: String { pending }
@@ -47,12 +49,14 @@ final class MapStreamer: Streaming {
     private func drain(final: Bool) -> String {
         var out = ""
         while !pending.isEmpty {
-            if !final, labels.contains(where: { $0 != pending && $0.hasPrefix(pending) }) {
+            let low = pending.lowercased()
+            if !final, labels.contains(where: { $0 != low && $0.hasPrefix(low) }) {
                 break                                     // could still grow into a longer label — hold
             }
             var matched = false
-            for L in labels where pending.hasPrefix(L) {
-                out += map[L] ?? L
+            for L in labels where low.hasPrefix(L) {
+                let g = map[L] ?? L
+                out += (useCaps && (pending.first?.isUppercase ?? false)) ? capFirst(g) : g
                 pending.removeFirst(L.count)
                 matched = true
                 break
@@ -121,7 +125,9 @@ final class WordStreamer: Streaming {
     func flush() -> String {
         var out = ""
         if !buf.isEmpty {
-            if dict, let real = enDictLookup(buf, orthKeys: orthKeys, eng: eng) { out = real }
+            if dict, let real = enDictLookup(buf, orthKeys: orthKeys, eng: eng) {
+                out = (buf.first?.isUppercase ?? false) ? capFirst(real) : real
+            }
             else { out = dec(buf) }
         }
         buf = ""

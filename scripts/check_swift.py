@@ -20,6 +20,7 @@ CORPUS = [
     "sjan1 kxaxn3 kau1", "tqonx1 kuo2 tqha2 kxaxn3 kxau3", "tqi1 sji1 tquc1 sjuc4",
     "nic3", "de5", "raxn2", "alma kert", "ni3 hao3", "zhong1 guo2", "xiao3", "cai4",
     "berd werld show boy law", "dhuh kat sijts awn dhuh flawr",
+    "Sjok Sewp Njawr", "Acswonj SJOK", "Dhuh kat Sijts", "Sjan1 kxaxn3",
 ]
 UNIVERSAL = ["native", "ipa", "native-hu", "native-zh"]
 LANGS = ["hu", "zh", "en"]
