@@ -54,7 +54,8 @@ def _apply(base, label, mods, is_vowel):
             if is_vowel:
                 g = {"ü": "ű", "ö": "ő"}.get(g, g + _ACUTE)  # ü→ű, ö→ő, else +acute
             else:
-                g = g[0] + g                                                    # geminate: double
+                g = g + g          # geminate: double the WHOLE glyph (s̩→s̩s̩ — g[0] would drop the mark;
+                                   #   first-letter doubling is an orthography rule, decode.py only)
         elif m == "nasal":
             g = g + _TILDE
         elif m == "aspirated":
