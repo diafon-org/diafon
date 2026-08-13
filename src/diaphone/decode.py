@@ -40,6 +40,20 @@ def load_orth(lang, data_dir="data", lazy=False):
     return orth
 
 
+_EN_DICT_CACHE = {}
+
+
+def en_dict(data_dir="data"):
+    """The EN loose-view dictionary: notation word -> real English spelling (data/en_dict.json,
+    built by scripts/build_en_dict.py from CMUdict x word frequency). Keys are notation as typed."""
+    if data_dir not in _EN_DICT_CACHE:
+        import json
+        with open(os.path.join(data_dir, "en_dict.json"), encoding="utf-8") as f:
+            d = json.load(f)
+        _EN_DICT_CACHE[data_dir] = {k: v for k, v in d.items() if not k.startswith("__")}
+    return _EN_DICT_CACHE[data_dir]
+
+
 def tokenize(word, labels):
     """Greedy longest-match split of a word into known labels (operators never stand alone,
     so base+operator binds; longer vowel labels like `iyw` beat `iy`)."""
@@ -119,4 +133,12 @@ def decode_word(word, orth, lang):
 
 def decode(text, lang, data_dir="data", lazy=False):
     orth = load_orth(lang, data_dir, lazy=lazy)
-    return " ".join(decode_word(w, orth, lang) for w in text.split())
+    # EN's loose mode is a VIEW: real dictionary spelling where known, letter-respelling otherwise.
+    endict = en_dict(data_dir) if (lang == "en" and lazy) else None
+    words = []
+    for w in text.split():
+        if endict is not None and w.lower() in endict:
+            words.append(endict[w.lower()])
+        else:
+            words.append(decode_word(w, orth, lang))
+    return " ".join(words)

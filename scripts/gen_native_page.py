@@ -26,7 +26,7 @@ from diaphone.merges import apply_merges
 from diaphone.labeler import load_labels, attach
 from diaphone.render import ipa_labels
 from diaphone.native import native_labels
-from diaphone.decode import load_orth, LAZY_ALIASES, _ZH_RETRO, _TONE_MARKS
+from diaphone.decode import load_orth, en_dict, LAZY_ALIASES, _ZH_RETRO, _TONE_MARKS
 
 NFC = lambda s: unicodedata.normalize("NFC", s)
 
@@ -77,8 +77,10 @@ HELP = {
                   ["tqonx1 kuo2 tqha2 kxaxn3 kxau3", "zhōng guó chá hěn hǎo"]]},
     "en": {"name": "EN",
            "note": "English, in both forms: the native view and a spelling. English orthography is not "
-                   "phonemic, so the spelling row is a readable pronunciation, not the dictionary form.",
-           "ex": [["sji sejlz fijsj", "she sells fish"], ["baqd", "bird"],
+                   "phonemic, so the strict spelling row is a readable pronunciation. Loose view looks each "
+                   "word up in a pronunciation dictionary (28k words, frequency-ranked) and writes the real "
+                   "spelling — unknown words fall back to the respelling.",
+           "ex": [["sji sejlz fijsj", "she sells fish"], ["baqd", "bird"], ["haxlo uaqld", "hello world"],
                   ["dxax kat sijts acn dxax mat", "the cat sits on the mat"]]},
 }
 
@@ -217,7 +219,7 @@ def build():
     return {
         "cons": cons, "place": PLACE, "manner": MANNER, "vows": vows, "nasals": nasals, "mods": mods,
         "nat": nat, "natHu": nat_hu, "natZh": nat_zh, "ipa": ipa, "keys": keys, "orth": orth, "lazy": LAZY_ALIASES,
-        "zhRetro": _ZH_RETRO, "tone": _TONE_MARKS, "help": HELP,
+        "zhRetro": _ZH_RETRO, "tone": _TONE_MARKS, "help": HELP, "enDict": en_dict(DATA),
         "ops": ops, "modsRef": mods_ref, "gloss": gloss,
         "counts": {"C": len(cons), "V": len(vows), "total": len(cons) + len(vows)},
     }
@@ -471,7 +473,9 @@ function decodeWord(word,orth,lang){let tone=null;
   const res=out.join("");return tone!=null?applyTone(res,tone):res;}
 function decode(text,lang,lazy){let orth={...D.orth[lang]};
   if(lazy&&D.lazy[lang])orth={...orth,...D.lazy[lang]};
-  return text.trim().split(/\s+/).filter(Boolean).map(w=>decodeWord(w,orth,lang)).join(" ");}
+  const dict=(lang==="en"&&lazy)?D.enDict:null;
+  return text.trim().split(/\s+/).filter(Boolean).map(w=>
+    (dict&&dict[w.toLowerCase()])?dict[w.toLowerCase()]:decodeWord(w,orth,lang)).join(" ");}
 window.__engine={urend,decode};
 
 /* tryout: one tab per language; the two simplifications are inner switches —
@@ -483,8 +487,8 @@ const TARGETS=[
    rows:(v,li,lv)=>[{k:"native",v:urend(v,lv?D.natHu:D.nat),brk:true},{k:"spelling",v:decode(v,"hu",li)}]},
   {key:"zh",name:"ZH",li:"type Pinyin (xiao, shi)",lv:"r → ṛ (retroflex)",
    rows:(v,li,lv)=>[{k:"native",v:urend(v,lv?D.natZh:D.nat),brk:true},{k:"spelling",v:decode(v,"zh",li)}]},
-  {key:"en",name:"EN",
-   rows:v=>[{k:"native",v:urend(v,D.nat),brk:true},{k:"spelling",v:decode(v,"en",false)}]},
+  {key:"en",name:"EN",lv:"real spelling (dictionary)",
+   rows:(v,li,lv)=>[{k:"native",v:urend(v,D.nat),brk:true},{k:"spelling",v:decode(v,"en",lv)}]},
 ];
 let CUR="native";
 const $=id=>document.getElementById(id);

@@ -86,9 +86,10 @@ Interaction details:
 
 ## Non-goals (for now)
 
-- **EN dictionary respelling** — deferred. The reverse-CMUdict PoC (`scripts/en_respell_poc.py`)
-  proves it viable (bundle-sized index, needs homophone frequency ranking), but v1 ships the
-  letter-respelling; the dictionary mode slots in later as an EN loose-view.
+- **EN dictionary respelling in the Mac app** — the mode now EXISTS as EN's loose view
+  (`data/en_dict.json`, wired into decode/the page, frequency-ranked); only its inclusion in
+  engine.json + Streamer is deferred. Note it is word-at-a-time — the streamer would commit on
+  word boundaries in that mode.
 - iOS: only full custom keyboards are allowed there; a different, bigger project.
 - The bespoke font: independent thread; the input method works with Charis SIL or any font
   the receiving app uses.

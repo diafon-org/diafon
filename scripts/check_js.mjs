@@ -43,7 +43,9 @@ function decodeWord(word, orth, lang) { let tone = null;
   const res = out.join(""); return tone != null ? applyTone(res, tone) : res; }
 function decode(text, lang, lazy) { let orth = { ...D.orth[lang] };
   if (lazy && D.lazy[lang]) orth = { ...orth, ...D.lazy[lang] };
-  return text.trim().split(/\s+/).filter(Boolean).map(w => decodeWord(w, orth, lang)).join(" "); }
+  const dict = (lang === "en" && lazy) ? D.enDict : null;
+  return text.trim().split(/\s+/).filter(Boolean).map(w =>
+    (dict && dict[w.toLowerCase()]) ? dict[w.toLowerCase()] : decodeWord(w, orth, lang)).join(" "); }
 
 // --- test corpus ---
 const WORDS = [
@@ -69,6 +71,7 @@ for (const w of WORDS) {
   check(`zh     "${w}"`, decode(w, "zh", false), py("decode", ["zh", w]));
   check(`zh·lazy"${w}"`, decode(w, "zh", true), py("decode", ["zh", w, "--lazy"]));
   check(`en     "${w}"`, decode(w, "en", false), py("decode", ["en", w]));
+  check(`en·dict"${w}"`, decode(w, "en", true), py("decode", ["en", w, "--lazy"]));
 }
 console.log(`\n${total - fail}/${total} checks passed` + (fail ? `  — ${fail} MISMATCH` : "  — JS engine matches the Python CLI ✓"));
 process.exit(fail ? 1 : 0);
