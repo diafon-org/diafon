@@ -2,13 +2,14 @@
 
 Like `render.ipa_labels`, this is a language-independent label→glyph map, built from a hand-assigned
 per-point base glyph plus generative modifier diacritics. All cells are decided (see the doc). The
-palatal marking is a clean one-line/two-line family (latin22's scheme, which renders better than the
-combining comma): the palatal *points* wear a single vertical line below (U+0329 — t̩ n̩ l̩ s̩ …), and the
-palatalised *modifier* (soft consonants) wears the double vertical line below (U+0348 — p͈ s͈ …). The
+palatal *points* wear the comma-below family, PRECOMPOSED where Unicode has the letter (ș ț ņ ļ —
+system fonts centre these perfectly; the combining U+0329 they replace rendered off-centre in real
+apps) and combining U+0326 elsewhere (d̦ z̦ c̦ đ̦); the palatalised *modifier* (soft consonants) wears
+the double vertical line below (U+0348 — p͈ s͈ …). The bespoke font will unify the two shapes. The
 tap is ṛ (underdot — the retroflex approximant was merged into the plain r, freeing the dot; in a
 language-specific view the same underdot may instead flag Mandarin's retroflex ⟨r⟩). A modifier label
 that coincides with a point label (Russian tʲ=`tj`=c) keeps the point glyph — so the coronal soft
-series (tʲ nʲ lʲ dʲ) reads as the palatal points t̩ n̩ l̩ d̩, and only the non-coronal soft consonants
+series (tʲ nʲ lʲ dʲ) reads as the palatal points ț ņ ļ d̦, and only the non-coronal soft consonants
 (pʲ kʲ …, sʲ=`sjj` zʲ=`zjj`) wear the double line.
 
 Vowels: `j` lowers (one dot below — ị ẹ ụ ọ), the diaeresis flips front↔back (ü ö · ï ë ä), and nasal
@@ -22,21 +23,21 @@ from .notation import _label_maps, _mod_chars, full_label
 # combining marks
 _DA, _DB = "̇", "̣"        # one dot above / below
 _DDA, _DDB = "̈", "̤"      # two dots above (diaeresis) / two dots below
-_VLB = "̩"                  # U+0329 combining vertical line below (single — the palatal points; latin22's mark, renders cleaner than the comma)
-_DVLB = "͈"                 # U+0348 combining double vertical line below (soft/palatalised — the two-line partner of _VLB)
+_CB = "̦"                   # U+0326 combining comma below (palatal, where no precomposed letter exists)
+_DVLB = "͈"                 # U+0348 combining double vertical line below (soft/palatalised)
 _TILDE, _ACUTE = "̃", "́"
 
 # point label -> native base glyph
 _CONS = {
     "p": "p", "b": "b", "t": "t", "d": "d", "k": "k", "g": "g",
-    "tj": "t" + _VLB, "dj": "d" + _VLB, "kq": "q", "hj": "ḥ",       # t̩ d̩ (palatal) · q · ḥ = ʔ (glottal + underdot)
-    "m": "m", "n": "n", "nj": "n" + _VLB, "nx": "ṇ",               # n̩ (palatal) · ṇ (velar ŋ = x-operator dot-below)
+    "tj": "ț", "dj": "d" + _CB, "kq": "q", "hj": "ḥ",           # ț (precomposed) d̦ · q · ḥ = ʔ
+    "m": "m", "n": "n", "nj": "ņ", "nx": "ṇ",                      # ņ (precomposed) · ṇ (velar ŋ, x-dot)
     "tc": "c", "dc": "đ", "pc": "p̈",                            # c đ p̈
-    "tq": "c" + _VLB, "dq": "đ" + _VLB,                            # c̩ đ̩ (hush = affricate + palatal line)
+    "tq": "c" + _CB, "dq": "đ" + _CB,                              # c̦ đ̦ (hush = affricate + palatal comma)
     "f": "f", "v": "v", "tx": "ṭ", "dx": "ḍ",                  # ṭ ḍ (dental)
-    "s": "s", "z": "z", "sj": "s" + _VLB, "zj": "z" + _VLB,        # s̩ z̩ (ʃ ʒ, palatal line)
+    "s": "s", "z": "z", "sj": "ș", "zj": "z" + _CB,                # ș (precomposed) z̦ (ʃ ʒ)
     "kx": "ḳ", "gx": "g̣", "hc": "ħ", "hq": "ħ̣", "h": "h",  # ḳ g̣ · hc=ħ (pharyngeal, crossbar) · hq=ʕ (q=c+j: crossbar + underdot) · h
-    "l": "l", "lj": "l" + _VLB, "r": "r", "rj": "ṛ",   # l̩ · r (trill) · ṛ (tap, underdot — freed by the ɻ→r merge)
+    "l": "l", "lj": "ļ", "r": "r", "rj": "ṛ",   # ļ (precomposed) · r (trill) · ṛ (tap, underdot)
 }
 _VOW = {
     "i": "i", "e": "e", "a": "a", "o": "o", "u": "u",

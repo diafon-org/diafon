@@ -12,6 +12,8 @@ protocol Streaming: AnyObject {
     var raw: String { get }
     /// Backspace inside the held tail.
     func dropLastRaw()
+    /// Reopen previously-committed notation into the held tail (backspace-to-recompose).
+    func seed(_ notation: String)
 }
 
 /// Universal targets (native / ipa / native-hu / native-zh): pure token stream, hold <= 3 keys.
@@ -29,6 +31,7 @@ final class MapStreamer: Streaming {
 
     var raw: String { pending }
     func dropLastRaw() { if !pending.isEmpty { pending.removeLast() } }
+    func seed(_ notation: String) { pending += notation }
 
     func feed(_ c: Character) -> String {
         let s = String(c)
@@ -79,6 +82,7 @@ final class WordStreamer: Streaming {
 
     var raw: String { buf }
     func dropLastRaw() { if !buf.isEmpty { buf.removeLast() } }
+    func seed(_ notation: String) { buf += notation }
 
     private func dec(_ s: String) -> String {
         decodeWord(s, orth: orth, orthKeys: orthKeys, lang: lang, eng: eng)

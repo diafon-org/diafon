@@ -128,8 +128,8 @@ def test_engine_render_targets():
     """One engine renders universal targets (ipa/native) and languages uniformly."""
     from diaphone.engine import render
     assert render("sjan1", "ipa", DATA) == "ʃan¹"
-    assert render("sjan1", "native", DATA) == "s̩an¹"          # native Latin+diacritics view (palatal = vertical line)
-    assert render("njawr", "native", DATA) == "n̩ár"           # nj→n̩, aw→á (long)
+    assert render("sjan1", "native", DATA) == "șan¹"          # native view (palatal = precomposed comma family)
+    assert render("njawr", "native", DATA) == "ņár"           # nj→ņ, aw→á (long)
     assert render("ty", "native", DATA) == "t̤"                # pharyngealised = `y` on a consonant (two dots below)
     assert render("nx", "native", DATA) == "ṇ"                # velar nasal ŋ = x-operator dot-below (like ṭ ḳ)
     assert render("h hj hc hq", "native", DATA) == "h ḥ ħ ħ̣"  # guttural 2×2 (c/j/q): c=pharyngeal, j=marked, q=c+j
@@ -141,7 +141,8 @@ def test_engine_render_targets():
     assert render("acswonj", "hu", DATA) == "asszony"          # language target still works (HU a = ac)
     assert render("sjj zjj", "native", DATA) == "s͈ z͈"        # palatalised s/z = U+0348 double vertical line below
     assert render("pj kj", "native", DATA) == "p͈ k͈"          # soft (palatalised) consonants: U+0348
-    assert render("tj nj", "native", DATA) == "t̩ n̩"            # coronal soft = palatal points: single vertical line
+    assert render("tj nj", "native", DATA) == "ț ņ"            # coronal soft = palatal points (precomposed)
+    assert render("sjw", "native", DATA) == "șș"               # geminate doubles the WHOLE glyph
     assert render("r rj", "native", DATA) == "r ṛ"             # trill r / tap ṛ (retroflex merged into r)
     assert render("uc oc ac", "native", DATA) == "ï ë ä"       # diaeresis flips front↔back (ɯ ɤ ɑ from i e a)
     assert render("ic ec", "native", DATA) == "ü ö"            # the rounded side of the same rule (y ø from u o)
