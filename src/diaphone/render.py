@@ -12,7 +12,7 @@ over their bare-point prefixes (sj=ʃ, k=k).
 """
 import unicodedata
 
-from .decode import tokenize
+from .decode import tokenize, tokenize_cased
 from .labeler import load_labels
 from .notation import _label_maps, _mod_chars, full_label
 
@@ -49,5 +49,6 @@ def to_ipa(text, all_ph, features, data_dir="data"):
         tone = ""
         if len(w) > 1 and w[-1] in _TONE_SUP:
             tone, w = _TONE_SUP[w[-1]], w[:-1]
-        words.append("".join(labs.get(t, t) for t in tokenize(w, labs.keys())) + tone)
+        toks, _caps = tokenize_cased(w, labs.keys())   # case-insensitive input; IPA has no capitals
+        words.append("".join(labs.get(t, t) for t in toks) + tone)
     return " ".join(words)

@@ -143,6 +143,11 @@ def test_engine_render_targets():
     assert render("pj kj", "native", DATA) == "p͈ k͈"          # soft (palatalised) consonants: U+0348
     assert render("tj nj", "native", DATA) == "ț ņ"            # coronal soft = palatal points (precomposed)
     assert render("sjw", "native", DATA) == "șș"               # geminate doubles the WHOLE glyph
+    assert render("dj zj tq dq", "native", DATA) == "d̩ z̩ c̩ đ̩"  # no-precomposed palatals = vertical line (pairs with U+0348 soft)
+    assert render("Sjok Sewp Njawr", "native", DATA) == "Șok Sép Ņár"   # capitals carry through per token
+    assert render("SJOK", "native", DATA) == "ȘOK"             # all-caps works token-wise
+    assert render("Sjok", "ipa", DATA) == "ʃok"                # IPA has no capitals — case-insensitive input
+    assert render("Acswonj", "hu", DATA) == "Asszony"
     assert render("r rj", "native", DATA) == "r ṛ"             # trill r / tap ṛ (retroflex merged into r)
     assert render("uc oc ac", "native", DATA) == "ï ë ä"       # diaeresis flips front↔back (ɯ ɤ ɑ from i e a)
     assert render("ic ec", "native", DATA) == "ü ö"            # the rounded side of the same rule (y ø from u o)

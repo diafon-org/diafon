@@ -4,12 +4,12 @@ Like `render.ipa_labels`, this is a language-independent label→glyph map, buil
 per-point base glyph plus generative modifier diacritics. All cells are decided (see the doc). The
 palatal *points* wear the comma-below family, PRECOMPOSED where Unicode has the letter (ș ț ņ ļ —
 system fonts centre these perfectly; the combining U+0329 they replace rendered off-centre in real
-apps) and combining U+0326 elsewhere (d̦ z̦ c̦ đ̦); the palatalised *modifier* (soft consonants) wears
+apps) and the combining vertical line U+0329 elsewhere (d̩ z̩ c̩ đ̩ — pairs with the U+0348 soft); the palatalised *modifier* (soft consonants) wears
 the double vertical line below (U+0348 — p͈ s͈ …). The bespoke font will unify the two shapes. The
 tap is ṛ (underdot — the retroflex approximant was merged into the plain r, freeing the dot; in a
 language-specific view the same underdot may instead flag Mandarin's retroflex ⟨r⟩). A modifier label
 that coincides with a point label (Russian tʲ=`tj`=c) keeps the point glyph — so the coronal soft
-series (tʲ nʲ lʲ dʲ) reads as the palatal points ț ņ ļ d̦, and only the non-coronal soft consonants
+series (tʲ nʲ lʲ dʲ) reads as the palatal points ț ņ ļ d̩, and only the non-coronal soft consonants
 (pʲ kʲ …, sʲ=`sjj` zʲ=`zjj`) wear the double line.
 
 Vowels: `j` lowers (one dot below — ị ẹ ụ ọ), the diaeresis flips front↔back (ü ö · ï ë ä), and nasal
@@ -17,25 +17,26 @@ Vowels: `j` lowers (one dot below — ị ẹ ụ ọ), the diaeresis flips fron
 """
 import unicodedata
 
-from .decode import tokenize
+from .decode import tokenize, tokenize_cased, _cap
 from .notation import _label_maps, _mod_chars, full_label
 
 # combining marks
 _DA, _DB = "̇", "̣"        # one dot above / below
 _DDA, _DDB = "̈", "̤"      # two dots above (diaeresis) / two dots below
-_CB = "̦"                   # U+0326 combining comma below (palatal, where no precomposed letter exists)
+_VLB = "̩"                  # U+0329 combining vertical line below (palatal, where no precomposed letter exists —
+                            #   pairs with the double line U+0348 soft, which renders well)
 _DVLB = "͈"                 # U+0348 combining double vertical line below (soft/palatalised)
 _TILDE, _ACUTE = "̃", "́"
 
 # point label -> native base glyph
 _CONS = {
     "p": "p", "b": "b", "t": "t", "d": "d", "k": "k", "g": "g",
-    "tj": "ț", "dj": "d" + _CB, "kq": "q", "hj": "ḥ",           # ț (precomposed) d̦ · q · ḥ = ʔ
+    "tj": "ț", "dj": "d" + _VLB, "kq": "q", "hj": "ḥ",           # ț (precomposed) d̦ · q · ḥ = ʔ
     "m": "m", "n": "n", "nj": "ņ", "nx": "ṇ",                      # ņ (precomposed) · ṇ (velar ŋ, x-dot)
     "tc": "c", "dc": "đ", "pc": "p̈",                            # c đ p̈
-    "tq": "c" + _CB, "dq": "đ" + _CB,                              # c̦ đ̦ (hush = affricate + palatal comma)
+    "tq": "c" + _VLB, "dq": "đ" + _VLB,                            # c̩ đ̩ (hush = affricate + palatal line)
     "f": "f", "v": "v", "tx": "ṭ", "dx": "ḍ",                  # ṭ ḍ (dental)
-    "s": "s", "z": "z", "sj": "ș", "zj": "z" + _CB,                # ș (precomposed) z̦ (ʃ ʒ)
+    "s": "s", "z": "z", "sj": "ș", "zj": "z" + _VLB,               # ș (precomposed) z̩ (ʃ ʒ)
     "kx": "ḳ", "gx": "g̣", "hc": "ħ", "hq": "ħ̣", "h": "h",  # ḳ g̣ · hc=ħ (pharyngeal, crossbar) · hq=ʕ (q=c+j: crossbar + underdot) · h
     "l": "l", "lj": "ļ", "r": "r", "rj": "ṛ",   # ļ (precomposed) · r (trill) · ṛ (tap, underdot)
 }
@@ -118,5 +119,7 @@ def to_native(text, all_ph, features, data_dir="data", lang=None):
         tone = ""
         if len(w) > 1 and w[-1] in _TONE_SUP:
             tone, w = _TONE_SUP[w[-1]], w[:-1]
-        words.append("".join(labs.get(t, t) for t in tokenize(w, labs.keys())) + tone)
+        toks, caps = tokenize_cased(w, labs.keys())
+        words.append("".join(_cap(labs.get(t, t)) if c else labs.get(t, t)
+                             for t, c in zip(toks, caps)) + tone)
     return " ".join(words)
