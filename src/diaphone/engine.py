@@ -21,7 +21,7 @@ def targets():
     return ["ipa", "native", *(f"native-{lg}" for lg in NATIVE_LANGS), *LANGUAGES]
 
 
-def render(text, target, data_dir="data", lazy=False):
+def render(text, target, data_dir="data", lazy=False, endict=False):
     """Render a notation string to `target` (a universal repr or a language's spelling)."""
     native_lang = target[len("native-"):] if target.startswith("native-") else None
     if target in ("ipa", "native") or native_lang in NATIVE_LANGS:
@@ -30,7 +30,7 @@ def render(text, target, data_dir="data", lazy=False):
             return to_ipa(text, all_ph, features, data_dir)
         return to_native(text, all_ph, features, data_dir, lang=native_lang)
     if target in LANGUAGES:
-        return decode(text, target, data_dir, lazy=lazy)
+        return decode(text, target, data_dir, lazy=lazy, endict=endict)
     raise ValueError(f"unknown target {target!r}; use one of: {', '.join(targets())}")
 
 
@@ -45,7 +45,7 @@ def export_data(data_dir="data"):
     """
     from .native import native_labels, _TONE_SUP
     from .render import ipa_labels
-    from .decode import load_orth, LAZY_ALIASES, _ZH_RETRO, _TONE_MARKS
+    from .decode import load_orth, en_dict, LAZY_ALIASES, EN_CANON, _ZH_RETRO, _TONE_MARKS
     features, _languages, all_ph = load(data_dir)
     maps = {"native": native_labels(all_ph, features, data_dir),
             "ipa": ipa_labels(all_ph, features, data_dir)}
@@ -62,4 +62,6 @@ def export_data(data_dir="data"):
         "lazy": LAZY_ALIASES,                             # loose-input overlays per language
         "zhRetro": _ZH_RETRO,                             # zh: hush initial -> (plain, before-front) spelling
         "toneMarks": _TONE_MARKS,                         # zh: vowel -> tone-marked forms, tones 1-4
+        "enDict": en_dict(data_dir),                      # en dictionary view: canonical word -> real spelling
+        "enCanon": EN_CANON,                              # en: alias label -> canonical label (dict lookup)
     }

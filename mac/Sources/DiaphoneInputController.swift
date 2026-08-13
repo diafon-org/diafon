@@ -16,9 +16,10 @@ public class DiaphoneInputController: IMKInputController {
     private var streamerKey = ""
 
     private func currentStreamer() -> Streaming? {
-        let key = Config.shared.target + (Config.shared.looseInput ? "+li" : "")
+        let c = Config.shared
+        let key = c.target + (c.looseInput ? "+li" : "") + (c.enDict ? "+dict" : "")
         if streamer == nil || key != streamerKey, let eng = Self.engine {
-            streamer = makeStreamer(target: Config.shared.target, loose: Config.shared.looseInput, eng: eng)
+            streamer = makeStreamer(target: c.target, loose: c.looseInput, dict: c.enDict, eng: eng)
             streamerKey = key
         }
         return streamer
@@ -103,9 +104,11 @@ public class DiaphoneInputController: IMKInputController {
 
     public override func menu() -> NSMenu! {
         let m = NSMenu()
+        // Five modes: the universal views + one per language (a language mode IS that language's
+        // view; the flavoured native variants are not separate modes).
         let names: [(String, String)] = [
-            ("native", "Native"), ("native-hu", "Native · HU"), ("native-zh", "Native · ZH"),
-            ("ipa", "IPA"), ("hu", "Hungarian"), ("zh", "Mandarin (Pinyin)"), ("en", "English"),
+            ("native", "Native"), ("ipa", "IPA"),
+            ("hu", "Hungarian"), ("zh", "Mandarin (Pinyin)"), ("en", "English"),
         ]
         for (key, title) in names {
             let item = NSMenuItem(title: title, action: #selector(selectTarget(_:)), keyEquivalent: "")
@@ -114,9 +117,12 @@ public class DiaphoneInputController: IMKInputController {
             m.addItem(item)
         }
         m.addItem(.separator())
-        let loose = NSMenuItem(title: "Loose input", action: #selector(toggleLoose(_:)), keyEquivalent: "")
+        let loose = NSMenuItem(title: "Loose input (hu · zh · en)", action: #selector(toggleLoose(_:)), keyEquivalent: "")
         loose.state = Config.shared.looseInput ? .on : .off
         m.addItem(loose)
+        let dict = NSMenuItem(title: "Dictionary spelling (en)", action: #selector(toggleDict(_:)), keyEquivalent: "")
+        dict.state = Config.shared.enDict ? .on : .off
+        m.addItem(dict)
         return m
     }
 
@@ -129,6 +135,10 @@ public class DiaphoneInputController: IMKInputController {
 
     @objc func toggleLoose(_ sender: Any!) {
         Config.shared.looseInput.toggle()
+    }
+
+    @objc func toggleDict(_ sender: Any!) {
+        Config.shared.enDict.toggle()
     }
 }
 

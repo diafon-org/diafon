@@ -29,7 +29,16 @@ LAZY_ALIASES = {
     "hu": {"a": "a", "e": "e"},
     "zh": {"b": "b", "d": "d", "g": "g", "z": "z", "c": "c", "zh": "zh", "ch": "ch",
            "sh": "sh", "r": "r", "j": "j", "q": "q", "x": "x", "h": "h", "e": "e", "o": "o"},
+    # EN simplified input: the familiar digraphs (+ bare j/y/w — all free letters in English, which
+    # has no length, nasal vowels or emphatics). Values are the respell graphemes; EN_CANON below
+    # maps the same aliases to canonical labels so the dictionary can look up either spelling.
+    "en": {"sh": "sh", "ch": "ch", "zh": "zh", "ng": "ng", "th": "th", "dh": "th",
+           "j": "j", "y": "y", "w": "w"},
 }
+
+# alias -> canonical label, for normalising loosely-typed EN before a dictionary lookup
+EN_CANON = {"sh": "sj", "ch": "tq", "zh": "zj", "ng": "nx", "th": "tx", "dh": "dx",
+            "j": "dq", "y": "i", "w": "u"}
 
 
 def load_orth(lang, data_dir="data", lazy=False):
@@ -131,14 +140,19 @@ def decode_word(word, orth, lang):
     return _apply_tone(result, tone) if tone is not None else result
 
 
-def decode(text, lang, data_dir="data", lazy=False):
-    orth = load_orth(lang, data_dir, lazy=lazy)
-    # EN's loose mode is a VIEW: real dictionary spelling where known, letter-respelling otherwise.
-    endict = en_dict(data_dir) if (lang == "en" and lazy) else None
+def decode(text, lang, data_dir="data", lazy=False, endict=False):
+    """lazy = the language's loose INPUT (typing shortcuts). endict (EN only) = the dictionary
+    view: real spelling where known, respelling otherwise; typed aliases are canonicalised first,
+    so `shijp` and `sjijp` both find "ship"."""
+    use_aliases = lazy or (endict and lang == "en")
+    orth = load_orth(lang, data_dir, lazy=use_aliases)
+    d = en_dict(data_dir) if (endict and lang == "en") else None
     words = []
     for w in text.split():
-        if endict is not None and w.lower() in endict:
-            words.append(endict[w.lower()])
-        else:
-            words.append(decode_word(w, orth, lang))
+        if d is not None:
+            key = "".join(EN_CANON.get(t, t) for t in tokenize(w.lower(), orth.keys()))
+            if key in d:
+                words.append(d[key])
+                continue
+        words.append(decode_word(w, orth, lang))
     return " ".join(words)

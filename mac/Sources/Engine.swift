@@ -12,6 +12,8 @@ struct Engine: Codable {
     let lazy: [String: [String: String]]        // loose-input overlays per language
     let zhRetro: [String: [String]]             // zh hush initial -> [plain, before-front]
     let toneMarks: [String: String]             // zh vowel -> tone-marked forms (tones 1-4)
+    let enDict: [String: String]                // en dictionary view: canonical word -> real spelling
+    let enCanon: [String: String]               // en: alias label -> canonical label (dict lookup)
 
     static func load(url: URL) throws -> Engine {
         try JSONDecoder().decode(Engine.self, from: Data(contentsOf: url))

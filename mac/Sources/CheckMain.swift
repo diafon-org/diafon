@@ -10,13 +10,15 @@ struct Check {
         while let line = readLine() {
             let p = line.components(separatedBy: "\t")
             guard p.count == 4 else { print(""); continue }
-            let (mode, target, loose, text) = (p[0], p[1], p[2] == "1", p[3])
+            let level = Int(p[2]) ?? 0                    // 0 strict · 1 loose input · 2 +dictionary
+            let (mode, target, text) = (p[0], p[1], p[3])
+            let (loose, dict) = (level >= 1, level == 2)
             let isUniversal = eng.maps[target] != nil
             if mode == "batch" {
                 print(isUniversal ? renderUniversal(text, target: target, eng: eng)
-                                  : decodeText(text, lang: target, loose: loose, eng: eng))
+                                  : decodeText(text, lang: target, loose: loose, endict: dict, eng: eng))
             } else {
-                let s = makeStreamer(target: target, loose: loose, eng: eng)
+                let s = makeStreamer(target: target, loose: loose, dict: dict, eng: eng)
                 print(text.reduce("") { $0 + s.feed($1) } + s.flush())
             }
         }

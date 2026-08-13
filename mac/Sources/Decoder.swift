@@ -94,10 +94,19 @@ func renderUniversal(_ text: String, target: String, eng: Engine) -> String {
     }.joined(separator: " ")
 }
 
-/// decode.py `decode`: whole text -> a language's spelling.
-func decodeText(_ text: String, lang: String, loose: Bool, eng: Engine) -> String {
-    let (o, keys) = eng.orthLabels(for: lang, loose: loose)
-    return text.split(separator: " ").map {
-        decodeWord(String($0), orth: o, orthKeys: keys, lang: lang, eng: eng)
+/// The EN dictionary view: canonicalise the typed word (aliases -> labels), look it up.
+func enDictLookup(_ word: String, orthKeys: [String], eng: Engine) -> String? {
+    let key = tokenize(word.lowercased(), labels: orthKeys).map { eng.enCanon[$0] ?? $0 }.joined()
+    return eng.enDict[key]
+}
+
+/// decode.py `decode`: whole text -> a language's spelling. endict (EN only) = the dictionary view.
+func decodeText(_ text: String, lang: String, loose: Bool, endict: Bool = false, eng: Engine) -> String {
+    let useDict = endict && lang == "en"
+    let (o, keys) = eng.orthLabels(for: lang, loose: loose || useDict)
+    return text.split(separator: " ").map { sub -> String in
+        let w = String(sub)
+        if useDict, let real = enDictLookup(w, orthKeys: keys, eng: eng) { return real }
+        return decodeWord(w, orth: o, orthKeys: keys, lang: lang, eng: eng)
     }.joined(separator: " ")
 }

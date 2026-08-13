@@ -30,9 +30,11 @@ def main(argv=None):
         dp.add_argument("text", help="space-separated notation words, e.g. 'sqok sewp njawrw'")
         dp.add_argument("--data", default=_default_data())
         dp.add_argument("--lazy", action="store_true",
-                        help="allow language-specific shortcuts (e.g. HU bare a=/ɒ/, e=/ɛ/)")
+                        help="allow language-specific shortcuts (e.g. HU bare a=/ɒ/, EN sh/ch/th)")
+        dp.add_argument("--dict", action="store_true",
+                        help="EN only: dictionary view — real English spelling where known")
         da = dp.parse_args(argv[1:])
-        print(decode(da.text, da.lang, da.data, lazy=da.lazy))
+        print(decode(da.text, da.lang, da.data, lazy=da.lazy, endict=da.dict))
         return
     if argv and argv[0] == "export-json":
         import json

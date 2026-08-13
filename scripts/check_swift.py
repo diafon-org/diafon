@@ -30,11 +30,11 @@ for text in CORPUS:
         for mode in ("batch", "stream"):
             cases.append((mode, tgt, "0", text, want))
     for lg in LANGS:
-        # EN loose = the dictionary view (not in engine.json yet) — Swift is validated strict-only there
-        for loose in (("0", "1") if lg != "en" else ("0",)):
-            want = render(text, lg, "data", lazy=loose == "1")
+        # level 0 = strict · 1 = loose input · 2 = loose input + dictionary (EN only)
+        for level in (("0", "1", "2") if lg == "en" else ("0", "1")):
+            want = render(text, lg, "data", lazy=level >= "1", endict=level == "2")
             for mode in ("batch", "stream"):
-                cases.append((mode, lg, loose, text, want))
+                cases.append((mode, lg, level, text, want))
 
 stdin = "\n".join("\t".join(c[:4]) for c in cases)
 got = subprocess.run([BIN, ENGINE], input=stdin, capture_output=True, text=True, check=True)

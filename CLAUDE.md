@@ -80,11 +80,14 @@ Notation → a language's spelling. Canonical labels live in `data/orth/<lang>.y
   `/i/`, so it keeps the retroflex spelling. So `tqi1`=jī but `tquc1`=zhī; `sji1`=xī but `sjuc4`=shì.
 **Strict vs loose (per-language).** Every language has an optional **loose** ("not strict") mode — a
 *local* toggle that turns on that language's simplifications, of two kinds: the **input** (lazy typing
-shortcuts, `decode.LAZY_ALIASES`) and the **view** (native-glyph overrides, `native._LANG_OVERRIDE`, e.g.
-HU ɑ→a so *alma* not *älmä*; **EN's loose view is the dictionary respelling** — `data/en_dict.json`,
-27.6k CMUdict pronunciations frequency-ranked, `dxax kat`→"the cat", unknown words fall back to the
-letter-respelling; rebuild with `scripts/build_en_dict.py`). Strict is the canonical default; loose is
-opt-in and never changes the point set. The whole-system page surfaces it as one `loose (not strict)` toggle per language target.
+shortcuts, `decode.LAZY_ALIASES` — HU bare a/e · ZH type-Pinyin · **EN the familiar digraphs
+`sh ch zh ng th dh` + bare `j y w`**, all free letters in English) and the **view**. A language target IS
+that language's view — its native row is the flavoured one by default (HU á/a, ZH ṛ; the universal
+glyphs live under `native`). **EN's extra switch is the dictionary view** (`decode(..., endict=True)` /
+`--dict`): `data/en_dict.json`, 27.6k CMUdict pronunciations frequency-ranked, `dxax kat`→"the cat";
+typed aliases are canonicalised first (`decode.EN_CANON`), so `shijp` and `sjijp` both find "ship";
+unknown words fall back to the respelling. Rebuild the dict with `scripts/build_en_dict.py`. Strict is
+the canonical default; loose never changes the point set.
 
 - **Lazy mode** (`decode(..., lazy=True)` / `--lazy`) — the *input* half of loose; opt-in shortcuts in `decode.LAZY_ALIASES`
   (grapheme map, overriding canonical): HU bare `a`=/ɒ/, `e`=/ɛ/. ZH ≈ **"type Pinyin"** — the

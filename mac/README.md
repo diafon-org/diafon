@@ -15,8 +15,10 @@ Then: **System Settings → Keyboard → Input Sources → Edit… → +** → s
 under English) → add. Pick it in the menu-bar input menu and type — `sjok sewp njawr` should
 stream out as `s̩ok sép n̩ár`.
 
-The input menu also carries the **target** (Native · Native·HU · Native·ZH · IPA · Hungarian ·
-Mandarin · English) and the **Loose input** toggle.
+The input menu carries **five modes** — Native · IPA · Hungarian · Mandarin · English (a language
+mode IS that language's view; the universal glyphs are the Native mode) — plus two switches:
+**Loose input** (HU bare a/e · ZH type-Pinyin · EN the digraphs sh ch zh ng th dh + j y w) and
+**Dictionary spelling** (EN: real words, committed per word at the boundary).
 
 ## Layout
 
@@ -35,7 +37,5 @@ byte-identical output to `diaphone render`. Run it after ANY change to the engin
 
 ## Known limits (v1)
 
-- Loose *view* (HU ä→a, ZH r→ṛ) is exposed as the separate `Native · HU/ZH` targets rather than a
-  toggle; unify later.
-- No candidate window, no EN dictionary respelling (deferred; see the plan).
+- No candidate window.
 - Unsigned beyond ad-hoc: fine for this machine; distribution needs a Developer ID.
