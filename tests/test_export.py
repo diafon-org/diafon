@@ -116,6 +116,20 @@ def test_export_data_is_sufficient_for_a_port():
             render(text, "en", DATA, lazy=True, endict=True), ("en dict", text)
 
 
+def test_universal_maps_invert_for_recompose():
+    """Backspace-to-recompose (Mac) reverse-maps glyph -> label. The plain native/ipa maps must be
+    perfectly injective; the flavoured maps may collide ONLY on their documented licence glyphs
+    (HU a/á for ac/acw, ZH ṛ/ṛṛ for rj/rjw), which shortest-label-wins resolves."""
+    data = export_data(DATA)
+    allowed = {"native": set(), "ipa": set(),
+               "native-hu": {"a", "á"}, "native-zh": {"ṛ", "ṛṛ"}}
+    for tgt, m in data["maps"].items():
+        seen = {}
+        for lab, g in sorted(m.items()):
+            assert g not in seen or g in allowed[tgt], (tgt, g, seen.get(g), lab)
+            seen.setdefault(g, lab)
+
+
 def test_export_json_cli_writes_valid_json(tmp_path):
     import json
     from diaphone.cli import main
@@ -124,6 +138,6 @@ def test_export_json_cli_writes_valid_json(tmp_path):
     data = json.loads(out.read_text(encoding="utf-8"))
     assert data["version"] == 1
     assert set(data["maps"]) == {"native", "ipa", "native-hu", "native-zh"}
-    assert data["maps"]["native"]["sj"] == "s̩" and data["maps"]["native-hu"]["ac"] == "a"
+    assert data["maps"]["native"]["sj"] == "ș" and data["maps"]["native-hu"]["ac"] == "a"
     assert data["keys"] == sorted(data["keys"], key=len, reverse=True)[:len(data["keys"])]
     assert set(data["orth"]) == {"en", "hu", "zh"}

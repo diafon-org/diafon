@@ -22,4 +22,10 @@ final class Config {
         get { d.bool(forKey: "enDict") }
         set { d.set(newValue, forKey: "enDict") }
     }
+
+    /// Backspace reopens the glyph before the caret as editable notation (native/IPA modes).
+    var recompose: Bool {
+        get { d.object(forKey: "recompose") == nil ? true : d.bool(forKey: "recompose") }
+        set { d.set(newValue, forKey: "recompose") }
+    }
 }

@@ -11,14 +11,14 @@ Status legend: ✓ decided · ◻ open.
 
 | operator / point | mark | glyphs | |
 |---|---|---|---|
-| palatal `j` | **single vertical line below** `U+0329` | sj→**s̩** · zj→**z̩** · nj→**n̩** · lj→**l̩** · tj→**t̩** · dj→**d̩** | ✓ (latin22's mark — renders cleaner than the combining comma, and pairs as one-line vs the two-line soft) |
-| palatalised *modifier* (Russian) | **double vertical line below** `U+0348` | pʲ→**p͈** · kʲ→**k͈** … · sʲ→**s͈** · zʲ→**z͈** | ✓ (latin22's *soft/tense* mark; the two-line partner of the single-line palatal points; coronal soft tʲ nʲ lʲ dʲ = `tj nj lj dj` = the palatal points t̩ n̩ l̩ d̩) |
+| palatal `j` | **comma family below** (precomposed where Unicode has it) | sj→**ș** · tj→**ț** · nj→**ņ** · lj→**ļ** · zj→**z̦** · dj→**d̦** | ✓ (ș ț ņ ļ are single codepoints — system fonts centre them; the combining U+0329 rendered off-centre in real apps) |
+| palatalised *modifier* (Russian) | **double vertical line below** `U+0348` | pʲ→**p͈** · kʲ→**k͈** … · sʲ→**s͈** · zʲ→**z͈** | ✓ (latin22's *soft/tense* mark; the two-line partner of the single-line palatal points; coronal soft tʲ nʲ lʲ dʲ = `tj nj lj dj` = the palatal points ț ņ ļ d̦) |
 | trill / tap `r` | — / **dot-below** | r → **r** · ɾ `rj` → **ṛ** | ✓ (retroflex approximant merged into r; ṛ freed for the tap) |
 | affricate `c` | letter | tc→**c** · dc→**đ** | ✓ |
-| hush `q` (affricate+palatal) | letter + **vertical line below** | tq→**c̩** · dq→**đ̩** | ✓ (dʒ=đ̩; the palatal line rides the affricate) |
+| hush `q` (affricate+palatal) | letter + **comma below** | tq→**c̦** · dq→**đ̦** | ✓ (dʒ=đ̦; the palatal comma rides the affricate) |
 | dental / velar `x` (fricativise) | **one dot below** | tx→**ṭ** · dx→**ḍ** · kx→**ḳ** · gx→**g̣** | ✓ (θ/ð/x/ɣ = the homorganic fricative) |
 | pharyngealised (`y` on a consonant) | **two dots below** | tˤ→**t̤** · dˤ→**d̤** · sˤ→**s̤** · zˤ→**z̤** | ✓ |
-| aspirated `h` | **one dot above** | ṗ ṫ k̇ · ċ (tsʰ) · ċ̩ (tʃʰ, dot above + palatal line) | ✓ |
+| aspirated `h` | **one dot above** | ṗ ṫ k̇ · ċ (tsʰ) · ċ̦ (tʃʰ, dot above + palatal comma) | ✓ |
 | labialised (`c` on k/g) | **two dots above** (diaeresis) | k̈ g̈ | ✓ — diaeresis = rounding, same as vowels ü ö |
 | pf `pc` | diaeresis `p̈` (on p — no clash with k/g) | p̈ | ✓ |
 | long `w` | doubled letter (tight-set) | tt … | ✓ |
@@ -58,8 +58,8 @@ on t, velar on k). Marks live on distinct letters (or vowel vs consonant), so no
 - **one dot below** — consonant fricativise (ṭ ḍ ḳ g̣) · vowel lowered `j` (ị ẹ ụ ọ) · the tap **ṛ**.
   The tap's dot is the one glyph whose meaning is **language-specific**: universally ṛ = tap (ES/JA/TR), but a Mandarin-flavoured view may read it as the retroflex ⟨r⟩ — safe because no language has both a tap and a retroflex approximant, so ṛ stays unambiguous within any one language.
 - **two dots below** — consonant pharyngealised (t̤ d̤ s̤).
-- **single vertical line below `U+0329`** — the palatal points (t̩ n̩ l̩ s̩ z̩ d̩ · hush c̩ đ̩); latin22's mark, renders more reliably than the combining comma it replaced.
-- **double vertical line below `U+0348`** — consonant palatalised / *soft* (p͈ k͈ · s͈ z͈): the two-line partner of the palatal single line. One codepoint, side by side, no stacking; doubles as the IPA tense/fortis sign (Korean t͈). So **one line = palatal · two lines = soft**.
+- **comma below** — the palatal points (ș ț ņ ļ precomposed · d̦ z̦ c̦ đ̦ combining U+0326); precomposed letters render centred in every system font, which the combining U+0329 did not.
+- **double vertical line below `U+0348`** — consonant palatalised / *soft* (p͈ k͈ · s͈ z͈): the two-line partner of the palatal single line. One codepoint, side by side, no stacking; doubles as the IPA tense/fortis sign (Korean t͈). So **comma = palatal · double line = soft** (the bespoke font will unify the shapes).
 
 Side effect: **k** runs the full set — k · k̇ (aspirated) · k̈ (labialised) · ḳ (velar fricative).
 
