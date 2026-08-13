@@ -188,6 +188,15 @@ def test_decode_mandarin_lazy_pinyin():
     assert decode("pa4", "zh", DATA) == "bà"                          # canonical: bare p = lenis
 
 
+def test_en_loose_view_is_real_spelling():
+    """EN loose = dictionary respelling (data/en_dict.json): real words where known, respell otherwise."""
+    from diaphone.decode import decode
+    assert decode("dxax kat sijts acn", "en", DATA, lazy=True) == "the cat sits on"
+    assert decode("haxlo uaqld", "en", DATA, lazy=True) == "hello world"
+    assert decode("zorgblat dxax", "en", DATA, lazy=True) == "zowrgblat the"   # unknown -> respell fallback
+    assert decode("dxax kat", "en", DATA) == "thu kat"                          # strict unchanged
+
+
 def test_decode_lazy_mode_aliases():
     """Lazy mode adds free language-specific shortcuts as real labels; canonical omits them."""
     from diaphone.decode import load_orth, decode

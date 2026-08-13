@@ -30,7 +30,8 @@ for text in CORPUS:
         for mode in ("batch", "stream"):
             cases.append((mode, tgt, "0", text, want))
     for lg in LANGS:
-        for loose in ("0", "1"):
+        # EN loose = the dictionary view (not in engine.json yet) — Swift is validated strict-only there
+        for loose in (("0", "1") if lg != "en" else ("0",)):
             want = render(text, lg, "data", lazy=loose == "1")
             for mode in ("batch", "stream"):
                 cases.append((mode, lg, loose, text, want))
