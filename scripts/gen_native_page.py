@@ -148,6 +148,15 @@ GLOSS_SPEC = [
 ]
 
 
+# EN simplified-input reference: alias -> example word (canonical/native/ipa computed in build()).
+EN_ALIAS_WORDS = [
+    ("sh", "ship"), ("ch", "church"), ("zh", "vision"), ("ng", "sing"),
+    ("th", "thin"), ("dh", "this"), ("j", "jam"), ("y", "yes"), ("w", "world"),
+    ("ee", "see"), ("oo", "moon"), ("er", "bird"), ("ay", "day"),
+    ("ow", "show"), ("aw", "law"), ("oy", "boy"), ("uh", "the"),
+]
+
+
 def wiki_url(kind, a, b, c):
     """Wikipedia article for a point, derived from its features (redirects cover naming variants)."""
     if kind == "C":
@@ -205,6 +214,22 @@ def build():
 
     # spec tables → payload rows with computed native glyphs (never drift from the engine)
     pair = lambda lab: {"lab": lab, "nat": nat.get(lab, "?")}
+    # EN simplified input reference (canonical + glyphs computed from EN_CANON, so it can't drift)
+    def _ren(lab_seq):
+        toks, i = [], 0
+        while i < len(lab_seq):
+            for L in sorted(keys_all, key=len, reverse=True):
+                if lab_seq.startswith(L, i):
+                    toks.append(L); i += len(L); break
+            else:
+                toks.append(lab_seq[i]); i += 1
+        return "".join(nat.get(t, t) for t in toks), "".join(ipa.get(t, t) for t in toks)
+    keys_all = sorted(set(nat) | set(ipa), key=len, reverse=True)
+    en_aliases = []
+    for alias, word in EN_ALIAS_WORDS:
+        canon = EN_CANON[alias]
+        g, ip = _ren(canon)
+        en_aliases.append({"alias": alias, "canon": canon, "nat": g, "ipa": ip, "word": word})
     ops = [{"op": op, "note": note, "cons": cdesc, "cons_ex": [pair(l) for l in cl],
             "vowel": vdesc, "vowel_ex": [pair(l) for l in vl]}
            for op, note, cdesc, cl, vdesc, vl in OPS_SPEC]
@@ -218,7 +243,7 @@ def build():
     return {
         "cons": cons, "place": PLACE, "manner": MANNER, "vows": vows, "nasals": nasals, "mods": mods,
         "nat": nat, "natHu": nat_hu, "natZh": nat_zh, "ipa": ipa, "keys": keys, "orth": orth, "lazy": LAZY_ALIASES,
-        "zhRetro": _ZH_RETRO, "tone": _TONE_MARKS, "help": HELP, "enDict": en_dict(DATA), "enCanon": EN_CANON,
+        "zhRetro": _ZH_RETRO, "tone": _TONE_MARKS, "help": HELP, "enDict": en_dict(DATA), "enCanon": EN_CANON, "enAliases": en_aliases,
         "ops": ops, "modsRef": mods_ref, "gloss": gloss,
         "counts": {"C": len(cons), "V": len(vows), "total": len(cons) + len(vows)},
     }
@@ -409,6 +434,13 @@ footer{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--line);color
   <div class="mods" id="mBody"></div>
   <div class="scroll" style="margin-top:.7rem"><table class="ops"><thead><tr><th>modifier</th><th>char</th><th>what it does</th><th>example</th></tr></thead><tbody id="modsRefBody"></tbody></table></div>
 
+  <h2>Simplified input <span class="n">loose mode, per language</span></h2>
+  <p class="lede">Loose input adds typing shortcuts on top of the notation — the canonical codes always
+  keep working. <b>HU</b>: bare <code>a</code> = the Hungarian short a, <code>e</code> = the short e.
+  <b>ZH</b>: type Pinyin directly (xiao, shi, zhong). <b>EN</b>: the familiar digraphs below — with the
+  dictionary switch on, either spelling of a word finds it (<code>shijp</code> = <code>sjijp</code> = ship).</p>
+  <div class="scroll"><table class="ops"><thead><tr><th>you type</th><th>=</th><th>native</th><th>as in</th></tr></thead><tbody id="aliasBody"></tbody></table></div>
+
   <h2>The sounds, in words <span class="n">what the features mean</span></h2>
   <div class="gloss" id="glossBody"></div>
 
@@ -546,6 +578,7 @@ const pairHTML=p=>`<b class="serif" style="font-family:var(--serif)">${esc(p.nat
 const pairsHTML=ps=>ps.map(pairHTML).join(" · ");
 $("opsBody").innerHTML=D.ops.map(o=>`<tr><td class="opc">${esc(o.op)}${o.note?`<span class="on">${esc(o.note)}</span>`:""}</td><td><b>${esc(o.cons)}</b><br><span class="opex">${pairsHTML(o.cons_ex)}</span></td><td><b>${esc(o.vowel)}</b><br><span class="opex">${pairsHTML(o.vowel_ex)}</span></td></tr>`).join("");
 $("modsRefBody").innerHTML=D.modsRef.map(m=>`<tr><td><b>${esc(m.name)}</b></td><td class="mc">${esc(m.char)}</td><td>${esc(m.desc)}</td><td class="opex">${pairsHTML(m.ex)}</td></tr>`).join("");
+$("aliasBody").innerHTML=D.enAliases.map(a=>`<tr><td class="mc" style="font-size:1.05rem">${esc(a.alias)}</td><td class="opex"><code>${esc(a.canon)}</code></td><td class="opex" style="font-family:var(--serif);font-size:1.1rem;color:var(--ink)">${esc(a.nat)} <span style="color:var(--muted);font-size:.8rem">${esc(a.ipa)}</span></td><td class="opex">${esc(a.word)}</td></tr>`).join("");
 $("glossBody").innerHTML=D.gloss.map(g=>`<div class="gitem"><div class="gt">${esc(g.title)}</div><div class="gw">${esc(g.text)}</div><div class="ge">${g.ex.map(e=>`${pairHTML(e)}${e.word?` <span style="color:var(--muted)">— ${esc(e.word)}</span>`:""}`).join(" · ")}</div></div>`).join("");
 /* modifiers + stats + theme */
 $("mBody").innerHTML=D.mods.map(m=>`<div class="mtile"><div class="nm">${esc(m.name)}</div><div class="big"><span class="nat">${esc(m.native)}</span><span class="lab">${esc(m.label)}</span><span class="ipa">${esc(m.ipa)}</span></div><div class="gl">${esc(m.gloss)}</div></div>`).join("");

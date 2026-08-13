@@ -30,15 +30,20 @@ LAZY_ALIASES = {
     "zh": {"b": "b", "d": "d", "g": "g", "z": "z", "c": "c", "zh": "zh", "ch": "ch",
            "sh": "sh", "r": "r", "j": "j", "q": "q", "x": "x", "h": "h", "e": "e", "o": "o"},
     # EN simplified input: the familiar digraphs (+ bare j/y/w — all free letters in English, which
-    # has no length, nasal vowels or emphatics). Values are the respell graphemes; EN_CANON below
-    # maps the same aliases to canonical labels so the dictionary can look up either spelling.
+    # has no length, nasal vowels or emphatics), and the orthographic vowel digraphs (ee see, er bird,
+    # ay day, ow show, aw law, oy boy, oo moon, uh the). Values are the respell graphemes; EN_CANON
+    # below maps the same aliases to canonical labels so the dictionary can look up either spelling.
     "en": {"sh": "sh", "ch": "ch", "zh": "zh", "ng": "ng", "th": "th", "dh": "th",
-           "j": "j", "y": "y", "w": "w"},
+           "j": "j", "y": "y", "w": "w",
+           "ee": "ee", "oo": "oo", "er": "er", "ay": "ay", "ow": "ow", "aw": "aw",
+           "oy": "oy", "uh": "u"},
 }
 
-# alias -> canonical label, for normalising loosely-typed EN before a dictionary lookup
+# alias -> canonical label(s), for normalising loosely-typed EN before a dictionary lookup
 EN_CANON = {"sh": "sj", "ch": "tq", "zh": "zj", "ng": "nx", "th": "tx", "dh": "dx",
-            "j": "dq", "y": "i", "w": "u"}
+            "j": "dq", "y": "i", "w": "u",
+            "ee": "i", "oo": "u", "er": "aq", "ay": "e", "ow": "o", "aw": "oj",
+            "oy": "oji", "uh": "ax"}
 
 
 def load_orth(lang, data_dir="data", lazy=False):
