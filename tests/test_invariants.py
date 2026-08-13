@@ -143,7 +143,7 @@ def test_engine_render_targets():
     assert render("pj kj", "native", DATA) == "p͈ k͈"          # soft (palatalised) consonants: U+0348
     assert render("tj nj", "native", DATA) == "ț ņ"            # coronal soft = palatal points (precomposed)
     assert render("sjw", "native", DATA) == "șș"               # geminate doubles the WHOLE glyph
-    assert render("dj zj tq dq", "native", DATA) == "d̩ z̩ c̩ đ̩"  # no-precomposed palatals = vertical line (pairs with U+0348 soft)
+    assert render("dj zj tq dq", "native", DATA) == "d̦ z̦ c̦ đ̦"  # no-precomposed palatals = combining comma (unified family)
     assert render("Sjok Sewp Njawr", "native", DATA) == "Șok Sép Ņár"   # capitals carry through per token
     assert render("SJOK", "native", DATA) == "ȘOK"             # all-caps works token-wise
     assert render("Sjok", "ipa", DATA) == "ʃok"                # IPA has no capitals — case-insensitive input
