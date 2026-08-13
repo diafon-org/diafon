@@ -195,6 +195,15 @@ def test_en_simplified_input_aliases():
     assert decode("sjijp", "en", DATA, lazy=True) == "ship"                # canonical still decodes
 
 
+def test_en_simplified_vowels():
+    """EN loose INPUT vowels: ee er ay ow aw oy oo uh — orthographic digraphs, dict-canonicalised."""
+    from diaphone.decode import decode
+    assert decode("berd werld", "en", DATA, lazy=True, endict=True) == "bird world"
+    assert decode("show boy law moon see day", "en", DATA, lazy=True, endict=True) == "show boy law moon see day"
+    assert decode("dhuh kat sijts awn dhuh flawr", "en", DATA, lazy=True, endict=True) == "the cat sits on the floor"
+    assert decode("gud berd", "en", DATA, lazy=True) == "good berd"        # respell fallback stays readable
+
+
 def test_en_dictionary_view():
     """EN dictionary view (--dict): real words where known, respell otherwise; aliases canonicalise."""
     from diaphone.decode import decode
