@@ -12,13 +12,19 @@ make install   # build, ad-hoc sign, copy to ~/Library/Input Methods
 ```
 
 Then: **System Settings → Keyboard → Input Sources → Edit… → +** → search **Diaphone** (listed
-under English) → add. Pick it in the menu-bar input menu and type — `sjok sewp njawr` should
-stream out as `s̩ok sép n̩ár`.
+under English) → add. Pick it in the menu-bar input menu and type — tap Shift once, and `sjok sewp njawr` should
+stream out as `sok szép nyár`.
 
-The input menu carries **five modes** — Native · IPA · Hungarian · Mandarin · English (a language
-mode IS that language's view; the universal glyphs are the Native mode) — plus two switches:
-**Loose input** (HU bare a/e · ZH type-Pinyin · EN the digraphs sh ch zh ng th dh + j y w) and
-**Dictionary spelling** (EN: real words, committed per word at the boundary).
+**The default state is a plain English keyboard** — pass-through, nothing converted. A **bare
+Shift tap** flips into the active conversion mode and back (the 中/EN convention). So the daily
+flow is: type English normally; tap Shift; type Hungarian phonetically (`sjok sewp njawr` →
+sok szép nyár — no dead keys, no layout switch) or Pinyin with tone digits (`zhong1 guo2` →
+zhōngguó); tap Shift to come back.
+
+The input menu picks the conversion mode — Hungarian · Mandarin (Pinyin) · Native·HU ·
+Native·ZH · Native (universal) · IPA — plus **Loose input** (default ON: HU bare a/e,
+ZH type-Pinyin) and the Shift-toggle switch. The phonemic-English mode lives on in the CLI and
+the web page; it isn't a keyboard mode.
 
 ## Layout
 

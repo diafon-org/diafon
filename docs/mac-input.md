@@ -57,6 +57,15 @@ Interaction details:
   plus the two per-language toggles (loose input, loose view) — mirroring the tryout.
 - Secure input fields: IMK bypasses input methods automatically — raw keystrokes pass through.
 
+## Mode model (v2 — use-case driven)
+
+The daily driver is: write English with its real spelling, and drop into Hungarian or Pinyin
+without switching input sources. So the keyboard's DEFAULT state is **pass-through** (a plain
+English keyboard, the IM touches nothing), and a **bare Shift tap** toggles into the active
+conversion mode (menu-selected: HU · ZH-Pinyin · the native views · IPA) and back. Loose input
+defaults ON. The phonemic-English mode is engine/page-only — writing English phonemically is a
+demo, not a workflow (English spelling is too far from its sound to retype all day).
+
 ## Milestones
 
 1. **Export** — ✅ DONE. `diaphone export-json` → `out/engine.json` (11 KB: 4 universal maps,
