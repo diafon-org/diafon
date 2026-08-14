@@ -161,6 +161,81 @@ def decode_word(word, orth, lang):
     return _apply_tone(result, tone) if tone is not None else result
 
 
+# Unified-mode accent combos (Hungarian typed TRADITIONALLY — sz/ny/gy literal — plus these) and
+# their doubling escapes for English words that contain a combo (neww -> new, musicc -> music).
+_AUTO_ACC = {"ecw": "ő", "icw": "ű", "aw": "á", "ew": "é", "iw": "í", "ow": "ó", "uw": "ú",
+             "ec": "ö", "ic": "ü"}
+_AUTO_ESC = {"aww": "aw", "eww": "ew", "iww": "iw", "oww": "ow", "uww": "uw",
+             "icc": "ic", "ecc": "ec"}
+_AUTO_KEYS = sorted({**_AUTO_ACC, **_AUTO_ESC}, key=len, reverse=True)
+
+
+def _auto_accents(seg):
+    """Apply the accent combos (case-carrying) to a letter run; everything else passes."""
+    out, i = "", 0
+    while i < len(seg):
+        low = seg.lower()
+        for k in _AUTO_KEYS:
+            if low.startswith(k, i):
+                g = _AUTO_ESC.get(k) or _AUTO_ACC[k]
+                out += _cap(g) if seg[i].isupper() else g
+                i += len(k)
+                break
+        else:
+            out += seg[i]
+            i += 1
+    return out
+
+
+def decode_auto(text, data_dir="data"):
+    """The UNIFIED mode — English, traditional Hungarian and Pinyin in one stream, no wordlist:
+      · everything passes through as typed, EXCEPT
+      · the accent combos aw ew iw ow uw ec ic (+ w for the long ő ű) -> á é í ó ú ö ü ő ű,
+        escaped by doubling the operator where English collides (neww -> new, musicc -> music);
+      · a chunk closed by a tone digit (1-5) is REAL Pinyin (p/t/k literal) if it reads as one
+        (has a vowel, all tokens known) — ma1 -> mā; a doubled digit escapes (item22 -> item2).
+    Hungarian consonants are typed traditionally (sz ny gy ...); the phonemic notation lives in
+    the dedicated HU mode."""
+    zh = {**load_orth("zh", data_dir, lazy=True),
+          "p": "p", "t": "t", "k": "k", "w": "w", "y": "y"}   # + the Pinyin glide letters
+    out, buf = [], ""
+
+    def flush():
+        nonlocal buf
+        if buf:
+            out.append(_auto_word(buf, zh))
+            buf = ""
+    for ch in text:
+        if ch.isalnum():
+            buf += ch
+        else:                                   # space & punctuation are boundaries
+            flush()
+            out.append(ch)
+    flush()
+    return "".join(out)
+
+
+def _auto_word(buf, zh):
+    out, seg, i = "", "", 0
+    while i < len(buf):
+        ch = buf[i]
+        if ch in "12345":
+            if i + 1 < len(buf) and buf[i + 1] == ch:       # doubled digit = escape, keep raw
+                out += seg + ch
+                i += 2
+            elif seg and any(c in VOWELS for c in seg.lower())                     and all(t in zh for t in tokenize(seg.lower(), zh.keys())):
+                out += decode_word(seg + ch, zh, "zh")      # reads as Pinyin: convert
+                i += 1
+            else:
+                out += seg + ch                             # v2, x1, plain numbers: keep raw
+                i += 1
+            seg = ""
+        else:
+            seg += ch
+            i += 1
+    return out + _auto_accents(seg)
+
+
 def decode(text, lang, data_dir="data", lazy=False, endict=False):
     """lazy = the language's loose INPUT (typing shortcuts). endict (EN only) = the dictionary
     view: real spelling where known, respelling otherwise; typed aliases are canonicalised first,
@@ -175,5 +250,15 @@ def decode(text, lang, data_dir="data", lazy=False, endict=False):
             if key in d:
                 words.append(_cap(d[key]) if w[:1].isupper() else d[key])   # Dhuh -> The
                 continue
-        words.append(decode_word(w, orth, lang))
+        if lang == "zh":
+            piece, seg = "", ""
+            for ch in w:                # any digit closes a syllable, mid-word too (zhong1guo2)
+                if ch.isdigit():
+                    piece += decode_word(seg + ch, orth, lang)
+                    seg = ""
+                else:
+                    seg += ch
+            words.append(piece + (decode_word(seg, orth, lang) if seg else ""))
+        else:
+            words.append(decode_word(w, orth, lang))
     return " ".join(words)

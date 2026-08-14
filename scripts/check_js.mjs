@@ -13,12 +13,14 @@ function utok(w) { const t = []; let i = 0; while (i < w.length) { let m = null;
   for (const k of UKEYS) { if (k.length <= w.length - i && w.substr(i, k.length) === k) { m = k; break; } }
   if (m) { t.push(m); i += m.length; } else { t.push(w[i]); i++; } } return t; }
 const capF = g => g ? g[0].toUpperCase() + g.slice(1) : g;
-function urend(text, map, useCaps = true) { return text.trim().split(/\s+/).filter(Boolean).map(w => {
-  let tn = ""; if (w.length > 1 && TONE[w.slice(-1)]) { tn = TONE[w.slice(-1)]; w = w.slice(0, -1); }
-  const low = w.toLowerCase(), toks = utok(low); let i = 0, out = "";
-  for (const x of toks) { const g = map[x] !== undefined ? map[x] : x;
-    out += (useCaps && /[A-Z]/.test(w[i])) ? capF(g) : g; i += x.length; }
-  return out + tn; }).join(" "); }
+function urend(text, map, useCaps = true) {
+  const segOut = w => { const low = w.toLowerCase(), toks = utok(low); let i = 0, out = "";
+    for (const x of toks) { const g = map[x] !== undefined ? map[x] : x;
+      out += (useCaps && /[A-Z]/.test(w[i])) ? capF(g) : g; i += x.length; } return out; };
+  return text.trim().split(/\s+/).filter(Boolean).map(w => {
+    let piece = "", seg = "";
+    for (const ch of w) { if (TONE[ch]) { piece += segOut(seg) + TONE[ch]; seg = ""; } else seg += ch; }
+    return piece + segOut(seg); }).join(" "); }
 const VOWELS = new Set(["a", "e", "i", "o", "u"]);
 const isV = t => !!t && VOWELS.has(t[0]);
 function tokenize(word, labels) { const labs = [...labels].sort((a, b) => b.length - a.length);
@@ -47,12 +49,42 @@ function decodeWord(word, orth, lang) { let tone = null;
       else if (t === "u" && prv === "a") { g = "o"; } }
     out.push(caps[k] ? capF(g) : g); }
   const res = out.join(""); return tone != null ? applyTone(res, tone) : res; }
+const AUTO_ACC={ecw:"ő",icw:"ű",aw:"á",ew:"é",iw:"í",ow:"ó",uw:"ú",ec:"ö",ic:"ü"};
+const AUTO_ESC={aww:"aw",eww:"ew",iww:"iw",oww:"ow",uww:"uw",icc:"ic",ecc:"ec"};
+const AUTO_KEYS=[...Object.keys(AUTO_ACC),...Object.keys(AUTO_ESC)].sort((a,b)=>b.length-a.length);
+const zhUni={...D.orth.zh,...D.lazy.zh,p:"p",t:"t",k:"k",w:"w",y:"y"};
+const zhUniKeys=Object.keys(zhUni);
+function autoAccents(seg){let out="",i=0;
+  while(i<seg.length){const low=seg.toLowerCase();let m=null;
+    for(const k of AUTO_KEYS){if(low.startsWith(k,i)){m=k;break;}}
+    if(m){const g=AUTO_ESC[m]||AUTO_ACC[m];out+=/[A-Z]/.test(seg[i])?capF(g):g;i+=m.length;}
+    else{out+=seg[i];i++;}}
+  return out;}
+function autoWord(buf){let out="",seg="";
+  for(let i=0;i<buf.length;i++){const ch=buf[i];
+    if("12345".includes(ch)){
+      if(i+1<buf.length&&buf[i+1]===ch){out+=seg+ch;i++;}
+      else if(seg&&[...seg.toLowerCase()].some(c=>VOWELS.has(c))&&tokenize(seg.toLowerCase(),zhUniKeys).every(t=>zhUni[t]!==undefined)){
+        out+=decodeWord(seg+ch,zhUni,"zh");}
+      else{out+=seg+ch;}
+      seg="";}
+    else seg+=ch;}
+  return out+autoAccents(seg);}
+function decodeAuto(text){let out="",buf="";
+  for(const ch of text){
+    if(/[a-zA-Z0-9]/.test(ch)){buf+=ch;}
+    else{if(buf){out+=autoWord(buf);buf="";}out+=ch;}}
+  if(buf)out+=autoWord(buf);
+  return out;}
 function decode(text, lang, lazy, endict) { let orth = { ...D.orth[lang] };
   if ((lazy || (endict && lang === "en")) && D.lazy[lang]) orth = { ...orth, ...D.lazy[lang] };
   const dict = (lang === "en" && endict) ? D.enDict : null;
   return text.trim().split(/\s+/).filter(Boolean).map(w => {
     if (dict) { const key = tokenize(w.toLowerCase(), Object.keys(orth)).map(t => D.enCanon[t] || t).join("");
       if (dict[key]) return /[A-Z]/.test(w[0]) ? capF(dict[key]) : dict[key]; }
+    if (lang === "zh") { let piece = "", seg = "";
+      for (const ch of w) { if (/[0-9]/.test(ch)) { piece += decodeWord(seg + ch, orth, lang); seg = ""; } else seg += ch; }
+      return piece + (seg ? decodeWord(seg, orth, lang) : ""); }
     return decodeWord(w, orth, lang); }).join(" "); }
 
 // --- test corpus ---
@@ -63,6 +95,7 @@ const WORDS = [
   "alma kert", "ni3 hao3", "xiao3", "zhong1 guo2", "ren2", "cai4", "bao3 dao4", "pa4",
   "berd werld show boy law", "dhuh kat sijts awn dhuh flawr",
   "Sjok Sewp Njawr", "Acswonj SJOK", "Dhuh kat Sijts", "Sjan1 kxaxn3",
+  "wo3 xi3huan1 pin1yin1, ni3 ne5?", "the kisj kutjac aclsik and zhong1 guo2",
 ];
 const py = (sub, args) => execFileSync("python3", ["-m", "diaphone.cli", sub, ...args],
   { cwd: new URL("..", import.meta.url), env: { ...process.env, PYTHONPATH: "src" }, encoding: "utf8" }).trim();
@@ -83,6 +116,7 @@ for (const w of WORDS) {
   check(`en     "${w}"`, decode(w, "en", false), py("decode", ["en", w]));
   check(`en·lazy"${w}"`, decode(w, "en", true), py("decode", ["en", w, "--lazy"]));
   check(`en·dict"${w}"`, decode(w, "en", true, true), py("decode", ["en", w, "--lazy", "--dict"]));
+  check(`auto   "${w}"`, decodeAuto(w), py("decode", ["auto", w]));
 }
 console.log(`\n${total - fail}/${total} checks passed` + (fail ? `  — ${fail} MISMATCH` : "  — JS engine matches the Python CLI ✓"));
 process.exit(fail ? 1 : 0);

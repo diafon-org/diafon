@@ -15,7 +15,8 @@ struct Check {
             let (loose, dict) = (level >= 1, level == 2)
             let isUniversal = eng.maps[target] != nil
             if mode == "batch" {
-                print(isUniversal ? renderUniversal(text, target: target, eng: eng)
+                print(target == "auto" ? decodeAuto(text, eng: eng)
+                    : isUniversal ? renderUniversal(text, target: target, eng: eng)
                                   : decodeText(text, lang: target, loose: loose, endict: dict, eng: eng))
             } else {
                 let s = makeStreamer(target: target, loose: loose, dict: dict, eng: eng)

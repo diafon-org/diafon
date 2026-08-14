@@ -5,9 +5,10 @@ final class Config {
     static let shared = Config()
     private let d = UserDefaults.standard
 
-    /// Pass-through: the default state — a plain English keyboard, nothing converted.
+    /// Pass-through: a plain English keyboard. Default OFF — the unified mode already passes
+    /// English through; this is the paranoid state for code editors etc. (Shift-tap toggles.)
     var passthrough: Bool {
-        get { d.object(forKey: "passthrough") == nil ? true : d.bool(forKey: "passthrough") }
+        get { d.object(forKey: "passthrough") == nil ? false : d.bool(forKey: "passthrough") }
         set { d.set(newValue, forKey: "passthrough") }
     }
 
@@ -19,7 +20,7 @@ final class Config {
 
     /// The active conversion mode: hu · zh · native-hu · native-zh · native · ipa · en
     var target: String {
-        get { d.string(forKey: "target") ?? "hu" }
+        get { d.string(forKey: "target") ?? "auto" }
         set { d.set(newValue, forKey: "target") }
     }
 

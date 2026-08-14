@@ -114,12 +114,18 @@ _TONE_SUP = {"1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵"}
 
 def to_native(text, all_ph, features, data_dir="data", lang=None):
     labs = native_labels(all_ph, features, data_dir, lang=lang)
-    words = []
+
+    def seg_out(seg):
+        toks, caps = tokenize_cased(seg, labs.keys())
+        return "".join(_cap(labs.get(t, t)) if c else labs.get(t, t) for t, c in zip(toks, caps))
+    out = []
     for w in text.split():
-        tone = ""
-        if len(w) > 1 and w[-1] in _TONE_SUP:
-            tone, w = _TONE_SUP[w[-1]], w[:-1]
-        toks, caps = tokenize_cased(w, labs.keys())
-        words.append("".join(_cap(labs.get(t, t)) if c else labs.get(t, t)
-                             for t, c in zip(toks, caps)) + tone)
-    return " ".join(words)
+        piece, seg = "", ""
+        for ch in w:                    # a tone digit closes its segment anywhere in the word
+            if ch in _TONE_SUP:
+                piece += seg_out(seg) + _TONE_SUP[ch]
+                seg = ""
+            else:
+                seg += ch
+        out.append(piece + seg_out(seg))
+    return " ".join(out)

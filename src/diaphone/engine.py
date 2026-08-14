@@ -18,11 +18,14 @@ LANGUAGES = ("en", "hu", "zh")
 
 
 def targets():
-    return ["ipa", "native", *(f"native-{lg}" for lg in NATIVE_LANGS), *LANGUAGES]
+    return ["auto", "ipa", "native", *(f"native-{lg}" for lg in NATIVE_LANGS), *LANGUAGES]
 
 
 def render(text, target, data_dir="data", lazy=False, endict=False):
     """Render a notation string to `target` (a universal repr or a language's spelling)."""
+    if target == "auto":
+        from .decode import decode_auto
+        return decode_auto(text, data_dir)
     native_lang = target[len("native-"):] if target.startswith("native-") else None
     if target in ("ipa", "native") or native_lang in NATIVE_LANGS:
         features, _languages, all_ph = load(data_dir)

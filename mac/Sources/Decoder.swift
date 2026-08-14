@@ -102,18 +102,24 @@ func renderUniversal(_ text: String, target: String, eng: Engine) -> String {
     let m = eng.maps[target] ?? [:]
     let labels = eng.labels(for: target)
     let useCaps = target != "ipa"                        // IPA has no capitals
-    return text.split(separator: " ").map { sub -> String in
-        var w = String(sub)
-        var tone = ""
-        if w.count > 1, let last = w.last, let sup = eng.toneSup[String(last)] {
-            tone = sup
-            w = String(w.dropLast())
-        }
-        let (toks, caps) = tokenizeCased(w, labels: labels)
+    func segOut(_ seg: String) -> String {
+        let (toks, caps) = tokenizeCased(seg, labels: labels)
         return zip(toks, caps).map { t, c in
             let g = m[t] ?? t
             return (useCaps && c) ? capFirst(g) : g
-        }.joined() + tone
+        }.joined()
+    }
+    return text.split(separator: " ").map { sub -> String in
+        var piece = "", seg = ""
+        for ch in sub {                 // a tone digit closes its segment anywhere in the word
+            if let sup = eng.toneSup[String(ch)] {
+                piece += segOut(seg) + sup
+                seg = ""
+            } else {
+                seg.append(ch)
+            }
+        }
+        return piece + segOut(seg)
     }.joined(separator: " ")
 }
 
@@ -132,6 +138,97 @@ func decodeText(_ text: String, lang: String, loose: Bool, endict: Bool = false,
         if useDict, let real = enDictLookup(w, orthKeys: keys, eng: eng) {
             return (w.first?.isUppercase ?? false) ? capFirst(real) : real
         }
+        if lang == "zh" {               // any digit closes a syllable, mid-word too (zhong1guo2)
+            var piece = "", seg = ""
+            for ch in w {
+                if ch.isNumber {
+                    piece += decodeWord(seg + String(ch), orth: o, orthKeys: keys, lang: lang, eng: eng)
+                    seg = ""
+                } else {
+                    seg.append(ch)
+                }
+            }
+            return piece + (seg.isEmpty ? "" : decodeWord(seg, orth: o, orthKeys: keys, lang: lang, eng: eng))
+        }
         return decodeWord(w, orth: o, orthKeys: keys, lang: lang, eng: eng)
     }.joined(separator: " ")
+}
+
+
+/// The UNIFIED mode — English + traditional Hungarian + Pinyin in one stream (no wordlist).
+/// Mirrors decode.py `decode_auto`; validated by scripts/check_swift.py in batch AND streaming.
+let AUTO_ACC: [String: String] = ["ecw": "ő", "icw": "ű", "aw": "á", "ew": "é", "iw": "í",
+                                  "ow": "ó", "uw": "ú", "ec": "ö", "ic": "ü"]
+let AUTO_ESC: [String: String] = ["aww": "aw", "eww": "ew", "iww": "iw", "oww": "ow", "uww": "uw",
+                                  "icc": "ic", "ecc": "ec"]
+let AUTO_KEYS: [String] = (Array(AUTO_ACC.keys) + Array(AUTO_ESC.keys)).sorted { $0.count > $1.count }
+
+func zhUnified(_ eng: Engine) -> (orth: [String: String], keys: [String]) {
+    var o = eng.orthLabels(for: "zh", loose: true).orth
+    for l in ["p", "t", "k", "w", "y"] { o[l] = l }       // real Pinyin: p/t/k literal + glides
+    return (o, o.keys.sorted { $0.count > $1.count })
+}
+
+func autoAccents(_ seg: String) -> String {
+    var out = ""
+    var s = Substring(seg)
+    while !s.isEmpty {
+        let low = s.lowercased()
+        var matched = false
+        for k in AUTO_KEYS where low.hasPrefix(k) {
+            let g = AUTO_ESC[k] ?? AUTO_ACC[k]!
+            out += (s.first?.isUppercase ?? false) ? capFirst(g) : g
+            s = s.dropFirst(k.count)
+            matched = true
+            break
+        }
+        if !matched {
+            out.append(s.first!)
+            s = s.dropFirst()
+        }
+    }
+    return out
+}
+
+func autoWord(_ buf: String, zh: [String: String], zhKeys: [String], eng: Engine) -> String {
+    var out = "", seg = ""
+    let chars = Array(buf)
+    var i = 0
+    while i < chars.count {
+        let ch = chars[i]
+        if "12345".contains(ch) {
+            if i + 1 < chars.count, chars[i + 1] == ch {   // doubled digit = escape, keep raw
+                out += seg + String(ch)
+                i += 2
+            } else if !seg.isEmpty,
+                      seg.lowercased().contains(where: { VOWELS.contains($0) }),
+                      tokenize(seg.lowercased(), labels: zhKeys).allSatisfy({ zh[$0] != nil }) {
+                out += decodeWord(seg + String(ch), orth: zh, orthKeys: zhKeys, lang: "zh", eng: eng)
+                i += 1
+            } else {
+                out += seg + String(ch)                    // v2, x1, plain numbers: keep raw
+                i += 1
+            }
+            seg = ""
+        } else {
+            seg.append(ch)
+            i += 1
+        }
+    }
+    return out + autoAccents(seg)
+}
+
+func decodeAuto(_ text: String, eng: Engine) -> String {
+    let (zh, zhKeys) = zhUnified(eng)
+    var out = "", buf = ""
+    for ch in text {
+        if ch.isLetter || ch.isNumber {
+            buf.append(ch)
+        } else {
+            if !buf.isEmpty { out += autoWord(buf, zh: zh, zhKeys: zhKeys, eng: eng); buf = "" }
+            out.append(ch)
+        }
+    }
+    if !buf.isEmpty { out += autoWord(buf, zh: zh, zhKeys: zhKeys, eng: eng) }
+    return out
 }

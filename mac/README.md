@@ -15,16 +15,15 @@ Then: **System Settings → Keyboard → Input Sources → Edit… → +** → s
 under English) → add. Pick it in the menu-bar input menu and type — tap Shift once, and `sjok sewp njawr` should
 stream out as `sok szép nyár`.
 
-**The default state is a plain English keyboard** — pass-through, nothing converted. A **bare
-Shift tap** flips into the active conversion mode and back (the 中/EN convention). So the daily
-flow is: type English normally; tap Shift; type Hungarian phonetically (`sjok sewp njawr` →
-sok szép nyár — no dead keys, no layout switch) or Pinyin with tone digits (`zhong1 guo2` →
-zhōngguó); tap Shift to come back.
+**The default mode is UNIFIED**: English, traditional Hungarian and Pinyin in one stream.
+Everything passes as typed except the accent combos (`aw ew iw ow uw ec ic`, `+w` for ő ű →
+á é í ó ú ö ü ő ű) and tone-digit Pinyin chunks (`zhong1guo2` → zhōngguó, real Pinyin — p/t/k
+literal). Where English collides, double the operator: `neww` → new, `musicc` → music,
+`item22` → item2. Hungarian consonants are typed traditionally (sz ny gy).
 
-The input menu picks the conversion mode — Hungarian · Mandarin (Pinyin) · Native·HU ·
-Native·ZH · Native (universal) · IPA — plus **Loose input** (default ON: HU bare a/e,
-ZH type-Pinyin) and the Shift-toggle switch. The phonemic-English mode lives on in the CLI and
-the web page; it isn't a keyboard mode.
+A **bare Shift tap** toggles full pass-through (for code editors); the menu carries the other
+modes — HU notation · Mandarin · Native·HU · Native·ZH · Native · IPA — plus Loose input and
+the Shift-toggle switch. The phonemic-English mode lives in the CLI and web page only.
 
 ## Layout
 
