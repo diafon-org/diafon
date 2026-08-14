@@ -2,14 +2,14 @@
 
 Like `render.ipa_labels`, this is a language-independent label→glyph map, built from a hand-assigned
 per-point base glyph plus generative modifier diacritics. All cells are decided (see the doc). The
-palatal *points* wear the comma-below family, PRECOMPOSED where Unicode has the letter (ș ț ņ ļ —
-system fonts centre these perfectly; the combining U+0329 they replace rendered off-centre in real
-apps) and the combining comma U+0326 elsewhere (d̦ z̦ c̦ đ̦ — one unified comma shape across the family); the palatalised *modifier* (soft consonants) wears
-the double vertical line below (U+0348 — p͈ s͈ …). The bespoke font will unify the two shapes. The
+palatal *points* wear a single vertical line below, uniform on every letter (U+0329 — t̩ n̩ l̩ s̩ z̩ d̩,
+hush c̩ đ̩); the palatalised *modifier* (soft consonants) wears the double vertical line (U+0348 —
+p͈ s͈ …). One line = palatal, two lines = soft. Generic mark placement varies by font; the bespoke
+font will fix that — the comma-precomposed alternative was tried and looked wrong in the docs. The
 tap is ṛ (underdot — the retroflex approximant was merged into the plain r, freeing the dot; in a
 language-specific view the same underdot may instead flag Mandarin's retroflex ⟨r⟩). A modifier label
 that coincides with a point label (Russian tʲ=`tj`=c) keeps the point glyph — so the coronal soft
-series (tʲ nʲ lʲ dʲ) reads as the palatal points ț ņ ļ d̦, and only the non-coronal soft consonants
+series (tʲ nʲ lʲ dʲ) reads as the palatal points t̩ n̩ l̩ d̩, and only the non-coronal soft consonants
 (pʲ kʲ …, sʲ=`sjj` zʲ=`zjj`) wear the double line.
 
 Vowels: `j` lowers (one dot below — ị ẹ ụ ọ), the diaeresis flips front↔back (ü ö · ï ë ä), and nasal
@@ -23,22 +23,22 @@ from .notation import _label_maps, _mod_chars, full_label
 # combining marks
 _DA, _DB = "̇", "̣"        # one dot above / below
 _DDA, _DDB = "̈", "̤"      # two dots above (diaeresis) / two dots below
-_CB = "̦"                   # U+0326 combining comma below (palatal, where no precomposed letter exists —
-                            #   ș ț ņ ļ are precomposed and all render comma-below, so the family is unified)
+_VLB = "̩"                  # U+0329 combining vertical line below — the palatal mark, uniform on every
+                            #   letter (generic mark placement until the bespoke font; pairs with U+0348 soft)
 _DVLB = "͈"                 # U+0348 combining double vertical line below (soft/palatalised)
 _TILDE, _ACUTE = "̃", "́"
 
 # point label -> native base glyph
 _CONS = {
     "p": "p", "b": "b", "t": "t", "d": "d", "k": "k", "g": "g",
-    "tj": "ț", "dj": "d" + _CB, "kq": "q", "hj": "ḥ",           # ț (precomposed) d̦ · q · ḥ = ʔ
-    "m": "m", "n": "n", "nj": "ņ", "nx": "ṇ",                      # ņ (precomposed) · ṇ (velar ŋ, x-dot)
+    "tj": "t" + _VLB, "dj": "d" + _VLB, "kq": "q", "hj": "ḥ",     # t̩ d̩ (palatal line) · q · ḥ = ʔ
+    "m": "m", "n": "n", "nj": "n" + _VLB, "nx": "ṇ",              # n̩ (palatal) · ṇ (velar ŋ, x-dot)
     "tc": "c", "dc": "đ", "pc": "p̈",                            # c đ p̈
-    "tq": "c" + _CB, "dq": "đ" + _CB,                              # c̦ đ̦ (hush = affricate + palatal comma)
+    "tq": "c" + _VLB, "dq": "đ" + _VLB,                            # c̩ đ̩ (hush = affricate + palatal line)
     "f": "f", "v": "v", "tx": "ṭ", "dx": "ḍ",                  # ṭ ḍ (dental)
-    "s": "s", "z": "z", "sj": "ș", "zj": "z" + _CB,                # ș (precomposed) z̦ (ʃ ʒ)
+    "s": "s", "z": "z", "sj": "s" + _VLB, "zj": "z" + _VLB,        # s̩ z̩ (ʃ ʒ)
     "kx": "ḳ", "gx": "g̣", "hc": "ħ", "hq": "ħ̣", "h": "h",  # ḳ g̣ · hc=ħ (pharyngeal, crossbar) · hq=ʕ (q=c+j: crossbar + underdot) · h
-    "l": "l", "lj": "ļ", "r": "r", "rj": "ṛ",   # ļ (precomposed) · r (trill) · ṛ (tap, underdot)
+    "l": "l", "lj": "l" + _VLB, "r": "r", "rj": "ṛ",   # l̩ · r (trill) · ṛ (tap, underdot)
 }
 _VOW = {
     "i": "i", "e": "e", "a": "a", "o": "o", "u": "u",

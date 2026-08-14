@@ -284,7 +284,7 @@ def main():
     payload = build()
     fb64, fsize = subset_font_b64(payload)
     html = PAGE.replace("__FONTB64__", fb64).replace("/*DATA*/", json.dumps(payload, ensure_ascii=False))
-    out = os.path.join(ROOT, "docs", "viz", "notation.html")
+    out = os.path.join(ROOT, "docs", "index.html")
     with open(out, "w", encoding="utf-8") as fh:
         fh.write(html)
     print("wrote", out, "·", payload["counts"], "· font subset", fsize, "bytes")
@@ -400,16 +400,21 @@ table.ops{border-collapse:collapse;width:100%;min-width:520px}
 .gt{font:600 .95rem/1.25 var(--sans);color:var(--ink)}
 .gw{color:var(--muted);font-size:.88rem;margin-top:.3rem}
 .ge{font-family:var(--serif);font-size:.9rem;color:var(--accent);margin-top:.35rem}
+ol.plain{margin:.4rem 0 0;padding-left:1.2rem;color:var(--muted)}
+.partlabel{margin:3.2rem 0 -1.2rem;font:700 .8rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);border-top:2px solid var(--accent);padding-top:.8rem}
 footer{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.78rem;font-family:var(--mono)}
 </style>
 
 <div class="wrap">
   <div class="top"><div><span class="tag">diaphone</span><h1>The whole system</h1></div>
     <button class="toggle" id="tt" aria-label="toggle theme">theme</button></div>
-  <p class="lede">Every cross-linguistic point in three forms: the <b>native glyph</b> (how it's written),
-  the <b>input</b> you type, and — small, for reference — its IPA value, linked to Wikipedia. Consonants on
-  the articulatory grid, vowels on the triangle, then a tryout that converts your input into any target.</p>
+  <p class="lede">Three layers: <b>1</b> — the phonemic system, every cross-linguistic point shown as its
+  <b>native glyph</b> (the input code for reference, IPA small and Wikipedia-linked); <b>2</b> — the
+  simplified Latin input method built on it; <b>3</b> — a live tryout, per language, with each
+  simplification explained and switchable.</p>
   <div class="stats" id="stats"></div>
+
+  <div class="partlabel">Part 1 · The phonemic system</div>
 
   <h2>The seven operators <span class="n">c j q x w h y — one mechanism, base-dependent</span></h2>
   <p class="lede">A label is a <b>base letter</b> plus attaching operators. Every operator is
@@ -445,6 +450,23 @@ footer{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--line);color
   <div class="mods" id="mBody"></div>
   <div class="scroll" style="margin-top:.7rem"><table class="ops"><thead><tr><th>modifier</th><th>char</th><th>what it does</th><th>example</th></tr></thead><tbody id="modsRefBody"></tbody></table></div>
 
+  <div class="partlabel">Part 2 · The input method</div>
+
+  <h2>One stream, three languages <span class="n">the unified mode</span></h2>
+  <p class="lede">The daily input method is <b>one mode</b>: English, traditional Hungarian and Pinyin in a
+  single stream. Everything passes through exactly as typed, except two kinds of sequence:</p>
+  <div class="scroll"><table class="ops"><thead><tr><th>you type</th><th>you get</th><th>rule</th></tr></thead><tbody>
+    <tr><td class="mc">aw ew iw ow uw</td><td class="opex" style="font-family:var(--serif);font-size:1.05rem;color:var(--ink)">á é í ó ú</td><td class="opex">vowel + w = the long accent</td></tr>
+    <tr><td class="mc">ec ic · ecw icw</td><td class="opex" style="font-family:var(--serif);font-size:1.05rem;color:var(--ink)">ö ü · ő ű</td><td class="opex">e/i + c = the round pair; + w = long</td></tr>
+    <tr><td class="mc">zhong1 · xi3huan1 · ma5</td><td class="opex" style="font-family:var(--serif);font-size:1.05rem;color:var(--ink)">zhōng · xǐhuān · ma</td><td class="opex">a chunk closed by a tone digit is real Pinyin (p/t/k literal; 5 = neutral)</td></tr>
+  </tbody></table></div>
+  <p class="note">Hungarian consonants are typed <b>traditionally</b> — sz, ny, gy stay themselves — so
+  <span class="mono">Egy kis kutya alszik az asztal alatt</span> goes through verbatim; only accents need
+  combos (<span class="mono">vilawg</span> → világ). Where an English word collides with a combo,
+  <b>double the operator</b> to escape: <span class="mono">neww</span> → new · <span class="mono">musicc</span>
+  → music · <span class="mono">quicck</span> → quick · <span class="mono">item22</span> → item2.
+  The full phonemic notation lives in the dedicated per-language modes below.</p>
+
   <h2>Simplified input <span class="n">loose mode, per language</span></h2>
   <p class="lede">Loose input adds typing shortcuts on top of the notation — the canonical codes always
   keep working. <b>HU</b>: bare <code>a</code> = the Hungarian short a, <code>e</code> = the short e.
@@ -455,7 +477,9 @@ footer{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--line);color
   <h2>The sounds, in words <span class="n">what the features mean</span></h2>
   <div class="gloss" id="glossBody"></div>
 
-  <h2>Tryout <span class="n">pick a target · read its help</span></h2>
+  <div class="partlabel">Part 3 · Try it</div>
+
+  <h2>Tryout <span class="n">pick a target · switches are per language</span></h2>
   <div class="try">
     <div class="tabs" id="tabs" role="tablist"></div>
     <input id="in" spellcheck="false" value="sjok sewp njawr">

@@ -128,8 +128,8 @@ def test_engine_render_targets():
     """One engine renders universal targets (ipa/native) and languages uniformly."""
     from diaphone.engine import render
     assert render("sjan1", "ipa", DATA) == "ʃan¹"
-    assert render("sjan1", "native", DATA) == "șan¹"          # native view (palatal = precomposed comma family)
-    assert render("njawr", "native", DATA) == "ņár"           # nj→ņ, aw→á (long)
+    assert render("sjan1", "native", DATA) == "s̩an¹"          # native view (palatal = uniform vertical line)
+    assert render("njawr", "native", DATA) == "n̩ár"           # nj→ņ, aw→á (long)
     assert render("ty", "native", DATA) == "t̤"                # pharyngealised = `y` on a consonant (two dots below)
     assert render("nx", "native", DATA) == "ṇ"                # velar nasal ŋ = x-operator dot-below (like ṭ ḳ)
     assert render("h hj hc hq", "native", DATA) == "h ḥ ħ ħ̣"  # guttural 2×2 (c/j/q): c=pharyngeal, j=marked, q=c+j
@@ -141,11 +141,11 @@ def test_engine_render_targets():
     assert render("acswonj", "hu", DATA) == "asszony"          # language target still works (HU a = ac)
     assert render("sjj zjj", "native", DATA) == "s͈ z͈"        # palatalised s/z = U+0348 double vertical line below
     assert render("pj kj", "native", DATA) == "p͈ k͈"          # soft (palatalised) consonants: U+0348
-    assert render("tj nj", "native", DATA) == "ț ņ"            # coronal soft = palatal points (precomposed)
-    assert render("sjw", "native", DATA) == "șș"               # geminate doubles the WHOLE glyph
-    assert render("dj zj tq dq", "native", DATA) == "d̦ z̦ c̦ đ̦"  # no-precomposed palatals = combining comma (unified family)
-    assert render("Sjok Sewp Njawr", "native", DATA) == "Șok Sép Ņár"   # capitals carry through per token
-    assert render("SJOK", "native", DATA) == "ȘOK"             # all-caps works token-wise
+    assert render("tj nj", "native", DATA) == "t̩ n̩"            # coronal soft = palatal points
+    assert render("sjw", "native", DATA) == "s̩s̩"               # geminate doubles the WHOLE glyph
+    assert render("dj zj tq dq", "native", DATA) == "d̩ z̩ c̩ đ̩"  # uniform vertical line across the family
+    assert render("Sjok Sewp Njawr", "native", DATA) == "S̩ok Sép N̩ár"   # capitals carry through per token
+    assert render("SJOK", "native", DATA) == "S̩OK"             # all-caps works token-wise
     assert render("Sjok", "ipa", DATA) == "ʃok"                # IPA has no capitals — case-insensitive input
     assert render("Acswonj", "hu", DATA) == "Asszony"
     assert render("r rj", "native", DATA) == "r ṛ"             # trill r / tap ṛ (retroflex merged into r)

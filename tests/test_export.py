@@ -138,6 +138,6 @@ def test_export_json_cli_writes_valid_json(tmp_path):
     data = json.loads(out.read_text(encoding="utf-8"))
     assert data["version"] == 1
     assert set(data["maps"]) == {"native", "ipa", "native-hu", "native-zh"}
-    assert data["maps"]["native"]["sj"] == "ș" and data["maps"]["native-hu"]["ac"] == "a"
+    assert data["maps"]["native"]["sj"] == "s̩" and data["maps"]["native-hu"]["ac"] == "a"
     assert data["keys"] == sorted(data["keys"], key=len, reverse=True)[:len(data["keys"])]
     assert set(data["orth"]) == {"en", "hu", "zh"}

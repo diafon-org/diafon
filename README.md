@@ -30,12 +30,12 @@ See `CLAUDE.md` for architecture and `docs/native-view.md` for the native-view s
 ## Notation & rendering
 Every point gets a plain-ASCII label (`data/labels.yaml`): consonant bases + operators
 `c q x j w`, vowel bases `a e i o u` + operators `c j q x` on the triangular vowel model
-(`docs/viz/notation.html` — the whole-system visualisation). One engine renders a notation string to any **target** —
+(`docs/index.html` — the whole-system page). One engine renders a notation string to any **target** —
 universal (`ipa`, `native`) or a language's spelling — and the same phonemes spell themselves
 differently per target:
 
 ```
-diaphone render native "sjok sewp njawr"   # -> șok sép ņár
+diaphone render native "sjok sewp njawr"   # -> s̩ok sép n̩ár
 diaphone render ipa    "sjok sewp njawr"   # -> ʃok seːp ɲaːr
 diaphone render hu     "sjok sewp njawr"   # -> sok szép nyár
 diaphone render zh     "sjan1 kxaxn3 kau1" # -> shān hěn gāo   (tones by trailing digit)

@@ -11,14 +11,14 @@ Status legend: ✓ decided · ◻ open.
 
 | operator / point | mark | glyphs | |
 |---|---|---|---|
-| palatal `j` | **comma family below** (precomposed where Unicode has it) | sj→**ș** · tj→**ț** · nj→**ņ** · lj→**ļ** · zj→**z̦** · dj→**d̦** | ✓ (one UNIFIED comma shape: ș ț ņ ļ precomposed — fonts draw the Latvian cedilla letters as commas too — and combining U+0326 for the four with no precomposed form) |
-| palatalised *modifier* (Russian) | **double vertical line below** `U+0348` | pʲ→**p͈** · kʲ→**k͈** … · sʲ→**s͈** · zʲ→**z͈** | ✓ (latin22's *soft/tense* mark; the two-line partner of the single-line palatal points; coronal soft tʲ nʲ lʲ dʲ = `tj nj lj dj` = the palatal points ț ņ ļ d̦) |
+| palatal `j` | **single vertical line below** `U+0329`, uniform | sj→**s̩** · tj→**t̩** · nj→**n̩** · lj→**l̩** · zj→**z̩** · dj→**d̩** | ✓ (one mark on every letter; generic placement until the bespoke font — the precomposed comma letters were tried and looked wrong) |
+| palatalised *modifier* (Russian) | **double vertical line below** `U+0348` | pʲ→**p͈** · kʲ→**k͈** … · sʲ→**s͈** · zʲ→**z͈** | ✓ (latin22's *soft/tense* mark; the two-line partner of the single-line palatal points; coronal soft tʲ nʲ lʲ dʲ = `tj nj lj dj` = the palatal points t̩ n̩ l̩ d̩) |
 | trill / tap `r` | — / **dot-below** | r → **r** · ɾ `rj` → **ṛ** | ✓ (retroflex approximant merged into r; ṛ freed for the tap) |
 | affricate `c` | letter | tc→**c** · dc→**đ** | ✓ |
-| hush `q` (affricate+palatal) | letter + **comma below** | tq→**c̦** · dq→**đ̦** | ✓ (dʒ=đ̦) |
+| hush `q` (affricate+palatal) | letter + **vertical line below** | tq→**c̩** · dq→**đ̩** | ✓ (dʒ=đ̩) |
 | dental / velar `x` (fricativise) | **one dot below** | tx→**ṭ** · dx→**ḍ** · kx→**ḳ** · gx→**g̣** | ✓ (θ/ð/x/ɣ = the homorganic fricative) |
 | pharyngealised (`y` on a consonant) | **two dots below** | tˤ→**t̤** · dˤ→**d̤** · sˤ→**s̤** · zˤ→**z̤** | ✓ |
-| aspirated `h` | **one dot above** | ṗ ṫ k̇ · ċ (tsʰ) · ċ̦ (tʃʰ) | ✓ |
+| aspirated `h` | **one dot above** | ṗ ṫ k̇ · ċ (tsʰ) · ċ̩ (tʃʰ) | ✓ |
 | labialised (`c` on k/g) | **two dots above** (diaeresis) | k̈ g̈ | ✓ — diaeresis = rounding, same as vowels ü ö |
 | pf `pc` | diaeresis `p̈` (on p — no clash with k/g) | p̈ | ✓ |
 | long `w` | doubled letter (tight-set) | tt … | ✓ |
@@ -58,13 +58,13 @@ on t, velar on k). Marks live on distinct letters (or vowel vs consonant), so no
 - **one dot below** — consonant fricativise (ṭ ḍ ḳ g̣) · vowel lowered `j` (ị ẹ ụ ọ) · the tap **ṛ**.
   The tap's dot is the one glyph whose meaning is **language-specific**: universally ṛ = tap (ES/JA/TR), but a Mandarin-flavoured view may read it as the retroflex ⟨r⟩ — safe because no language has both a tap and a retroflex approximant, so ṛ stays unambiguous within any one language.
 - **two dots below** — consonant pharyngealised (t̤ d̤ s̤).
-- **comma below = palatal** — one unified shape: precomposed ș ț ņ ļ where Unicode has the letter, combining U+0326 (d̦ z̦ c̦ đ̦) where it doesn't.
-- **double vertical line below `U+0348`** — consonant palatalised / *soft* (p͈ k͈ · s͈ z͈): the two-line partner of the palatal single line. One codepoint, side by side, no stacking; doubles as the IPA tense/fortis sign (Korean t͈). So **comma = palatal · double line = soft** (the bespoke font will unify the shapes).
+- **single vertical line below = palatal** — uniform U+0329 on every letter (t̩ n̩ l̩ s̩ z̩ d̩ · hush c̩ đ̩).
+- **double vertical line below `U+0348`** — consonant palatalised / *soft* (p͈ k͈ · s͈ z͈): the two-line partner of the palatal single line. One codepoint, side by side, no stacking; doubles as the IPA tense/fortis sign (Korean t͈). So **one line = palatal · two lines = soft**.
 
 Side effect: **k** runs the full set — k · k̇ (aspirated) · k̈ (labialised) · ḳ (velar fricative).
 
 **Capitals**: input is case-insensitive; a token typed with an initial capital renders as the
-capitalised glyph (Sjok → Șok, SJOK → ȘOK, Dhuh → The in the EN dictionary view). IPA ignores case.
+capitalised glyph (Sjok → S̩ok, SJOK → S̩OK, Dhuh → The in the EN dictionary view). IPA ignores case.
 
 ## Status
 All cells decided. Next: bespoke glyphs/font (later), and wiring `native` as a target in the engine.

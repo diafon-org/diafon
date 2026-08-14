@@ -3,7 +3,7 @@
 import { readFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 
-const html = readFileSync(new URL("../docs/viz/notation.html", import.meta.url), "utf8");
+const html = readFileSync(new URL("../docs/index.html", import.meta.url), "utf8");
 const D = JSON.parse(html.match(/id="data">(.*?)<\/script>/s)[1]);
 
 // --- re-implement the page's engine here (kept byte-identical in intent to the <script>) ---
