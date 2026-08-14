@@ -5,15 +5,27 @@ final class Config {
     static let shared = Config()
     private let d = UserDefaults.standard
 
-    /// Conversion target: native · native-hu · native-zh · ipa · hu · zh · en
+    /// Pass-through: the default state — a plain English keyboard, nothing converted.
+    var passthrough: Bool {
+        get { d.object(forKey: "passthrough") == nil ? true : d.bool(forKey: "passthrough") }
+        set { d.set(newValue, forKey: "passthrough") }
+    }
+
+    /// A bare Shift tap toggles pass-through <-> the active conversion mode (IME convention).
+    var shiftToggle: Bool {
+        get { d.object(forKey: "shiftToggle") == nil ? true : d.bool(forKey: "shiftToggle") }
+        set { d.set(newValue, forKey: "shiftToggle") }
+    }
+
+    /// The active conversion mode: hu · zh · native-hu · native-zh · native · ipa · en
     var target: String {
-        get { d.string(forKey: "target") ?? "native" }
+        get { d.string(forKey: "target") ?? "hu" }
         set { d.set(newValue, forKey: "target") }
     }
 
-    /// Loose input (typing shortcuts) for the language targets.
+    /// Loose input (typing shortcuts) — ON by default: HU bare a/e, ZH type-Pinyin.
     var looseInput: Bool {
-        get { d.bool(forKey: "looseInput") }
+        get { d.object(forKey: "looseInput") == nil ? true : d.bool(forKey: "looseInput") }
         set { d.set(newValue, forKey: "looseInput") }
     }
 

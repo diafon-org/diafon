@@ -43,13 +43,33 @@ public class DiaphoneInputController: IMKInputController {
     // MARK: keystroke handling
 
     public override func recognizedEvents(_ sender: Any!) -> Int {
-        Int(NSEvent.EventTypeMask.keyDown.rawValue)
+        Int(NSEvent.EventTypeMask.keyDown.union(.flagsChanged).rawValue)
     }
 
+    private var shiftPending = false
+
     public override func handle(_ event: NSEvent!, client sender: Any!) -> Bool {
-        guard let event, event.type == .keyDown,
-              let client = sender as? IMKTextInput,
-              let s = currentStreamer() else { return false }
+        guard let event, let client = sender as? IMKTextInput else { return false }
+
+        // A bare Shift tap (down, then up, with no key in between) toggles pass-through <-> conversion.
+        if event.type == .flagsChanged {
+            if Config.shared.shiftToggle, event.keyCode == 56 || event.keyCode == 60 {   // L/R shift
+                if event.modifierFlags.contains(.shift) {
+                    shiftPending = true
+                } else if shiftPending {
+                    shiftPending = false
+                    commitAll(client)
+                    Config.shared.passthrough.toggle()
+                }
+            } else {
+                shiftPending = false
+            }
+            return false
+        }
+        guard event.type == .keyDown else { return false }
+        shiftPending = false                              // any real key cancels the tap
+        if Config.shared.passthrough { return false }     // plain English keyboard — touch nothing
+        guard let s = currentStreamer() else { return false }
 
         // modified keys (shortcuts): flush what we hold, let the app have the event
         if !event.modifierFlags.intersection([.command, .control, .option]).isEmpty {
@@ -144,25 +164,31 @@ public class DiaphoneInputController: IMKInputController {
 
     public override func menu() -> NSMenu! {
         let m = NSMenu()
-        // Five modes: the universal views + one per language (a language mode IS that language's
-        // view; the flavoured native variants are not separate modes).
+        let c = Config.shared
+        // Default = a plain English keyboard; the items below are the CONVERSION modes.
+        // A bare Shift tap flips between the two (like 中/EN on Chinese IMEs).
+        let pass = NSMenuItem(title: "English (pass-through)", action: #selector(selectPassthrough(_:)), keyEquivalent: "")
+        pass.state = c.passthrough ? .on : .off
+        m.addItem(pass)
+        m.addItem(.separator())
         let names: [(String, String)] = [
-            ("native", "Native"), ("ipa", "IPA"),
-            ("hu", "Hungarian"), ("zh", "Mandarin (Pinyin)"), ("en", "English"),
+            ("hu", "Hungarian"), ("zh", "Mandarin (Pinyin)"),
+            ("native-hu", "Native · HU"), ("native-zh", "Native · ZH"),
+            ("native", "Native (universal)"), ("ipa", "IPA"),
         ]
         for (key, title) in names {
             let item = NSMenuItem(title: title, action: #selector(selectTarget(_:)), keyEquivalent: "")
             item.representedObject = key
-            item.state = Config.shared.target == key ? .on : .off
+            item.state = (!c.passthrough && c.target == key) ? .on : .off
             m.addItem(item)
         }
         m.addItem(.separator())
+        let st = NSMenuItem(title: "Shift toggles English", action: #selector(toggleShift(_:)), keyEquivalent: "")
+        st.state = c.shiftToggle ? .on : .off
+        m.addItem(st)
         let loose = NSMenuItem(title: "Loose input (hu · zh · en)", action: #selector(toggleLoose(_:)), keyEquivalent: "")
         loose.state = Config.shared.looseInput ? .on : .off
         m.addItem(loose)
-        let dict = NSMenuItem(title: "Dictionary spelling (en)", action: #selector(toggleDict(_:)), keyEquivalent: "")
-        dict.state = Config.shared.enDict ? .on : .off
-        m.addItem(dict)
         let rec = NSMenuItem(title: "Backspace edits notation (native · ipa)", action: #selector(toggleRecompose(_:)), keyEquivalent: "")
         rec.state = Config.shared.recompose ? .on : .off
         m.addItem(rec)
@@ -173,7 +199,16 @@ public class DiaphoneInputController: IMKInputController {
         if let key = ((sender as? NSMenuItem) ?? ((sender as? [String: Any])?["IMKCommandMenuItem"] as? NSMenuItem))?
             .representedObject as? String {
             Config.shared.target = key
+            Config.shared.passthrough = false
         }
+    }
+
+    @objc func selectPassthrough(_ sender: Any!) {
+        Config.shared.passthrough = true
+    }
+
+    @objc func toggleShift(_ sender: Any!) {
+        Config.shared.shiftToggle.toggle()
     }
 
     @objc func toggleLoose(_ sender: Any!) {
