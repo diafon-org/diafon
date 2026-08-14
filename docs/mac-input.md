@@ -59,12 +59,15 @@ Interaction details:
 
 ## Mode model (v2 — use-case driven)
 
-The daily driver is: write English with its real spelling, and drop into Hungarian or Pinyin
-without switching input sources. So the keyboard's DEFAULT state is **pass-through** (a plain
-English keyboard, the IM touches nothing), and a **bare Shift tap** toggles into the active
-conversion mode (menu-selected: HU · ZH-Pinyin · the native views · IPA) and back. Loose input
-defaults ON. The phonemic-English mode is engine/page-only — writing English phonemically is a
-demo, not a workflow (English spelling is too far from its sound to retype all day).
+The daily driver is ONE mode — **unified** (the default): English, traditional Hungarian and
+Pinyin in a single stream, no switching and no dictionary. Everything passes as typed except
+(a) the nine accent combos (aw ew iw ow uw ec ic, +w for ő ű) → á é í ó ú ö ü ő ű, and (b) a
+chunk closed by a tone digit → real Pinyin (p/t/k literal). Where English collides with a combo,
+DOUBLING the operator escapes it: neww → new, musicc → music, item22 → item2. Hungarian
+consonants are typed traditionally (sz ny gy) — the phonemic notation lives in the dedicated HU
+mode. A **bare Shift tap** toggles to full pass-through and back (for code editors etc.); the
+menu carries the other modes (HU notation · ZH · native views · IPA). The phonemic-English mode
+is engine/page-only — a demo, not a workflow.
 
 ## Milestones
 

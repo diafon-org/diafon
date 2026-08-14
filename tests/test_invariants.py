@@ -221,6 +221,19 @@ def test_en_dictionary_view():
     assert decode("dxax kat", "en", DATA) == "thu kat"                     # strict unchanged
 
 
+def test_unified_auto_mode():
+    """Unified: everything passes as typed; accent combos + tone-digit Pinyin convert; doubling escapes."""
+    from diaphone.decode import decode_auto
+    assert decode_auto("The quick brown fox jumps over the lazy dog.", DATA) == \
+        "The quük brón fox jumps over the lazy dog."          # ic/ow collide — see escapes below
+    assert decode_auto("Egy kis kutya alszik az asztal alatt, a vilawg szewp.", DATA) == \
+        "Egy kis kutya alszik az asztal alatt, a világ szép."  # HU typed traditionally + accent combos
+    assert decode_auto("wo3 xi3huan1 pin1yin1, ni3 ne5?", DATA) == "wǒ xǐhuān pīnyīn, nǐ ne?"
+    assert decode_auto("neww laww musicc seccond quicck browwn item22 v2", DATA) == \
+        "new law music second quick brown item2 v2"            # doubling the OPERATOR escapes every collision
+    assert decode_auto("ta1 kan4 ma5", DATA) == "tā kàn ma"    # real Pinyin: p/t/k literal
+
+
 def test_decode_lazy_mode_aliases():
     """Lazy mode adds free language-specific shortcuts as real labels; canonical omits them."""
     from diaphone.decode import load_orth, decode

@@ -44,6 +44,17 @@ NASAL_IPA = {"ɛ", "œ", "ɔ", "ɑ"}
 
 # language-specific tryout help (notes + example inputs; outputs are rendered live in the page)
 HELP = {
+    "auto": {"name": "unified",
+             "note": "English, traditional Hungarian and Pinyin in one stream — no switching, no "
+                     "dictionary. Everything passes as typed except: the accent combos aw ew iw ow uw "
+                     "ec ic (+w for ő ű) become á é í ó ú ö ü ő ű, and a chunk closed by a tone digit "
+                     "becomes real Pinyin (p/t/k literal, ma1 → mā). Where English collides, DOUBLE the "
+                     "operator to escape: neww → new, musicc → music, item22 → item2. Hungarian "
+                     "consonants are typed traditionally (sz ny gy). The Mac keyboard's default mode.",
+             "ex": [["Egy kis kutya alszik, a vilawg szewp.", "HU traditionally + accents"],
+                    ["wo3 xi3huan1 pin1yin1, ni3 ne5?", "wǒ xǐhuān pīnyīn"],
+                    ["neww laww musicc quicck item22", "escapes: new law music quick item2"],
+                    ["English flows as is, mostly untouched.", "plain English"]]},
     "native": {"name": "native",
                "note": "The universal view — one glyph per point, Latin plus diacritics. One line below = "
                        "palatal (t̩ s̩); two lines = soft (p͈). Dot above = aspirated (ṗ); dot below = "
@@ -471,12 +482,14 @@ function utok(w){const t=[];let i=0;while(i<w.length){let m=null;
   for(const k of UKEYS){if(k.length<=w.length-i&&w.substr(i,k.length)===k){m=k;break;}}
   if(m){t.push(m);i+=m.length;}else{t.push(w[i]);i++;}}return t;}
 const capF=g=>g?g[0].toUpperCase()+g.slice(1):g;
-function urend(text,map,useCaps=true){return text.trim().split(/\s+/).filter(Boolean).map(w=>{
-  let tn="";if(w.length>1&&TONE[w.slice(-1)]){tn=TONE[w.slice(-1)];w=w.slice(0,-1);}
-  const low=w.toLowerCase(),toks=utok(low);let i=0,out="";
-  for(const x of toks){const g=map[x]!==undefined?map[x]:x;
-    out+=(useCaps&&/[A-Z]/.test(w[i]))?capF(g):g;i+=x.length;}
-  return out+tn;}).join(" ");}
+function urend(text,map,useCaps=true){
+  const segOut=w=>{const low=w.toLowerCase(),toks=utok(low);let i=0,out="";
+    for(const x of toks){const g=map[x]!==undefined?map[x]:x;
+      out+=(useCaps&&/[A-Z]/.test(w[i]))?capF(g):g;i+=x.length;}return out;};
+  return text.trim().split(/\s+/).filter(Boolean).map(w=>{
+    let piece="",seg="";
+    for(const ch of w){if(TONE[ch]){piece+=segOut(seg)+TONE[ch];seg="";}else seg+=ch;}
+    return piece+segOut(seg);}).join(" ");}
 function ubrk(text){return text.trim().split(/\s+/).filter(Boolean).map(w=>{
   if(w.length>1&&TONE[w.slice(-1)])w=w.slice(0,-1);return utok(w).join("·");}).join("  ");}
 
@@ -514,12 +527,43 @@ function decode(text,lang,lazy,endict){let orth={...D.orth[lang]};
   return text.trim().split(/\s+/).filter(Boolean).map(w=>{
     if(dict){const key=tokenize(w.toLowerCase(),Object.keys(orth)).map(t=>D.enCanon[t]||t).join("");
       if(dict[key])return /[A-Z]/.test(w[0])?capF(dict[key]):dict[key];}
+    if(lang==="zh"){let piece="",seg="";
+      for(const ch of w){if(/[0-9]/.test(ch)){piece+=decodeWord(seg+ch,orth,lang);seg="";}else seg+=ch;}
+      return piece+(seg?decodeWord(seg,orth,lang):"");}
     return decodeWord(w,orth,lang);}).join(" ");}
-window.__engine={urend,decode};
+const AUTO_ACC={ecw:"ő",icw:"ű",aw:"á",ew:"é",iw:"í",ow:"ó",uw:"ú",ec:"ö",ic:"ü"};
+const AUTO_ESC={aww:"aw",eww:"ew",iww:"iw",oww:"ow",uww:"uw",icc:"ic",ecc:"ec"};
+const AUTO_KEYS=[...Object.keys(AUTO_ACC),...Object.keys(AUTO_ESC)].sort((a,b)=>b.length-a.length);
+const zhUni={...D.orth.zh,...D.lazy.zh,p:"p",t:"t",k:"k",w:"w",y:"y"};
+const zhUniKeys=Object.keys(zhUni);
+function autoAccents(seg){let out="",i=0;
+  while(i<seg.length){const low=seg.toLowerCase();let m=null;
+    for(const k of AUTO_KEYS){if(low.startsWith(k,i)){m=k;break;}}
+    if(m){const g=AUTO_ESC[m]||AUTO_ACC[m];out+=/[A-Z]/.test(seg[i])?capF(g):g;i+=m.length;}
+    else{out+=seg[i];i++;}}
+  return out;}
+function autoWord(buf){let out="",seg="";
+  for(let i=0;i<buf.length;i++){const ch=buf[i];
+    if("12345".includes(ch)){
+      if(i+1<buf.length&&buf[i+1]===ch){out+=seg+ch;i++;}
+      else if(seg&&[...seg.toLowerCase()].some(c=>VOWELS.has(c))&&tokenize(seg.toLowerCase(),zhUniKeys).every(t=>zhUni[t]!==undefined)){
+        out+=decodeWord(seg+ch,zhUni,"zh");}
+      else{out+=seg+ch;}
+      seg="";}
+    else seg+=ch;}
+  return out+autoAccents(seg);}
+function decodeAuto(text){let out="",buf="";
+  for(const ch of text){
+    if(/[a-zA-Z0-9]/.test(ch)){buf+=ch;}
+    else{if(buf){out+=autoWord(buf);buf="";}out+=ch;}}
+  if(buf)out+=autoWord(buf);
+  return out;}
+window.__engine={urend,decode,decodeAuto};
 
 /* tryout: one tab per language; the two simplifications are inner switches —
    LOOSE INPUT (typing shortcuts) and LOOSE VIEW (that language's native-glyph reading). */
 const TARGETS=[
+  {key:"auto",name:"unified",rows:v=>[{k:"unified",v:decodeAuto(v)}]},
   {key:"native",name:"native",rows:v=>[{k:"native",v:urend(v,D.nat),brk:true}]},
   {key:"ipa",name:"IPA",rows:v=>[{k:"ipa",v:urend(v,D.ipa,false)}]},
   {key:"hu",name:"HU",li:"bare a = ɒ · e = ɛ",
@@ -529,7 +573,7 @@ const TARGETS=[
   {key:"en",name:"EN",li:"sh ch zh ng th dh · j y w",lv:"real spelling (28k words)",lvLabel:"dictionary",
    rows:(v,li,lv)=>[{k:"native",v:urend(v,D.nat),brk:true},{k:"spelling",v:decode(v,"en",li,lv)}]},
 ];
-let CUR="native";
+let CUR="auto";
 const $=id=>document.getElementById(id);
 function run(){const T=TARGETS.find(t=>t.key===CUR),H=D.help[CUR],v=$("in").value;
   let rows=[];try{rows=T.rows(v,$("li").checked,$("lv").checked);}catch(e){rows=[{k:"",v:"—"}];}

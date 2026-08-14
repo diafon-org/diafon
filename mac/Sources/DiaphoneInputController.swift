@@ -172,6 +172,7 @@ public class DiaphoneInputController: IMKInputController {
         m.addItem(pass)
         m.addItem(.separator())
         let names: [(String, String)] = [
+            ("auto", "Unified (EN · HU · Pinyin)"),
             ("hu", "Hungarian"), ("zh", "Mandarin (Pinyin)"),
             ("native-hu", "Native · HU"), ("native-zh", "Native · ZH"),
             ("native", "Native (universal)"), ("ipa", "IPA"),

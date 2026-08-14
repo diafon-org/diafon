@@ -44,11 +44,18 @@ def ipa_labels(all_ph, features, data_dir="data"):
 def to_ipa(text, all_ph, features, data_dir="data"):
     """Render a notation string as universal IPA (space-separated words; trailing digit = tone)."""
     labs = ipa_labels(all_ph, features, data_dir)
-    words = []
+
+    def seg_out(seg):
+        toks, _caps = tokenize_cased(seg, labs.keys())   # case-insensitive input; IPA has no capitals
+        return "".join(labs.get(t, t) for t in toks)
+    out = []
     for w in text.split():
-        tone = ""
-        if len(w) > 1 and w[-1] in _TONE_SUP:
-            tone, w = _TONE_SUP[w[-1]], w[:-1]
-        toks, _caps = tokenize_cased(w, labs.keys())   # case-insensitive input; IPA has no capitals
-        words.append("".join(labs.get(t, t) for t in toks) + tone)
-    return " ".join(words)
+        piece, seg = "", ""
+        for ch in w:                    # a tone digit closes its segment anywhere in the word
+            if ch in _TONE_SUP:
+                piece += seg_out(seg) + _TONE_SUP[ch]
+                seg = ""
+            else:
+                seg += ch
+        out.append(piece + seg_out(seg))
+    return " ".join(out)

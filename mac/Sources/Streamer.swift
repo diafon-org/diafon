@@ -135,7 +135,40 @@ final class WordStreamer: Streaming {
     }
 }
 
+/// The unified mode: everything passes; accent combos + tone-digit Pinyin convert; doubling escapes.
+/// Word-at-a-time: the held word is the underlined tail; it commits at every boundary.
+final class UnifiedStreamer: Streaming {
+    private let eng: Engine
+    private let zh: [String: String]; private let zhKeys: [String]
+    private var buf = ""
+
+    init(eng: Engine) {
+        self.eng = eng
+        (zh, zhKeys) = zhUnified(eng)
+    }
+
+    var raw: String { buf }
+    func dropLastRaw() { if !buf.isEmpty { buf.removeLast() } }
+    func seed(_ notation: String) { buf += notation }
+
+    func feed(_ c: Character) -> String {
+        if c.isLetter || c.isNumber {
+            buf.append(c)
+            return ""
+        }
+        return flush() + String(c)                        // space & punctuation are boundaries
+    }
+
+    func flush() -> String {
+        guard !buf.isEmpty else { return "" }
+        let out = autoWord(buf, zh: zh, zhKeys: zhKeys, eng: eng)
+        buf = ""
+        return out
+    }
+}
+
 func makeStreamer(target: String, loose: Bool, dict: Bool = false, eng: Engine) -> Streaming {
+    if target == "auto" { return UnifiedStreamer(eng: eng) }
     if eng.maps[target] != nil { return MapStreamer(target: target, eng: eng) }
     return WordStreamer(lang: target, loose: loose, dict: dict, eng: eng)
 }

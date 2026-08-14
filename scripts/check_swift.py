@@ -21,6 +21,8 @@ CORPUS = [
     "nic3", "de5", "raxn2", "alma kert", "ni3 hao3", "zhong1 guo2", "xiao3", "cai4",
     "berd werld show boy law", "dhuh kat sijts awn dhuh flawr",
     "Sjok Sewp Njawr", "Acswonj SJOK", "Dhuh kat Sijts", "Sjan1 kxaxn3",
+    "wo3 xi3huan1 pin1yin1, ni3 ne5?", "the kisj kutjac aclsik and zhong1 guo2",
+    "Hello vilawg! ta1 kan4 v2 x1 item stays",
 ]
 UNIVERSAL = ["native", "ipa", "native-hu", "native-zh"]
 LANGS = ["hu", "zh", "en"]
@@ -31,6 +33,9 @@ for text in CORPUS:
         want = render(text, tgt, "data")
         for mode in ("batch", "stream"):
             cases.append((mode, tgt, "0", text, want))
+    want_auto = render(text, "auto", "data")
+    for mode in ("batch", "stream"):
+        cases.append((mode, "auto", "0", text, want_auto))
     for lg in LANGS:
         # level 0 = strict · 1 = loose input · 2 = loose input + dictionary (EN only)
         for level in (("0", "1", "2") if lg == "en" else ("0", "1")):

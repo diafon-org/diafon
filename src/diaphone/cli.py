@@ -26,7 +26,7 @@ def main(argv=None):
     if argv and argv[0] == "decode":
         dp = argparse.ArgumentParser(prog="diaphone decode",
                                      description="Notation -> a language's orthography.")
-        dp.add_argument("lang", choices=["hu", "zh", "en"], help="target orthography")
+        dp.add_argument("lang", choices=["hu", "zh", "en", "auto"], help="target orthography (auto = unified EN+HU+Pinyin)")
         dp.add_argument("text", help="space-separated notation words, e.g. 'sqok sewp njawrw'")
         dp.add_argument("--data", default=_default_data())
         dp.add_argument("--lazy", action="store_true",
@@ -34,6 +34,10 @@ def main(argv=None):
         dp.add_argument("--dict", action="store_true",
                         help="EN only: dictionary view — real English spelling where known")
         da = dp.parse_args(argv[1:])
+        if da.lang == "auto":
+            from .decode import decode_auto
+            print(decode_auto(da.text, da.data))
+            return
         print(decode(da.text, da.lang, da.data, lazy=da.lazy, endict=da.dict))
         return
     if argv and argv[0] == "export-json":
