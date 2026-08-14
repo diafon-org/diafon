@@ -140,7 +140,7 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   `h` via the same c/j/q pattern: `c`=pharyngeal (deeper), `j`=the marked second sound, `q`=c+j=both — so
   `h` · `hj`=ʔ (glottal stop) · `hc`=ħ · `hq`=ʕ (voiced pharyngeal), each base+ONE operator, mirroring the
   native `h · ḥ · ħ · ħ̣`. Emphatics ride on `y` on the consonant (`tˤ`=`ty`; base-dependent — `y` is nasal on a vowel).
-- **Vowels** (17, triangular — see `docs/viz/notation.html`): 5 cardinal bases `a e i o u` on the
+- **Vowels** (17, triangular — see `docs/index.html`): 5 cardinal bases `a e i o u` on the
   triangle edges; operators `c`=toggle-rounding (front gains: `ic`=y `ec`=ø; back loses: `uc`=ɯ `oc`=ɤ;
   apex marks back: `ac`=ɑ), `j`=**lower one step, uniformly** — each in-between vowel is its higher
   neighbour lowered (`ij`=ɪ `ej`=ɛ `uj`=ʊ `oj`=ɔ); `a` is already lowest so `aj` is unused. So ɔ is
