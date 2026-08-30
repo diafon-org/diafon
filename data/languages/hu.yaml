@@ -8,8 +8,8 @@ consonants:
 - {ipa: d, pl: alveolar, mn: plosive, vc: vd}
 - {ipa: k, pl: velar, mn: plosive, vc: vl}
 - {ipa: g, pl: velar, mn: plosive, vc: vd}
-- {ipa: c, pl: palatal, mn: plosive, vc: vl, orth: ty}
-- {ipa: ɟ, pl: palatal, mn: plosive, vc: vd, orth: gy}
+- {ipa: c, pl: alveolar, mn: plosive, vc: vl, mod: [palatalized], orth: ty}
+- {ipa: ɟ, pl: alveolar, mn: plosive, vc: vd, mod: [palatalized], orth: gy}
 - {ipa: ts, pl: alveolar, mn: affricate, vc: vl, orth: c}
 - {ipa: dz, pl: alveolar, mn: affricate, vc: vd, orth: dz}
 - {ipa: tʃ, pl: postalveolar, mn: affricate, vc: vl, orth: cs}
@@ -23,7 +23,7 @@ consonants:
 - {ipa: h, pl: glottal, mn: fricative, vc: vl}
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd}
 - {ipa: n, pl: alveolar, mn: nasal, vc: vd}
-- {ipa: ɲ, pl: palatal, mn: nasal, vc: vd, orth: ny}
+- {ipa: ɲ, pl: alveolar, mn: nasal, vc: vd, mod: [palatalized], orth: ny}
 - {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
 - {ipa: r, pl: alveolar, mn: trill, vc: vd}
 vowels:
@@ -36,5 +36,7 @@ vowels:
 - {ipa: ɒ, hi: open, bk: back, rd: true, orth: a}
 - {ipa: eː, hi: close-mid, bk: front, rd: false, len: long, orth: é}
 - {ipa: aː, hi: open, bk: central, rd: false, len: long, orth: á}
+# glides = nonsyllabic close vowels (labels ix/ux/icx via the x=reduce modifier)
+- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: j, note: j/ly — haj/jó; contrasts with vowel /i/ (hazai keeps i)}
 long_series: [i, y, u, ø, o]
 gemination: true

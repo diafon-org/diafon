@@ -18,7 +18,7 @@ def points_to_json(points):
         if p.get("recovered"):
             d["recovered"] = p["recovered"]      # general-inventory targets that absorbed a merge
         if p.get("label"):
-            d["label"] = p["label"]              # v0 Phase-2 character label
+            d["label"] = p["label"]              # the character label
         out.append(d)
     out.sort(key=lambda x: (x["kind"], x["canonical_ipa"]))
     return out
@@ -109,7 +109,7 @@ def render_report(all_ph, points, violations, near, suspicious, rhotic, general,
     else:
         L.append("_None beyond `r`~`ɾ` (Spanish trill/tap)._")
 
-    L.append("\n## General inventory (Phase-2 merge ledger applied)\n")
+    L.append("\n## General inventory (merge ledger applied)\n")
     Cg = sum(1 for p in general.values() if p["kind"] == "C")
     L.append(f"Fine-grained **{len(points)}** → general **{len(general)}** "
              f"(C {Cg} · V {len(general) - Cg}) after {len(folded)} decided merges:\n")
@@ -117,17 +117,16 @@ def render_report(all_ph, points, violations, near, suspicious, rhotic, general,
         r = f"recover **{rec}**" if rec else "no recovery (sub-phonemic everywhere)"
         L.append(f"- {note} — {r}")
 
-    L.append("\n## Labels — Phase-2 character scheme (v0 proposal)\n")
+    L.append("\n## Labels — the character scheme\n")
     amb, dup = label_issues["ambiguous"], label_issues["duplicates"]
-    L.append(f"Vowels use the B1-recased operator scheme (self-segmenting). Consonants are a first "
-             f"pass. Decodability check: **{len(amb)}** base labels are NOT uniquely decodable "
+    L.append(f"Base + operator labels, self-segmenting. "
+             f"Decodability check: **{len(amb)}** base labels are NOT uniquely decodable "
              f"(they split into other labels), **{len(dup)}** duplicates, "
              f"**{len(label_issues['namespace'])}** namespace issues.\n")
     if amb:
         L.append("**Not decodable (consonant digraphs that collide with a letter sequence):**")
         L.append("  " + ", ".join(f"`{lab}`(={ipa})" for ipa, lab in amb))
-        L.append("\nThese are the B1/m2 problem made concrete — the fix is to give consonants the "
-                 "same uppercase-continuation treatment as vowels, or reserved rare pairs.\n")
+        L.append("\nEvery such label must be reworked until it decodes uniquely.\n")
     if label_issues["modifier_overlap"]:
         ov = ", ".join(f"`{c}`={f}" for f, c in label_issues["modifier_overlap"].items())
         L.append(f"_Modifier/quality overlap (OK — disambiguated by base type): {ov}._\n")
@@ -157,8 +156,11 @@ def labels_to_json(general, labels, label_issues):
 
 
 def write_outputs(all_ph, points, violations, near, suspicious, rhotic, general, folded,
-                  labels, label_issues, features, languages, out_dir):
+                  labels, label_issues, features, languages, out_dir, graph=None):
     os.makedirs(out_dir, exist_ok=True)
+    if graph is not None:
+        with open(os.path.join(out_dir, "graph.json"), "w", encoding="utf-8") as f:
+            json.dump(graph, f, ensure_ascii=False, indent=2)
     with open(os.path.join(out_dir, "points.json"), "w", encoding="utf-8") as f:
         json.dump(points_to_json(points), f, ensure_ascii=False, indent=2)
     with open(os.path.join(out_dir, "general_inventory.json"), "w", encoding="utf-8") as f:

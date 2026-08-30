@@ -10,7 +10,8 @@ from .model import cbase, vbase, MOD_DIA, load_features
 
 # canonical column order; files outside this list are appended alphabetically
 ORDER = ["EN", "DE", "ES", "FR", "IT", "LA", "EL", "RU", "AR", "HU", "ZH", "JA",
-         "TR", "ET", "VI", "KO"]  # witness languages added after the core 12
+         "TR", "ET", "VI", "KO", "TA",       # witness languages after the core 12
+         "ID", "FI", "HE", "FA", "NL", "UK"] # coverage languages (inventory ⊆ existing points)
 
 
 def _load_language_files(lang_dir):
@@ -66,7 +67,7 @@ def expand(code, L):
         p = vows[ipa]
         add(p["ipa"] + MOD_DIA["nasal"], vbase(p), {"nasal"}, "V", p)
 
-    # secondary articulations (palatalized / pharyngealized / aspirated / labialized)
+    # secondary articulations (palatalized / pharyngealized / aspirated)
     for ser in L.get("secondary_series", []):
         typ = ser["type"]
         for ipa in ser["applies_to"]:

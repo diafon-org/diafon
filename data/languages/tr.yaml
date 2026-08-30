@@ -36,3 +36,5 @@ vowels:
 - {ipa: ø, hi: close-mid, bk: front, rd: true, orth: ö}
 - {ipa: o, hi: close-mid, bk: back, rd: true}
 - {ipa: a, hi: open, bk: central, rd: false}
+# glides = nonsyllabic close vowels (labels ix/ux/icx via the x=reduce modifier)
+- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: y, note: yıl/ay}

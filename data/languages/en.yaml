@@ -44,3 +44,6 @@ vowels:
   note: NURSE
 - {ipa: e, hi: close-mid, bk: front, rd: false, note: FACE nucleus (diphthong)}
 - {ipa: o, hi: close-mid, bk: back, rd: true, note: GOAT nucleus (diphthong)}
+# glides = nonsyllabic close vowels (labels ix/ux/icx via the x=reduce modifier)
+- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: y, note: yes — contrasts with /i/ (yeast~east)}
+- {ipa: w, hi: close, bk: back, rd: true, mod: [nonsyllabic], orth: w, note: wet — contrasts with /u/ (woo~ooze)}

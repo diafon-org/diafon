@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-500 0 2000 1362" width="512">
+  <!-- Diaphone glyph "tildecomb" — edit ONLY inside g#glyph; g#guides is ignored on import.
+       Font baseline is the dashed line at SVG y=1069; the em is 1000 units. -->
+  <g id="guides" opacity="0.5">
+    <line x1="-500" x2="1500" y1="1069" y2="1069" stroke="#8bf" stroke-width="2" stroke-dasharray="11 11"/><!-- baseline (font y=0) -->
+    <line x1="-500" x2="1500" y1="533" y2="533" stroke="#8bf" stroke-width="2" stroke-dasharray="11 11"/><!-- x-height (font y=536) -->
+    <line x1="-500" x2="1500" y1="1362" y2="1362" stroke="#8bf" stroke-width="2" stroke-dasharray="11 11"/><!-- descender (font y=-293) -->
+  </g>
+  <g id="glyph">
+    <path fill="#111" d="M-245 463Q-272 463 -294.0 453.5Q-316 444 -334.5 431.5Q-353 419 -369.5 409.5Q-386 400 -402 400Q-432 400 -440.0 416.5Q-448 433 -451 453H-496Q-494 422 -482.5 395.5Q-471 369 -448.5 352.0Q-426 335 -390 335Q-363 335 -341.5 344.5Q-320 354 -301.5 366.5Q-283 379 -266.5 388.5Q-250 398 -234 398Q-205 398 -196.5 381.5Q-188 365 -185 345H-140Q-142 375 -153.5 402.0Q-165 429 -187.0 446.0Q-209 463 -245 463Z"/>
+  </g>
+</svg>

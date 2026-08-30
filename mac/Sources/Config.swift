@@ -5,10 +5,10 @@ final class Config {
     static let shared = Config()
     private let d = UserDefaults.standard
 
-    /// Pass-through: a plain English keyboard. Default OFF — the unified mode already passes
-    /// English through; this is the paranoid state for code editors etc. (Shift-tap toggles.)
+    /// Pass-through: a plain keyboard. Default ON — conversion is opt-in per mode
+    /// (a bare Shift tap toggles into the selected conversion mode and back).
     var passthrough: Bool {
-        get { d.object(forKey: "passthrough") == nil ? false : d.bool(forKey: "passthrough") }
+        get { d.object(forKey: "passthrough") == nil ? true : d.bool(forKey: "passthrough") }
         set { d.set(newValue, forKey: "passthrough") }
     }
 
@@ -18,9 +18,9 @@ final class Config {
         set { d.set(newValue, forKey: "shiftToggle") }
     }
 
-    /// The active conversion mode: hu · zh · native-hu · native-zh · native · ipa · en
+    /// The active conversion mode: hu · zh · en · uni · ipa
     var target: String {
-        get { d.string(forKey: "target") ?? "auto" }
+        get { d.string(forKey: "target") ?? "uni" }
         set { d.set(newValue, forKey: "target") }
     }
 
@@ -30,13 +30,13 @@ final class Config {
         set { d.set(newValue, forKey: "looseInput") }
     }
 
-    /// EN only: the dictionary view — real English spelling where known.
-    var enDict: Bool {
-        get { d.bool(forKey: "enDict") }
-        set { d.set(newValue, forKey: "enDict") }
+    /// Uni only: render tone digits as tone signs on the vowel (opt-in).
+    var uniTones: Bool {
+        get { d.bool(forKey: "uniTones") }
+        set { d.set(newValue, forKey: "uniTones") }
     }
 
-    /// Backspace reopens the glyph before the caret as editable notation (native/IPA modes).
+    /// Backspace reopens the glyph before the caret as editable notation (uni/IPA modes).
     var recompose: Bool {
         get { d.object(forKey: "recompose") == nil ? true : d.bool(forKey: "recompose") }
         set { d.set(newValue, forKey: "recompose") }

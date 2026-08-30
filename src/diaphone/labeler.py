@@ -1,5 +1,5 @@
-"""Phase-2 labeller: attach a proposed character label to each general-inventory point and check
-that the labels are uniquely decodable. Labels live in `data/labels.yaml` (a v0 proposal).
+"""Labeller: attach the character label to each general-inventory point and check
+that the labels are uniquely decodable. Labels live in `data/labels.yaml`.
 
 Decodability model: a token starts at a *lowercase* letter (a/e/i/o/u for a vowel, a consonant
 letter otherwise) and extends through following *uppercase* operators/modifiers, which never start
@@ -44,7 +44,7 @@ def validate(labels):
     vow = labels.get("vowels", {})
     allmap = {**cons, **vow}
     labelset = set(allmap.values())
-    VOW = set("aeiou")    # vowel-initial letters; `y` retired as a base (schwa is now `ax`)
+    VOW = set("aeiou")    # vowel-initial letters; `y` is not a base (it is the modifier letter)
 
     seen = {}
     for ipa, lab in allmap.items():

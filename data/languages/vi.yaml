@@ -24,7 +24,7 @@ consonants:
 - {ipa: h, pl: glottal, mn: fricative, vc: vl}
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd}
 - {ipa: n, pl: alveolar, mn: nasal, vc: vd}
-- {ipa: ɲ, pl: palatal, mn: nasal, vc: vd, orth: nh}
+- {ipa: ɲ, pl: alveolar, mn: nasal, vc: vd, mod: [palatalized], orth: nh}
 - {ipa: ŋ, pl: velar, mn: nasal, vc: vd, orth: ng}
 - {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
 secondary_series:
@@ -41,5 +41,8 @@ vowels:
 - {ipa: u, hi: close, bk: back, rd: true}
 - {ipa: o, hi: close-mid, bk: back, rd: true, orth: ô}
 - {ipa: ɔ, hi: open-mid, bk: back, rd: true, orth: o}
+# glides = nonsyllabic close vowels (labels ix/ux/icx via the x=reduce modifier)
+- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: y, note: on/off-glide — mây}
+- {ipa: w, hi: close, bk: back, rd: true, mod: [nonsyllabic], orth: o/u, note: medial — hoa, huy}
 # ⟨a⟩ /aː/ is the long counterpart of ⟨ă⟩ /a/ — same point, length modifier
 long_series: [a]

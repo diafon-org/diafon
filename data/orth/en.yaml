@@ -15,6 +15,7 @@ g: g
 h: h
 i: ee
 ij: i
+ix: y
 k: k
 l: l
 m: m
@@ -22,6 +23,7 @@ n: n
 nx: ng
 o: ow
 uj: oo
+ux: w
 p: p
 r: r
 s: s
@@ -33,3 +35,30 @@ u: oo
 v: v
 z: z
 zj: zh
+
+# ---- loose input: the familiar digraphs, plus bare j/y/w and the orthographic vowel pairs ----
+# All free letters in English, which has no length, nasal vowels or emphatics.
+_lazy:
+  sh: sh
+  ch: ch
+  zh: zh
+  ng: ng
+  th: th
+  dh: th
+  j: j
+  y: y
+  w: w
+  ee: ee
+  oo: oo
+  er: er
+  ay: ay
+  ow: ow
+  aw: aw
+  oy: oy
+  uh: u
+
+# ---- adoption groups ----
+_groups:
+  consonant-digraphs: [sj, zj, tq, dq, tx, dx, nx]   # sh zh ch j th th ng
+  vowel-respellings: [i, ij, e, ej, o, oj, u, uj, ac, ax, aq]
+  glides: [ix]                                        # y

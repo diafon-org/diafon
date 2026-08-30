@@ -40,4 +40,6 @@ vowels:
 - {ipa: u, hi: close, bk: back, rd: true}
 - {ipa: ʊ, hi: near-close, bk: back, rd: true}
 - {ipa: ə, hi: mid, bk: central, rd: false}
+# glides = nonsyllabic close vowels (labels ix/ux/icx via the x=reduce modifier)
+- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: j, note: ja}
 long_series: [i, y, e, ø, a, o, u]

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-500 0 2000 1362" width="512">
+  <!-- Diaphone glyph "acutecomb" — edit ONLY inside g#glyph; g#guides is ignored on import.
+       Font baseline is the dashed line at SVG y=1069; the em is 1000 units. -->
+  <g id="guides" opacity="0.5">
+    <line x1="-500" x2="1500" y1="1069" y2="1069" stroke="#8bf" stroke-width="2" stroke-dasharray="11 11"/><!-- baseline (font y=0) -->
+    <line x1="-500" x2="1500" y1="533" y2="533" stroke="#8bf" stroke-width="2" stroke-dasharray="11 11"/><!-- x-height (font y=536) -->
+    <line x1="-500" x2="1500" y1="1362" y2="1362" stroke="#8bf" stroke-width="2" stroke-dasharray="11 11"/><!-- descender (font y=-293) -->
+  </g>
+  <g id="glyph">
+    <path fill="#111" d="M-302 450Q-280 421 -255.5 379.0Q-231 337 -215 303H-108V313Q-120 330 -147.0 359.0Q-174 388 -205.5 416.5Q-237 445 -264 463H-302Z"/>
+  </g>
+</svg>

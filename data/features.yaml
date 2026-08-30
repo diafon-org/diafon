@@ -21,9 +21,10 @@ modifiers:
   - nasal           # ̃    nasalised vowel
   - palatalized     # ʲ    Russian soft series
   - pharyngealized  # ˤ    Arabic emphatics
-  - labialized      # ʷ    Latin labiovelars
   - aspirated       # ʰ    Mandarin fortis series (replaces voicing contrast)
   - rhotic          # ˞    r-coloured vowel (English NURSE)
+  - retroflex       # ̢    Tamil ʈ ɳ ɭ ɻ = plain t n l r + the curl (never a point)
+  - nonsyllabic     # ̯    glide = reduced close vowel (j w ɥ ɰ = i̯ u̯ y̯ ɯ̯)
 
 # Suprasegmental, tracked at language level, not per segment:
 suprasegmental:

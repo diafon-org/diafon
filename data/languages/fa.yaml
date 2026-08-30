@@ -1,0 +1,38 @@
+# Persian (Iranian, Tehrani)  [FA]
+# Coverage language — "free": æ folds to the a point, ɒ folds to ɑ (the ɒ→ɑ ledger entry;
+# FA has no plain ɑ, so the fold is safe). غ/ق are merged in Iranian Persian — entered once
+# as the uvular stop (kq).
+name: Persian
+family: Iranian
+consonants:
+- {ipa: p, pl: bilabial, mn: plosive, vc: vl}
+- {ipa: b, pl: bilabial, mn: plosive, vc: vd}
+- {ipa: t, pl: alveolar, mn: plosive, vc: vl}
+- {ipa: d, pl: alveolar, mn: plosive, vc: vd}
+- {ipa: k, pl: velar, mn: plosive, vc: vl}
+- {ipa: g, pl: velar, mn: plosive, vc: vd}
+- {ipa: q, pl: uvular, mn: plosive, vc: vl, orth: ق/غ, note: merged ɢ~ɣ realisations}
+- {ipa: ʔ, pl: glottal, mn: plosive, vc: vl, orth: ء/ع}
+- {ipa: tʃ, pl: postalveolar, mn: affricate, vc: vl, orth: چ}
+- {ipa: dʒ, pl: postalveolar, mn: affricate, vc: vd, orth: ج}
+- {ipa: m, pl: bilabial, mn: nasal, vc: vd}
+- {ipa: n, pl: alveolar, mn: nasal, vc: vd}
+- {ipa: f, pl: labiodental, mn: fricative, vc: vl}
+- {ipa: v, pl: labiodental, mn: fricative, vc: vd}
+- {ipa: s, pl: alveolar, mn: fricative, vc: vl}
+- {ipa: z, pl: alveolar, mn: fricative, vc: vd}
+- {ipa: ʃ, pl: postalveolar, mn: fricative, vc: vl, orth: ش}
+- {ipa: ʒ, pl: postalveolar, mn: fricative, vc: vd, orth: ژ}
+- {ipa: x, pl: velar, mn: fricative, vc: vl, orth: خ}
+- {ipa: h, pl: glottal, mn: fricative, vc: vl}
+- {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
+- {ipa: r, pl: alveolar, mn: trill, vc: vd}
+vowels:
+- {ipa: i, hi: close, bk: front, rd: false}
+- {ipa: e, hi: close-mid, bk: front, rd: false}
+- {ipa: æ, hi: near-open, bk: front, rd: false, note: folds to the a point}
+- {ipa: ɒ, hi: open, bk: back, rd: true, orth: آ, note: folds to ɑ (ac)}
+- {ipa: o, hi: close-mid, bk: back, rd: true}
+- {ipa: u, hi: close, bk: back, rd: true}
+# glides
+- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: ی, note: yek}

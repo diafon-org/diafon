@@ -1,11 +1,17 @@
 # One label per general point. Flat: base + ONE operator. No tier, no case, no diacritics.
-# CONSONANT BASES: p b t d k g m n f v s z l h · trill r.
+# LAW: a modifier letter never has a phoneme twin — so no label can re-read as a phoneme sequence.
+# CONSONANT BASES: p b t d k g m n f v s z l h · trill r.  `h` is ONLY a base, never a modifier.
 # CONSONANT OPERATORS (never a bare label):  c=affricate  q=hush  x=dental/velar  j=palatal  w=long
-#   coronal fan:  tc=ts · tq=tʃ · tx=θ · tj=tʲ (= /c/, Hungarian ty)      (fricatives: sj=ʃ)
-# Gutturals form a 2×2 on `h` via the c/j/q pattern (like tc/tj/tq, where q = c+j): `c`=pharyngeal
-#   (deeper), `j`=the marked second sound (glottal stop / voiced), `q`=c+j=both. So h · hj=ʔ · hc=ħ ·
-#   hq=ʕ — base + ONE operator each (mirrors the native h · ḥ · ħ · ħ̣). Emphatics ride on `y` (ty=tˤ).
-# VOWEL BASES: a e i o u (the cardinals; `y` is NOT a base anymore). VOWEL OPERATORS: c=toggle-rounding,
+#   coronal fan:  tc=/ts/ · tq=/tʃ/ · tx=/θ/      (fricatives: sj=/ʃ/)
+# NOT points: the palatal coronals. /c ɟ ɲ ʎ/ ARE /t d n l/ + palatalized — no language contrasts
+#   them with the soft series, and the difference is phonetic. So HU ty = RU ть = `tj`, ES ñ = `nj`.
+# Gutturals: the whole block sits on `h` — h · hx=/ħ/ (`x`=the fricative one step back, x's meaning
+#   everywhere) · hj=/ʕ/ (`j`=the marked second guttural) · hq=/ʔ/. `hq` has no glyph the mark grammar
+#   can build (see uni.py), so it takes a whole character in the uni view — the apostrophe ', which is
+#   the glottal stop across the world's Latin orthographies — as c=/ts/, x=/dz/, q=/q/ take letters.
+#   Aspiration is single `y` on a
+#   consonant (py ty ky = /pʰ tʰ kʰ/); emphatics are the doubled `yy` (tyy=/tˤ/).
+# VOWEL BASES: a e i o u (the cardinals; `y` is not a base). VOWEL OPERATORS: c=toggle-rounding,
 #   j=lower one step, q=c+j (front-round lowered), x=centralise→schwa. Triangular.
 
 consonants:
@@ -15,13 +21,12 @@ consonants:
   d: d
   k: k
   g: g
-  c: tj          # palatal stop = palatalised /t/ (Hungarian ty); frees kj for /kʲ/
-  ɟ: dj          # palatal stop = palatalised /d/ (Hungarian gy)
   q: kq          # uvular stop
-  ʔ: hj          # glottal stop = h + `j` (marked second sound at the glottis: the stop)
+  ʔ: hq          # glottal stop = h + `q`; the one h-point the mark grammar cannot draw, so it takes
+                 #   a whole character in the uni view: ' — the glottal stop across the world's
+                 #   Latin orthographies (Hawaiian ʻokina, Mayan, Tagalog) and hamza in ASCII Arabic.
   m: m
   n: n
-  ɲ: nj          # palatal nasal (= palatalised /n/)
   ŋ: nx
   ts: tc         # affricate operator c  (Pinyin c = /ts/)
   dz: dc
@@ -38,13 +43,14 @@ consonants:
   ʒ: zj          # absorbs ʐ-fricative
   x: kx          # velar fricative
   ɣ: gx
-  ħ: hc          # voiceless pharyngeal fricative = h + `c` (pharyngeal = one step deeper)
-  ʕ: hq          # voiced pharyngeal fricative = h + `q` (q = c+j: pharyngeal + marked = voiced)
+  ħ: hx          # voiceless pharyngeal fricative = h + `x`, the fricative ONE STEP BACK — x's meaning
+                 #   everywhere (tx=θ, kx=x). uni ḥ, which is how the world writes ح (Muḥammad).
   h: h
   l: l
-  ʎ: lj          # palatal lateral (= palatalised /l/)
+  ʕ: hj          # voiced pharyngeal fricative = h + `j`, the marked second guttural — uni h̦
   r: r           # trill = the generic R slot; also absorbs the retroflex approximant ɻ (EN/ZH ⟨r⟩) and ɹ
-  ɾ: rj          # tap (marked; the rarer rhotic — Spanish perro/pero)
+  ɾ: rc          # tap (marked; the rarer rhotic — Spanish perro/pero). `c` on r, so `j` on r stays
+                 #   PALATAL: /rʲ/ = rj, one j, one comma, like every other soft consonant.
 
 vowels:
   i: i
@@ -70,23 +76,36 @@ vowels:
   ʏ: iq          # front-round in-between  (c + j) — French œ, German ʏ keep this operator alive
   œ: eq
   ɑ: ac          # open back  (apex: rounding is moot, so c marks the back one)
-  ə: ax          # schwa = the centre; centralise. Base letter `y` is retired.
+  ə: ax          # schwa = the centre; centralise. (`y` is not a vowel base — it is the modifier letter.)
 
 modifiers:       # each is just a letter/combo — no separate tier
-  long: w            # tw = tː · iw = iː
-  palatalized: j     # Cʲ = Cj (pj tj kj …); but on s/z it DOUBLES to jj (sʲ=sjj, zʲ=zjj),
-                     #   because sj/zj are the hush ʃ/ʒ — Russian шёл/сёл, ж/зь force the split
-  pharyngealized: "y" # ty = tˤ  (Arabic emphatics). Base-dependent like c/j: `y` is NASAL on a vowel
-                     #   (ay=ã) but PHARYNGEALISED on a consonant — `y` is unused on consonants, so it's
-                     #   free there. Base + ONE operator now (was the `qx` combo); ðˤ = dxy, not dxqx.
-  labialized: c      # kc = kʷ, gc = gʷ  (c = round, as on vowels). Base-dependent like the other
-                     #   operators (x is dental on tx=θ, velar on kx=x): c is the affricate on stops
-                     #   that HAVE one, but k/g have no affricate, so kc/gc are free for labialised.
-                     #   Bare `u` was wrong: ku = /kʷ/ collided with /k/+/u/ (Latin quī/cui). Only
-                     #   Latin kʷ gʷ exist; the notation-decodability invariant guards against a
-                     #   future labialised p/t (pc=pf, tc=ts would collide — it would flag).
-  aspirated: h       # ph = pʰ  (on consonants)
-  nasal: "y"         # vowels only: ay = ã.  A DEDICATED operator on the one free letter (`y`, the retired
-                     #   vowel base) — not `h` (also the /h/ base) and not a symbol. Renders as the tilde.
-  rhotic: q          # English ɝ = axq. `q` does nothing on a central vowel, so the slot is free and
-                     #   UNAMBIGUOUS — unlike the old `r`, which overloaded the trill (axr = /ɝ/ vs /ə/+/r/).
+  long: w            # tw = /tː/ · iw = /iː/
+  palatalized: j     # /Cʲ/ = Cj (pj tj dj nj lj kj …). It DOUBLES on exactly three bases, where
+                     #   base+j is already a point: sj/zj are the hush /ʃ ʒ/ (Russian сесть/шесть,
+                     #   зевать/жевать contrast them) — so /sʲ zʲ/ = sjj zjj. /rʲ/ is plain `rj`:
+                     #   the tap sits on `rc`, so nothing occupies r+j
+  aspirated: "y"     # py ty ky tcy tqy = /pʰ tʰ kʰ tsʰ tʃʰ/ (single `y` on a consonant). `y` has no
+                     #   phoneme twin, so Cy never re-reads; Ch is simply the sequence /C/+/h/
+                     #   (uphill, Korean 국화). The frequent phenomenon (10 phonemes, ZH KO VI) takes
+                     #   the one-letter slot.
+  pharyngealized: "yy" # tyy dyy syy zyy = /tˤ dˤ sˤ zˤ/ — the four Arabic emphatics (ظ is
+                     #   modelled as /zˤ/, see ar.yaml). The DOUBLED letter — the rarer
+                     #   phenomenon (AR-only, 4 phonemes) takes the longer spelling, same pattern as
+                     #   /sʲ/=sjj. Unambiguous: `y` is never a phoneme, so Cyy has no sequence reading.
+  # (no labialised modifier: Latin ⟨qu⟩/⟨ngu⟩ are k+w/g+w clusters — quī = `kuxiw` ~ cui = `kuix`,
+  #  distinct sequences via the glides; kc/gc stay unused slots, guarded by the decodability invariant.)
+  nasal: "y"         # vowels only: ay = /ã/. Base-dependent: `y` is aspiration on a consonant, nasal
+                     #   on a vowel. Renders as the tilde.
+  rhotic: q          # English /ɝ/ = axq (irregular short label `aq`). `q` does nothing on a central
+                     #   vowel, so the slot is free and unambiguous — the trill `r` is a base and
+                     #   could never carry it (axr must read /ə/+/r/).
+  retroflex: x       # consonants: lx=/ɭ/ rx=/ɻ/ — single x where base+x is no point;
+                     #   DOUBLED where it is one (tx dx kx gx nx are θ ð x ɣ ŋ): txx=/ʈ/ nxx=/ɳ/.
+                     #   The same point-if-exists-else-modifier rule as everywhere; x never stands
+                     #   alone, so nothing re-reads. Tamil-only (the modifier, like the emphatics,
+                     #   never creates points — ZH/EN retroflexion stays a realisation of the fold).
+  nonsyllabic: x     # GLIDES = reduced close vowels: ix=/j/ ux=/w/ icx=/ɥ/ ucx=/ɰ/. One story for
+                     #   `x` on a vowel: REDUCE — `a` reduces to the schwa POINT (ax=/ə/), the close
+                     #   vowels reduce to non-syllabic (the modifier) — the same point-if-exists-
+                     #   else-modifier rule as c/j/q. `x` is never a phoneme, so Cx/Vx cannot re-read;
+                     #   glides as base letters (j, w) would collide with every Cj label instead.

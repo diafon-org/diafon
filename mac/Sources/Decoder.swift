@@ -4,10 +4,15 @@ import Foundation
 
 let VOWELS: Set<Character> = ["a", "e", "i", "o", "u"]
 
-/// Capitalise the first character (combining marks ride along).
+/// Capitalise the first character that HAS a capital (combining marks ride along). A glyph with
+/// none — the apostrophe /ʔ/ — comes back unchanged, and the caller passes the capital to the next
+/// glyph: 'Alif, not 'alif. Mirrors decode.py `_cap` / `apply_cap`.
 func capFirst(_ s: String) -> String {
-    guard let f = s.first else { return s }
-    return String(f).uppercased() + s.dropFirst()
+    for (i, ch) in s.enumerated() where String(ch).uppercased() != String(ch) {
+        let idx = s.index(s.startIndex, offsetBy: i)
+        return String(s[s.startIndex..<idx]) + String(ch).uppercased() + String(s[s.index(after: idx)...])
+    }
+    return s
 }
 
 /// Case-insensitive tokenize: (lowercase tokens, per-token was-capitalised flags).
@@ -59,7 +64,23 @@ func applyTone(_ py: String, tone: Int, marks: [String: String]) -> String {
     return py
 }
 
+/// decode.py `_rule_grapheme`: first matching context rule's grapheme, or nil.
+func ruleGrapheme(_ rules: [Rule], t: String, prv: String?, nxt: String?, k: Int) -> String? {
+    for r in rules {
+        if r.t != t { continue }
+        if let nx = r.next { guard let n = nxt, nx.contains(n) else { continue } }
+        if r.next_vowel == true {
+            guard let n = nxt, let f = n.first, VOWELS.contains(f) else { continue }
+        }
+        if let pv = r.prev { guard let p = prv, pv.contains(p) else { continue } }
+        if r.first == true, k != 0 { continue }
+        return r.g
+    }
+    return nil
+}
+
 /// decode.py `decode_word`: one word of notation -> one word of a language's spelling.
+/// Assembly rules are DATA (eng.rules[lang]); only `w`-gemination and the tone digit stay code.
 func decodeWord(_ word: String, orth: [String: String], orthKeys: [String], lang: String, eng: Engine) -> String {
     var w = word
     var tone: Int? = nil
@@ -67,8 +88,11 @@ func decodeWord(_ word: String, orth: [String: String], orthKeys: [String], lang
         tone = d
         w = String(w.dropLast())
     }
+    let rules = eng.rules[lang] ?? []
     let (toks, caps) = tokenizeCased(w, labels: orthKeys)
+    let shout = w == w.uppercased() && w != w.lowercased()   // ALL-CAPS uppercases whole graphemes
     var out: [String] = []
+    var pending = false                                   // a capital no caseless glyph could take
     for (k, t) in toks.enumerated() {
         let nxt: String? = k + 1 < toks.count ? toks[k + 1] : nil
         let prv: String? = k > 0 ? toks[k - 1] : nil
@@ -76,68 +100,92 @@ func decodeWord(_ word: String, orth: [String: String], orthKeys: [String], lang
             out[out.count - 1] = String(out[out.count - 1].first!) + out[out.count - 1]
             continue
         }
-        var g = orth[t] ?? t
-        if lang == "hu", t == "i", let n = nxt, let f = n.first, VOWELS.contains(f) {
-            g = "j"                                       // i-glide onset -> j (iow -> jó)
-        } else if lang == "zh" {
-            if let pair = eng.zhRetro[t] {
-                g = (nxt == "i" || nxt == "ic") ? pair[1] : pair[0]   // j/q/x before front i/ü, else zh/ch/sh
-            } else if t == "ic", let p = prv, eng.zhRetro[p] != nil {
-                g = "u"                                   // ü written u after j/q/x
-            } else if t == "i", k == 0, let n = nxt, let f = n.first, VOWELS.contains(f) {
-                g = "y"                                   // i-glide onset -> y-
-            } else if t == "u", prv == "a" {
-                g = "o"                                   // -u offglide spells o only after a (au -> ao)
-            }
+        let g = ruleGrapheme(rules, t: t, prv: prv, nxt: nxt, k: k) ?? (orth[t] ?? t)
+        if caps[k] || pending {
+            let c = shout ? g.uppercased() : capFirst(g)
+            pending = (c == g)
+            out.append(c)
+        } else {
+            out.append(g)
         }
-        out.append(caps[k] ? capFirst(g) : g)
     }
     let res = out.joined()
     if let tn = tone { return applyTone(res, tone: tn, marks: eng.toneMarks) }
     return res
 }
 
-/// render.py universal render: notation -> native/ipa glyphs (trailing digit = tone superscript).
-func renderUniversal(_ text: String, target: String, eng: Engine) -> String {
+/// Tone-sign placement (native.py `_tone_sign`): within the LAST vowel group, mark the first
+/// a-based token, else the first e-based, else the first o-based, else the LAST vowel (= Pinyin
+/// placement); 0/5 = neutral (digit consumed); vowelless segment / unmapped digit keeps the digit.
+/// Returns the trailing string to append after the glyphs ("" when the sign landed or was neutral).
+func applyToneSign(_ glyphs: inout [String], toks: [String], digit: String,
+                   signs: [String: String]) -> String {
+    if digit == "0" || digit == "5" { return "" }
+    guard let mark = signs[digit] else { return digit }
+    func isV(_ t: String) -> Bool { t.first.map { "aeiou".contains($0) } ?? false }
+    var group: [Int] = []                                    // indices of the LAST vowel group
+    for (i, t) in toks.enumerated() where isV(t) {
+        if let last = group.last, last == i - 1 { group.append(i) } else { group = [i] }
+    }
+    guard var pick = group.last else { return digit }
+    outer: for base in ["a", "e", "o"] {
+        for i in group where toks[i].hasPrefix(base) { pick = i; break outer }
+    }
+    glyphs[pick] = (glyphs[pick] + mark).precomposedStringWithCanonicalMapping
+    return ""
+}
+
+/// render.py universal render: notation -> uni/ipa glyphs. Tone digits go superscript in IPA
+/// ONLY; uni keeps the plain digit — or, with tone signs on (opt-in), the digit becomes a tone
+/// sign on the vowel (never an upper-index character).
+func renderUniversal(_ text: String, target: String, eng: Engine, tones: Bool = false) -> String {
     let m = eng.maps[target] ?? [:]
     let labels = eng.labels(for: target)
     let useCaps = target != "ipa"                        // IPA has no capitals
-    func segOut(_ seg: String) -> String {
+    let useSup = target == "ipa"
+    let useTones = tones && !useSup
+    let signs = eng.toneSigns
+    func segParts(_ seg: String) -> (toks: [String], glyphs: [String]) {
         let (toks, caps) = tokenizeCased(seg, labels: labels)
-        return zip(toks, caps).map { t, c in
+        // an ALL-CAPS segment uppercases whole glyphs (TW -> TT, not Tt)
+        let shout = seg == seg.uppercased() && seg != seg.lowercased()
+        var pending = false                              // a caseless glyph passes the capital along
+        let glyphs = zip(toks, caps).map { t, c -> String in
             let g = m[t] ?? t
-            return (useCaps && c) ? capFirst(g) : g
-        }.joined()
+            guard useCaps, c || pending else { return g }
+            let cap = shout ? g.uppercased() : capFirst(g)
+            pending = (cap == g)
+            return cap
+        }
+        return (toks, glyphs)
     }
     return text.split(separator: " ").map { sub -> String in
         var piece = "", seg = ""
         for ch in sub {                 // a tone digit closes its segment anywhere in the word
-            if let sup = eng.toneSup[String(ch)] {
-                piece += segOut(seg) + sup
+            if ch == "0" || eng.toneSup[String(ch)] != nil {
+                var (toks, glyphs) = segParts(seg)
+                if useSup {
+                    piece += glyphs.joined() + (eng.toneSup[String(ch)] ?? String(ch))
+                } else if useTones {
+                    let trail = applyToneSign(&glyphs, toks: toks, digit: String(ch), signs: signs)
+                    piece += glyphs.joined() + trail
+                } else {
+                    piece += glyphs.joined() + String(ch)
+                }
                 seg = ""
             } else {
                 seg.append(ch)
             }
         }
-        return piece + segOut(seg)
+        return piece + segParts(seg).glyphs.joined()
     }.joined(separator: " ")
 }
 
-/// The EN dictionary view: canonicalise the typed word (aliases -> labels), look it up.
-func enDictLookup(_ word: String, orthKeys: [String], eng: Engine) -> String? {
-    let key = tokenize(word.lowercased(), labels: orthKeys).map { eng.enCanon[$0] ?? $0 }.joined()
-    return eng.enDict[key]
-}
-
-/// decode.py `decode`: whole text -> a language's spelling. endict (EN only) = the dictionary view.
-func decodeText(_ text: String, lang: String, loose: Bool, endict: Bool = false, eng: Engine) -> String {
-    let useDict = endict && lang == "en"
-    let (o, keys) = eng.orthLabels(for: lang, loose: loose || useDict)
+/// decode.py `decode`: whole text -> a language's spelling.
+func decodeText(_ text: String, lang: String, loose: Bool, eng: Engine) -> String {
+    let (o, keys) = eng.orthLabels(for: lang, loose: loose)
     return text.split(separator: " ").map { sub -> String in
         let w = String(sub)
-        if useDict, let real = enDictLookup(w, orthKeys: keys, eng: eng) {
-            return (w.first?.isUppercase ?? false) ? capFirst(real) : real
-        }
         if lang == "zh" {               // any digit closes a syllable, mid-word too (zhong1guo2)
             var piece = "", seg = ""
             for ch in w {
@@ -154,81 +202,3 @@ func decodeText(_ text: String, lang: String, loose: Bool, endict: Bool = false,
     }.joined(separator: " ")
 }
 
-
-/// The UNIFIED mode — English + traditional Hungarian + Pinyin in one stream (no wordlist).
-/// Mirrors decode.py `decode_auto`; validated by scripts/check_swift.py in batch AND streaming.
-let AUTO_ACC: [String: String] = ["ecw": "ő", "icw": "ű", "aw": "á", "ew": "é", "iw": "í",
-                                  "ow": "ó", "uw": "ú", "ec": "ö", "ic": "ü"]
-let AUTO_ESC: [String: String] = ["aww": "aw", "eww": "ew", "iww": "iw", "oww": "ow", "uww": "uw",
-                                  "icc": "ic", "ecc": "ec"]
-let AUTO_KEYS: [String] = (Array(AUTO_ACC.keys) + Array(AUTO_ESC.keys)).sorted { $0.count > $1.count }
-
-func zhUnified(_ eng: Engine) -> (orth: [String: String], keys: [String]) {
-    var o = eng.orthLabels(for: "zh", loose: true).orth
-    for l in ["p", "t", "k", "w", "y"] { o[l] = l }       // real Pinyin: p/t/k literal + glides
-    return (o, o.keys.sorted { $0.count > $1.count })
-}
-
-func autoAccents(_ seg: String) -> String {
-    var out = ""
-    var s = Substring(seg)
-    while !s.isEmpty {
-        let low = s.lowercased()
-        var matched = false
-        for k in AUTO_KEYS where low.hasPrefix(k) {
-            let g = AUTO_ESC[k] ?? AUTO_ACC[k]!
-            out += (s.first?.isUppercase ?? false) ? capFirst(g) : g
-            s = s.dropFirst(k.count)
-            matched = true
-            break
-        }
-        if !matched {
-            out.append(s.first!)
-            s = s.dropFirst()
-        }
-    }
-    return out
-}
-
-func autoWord(_ buf: String, zh: [String: String], zhKeys: [String], eng: Engine) -> String {
-    var out = "", seg = ""
-    let chars = Array(buf)
-    var i = 0
-    while i < chars.count {
-        let ch = chars[i]
-        if "12345".contains(ch) {
-            if i + 1 < chars.count, chars[i + 1] == ch {   // doubled digit = escape, keep raw
-                out += seg + String(ch)
-                i += 2
-            } else if !seg.isEmpty,
-                      seg.lowercased().contains(where: { VOWELS.contains($0) }),
-                      tokenize(seg.lowercased(), labels: zhKeys).allSatisfy({ zh[$0] != nil }) {
-                out += decodeWord(seg + String(ch), orth: zh, orthKeys: zhKeys, lang: "zh", eng: eng)
-                i += 1
-            } else {
-                out += seg + String(ch)                    // v2, x1, plain numbers: keep raw
-                i += 1
-            }
-            seg = ""
-        } else {
-            seg.append(ch)
-            i += 1
-        }
-    }
-    return out + autoAccents(seg)
-}
-
-func decodeAuto(_ text: String, eng: Engine) -> String {
-    let (zh, zhKeys) = zhUnified(eng)
-    var out = "", buf = ""
-    for ch in text {
-        if ch.isLetter || ch.isNumber {
-            buf.append(ch)
-        } else {
-            if !buf.isEmpty { out += autoWord(buf, zh: zh, zhKeys: zhKeys, eng: eng); buf = "" }
-            out.append(ch)
-        }
-    }
-    if !buf.isEmpty { out += autoWord(buf, zh: zh, zhKeys: zhKeys, eng: eng) }
-    return out
-}

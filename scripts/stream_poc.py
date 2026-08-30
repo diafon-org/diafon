@@ -18,25 +18,27 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "src"))
 from diaphone.loader import load
-from diaphone.native import native_labels, _TONE_SUP
+from diaphone.uni import uni_labels
+from diaphone.render import _TONE_SUP
 from diaphone.render import ipa_labels
-from diaphone.decode import load_orth, decode_word, decode
+from diaphone.decode import load_orth, load_rules, decode_word, decode
 from diaphone.engine import render
 
 DATA = "data"
 
 
 class MapStreamer:
-    """Universal targets (native/ipa): greedy tokens over a label→glyph map, minimal hold."""
+    """Universal targets (uni/ipa): greedy tokens over a label→glyph map, minimal hold."""
 
-    def __init__(self, mapping):
+    def __init__(self, mapping, use_sup=False):
         self.map, self.labels = mapping, set(mapping)
+        self.use_sup = use_sup                    # superscript tone digits: IPA only
         self.pending = ""
         self.max_cache = 0
 
     def feed(self, c):
         if c == " " or c in _TONE_SUP:
-            out = self._drain(final=True) + (_TONE_SUP.get(c, c))
+            out = self._drain(final=True) + (_TONE_SUP[c] if self.use_sup and c in _TONE_SUP else c)
             return out
         self.pending += c
         self.max_cache = max(self.max_cache, len(self.pending))
@@ -68,6 +70,7 @@ class WordStreamer:
     def __init__(self, lang):
         self.lang = lang
         self.orth = load_orth(lang, DATA)
+        self.rules = load_rules(lang, DATA)
         self.buf = ""
         self.max_cache = 0
 
@@ -78,49 +81,49 @@ class WordStreamer:
         self.max_cache = max(self.max_cache, len(self.buf))
         if self.lang == "zh":
             if c.isdigit():                              # tone digit closes the syllable
-                out = decode_word(self.buf, self.orth, self.lang)
+                out = decode_word(self.buf, self.orth, self.lang, self.rules)
                 self.buf = ""
                 return out
             return ""                                    # hold the open syllable
         # hu/en: commit the longest prefix whose decode can no longer change. Conservative and
         # simple: decode the whole buffer twice — once as-is, once with a probe vowel appended;
         # the common prefix of the two is safe to commit.
-        as_is = decode_word(self.buf, self.orth, self.lang)
-        probed = decode_word(self.buf + "a", self.orth, self.lang)
+        as_is = decode_word(self.buf, self.orth, self.lang, self.rules)
+        probed = decode_word(self.buf + "a", self.orth, self.lang, self.rules)
         safe = os.path.commonprefix([as_is, probed])
         # keep enough raw tail to regenerate the unsafe remainder: back off one token conservatively
         if safe and safe == as_is[:len(safe)]:
             # find the shortest raw suffix that still decodes to the unsafe tail
             for cut in range(len(self.buf)):
-                if decode_word(self.buf[cut:], self.orth, self.lang) == as_is[len(safe):] and \
-                   decode_word(self.buf[cut:] + "a", self.orth, self.lang) == probed[len(safe):]:
+                if decode_word(self.buf[cut:], self.orth, self.lang, self.rules) == as_is[len(safe):] and \
+                   decode_word(self.buf[cut:] + "a", self.orth, self.lang, self.rules) == probed[len(safe):]:
                     self.buf = self.buf[cut:]
                     return safe
         return ""
 
     def flush(self):
-        out = decode_word(self.buf, self.orth, self.lang) if self.buf else ""
+        out = decode_word(self.buf, self.orth, self.lang, self.rules) if self.buf else ""
         self.buf = ""
         return out
 
 
 CORPUS = [
     "sjok sewp njawr", "kecsecnecm sewpejn", "acswonj", "hoswuw", "ejdj nacdj kutjac",
-    "ejdj kisj kutjac aclsik acz acstacl aclactt", "pjatj", "sjj zjj kc gc", "ty dy sy zy",
+    "ejdj kisj kutjac aclsik acz acstacl aclactt", "pjatj", "sjj zjj kc gc", "tyy dyy syy zyy",
     "baqd", "dxax kat sijts acn dxax mat", "sji sejlz fijsj",
-    "sjan1 kxaxn3 kau1", "tqonx1 kuo2 tqha2 kxaxn3 kxau3", "tqi1 sji1 tquc1 sjuc4", "nic3", "raxn2",
+    "sjan1 kxaxn3 kau1", "tqonx1 kuo2 tqya2 kxaxn3 kxau3", "tqi1 sji1 tquc1 sjuc4", "nic3", "raxn2",
 ]
 
 
 def run():
     features, _langs, all_ph = load(DATA)
-    nat = native_labels(all_ph, features, DATA)
+    nat = uni_labels(all_ph, features, DATA)
     ipa = ipa_labels(all_ph, features, DATA)
     fail = total = 0
     report = {}
     for tgt, make, batch in [
-        ("native", lambda: MapStreamer(nat), lambda t: render(t, "native", DATA)),
-        ("ipa", lambda: MapStreamer(ipa), lambda t: render(t, "ipa", DATA)),
+        ("uni", lambda: MapStreamer(nat), lambda t: render(t, "uni", DATA)),
+        ("ipa", lambda: MapStreamer(ipa, use_sup=True), lambda t: render(t, "ipa", DATA)),
         ("hu", lambda: WordStreamer("hu"), lambda t: decode(t, "hu", DATA)),
         ("en", lambda: WordStreamer("en"), lambda t: decode(t, "en", DATA)),
         ("zh", lambda: WordStreamer("zh"), lambda t: decode(t, "zh", DATA)),

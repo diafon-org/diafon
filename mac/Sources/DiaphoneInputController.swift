@@ -19,16 +19,16 @@ public class DiaphoneInputController: IMKInputController {
 
     private func currentStreamer() -> Streaming? {
         let c = Config.shared
-        let key = c.target + (c.looseInput ? "+li" : "") + (c.enDict ? "+dict" : "")
+        let key = c.target + (c.looseInput ? "+li" : "") + (c.uniTones ? "+tones" : "")
         if streamer == nil || key != streamerKey, let eng = Self.engine {
-            streamer = makeStreamer(target: c.target, loose: c.looseInput, dict: c.enDict, eng: eng)
+            streamer = makeStreamer(target: c.target, loose: c.looseInput, tones: c.uniTones, eng: eng)
             streamerKey = key
             reverseMap = [:]
             reverseMaxLen = 0
             if let m = eng.maps[c.target] {              // universal modes only
                 for (lab, g) in m {
                     if let ex = reverseMap[g], ex.count < lab.count || (ex.count == lab.count && ex < lab) {
-                        continue                          // shortest label wins (HU a/ä, ZH ṛ licences)
+                        continue                          // shortest label wins
                     }
                     reverseMap[g] = lab
                     reverseMaxLen = max(reverseMaxLen, (g as NSString).length)
@@ -172,10 +172,8 @@ public class DiaphoneInputController: IMKInputController {
         m.addItem(pass)
         m.addItem(.separator())
         let names: [(String, String)] = [
-            ("auto", "Unified (EN · HU · Pinyin)"),
-            ("hu", "Hungarian"), ("zh", "Mandarin (Pinyin)"),
-            ("native-hu", "Native · HU"), ("native-zh", "Native · ZH"),
-            ("native", "Native (universal)"), ("ipa", "IPA"),
+            ("hu", "Hungarian"), ("zh", "Mandarin (Pinyin)"), ("en", "English (respell)"),
+            ("uni", "Uni (universal)"), ("ipa", "IPA"),
         ]
         for (key, title) in names {
             let item = NSMenuItem(title: title, action: #selector(selectTarget(_:)), keyEquivalent: "")
@@ -190,7 +188,10 @@ public class DiaphoneInputController: IMKInputController {
         let loose = NSMenuItem(title: "Loose input (hu · zh · en)", action: #selector(toggleLoose(_:)), keyEquivalent: "")
         loose.state = Config.shared.looseInput ? .on : .off
         m.addItem(loose)
-        let rec = NSMenuItem(title: "Backspace edits notation (native · ipa)", action: #selector(toggleRecompose(_:)), keyEquivalent: "")
+        let tones = NSMenuItem(title: "Tone signs (uni)", action: #selector(toggleTones(_:)), keyEquivalent: "")
+        tones.state = Config.shared.uniTones ? .on : .off
+        m.addItem(tones)
+        let rec = NSMenuItem(title: "Backspace edits notation (uni · ipa)", action: #selector(toggleRecompose(_:)), keyEquivalent: "")
         rec.state = Config.shared.recompose ? .on : .off
         m.addItem(rec)
         return m
@@ -216,8 +217,8 @@ public class DiaphoneInputController: IMKInputController {
         Config.shared.looseInput.toggle()
     }
 
-    @objc func toggleDict(_ sender: Any!) {
-        Config.shared.enDict.toggle()
+    @objc func toggleTones(_ sender: Any!) {
+        Config.shared.uniTones.toggle()
     }
 
     @objc func toggleRecompose(_ sender: Any!) {

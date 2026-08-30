@@ -28,6 +28,9 @@ vowels:
 - {ipa: a, hi: open, bk: central, rd: false}
 - {ipa: i, hi: close, bk: front, rd: false}
 - {ipa: u, hi: close, bk: back, rd: true}
+# glides = nonsyllabic close vowels (labels ix/ux/icx via the x=reduce modifier)
+- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: ي, note: yāʾ — a root consonant}
+- {ipa: w, hi: close, bk: back, rd: true, mod: [nonsyllabic], orth: و, note: wāw — a root consonant}
 long_series: [a, i, u]
 secondary_series:
 - type: pharyngealized

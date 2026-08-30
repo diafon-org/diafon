@@ -20,9 +20,9 @@ consonants:
 - {ipa: ʃ, pl: postalveolar, mn: fricative, vc: vl}
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd}
 - {ipa: n, pl: alveolar, mn: nasal, vc: vd}
-- {ipa: ɲ, pl: palatal, mn: nasal, vc: vd, orth: gn}
+- {ipa: ɲ, pl: alveolar, mn: nasal, vc: vd, mod: [palatalized], orth: gn}
 - {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
-- {ipa: ʎ, pl: palatal, mn: lateral-approximant, vc: vd, orth: gl}
+- {ipa: ʎ, pl: alveolar, mn: lateral-approximant, vc: vd, mod: [palatalized], orth: gl}
 - {ipa: r, pl: alveolar, mn: trill, vc: vd}
 vowels:
 - {ipa: i, hi: close, bk: front, rd: false}
