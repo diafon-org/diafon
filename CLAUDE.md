@@ -202,7 +202,7 @@ FI/FA æ→a, FA ɒ→ɑ, HE ʁ→ɣ, UK г entered as ɣ), added to grow the co
 structural cost. See the near-merge verdicts below.
 
 ## Current state
-64 fine-grained points → **49 general** (32 C · 17 V) after 15 merges, 0 merged contrasts, 734
+61 fine-grained points → **49 general** (32 C · 17 V) after 12 merges, 0 merged contrasts, 734
 phoneme records, 23 languages (12 core + 5 witnesses + 6 coverage). **Every point is a base or base + ONE
 operator** — no 2-operator points, no bi-vowels. NOT points (allophones or otherwise excluded):
 `ç` (German ich-laut, an allophone of `x`), `ɸ` (Japanese *fu*, allophone of `h`), `ɐ` (German
@@ -236,7 +236,12 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
 - **Consonant operators** (never a bare label): `c`=affricate (`tc`=/t͡s/) · `q`=hush **affricate**
   (`tq`=/t͡ʃ/) · `x`=dental/velar (`tx`=/θ/, `kx`=/x/) · `j`=palatal — the hush points where
   base+`j` is one (`sj`=/ʃ/, `zj`=/ʒ/), the soft consonant everywhere else (`tj`=HU ty = RU ть) ·
-  `w`=long (`tw`=/tː/, geminate/long trill `rw`). So `q`=`c+j` (hush = affricate+palatal).
+  `w`=long (`tw`=/tː/, geminate/long trill `rw`). **`q` composes literally only on VOWELS** (`iq`=ʏ is
+  `ic` rounded then lowered, and its glyph wears both marks). On a consonant it is the fourth
+  operator, base-dependent like the rest — hush on t/d, uvular on k, the glottal stop on h.
+  "Affricate+palatal" is why the LETTER was chosen for the hush series, not a rule: `tq`=/tʃ/ is a
+  POINT, while `tc`+palatalized is `tcj`=/tsʲ/ — a different sound, and Ukrainian contrasts them
+  (ч ~ ць). That the two share a recipe is exactly why their GLYPHS collide and `tcj` draws c͈.
   **The r base is REGULAR**: `rc`=/ɾ/ the tap (`c` → the dot ṛ, as `c`/`x` draw everywhere) and
   `rj`=/rʲ/ the soft r (`j` → the comma r̦, as `j` draws everywhere), so r carries five sounds on
   five marks — r · ṛ · r̦ · r̖ · r̈ — with **no exception and nothing doubled**. The soft r is a
@@ -320,10 +325,12 @@ fifth's finder never even compares them: palatalization relocates a coronal to P
 no palatal fricative point — German ç is an allophone of /x/ — while /ʃ/ is postalveolar, which no
 modifier reaches.)
 
-**The tap `rc` and the soft r `rj` are two points-worth of different, not one.** Nothing in the 23
-contrasts them (RU/UK have рь and no tap; ES/JA/TR/TA have the tap and no soft series), so merging
-them would pass every invariant, exactly as the palatal-coronal merge did. It is still wrong, and
-the reason is not elegance:
+**The tap `rc` and the soft r `rj` are two points-worth of different, not one — REVIEWED AND KEPT.**
+Nothing in the 23 contrasts them (RU/UK have рь and no tap; ES/JA/TR/TA have the tap and no soft
+series), so merging them passes every invariant and costs no points — it was tested. The soft r is
+also genuinely marked: /rʲ/ is *"far more marked than other palatalized coronals"*, and Russian's is
+"apical, palatalized, usually only a single vibration, presumably due to the palatalization", i.e.
+phonetically a palatalized TAP. That is the case FOR merging, and it is not enough:
 - **The palatal merge united two descriptions of one category; this would unite two categories.**
   /c/ and /nʲ/-style pairs are both "coronal with a palatal quality" — neither description becomes
   false. The Spanish tap has NO palatalization and Russian ряд has it; one description would.
@@ -335,9 +342,14 @@ the reason is not elegance:
   contrast, which is false about both.
 - **Russian's soft series is one rule over fourteen consonants**
   (`palatalized applies_to [p b t d k g f v s z m n l r]`); рад/ряд is the same pair type as
-  сад/сядь. Pulling `р` out would be the special case. (That soft р is *usually realised* as [ɾʲ] is
-  a realisation, the same class of fact as Mandarin sh = [ɕ] before /i/ — realisations never set
-  points, and this system is phonemic.)
+  сад/сядь. Pulling `р` out would be the special case, and the palatalization it drops is exactly
+  what makes рь pattern with the other thirteen (same soft-series vowel allophony, same morphology).
+  (That soft р is *usually realised* as [ɾʲ] is a realisation, the same class of fact as Mandarin
+  sh = [ɕ] before /i/ — realisations never set points, and this system is phonemic.)
+- **The sound is real, not a Slavic spelling convenience**: /rʲ/ is phonemic in Russian, Ukrainian,
+  Lithuanian, Bulgarian and Irish, and Marshallese contrasts three rhotics (/rʲ/ ~ /rˠ/ ~ /rʷ/).
+  Its rarity is a fact about how hard it is to trill and palatalize at once, not about whether it
+  exists.
 
 Because they stay distinct, the tap takes `rc` and the soft r takes `rj` — `j` keeps its palatal
 meaning on r, the comma-count matches the j-count, and nothing on r doubles in either the label or
@@ -359,7 +371,7 @@ same-language neighbour — the shape of an allophone. Reviewed genuine contrast
 - **KEPT, with witness:** `u`~`ɯ` (Turkish *kul*/*kıl*), `o`~`ɤ` (Estonian õ; Vietnamese ô/ơ),
   `r`~`ɾ` trill~tap (Spanish *perro*/*pero*), `ɑ`~`ɒ` by construction (round is a defining feature).
 - **MERGED, exotic-only witness (no mark within the covered languages):** dental~alveolar (Venda), `ʁ`~`ɣ`
-  (Tsakhur/Kabardian), retroflex~postalveolar sibilants (Toda, Mapudungun). A conditional: `f`~`ɸ`
+  (Tsakhur/Kabardian). A conditional: `f`~`ɸ`
   merges only if a language with phonemic /ɸ/ (e.g. Ewe) is ever added.
 - **MERGED, no witness:** `æ`~`a` (adversarial search incl. Danish found no same-length front/central
   contrast), `ɯ`~`ɨ` (every major language has one or the other, the symbols are interchangeable),
@@ -371,14 +383,16 @@ same-language neighbour — the shape of an allophone. Reviewed genuine contrast
   system does not encode, the same call the ledger already makes for French R ≈ Greek γ. Hence the
   palatal coronals are `tj dj nj lj` and Tamil's ஷ is `sj`. What the principle does NOT reach:
   a manner difference (trill~tap), which no modifier moves — see "Why `sjj zjj` stay".
-- **Retroflex is a MODIFIER, never a point:** where nothing contrasts it (ZH EN), the folds
-  stand — the sibilants `ʂ ʐ tʂ` fold into the postalveolar and the approximant `ɻ` (with `ɹ`)
-  into the generic **R slot** `r`, each language realising the point its own way. Tamil's ஷ folds
-  with them: it is the hush point, since the sibilant retroflexion nothing contrasts cannot be a
-  modifier either. Where a language OPPOSES retroflex to plain (Tamil ʈ ɳ ɭ ɻ), the `retroflex`
-  modifier separates them on the same points (labels `lx rx`, doubled `txx nxx` where base+x is a
-  point; uni = the "\\" tail U+0316). `ʁ` is NOT a rhotic merge — Arabic contrasts
-  `ʁ` (ghayn) ~ `r` (rā).
+- **Retroflex is a MODIFIER, never a point — literally, in the data.** There are no retroflex
+  POINTS at all: a language that does not contrast retroflexion enters the plain point and realises
+  it as it likes (Russian ш, Mandarin sh, Tamil ஷ are all the unmarked hush point `sj`, realised
+  [ʂ]); a language that DOES contrast it takes the **retroflex layer** on top. **The single `j` is
+  never retroflex** — it is the palatal, always — and the layer is drawn by FLIPPING the comma:
+  ș → s̖ (U+0326 → U+0316). So Tamil's ʈ ɳ ɭ ɻ are `txx nxx lx rx`, and a three-way sibilant
+  language spells the series plain / palatal / palatal+retroflex: Polish s ~ ś `sj` ~ sz `sjx`.
+  The only retroflex entry left in the ledger is the APPROXIMANT `ɻ`, which folds (with `ɹ`) into
+  the generic **R slot** `r` — because it is a rhotic, not a retroflexed anything. `ʁ` is NOT a
+  rhotic merge — Arabic contrasts `ʁ` (ghayn) ~ `r` (rā).
 - **No recovery diacritics on consonants:** every consonant-place merge in the ledger is
   `recover=None` — within the 23 languages nothing contrasts dental~alveolar or uvular~velar,
   and retroflex contrasts ride the modifier, so the folds are lossless in practice. Only the

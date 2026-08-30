@@ -58,16 +58,18 @@ def test_no_label_carries_two_analyses():
 
 
 def test_label_map_folds_by_tuple_not_canonical_ipa():
-    """Canonical IPA is NOT a unique point id — two distinct fine points are both written "ʐ"
-    (Russian ж, a retroflex FRICATIVE; Mandarin ⟨r⟩, a retroflex APPROXIMANT) and the ledger sends
-    them to different targets. Folding by IPA let the last entry win: ж was labelled the trill `r`
-    and the alveolar approximant got no label at all, silently skipping English /ɹ/ in every check."""
+    """Canonical IPA is NOT a unique point id — distinct fine points share an IPA string, and the
+    ledger may send them to different targets. Folding the label map by IPA let the last entry win,
+    which mislabelled one point and left another with no label at all, silently skipping English
+    /ɹ/ in every check. Live cases: `t`/`d` name both the dental and the alveolar point, and the
+    two retroflex approximant sources both reach the R slot by different routes."""
     from diaphone.notation import _label_maps
     features, languages, all_ph = load(DATA)
     label_of_base, _mods = _label_maps(all_ph, features, DATA)
-    assert label_of_base[("C", "retroflex", "fricative", "vd")] == "zj"      # RU ж -> the hush point
+    assert label_of_base[("C", "dental", "plosive", "vl")] == "t"            # ES/TA t̪ -> folded
+    assert label_of_base[("C", "alveolar", "plosive", "vl")] == "t"          # and its target
     assert label_of_base[("C", "alveolar", "approximant", "vd")] == "r"      # EN ɹ -> the R slot
-    assert label_of_base[("C", "retroflex", "approximant", "vd")] == "r"     # ZH ⟨r⟩ -> the R slot
+    assert label_of_base[("C", "retroflex", "approximant", "vd")] == "r"     # ZH ⟨r⟩ -> the R slot (ɹ→ɻ→r)
     assert all(label_of_base.get(ph["base"]) for ph in all_ph["EN"]), "every EN phoneme is labelled"
 
 
@@ -149,9 +151,9 @@ def test_general_inventory_ledger():
     """The merge ledger folds cleanly (apply_merges asserts safety)."""
     points = _run()[3]
     general, folded = apply_merges(points)
-    assert len(folded) == 15, [f[0] for f in folded]
+    assert len(folded) == 12, [f[0] for f in folded]
     assert len(general) == len(points) - len(folded)
-    assert len(general) == 49, len(general)   # 64 fine - 15 merges (ʌ→ə, ɒ→ɔ, ɻ→r among them)
+    assert len(general) == 49, len(general)   # 61 fine - 12 merges (ʌ→ə, ɒ→ɔ, ɻ→r among them)
     assert ("V", "open", "back", True) not in general             # ɒ folded into ɔ
     # source points are gone; targets remain
     assert ("C", "dental", "plosive", "vl") not in general        # t̪ folded into t
@@ -179,7 +181,7 @@ def test_covering_graph_structure():
     tos = [e["to"] for e in g["edges"]["derivation"]]
     assert sorted(tos) == sorted(multi)
     assert all(e["from"] in set(labels) for e in g["edges"]["derivation"])
-    assert len(g["edges"]["fold"]) == 15
+    assert len(g["edges"]["fold"]) == 12
     assert all(f["to"] in set(labels) for f in g["edges"]["fold"])
     pairs = [(e["a"], e["b"]) for e in g["edges"]["adjacency"]]
     assert len(pairs) == len(set(pairs)) and all(a != b for a, b in pairs)

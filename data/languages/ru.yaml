@@ -15,8 +15,8 @@ consonants:
 - {ipa: v, pl: labiodental, mn: fricative, vc: vd}
 - {ipa: s, pl: alveolar, mn: fricative, vc: vl}
 - {ipa: z, pl: alveolar, mn: fricative, vc: vd}
-- {ipa: ʂ, pl: retroflex, mn: fricative, vc: vl, orth: ш}
-- {ipa: ʐ, pl: retroflex, mn: fricative, vc: vd, orth: ж}
+- {ipa: ʂ, pl: postalveolar, mn: fricative, vc: vl, orth: ш, note: 'realised [ʂ]; Russian has no ɕ~ʂ contrast, so the hush point is unmarked'}
+- {ipa: ʐ, pl: postalveolar, mn: fricative, vc: vd, orth: ж, note: 'realised [ʐ]; see ш'}
 - {ipa: x, pl: velar, mn: fricative, vc: vl, orth: х}
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd}
 - {ipa: n, pl: alveolar, mn: nasal, vc: vd}

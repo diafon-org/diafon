@@ -56,7 +56,7 @@ or without the project font.
 the fricative one step back (`tx` = θ, `kx` = x), and it lands on ḥ — which is how the world already
 writes ح (Muḥammad).
 
-/ʔ/ is the one point the mark grammar cannot draw: `q` = `c`+`j` and composes both marks where it can
+/ʔ/ is the one point the mark grammar cannot draw: `q` composes both marks where it can
 (`iq` = ụ̈), but on h the dot is already ḥ, two below marks never stack, and nothing sits above a
 tall letter. So `hq` takes a whole character — and **which sound gets it is decided by precedent,
 because a whole character has no shape the grammar could derive.** It goes to the glottal stop: `'`

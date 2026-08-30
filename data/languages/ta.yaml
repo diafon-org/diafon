@@ -21,7 +21,7 @@ consonants:
 - {ipa: ɻ, pl: alveolar, mn: trill, vc: vd, mod: [retroflex], orth: ழ, note: "phonetically a retroflex approximant — the R slot + retroflex; vaḻi ~ vali ~ vaḷi"}
 - {ipa: v, pl: labiodental, mn: fricative, vc: vd, orth: வ, note: "realised [ʋ]"}
 - {ipa: s, pl: alveolar, mn: fricative, vc: vl, orth: ஸ, st: loan}
-- {ipa: ʂ, pl: retroflex, mn: fricative, vc: vl, orth: ஷ, st: loan, note: "Grantha; the retroflex sibilant, entered as RU ш / ZH sh are — the ledger folds ʂ into the hush point sj"}
+- {ipa: ʂ, pl: postalveolar, mn: fricative, vc: vl, orth: ஷ, st: loan, note: "Grantha; realised [ʂ] but Tamil has no contrast, so the hush point is unmarked — the retroflex LAYER is only for languages that contrast it"}
 - {ipa: dʒ, pl: postalveolar, mn: affricate, vc: vd, orth: ஜ, st: loan}
 - {ipa: h, pl: glottal, mn: fricative, vc: vl, orth: ஹ, st: loan}
 vowels:

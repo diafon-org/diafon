@@ -125,7 +125,10 @@ _CORONAL = ("dental", "alveolar", "postalveolar")
 _MOD_RELOCATES = {
     "palatalized":    (1, "palatal", _CORONAL),      # base tuple index 1 = place
     "retroflex":      (1, "retroflex", _CORONAL),
-    "pharyngealized": (1, "pharyngeal", _CORONAL),
+    # NOT pharyngealized: unlike the two above it never swallows the primary place. An Arabic
+    # emphatic /sˤ/ is an ALVEOLAR with a pharyngeal secondary, not the pharyngeal fricative /ħ/,
+    # so nothing it produces can ever be an existing point. Listing it here was a modelling error
+    # that lay dormant while the finder only looked at attested combinations.
 }
 
 # Points a modifier already reaches, REVIEWED and kept distinct anyway. Keyed
@@ -161,23 +164,37 @@ def find_modifier_redundant(points, all_ph, features, include_accepted=False):
                     modded.setdefault((ph["base"], m), set()).add(code)
             else:
                 bare.setdefault(ph["base"], set()).add(code)
+    # A modifier that EXISTS in the system can reach a point whether or not any language currently
+    # spells it that way, so the candidates are every (attested base, relocating modifier) pair —
+    # not only the attested combinations. Checking only attested ones made the finder SILENCEABLE:
+    # deleting the last language that used a modifier on some base made the finder go quiet about
+    # the very point that modifier covers, so the invariant reported clean because the evidence had
+    # been removed. That is how the retroflex sibilant POINTS survived.
+    from .merges import LEDGER
+    fold = {src: tgt for src, tgt, _r, _n in LEDGER}
+    def resolve(b):                             # chain-resolve to the general point (ɹ→ɻ→r)
+        seen = set()
+        while b in fold and b not in seen:
+            seen.add(b); b = fold[b]
+        return b
     out = []
-    for (q_base, m), qm_langs in modded.items():
-        moved = _MOD_RELOCATES.get(m)
-        if moved is None or q_base[0] != "C":
-            continue
-        idx, value, from_places = moved
-        if q_base[idx] not in from_places:
-            continue
-        p_base = q_base[:idx] + (value,) + q_base[idx + 1:]
-        if p_base == q_base or p_base not in bare:
-            continue                            # the modifier reaches nothing we call a point
-        if bare[p_base] & qm_langs:             # a language holds them apart — a real contrast
-            continue
-        key = (points[p_base]["canonical_ipa"], points[q_base]["canonical_ipa"], m)
-        if not include_accepted and key in _CONFIRMED_MODIFIER_DISTINCT:
-            continue
-        out.append((*key, sorted(bare[p_base]), sorted(qm_langs)))
+    for m in _MOD_RELOCATES:
+        idx, value, from_places = _MOD_RELOCATES[m]
+        for q_base in set(bare) | {b for b, mm in modded if mm == m}:
+            if q_base[0] != "C" or q_base[idx] not in from_places:
+                continue
+            p_base = q_base[:idx] + (value,) + q_base[idx + 1:]
+            if p_base == q_base or p_base not in points:
+                continue                        # the modifier reaches nothing we call a point
+            if resolve(p_base) == resolve(q_base):
+                continue                        # the ledger already folds them together — moot
+            qm_langs = modded.get((q_base, m), set())
+            if bare.get(p_base, set()) & qm_langs:   # a language holds them apart — a real contrast
+                continue
+            key = (points[p_base]["canonical_ipa"], points[q_base]["canonical_ipa"], m)
+            if not include_accepted and key in _CONFIRMED_MODIFIER_DISTINCT:
+                continue
+            out.append((*key, sorted(points[p_base]["languages"]), sorted(qm_langs)))
     out.sort()
     return out
 

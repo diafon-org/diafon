@@ -56,7 +56,7 @@ different `(point, modifiers)` pairs), and **the point/modifier boundary** (no p
 what a modifier already spells) — with zero accepted exceptions.
 
 ## Status
-**49 general points** (32 consonant · 17 vowel) folded from 64 fine-grained via 15 reviewed
+**49 general points** (32 consonant · 17 vowel) folded from 61 fine-grained via 12 reviewed
 merges · 734 phonemes (23 languages) · 8 modifiers · **0 merged contrasts, 0 notation collisions**.
 23 languages: 12 core targets + 5 **witnesses** (Turkish, Estonian, Vietnamese, Korean, Tamil) that
 prove near-merge pairs stay distinct where a significant language contrasts them, + 6 coverage

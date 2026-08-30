@@ -11,10 +11,10 @@ consonants:
 # distribution with zh/ch/sh (retroflex) — it occurs only before /i y/, where the retroflexes
 # never do — so it is an allophone, not a separate point (cf. the ç/ɸ removals). Only the
 # retroflex series is entered.
-- {ipa: tʂ, pl: retroflex, mn: affricate, vc: vl, orth: zh}
+- {ipa: tʂ, pl: postalveolar, mn: affricate, vc: vl, orth: zh, note: 'realised [tʂ]; complementary with [tɕ], so unmarked'}
 - {ipa: f, pl: labiodental, mn: fricative, vc: vl}
 - {ipa: s, pl: alveolar, mn: fricative, vc: vl}
-- {ipa: ʂ, pl: retroflex, mn: fricative, vc: vl, orth: sh, note: '[ɕ] before /i y/ is the allophone j/x'}
+- {ipa: ʂ, pl: postalveolar, mn: fricative, vc: vl, orth: sh, note: 'realised [ʂ]; [ɕ] before /i y/ is the allophone j/x — complementary, so unmarked'}
 - {ipa: x, pl: velar, mn: fricative, vc: vl, orth: h}
 - {ipa: ʐ, pl: retroflex, mn: approximant, vc: vd, orth: r}
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd}
