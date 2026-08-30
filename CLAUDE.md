@@ -226,12 +226,23 @@ neither alone). Audited with `lang_delta --drop`, and one entry there is wrong i
 keeping visible: **Turkish is credited with locking `u`~`ɯ` (kul/kıl), but the mechanical lock is
 JAPANESE** — JA's /w/ is a nonsyllabic *rounded* close back vowel (the /u/ point) while う is /ɯ/,
 so JA carries both points and the pair can never merge. Turkish's contrast is the witness-principle
-justification; Japanese is what makes it unmergeable. **ID FI HE FA NL UK PL TH RO CS HI** are
+justification; Japanese is what makes it unmergeable. **ID FI HE FA NL UK PL TH RO CS HI BN PT** are
 *coverage* languages — their inventories are subsets of the existing points + modifiers (folds:
 FI/FA æ→a, FA ɒ→ɑ, HE ʁ→ɣ, UK г entered as ɣ, PL ʑ→ʒ), added to grow the covering claim at zero
 structural cost. **Polish** is the three-way sibilant test: s ~ sz [ʂ] ~ ś [ɕ] = `s` ~ `sjx` ~ `sj`,
 the retroflex LAYER doing the work. **Thai** brings five tones (digits 1-5) and a three-way stop
 series via the existing `aspirated`.
+
+**Bengali and Portuguese — two more of the largest languages, free.** Bengali reuses everything
+Hindi established (the four-way series on `aspirated`, the retroflex layer) with no retroflex nasal
+and ʃ as the ordinary sibilant; Portuguese needs nothing new at all — ɲ ʎ are the palatalized
+coronals, ʁ folds to ɣ, and [tʃ dʒ] before /i/ plus unstressed [ɐ] are allophones, in `note`.
+**A near-miss worth keeping**: the first Bengali draft entered অ্যা as the NEAR-OPEN /æ/ and broke
+the ledger's `æ→a` fold — which CLAUDE.md records as "merged, NO witness". Checking first: the
+source gives no minimal pair, notes /æ/ "never occurs outside of the initial syllable", and writes
+the nasal as "/æ̃~ɛ̃/". Bengali contrasts that vowel with both /e/ and /a/, and our e ~ ɛ ~ a covers
+that three-way exactly, so it is the OPEN-MID FRONT point and the fold is never tested. Second time
+a wrong-analysis draft produced a confident BREAKS (see Polish); ask what the rules imply first.
 
 **Hindi-Urdu — the four-way stop series, at no cost.** p / pʰ / b / bʱ at five places. The fourth
 is BREATHY VOICED (murmured), phonetically a different phonation from aspiration — but VOICING
@@ -260,8 +271,8 @@ prints length for Korean fortis; the phonetics lives in the `note`.
 See the near-merge verdicts below.
 
 ## Current state
-62 fine-grained points → **49 general** (32 C · 17 V) after 13 merges, 0 merged contrasts, 929
-phoneme records, 28 languages (12 core + 5 witnesses + 11 coverage). **Every point is a base or base + ONE
+62 fine-grained points → **49 general** (32 C · 17 V) after 13 merges, 0 merged contrasts, 1003
+phoneme records, 30 languages (12 core + 5 witnesses + 13 coverage). **Every point is a base or base + ONE
 operator** — no 2-operator points, no bi-vowels. NOT points (allophones or otherwise excluded):
 `ç` (German ich-laut, an allophone of `x`), `ɸ` (Japanese *fu*, allophone of `h`), `ɐ` (German
 `-er`), **Mandarin j/q/x `[tɕ tɕʰ ɕ]`** (allophones of the retroflex series), and **`ʌ`**

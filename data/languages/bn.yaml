@@ -1,0 +1,40 @@
+# Bengali/Bangla [BN] — the same four-way stop series as Hindi (the fourth is breathy voiced, taking
+# the `aspirated` slot on the voiced points) and the same retroflex layer. Differences from Hindi:
+# no retroflex nasal (ɳ merged into n), ʃ is the ordinary sibilant, and there is no /ʋ/ or /z/.
+# The vowel written [æ] is entered as the OPEN-MID FRONT point: Bengali contrasts it with /e/ and
+# with /a/, and our e ~ ɛ ~ a covers that three-way exactly.
+name: Bengali
+family: Indo-European
+consonants:
+- {ipa: p, pl: bilabial, mn: plosive, vc: vl, orth: প}
+- {ipa: b, pl: bilabial, mn: plosive, vc: vd, orth: ব}
+- {ipa: t̪, pl: dental, mn: plosive, vc: vl, orth: ত}
+- {ipa: d̪, pl: dental, mn: plosive, vc: vd, orth: দ}
+- {ipa: ʈ, pl: alveolar, mn: plosive, vc: vl, mod: [retroflex], orth: ট}
+- {ipa: ɖ, pl: alveolar, mn: plosive, vc: vd, mod: [retroflex], orth: ড}
+- {ipa: k, pl: velar, mn: plosive, vc: vl, orth: ক}
+- {ipa: g, pl: velar, mn: plosive, vc: vd, orth: গ}
+- {ipa: tʃ, pl: postalveolar, mn: affricate, vc: vl, orth: চ}
+- {ipa: dʒ, pl: postalveolar, mn: affricate, vc: vd, orth: জ}
+- {ipa: ʃ, pl: postalveolar, mn: fricative, vc: vl, orth: শ/স, note: "the ordinary sibilant; [s] before dentals"}
+- {ipa: h, pl: glottal, mn: fricative, vc: vl, orth: হ, note: "realised [ɦ]"}
+- {ipa: m, pl: bilabial, mn: nasal, vc: vd, orth: ম}
+- {ipa: n, pl: alveolar, mn: nasal, vc: vd, orth: ন, note: "ণ merged with ন — no retroflex nasal"}
+- {ipa: ŋ, pl: velar, mn: nasal, vc: vd, orth: ঙ}
+- {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd, orth: ল}
+- {ipa: r, pl: alveolar, mn: trill, vc: vd, orth: র, note: "a tap [ɾ] in most positions"}
+- {ipa: ɽ, pl: alveolar, mn: trill, vc: vd, mod: [retroflex], orth: ড়}
+vowels:
+- {ipa: i, hi: close, bk: front, rd: false, orth: ই}
+- {ipa: e, hi: close-mid, bk: front, rd: false, orth: এ}
+- {ipa: ɛ, hi: open-mid, bk: front, rd: false, orth: "অ্যা", note: "written [æ]; the open-mid front point — Bengali contrasts it with both /e/ and /a/, so it is ɛ, not the near-open æ the ledger folds into /a/"}
+- {ipa: a, hi: open, bk: central, rd: false, orth: আ}
+- {ipa: ɔ, hi: open-mid, bk: back, rd: true, orth: অ}
+- {ipa: o, hi: close-mid, bk: back, rd: true, orth: ও}
+- {ipa: u, hi: close, bk: back, rd: true, orth: উ}
+- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: য়}
+# ɛ̃ and ɔ̃ have no minimal pairs against their oral counterparts, so they stay out
+nasal_series: [i, e, a, o, u]
+secondary_series:
+- type: aspirated
+  applies_to: [p, b, t̪, d̪, ʈ, ɖ, tʃ, dʒ, k, g]
