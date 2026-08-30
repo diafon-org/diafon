@@ -155,7 +155,7 @@ OPS_SPEC = [
      ["sj", "tj", "nj", "lj", "pj", "rj", "hj"],
      "lower one step",
      ["ij", "ej", "uj", "oj"]),
-    ("q", "= c + j", "hush affricate; on k the uvular stop; on h the glottal stop — the one point no mark can draw, so it takes the apostrophe",
+    ("q", "= c + j on a VOWEL", "on a consonant q is its own operator, not a composition: the hush affricate on t/d, the uvular stop on k, the glottal stop on h (the one point no mark can draw, so it takes the apostrophe). tq is the POINT /tʃ/; tc+palatalized is tcj = /tsʲ/, which Ukrainian contrasts with it",
      ["tq", "dq", "kq", "hq"],
      "c + j (rounded + lowered); on the schwa: the r-coloured vowel",
      ["iq", "eq", "aq"]),
@@ -249,6 +249,9 @@ def build():
             ("dj", "ɟ", "palatal", "plosive", "vd", "Voiced_palatal_plosive"),
             ("nj", "ɲ", "palatal", "nasal", "vd", "Palatal_nasal"),
             ("lj", "ʎ", "palatal", "lateral-approximant", "vd", "Voiced_palatal_lateral_approximant"),
+            # the fifth soft coronal has no palatal counterpart — there is no palatal trill, so it
+            # sits with the plain trill it is built on rather than in the palatal column
+            ("rj", "rʲ", "alveolar", "trill", "vd", "Palatalization_(phonetics)"),
             ("ix", "j", "palatal", "approximant", "vd", "Voiced_palatal_approximant"),
             ("icx", "ɥ", "palatal", "approximant", "vd", "Voiced_labial–palatal_approximant"),
             ("ux", "w", "velar", "approximant", "vd", "Voiced_labial–velar_approximant")):
@@ -319,6 +322,30 @@ def build():
     gloss = [{"title": t, "text": tx, "ex": [{**pair(l), "word": w} for l, w in ls]}
              for t, tx, ls in POINT_GLOSS]
 
+    # MODIFIER LAYERS. The combinations table covers base + ONE operator; this is what rides on
+    # TOP of those points. `layers` is the per-base summary shown in that table's last column;
+    # `modForms` is the full listing, grouped by modifier, so nothing lives only in a prose note.
+    from diaphone.notation import _label_maps as _lm, full_label as _fl
+    _lab_of, _mods_map = _lm(all_ph, features, DATA)
+    import collections as _c
+    _seen, layers = _c.defaultdict(dict), _c.defaultdict(set)
+    for _code, _phs in all_ph.items():
+        for _ph in _phs:
+            _pl = _lab_of.get(_ph["base"])
+            if not _pl or not _ph["mods"]:
+                continue
+            _lab = _fl(_pl, _ph["mods"], _mods_map, DATA)
+            _seen[" + ".join(sorted(_ph["mods"]))].setdefault(_lab, set()).add(_code)
+            if _lab.startswith(_pl):        # `aq` is an irregular short label, not point+suffix
+                layers[_pl[0]].add(_lab[len(_pl):])
+    MOD_SYS = {"long": "composes on every point", "retroflex": "composes on the hush series",
+               "nonsyllabic": "all four glides compose"}
+    mod_forms = [{"mod": m, "char": _mods_map.get(m, ""), "sys": MOD_SYS.get(m, ""),
+                  "rows": [{"lab": lab, "nat": nat.get(lab, "?"), "ipa": ipa.get(lab, "?"),
+                            "langs": " ".join(sorted(lgs))}
+                           for lab, lgs in sorted(_seen[m].items())]}
+                 for m in sorted(_seen)]
+
     keys = sorted(set(nat) | set(ipa), key=len, reverse=True)
     orth = {lg: load_orth(lg, DATA) for lg in ("hu", "zh", "en")}
     return {
@@ -328,6 +355,8 @@ def build():
         "groups": {lg: load_groups(lg) for lg in ("hu", "zh", "en")},
         "rules": {lg: load_rules(lg, DATA) for lg in ("hu", "zh", "en")}, "tone": _TONE_MARKS, "toneSigns": TONE_SIGNS, "help": HELP, "enAliases": en_aliases, "zhRef": zh_ref,
         "ops": ops, "modsRef": mods_ref, "gloss": gloss,
+        "layers": {k: " ".join(sorted(v, key=lambda x: (len(x), x))) for k, v in layers.items()},
+        "modForms": mod_forms,
         "counts": {"C": (nC := sum(1 for c in cons if not c.get("guest"))), "V": len(vows),
                    "langs": len(languages),
                    "mods": len({m for phs in all_ph.values() for ph in phs for m in ph["mods"]}),
@@ -498,6 +527,13 @@ svg{width:100%;height:auto;display:block}
 .zhref h4 .n{font:400 .75rem var(--sans);color:var(--muted)}
 .toggles{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem}
 .outs{margin:1rem 0 0;border-top:1px solid var(--line)}
+/* long inputs read as PROSE, not as a showcase: the value gets its own line, a comfortable
+   measure, body-sized type and real paragraphs — and the token breakdown is dropped, since it is
+   a learning aid for a word, not for four hundred characters. */
+.orow.long{display:block;padding:.8rem .2rem 1rem}
+.orow.long .k{display:block;margin-bottom:.35rem}
+.orow.long .v{font-size:1.05rem;line-height:1.62;max-width:64ch;word-break:normal;overflow-wrap:anywhere}
+.orow.long .v p{margin:0 0 .65rem}.orow.long .v p:last-child{margin:0}
 .orow{display:flex;align-items:baseline;gap:.9rem;flex-wrap:wrap;padding:.6rem .2rem;border-bottom:1px solid var(--line);min-height:3rem}
 .orow .k{font:600 .68rem/1.2 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);min-width:5rem}
 .orow .v{font-family:var(--serif);font-size:1.9rem;line-height:1.35;word-break:break-word}
@@ -512,7 +548,9 @@ th .cipa{font-size:inherit;border-bottom:none}th .cipa code{color:var(--accent)}
 .exs{display:flex;flex-wrap:wrap;gap:.4rem;margin:.7rem 0 0}
 .exs button{border:1px dashed var(--line);background:transparent;color:var(--accent);border-radius:.5rem;padding:.3rem .55rem;font:.8rem var(--mono);cursor:pointer;text-align:left}
 .exs button:hover{border-style:solid}.exs .g{color:var(--muted);margin-left:.4rem;font-family:var(--sans)}
-.exs .r{font-family:var(--serif);font-size:.95rem;font-weight:500;color:var(--ink)}
+.exs .r{font-family:var(--serif);font-size:.95rem;font-weight:500;color:var(--ink);display:block;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.exs button{max-width:min(100%,34rem)}   /* a paragraph example is a BUTTON, not a reading pane */
 table.ops{border-collapse:collapse;width:100%;min-width:520px}
 .ops th,.ops td{border:1px solid var(--line);padding:.55rem .8rem;text-align:left;vertical-align:top;font-size:.9rem}
 .ops thead th{font:600 .66rem/1.2 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--sunken)}
@@ -554,7 +592,7 @@ footer a.fref{color:var(--accent);text-decoration:none;border-bottom:1px dotted 
     <span><span class="sw" style="background:var(--c-t);border:1.6px solid var(--c-c)"></span><b>voiced</b> (right)</span>
     <span>each tile — <span style="font-family:var(--serif)"><b>uni glyph</b></span> · ipa (→ Wikipedia) · small <code>code</code> = input reference (section 2)</span>
     <span>gutturals: all on h — ḥ=<code>hx</code> (/ħ/) · h̦=<code>hj</code> (/ʕ/) · '=<code>hq</code> (/ʔ/: no glyph the marks can build, so a whole character)</span>
-    <span>dashed = <b>phonemes that are not points</b> — the palatal column (soft coronals: <code>tj</code>=ty, <code>nj</code>=ñ) and the glides (vowel + <code>x</code>); not in the counts</span>
+    <span>dashed = <b>phonemes that are not points</b> — the soft coronals (<code>tj</code>=ty, <code>nj</code>=ñ, and <code>rj</code> with its trill), and the glides (vowel + <code>x</code>); not in the counts</span>
   </div>
   <h3 style="margin:1.2rem 0 0">The families, in words</h3>
   <div class="gloss" id="glossBody"></div>
@@ -591,10 +629,12 @@ footer a.fref{color:var(--accent);text-decoration:none;border-bottom:1px dotted 
   <p class="lede">Rows are the base letters, columns the six operators. A <b>point</b> cell links back
   to its table in section 1; a <i>form</i> cell is a modifier or systematic composition; “·” is unused.</p>
   <div class="scroll"><table class="ops" id="comboT"><thead id="comboHead"></thead><tbody id="comboBody"></tbody></table></div>
-  <p class="note">Beyond base+operator: <code>sjj zjj</code> = soft s/z, the two bases whose base+j is already a point ·
-  <code>tyy dyy syy zyy</code> = the emphatics (doubled y) · <code>icx</code> = ɥ (glide of the 2-char
-  point ic) · <code>aq</code> = ɝ (irregular short label) · any label + <code>w</code> = long ·
-  a trailing digit = tone (see the tryout).</p>
+  <h3 style="margin:1.5rem 0 0">Modifier layers <span class="n">what rides on top of a finished point — the last column above, in full</span></h3>
+  <p class="lede">A point is base + one operator. Everything else is a <b>layer</b>: the same eight modifiers,
+  spelled with a letter that doubles only where the single one would already be a point.</p>
+  <div class="scroll"><table class="ops"><thead><tr><th>modifier</th><th>char</th><th>forms</th><th>used by</th></tr></thead><tbody id="modFormsBody"></tbody></table></div>
+  <p class="note">Two labels are irregular by review: <code>aq</code> = ɝ (the schwa\'s x elided) and the
+  trailing tone digit (see the tryout). Everything else composes.</p>
 
   <div class="partlabel">Section 3 · Tryout</div>
 
@@ -781,6 +821,7 @@ const readHash=()=>{const m=/[#&]p=([^&]*)/.exec(location.hash);return m?decP(de
 let LAYER=readHash();
 const active=()=>LAYER||PROF;
 const offOf=lang=>active()[lang]||[];
+let ADOPT_FOR=null;                                 // the language the grid was BUILT for
 function drawAdopt(){
   const G=(D.groups||{})[CUR];
   $("adoptWrap").className="adopt"+(G&&Object.keys(G).length?" show":"");
@@ -788,12 +829,23 @@ function drawAdopt(){
   const off=offOf(CUR),names=Object.keys(G);
   $("adoptLayer").className="alayer"+(LAYER?" show":"");
   $("adoptN").textContent=off.length?`${off.length} of ${names.length} switched off`:"all native";
-  $("adoptGrid").innerHTML=names.map(n=>{
+  /* Rebuild the grid ONLY when the language changes. drawAdopt() runs on every keystroke and from
+     the switches' own change handler; replacing innerHTML there detaches the very checkbox the
+     browser is still processing, so the label's own toggle lands on a node that is no longer in the
+     document and the switch reads as dead. Everything else is synced in place. */
+  if(ADOPT_FOR!==CUR){
+    ADOPT_FOR=CUR;
+    $("adoptGrid").innerHTML=names.map(n=>
+      `<label><input type="checkbox" data-g="${esc(n)}"> ${esc(n)} <span class="ex" data-x="${esc(n)}"></span></label>`).join("");
+  }
+  for(const n of names){
     const on=!off.includes(n);
-    const sample=(G[n]||[]).filter(l=>D.orth[CUR][l]!==undefined).slice(0,3)
+    const box=$("adoptGrid").querySelector(`input[data-g="${n}"]`);
+    if(box&&box.checked!==on)box.checked=on;
+    const ex=$("adoptGrid").querySelector(`span[data-x="${n}"]`);
+    if(ex)ex.textContent=(G[n]||[]).filter(l=>D.orth[CUR][l]!==undefined).slice(0,3)
       .map(l=>on?D.orth[CUR][l]:D.nat[l]).join(" ");
-    return `<label><input type="checkbox" data-g="${esc(n)}"${on?" checked":""}> ${esc(n)}`
-         + (sample?` <span class="ex">${esc(sample)}</span>`:"")+`</label>`;}).join("");
+  }
 }
 $("adoptGrid").addEventListener("change",e=>{
   const b=e.target.closest("input[data-g]");if(!b)return;
@@ -812,9 +864,15 @@ $("adoptShare").addEventListener("click",async()=>{
   try{await navigator.clipboard.writeText(url);$("adoptShare").textContent="copied";
       setTimeout(()=>$("adoptShare").textContent="copy link",1400);}
   catch(e){location.hash="p="+encodeURIComponent(encP(active()));}});
+/* two paragraphs, split at the middle sentence boundary — the long examples are written as two */
+const paras=t=>{const s=t.split(/(?<=[.!?])\s+/).filter(Boolean);
+  if(s.length<3)return `<p>${esc(t)}</p>`;
+  const mid=Math.ceil(s.length/2);
+  return [s.slice(0,mid).join(" "),s.slice(mid).join(" ")].filter(Boolean).map(p=>`<p>${esc(p)}</p>`).join("");};
 function run(){const T=TARGETS.find(t=>t.key===CUR),H=D.help[CUR],v=$("in").value;
   let rows=[];try{rows=T.rows(v,$("li").checked,$("lv").checked);}catch(e){rows=[{k:"",v:"—"}];}
-  $("outs").innerHTML=rows.map(r=>`<div class="orow"><span class="k">${esc(r.k)}</span><span class="v">${esc(r.v)}</span>${r.brk?`<span class="brk">${esc(ubrk(v))}</span>`:""}</div>`).join("");
+  const long=v.replace(/\s+/g," ").trim().length>140;   // a passage, not a word: read it, don't display it
+  $("outs").innerHTML=rows.map(r=>`<div class="orow${long?" long":""}"><span class="k">${esc(r.k)}</span><span class="v">${long?paras(r.v):esc(r.v)}</span>${(r.brk&&!long)?`<span class="brk">${esc(ubrk(v))}</span>`:""}</div>`).join("");
   $("note").innerHTML=esc(H.note);
   $("aliasWrap").style.display=CUR==="en"?"":"none";
   $("zhRefWrap").style.display=CUR==="zh"?"":"none";
@@ -845,7 +903,7 @@ draw();run();
   const ipaLink=(lab,ip)=>{const w=wikiOf[lab];const s=esc(ip||"");
     return w?`<a class="cipa" href="${esc(w)}" target="_blank" rel="noopener" title="what this sound is">${s}</a>`
             :`<span class="cmut">${s}</span>`;};
-  $("comboHead").innerHTML="<tr><th>base</th>"+OPS.map(o=>`<th><code>${o}</code></th>`).join("")+"</tr>";
+  $("comboHead").innerHTML="<tr><th>base</th>"+OPS.map(o=>`<th><code>${o}</code></th>`).join("")+"<th>+ layers</th></tr>";
   const row=(b,anchor)=>{
     const cells=OPS.map(o=>{const lab=b+o,g=D.nat[lab],ip=D.ipa[lab];
       if(ptSet.has(lab))return `<td><a class="cpt" href="#${anchor}"><code>${esc(lab)}</code> <span class="cserif">${esc(g)}</span></a> ${ipaLink(lab,ip)}</td>`;
@@ -854,7 +912,8 @@ draw();run();
     const bw=wikiOf[b];
     const bh=bw?`<a class="cipa" href="${esc(bw)}" target="_blank" rel="noopener"><code>${esc(b)}</code></a>`
               :`<code>${esc(b)}</code>`;
-    return `<tr><th>${bh}</th>${cells.join("")}</tr>`;};
+    const lay=(D.layers||{})[b]||"";
+    return `<tr><th>${bh}</th>${cells.join("")}<td class="cfm">${lay?lay.split(" ").map(x=>`<code>${esc(x)}</code>`).join(" "):`<span class="cmut">·</span>`}</td></tr>`;};
   $("comboBody").innerHTML=CB.map(b=>row(b,"consonants")).join("")+VB.map(b=>row(b,"vowels")).join("");
 })();
 
@@ -899,6 +958,7 @@ const zhRow=r=>`<tr><td class="mc">${esc(r.py)}</td>${r.code!==undefined?`<td cl
 $("zhRefI").innerHTML=D.zhRef.initials.map(zhRow).join("");
 $("zhRefF").innerHTML=D.zhRef.finals.map(zhRow).join("");
 $("zhRefZ").innerHTML=D.zhRef.zero.map(zhRow).join("");
+$("modFormsBody").innerHTML=(D.modForms||[]).map(m=>`<tr><td><b>${esc(m.mod)}</b>${m.sys?`<br><span class="cmut">${esc(m.sys)}</span>`:""}</td><td><code>${esc(m.char)}</code></td><td class="opex">${m.rows.map(r=>`<code>${esc(r.lab)}</code> <span class="cserif" style="color:var(--ink)">${esc(r.nat)}</span> <span class="cmut">${esc(r.ipa)}</span>`).join(" · ")}</td><td class="cmut" style="font-size:.75rem">${esc([...new Set(m.rows.flatMap(r=>r.langs.split(" ")))].filter(Boolean).sort().join(" "))}</td></tr>`).join("");
 $("glossBody").innerHTML=D.gloss.map(g=>`<div class="gitem"><div class="gt">${esc(g.title)}</div><div class="gw">${esc(g.text)}</div><div class="ge">${g.ex.map(e=>`${pairHTML(e)}${e.word?` <span style="color:var(--muted)">— ${esc(e.word)}</span>`:""}`).join(" · ")}</div></div>`).join("");
 /* modifiers + stats + theme */
 $("mBody").innerHTML=D.mods.map(m=>`<div class="mtile"><div class="nm">${esc(m.name)}</div><div class="big"><span class="nat">${esc(m.uni)}</span><span class="lab">${esc(m.label)}</span><span class="ipa">${esc(m.ipa)}</span></div><div class="gl">${esc(m.gloss)}</div></div>`).join("");

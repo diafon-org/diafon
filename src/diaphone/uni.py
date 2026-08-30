@@ -180,6 +180,17 @@ def uni_labels(all_ph, features, data_dir="data"):
             full = full_label(pl, ph["mods"], mod_map, data_dir)
             # bare points were seeded above and always win (setdefault)
             out.setdefault(full, _apply(base_of[pl], pl, ph["mods"], pl in _VOW, data_dir))
+    # THE RETROFLEX LAYER is systematic on the HUSH series, so it can be written whether or not a
+    # language in the set contrasts it. Mandarin sh and Russian ш are [ʂ] but UNMARKED, because
+    # neither contrasts retroflexion; a reader who wants the retroflex value still needs `sjx` to
+    # render. Hush points only: on a plain coronal the tail draws the SAME glyph (s+tail = ș with
+    # its comma flipped = s̖), and a retroflex s just IS the hush-retroflex sibilant. Seeded into
+    # seen_mods so the long forms compose from it as well.
+    for pl in ("sj", "zj", "tq", "dq"):
+        seen_mods.add((pl, frozenset({"retroflex"})))
+        out.setdefault(pl + _mod_chars({"retroflex"}, pl, mod_map, data_dir),
+                       _apply(base_of[pl], pl, {"retroflex"}, False, data_dir))
+
     # Systematic long forms, so an unattested length still composes its diacritic instead of leaking
     # a literal `w`: for every point (`ojw`=ʊː) and for every attested point+modifier (`tjw` = a long
     # soft t = țț). `w` is never a base, so no label collides.

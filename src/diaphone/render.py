@@ -40,6 +40,7 @@ _SEGMENT_IPA = {
     ("t", "retroflex"): "ʈ", ("d", "retroflex"): "ɖ", ("n", "retroflex"): "ɳ",
     ("l", "retroflex"): "ɭ", ("r", "retroflex"): "ɻ",
     ("sj", "retroflex"): "ʂ", ("zj", "retroflex"): "ʐ",
+    ("tq", "retroflex"): "tʂ", ("dq", "retroflex"): "dʐ",
 }
 
 
@@ -77,6 +78,11 @@ def ipa_labels(all_ph, features, data_dir="data"):
             # keeps the POINT's IPA — same rule as uni_labels, and order-independent
             out.setdefault(full, _GLIDE_IPA.get(full) or
                            _compose_ipa(pl, ph["mods"], base2ipa[pl]))
+    for pl in ("sj", "zj", "tq", "dq"):          # the systematic retroflex layer (see uni.py)
+        seen_mods.add((pl, frozenset({"retroflex"})))
+        out.setdefault(full_label(pl, {"retroflex"}, mod_map, data_dir),
+                       _compose_ipa(pl, {"retroflex"}, base2ipa[pl]))
+
     # Systematic long forms so an unattested length composes instead of leaking a `w`: for every
     # point (`ojw`=ɔː) and for every attested point+modifier (`tjw`=cː). Same for the four glides,
     # so an unattested one (ucx=ɰ) still renders.

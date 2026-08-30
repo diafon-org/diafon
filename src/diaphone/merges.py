@@ -8,24 +8,27 @@ co-occurs a source with its target, so folding never collapses a within-language
 
 Every consonant-place merge landed on `recover=None`: within the 16 languages nothing contrasts
 dental~alveolar, retroflex~postalveolar/alveolar, or uvular~velar, so the folds are lossless in
-practice and carry no recovery mark. (Retroflex is thus unmarked everywhere — the sibilants fold
-into the postalveolar, and the approximant ɻ folds into the plain rhotic r.) Only the vowel
-`centralized` (ɨ→ɯ) keeps a recovery mark.
+practice and carry no recovery mark. Only the vowel `centralized` (ɨ→ɯ) keeps a recovery mark.
+
+RETROFLEX IS NOT IN THIS LEDGER, and that is the point: it is a MODIFIER on every base, so there
+are no retroflex sibilant POINTS to fold. A language that does not contrast retroflexion enters the
+plain point and realises it however it likes (Russian ш [ʂ], Mandarin sh [ʂ], Tamil ஷ [ʂ] are all
+the unmarked hush point); a language that DOES contrast it takes the modifier — Polish sz [ʂ] ~ ś
+[ɕ] would be `sjx` ~ `sj`. The one survivor is the retroflex APPROXIMANT ɻ, which folds into the R
+slot because it is a rhotic, not a retroflexed anything.
 """
 
 # (source_base, target_base, recover, note)
 LEDGER = [
     (("C", "dental", "plosive", "vl"),       ("C", "alveolar", "plosive", "vl"),       None, "t̪→t; only exotic Venda contrasts them, none of the 16"),
     (("C", "dental", "plosive", "vd"),       ("C", "alveolar", "plosive", "vd"),       None, "d̪→d; same"),
-    (("C", "retroflex", "fricative", "vl"),  ("C", "postalveolar", "fricative", "vl"), None, "ʂ→ʃ; Mandarin sh/x are COMPLEMENTARY (allophones), not a contrast — no sign needed"),
-    (("C", "retroflex", "fricative", "vd"),  ("C", "postalveolar", "fricative", "vd"), None, "ʐ→ʒ; Russian ж retroflex ≈ postalveolar, no contrast"),
-    (("C", "retroflex", "affricate", "vl"),  ("C", "postalveolar", "affricate", "vl"), None, "tʂ→tʃ; Mandarin zh/j complementary, no contrast"),
     (("C", "alveolopalatal", "fricative", "vl"),  ("C", "postalveolar", "fricative", "vl"),  None, "ɕ→ʃ; postalveolar~alveolo-palatal never contrast"),
+    (("C", "alveolopalatal", "fricative", "vd"),  ("C", "postalveolar", "fricative", "vd"),  None, "ʑ→ʒ; the voiced partner of ɕ→ʃ"),
     (("C", "alveolopalatal", "affricate", "vl"),  ("C", "postalveolar", "affricate", "vl"),  None, "tɕ→tʃ; the 'ch' point"),
     (("C", "alveolopalatal", "affricate", "vd"),  ("C", "postalveolar", "affricate", "vd"),  None, "dʑ→dʒ; voiced 'ch'"),
     (("C", "uvular", "fricative", "vd"),     ("C", "velar", "fricative", "vd"),        None, "ʁ→ɣ; only exotic Tsakhur/Kabardian contrast them"),
     (("C", "alveolar", "approximant", "vd"), ("C", "retroflex", "approximant", "vd"), None,         "English ɹ ≈ Mandarin ɻ; no language contrasts them"),
-    (("C", "retroflex", "approximant", "vd"), ("C", "alveolar", "trill", "vd"),       None,         "ɻ→r; retroflex is unmarked everywhere else (sibilants fold too), and no language has the retroflex approximant AND a trill/tap — EN/ZH ⟨r⟩ become the generic R slot. ɹ→ɻ→r"),
+    (("C", "retroflex", "approximant", "vd"), ("C", "alveolar", "trill", "vd"),       None,         "ɻ→r; the R slot — no language has the retroflex approximant AND a trill/tap, so EN/ZH ⟨r⟩ land there. ɹ→ɻ→r"),
     (("V", "near-open", "front", False),     ("V", "open", "central", False),        None,          "æ→a; no witness — FI ä and FA æ use the fold (their a is back ɑ, the Danish shape)"),
     (("V", "close", "central", False),       ("V", "close", "back", False),          "centralized", "ɨ→ɯ; no significant witness (major langs have one or the other)"),
     (("V", "open-mid", "back", False),        ("V", "mid", "central", False),         None, "ʌ→ə; Korean ㅓ ≈ schwa, English STRUT = stressed schwa — no language contrasts them"),
