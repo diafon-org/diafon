@@ -54,8 +54,9 @@ def _compose_ipa(point_label, mods, base_ipa):
         if letter:
             core, rest = letter, rest - {m}
             break
-    # length last, as in the label (`sjjw` = sʲː, not sːʲ)
-    return core + "".join(_MOD_IPA.get(m, "") for m in sorted(rest, key=lambda m: (m == "long", m)))
+    # same order as the label: place-like first, length last (`sjjw` = sʲː, not sːʲ)
+    from .notation import _mod_order
+    return core + "".join(_MOD_IPA.get(m, "") for m in sorted(rest, key=_mod_order))
 _TONE_SUP = {"1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵"}
 
 

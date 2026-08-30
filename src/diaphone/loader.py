@@ -39,6 +39,16 @@ def expand(code, L):
             "st": src.get("st", "phonemic"), "note": src.get("note"),
         })
 
+    def smods(p, *extra):
+        """The source phoneme's OWN modifiers plus the series' — a series must never silently drop
+        one. Applying `aspirated` to a retroflex ʈ has to give {retroflex, aspirated}; taking only
+        {aspirated} would quietly move the phoneme onto the plain t point, where it collides with
+        the dental series (Hindi t̪ʰ ~ ʈʰ) and the ledger's safety assert fires with no hint why."""
+        m = set(p.get("mod", []))
+        if p.get("len"):
+            m.add("long")
+        return m | set(extra)
+
     cons = {p["ipa"]: p for p in L.get("consonants", [])}
     vows = {p["ipa"]: p for p in L.get("vowels", [])}
 
@@ -60,19 +70,19 @@ def expand(code, L):
             raise ValueError(f"{code}: long_series references unknown '{ipa}'")
         is_v = ipa in vows
         add(p["ipa"] + "ː", vbase(p) if is_v else cbase(p),
-            {"long"}, "V" if is_v else "C", p)
+            smods(p, "long"), "V" if is_v else "C", p)
 
     # nasalised vowels
     for ipa in L.get("nasal_series", []):
         p = vows[ipa]
-        add(p["ipa"] + MOD_DIA["nasal"], vbase(p), {"nasal"}, "V", p)
+        add(p["ipa"] + MOD_DIA["nasal"], vbase(p), smods(p, "nasal"), "V", p)
 
     # secondary articulations (palatalized / pharyngealized / aspirated)
     for ser in L.get("secondary_series", []):
         typ = ser["type"]
         for ipa in ser["applies_to"]:
             p = cons[ipa]
-            add(p["ipa"] + MOD_DIA[typ], cbase(p), {typ}, "C", p)
+            add(p["ipa"] + MOD_DIA[typ], cbase(p), smods(p, typ), "C", p)
 
     return out
 

@@ -75,15 +75,25 @@ def doubles(point_label, ch, data_dir="data"):
     return point_label + ch in point_labels(data_dir)
 
 
+# Place-like layers reshape the segment and sit closest to the base; length holds the finished
+# thing and goes last; everything else (laryngeal, resonance) sorts between them.
+_PLACE_MODS = frozenset({"retroflex", "palatalized"})
+
+
+def _mod_order(m):
+    return (2 if m == "long" else 0 if m in _PLACE_MODS else 1, m)
+
+
 def _mod_chars(mods, point_label, mod_map, data_dir="data"):
     """The modifier suffix for a phoneme, in a stable order, per `doubles` above.
 
-    Order: the segment's own qualities first, **length last** — `w` holds the finished segment, so a
-    long soft t is `tjw`, not `twj` (and the uni glyph doubles the finished ț → țț to match). No
-    attested phoneme carries two modifiers, so this only ever orders systematic compositions.
+    Order follows WHAT MODIFIES WHAT: the place-like layers first (they reshape the segment itself),
+    then the laryngeal and resonance ones, then **length last** — `w` holds the finished segment. So
+    Hindi's ʈʰ is `txxy`, a retroflex t that is then aspirated, not `tyxx`; and a long soft t is
+    `tjw`, not `twj` (the uni glyph doubles the finished ț → țț to match).
     """
     out = ""
-    for m in sorted(mods, key=lambda m: (m == "long", m)):
+    for m in sorted(mods, key=_mod_order):
         ch = mod_map.get(m, "?")
         if doubles(point_label, ch, data_dir):
             ch += ch

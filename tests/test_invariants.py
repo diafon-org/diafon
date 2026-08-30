@@ -97,6 +97,32 @@ def test_mapping_is_injective_per_language():
         assert len(keys) == len(set(keys)), f"{code} has a merged contrast"
 
 
+def test_a_series_never_drops_the_source_modifiers():
+    """`long_series` / `nasal_series` / `secondary_series` must UNION the source phoneme's own
+    modifiers, not replace them. Applying `aspirated` to a retroflex ʈ has to give
+    {retroflex, aspirated}; taking only {aspirated} silently moves the phoneme onto the plain t
+    point, where Hindi's ʈʰ collides with its dental t̪ʰ and the ledger's safety assert fires with
+    no hint why. Latent for a long time — Hindi is the first language to apply a series to a
+    phoneme that already carries a modifier."""
+    from diaphone.loader import expand
+    L = {"consonants": [{"ipa": "ʈ", "pl": "alveolar", "mn": "plosive", "vc": "vl",
+                         "mod": ["retroflex"]}],
+         "secondary_series": [{"type": "aspirated", "applies_to": ["ʈ"]}]}
+    got = {ph["ipa"]: ph["mods"] for ph in expand("XX", L)}
+    assert got["ʈ"] == frozenset({"retroflex"})
+    assert got["ʈʰ"] == frozenset({"retroflex", "aspirated"}), got["ʈʰ"]
+
+
+def test_modifier_order_is_place_then_rest_then_length():
+    """A label spells what modifies what: place-like layers closest to the base, length last.
+    Hindi's ʈʰ is `txxy` — a retroflex t, then aspirated — not `tyxx`."""
+    from diaphone.notation import _mod_chars, _label_maps
+    features, languages, all_ph = load(DATA)
+    _lab, mod_map = _label_maps(all_ph, features, DATA)
+    assert _mod_chars({"aspirated", "retroflex"}, "t", mod_map, DATA) == "xxy"
+    assert _mod_chars({"long", "palatalized"}, "t", mod_map, DATA) == "jw"
+
+
 def test_points_nonempty_and_typed():
     points = _run()[3]
     assert len(points) > 0
@@ -106,7 +132,7 @@ def test_points_nonempty_and_typed():
 
 def test_every_language_loads():
     _, languages, *_ = _run()
-    assert len(languages) == 27   # 12 core + 5 witnesses (TR ET VI KO TA) + 10 coverage (ID FI HE FA NL UK PL TH RO CS)
+    assert len(languages) == 28   # 12 core + 5 witnesses (TR ET VI KO TA) + 11 coverage (ID FI HE FA NL UK PL TH RO CS HI)
 
 
 def test_removed_allophones_absent():
@@ -241,8 +267,8 @@ def test_engine_render_targets():
     assert render("sjan1", "uni", DATA) == "șan1"          # uni keeps the plain digit (no upper-index outside IPA)
     assert render("njawr", "uni", DATA) == "n̦ár"           # nj→ņ, aw→á (long)
     assert render("tyy dyy syy zyy", "uni", DATA) == "t̰ d̰ s̰ z̰"   # emphatics = tilde below (the dark colour)
-    assert render("py ty ky", "uni", DATA) == "p̈ t̤ k̤"     # aspirated = two dots (above only on the descender p)
-    assert render("tcy tqy", "uni", DATA) == "c̤ c̦̈"         # below on c; above on c̦ (its below is taken)
+    assert render("py ty ky", "uni", DATA) == "p̈ ẗ k̈"     # aspirated = two dots, ALWAYS above
+    assert render("tcy tqy", "uni", DATA) == "c̈ c̦̈"         # the two dots never move; c̦ keeps its comma below
     assert render("py ty ky", "ipa", DATA) == "pʰ tʰ kʰ"       # aspiration = `y`, which has no phoneme twin
     assert render("aphijl", "ipa", DATA) == "aphɪl"            # ph = the sequence /p/+/h/ (uphill-type words)
     assert render("tx dx kx gx nx", "uni", DATA) == "ṭ ḍ ḳ ġ ṇ"  # x-family = one dot (above on the descender g)

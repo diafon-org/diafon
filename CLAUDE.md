@@ -226,12 +226,24 @@ neither alone). Audited with `lang_delta --drop`, and one entry there is wrong i
 keeping visible: **Turkish is credited with locking `u`~`ɯ` (kul/kıl), but the mechanical lock is
 JAPANESE** — JA's /w/ is a nonsyllabic *rounded* close back vowel (the /u/ point) while う is /ɯ/,
 so JA carries both points and the pair can never merge. Turkish's contrast is the witness-principle
-justification; Japanese is what makes it unmergeable. **ID FI HE FA NL UK PL TH RO CS** are
+justification; Japanese is what makes it unmergeable. **ID FI HE FA NL UK PL TH RO CS HI** are
 *coverage* languages — their inventories are subsets of the existing points + modifiers (folds:
 FI/FA æ→a, FA ɒ→ɑ, HE ʁ→ɣ, UK г entered as ɣ, PL ʑ→ʒ), added to grow the covering claim at zero
 structural cost. **Polish** is the three-way sibilant test: s ~ sz [ʂ] ~ ś [ɕ] = `s` ~ `sjx` ~ `sj`,
 the retroflex LAYER doing the work. **Thai** brings five tones (digits 1-5) and a three-way stop
 series via the existing `aspirated`.
+
+**Hindi-Urdu — the four-way stop series, at no cost.** p / pʰ / b / bʱ at five places. The fourth
+is BREATHY VOICED (murmured), phonetically a different phonation from aspiration — but VOICING
+already separates it from the aspirated series and **no language contrasts [bʰ] with [bʱ]**, so it
+takes the `aspirated` slot on the voiced points: `p py b by`. Traditional grammars call the series
+"voiced aspirates" for exactly that reason. The same reuse as Korean fortis on `long` and Czech ř on
+`rj`. Retroflexion is the existing LAYER — ʈ ɖ ɳ = `txx dxx nxx`, ɽ = `rx` (the slot Tamil ழ uses;
+flap vs approximant, contrasted nowhere) — and **Hindi is the first language with TWO modifiers on
+one phoneme**: ʈʰ = `txxy`, retroflex then aspirated. That surfaced two silent bugs, both fixed:
+the loader's series builders REPLACED the source's own modifiers instead of unioning them (so ʈʰ
+landed on the plain t point and collided with dental t̪ʰ), and `uni._below_taken` did not count the
+retroflex tail, so the aspiration stacked a second mark underneath it.
 
 **Czech ř — reviewed twice, and it costs NOTHING.** /r̝/ is a trill and a non-sibilant fricative
 pronounced *simultaneously*, contrasting with r, with ʒ, and with both sequences: **řád** ~ **rád** ~
@@ -248,8 +260,8 @@ prints length for Korean fortis; the phonetics lives in the `note`.
 See the near-merge verdicts below.
 
 ## Current state
-62 fine-grained points → **49 general** (32 C · 17 V) after 13 merges, 0 merged contrasts, 875
-phoneme records, 27 languages (12 core + 5 witnesses + 10 coverage). **Every point is a base or base + ONE
+62 fine-grained points → **49 general** (32 C · 17 V) after 13 merges, 0 merged contrasts, 929
+phoneme records, 28 languages (12 core + 5 witnesses + 11 coverage). **Every point is a base or base + ONE
 operator** — no 2-operator points, no bi-vowels. NOT points (allophones or otherwise excluded):
 `ç` (German ich-laut, an allophone of `x`), `ɸ` (Japanese *fu*, allophone of `h`), `ɐ` (German
 `-er`), **Mandarin j/q/x `[tɕ tɕʰ ɕ]`** (allophones of the retroflex series), and **`ʌ`**
@@ -312,7 +324,11 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   (affricate on t/d, the tap on r; `j` is palatal everywhere but h); what it DRAWS never is. ḥ is
   also how the world already writes Arabic ح (Muḥammad).
   Aspiration is single
-  `y` (`py ty ky`=/pʰ tʰ kʰ/);
+  `y` (`py ty ky`=/pʰ tʰ kʰ/), and its glyph — the two dots — is the ONE mark whose side never
+  varies: **always above** (p̈ ẗ k̈ c̈), because the release is a vowel-side quality and it is the same
+  two dots that flip a vowel. That leaves the below zone to the place-like layers alone, which is what
+  lets a doubly-modified segment wear one mark on each side: Hindi ʈʰ = `txxy` = ẗ̖, retroflex below,
+  aspiration above. The tall-letter rule is now "nothing EXCEPT the two dots sits above a tall letter";
   emphatics are the doubled `yy` (`tˤ`=`tyy`, the rarer phenomenon takes the longer spelling).
 - **Vowels** (17, triangular — see `docs/index.html`): 5 cardinal bases `a e i o u` on the
   triangle edges; operators `c`=toggle-rounding (front gains: `ic`=y `ec`=ø; back loses: `uc`=ɯ `oc`=ɤ;
