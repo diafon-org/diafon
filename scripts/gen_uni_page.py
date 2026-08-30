@@ -90,7 +90,7 @@ HELP = {
     "uni": {"name": "uni",
                "note": "Our universal view — one glyph per point, Latin plus diacritics. Marks mean by "
                        "shape and count, never by side: one dot = the c/x mark (ṭ ḳ ṇ ṛ ḥ; lowered vowel ẹ ọ) · "
-                       "two dots = the second-degree mark (aspirated t̤ p̈; vocalic r̈; vowel flip ü ö · ï ë ä) · "
+                       "two dots = the second-degree mark, ALWAYS above (aspirated ẗ p̈; vocalic r̈; vowel flip ü ö · ï ë ä) · "
                        "a tilde = the pharyngealised modifier and nothing else (the emphatics t̰ s̰ below; nasal ã sits above a vowel) · "
                        "a comma per j = palatal/soft (ș ț n̦ r̦ · p̓ k̦ — s and t come out precomposed; two commas where one would already be a point, sjj → s͈) · "
                        "a \"\\\" tail = retroflex (t̖ r̖). The mark always follows the operator, on every base — so h̦ is /ʔ/ (from j) and ḥ is /ħ/ (from c), the one comma in the view on a sound that is not palatal. Tone digits stay "

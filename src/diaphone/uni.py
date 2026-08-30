@@ -3,14 +3,15 @@
 Like `render.ipa_labels`, this is a language-independent label→glyph map, built from a hand-assigned
 per-point base glyph plus generative modifier diacritics. All cells are decided (see the doc).
 
-The mark grammar — MEANING = mark shape and count, SIDE = typography per letter; nothing ever
-sits above a tall letter:
+The mark grammar — MEANING = mark shape and count. The TWO DOTS are always above, on every letter;
+the place-like marks go below and move above only when the below zone is taken, and nothing else
+ever sits above a tall letter:
   one dot   = a derived point — the x-family ṭ ḍ ḳ ġ ṇ (θ ð x ɣ ŋ) · pf ṗ ·
               the schwa ạ (ax = a + the x-dot) · lowered vowels ị ẹ ụ ọ ·
               the tap ṛ (`rc`) · the pharyngeal ḥ (`hx`)
-  two dots  = the second-degree mark — aspiration t̤ k̤ c̤ (p̈ above on the descender, c̦̈ above
-              on the marked c̦; the vocalic r̈) ·
-              FLIP front↔back on a vowel (ü ö · ï ë ä)
+  two dots  = the second-degree mark, and the ONE mark whose side never varies: always ABOVE.
+              aspiration p̈ ẗ k̈ c̈ c̦̈ · the vocalic r̈ · FLIP front↔back on a vowel (ü ö · ï ë ä).
+              The release is a vowel-side quality, so the below zone is left to the place layers
   tilde     = nasal above a vowel (ã) · below, the PHARYNGEALISED MODIFIER and nothing else —
               the emphatics t̰ d̰ s̰ z̰ (U+0330). A point never wears a modifier-only MARK
               (no point LABEL contains y, yy or w). The letters are a separate matter: w is
@@ -67,7 +68,9 @@ from .notation import _label_maps, _mod_chars, full_label, doubles
 
 # combining marks
 _DB = "̣"                   # U+0323 one dot below (the derived-point dot)
-_DDA, _DDB = "̈", "̤"      # U+0308 / U+0324 two dots above / below (the second-degree mark)
+_DDA = "̈"                  # U+0308 two dots ABOVE — the second-degree mark, and it never moves:
+                            #   aspiration on a consonant, the front↔back flip on a vowel. One mark,
+                            #   ONE side, so the below zone belongs to the place-like layers alone.
 _TILDE_B = "̰"              # U+0330 tilde below (the emphatics — the dark colour)
 _VLB = "̦"                  # U+0326 COMBINING COMMA BELOW — the j-mark (one j = one comma). Chosen over
                             #   the vertical line U+0329: better covered (9/10 common fonts vs 6/10), it
@@ -88,9 +91,10 @@ _DESCENDERS = "pg"          # letters whose below zone the letterform itself occ
 
 
 def _below_taken(g):
-    """Side rule: a mark goes ABOVE when the letter's below zone is taken — a descender letter,
-    or a glyph already wearing a below mark (c̦ → c̦̈). Meaning never rides on the side."""
-    return g[0] in _DESCENDERS or any(m in g for m in (_VLB, _DVLB, _DB, _DDB))
+    """Side rule for the PLACE-like marks (dot, comma): they move ABOVE when the below zone is
+    taken — a descender letter, or a glyph already wearing a below mark. The two dots never consult
+    this: they are always above."""
+    return g[0] in _DESCENDERS or any(m in g for m in (_VLB, _DVLB, _DB, _GRB, _TILDE_B))
 
 # point label -> uni base glyph
 _CONS = {
@@ -126,7 +130,8 @@ def _doubles_glyph(g):
 
 def _apply(base, label, mods, is_vowel, data_dir="data"):
     g = base
-    for m in sorted(mods, key=lambda m: (m == "long", m)):   # long LAST: it doubles the finished glyph
+    from .notation import _mod_order
+    for m in sorted(mods, key=_mod_order):   # same order as the label: place-like, then the rest, then long
         if m == "long":
             if is_vowel:
                 # FLIP + long = the DOUBLE ACUTE — one mark, never dots+acute stacked:
@@ -140,7 +145,8 @@ def _apply(base, label, mods, is_vowel, data_dir="data"):
         elif m == "nasal":
             g = g + _TILDE
         elif m == "aspirated":
-            g = g + (_DDA if _below_taken(g) else _DDB)    # two dots: t̤ k̤ c̤ · p̈ above · c̦̈ above
+            g = g + _DDA          # ALWAYS above — the release is a vowel-side quality, and it is the
+                                  #   same two dots that flip a vowel, which are always above
         elif m == "pharyngealized":
             g = g + _TILDE_B                               # tilde below (emphatics t̰ d̰ s̰ z̰)
         elif m == "palatalized":

@@ -10,13 +10,15 @@ characters anywhere.
 appears; which side of the letter it sits on says nothing — the letterform decides:
 
 - **below is the default**;
-- a mark goes **above** only on the descender letters **p g** (ṗ ġ p̈ p̓ g̓);
-- **nothing ever sits above a tall letter**.
+- the **two dots are always above** — one mark, one side, on every letter;
+- the **place-like marks** (dot, comma, tail) go below by default, and above only when the below
+  zone is taken — a descender letter **p g** (ṗ ġ p̓ g̓), or a glyph already wearing one;
+- **nothing else sits above a tall letter**.
 
 | mark | meaning | glyphs |
 |---|---|---|
 | **one dot** | the `c`/`x` mark | the x-family ṭ ḍ ḳ ġ ṇ ḥ (θ ð x ɣ ŋ ħ) · pf ṗ (`pc`) · the tap ṛ (`rc`) · the schwa ạ (`ax`) · lowered vowels ị ẹ ụ ọ (`j`) |
-| **two dots** | the second-degree mark | aspiration t̤ k̤ c̤ · p̈ c̦̈ above (`y`) · vocalic r̈ (`aq`) · vowel FLIP front↔back ü ö (y ø) · ï ë ä (ɯ ɤ ɑ) (`c`) |
+| **two dots** | the second-degree mark — **always above**, the one mark whose side never varies | aspiration p̈ ẗ k̈ c̈ c̦̈ (`y`) · vocalic r̈ (`aq`) · vowel FLIP front↔back ü ö (y ø) · ï ë ä (ɯ ɤ ɑ) (`c`) |
 | **tilde** | resonance colour | nasal above a vowel ã ẽ õ (`y`) · the dark emphatics below t̰ d̰ s̰ z̰ (`yy`, U+0330) |
 | **comma** | the `j` mark, one per j | the hush points ș z̦ and their affricates c̦ x̦ · every soft consonant ț d̦ n̦ l̦ p̓ k̦ b̦ m̦ r̦ … · the voiced pharyngeal h̦ (`hj`, the one `j` that is not palatal) · doubled only where the single comma already spells a point: `sjj zjj` → s͈ z͈, and `tcj` → c͈ |
 | **"\\" tail** | retroflex (`x`, Tamil) | t̖ n̖ l̖ r̖ (labels `txx nxx lx rx`) · it replaces the j-comma rather than stacking on it |
@@ -32,7 +34,7 @@ appears; which side of the letter it sits on says nothing — the letterform dec
 | tap (`rc`) | one dot | ṛ (trill stays r) — `c` draws the dot here as everywhere; `j` on r is left to the soft r̦ |
 | pf (`pc`) | one dot | ṗ above |
 | emphatic (`yy`) | tilde below | t̰ d̰ s̰ z̰ |
-| aspirated (`y`) | two dots | t̤ k̤ c̤ · p̈ c̦̈ above |
+| aspirated (`y`) | two dots, always above | p̈ ẗ k̈ c̈ · c̦̈ over its comma |
 | whole characters | no mark | c (ts `tc`) · x (dz `dc`) · q (`kq`) · ' (ʕ `hq`) — see below |
 | long (`w`) | doubled letter | tt șș … |
 
