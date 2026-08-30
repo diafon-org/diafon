@@ -82,6 +82,9 @@ def report(before, after, label):
           f"({len(after['general']) - len(before['general']):+d})")
     print(f"  modifiers used     : {len(before['modifiers'])} -> {len(after['modifiers'])}")
 
+    # A new FINE point that the ledger folds away is not new structure — it costs nothing in the
+    # general inventory. Only a point that survives the fold, or a new modifier, is a real cost.
+    grew = len(after["general"]) > len(before["general"])
     for title, keys in (("NEW POINTS", add), ("points no longer needed", gone)):
         if keys:
             print(f"  {title}: {len(keys)}")
@@ -113,8 +116,8 @@ def report(before, after, label):
         print(f"  PAIRS IT LOCKS APART: {len(locked)}   <- it contrasts these, so they cannot merge")
         for n in sorted(locked, key=lambda r: (r[1], r[2])):
             print(f"      /{n[1]}/ ~ /{n[2]}/")
-    if freed:
-        print(f"  pairs that become mergeable without it: {len(freed)}")
+    if freed:   # pairs that exist only when it is present — it brought a point that has a neighbour
+        print(f"  near-merge pairs it introduces: {len(freed)}")
         for n in sorted(freed, key=lambda r: (r[1], r[2])):
             print(f"      /{n[1]}/ ~ /{n[2]}/")
     for name, title in (("redundant", "modifier-reachable points"),
@@ -137,8 +140,11 @@ def report(before, after, label):
 
     if hard:
         verdict = "BREAKS something — a decision has to be made (new point, new modifier, or a ledger entry revisited)"
-    elif add or newmods or locked:
+    elif newmods or grew or locked:
         verdict = "WITNESS — it forces new structure"
+    elif add:
+        verdict = ("COVERAGE — the new fine point(s) fold away, so the general inventory does not "
+                   "move; free to add")
     else:
         verdict = "COVERAGE — a subset of the existing points and modifiers; free to add"
     print(f"  VERDICT: {verdict}")
