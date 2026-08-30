@@ -337,7 +337,9 @@ def build():
             _lab = _fl(_pl, _ph["mods"], _mods_map, DATA)
             _seen[" + ".join(sorted(_ph["mods"]))].setdefault(_lab, set()).add(_code)
             if _lab.startswith(_pl):        # `aq` is an irregular short label, not point+suffix
-                layers[_pl[0]].add(_lab[len(_pl):])
+                layers[_pl].add(_lab[len(_pl):])   # keyed by the POINT — a layer rides on a point
+    for _p in ("sj", "zj", "tq", "dq"):    # the systematic retroflex layer is available, not attested
+        layers[_p].add("x")
     MOD_SYS = {"long": "composes on every point", "retroflex": "composes on the hush series",
                "nonsyllabic": "all four glides compose"}
     mod_forms = [{"mod": m, "char": _mods_map.get(m, ""), "sys": MOD_SYS.get(m, ""),
@@ -558,6 +560,9 @@ table.ops{border-collapse:collapse;width:100%;min-width:520px}
 .ops .opc{font:700 1.35rem/1 var(--mono);color:var(--accent);text-align:center;white-space:nowrap}
 .ops .on{display:block;font:600 .62rem/1.3 var(--mono);color:var(--muted)}
 .ops .opex{font-family:var(--serif);color:var(--muted);font-size:.95rem}
+/* the modifier layers that ride on THAT point — a layer attaches to a point, never to a base letter */
+.lay{margin-top:.15rem;font:.68rem/1.3 var(--mono);color:var(--muted);opacity:.85}
+.lay code{color:var(--accent);background:none;padding:0}
 .ops .mc{font:600 .85rem/1 var(--mono);color:var(--accent);white-space:nowrap}
 .gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.6rem;margin:.7rem 0 0}
 .gitem{border:1px solid var(--line);border-radius:12px;padding:.7rem .85rem;background:var(--card)}
@@ -627,7 +632,10 @@ footer a.fref{color:var(--accent);text-decoration:none;border-bottom:1px dotted 
 
   <h2>All combinations <span class="n">every base × every operator — the complete label space; the IPA value links to what the sound is</span></h2>
   <p class="lede">Rows are the base letters, columns the six operators. A <b>point</b> cell links back
-  to its table in section 1; a <i>form</i> cell is a modifier or systematic composition; “·” is unused.</p>
+  to its table in section 1; a <i>form</i> cell is a modifier or systematic composition; “·” is unused.
+  Under each point, <b>+ its layers</b> — the modifier letters that ride on <i>that point</i>, since a
+  layer attaches to a finished point and never to a bare base letter. <code>w</code> (long) also
+  composes on every point, whether or not a language uses it.</p>
   <div class="scroll"><table class="ops" id="comboT"><thead id="comboHead"></thead><tbody id="comboBody"></tbody></table></div>
   <h3 style="margin:1.5rem 0 0">Modifier layers <span class="n">what rides on top of a finished point — the last column above, in full</span></h3>
   <p class="lede">A point is base + one operator. Everything else is a <b>layer</b>: the same eight modifiers,
@@ -903,17 +911,20 @@ draw();run();
   const ipaLink=(lab,ip)=>{const w=wikiOf[lab];const s=esc(ip||"");
     return w?`<a class="cipa" href="${esc(w)}" target="_blank" rel="noopener" title="what this sound is">${s}</a>`
             :`<span class="cmut">${s}</span>`;};
-  $("comboHead").innerHTML="<tr><th>base</th>"+OPS.map(o=>`<th><code>${o}</code></th>`).join("")+"<th>+ layers</th></tr>";
+  $("comboHead").innerHTML="<tr><th>base</th>"+OPS.map(o=>`<th><code>${o}</code></th>`).join("")+"</tr>";
   const row=(b,anchor)=>{
     const cells=OPS.map(o=>{const lab=b+o,g=D.nat[lab],ip=D.ipa[lab];
-      if(ptSet.has(lab))return `<td><a class="cpt" href="#${anchor}"><code>${esc(lab)}</code> <span class="cserif">${esc(g)}</span></a> ${ipaLink(lab,ip)}</td>`;
+      const lay=(D.layers||{})[lab]||"";
+      const layHTML=lay?`<div class="lay">+ ${lay.split(" ").map(x=>`<code>${esc(x)}</code>`).join(" ")}</div>`:"";
+      if(ptSet.has(lab))return `<td><a class="cpt" href="#${anchor}"><code>${esc(lab)}</code> <span class="cserif">${esc(g)}</span></a> ${ipaLink(lab,ip)}${layHTML}</td>`;
       if(g!==undefined)return `<td class="cfm"><code>${esc(lab)}</code> <span class="cserif">${esc(g)}</span> <span class="cmut">${esc(ip||"")}</span></td>`;
       return `<td class="cmut">·</td>`;});
     const bw=wikiOf[b];
-    const bh=bw?`<a class="cipa" href="${esc(bw)}" target="_blank" rel="noopener"><code>${esc(b)}</code></a>`
-              :`<code>${esc(b)}</code>`;
-    const lay=(D.layers||{})[b]||"";
-    return `<tr><th>${bh}</th>${cells.join("")}<td class="cfm">${lay?lay.split(" ").map(x=>`<code>${esc(x)}</code>`).join(" "):`<span class="cmut">·</span>`}</td></tr>`;};
+    const blay=(D.layers||{})[b]||"";
+    const bh=(bw?`<a class="cipa" href="${esc(bw)}" target="_blank" rel="noopener"><code>${esc(b)}</code></a>`
+               :`<code>${esc(b)}</code>`)
+             +(blay?`<div class="lay">+ ${blay.split(" ").map(x=>`<code>${esc(x)}</code>`).join(" ")}</div>`:"");
+    return `<tr><th>${bh}</th>${cells.join("")}</tr>`;};
   $("comboBody").innerHTML=CB.map(b=>row(b,"consonants")).join("")+VB.map(b=>row(b,"vowels")).join("");
 })();
 

@@ -196,14 +196,16 @@ The 12 core languages are the notation's target. **TR ET VI KO TA** are *witness
 languages that phonemically contrast a near-merge pair, forcing the point to stay distinct
 (Turkish locks `u`~`ɯ` kul/kıl; Estonian + Vietnamese lock `o`~`ɤ`; Tamil forces the
 `retroflex` MODIFIER — ʈ~t̪ eṭṭu/ettu, ɳ~n maṇam/manam, ɭ~l~ɻ vaḷi/vali/vaḻi — never new
-points). **ID FI HE FA NL UK** are
+points). **ID FI HE FA NL UK PL TH RO** are
 *coverage* languages — their inventories are subsets of the existing points + modifiers (folds:
-FI/FA æ→a, FA ɒ→ɑ, HE ʁ→ɣ, UK г entered as ɣ), added to grow the covering claim at zero
-structural cost. See the near-merge verdicts below.
+FI/FA æ→a, FA ɒ→ɑ, HE ʁ→ɣ, UK г entered as ɣ, PL ʑ→ʒ), added to grow the covering claim at zero
+structural cost. **Polish** is the three-way sibilant test: s ~ sz [ʂ] ~ ś [ɕ] = `s` ~ `sjx` ~ `sj`,
+the retroflex LAYER doing the work. **Thai** brings five tones (digits 1-5) and a three-way stop
+series via the existing `aspirated`. See the near-merge verdicts below.
 
 ## Current state
-61 fine-grained points → **49 general** (32 C · 17 V) after 12 merges, 0 merged contrasts, 734
-phoneme records, 23 languages (12 core + 5 witnesses + 6 coverage). **Every point is a base or base + ONE
+62 fine-grained points → **49 general** (32 C · 17 V) after 13 merges, 0 merged contrasts, 838
+phoneme records, 26 languages (12 core + 5 witnesses + 9 coverage). **Every point is a base or base + ONE
 operator** — no 2-operator points, no bi-vowels. NOT points (allophones or otherwise excluded):
 `ç` (German ich-laut, an allophone of `x`), `ɸ` (Japanese *fu*, allophone of `h`), `ɐ` (German
 `-er`), **Mandarin j/q/x `[tɕ tɕʰ ɕ]`** (allophones of the retroflex series), and **`ʌ`**

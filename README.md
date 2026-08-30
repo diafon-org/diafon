@@ -56,10 +56,10 @@ different `(point, modifiers)` pairs), and **the point/modifier boundary** (no p
 what a modifier already spells) — with zero accepted exceptions.
 
 ## Status
-**49 general points** (32 consonant · 17 vowel) folded from 61 fine-grained via 12 reviewed
-merges · 734 phonemes (23 languages) · 8 modifiers · **0 merged contrasts, 0 notation collisions**.
-23 languages: 12 core targets + 5 **witnesses** (Turkish, Estonian, Vietnamese, Korean, Tamil) that
-prove near-merge pairs stay distinct where a significant language contrasts them, + 6 coverage
+**49 general points** (32 consonant · 17 vowel) folded from 62 fine-grained via 13 reviewed
+merges · 838 phonemes (26 languages) · 8 modifiers · **0 merged contrasts, 0 notation collisions**.
+26 languages: 12 core targets + 5 **witnesses** (Turkish, Estonian, Vietnamese, Korean, Tamil) that
+prove near-merge pairs stay distinct where a significant language contrasts them, + 9 coverage
 languages whose inventories are subsets of the existing points.
 The uni Latin-diacritics view is fully specified (`docs/uni-view.md`) and set in the
 **Diaphone font** (a Noto Serif derivative, SIL OFL — `scripts/build_font.py`); the macOS

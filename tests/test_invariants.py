@@ -106,7 +106,7 @@ def test_points_nonempty_and_typed():
 
 def test_every_language_loads():
     _, languages, *_ = _run()
-    assert len(languages) == 23   # 12 core + 5 witnesses (TR ET VI KO TA) + 6 coverage (ID FI HE FA NL UK)
+    assert len(languages) == 26   # 12 core + 5 witnesses (TR ET VI KO TA) + 9 coverage (ID FI HE FA NL UK PL TH RO)
 
 
 def test_removed_allophones_absent():
@@ -151,9 +151,9 @@ def test_general_inventory_ledger():
     """The merge ledger folds cleanly (apply_merges asserts safety)."""
     points = _run()[3]
     general, folded = apply_merges(points)
-    assert len(folded) == 12, [f[0] for f in folded]
+    assert len(folded) == 13, [f[0] for f in folded]
     assert len(general) == len(points) - len(folded)
-    assert len(general) == 49, len(general)   # 61 fine - 12 merges (ʌ→ə, ɒ→ɔ, ɻ→r among them)
+    assert len(general) == 49, len(general)   # 62 fine - 13 merges (ʌ→ə, ɒ→ɔ, ɻ→r among them)
     assert ("V", "open", "back", True) not in general             # ɒ folded into ɔ
     # source points are gone; targets remain
     assert ("C", "dental", "plosive", "vl") not in general        # t̪ folded into t
@@ -181,7 +181,7 @@ def test_covering_graph_structure():
     tos = [e["to"] for e in g["edges"]["derivation"]]
     assert sorted(tos) == sorted(multi)
     assert all(e["from"] in set(labels) for e in g["edges"]["derivation"])
-    assert len(g["edges"]["fold"]) == 12
+    assert len(g["edges"]["fold"]) == 13
     assert all(f["to"] in set(labels) for f in g["edges"]["fold"])
     pairs = [(e["a"], e["b"]) for e in g["edges"]["adjacency"]]
     assert len(pairs) == len(set(pairs)) and all(a != b for a, b in pairs)
