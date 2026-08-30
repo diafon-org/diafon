@@ -176,6 +176,32 @@ default; lazy never changes the point set.
   the aspirated stops `p/t/k` (they clash with the notation, where p/t/k are the *lenis* series) — so
   canonical still decodes in lazy mode; use `py/ty/ky` for aspirated stops. Canonical files stay pure.
 
+## Adding a language
+**THE CLAIM IS PHONEMIC, NOT PHONETIC.** The system aims at universality in the *phonemic* sense:
+what a language CONTRASTS. Phonetic analysis is the instrument, not the target — it is how we find
+the right balance (which distinctions a language actually uses, and which are realisation), and it
+is never the thing being encoded. That is why /c/ and /tʲ/ are one point, why `sj` covers ʃ, ʂ and ɕ
+in different languages, and why Russian ш, Mandarin sh and Tamil ஷ are all the unmarked hush point
+even though all three are [ʂ]. A phonetic difference earns structure only when some language uses it
+to keep two words apart. Corollary, learned the hard way: a candidate drafted under the WRONG
+analysis produces a confident, wrong verdict — the first Polish draft entered ś as an alveolo-palatal
+POINT and "broke" the ledger; entered as the coronals + palatalized, the way Russian's soft series
+already is, Polish is free. Ask which analysis THIS system's rules imply before drafting.
+
+The procedure:
+1. Draft `data/languages/<code>.yaml`. Allophones go in `note`, never as entries — points come from
+   contrastive units only. Use the modifier series (`long_series`, `secondary_series`, `mod:`) rather
+   than spelling out derived forms.
+2. `python3 scripts/lang_delta.py --add <file>` — a dry-run in a temp mirror; `data/` is untouched.
+   **COVERAGE** = a subset (free) · **WITNESS** = it forces a point, a modifier or a lock ·
+   **BREAKS** = a merged contrast or a ledger fold that no longer holds, i.e. a decision to make.
+3. If it BREAKS, do not "fix" it by deleting a phoneme — either the analysis is wrong (see above) or
+   the grid is too coarse and wants a new feature or modifier.
+4. `diaphone --strict` and `pytest`, then the ports (`make -C mac check`, `node scripts/check_js.mjs`)
+   and the page.
+5. Record it in "Witness and coverage languages" with what it earns — and record the reservation too
+   if the call was arguable. A decision with its objection written next to it does not get relitigated.
+
 ## Data conventions
 - `data/languages/*.yaml` short keys: `pl mn vc` (consonant place/manner/voice),
   `hi bk rd` (vowel height/backness/round), `orth` native spelling, `st` status
@@ -194,18 +220,36 @@ default; lazy never changes the point set.
 ## Witness and coverage languages
 The 12 core languages are the notation's target. **TR ET VI KO TA** are *witnesses* — significant
 languages that phonemically contrast a near-merge pair, forcing the point to stay distinct
-(Turkish locks `u`~`ɯ` kul/kıl; Estonian + Vietnamese lock `o`~`ɤ`; Tamil forces the
-`retroflex` MODIFIER — ʈ~t̪ eṭṭu/ettu, ɳ~n maṇam/manam, ɭ~l~ɻ vaḷi/vali/vaḻi — never new
-points). **ID FI HE FA NL UK PL TH RO** are
+(Tamil forces the `retroflex` LAYER — ʈ~t̪ eṭṭu/ettu, ɳ~n maṇam/manam, ɭ~l~ɻ vaḷi/vali/vaḻi;
+**Czech forces the one new manner value**, see below; Estonian + Vietnamese lock `o`~`ɤ` JOINTLY,
+neither alone). Audited with `lang_delta --drop`, and one entry there is wrong in a way worth
+keeping visible: **Turkish is credited with locking `u`~`ɯ` (kul/kıl), but the mechanical lock is
+JAPANESE** — JA's /w/ is a nonsyllabic *rounded* close back vowel (the /u/ point) while う is /ɯ/,
+so JA carries both points and the pair can never merge. Turkish's contrast is the witness-principle
+justification; Japanese is what makes it unmergeable. **ID FI HE FA NL UK PL TH RO CS** are
 *coverage* languages — their inventories are subsets of the existing points + modifiers (folds:
 FI/FA æ→a, FA ɒ→ɑ, HE ʁ→ɣ, UK г entered as ɣ, PL ʑ→ʒ), added to grow the covering claim at zero
 structural cost. **Polish** is the three-way sibilant test: s ~ sz [ʂ] ~ ś [ɕ] = `s` ~ `sjx` ~ `sj`,
 the retroflex LAYER doing the work. **Thai** brings five tones (digits 1-5) and a three-way stop
-series via the existing `aspirated`. See the near-merge verdicts below.
+series via the existing `aspirated`.
+
+**Czech ř — reviewed twice, and it costs NOTHING.** /r̝/ is a trill and a non-sibilant fricative
+pronounced *simultaneously*, contrasting with r, with ʒ, and with both sequences: **řád** ~ **rád** ~
+**žrát** ~ **ržát**. It is not a cluster. But phonemically Czech needs exactly ONE more rhotic than
+plain r, and `rj` — the modified r — is free in Czech, which has no soft r. So ř takes it, and
+`rj` reads as THE MODIFIED R: [rʲ] in RU/UK, [r̝] in CS, with nothing anywhere contrasting the two.
+This is the same reuse as **Korean fortis on `long`** ("fortis ≈ length — no language contrasts
+them, so `long` is free"): a modifier slot standing in for a different gesture where no contrast is
+at stake. The first attempt gave ř its own manner value `fricative-trill` and the point `rq` (glyph
+r͈) — phonetically exact, and rejected on review because it bought no contrast anywhere and the
+phonetics is not what this system encodes. The IPA target prints rʲ for Czech ř, exactly as it
+prints length for Korean fortis; the phonetics lives in the `note`.
+
+See the near-merge verdicts below.
 
 ## Current state
-62 fine-grained points → **49 general** (32 C · 17 V) after 13 merges, 0 merged contrasts, 838
-phoneme records, 26 languages (12 core + 5 witnesses + 9 coverage). **Every point is a base or base + ONE
+62 fine-grained points → **49 general** (32 C · 17 V) after 13 merges, 0 merged contrasts, 875
+phoneme records, 27 languages (12 core + 5 witnesses + 10 coverage). **Every point is a base or base + ONE
 operator** — no 2-operator points, no bi-vowels. NOT points (allophones or otherwise excluded):
 `ç` (German ich-laut, an allophone of `x`), `ɸ` (Japanese *fu*, allophone of `h`), `ɐ` (German
 `-er`), **Mandarin j/q/x `[tɕ tɕʰ ɕ]`** (allophones of the retroflex series), and **`ʌ`**
