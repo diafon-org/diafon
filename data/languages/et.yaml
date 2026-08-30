@@ -30,6 +30,8 @@ vowels:
 - {ipa: o, hi: close-mid, bk: back, rd: true}
 - {ipa: æ, hi: near-open, bk: front, rd: false, orth: ä}
 - {ipa: ɑ, hi: open, bk: back, rd: false, orth: a}
+# glides = nonsyllabic close vowels (labels ix/ux/icx via the x=reduce modifier)
+- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: j, note: jah/maja}
 long_series: [i, y, u, e, ø, ɤ, o, æ, ɑ]
 secondary_series:
 - type: palatalized

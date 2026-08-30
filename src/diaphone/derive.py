@@ -97,6 +97,8 @@ _CONFIRMED_CONTRAST = {
     frozenset(("c", "k")),    # Hungarian: palatal ty vs k
     frozenset(("ɟ", "g")),    # Hungarian: palatal gy vs g
     frozenset(("tʂ", "tɕ")),  # Mandarin: retroflex zh vs alveolo-palatal j
+    frozenset(("t",)),        # Tamil: dental த vs the alveolar t point (both canonically "t";
+                              #   ட is that alveolar point + the retroflex modifier)
     frozenset(("ħ", "h")),    # Arabic: pharyngeal vs glottal
     frozenset(("ʕ", "ʁ")),    # Arabic: pharyngeal ʿayn vs uvular ghayn
     frozenset(("ɨ", "i")),    # Vietnamese: central vs front close
@@ -110,6 +112,74 @@ _CONFIRMED_CONTRAST = {
     frozenset(("ʊ", "o")),    # German: lax ʊ vs close-mid o
     frozenset(("ʂ", "ɕ")),    # Mandarin: retroflex sh vs alveolo-palatal x
 }
+
+
+# A modifier that RELOCATES a segment: the feature it moves, and the value it moves to. These are
+# the only modifiers that can make a point redundant — length, aspiration, nasality and rhoticity
+# ride on top of a place/manner without relocating it, so they can never spell an existing point.
+# (feature index, value moved to, places it may move FROM). The last field matters: palatalization
+# is a SECONDARY articulation and does not relocate most segments — Russian /pʲ/ stays bilabial, and
+# the data enters it that way. Only on the CORONALS does the secondary palatal swallow the primary
+# place, which is why Hungarian ty and Russian ть are worth comparing and /pʲ/ and /c/ are not.
+_CORONAL = ("dental", "alveolar", "postalveolar")
+_MOD_RELOCATES = {
+    "palatalized":    (1, "palatal", _CORONAL),      # base tuple index 1 = place
+    "retroflex":      (1, "retroflex", _CORONAL),
+    "pharyngealized": (1, "pharyngeal", _CORONAL),
+}
+
+# Points a modifier already reaches, REVIEWED and kept distinct anyway. Keyed
+# (point_ipa, base_ipa, modifier). Empty until a decision is recorded here.
+_CONFIRMED_MODIFIER_DISTINCT = set()
+
+
+def find_modifier_redundant(points, all_ph, features, include_accepted=False):
+    """Points that an existing MODIFIER already spells — the blind spot the other finders share.
+
+    `_near_merges` compares a point to a point; `_suspicious_cooccurrence` compares a point to a
+    same-language neighbour. Neither ever compares a point to a *point plus a modifier*, so a point
+    can duplicate a combination the notation already writes and nothing notices.
+
+    The test is exact, not a distance heuristic: for a relocating modifier (see `_MOD_RELOCATES`),
+    take the attested base Q, move the feature the modifier moves, and ask whether the result IS a
+    point P. If it is, and no language has both P and Q+modifier, then nothing holds them apart.
+    Feature distance alone is useless here — it would pair /b/ with /p/+aspirated, which differ on
+    an axis aspiration does not touch — and neither does a bare relocation rule, which would claim
+    Russian /pʲ/ and /kʲ/ reach /c/. They do not; see `_MOD_RELOCATES`.
+
+    This is the witness principle applied across the point/modifier boundary. The system is
+    PHONEMIC: that /c/ and /tʲ/ are made differently is a phonetic fact it does not encode, and no
+    basis for two points when no language contrasts them.
+
+    Returns [(point_ipa, base_ipa, modifier, langs_of_point, langs_of_combination)].
+    """
+    bare, modded = {}, {}                       # base tuple -> langs ; (base, mod) -> langs
+    for code, phs in all_ph.items():
+        for ph in phs:
+            if ph["mods"]:
+                for m in ph["mods"]:
+                    modded.setdefault((ph["base"], m), set()).add(code)
+            else:
+                bare.setdefault(ph["base"], set()).add(code)
+    out = []
+    for (q_base, m), qm_langs in modded.items():
+        moved = _MOD_RELOCATES.get(m)
+        if moved is None or q_base[0] != "C":
+            continue
+        idx, value, from_places = moved
+        if q_base[idx] not in from_places:
+            continue
+        p_base = q_base[:idx] + (value,) + q_base[idx + 1:]
+        if p_base == q_base or p_base not in bare:
+            continue                            # the modifier reaches nothing we call a point
+        if bare[p_base] & qm_langs:             # a language holds them apart — a real contrast
+            continue
+        key = (points[p_base]["canonical_ipa"], points[q_base]["canonical_ipa"], m)
+        if not include_accepted and key in _CONFIRMED_MODIFIER_DISTINCT:
+            continue
+        out.append((*key, sorted(bare[p_base]), sorted(qm_langs)))
+    out.sort()
+    return out
 
 
 def _suspicious_cooccurrence(points, all_ph, features, max_rare=2):

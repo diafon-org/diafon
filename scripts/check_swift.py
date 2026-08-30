@@ -15,31 +15,30 @@ BIN, ENGINE = sys.argv[1], sys.argv[2]
 
 CORPUS = [
     "sjok sewp njawr", "kecsecnecm sewpejn", "acswonj", "hoswuw", "ejdj nacdj kutjac",
-    "ejdj kisj kutjac aclsik acz acstacl aclactt", "pjatj", "sjj zjj kc gc", "ty dy sy zy",
-    "h hj hc hq", "baqd", "dxax kat sijts acn dxax mat", "sji sejlz fijsj",
-    "sjan1 kxaxn3 kau1", "tqonx1 kuo2 tqha2 kxaxn3 kxau3", "tqi1 sji1 tquc1 sjuc4",
-    "nic3", "de5", "raxn2", "alma kert", "ni3 hao3", "zhong1 guo2", "xiao3", "cai4",
+    "ejdj kisj kutjac aclsik acz acstacl aclactt", "pjatj", "sjj zjj py ky", "tyy dyy syy zyy", "tqonx1kuo2 niu2nai3", "txx nxx lx rx tj dj nj lj pj kj", "TW Tw SJOKK h hx hj hq ax", "SJOK SEWP NJAWR HOSWUW DXAX", "iu3 ui4 un2 u3 i1 ican2 puo1 aq2",
+    "h hx hj hq", "Hqalif hqalif HQALIF", "r rc rj rx aq", "baqd", "dxax kat sijts acn dxax mat", "sji sejlz fijsj",
+    "sjan1 kxaxn3 kau1", "tqonx1 kuo2 tqya2 kxaxn3 kxau3", "tqi1 sji1 tquc1 sjuc4",
+    "nic3", "de5", "de0", "raxn2", "hacix ixow fiuw", "ixejs uxejst", "ix ux icx ucx", "sjiau3 liu2 tou1", "alma kert", "ni3 hao3", "zhong1 guo2", "xiao3", "cai4",
     "berd werld show boy law", "dhuh kat sijts awn dhuh flawr",
     "Sjok Sewp Njawr", "Acswonj SJOK", "Dhuh kat Sijts", "Sjan1 kxaxn3",
     "wo3 xi3huan1 pin1yin1, ni3 ne5?", "the kisj kutjac aclsik and zhong1 guo2",
     "Hello vilawg! ta1 kan4 v2 x1 item stays",
 ]
-UNIVERSAL = ["native", "ipa", "native-hu", "native-zh"]
+UNIVERSAL = ["uni", "ipa"]
 LANGS = ["hu", "zh", "en"]
 
 cases = []
 for text in CORPUS:
     for tgt in UNIVERSAL:
-        want = render(text, tgt, "data")
-        for mode in ("batch", "stream"):
-            cases.append((mode, tgt, "0", text, want))
-    want_auto = render(text, "auto", "data")
-    for mode in ("batch", "stream"):
-        cases.append((mode, "auto", "0", text, want_auto))
+        # level 0 = plain · 1 = tone signs on (uni only; a no-op level is skipped for ipa)
+        for level in (("0", "1") if tgt == "uni" else ("0",)):
+            want = render(text, tgt, "data", tones=level == "1")
+            for mode in ("batch", "stream"):
+                cases.append((mode, tgt, level, text, want))
     for lg in LANGS:
-        # level 0 = strict · 1 = loose input · 2 = loose input + dictionary (EN only)
-        for level in (("0", "1", "2") if lg == "en" else ("0", "1")):
-            want = render(text, lg, "data", lazy=level >= "1", endict=level == "2")
+        # level 0 = strict · 1 = loose input
+        for level in ("0", "1"):
+            want = render(text, lg, "data", lazy=level == "1")
             for mode in ("batch", "stream"):
                 cases.append((mode, lg, level, text, want))
 

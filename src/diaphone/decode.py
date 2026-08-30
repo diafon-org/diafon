@@ -3,69 +3,101 @@
 The notation is the language-neutral intermediate (base + one operator per point). Each language
 carries a reverse map in `data/orth/<lang>.yaml` (label -> grapheme); the decoder tokenises a word
 into labels by greedy longest-match against that language's own label set, maps each to its
-grapheme, then applies the language's small assembly rules (glide spelling, Pinyin finals).
+grapheme, then applies the language's small assembly rules (glide spelling, Pinyin finals). The
+assembly rules are DATA, not code: an ordered `_rules` list in the same orth file (first match wins,
+schema documented there), interpreted generically by `_rule_grapheme` — so a new language target is
+pure YAML. Only two things stay code: the notation-level `w`-gemination (language-independent) and
+the Mandarin tone-digit machinery (data-driven via `_TONE_MARKS`).
 
 Regular orthographies round-trip exactly (Hungarian) or up to finals+tone (Pinyin). English is
-non-phonemic, so it recovers a faithful *pronunciation spelling*, not the dictionary spelling.
+non-phonemic, so its target is a faithful *pronunciation spelling* (a respelling), nothing more.
 """
 import os
 import yaml
 
 VOWELS = set("aeiou")
 
-# Mandarin retroflex/alveolo-palatal series: (spelling before non-front vowel, spelling before front i/ü).
-# We merged Pinyin j/q/x into zh/ch/sh as allophones, so the following vowel decides the spelling.
-_ZH_RETRO = {"tq": ("zh", "j"), "tqh": ("ch", "q"), "sj": ("sh", "x")}
+def _orth_file(lang, data_dir="data"):
+    with open(os.path.join(data_dir, "orth", f"{lang}.yaml"), encoding="utf-8") as f:
+        return yaml.safe_load(f)
 
-# Lazy-mode shortcuts, per language: {alias_label: grapheme}. Applied (overriding the canonical map)
-# only when decode(..., lazy=True). The canonical orth file stays the source of truth; lazy is an
-# opt-in typing convenience layered on top.
-#   HU: no cardinal /a/,/e/, so bare a,e are free to spell /ɒ/,/ɛ/.
-#   ZH: "type Pinyin". The initials/finals below spell themselves literally, so `xiao`=xiǎo, `shi`=shì,
-#       `zhong`=zhōng, `zao`=zǎo, `cai`=cài. The one Pinyin letter set NOT added is the aspirated stops
-#       p/t/k — those clash with the notation (where p/t/k are the *lenis* series), so canonical still
-#       works in lazy mode; for aspirated stops use the notation ph/th/kh. m/n/l/f/s/b/d/g coincide.
-LAZY_ALIASES = {
-    "hu": {"a": "a", "e": "e"},
-    "zh": {"b": "b", "d": "d", "g": "g", "z": "z", "c": "c", "zh": "zh", "ch": "ch",
-           "sh": "sh", "r": "r", "j": "j", "q": "q", "x": "x", "h": "h", "e": "e", "o": "o"},
-    # EN simplified input: the familiar digraphs (+ bare j/y/w — all free letters in English, which
-    # has no length, nasal vowels or emphatics), and the orthographic vowel digraphs (ee see, er bird,
-    # ay day, ow show, aw law, oy boy, oo moon, uh the). Values are the respell graphemes; EN_CANON
-    # below maps the same aliases to canonical labels so the dictionary can look up either spelling.
-    "en": {"sh": "sh", "ch": "ch", "zh": "zh", "ng": "ng", "th": "th", "dh": "th",
-           "j": "j", "y": "y", "w": "w",
-           "ee": "ee", "oo": "oo", "er": "er", "ay": "ay", "ow": "ow", "aw": "aw",
-           "oy": "oy", "uh": "u"},
-}
 
-# alias -> canonical label(s), for normalising loosely-typed EN before a dictionary lookup
-EN_CANON = {"sh": "sj", "ch": "tq", "zh": "zj", "ng": "nx", "th": "tx", "dh": "dx",
-            "j": "dq", "y": "i", "w": "u",
-            "ee": "i", "oo": "u", "er": "aq", "ay": "e", "ow": "o", "aw": "oj",
-            "oy": "oji", "uh": "ax"}
+def load_lazy(lang, data_dir="data"):
+    """The language's loose-input shortcuts (`_lazy` in its orth file; {} if none).
+
+    DATA, not code: a language's whole target — canonical map, loose shortcuts, context rules,
+    adoption groups — lives in one YAML file, so an expert can tweak the shortcuts without touching
+    Python and the export carries them unchanged. They are opt-in overlays; the canonical map stays
+    the source of truth and still decodes in loose mode.
+    """
+    return _orth_file(lang, data_dir).get("_lazy", {})
+
+
+def load_groups(lang, data_dir="data"):
+    """Adoption groups (`_groups`): {group name: [labels]}. A group is the set of native spellings a
+    learner switches off together; switching every group off lands exactly on the universal view."""
+    return _orth_file(lang, data_dir).get("_groups", {})
 
 
 def load_orth(lang, data_dir="data", lazy=False):
-    with open(os.path.join(data_dir, "orth", f"{lang}.yaml"), encoding="utf-8") as f:
-        orth = {k: v for k, v in yaml.safe_load(f).items()}
+    orth = {k: v for k, v in _orth_file(lang, data_dir).items() if not k.startswith("_")}  # _ = meta
     if lazy:
-        orth = {**orth, **LAZY_ALIASES.get(lang, {})}   # lazy shortcuts win over canonical labels
+        orth = {**orth, **load_lazy(lang, data_dir)}    # lazy shortcuts win over canonical labels
     return orth
 
 
-_EN_DICT_CACHE = {}
+def load_rules(lang, data_dir="data"):
+    """The language's ordered context rules (`_rules` in its orth file; [] if none — e.g. EN)."""
+    return _orth_file(lang, data_dir).get("_rules", [])
 
 
-def en_dict(data_dir="data"):
-    """The EN loose-view dictionary: notation word -> real English spelling (data/en_dict.json,
-    built by scripts/build_en_dict.py from CMUdict x word frequency). Keys are notation as typed."""
-    if data_dir not in _EN_DICT_CACHE:
-        import json
-        with open(os.path.join(data_dir, "en_dict.json"), encoding="utf-8") as f:
-            d = json.load(f)
-        _EN_DICT_CACHE[data_dir] = {k: v for k, v in d.items() if not k.startswith("__")}
-    return _EN_DICT_CACHE[data_dir]
+def resolve_off(off, lang, data_dir="data"):
+    """Expand a profile's switched-off names into the set of LABELS they cover.
+
+    A name is either an adoption group (from `_groups`) or a bare label. This is the user's
+    adoption state: everything named here reverts from the native spelling to the universal glyph.
+    """
+    groups = load_groups(lang, data_dir)
+    out = set()
+    for name in off or ():
+        out |= set(groups.get(name, [name]))
+    return out
+
+
+def apply_profile(orth, off_labels, all_ph=None, features=None, data_dir="data"):
+    """Replace each switched-off label's native grapheme with its UNIVERSAL glyph.
+
+    The fallback is deliberately the uni glyph and not the bare label, so that switching every
+    group off lands exactly on the uni view — adoption is one continuous scale from a language's
+    own spelling to the universal one, with no third thing at the end.
+    """
+    if not off_labels:
+        return orth
+    from .uni import uni_labels                      # local: uni imports from this module
+    from .loader import load
+    if all_ph is None:
+        features, _languages, all_ph = load(data_dir)
+    glyphs = uni_labels(all_ph, features, data_dir)
+    return {k: (glyphs.get(k, v) if k in off_labels else v) for k, v in orth.items()}
+
+
+def _rule_grapheme(rules, t, prv, nxt, k):
+    """First matching rule's grapheme, or None. A rule matches when its token equals `t` and every
+    context field it names holds: next (nxt in list) · prev (prv in list) · next_vowel · first."""
+    for r in rules:
+        if r["t"] != t:
+            continue
+        if "next" in r and nxt not in r["next"]:
+            continue
+        if r.get("next_vowel") and not _is_vowel(nxt):
+            continue
+        if "prev" in r and prv not in r["prev"]:
+            continue
+        if r.get("first") and k != 0:
+            continue
+        return r["g"]
+    return None
+
 
 
 def tokenize(word, labels):
@@ -86,8 +118,22 @@ def tokenize(word, labels):
 
 
 def _cap(g):
-    """Capitalise the first character of a grapheme string (combining marks ride along)."""
-    return g[:1].upper() + g[1:] if g else g
+    """Capitalise a grapheme string: the first character that HAS a capital takes it, so a caseless
+    lead passes it on — `'` /ʔ/ gives 'Alif, not 'alif. This is the Hawaiian ʻokina rule (ʻOahu),
+    and the only sensible one: the apostrophe has no capital form but the word still needs one.
+    Combining marks ride along with their base."""
+    for i, ch in enumerate(g):
+        if ch.upper() != ch:
+            return g[:i] + ch.upper() + g[i + 1:]
+    return g
+
+
+def apply_cap(g, up):
+    """Capitalise one grapheme; returns (glyph, unresolved). `unresolved` means the glyph has no
+    capital form — the apostrophe /ʔ/ — so the caller carries the capital to the NEXT glyph: 'Alif,
+    not 'alif. Same rule Hawaiian uses for the ʻokina (ʻOahu)."""
+    capped = up(g)
+    return capped, capped == g
 
 
 def tokenize_cased(word, labels):
@@ -128,137 +174,56 @@ def _apply_tone(pinyin, tone):
     return s
 
 
-def decode_word(word, orth, lang):
+def decode_word(word, orth, lang, rules=(), tones=True):
     tone = None
-    if lang == "zh" and len(word) > 1 and word[-1] in "012345":
+    if tones and lang == "zh" and len(word) > 1 and word[-1] in "012345":
         tone, word = int(word[-1]), word[:-1]          # trailing digit on a syllable = its tone
     toks, caps = tokenize_cased(word, orth.keys())
-    out = []
+    shout = word.isupper()                            # ALL-CAPS uppercases whole graphemes (SZ, not Sz)
+    up = str.upper if shout else _cap
+    out, pending = [], False
     for k, t in enumerate(toks):
         nxt = toks[k + 1] if k + 1 < len(toks) else None
         prv = toks[k - 1] if k else None
         if t == "w" and out:                          # long: geminate the previous grapheme.
             out[-1] = out[-1][0] + out[-1]            #   double its first letter — sz->ssz, t->tt (Hungarian rule)
             continue                                  #   (long *vowels* arrive as one label, aw=á, never a bare w)
-        g = orth.get(t, t)
-        if lang == "hu" and t == "i" and _is_vowel(nxt):
-            g = "j"                                   # i-glide onset -> j  (iow -> jó)
-        elif lang == "zh":
-            if t in _ZH_RETRO:
-                # the merged retroflex/alveolo-palatal series spells j/q/x before a front vowel
-                # (i or ü), zh/ch/sh otherwise — the Pinyin allophone split we folded away.
-                g = _ZH_RETRO[t][nxt in ("i", "ic")]
-            elif t == "ic" and prv in _ZH_RETRO:
-                g = "u"                               # ü is written "u" after j/q/x (ju, qu, xu)
-            elif t == "i" and k == 0 and _is_vowel(nxt):
-                g = "y"                               # i-glide onset -> y-
-            elif t == "u" and prv == "a":
-                g = "o"                               # -u offglide spells "o" only after a: au->ao,
-                                                      #   but ou stays "ou" and medial u (uo) stays "u"
-                                                      # (apical vowel `uc` -> "i" comes from the orth map)
-        out.append(_cap(g) if caps[k] else g)
+        g = _rule_grapheme(rules, t, prv, nxt, k)     # the language's context rules (orth-file `_rules`)
+        if g is None:
+            g = orth.get(t, t)
+        if caps[k] or pending:                        # a caseless glyph passes the capital along
+            g, pending = apply_cap(g, up)
+        out.append(g)
     result = "".join(out)
     return _apply_tone(result, tone) if tone is not None else result
 
 
-# Unified-mode accent combos (Hungarian typed TRADITIONALLY — sz/ny/gy literal — plus these) and
-# their doubling escapes for English words that contain a combo (neww -> new, musicc -> music).
-_AUTO_ACC = {"ecw": "ő", "icw": "ű", "aw": "á", "ew": "é", "iw": "í", "ow": "ó", "uw": "ú",
-             "ec": "ö", "ic": "ü"}
-_AUTO_ESC = {"aww": "aw", "eww": "ew", "iww": "iw", "oww": "ow", "uww": "uw",
-             "icc": "ic", "ecc": "ec"}
-_AUTO_KEYS = sorted({**_AUTO_ACC, **_AUTO_ESC}, key=len, reverse=True)
+def decode(text, lang, data_dir="data", lazy=False, off=()):
+    """Notation -> a language's spelling, under the reader's own adoption profile.
 
-
-def _auto_accents(seg):
-    """Apply the accent combos (case-carrying) to a letter run; everything else passes."""
-    out, i = "", 0
-    while i < len(seg):
-        low = seg.lower()
-        for k in _AUTO_KEYS:
-            if low.startswith(k, i):
-                g = _AUTO_ESC.get(k) or _AUTO_ACC[k]
-                out += _cap(g) if seg[i].isupper() else g
-                i += len(k)
-                break
-        else:
-            out += seg[i]
-            i += 1
-    return out
-
-
-def decode_auto(text, data_dir="data"):
-    """The UNIFIED mode — English, traditional Hungarian and Pinyin in one stream, no wordlist:
-      · everything passes through as typed, EXCEPT
-      · the accent combos aw ew iw ow uw ec ic (+ w for the long ő ű) -> á é í ó ú ö ü ő ű,
-        escaped by doubling the operator where English collides (neww -> new, musicc -> music);
-      · a chunk closed by a tone digit (1-5) is REAL Pinyin (p/t/k literal) if it reads as one
-        (has a vowel, all tokens known) — ma1 -> mā; a doubled digit escapes (item22 -> item2).
-    Hungarian consonants are typed traditionally (sz ny gy ...); the phonemic notation lives in
-    the dedicated HU mode."""
-    zh = {**load_orth("zh", data_dir, lazy=True),
-          "p": "p", "t": "t", "k": "k", "w": "w", "y": "y"}   # + the Pinyin glide letters
-    out, buf = [], ""
-
-    def flush():
-        nonlocal buf
-        if buf:
-            out.append(_auto_word(buf, zh))
-            buf = ""
-    for ch in text:
-        if ch.isalnum():
-            buf += ch
-        else:                                   # space & punctuation are boundaries
-            flush()
-            out.append(ch)
-    flush()
-    return "".join(out)
-
-
-def _auto_word(buf, zh):
-    out, seg, i = "", "", 0
-    while i < len(buf):
-        ch = buf[i]
-        if ch in "12345":
-            if i + 1 < len(buf) and buf[i + 1] == ch:       # doubled digit = escape, keep raw
-                out += seg + ch
-                i += 2
-            elif seg and any(c in VOWELS for c in seg.lower())                     and all(t in zh for t in tokenize(seg.lower(), zh.keys())):
-                out += decode_word(seg + ch, zh, "zh")      # reads as Pinyin: convert
-                i += 1
-            else:
-                out += seg + ch                             # v2, x1, plain numbers: keep raw
-                i += 1
-            seg = ""
-        else:
-            seg += ch
-            i += 1
-    return out + _auto_accents(seg)
-
-
-def decode(text, lang, data_dir="data", lazy=False, endict=False):
-    """lazy = the language's loose INPUT (typing shortcuts). endict (EN only) = the dictionary
-    view: real spelling where known, respelling otherwise; typed aliases are canonicalised first,
-    so `shijp` and `sjijp` both find "ship"."""
-    use_aliases = lazy or (endict and lang == "en")
-    orth = load_orth(lang, data_dir, lazy=use_aliases)
-    d = en_dict(data_dir) if (endict and lang == "en") else None
+    TWO INDEPENDENT DIALS, each defaulting to the opposite end:
+      · INPUT  defaults to the UNIVERSAL notation. `lazy=True` layers on that language's opt-in
+        typing shortcuts (`_lazy`) — a single runtime switch, for flipping while typing.
+      · OUTPUT defaults to the language's OWN spelling, reached by simple rules and no dictionary.
+        `off` names the adoption groups (or bare labels) the reader has switched off; those revert
+        to the universal glyph. With every group off, the result IS the uni view.
+    """
+    off_labels = resolve_off(off, lang, data_dir)
+    tones = "tones" not in (off or ())        # a group that switches a code path, not a label set
+    orth = apply_profile(load_orth(lang, data_dir, lazy=lazy), off_labels, data_dir=data_dir)
+    rules = [r for r in load_rules(lang, data_dir)
+             if r.get("group") not in off and r.get("t") not in off_labels]
     words = []
     for w in text.split():
-        if d is not None:
-            key = "".join(EN_CANON.get(t, t) for t in tokenize(w.lower(), orth.keys()))
-            if key in d:
-                words.append(_cap(d[key]) if w[:1].isupper() else d[key])   # Dhuh -> The
-                continue
         if lang == "zh":
             piece, seg = "", ""
             for ch in w:                # any digit closes a syllable, mid-word too (zhong1guo2)
                 if ch.isdigit():
-                    piece += decode_word(seg + ch, orth, lang)
+                    piece += decode_word(seg + ch, orth, lang, rules, tones)
                     seg = ""
                 else:
                     seg += ch
-            words.append(piece + (decode_word(seg, orth, lang) if seg else ""))
+            words.append(piece + (decode_word(seg, orth, lang, rules, tones) if seg else ""))
         else:
-            words.append(decode_word(w, orth, lang))
+            words.append(decode_word(w, orth, lang, rules, tones))
     return " ".join(words)

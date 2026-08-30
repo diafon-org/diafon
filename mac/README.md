@@ -7,23 +7,17 @@ text in place. No compose/commit step. Design + streaming proof: `../docs/mac-in
 ## Build & install (Command Line Tools are enough — no Xcode)
 
 ```
-make check     # validate the Swift engine port against the Python CLI (480 cases must pass)
+make check     # validate the Swift engine port against the Python CLI (every case must pass)
 make install   # build, ad-hoc sign, copy to ~/Library/Input Methods
 ```
 
 Then: **System Settings → Keyboard → Input Sources → Edit… → +** → search **Diaphone** (listed
-under English) → add. Pick it in the menu-bar input menu and type — tap Shift once, and `sjok sewp njawr` should
-stream out as `sok szép nyár`.
+under English) → add. Pick it in the menu-bar input menu, choose the HU mode, and `sjok sewp njawr`
+should stream out as `sok szép nyár`.
 
-**The default mode is UNIFIED**: English, traditional Hungarian and Pinyin in one stream.
-Everything passes as typed except the accent combos (`aw ew iw ow uw ec ic`, `+w` for ő ű →
-á é í ó ú ö ü ő ű) and tone-digit Pinyin chunks (`zhong1guo2` → zhōngguó, real Pinyin — p/t/k
-literal). Where English collides, double the operator: `neww` → new, `musicc` → music,
-`item22` → item2. Hungarian consonants are typed traditionally (sz ny gy).
-
-A **bare Shift tap** toggles full pass-through (for code editors); the menu carries the other
-modes — HU notation · Mandarin · Native·HU · Native·ZH · Native · IPA — plus Loose input and
-the Shift-toggle switch. The phonemic-English mode lives in the CLI and web page only.
+**The default is pass-through** (a plain keyboard). Pick a conversion mode from the menu —
+Hungarian · Mandarin (Pinyin) · English (respell) · Uni (universal) · IPA — and a **bare Shift
+tap** toggles between it and pass-through. Switches: Loose input, Tone signs (uni), Shift-toggle.
 
 ## Layout
 

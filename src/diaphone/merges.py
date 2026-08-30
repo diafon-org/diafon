@@ -1,8 +1,8 @@
-"""Phase-2 merge ledger: the decided fusions of fine-grained points into the general inventory.
+"""Merge ledger: the decided fusions of fine-grained points into the general inventory.
 
 Each entry folds a `source` base tuple into a `target`; `recover` names the feature/diacritic
 that restores the source's realisation (None = sub-phonemic everywhere, no recovery mark needed).
-Every merge is witness-decided (see CLAUDE.md "Decision gate") and invariant-safe: no language
+Every merge is witness-decided (see CLAUDE.md "Decision principles") and invariant-safe: no language
 co-occurs a source with its target, so folding never collapses a within-language contrast —
 `apply_merges` asserts this.
 
@@ -26,10 +26,10 @@ LEDGER = [
     (("C", "uvular", "fricative", "vd"),     ("C", "velar", "fricative", "vd"),        None, "ʁ→ɣ; only exotic Tsakhur/Kabardian contrast them"),
     (("C", "alveolar", "approximant", "vd"), ("C", "retroflex", "approximant", "vd"), None,         "English ɹ ≈ Mandarin ɻ; no language contrasts them"),
     (("C", "retroflex", "approximant", "vd"), ("C", "alveolar", "trill", "vd"),       None,         "ɻ→r; retroflex is unmarked everywhere else (sibilants fold too), and no language has the retroflex approximant AND a trill/tap — EN/ZH ⟨r⟩ become the generic R slot. ɹ→ɻ→r"),
-    (("V", "near-open", "front", False),     ("V", "open", "central", False),        None,          "æ→a; no witness (Danish resolves to æ~back ɑ)"),
+    (("V", "near-open", "front", False),     ("V", "open", "central", False),        None,          "æ→a; no witness — FI ä and FA æ use the fold (their a is back ɑ, the Danish shape)"),
     (("V", "close", "central", False),       ("V", "close", "back", False),          "centralized", "ɨ→ɯ; no significant witness (major langs have one or the other)"),
     (("V", "open-mid", "back", False),        ("V", "mid", "central", False),         None, "ʌ→ə; Korean ㅓ ≈ schwa, English STRUT = stressed schwa — no language contrasts them"),
-    (("V", "open", "back", True),             ("V", "open", "back", False),           None, "ɒ→ɑ; HU short a is open back, sits next to ɑ (same openness) — only HU has ɒ, so this is safe. HU á/a = a/ac"),
+    (("V", "open", "back", True),             ("V", "open", "back", False),           None, "ɒ→ɑ; open back rounded → unrounded (HU short a, FA â) — no ɒ language has plain ɑ, so safe. HU á/a = a/ac"),
 ]
 
 

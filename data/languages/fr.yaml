@@ -17,9 +17,9 @@ consonants:
 - {ipa: ʁ, pl: uvular, mn: fricative, vc: vd, orth: r}
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd}
 - {ipa: n, pl: alveolar, mn: nasal, vc: vd}
-- {ipa: ɲ, pl: palatal, mn: nasal, vc: vd, orth: gn}
+- {ipa: ɲ, pl: alveolar, mn: nasal, vc: vd, mod: [palatalized], orth: gn}
 - {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
-# glides /j/ /w/ /ɥ/ removed — non-syllabic /i/ /u/ /y/, not consonant points
+# glides /j/ /w/ /ɥ/ = non-syllabic /i/ /u/ /y/ — vowel points + the nonsyllabic modifier, not consonant points
 vowels:
 - {ipa: i, hi: close, bk: front, rd: false}
 - {ipa: y, hi: close, bk: front, rd: true}
@@ -33,6 +33,10 @@ vowels:
 - {ipa: a, hi: open, bk: central, rd: false}
 - {ipa: ɑ, hi: open, bk: back, rd: false, st: marginal}
 - {ipa: ə, hi: mid, bk: central, rd: false}
+# glides = nonsyllabic close vowels (labels ix/ux/icx via the x=reduce modifier)
+- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: y, note: yeux/fille — paye /pɛj/ ~ pays /pei/ contrasts syllabicity}
+- {ipa: ɥ, hi: close, bk: front, rd: true, mod: [nonsyllabic], orth: u, note: huit/lui — the nonsyllabic /y/}
+- {ipa: w, hi: close, bk: back, rd: true, mod: [nonsyllabic], orth: ou, note: oui/moi}
 nasal_series: [e, a, o]   # ẽ ã õ — the French nasals as nasalised cardinals (simplified base).
                           # œ̃ dropped: brin~brun is merging into ɛ̃ across modern French, so we model
                           # the 3-way system (bon=õ, banc=ã, brin=ẽ). Re-add œ for conservative French.

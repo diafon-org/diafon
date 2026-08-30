@@ -11,9 +11,9 @@ MOD_DIA = {
     "nasal": "\u0303",       # combining tilde
     "palatalized": "ʲ",
     "pharyngealized": "ˤ",
-    "labialized": "ʷ",
     "aspirated": "ʰ",
     "rhotic": "\u02de",      # rhotic hook
+    "nonsyllabic": "\u032f",  # inverted breve below (glide = reduced close vowel)
 }
 
 

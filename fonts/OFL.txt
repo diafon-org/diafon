@@ -1,5 +1,7 @@
-Copyright (c) 1997-2022 SIL International (http://www.sil.org/)
-with Reserved Font Names "Charis" and "SIL".
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/latin-greek-cyrillic),
+with Reserved Font Name "Noto". Noto is a trademark of Google LLC.
+
+The Diaphone font is a derivative work of Noto Serif; the reserved font name is not used.
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:

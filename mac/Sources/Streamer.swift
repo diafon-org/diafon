@@ -16,19 +16,28 @@ protocol Streaming: AnyObject {
     func seed(_ notation: String)
 }
 
-/// Universal targets (native / ipa / native-hu / native-zh): pure token stream, hold <= 3 keys.
+/// Universal targets (uni / ipa): pure token stream, hold <= 3 keys — except with tone signs on
+/// (uni, opt-in), where the syllable is held until its tone digit (or a boundary) lands, because
+/// the sign marks an earlier vowel (same hold as the zh spelling).
 final class MapStreamer: Streaming {
     private let map: [String: String]
     private let labels: [String]
     private let toneSup: [String: String]
+    private let toneSigns: [String: String]
     private let useCaps: Bool                    // IPA has no capitals
+    private let useSup: Bool                     // superscript tone digits are IPA-only;
+    private let useTones: Bool                   //   native: plain digit, or tone sign when on
     private var pending = ""
-
-    init(target: String, eng: Engine) {
+    private var carriedCap = false               // a capital no caseless glyph (') could take,
+                                                 //   carried to the next glyph across drain calls
+    init(target: String, eng: Engine, tones: Bool = false) {
         map = eng.maps[target] ?? [:]
         labels = eng.labels(for: target)
         toneSup = eng.toneSup
+        toneSigns = eng.toneSigns
         useCaps = target != "ipa"
+        useSup = target == "ipa"
+        useTones = tones && target != "ipa"
     }
 
     var raw: String { pending }
@@ -37,14 +46,45 @@ final class MapStreamer: Streaming {
 
     func feed(_ c: Character) -> String {
         let s = String(c)
-        if c == " " || toneSup[s] != nil {
-            return drain(final: true) + (toneSup[s] ?? s)
+        if c == " " {
+            let out = drain(final: true) + s
+            carriedCap = false                            // word boundary
+            return out
+        }
+        if s == "0" || toneSup[s] != nil {
+            if useSup { return drain(final: true) + (toneSup[s] ?? s) }   // no superscript 0: literal
+            if useTones { return drainToned(digit: s) }
+            return drain(final: true) + s
         }
         pending.append(c)
-        return drain(final: false)
+        return useTones ? "" : drain(final: false)   // tone signs: hold the whole open syllable
     }
 
-    func flush() -> String { drain(final: true) }
+    func flush() -> String { let out = drain(final: true); carriedCap = false; return out }
+
+    /// Render the held segment with its tone sign applied (first vowel of the last vowel group).
+    private func drainToned(digit: String) -> String {
+        let (toks, g) = parts(pending)
+        pending = ""
+        var glyphs = g
+        let trail = applyToneSign(&glyphs, toks: toks, digit: digit, signs: toneSigns)
+        return glyphs.joined() + trail
+    }
+
+    private func parts(_ seg: String) -> (toks: [String], glyphs: [String]) {
+        let (toks, caps) = tokenizeCased(seg, labels: labels)
+        // an ALL-CAPS segment uppercases whole glyphs (TW -> TT, not Tt)
+        let shout = seg == seg.uppercased() && seg != seg.lowercased()
+        var pending = false                              // a caseless glyph passes the capital along
+        let glyphs = zip(toks, caps).map { t, c -> String in
+            let g = map[t] ?? t
+            guard useCaps, c || pending else { return g }
+            let cap = shout ? g.uppercased() : capFirst(g)
+            pending = (cap == g)
+            return cap
+        }
+        return (toks, glyphs)
+    }
 
     private func drain(final: Bool) -> String {
         var out = ""
@@ -54,14 +94,21 @@ final class MapStreamer: Streaming {
                 break                                     // could still grow into a longer label — hold
             }
             var matched = false
+            let shout = pending == pending.uppercased() && pending != low
             for L in labels where low.hasPrefix(L) {
                 let g = map[L] ?? L
-                out += (useCaps && (pending.first?.isUppercase ?? false)) ? capFirst(g) : g
+                if useCaps, (pending.first?.isUppercase ?? false) || carriedCap {
+                    let c = shout ? g.uppercased() : capFirst(g)
+                    carriedCap = (c == g)                 // caseless glyph: pass the capital along
+                    out += c
+                } else {
+                    out += g
+                }
                 pending.removeFirst(L.count)
                 matched = true
                 break
             }
-            if !matched { out.append(pending.removeFirst()) }
+            if !matched { out.append(pending.removeFirst()); carriedCap = false }
         }
         return out
     }
@@ -74,14 +121,12 @@ final class WordStreamer: Streaming {
     private let eng: Engine
     private let orth: [String: String]
     private let orthKeys: [String]
-    private let dict: Bool                       // EN dictionary view: hold the word, look it up at the boundary
     private var buf = ""
 
-    init(lang: String, loose: Bool, dict: Bool = false, eng: Engine) {
+    init(lang: String, loose: Bool, eng: Engine) {
         self.lang = lang
         self.eng = eng
-        self.dict = dict && lang == "en"
-        (orth, orthKeys) = eng.orthLabels(for: lang, loose: loose || (dict && lang == "en"))
+        (orth, orthKeys) = eng.orthLabels(for: lang, loose: loose)
     }
 
     var raw: String { buf }
@@ -95,7 +140,6 @@ final class WordStreamer: Streaming {
     func feed(_ c: Character) -> String {
         if c == " " { return flush() + " " }
         buf.append(c)
-        if dict { return "" }                    // dictionary view: the whole word commits at the boundary
         if lang == "zh" {
             if c.isNumber {                               // tone digit closes the syllable
                 let out = dec(buf)
@@ -123,52 +167,13 @@ final class WordStreamer: Streaming {
     }
 
     func flush() -> String {
-        var out = ""
-        if !buf.isEmpty {
-            if dict, let real = enDictLookup(buf, orthKeys: orthKeys, eng: eng) {
-                out = (buf.first?.isUppercase ?? false) ? capFirst(real) : real
-            }
-            else { out = dec(buf) }
-        }
+        let out = buf.isEmpty ? "" : dec(buf)
         buf = ""
         return out
     }
 }
 
-/// The unified mode: everything passes; accent combos + tone-digit Pinyin convert; doubling escapes.
-/// Word-at-a-time: the held word is the underlined tail; it commits at every boundary.
-final class UnifiedStreamer: Streaming {
-    private let eng: Engine
-    private let zh: [String: String]; private let zhKeys: [String]
-    private var buf = ""
-
-    init(eng: Engine) {
-        self.eng = eng
-        (zh, zhKeys) = zhUnified(eng)
-    }
-
-    var raw: String { buf }
-    func dropLastRaw() { if !buf.isEmpty { buf.removeLast() } }
-    func seed(_ notation: String) { buf += notation }
-
-    func feed(_ c: Character) -> String {
-        if c.isLetter || c.isNumber {
-            buf.append(c)
-            return ""
-        }
-        return flush() + String(c)                        // space & punctuation are boundaries
-    }
-
-    func flush() -> String {
-        guard !buf.isEmpty else { return "" }
-        let out = autoWord(buf, zh: zh, zhKeys: zhKeys, eng: eng)
-        buf = ""
-        return out
-    }
-}
-
-func makeStreamer(target: String, loose: Bool, dict: Bool = false, eng: Engine) -> Streaming {
-    if target == "auto" { return UnifiedStreamer(eng: eng) }
-    if eng.maps[target] != nil { return MapStreamer(target: target, eng: eng) }
-    return WordStreamer(lang: target, loose: loose, dict: dict, eng: eng)
+func makeStreamer(target: String, loose: Bool, tones: Bool = false, eng: Engine) -> Streaming {
+    if eng.maps[target] != nil { return MapStreamer(target: target, eng: eng, tones: tones) }
+    return WordStreamer(lang: target, loose: loose, eng: eng)
 }
