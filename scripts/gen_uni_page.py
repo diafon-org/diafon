@@ -357,16 +357,22 @@ def build():
     # MOVING REPRESENTATIONS: every exotic-slot label. The IPA shown anywhere for these is the
     # slot's CURRENT reading and is free to move when a new language overloads it — the registry
     # below is the authority, and the UI marks them all with ≈.
-    _EXO_MODS = {"aspirated", "pharyngealized", "retroflex", "ejective"}
-    moving = {"ty", "dy", "ny", "py"}              # the relabeled exotic points
+    # DATA-DRIVEN: a label is a moving representation when its tenants disagree on the IPA —
+    # the four relabeled exotic points (θ/tʰ/tʼ on ty …), every overloaded y/x form, AND the
+    # guest soft coronals (tj = HU c, RU tʲ). A form all of whose tenants agree (pj = pʲ only)
+    # is not marked. Bare POINTS are deliberately excluded: their realisation spread (r = r/ɹ/ʐ)
+    # is the slot principle itself, told once in the prose, not per-tile noise.
+    _tenants = {}
     for _code, _phs in all_ph.items():
         for _ph in _phs:
             _pl = _lab_of.get(_ph["base"])
-            if not _pl:
+            if not _pl or not _ph["mods"]:
                 continue
-            if (_ph["mods"] & _EXO_MODS) or ("palatalized" in _ph["mods"] and
-                                             _pl in ("s", "z", "tc")):
-                moving.add(_fl(_pl, _ph["mods"], _mods_map, DATA))
+            if _ph["kind"] == "V" and _ph["mods"] == frozenset({"long"}):
+                continue          # a long vowel's spread (aː/ɑː) is the point's own, not the form's
+            _tenants.setdefault(_fl(_pl, _ph["mods"], _mods_map, DATA), set()).add(_ph["ipa"])
+    moving = {"ty", "dy", "ny", "py"}              # the relabeled exotic points
+    moving |= {lab for lab, ipas in _tenants.items() if len(ipas) > 1}
 
     # THE EXOTIC REGISTRY for the page: each overloaded slot with every language's PRECISE IPA.
     from diaphone.notation import find_shared_labels as _fsl
@@ -381,6 +387,25 @@ def build():
             readings.append({"ipa": "/".join(_ipas), "langs": " ".join(_lgs)})
         exotic_rows.append({"lab": _lab, "nat": nat.get(_lab, "?"), "readings": readings})
 
+    # THE PER-LANGUAGE NOTATION REFERENCE: for every language, every phoneme with its PRECISE IPA
+    # (the language's own value, not the slot default), its label, uni glyph, and native spelling.
+    import yaml as _yaml
+    langs_ref = []
+    for _code in sorted(all_ph):
+        _y = _yaml.safe_load(open(os.path.join(DATA, "languages", _code.lower() + ".yaml"),
+                                  encoding="utf-8"))
+        rows = []
+        for _ph in all_ph[_code]:
+            _pl = _lab_of.get(_ph["base"])
+            if not _pl:
+                continue
+            _lab = _fl(_pl, _ph["mods"], _mods_map, DATA)
+            rows.append({"ipa": _ph["ipa"], "lab": _lab, "nat": nat.get(_lab, "?"),
+                         "orth": _ph.get("orth") or "", "k": _ph["kind"],
+                         "st": "" if _ph.get("st", "phonemic") == "phonemic" else _ph["st"]})
+        rows.sort(key=lambda r: (r["k"], r["lab"]))
+        langs_ref.append({"code": _code, "name": _y.get("name", _code), "rows": rows})
+
     keys = sorted(set(nat) | set(ipa), key=len, reverse=True)
     orth = {lg: load_orth(lg, DATA) for lg in ("hu", "zh", "en")}
     return {
@@ -394,6 +419,7 @@ def build():
         "modForms": mod_forms,
         "exotic": exotic_rows,
         "moving": sorted(moving),
+        "langsRef": langs_ref,
         "counts": {"C": (nC := sum(1 for c in cons if not c.get("guest"))), "V": len(vows),
                    "langs": len(languages),
                    "mods": len({m for phs in all_ph.values() for ph in phs for m in ph["mods"]}),
@@ -585,6 +611,12 @@ th .cipa{font-size:inherit;border-bottom:none}th .cipa code{color:var(--accent)}
 .exs{display:flex;flex-wrap:wrap;gap:.4rem;margin:.7rem 0 0}
 .exs button{border:1px dashed var(--line);background:transparent;color:var(--accent);border-radius:.5rem;padding:.3rem .55rem;font:.8rem var(--mono);cursor:pointer;text-align:left}
 .exs button:hover{border-style:solid}.exs .g{color:var(--muted);margin-left:.4rem;font-family:var(--sans)}
+.lref select{font:inherit;padding:.3rem .5rem;border:1px solid var(--line);border-radius:.4rem;background:var(--card);color:var(--ink)}
+.lref-t td{padding:.3rem .8rem}
+.lref-t .lipa{font-family:var(--serif);font-size:1.05rem;color:var(--ink)}
+.lref-t .lnat{font-family:var(--serif);font-size:1.05rem}
+.lref-t tr{cursor:pointer}.lref-t tbody tr:hover{background:var(--sunken)}
+.lref-t .lst{color:var(--muted);font-size:.72rem}
 .exs .r{font-family:var(--serif);font-size:.95rem;font-weight:500;color:var(--ink);display:block;
   overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .exs button{max-width:min(100%,34rem)}   /* a paragraph example is a BUTTON, not a reading pane */
@@ -633,7 +665,7 @@ footer a.fref{color:var(--accent);text-decoration:none;border-bottom:1px dotted 
     <span>each tile — <span style="font-family:var(--serif)"><b>uni glyph</b></span> · ipa (→ Wikipedia) · small <code>code</code> = input reference (section 2)</span>
     <span>gutturals: all on h — ḥ=<code>hx</code> (/ħ/) · h̦=<code>hj</code> (/ʕ/) · '=<code>hq</code> (/ʔ/: no glyph the marks can build, so a whole character)</span>
     <span>dashed = <b>phonemes that are not points</b> — the soft coronals (<code>tj</code>=ty, <code>nj</code>=ñ, and <code>rj</code> with its trill), and the glides (vowel + <code>x</code>); not in the counts</span>
-    <span>≈ = a <b>moving representation</b>: an exotic slot's IPA is its <i>current</i> reading, free to be overloaded by a new language — the exotic registry is the authority</span>
+    <span>two separate marks answer two separate questions — <b>dashed</b> = not a point (not in the 49: the soft coronals and the glides) · <b>≈</b> = the IPA shown is a <i>moving</i> representation, read per language (tj = HU c, RU tʲ; ty = EN θ, ZH tʰ, KA tʼ) — the exotic registry is the authority</span>
   </div>
   <h3 style="margin:1.2rem 0 0">The families, in words</h3>
   <div class="gloss" id="glossBody"></div>
@@ -712,6 +744,12 @@ footer a.fref{color:var(--accent);text-decoration:none;border-bottom:1px dotted 
     </div>
     <div class="outs" id="outs"></div>
     <div class="help"><p class="note" id="note"></p><div class="exs" id="exs"></div></div>
+
+    <h3 style="margin:1.6rem 0 0">Notation by language <span class="n">every phoneme — its own precise IPA, the label to type, the uni glyph, the native spelling. Click a row to add its label to the input above.</span></h3>
+    <div class="lref">
+      <select id="lrefSel"></select>
+      <div class="scroll" style="margin-top:.5rem"><table class="ops lref-t"><thead><tr><th>IPA</th><th>type</th><th>uni</th><th>native</th><th></th></tr></thead><tbody id="lrefBody"></tbody></table></div>
+    </div>
   <div id="aliasWrap">
   <h3 style="margin:1.4rem 0 0">EN simplified input <span class="n">loose-mode shortcuts — canonical codes always keep working</span></h3>
   <div class="scroll"><table class="ops"><thead><tr><th>you type</th><th>=</th><th>uni</th><th>as in</th></tr></thead><tbody id="aliasBody"></tbody></table></div>
@@ -937,6 +975,20 @@ function run(){const T=TARGETS.find(t=>t.key===CUR),H=D.help[CUR],v=$("in").valu
     let shown=inp;try{const r=T.rows(inp,$("li").checked,$("lv").checked);shown=r[r.length-1].v;}catch(e){}
     return `<button data-in="${esc(inp)}"><b class="r">${esc(shown)}</b><span class="g">${esc(gl)}</span></button>`;}).join("");
 }
+/* NOTATION BY LANGUAGE — the per-language reference. Each row: the language's own precise IPA,
+   the label to type, the uni glyph, the native spelling; click inserts the label into the input. */
+(function(){
+  const sel=$("lrefSel");
+  sel.innerHTML=(D.langsRef||[]).map((L,i)=>`<option value="${i}">${esc(L.name)} (${esc(L.code)})</option>`).join("");
+  function drawLang(){
+    const L=D.langsRef[+sel.value];if(!L)return;
+    $("lrefBody").innerHTML=L.rows.map(r=>`<tr data-lab="${esc(r.lab)}"><td class="lipa">/${esc(r.ipa)}/</td><td><code>${esc(r.lab)}</code></td><td class="lnat">${esc(r.nat)}</td><td>${esc(r.orth)}</td><td class="lst">${esc(r.st)}</td></tr>`).join("");
+  }
+  sel.addEventListener("change",drawLang);
+  $("lrefBody").addEventListener("click",e=>{const tr=e.target.closest("tr[data-lab]");if(!tr)return;
+    const v=$("in").value;$("in").value=(v&&!v.endsWith(" ")?v+" ":v)+tr.dataset.lab;run();});
+  drawLang();
+})();
 function draw(){$("tabs").innerHTML=TARGETS.map(t=>`<button class="tab${t.key===CUR?" on":""}" data-k="${t.key}">${esc(t.name)}</button>`).join("");}
 $("tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b){CUR=b.dataset.k;$("li").checked=false;$("lv").checked=!!TARGETS.find(t=>t.key===CUR).lvDefault;$("in").value=D.help[CUR].ex[0][0];draw();run();}});
 $("exs").addEventListener("click",e=>{const b=e.target.closest("button");if(b){$("in").value=b.dataset.in;run();}});
