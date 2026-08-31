@@ -20,7 +20,7 @@ point, one systematic char per modifier.
 - A **point** is a *base segment*: `(place, manner, voice)` for a consonant,
   `(height, backness, round)` for a vowel. Nothing else defines a point.
 - **Modifiers** — `long, nasal, palatalized, pharyngealized, aspirated,
-  rhotic, retroflex, nonsyllabic` — are stripped off to get the base. They ride on top and **never create
+  rhotic, retroflex, nonsyllabic, ejective, exotic` — are stripped off to get the base. They ride on top and **never create
   points** (the glides /j w ɥ ɰ/ are close-vowel points + `nonsyllabic`).
 - Two phonemes in different languages **share a point** iff their base tuples are equal.
   Two phonemes in the **same** language may share a point only if a modifier separates
@@ -276,9 +276,9 @@ voiced / aspirated / EJECTIVE; the aspirated series is the BARE voiceless point 
 English p t k, which are [pʰ tʰ kʰ]) and the ejective is the language's exotic: tʼ = `ty`, kʼ =
 `ky`, tsʼ = `tcy`, tʃʼ = `tqy`. No language pairs an ejective with θ / tʰ / pf on one base, so the
 slots never clash — but `ky` and `tqy` became OVERLOADED (they printed kʰ / tʃʰ as sole tenants
-until KA), which is why the ipa target's overloaded set is now DERIVED from the registry, never
-hand-listed. `ejective` joins the modifiers (9) as a data-honest name riding the exotic letter —
-zero new notation. The uvular ყ is ejective-only [qʼ] with no plain q, so it is the BARE `kq`
+until KA, an *invisible* default that went stale), which is what the STATED-DEFAULT rule fixed:
+kʰ / tʃʰ stay the declared defaults, kʼ / tʃʼ are registry overrides. `ejective` joins the
+modifiers as a data-honest name riding the exotic letter — zero new notation. The uvular ყ is ejective-only [qʼ] with no plain q, so it is the BARE `kq`
 point (slot principle). KA counts as a WITNESS: it forces the modifier, though no glyph or letter.
 
 **Swahili — the first Niger-Congo language, and the slot principle's cleanest win.** The famous
@@ -326,8 +326,8 @@ prints length for Korean fortis; the phonetics lives in the `note`.
 See the near-merge verdicts below.
 
 ## Current state
-62 fine-grained points → **49 general** (32 C · 17 V) after 13 merges, 0 merged contrasts, 1068
-phoneme records, 32 languages (12 core + 6 witnesses + 14 coverage). **Every point is a base or base + ONE
+58 fine-grained points → **45 general** (28 C · 17 V) after 13 merges, 0 merged contrasts, 1068
+phoneme records, 32 languages (12 core + 6 witnesses + 14 coverage), 10 modifiers. **Every point is a base or base + ONE
 operator** — no 2-operator points, no bi-vowels. NOT points (allophones or otherwise excluded):
 `ç` (German ich-laut, an allophone of `x`), `ɸ` (Japanese *fu*, allophone of `h`), `ɐ` (German
 `-er`), **Mandarin j/q/x `[tɕ tɕʰ ɕ]`** (allophones of the retroflex series), and **`ʌ`**
@@ -390,12 +390,11 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   (affricate on t/d, the tap on r; `j` is palatal everywhere but h); what it DRAWS never is. ḥ is
   also how the world already writes Arabic ح (Muḥammad).
   Aspiration is single
-  `y` (`py ty ky`=/pʰ tʰ kʰ/), and its glyph — the two dots — is the ONE mark whose side never
-  varies: **always above** (p̈ ẗ k̈ c̈), because the release is a vowel-side quality and it is the same
-  two dots that flip a vowel. That leaves the below zone to the place-like layers alone, which is what
-  lets a doubly-modified segment wear one mark on each side: Hindi ʈʰ = `txy` = ṫ̖, retroflex below,
-  aspiration above. The tall-letter rule is now "nothing EXCEPT the two dots sits above a tall letter";
-  the Arabic emphatics ride the exotic slots (`sˤ`=`sy` ṣ · `tˤ`=`tx` t̖ — see THE EXOTIC LADDER).
+  `y` (`py ty ky`=/pʰ tʰ kʰ/ — a reading of the exotic slot, so its glyph is the exotic DOT: ṭ below,
+  ṗ k̇ above where the descender or a taken below-slot forces it). In a stack the dot rides above,
+  which lets a doubly-modified segment wear one mark on each side: Hindi ʈʰ = `txy` = ṫ̖, retroflex
+  below, aspiration above. The two dots belong to the VOWEL FLIP (ü ö ï ë ä) and the vocalic r̈
+  alone. The Arabic emphatics ride the exotic slots (`sˤ`=`sy` ṣ · `tˤ`=`tx` t̖ — see THE EXOTIC LADDER).
 - **Vowels** (17, triangular — see `docs/index.html`): 5 cardinal bases `a e i o u` on the
   triangle edges; operators `c`=toggle-rounding (front gains: `ic`=y `ec`=ø; back loses: `uc`=ɯ `oc`=ɤ;
   apex marks back: `ac`=ɑ), `j`=**lower one step, uniformly** — each in-between vowel is its higher
@@ -427,7 +426,7 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   HI t̪ʰ=ty ~ ʈ=tx ~ ʈʰ=txy). A slot may read differently per language but may NEVER carry two
   sounds within one language (`find_shared_labels` proves it; crimes fail --strict). The
   cross-language overloads are THE EXOTIC REGISTRY, printed by the CLI and on the page with each
-  language's precise IPA — currently 8 slots, e.g. `ty` = θ (AR EL EN ES) ~ tʰ (BN HI KO TH VI ZH),
+  language's precise IPA — currently 10 slots, e.g. `ty` = θ (AR EL EN ES SW) ~ tʰ (BN HI KO TH VI ZH),
   `py` = pf (DE) ~ pʰ, `sy` = sʲ (ET RU UK) ~ sˤ (AR: ṣ, the scholarly mark exactly).
   Mechanics (`notation.modifier_letter`): a modifier spells its own letter; where its slot is
   occupied AND sharing would collide within a language, it falls down the ladder —
@@ -435,13 +434,23 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   tˤ). Sharing is otherwise deliberate: aspiration stays `y` although ty is the θ point, because
   no language has both /tʰ/ and /θ/ — verified, with the fallbacks' forcedness, by
   `test_exotic_fallbacks_are_forced_and_shares_are_safe`.
-  **Exotic slots have NO universal IPA, and every IPA shown for one is a MOVING REPRESENTATION** —
-  the slot's *current* reading, free to move when a new language overloads it. The ipa target
-  prints the slot's own sign (ṭ) for the overloaded ones and the current sole reading for single
-  tenants (ny=ŋ, nx=ɳ); the page marks all of them ≈; the registry is the authority. θ ð ŋ pf are NOT points: they are t d n p + the `exotic`
+  **Every exotic slot has a STATED DEFAULT reading (Sz)** — a slot shown in the consonant table
+  already implies an IPA by its cell position, so the value is declared, never hedged: it claims
+  default-ness, not universality, and it never moves when a language is added (an INVISIBLE
+  default is what went stale — ky printed kʰ as if universal until Georgian brought kʼ). The
+  `exotic` modifier's defaults are data (`labels.yaml exotic_defaults`: ty=θ dy=ð ny=ŋ py=pf —
+  a missing entry fails loudly); every other shared label defaults to its PRIMARY composition,
+  decided by the label grammar itself in `render.ipa_labels`: a modifier spelling its own letter
+  beats one that arrived by ladder fallback (tx=ʈ over AR tˤ; sy=sˤ over the fallen soft sʲ),
+  then exotic > aspirated/retroflex > pharyngealized > ejective (ky=kʰ over KA kʼ). Voiced
+  aspirates print murmured (by=bʱ). The registry lists every per-language override and stays
+  the per-language authority; the page states the default on the dotted tiles and in the
+  registry table. θ ð ŋ pf are NOT points: they are t d n p + the `exotic`
   modifier in the data itself (features carry the SLOT, the phonetics lives in `note` — the ř/ś
-  pattern), which is what freed single-x retroflex: ʈ ɖ ɳ = tx dx nx.
-- Validated: all **734** phoneme records get a distinct label per language, **0 collisions**, and
+  pattern), which is what freed single-x retroflex: ʈ ɖ ɳ = tx dx nx. **Modifiers (retroflex,
+  aspiration, …) never enter the points table** — only the four exotic tiles appear, dotted, at
+  the cells their defaults imply.
+- Validated: all **1068** phoneme records get a distinct label per language, **0 collisions**, and
   **no label decomposes** — every one is base or base + operators.
 
 ## Why soft s z fall to the exotic slot, and why the tap is a point

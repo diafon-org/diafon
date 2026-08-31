@@ -112,3 +112,14 @@ modifiers:       # each is just a letter — no separate tier
                      #   vowels reduce to non-syllabic (the modifier) — the same point-if-exists-
                      #   else-modifier rule as c/j/q. `x` is never a phoneme, so Cx/Vx cannot re-read;
                      #   glides as base letters (j, w) would collide with every Cj label instead.
+
+# THE DEFAULT READING (Sz): a slot shown in the consonant table already implies an IPA by its
+# position — so the value is STATED as data, never hedged and never derived from whichever tenant
+# happens to be alone. Only the `exotic` modifier needs declaring (its reading has no
+# cross-linguistic name); every other modifier's default is its own composition — ky = kʰ,
+# tx = ʈ, sy = sˤ — with per-language overrides in the exotic registry. Keyed by point label.
+exotic_defaults:
+  t: θ             # the ty tile sits in the dental-fricative cell: that position IS this claim
+  d: ð
+  n: ŋ
+  p: pf

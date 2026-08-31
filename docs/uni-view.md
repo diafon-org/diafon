@@ -75,9 +75,10 @@ exception and nothing doubled: r · ṛ · r̦ · r̖ · r̈. The soft r is an o
 series (k̦ b̦ m̦ r̦). What an operator *means* is base-dependent everywhere — `c` is affricate on
 t/d and the second rhotic on r — but the mark it *draws* never varies.
 
-**Every IPA value shown for an exotic slot is a MOVING representation** — the slot's current
-reading(s), free to be overloaded by a new language; the exotic registry is the authority, and the
-page marks these ≈.
+**Every exotic slot has a stated DEFAULT reading** — declared data (`labels.yaml exotic_defaults`
+for the `exotic` modifier, the primary composition for the rest), which is what the universal
+targets print and which never moves when a language is added; the exotic registry lists each
+language's override and is the per-language authority.
 
 **The mark always follows the operator — everywhere, no exceptions.** `c`/`x` draw the dot and `j`
 draws the comma on every base, h included: **ḥ /ħ/ is `hx`** and **h̦ /ʕ/ is `hj`**. What an operator
