@@ -367,8 +367,9 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   POINT, while `tc`+palatalized is `tcj`=/tsʲ/ — a different sound, and Ukrainian contrasts them
   (ч ~ ць). That the two share a recipe is exactly why their GLYPHS collide and `tcj` draws c͈.
   **The r base is REGULAR**: `rc`=/ɾ/ the tap (`c` → the dot ṛ, as `c`/`x` draw everywhere) and
-  `rj`=/rʲ/ the soft r (`j` → the comma r̦, as `j` draws everywhere), so r carries five sounds on
-  five marks — r · ṛ · r̦ · r̖ · r̈ — with **no exception and nothing doubled**. The soft r is a
+  `rj`=/rʲ/ the soft r (`j` → the comma r̦, as `j` draws everywhere) — every mark on r is regular,
+  **nothing doubled**. (The marks are SLOTS, not sounds: `rx` reads ɻ~ɽ, `rj` reads rʲ~r̝, and
+  r̈ is the rhotic schwa `aq`, not an r point — never present this family as "five sounds".) The soft r is a
   plain member of the soft series (k̦ b̦ m̦ r̦). What `c` MEANS is base-dependent like every
   operator (affricate on t/d, the second rhotic on r); the MARK it draws never is.
   **Gutturals**: the WHOLE block sits on `h` — `h` · `hx`=/ħ/ (`x`=the fricative ONE STEP BACK,

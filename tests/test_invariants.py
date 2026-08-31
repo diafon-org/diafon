@@ -321,7 +321,7 @@ def test_engine_render_targets():
     assert render("ey ay oy", "uni", DATA) == "ẽ ã õ"      # nasal = dedicated `y` operator (not h), tilde on cardinals
     assert render("ay", "ipa", DATA) == "ã"
     assert render("aq", "ipa", DATA) == "ə˞" and render("aq", "uni", DATA) == "r̈"  # rhotic ɝ = `aq`; uni = vocalic r̈
-    assert render("r rc rj rx aq", "uni", DATA) == "r ṛ r̦ r̖ r̈"   # r-family: trill · tap · soft · retroflex · vocalic — five sounds, five marks, no exception
+    assert render("r rc rj rx aq", "uni", DATA) == "r ṛ r̦ r̖ r̈"   # the r glyph family — one mark per slot (rx reads ɻ~ɽ, rj reads rʲ~r̝; slots, not sounds)
     assert render("tx nx lx rx", "uni", DATA) == "t̖ n̖ l̖ r̖"   # retroflex = the "\\" tail — single x, freed by θ ŋ moving to y
     assert render("nx lx", "ipa", DATA) == "ɳ ɭ"               # retroflex composes to IPA's own letters
     assert render("rx", "ipa", DATA) == "ɻ"                     # the composition is the default (HI ɽ = override)

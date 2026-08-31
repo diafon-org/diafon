@@ -70,7 +70,7 @@ rather than a letter, so a word-break splits it off and some editors autocorrect
 no capital form.
 
 **The r base is regular.** `rc` is the tap (ṛ — `c` draws the dot, as everywhere) and `rj` is the
-soft r (r̦ — `j` draws the comma, as everywhere), so r carries five sounds on five marks with no
+soft r (r̦ — `j` draws the comma, as everywhere), so every mark on r is one slot, read per language, with no
 exception and nothing doubled: r · ṛ · r̦ · r̖ · r̈. The soft r is an ordinary member of the soft
 series (k̦ b̦ m̦ r̦). What an operator *means* is base-dependent everywhere — `c` is affricate on
 t/d and the second rhotic on r — but the mark it *draws* never varies.
@@ -111,7 +111,7 @@ never two sounds within one language (the exotic registry).
 | lower one step (`j`) | one dot (down) | ị ẹ ụ ọ (ɪ ɛ ʊ ɔ) · +flip: ụ̈ ọ̈ (ʏ œ) |
 | long (`w`) | acute · on a FLIPPED vowel the double acute (one mark, never dots+acute) | á é í ó ú ạ́ · ű ő i̋ e̋ a̋ · ụ̋ ọ̋ |
 | nasal (`y`) | tilde | ã ẽ õ (French 3-way) |
-| schwa (`ax`) / rhotic (`aq`) | ạ (a + the x-dot) · r̈ | the r-family: r trill · ṛ tap · r̦ soft · r̖ retroflex · r̈ vocalic — five sounds, five marks |
+| schwa (`ax`) / rhotic (`aq`) | ạ (a + the x-dot) · r̈ | the r glyph family: r trill · ṛ tap · r̦ soft · r̖ retroflex · r̈ vocalic — one mark per slot, read per language |
 | glides (`x` on close vowels) | letters + the flip mark | j w (ix ux) · j̈ (ɥ `icx`, French) · ẅ (ɰ `ucx`) — a systematic slot, attested nowhere |
 | tone signs (opt-in `--tones`) | ◌̄ ◌́ ◌̌ ◌̀ on the vowel | șān ḳǎu kuó (Pinyin-priority placement; 0/5 neutral; plain digits by default) |
 
