@@ -28,7 +28,7 @@ from .labeler import load_labels
 from .notation import _label_maps, _mod_chars, full_label
 
 # modifier feature -> IPA diacritic (combining marks for nasal/rhotic sit after the base char)
-_MOD_IPA = {"long": "ː", "palatalized": "ʲ", "aspirated": "ʰ",
+_MOD_IPA = {"long": "ː", "palatalized": "ʲ", "aspirated": "ʰ", "ejective": "ʼ",
             "nasal": "̃", "rhotic": "˞", "pharyngealized": "ˤ", "retroflex": "̢",
             "nonsyllabic": "̯"}
 # glides get their proper IPA symbols (not the compositional /i̯/): reduced close vowels
@@ -62,9 +62,9 @@ def _compose_ipa(point_label, mods, base_ipa):
     from .notation import _mod_order
     return core + "".join(_MOD_IPA.get(m, "") for m in sorted(rest, key=_mod_order))
 _TONE_SUP = {"1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵"}
-# The overloaded exotic slots (see ipa_labels): the slot sign IS the rendering.
-_EXOTIC_IPA = {"ty": "ṭ", "dy": "ḍ", "py": "ṗ", "sy": "ṣ", "zy": "ẓ", "tcy": "c̣",
-               "tx": "t̖", "dx": "d̖"}
+# Overloaded exotic slots print the SLOT SIGN (the uni glyph), and the set is DERIVED from the
+# exotic registry, never hand-listed — a hand list is exactly the stale default the
+# moving-representation rule forbids (ky was printing "kʰ" right up until Georgian added kʼ).
 
 
 def ipa_labels(all_ph, features, data_dir="data"):
@@ -99,15 +99,19 @@ def ipa_labels(all_ph, features, data_dir="data"):
                        _compose_ipa(pl, mods | {"long"}, base2ipa[pl]))
     for lab, g in _GLIDE_IPA.items():
         out.setdefault(lab, g)
-    # EXOTIC SLOTS have NO universal IPA — the language defines the reading (ty = EN θ, ZH tʰ;
-    # tx = HI ʈ, AR tˤ). The ipa target prints the slot's own sign, exactly as `r` covers [ɹ ʐ]:
-    # a projection per language would BE a phonetic system. Per-language readings are listed in
-    # the exotic registry (CLI) and the reference tables. Single-tenant slots (ny=ŋ, ky=kʰ,
-    # nx=ɳ …) keep their honest IPA above.
-    out.update(_EXOTIC_IPA)
-    for lab, g in _EXOTIC_IPA.items():                       # their long forms follow the sign
-        if lab + "w" in out:
-            out[lab + "w"] = g + "ː"
+    # EXOTIC SLOTS have NO universal IPA — the language defines the reading (ty = EN θ, ZH tʰ,
+    # KA tʼ). For every slot the registry lists as OVERLOADED, the ipa target prints the slot's
+    # own sign (the uni glyph), exactly as `r` covers [ɹ ʐ]: a projection per language would BE
+    # a phonetic system. Single-tenant slots keep their current reading (ny=ŋ, nx=ɳ) — a MOVING
+    # representation that this same mechanism retires automatically the day a language overloads it.
+    from .notation import find_shared_labels
+    from .uni import uni_labels
+    _crimes, registry = find_shared_labels(all_ph, features, data_dir)
+    uglyphs = uni_labels(all_ph, features, data_dir)
+    for lab in registry:
+        out[lab] = uglyphs.get(lab, out.get(lab, lab))
+        if lab + "w" in out:                                 # the long form follows the sign
+            out[lab + "w"] = out[lab] + "ː"
     return {lab: unicodedata.normalize("NFC", ipa) for lab, ipa in out.items()}  # precompose (a+̃ → ã)
 
 

@@ -10,6 +10,7 @@ MOD_DIA = {
     "long": "ː",
     "nasal": "\u0303",       # combining tilde
     "palatalized": "ʲ",
+    "ejective": "ʼ",
     "pharyngealized": "ˤ",
     "aspirated": "ʰ",
     "rhotic": "\u02de",      # rhotic hook

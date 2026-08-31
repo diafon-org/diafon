@@ -25,6 +25,7 @@ modifiers:
   - rhotic          # ˞    r-coloured vowel (English NURSE)
   - retroflex       # ̢    Tamil ʈ ɳ ɭ ɻ = plain t n l r + the curl (never a point)
   - nonsyllabic     # ̯    glide = reduced close vowel (j w ɥ ɰ = i̯ u̯ y̯ ɯ̯)
+  - ejective        # ʼ    Georgian pʼ tʼ kʼ tsʼ tʃʼ — rides the exotic letter y, no new notation
 
 # Suprasegmental, tracked at language level, not per segment:
 suprasegmental:

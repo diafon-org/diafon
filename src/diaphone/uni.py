@@ -140,12 +140,12 @@ def _apply(base, label, mods, is_vowel, data_dir="data"):
                                    #   first-letter doubling is an orthography rule, decode.py only)
         elif m == "nasal":
             g = g + _TILDE
-        elif m in ("aspirated", "pharyngealized", "palatalized"):
+        elif m in ("aspirated", "ejective", "pharyngealized", "palatalized"):
             # THE EXOTIC LADDER. The mark follows the LETTER the modifier spells on this point
             # (notation.modifier_letter): `j` = the palatal comma, `y` = the exotic DOT, `x` = the
             # second-exotic ANTI-COMMA. One mark each, no doubling anywhere.
-            ch = modifier_letter(label, m, {"aspirated": "y", "pharyngealized": "y",
-                                            "palatalized": "j"}, data_dir)
+            ch = modifier_letter(label, m, {"aspirated": "y", "ejective": "y",
+                                            "pharyngealized": "y", "palatalized": "j"}, data_dir)
             if ch == "j":
                 g = g + (_VLA if _below_taken(g) else _VLB)
             elif ch == "x":

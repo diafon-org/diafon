@@ -354,6 +354,20 @@ def build():
                            for lab, lgs in sorted(_seen[m].items())]}
                  for m in sorted(_seen)]
 
+    # MOVING REPRESENTATIONS: every exotic-slot label. The IPA shown anywhere for these is the
+    # slot's CURRENT reading and is free to move when a new language overloads it — the registry
+    # below is the authority, and the UI marks them all with ≈.
+    _EXO_MODS = {"aspirated", "pharyngealized", "retroflex", "ejective"}
+    moving = {"ty", "dy", "ny", "py"}              # the relabeled exotic points
+    for _code, _phs in all_ph.items():
+        for _ph in _phs:
+            _pl = _lab_of.get(_ph["base"])
+            if not _pl:
+                continue
+            if (_ph["mods"] & _EXO_MODS) or ("palatalized" in _ph["mods"] and
+                                             _pl in ("s", "z", "tc")):
+                moving.add(_fl(_pl, _ph["mods"], _mods_map, DATA))
+
     # THE EXOTIC REGISTRY for the page: each overloaded slot with every language's PRECISE IPA.
     from diaphone.notation import find_shared_labels as _fsl
     _crimes, _registry = _fsl(all_ph, features, DATA)
@@ -379,6 +393,7 @@ def build():
         "layers": {k: " ".join(sorted(v, key=lambda x: (len(x), x))) for k, v in layers.items()},
         "modForms": mod_forms,
         "exotic": exotic_rows,
+        "moving": sorted(moving),
         "counts": {"C": (nC := sum(1 for c in cons if not c.get("guest"))), "V": len(vows),
                    "langs": len(languages),
                    "mods": len({m for phs in all_ph.values() for ph in phs for m in ph["mods"]}),
@@ -618,6 +633,7 @@ footer a.fref{color:var(--accent);text-decoration:none;border-bottom:1px dotted 
     <span>each tile — <span style="font-family:var(--serif)"><b>uni glyph</b></span> · ipa (→ Wikipedia) · small <code>code</code> = input reference (section 2)</span>
     <span>gutturals: all on h — ḥ=<code>hx</code> (/ħ/) · h̦=<code>hj</code> (/ʕ/) · '=<code>hq</code> (/ʔ/: no glyph the marks can build, so a whole character)</span>
     <span>dashed = <b>phonemes that are not points</b> — the soft coronals (<code>tj</code>=ty, <code>nj</code>=ñ, and <code>rj</code> with its trill), and the glides (vowel + <code>x</code>); not in the counts</span>
+    <span>≈ = a <b>moving representation</b>: an exotic slot's IPA is its <i>current</i> reading, free to be overloaded by a new language — the exotic registry is the authority</span>
   </div>
   <h3 style="margin:1.2rem 0 0">The families, in words</h3>
   <div class="gloss" id="glossBody"></div>
@@ -933,7 +949,8 @@ draw();run();
   const CB=["p","b","t","d","k","g","m","n","f","v","s","z","l","h","r"], VB=["a","e","i","o","u"];
   const ptSet=new Set([...D.cons.filter(c=>!c.guest).map(c=>c.label),...D.vows.map(v=>v.label)]);
   const wikiOf={};[...D.cons,...D.vows].forEach(r=>{if(r.wiki)wikiOf[r.label]=r.wiki;});
-  const ipaLink=(lab,ip)=>{const w=wikiOf[lab];const s=esc(ip||"");
+  const MOV=new Set(D.moving||[]);
+  const ipaLink=(lab,ip)=>{const w=wikiOf[lab];const s=(MOV.has(lab)?"≈":"")+esc(ip||"");
     return w?`<a class="cipa" href="${esc(w)}" target="_blank" rel="noopener" title="what this sound is">${s}</a>`
             :`<span class="cmut">${s}</span>`;};
   $("comboHead").innerHTML="<tr><th>base</th>"+OPS.map(o=>`<th><code>${o}</code></th>`).join("")+"</tr>";
@@ -960,7 +977,8 @@ draw();run();
   const rows=D.manner.filter(([m])=>D.cons.some(c=>c.manner===m)).map(([m,ml])=>{
     const tds=D.place.map(([pl])=>{const pts=(byCell[m+"|"+pl]||[]).sort((a,b)=>rank(a.voice)-rank(b.voice));
       if(!pts.length)return "<td></td>";
-      const tiles=pts.map(p=>`<div class="pt ${p.voice==="vl"?"vl":"vd"}${p.guest?" guest":""}"><span class="nat">${esc(p.uni)}</span><span class="lab">${esc(p.label)}</span><span class="ipa"><a class="wref" href="${esc(p.wiki)}" target="_blank" rel="noopener">${esc(p.ipa)}</a></span></div>`).join("");
+      const MOV2=new Set(D.moving||[]);
+      const tiles=pts.map(p=>`<div class="pt ${p.voice==="vl"?"vl":"vd"}${p.guest?" guest":""}"><span class="nat">${esc(p.uni)}</span><span class="lab">${esc(p.label)}</span><span class="ipa"><a class="wref" href="${esc(p.wiki)}" target="_blank" rel="noopener">${MOV2.has(p.label)?"≈":""}${esc(p.ipa)}</a></span></div>`).join("");
       return `<td><div class="cell">${tiles}</div></td>`;}).join("");
     return `<tr><th>${esc(ml)}</th>${tds}</tr>`;});
   $("cBody").innerHTML=rows.join("");})();

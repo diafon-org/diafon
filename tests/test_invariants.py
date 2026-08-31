@@ -54,7 +54,7 @@ def test_no_label_carries_two_analyses_within_a_language():
     features, languages, all_ph = load(DATA)
     crimes, registry = find_shared_labels(all_ph, features, DATA)
     assert crimes == {}, f"one label, two analyses WITHIN a language: {crimes}"
-    assert sorted(registry) == ["dx", "dy", "py", "sy", "tcy", "tx", "ty", "zy"], sorted(registry)
+    assert sorted(registry) == ["dx", "dy", "ky", "py", "sy", "tcy", "tqy", "tx", "ty", "zy"], sorted(registry)
 
 
 def test_exotic_fallbacks_are_forced_and_shares_are_safe():
@@ -172,7 +172,7 @@ def test_points_nonempty_and_typed():
 
 def test_every_language_loads():
     _, languages, *_ = _run()
-    assert len(languages) == 31   # 12 core + 5 witnesses (TR ET VI KO TA) + 14 coverage (ID FI HE FA NL UK PL TH RO CS HI BN PT SW)
+    assert len(languages) == 32   # 12 core + 6 witnesses (TR ET VI KO TA KA) + 14 coverage (ID FI HE FA NL UK PL TH RO CS HI BN PT SW)
 
 
 def test_removed_allophones_absent():
@@ -309,8 +309,9 @@ def test_engine_render_targets():
     assert render("tx dx sy zy", "uni", DATA) == "t̖ d̖ ṣ ẓ"   # the AR emphatics: second-exotic t d · first-exotic s z
     assert render("py ty ky", "uni", DATA) == "ṗ ṭ k̇"     # the exotic dot (above on p g k — descender or taken)
     assert render("tcy tqy", "uni", DATA) == "c̣ ċ̦"         # dot below on c; above on c̦ (its below is taken)
-    assert render("ky tqy", "ipa", DATA) == "kʰ tʃʰ"          # single-tenant exotic slots keep honest IPA
-    assert render("ty py sy", "ipa", DATA) == "ṭ ṗ ṣ"       # overloaded slots print the slot sign — no universal IPA
+    assert render("ny nx lx", "ipa", DATA) == "ŋ ɳ ɭ"          # single-tenant slots keep their current reading
+    assert render("ty py sy ky", "ipa", DATA) == "ṭ ṗ ṣ k̇"  # overloaded slots print the slot sign — no universal IPA
+    #   (the overloaded set is DERIVED from the registry: ky printed kʰ until Georgian added kʼ)
     assert render("aphijl", "ipa", DATA) == "aphɪl"            # ph = the sequence /p/+/h/ (uphill-type words)
     assert render("ty dy kx gx ny", "uni", DATA) == "ṭ ḍ ḳ ġ ṇ"  # dot family: exotic t d n (θ ð ŋ …) + the velar points
     assert render("py", "uni", DATA) == "ṗ"                 # the exotic p: German pf AND Mandarin pʰ — one slot
