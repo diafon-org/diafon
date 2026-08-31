@@ -15,9 +15,9 @@ BIN, ENGINE = sys.argv[1], sys.argv[2]
 
 CORPUS = [
     "sjok sewp njawr", "kecsecnecm sewpejn", "acswonj", "hoswuw", "ejdj nacdj kutjac",
-    "ejdj kisj kutjac aclsik acz acstacl aclactt", "pjatj", "sjj zjj py ky", "tyy dyy syy zyy", "tqonx1kuo2 niu2nai3", "txx nxx lx rx tj dj nj lj pj kj", "TW Tw SJOKK h hx hj hq ax", "SJOK SEWP NJAWR HOSWUW DXAX", "iu3 ui4 un2 u3 i1 ican2 puo1 aq2",
-    "h hx hj hq", "Hqalif hqalif HQALIF", "r rc rj rx aq", "baqd", "dxax kat sijts acn dxax mat", "sji sejlz fijsj",
-    "sjan1 kxaxn3 kau1", "tqonx1 kuo2 tqya2 kxaxn3 kxau3", "tqi1 sji1 tquc1 sjuc4",
+    "ejdj kisj kutjac aclsik acz acstacl aclactt", "pjatj", "sy zy py ky", "tx dx sy zy", "tqony1kuo2 niu2nai3", "tx nx lx rx tj dj nj lj pj kj", "TW Tw SJOKK h hx hj hq ax", "SJOK SEWP NJAWR HOSWUW DYAX", "iu3 ui4 un2 u3 i1 ican2 puo1 aq2",
+    "h hx hj hq", "Hqalif hqalif HQALIF", "r rc rj rx aq", "baqd", "dyax kat sijts acn dyax mat", "sji sejlz fijsj",
+    "sjan1 kxaxn3 kau1", "tqony1 kuo2 tqya2 kxaxn3 kxau3", "tqi1 sji1 tquc1 sjuc4",
     "nic3", "de5", "de0", "raxn2", "hacix ixow fiuw", "ixejs uxejst", "ix ux icx ucx", "sjiau3 liu2 tou1", "alma kert", "ni3 hao3", "zhong1 guo2", "xiao3", "cai4",
     "berd werld show boy law", "dhuh kat sijts awn dhuh flawr",
     "Sjok Sewp Njawr", "Acswonj SJOK", "Dhuh kat Sijts", "Sjan1 kxaxn3",

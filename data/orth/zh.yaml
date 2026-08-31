@@ -11,7 +11,7 @@ kx: h
 l: l
 m: m
 n: n
-nx: ng
+ny: ng
 oc: e
 p: b
 py: p
@@ -60,7 +60,7 @@ _groups:
   finals: []
   stops: [p, py, t, ty, k, ky]          # Pinyin b p d t g k — our lenis/aspirated pairs
   sibilants: [tc, tcy, tq, tqy, sj]     # z c zh ch sh
-  other-consonants: [kx, nx]            # h ng
+  other-consonants: [kx, ny]            # h ng
   vowels: [ax, oc, uc, aq]              # e (both), the apical i, er
 
 _rules:
@@ -72,7 +72,7 @@ _rules:
   # zero-initial syllables take the Pinyin y-/w- spellings (specific rules before general)
   - {t: i, first: true, next: [u], g: yo, group: zero-initial}       # iou -> you
   - {t: u, first: true, next: [i], g: we, group: zero-initial}       # uei -> wei
-  - {t: u, first: true, next: [n, nx], g: we, group: zero-initial}   # uen/ueng -> wen/weng
+  - {t: u, first: true, next: [n, ny], g: we, group: zero-initial}   # uen/ueng -> wen/weng
   - {t: i, first: true, next_vowel: true, g: y, group: zero-initial}   # i-glide onset -> y- (ya, ye, yao …)
   - {t: i, first: true, g: yi, group: zero-initial}                  # yi, yin, ying
   - {t: u, first: true, next_vowel: true, g: w, group: zero-initial}   # wa, wo, wai, wan …

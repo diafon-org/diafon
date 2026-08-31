@@ -131,7 +131,9 @@ def main(argv=None):
         print(f"  REACHABLE /{pt}/ [{','.join(pl)}] == /{base}/+{mod} [{','.join(ql)}] "
               f"— no language contrasts them")
 
-    from .notation import find_collisions, find_universal_collisions, find_shared_labels
+    from .notation import (find_collisions, find_universal_collisions, find_shared_labels,
+                           _label_maps)
+    label_of_base_cache, _mm = _label_maps(all_ph, features, args.data)
     collisions = find_collisions(all_ph, features, args.data)
     print(f"notation collide : {sum(len(v) for v in collisions.values())} unreviewed")
     for lang, hits in collisions.items():
@@ -143,14 +145,24 @@ def main(argv=None):
     for lab in uni_collisions:
         print(f"  COLLISION [universal] {lab} also reads as a sequence of universal labels")
 
-    # One label, two analyses — invisible to both finders above (each language is injective; the
-    # clash only exists in the unioned universal stream). It is what forces the doubling rule.
-    shared = find_shared_labels(all_ph, features, args.data)
-    print(f"shared labels    : {len(shared)} unreviewed")
+    # One label, two analyses. WITHIN a language that is a crime (--strict fails); ACROSS languages
+    # it is the EXOTIC REGISTRY — deliberate slot overloading, printed with each language's IPA.
+    shared, registry = find_shared_labels(all_ph, features, args.data)
+    print(f"shared-in-one-lang: {len(shared)} unreviewed")
     for lab, analyses in shared.items():
         readings = " vs ".join(f"{pl}+{'+'.join(mods) or 'ø'} [{','.join(langs)}]"
                                for pl, mods, langs in analyses)
-        print(f"  SHARED [universal] {lab} = {readings}")
+        print(f"  CRIME [one language] {lab} = {readings}")
+    print(f"exotic registry  : {len(registry)} overloaded slots (deliberate, per-language reading)")
+    ipa_of = {ph["ipa"]: None for phs in all_ph.values() for ph in phs}
+    for lab, analyses in registry.items():
+        parts = []
+        for pl, mods, langs in analyses:
+            ipas = sorted({ph["ipa"] for lg in langs for ph in all_ph[lg]
+                           if label_of_base_cache.get(ph["base"]) == pl
+                           and sorted(ph["mods"]) == mods})
+            parts.append(f"{'/'.join(ipas)} [{','.join(langs)}]")
+        print(f"  {lab:5s} = " + "  ~  ".join(parts))
 
     if args.strict and (violations or redundant or collisions or uni_collisions or shared):
         sys.exit(1)

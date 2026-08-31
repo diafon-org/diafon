@@ -4,9 +4,13 @@
 *universal* view instead — IPA, the why-not reference. Everything keys off the general point set +
 `labels.yaml`, so there is no per-language orthography involved.
 
-**The IPA target is an APPROXIMATION, and deliberately so.** Our unit is a phonemic point plus
-modifiers; IPA's unit is a phonetic segment, and the two do not line up one-to-one — a point covers
-every realisation its languages give it (the R slot is trill, tap, approximant and uvular at once).
+**THE IPA TARGET NAMES SLOTS. It is not a projection**, and it must not become one: a rendering
+that tracked each language's phonetics would BE a phonetic system, which this project is not. Our
+unit is a slot — a point plus modifiers — and a slot may be realised differently in different
+languages: `sj` is [ʃ ʂ ɕ], `r` is [r ɹ ʐ], the plain `d` is [d d̪ ɗ] because Vietnamese đ is an
+implosive and Vietnamese has no plain /d/ to contrast it with. **Slots may overlap across languages;
+they may never overlap within one**, and that is guaranteed rather than hoped for — injectivity, the
+doubling rule and the invert test compose to it (`test_universal_targets_are_slots_not_projections`).
 So this module is a curated table, not a translation: one IPA rendering per label, chosen to be what
 a reader of IPA expects. Every point has one, and where IPA has a LETTER for a point+modifier
 combination we print the letter rather than composing a diacritic (`nj` is ɲ, not nʲ; `txx` is ʈ) —
@@ -58,6 +62,9 @@ def _compose_ipa(point_label, mods, base_ipa):
     from .notation import _mod_order
     return core + "".join(_MOD_IPA.get(m, "") for m in sorted(rest, key=_mod_order))
 _TONE_SUP = {"1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵"}
+# The overloaded exotic slots (see ipa_labels): the slot sign IS the rendering.
+_EXOTIC_IPA = {"ty": "ṭ", "dy": "ḍ", "py": "ṗ", "sy": "ṣ", "zy": "ẓ", "tcy": "c̣",
+               "tx": "t̖", "dx": "d̖"}
 
 
 def ipa_labels(all_ph, features, data_dir="data"):
@@ -92,6 +99,15 @@ def ipa_labels(all_ph, features, data_dir="data"):
                        _compose_ipa(pl, mods | {"long"}, base2ipa[pl]))
     for lab, g in _GLIDE_IPA.items():
         out.setdefault(lab, g)
+    # EXOTIC SLOTS have NO universal IPA — the language defines the reading (ty = EN θ, ZH tʰ;
+    # tx = HI ʈ, AR tˤ). The ipa target prints the slot's own sign, exactly as `r` covers [ɹ ʐ]:
+    # a projection per language would BE a phonetic system. Per-language readings are listed in
+    # the exotic registry (CLI) and the reference tables. Single-tenant slots (ny=ŋ, ky=kʰ,
+    # nx=ɳ …) keep their honest IPA above.
+    out.update(_EXOTIC_IPA)
+    for lab, g in _EXOTIC_IPA.items():                       # their long forms follow the sign
+        if lab + "w" in out:
+            out[lab + "w"] = g + "ː"
     return {lab: unicodedata.normalize("NFC", ipa) for lab, ipa in out.items()}  # precompose (a+̃ → ã)
 
 

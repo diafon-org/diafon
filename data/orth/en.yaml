@@ -7,7 +7,7 @@ aq: er
 b: b
 d: d
 dq: j
-dx: th
+dy: th
 e: ay
 ej: e
 f: f
@@ -20,7 +20,7 @@ k: k
 l: l
 m: m
 n: n
-nx: ng
+ny: ng
 o: ow
 uj: oo
 ux: w
@@ -30,7 +30,7 @@ s: s
 sj: sh
 t: t
 tq: ch
-tx: th
+ty: th
 u: oo
 v: v
 z: z
@@ -59,6 +59,6 @@ _lazy:
 
 # ---- adoption groups ----
 _groups:
-  consonant-digraphs: [sj, zj, tq, dq, tx, dx, nx]   # sh zh ch j th th ng
+  consonant-digraphs: [sj, zj, tq, dq, ty, dy, ny]   # sh zh ch j th th ng
   vowel-respellings: [i, ij, e, ej, o, oj, u, uj, ac, ax, aq]
   glides: [ix]                                        # y

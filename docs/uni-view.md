@@ -20,15 +20,15 @@ appears; which side of the letter it sits on says nothing — the letterform dec
 | **one dot** | the `c`/`x` mark | the x-family ṭ ḍ ḳ ġ ṇ ḥ (θ ð x ɣ ŋ ħ) · pf ṗ (`pc`) · the tap ṛ (`rc`) · the schwa ạ (`ax`) · lowered vowels ị ẹ ụ ọ (`j`) |
 | **two dots** | the second-degree mark — **always above**, the one mark whose side never varies | aspiration p̈ ẗ k̈ c̈ c̦̈ (`y`) · vocalic r̈ (`aq`) · vowel FLIP front↔back ü ö (y ø) · ï ë ä (ɯ ɤ ɑ) (`c`) |
 | **tilde** | resonance colour | nasal above a vowel ã ẽ õ (`y`) · the dark emphatics below t̰ d̰ s̰ z̰ (`yy`, U+0330) |
-| **comma** | the `j` mark, one per j | the hush points ș z̦ and their affricates c̦ x̦ · every soft consonant ț d̦ n̦ l̦ p̓ k̦ b̦ m̦ r̦ … · the voiced pharyngeal h̦ (`hj`, the one `j` that is not palatal) · doubled only where the single comma already spells a point: `sjj zjj` → s͈ z͈, and `tcj` → c͈ |
-| **"\\" tail** | retroflex (`x`, Tamil) | t̖ n̖ l̖ r̖ (labels `txx nxx lx rx`) · it replaces the j-comma rather than stacking on it |
+| **comma** | the `j` mark, one per j — and never doubled | the hush points ș z̦ and their affricates c̦ x̦ · every soft consonant ț d̦ n̦ l̦ p̓ k̦ b̦ m̦ r̦ … · the voiced pharyngeal h̦ (`hj`, the one `j` that is not palatal). Where the comma's slot is a point (s z tc), that palatalization is the language's EXOTIC and takes the dot instead: сь = `sy` ṣ |
+| **"\\" tail** | the SECOND-exotic `x` | retroflex ʈ ɖ ɳ ɭ ɻ = `tx dx nx lx rx` · the hush layer s̖ z̖ c̖ x̖ (PL sz ż cz dż; it replaces the j-comma rather than stacking) · Arabic tˤ dˤ (`tx dx` — the same slots, read per language) |
 
 ## Consonants
 
 | what | mark | glyphs |
 |---|---|---|
 | palatal & soft (`j`) | one comma per j | the hush points ș z̦ · their affricates c̦ x̦ · the soft consonants ț d̦ n̦ l̦ k̦ b̦ m̦ … (s and t precompose to ș ț) · p̓ above |
-| … doubled | two commas | only where the single comma is already a point: `sjj zjj` → s͈ z͈ (and `tcj` → c͈, whose glyph collides though its label does not) |
+| … where the slot is taken | the exotic dot | soft s z ts fall to the exotic slot: `sy zy tcy` = ṣ ẓ c̣ — one dot, never a doubled mark |
 | retroflex modifier (`x`/`xx`) | the "\\" tail | t̖ n̖ l̖ r̖ (Tamil-only) |
 | dental/velar fricativise (`x`) | one dot | ṭ ḍ ḳ ṇ · ġ above (θ ð x ŋ ɣ) |
 | tap (`rc`) | one dot | ṛ (trill stays r) — `c` draws the dot here as everywhere; `j` on r is left to the soft r̦ |
@@ -93,8 +93,10 @@ j-comma.
 **The palatal coronals are one sound each.** /c ɟ ɲ ʎ/ and /tʲ dʲ nʲ lʲ/ are the same points — no
 language contrasts them, and the difference is phonetic, which this system does not encode. So
 ț d̦ n̦ l̦ carry Hungarian *ty gy ny*, Spanish *ñ*, Italian *gl* and the Russian soft coronals with
-**one** comma. Two consonants keep the doubled comma, because there the single one already spells a
-point: s͈ z͈ (ș z̦ are /ʃ ʒ/, which Russian contrasts with /sʲ zʲ/ — *сесть*~*шесть*).
+**one** comma. Soft s and z take the exotic dot instead (`sy zy` = ṣ ẓ), because there the single
+comma already spells a point — ș z̦ are /ʃ ʒ/, which Russian contrasts with /sʲ zʲ/
+(*сесть*~*шесть*). The same ṣ ẓ are Arabic's emphatic ṣād and ẓāʾ: one slot, read per language,
+never two sounds within one language (the exotic registry).
 
 ## Vowels
 

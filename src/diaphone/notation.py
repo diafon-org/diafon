@@ -23,9 +23,10 @@ unambiguous everywhere. In particular `Ch` is the sequence /C/+/h/ (aspiration i
 takes the longer spelling). Anything any finder reports is a real, undecided collision and fails
 --strict.
 
-(3) is the one the other two structurally cannot see, and it was not empty: THE DOUBLING RULE
-(`doubles`) is derived from labels.yaml rather than enumerated precisely because the enumerated
-version drifted — see its docstring.
+(3) is per-language for EXOTIC labels: a slot like `ty` deliberately carries θ in English and tʰ
+in Mandarin (the exotic registry, printed by the CLI), and that cross-language overload is the
+design, not a defect. What may never happen — and `find_shared_labels` proves it — is two analyses
+of one label WITHIN one language.
 """
 from .merges import apply_merges
 from .labeler import load_labels
@@ -54,51 +55,42 @@ def point_labels(data_dir="data"):
     return _POINT_LABELS[data_dir]
 
 
-def doubles(point_label, ch, data_dir="data"):
-    """THE DOUBLING RULE for LABELS: **a modifier letter doubles exactly when base+letter is already
-    a POINT LABEL**, because then the short form is taken.
-
-    FOUR labels double, and only four. Palatalized: `sj`=/ʃ/ so /sʲ/=`sjj`, and `zj`=/ʒ/ so
-    /zʲ/=`zjj`. Retroflex: `tx`=/θ/ and `nx`=/ŋ/ so Tamil ʈ ɳ are `txx nxx`. Everything else stays
-    single because nothing occupies the short form — `tj dj nj lj` are the soft coronals outright
-    (the palatal points merged into them), `rj` is the soft r (the tap sits on `rc`), and
-    `pj kj gj fj vj mj bj lx rx` were always free. Hardcoded lists drift from the data; reading the
-    rule off labels.yaml cannot.
-
-    This guards LABEL collisions only. The uni view has its own, separate guard for GLYPH collisions
-    (`uni._doubles_glyph`) — the two constraints are not the same, and merging them cost length for
-    nothing: Ukrainian ць /tsʲ/ is `tcj`, whose label collides with no point, even though its glyph
-    would collide with `tq`=/tʃ/ and therefore doubles its mark.
-    """
-    if len(ch) != 1:                       # multi-char letters (yy) can never collide
-        return False
-    return point_label + ch in point_labels(data_dir)
-
-
 # Place-like layers reshape the segment and sit closest to the base; length holds the finished
-# thing and goes last; everything else (laryngeal, resonance) sorts between them.
-_PLACE_MODS = frozenset({"retroflex", "palatalized"})
+# thing and goes last; everything else sorts between them.
+_PLACE_MODS = frozenset({"retroflex", "palatalized", "pharyngealized"})
 
 
 def _mod_order(m):
     return (2 if m == "long" else 0 if m in _PLACE_MODS else 1, m)
 
 
-def _mod_chars(mods, point_label, mod_map, data_dir="data"):
-    """The modifier suffix for a phoneme, in a stable order, per `doubles` above.
+def modifier_letter(point_label, m, mod_map, data_dir="data"):
+    """The letter a modifier spells ON THIS POINT — the exotic ladder, replacing the old doubling
+    rule. A modifier spells its own letter; where its slot is OCCUPIED by a point (label or glyph),
+    the combination is the LANGUAGE'S EXOTIC and takes the next letter, j -> y -> x. NO letter ever
+    doubles. The two fallbacks in force:
 
-    Order follows WHAT MODIFIES WHAT: the place-like layers first (they reshape the segment itself),
-    then the laryngeal and resonance ones, then **length last** — `w` holds the finished segment. So
-    Hindi's ʈʰ is `txxy`, a retroflex t that is then aspirated, not `tyxx`; and a long soft t is
-    `tjw`, not `twj` (the uni glyph doubles the finished ț → țț to match).
-    """
-    out = ""
-    for m in sorted(mods, key=_mod_order):
-        ch = mod_map.get(m, "?")
-        if doubles(point_label, ch, data_dir):
-            ch += ch
-        out += ch
-    return out
+      palatalized    j -> y   where base+j is a point (sj zj = the hush ʃ ʒ) or its glyph is one
+                              (tc's comma-form c̦ is the tq point): RU/UK/ET soft s z ts = sy zy tcy
+      pharyngealized y -> x   where base+y is a point (ty dy = θ ð, which ARABIC has): tˤ dˤ = tx dx
+
+    Sharing, by contrast, is deliberate: aspiration STAYS on `y` even though ty is the θ point,
+    because no language has both /tʰ/ and /θ/ — the slot reads per language (the exotic registry).
+    A fallback is used only where sharing would collide WITHIN a language; the invariant test
+    verifies both directions (every fallback forced, every share collision-free)."""
+    ch = mod_map.get(m, "?")
+    P = point_labels(data_dir)
+    if m == "palatalized" and (point_label + ch in P or point_label == "tc"):
+        return "y"
+    if m == "pharyngealized" and point_label + ch in P:
+        return "x"
+    return ch
+
+
+def _mod_chars(mods, point_label, mod_map, data_dir="data"):
+    """The modifier suffix for a phoneme, in a stable order (place-like first, length last)."""
+    return "".join(modifier_letter(point_label, m, mod_map, data_dir)
+                   for m in sorted(mods, key=_mod_order))
 
 
 # Irregular full labels — reviewed exceptions where plain composition is clunky (cf. the doubling rule).
@@ -172,9 +164,13 @@ def find_shared_labels(all_ph, features, data_dir="data"):
     the hush point /ʃ/ (17 languages) and, without the doubling rule, palatalized /s/ (ET RU UK) —
     one label, two sounds, both rendering ș.
 
-    Returns {label: [(point_label, sorted_mods, sorted_langs), …]} for labels with >1 analysis.
-    Two languages spelling the SAME point+modifiers with the same label is the normal case and is
-    not reported. Must be empty: anything here is a genuine universal-stream ambiguity.
+    Returns (crimes, registry):
+      crimes   — {label: [...]} where two analyses COEXIST IN ONE LANGUAGE. Must be empty; this is
+                 what would make a language's own text ambiguous, and --strict fails on it.
+      registry — {label: [...]} shared across languages only: THE EXOTIC REGISTRY. Deliberate
+                 slot overloading (ty = EN θ / ZH tʰ; tx = HI ʈ / AR tˤ); informational, printed
+                 by the CLI with each language's precise IPA.
+    Each entry is [(point_label, sorted_mods, sorted_langs), ...].
     """
     label_of_base, mod_map = _label_maps(all_ph, features, data_dir)
     seen = {}                                   # label -> {(point_label, mods): {langs}}
@@ -186,8 +182,17 @@ def find_shared_labels(all_ph, features, data_dir="data"):
             key = (pl, tuple(sorted(ph["mods"])))
             seen.setdefault(full_label(pl, ph["mods"], mod_map, data_dir), {}) \
                 .setdefault(key, set()).add(lang)
-    return {lab: [(pl, list(mods), sorted(langs)) for (pl, mods), langs in sorted(by.items())]
-            for lab, by in sorted(seen.items()) if len(by) > 1}
+    crimes, registry = {}, {}
+    for lab, by in sorted(seen.items()):
+        if len(by) < 2:
+            continue
+        rows = [(pl, list(mods), sorted(langs)) for (pl, mods), langs in sorted(by.items())]
+        counts = {}
+        for _pl, _mods, langs in rows:
+            for lg in langs:
+                counts[lg] = counts.get(lg, 0) + 1
+        (crimes if any(n > 1 for n in counts.values()) else registry)[lab] = rows
+    return crimes, registry
 
 
 def _resegments(label, labelset):
