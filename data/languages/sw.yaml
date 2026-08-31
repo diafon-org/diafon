@@ -20,15 +20,15 @@ consonants:
 - {ipa: s, pl: alveolar, mn: fricative, vc: vl}
 - {ipa: z, pl: alveolar, mn: fricative, vc: vd}
 - {ipa: ʃ, pl: postalveolar, mn: fricative, vc: vl, orth: sh}
-- {ipa: θ, pl: dental, mn: fricative, vc: vl, orth: th, st: loan, note: "Arabic loans (thelathini)"}
-- {ipa: ð, pl: dental, mn: fricative, vc: vd, orth: dh, st: loan}
+- {ipa: θ, pl: alveolar, mn: plosive, vc: vl, mod: [exotic], orth: th, st: loan, note: "Arabic loans (thelathini)"}
+- {ipa: ð, pl: alveolar, mn: plosive, vc: vd, mod: [exotic], orth: dh, st: loan}
 - {ipa: x, pl: velar, mn: fricative, vc: vl, orth: kh, st: loan, note: "often [h]"}
 - {ipa: ɣ, pl: velar, mn: fricative, vc: vd, orth: gh, st: loan}
 - {ipa: h, pl: glottal, mn: fricative, vc: vl}
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd}
 - {ipa: n, pl: alveolar, mn: nasal, vc: vd}
 - {ipa: ɲ, pl: alveolar, mn: nasal, vc: vd, mod: [palatalized], orth: ny}
-- {ipa: ŋ, pl: velar, mn: nasal, vc: vd, orth: "ng'"}
+- {ipa: ŋ, pl: alveolar, mn: nasal, vc: vd, mod: [exotic], orth: "ng'"}
 - {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
 - {ipa: r, pl: alveolar, mn: trill, vc: vd, note: "often a tap — one phoneme"}
 vowels:

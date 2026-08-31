@@ -19,7 +19,7 @@ consonants:
 - {ipa: ʐ, pl: retroflex, mn: approximant, vc: vd, orth: r}
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd}
 - {ipa: n, pl: alveolar, mn: nasal, vc: vd}
-- {ipa: ŋ, pl: velar, mn: nasal, vc: vd, note: coda only}
+- {ipa: ŋ, pl: alveolar, mn: nasal, vc: vd, mod: [exotic], note: coda only}
 - {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
 vowels:
 - {ipa: i, hi: close, bk: front, rd: false}

@@ -9,7 +9,7 @@ consonants:
 - {ipa: d, pl: alveolar, mn: plosive, vc: vd}
 - {ipa: k, pl: velar, mn: plosive, vc: vl}
 - {ipa: g, pl: velar, mn: plosive, vc: vd}
-- {ipa: pf, pl: labiodental, mn: affricate, vc: vl}
+- {ipa: pf, pl: bilabial, mn: plosive, vc: vl, mod: [exotic]}
 - {ipa: ts, pl: alveolar, mn: affricate, vc: vl, orth: z}
 - {ipa: tʃ, pl: postalveolar, mn: affricate, vc: vl}
 - {ipa: f, pl: labiodental, mn: fricative, vc: vl}
@@ -23,7 +23,7 @@ consonants:
 - {ipa: h, pl: glottal, mn: fricative, vc: vl}
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd}
 - {ipa: n, pl: alveolar, mn: nasal, vc: vd}
-- {ipa: ŋ, pl: velar, mn: nasal, vc: vd}
+- {ipa: ŋ, pl: alveolar, mn: nasal, vc: vd, mod: [exotic]}
 - {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
 vowels:
 - {ipa: i, hi: close, bk: front, rd: false}

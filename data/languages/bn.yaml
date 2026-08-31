@@ -20,7 +20,7 @@ consonants:
 - {ipa: h, pl: glottal, mn: fricative, vc: vl, orth: হ, note: "realised [ɦ]"}
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd, orth: ম}
 - {ipa: n, pl: alveolar, mn: nasal, vc: vd, orth: ন, note: "ণ merged with ন — no retroflex nasal"}
-- {ipa: ŋ, pl: velar, mn: nasal, vc: vd, orth: ঙ}
+- {ipa: ŋ, pl: alveolar, mn: nasal, vc: vd, mod: [exotic], orth: ঙ}
 - {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd, orth: ল}
 - {ipa: r, pl: alveolar, mn: trill, vc: vd, orth: র, note: "a tap [ɾ] in most positions"}
 - {ipa: ɽ, pl: alveolar, mn: trill, vc: vd, mod: [retroflex], orth: ড়}

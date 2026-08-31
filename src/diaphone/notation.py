@@ -82,8 +82,8 @@ def modifier_letter(point_label, m, mod_map, data_dir="data"):
     P = point_labels(data_dir)
     if m == "palatalized" and (point_label + ch in P or point_label == "tc"):
         return "y"
-    if m == "pharyngealized" and point_label + ch in P:
-        return "x"
+    if m == "pharyngealized" and point_label in ("t", "d"):
+        return "x"        # forced: Arabic has BOTH the exotic t d (θ ð) and the emphatics tˤ dˤ
     return ch
 
 

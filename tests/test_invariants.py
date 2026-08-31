@@ -219,7 +219,7 @@ def test_general_inventory_ledger():
     general, folded = apply_merges(points)
     assert len(folded) == 13, [f[0] for f in folded]
     assert len(general) == len(points) - len(folded)
-    assert len(general) == 49, len(general)   # 62 fine - 13 merges (ʌ→ə, ɒ→ɔ, ɻ→r among them)
+    assert len(general) == 45, len(general)   # 58 fine - 13 merges (θ ð ŋ pf are t d n p + exotic now)
     assert ("V", "open", "back", True) not in general             # ɒ folded into ɔ
     # source points are gone; targets remain
     assert ("C", "dental", "plosive", "vl") not in general        # t̪ folded into t
@@ -241,7 +241,7 @@ def test_covering_graph_structure():
     general, folded = apply_merges(points)
     g = build_graph(points, general, load_labels(DATA), features)
     labels = [n["label"] for n in g["nodes"]]
-    assert len(labels) == 49 and len(set(labels)) == 49
+    assert len(labels) == 45 and len(set(labels)) == 45
     # base + ONE operator, structurally: every non-base label has exactly one derivation edge in
     multi = {l for l in labels if len(l) > 1}
     tos = [e["to"] for e in g["edges"]["derivation"]]
@@ -323,7 +323,8 @@ def test_engine_render_targets():
     assert render("aq", "ipa", DATA) == "ə˞" and render("aq", "uni", DATA) == "r̈"  # rhotic ɝ = `aq`; uni = vocalic r̈
     assert render("r rc rj rx aq", "uni", DATA) == "r ṛ r̦ r̖ r̈"   # r-family: trill · tap · soft · retroflex · vocalic — five sounds, five marks, no exception
     assert render("tx nx lx rx", "uni", DATA) == "t̖ n̖ l̖ r̖"   # retroflex = the "\\" tail — single x, freed by θ ŋ moving to y
-    assert render("rx nx lx", "ipa", DATA) == "ɻ ɳ ɭ"          # single-tenant retroflex keeps honest IPA
+    assert render("nx lx", "ipa", DATA) == "ɳ ɭ"               # single-tenant retroflex keeps honest IPA
+    assert render("rx", "ipa", DATA) == "r̖"                    # rx is overloaded (TA ɻ ~ HI ɽ) -> the slot sign
     assert render("txy dxy", "ipa", DATA) == "ʈʰ ɖʰ"           # …and composes (HI ʈʰ; tx alone is overloaded -> t̖)
     assert render("varxi vali valxi", "uni", DATA) == "var̖i vali val̖i"   # Tamil vaḻi~vali~vaḷi
     assert render("aq", "en", DATA) == "er"

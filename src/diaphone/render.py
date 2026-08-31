@@ -108,9 +108,22 @@ def ipa_labels(all_ph, features, data_dir="data"):
     from .uni import uni_labels
     _crimes, registry = find_shared_labels(all_ph, features, data_dir)
     uglyphs = uni_labels(all_ph, features, data_dir)
+    # Exotic-tier forms: if every tenant agrees, print the tenants' own precise IPA (ny = ŋ,
+    # by = bʱ); the moment they disagree, the slot sign (ty = ṭ) — derived, never hand-listed.
+    _TIER = {"exotic", "aspirated", "ejective", "pharyngealized", "retroflex"}
+    tier_tenants = {}
+    for phs in all_ph.values():
+        for ph in phs:
+            pl = label_of_base.get(ph["base"])
+            if pl and (ph["mods"] & _TIER):
+                tier_tenants.setdefault(full_label(pl, ph["mods"], mod_map, data_dir),
+                                        set()).add(ph["ipa"])
+    for lab, ipas in tier_tenants.items():
+        out[lab] = ipas.copy().pop() if len(ipas) == 1 else uglyphs.get(lab, out.get(lab, lab))
     for lab in registry:
         out[lab] = uglyphs.get(lab, out.get(lab, lab))
-        if lab + "w" in out:                                 # the long form follows the sign
+    for lab in set(tier_tenants) | set(registry):            # the long form follows the value
+        if lab + "w" in out:
             out[lab + "w"] = out[lab] + "ː"
     return {lab: unicodedata.normalize("NFC", ipa) for lab, ipa in out.items()}  # precompose (a+̃ → ã)
 

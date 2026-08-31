@@ -23,7 +23,7 @@ consonants:
 - {ipa: h, pl: glottal, mn: fricative, vc: vl}
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd}
 - {ipa: n, pl: alveolar, mn: nasal, vc: vd}
-- {ipa: ŋ, pl: velar, mn: nasal, vc: vd, note: coda only}
+- {ipa: ŋ, pl: alveolar, mn: nasal, vc: vd, mod: [exotic], note: coda only}
 - {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd, note: '[ɾ] intervocalic'}
 secondary_series:
 - type: aspirated

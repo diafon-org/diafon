@@ -27,18 +27,12 @@ consonants:
                  #   Latin orthographies (Hawaiian ʻokina, Mayan, Tagalog) and hamza in ASCII Arabic.
   m: m
   n: n
-  ŋ: ny          # the EXOTIC n (one dot, ṇ): English sing. ɳ takes the freed nx (anti-comma).
   ts: tc         # affricate operator c  (Pinyin c = /ts/)
   dz: dc
-  pf: py         # the EXOTIC p (ṗ): German pf — and Mandarin pʰ, the same slot read per language.
   tʃ: tq         # hush affricate, operator q (Pinyin q); absorbs tɕ tʂ — no sign
   dʒ: dq         # absorbs dʑ
   f: f
   v: v
-  θ: ty          # the EXOTIC t (ṭ): English thank, Arabic ث — and ZH/TH/KO/VI/HI/BN tʰ. NO
-                 #   language pairs /θ/ with /tʰ/, so the slot never clashes within one language.
-  ð: dy          # the EXOTIC d (ḍ): English this, Arabic ذ — and HI/BN dʱ (breathy). Arabic is
-                 #   the ONE language stacking two specials on d (ð + dˤ), so ð=dy and dˤ=dx.
   s: s
   z: z
   ʃ: sj          # hush fricative = palatal `j` (Hungarian s); absorbs ɕ ʂ — no sign
@@ -99,6 +93,9 @@ modifiers:       # each is just a letter — no separate tier
   pharyngealized: "y" # the Arabic emphatics are the exotic slots: sˤ zˤ = sy zy (ṣ ẓ — the
                      #   scholarly transliteration exactly). On t d the first slot is θ ð, which
                      #   Arabic HAS, so tˤ dˤ take the SECOND exotic: tx dx (t̖ d̖).
+  exotic: "y"        # THE EXOTIC IS A MODIFIER, NEVER A POINT (Sz). θ ð ŋ pf are t d n p + exotic
+                     #   in the data itself — the same slot entry as Czech ř or Polish ś — so ty dy
+                     #   ny py are ordinary y-forms, exactly like tj is an ordinary j-form.
   ejective: "y"      # the exotic letter directly: Georgian pʼ tʼ kʼ tsʼ tʃʼ = py ty ky tcy tqy —
                      #   the same slots as aspiration and θ ð, because no language pairs an ejective
                      #   with any of those on one base (GE's aspirated series is its BARE t, as EN's is).

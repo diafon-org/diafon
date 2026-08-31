@@ -25,7 +25,7 @@ consonants:
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd}
 - {ipa: n, pl: alveolar, mn: nasal, vc: vd}
 - {ipa: ɲ, pl: alveolar, mn: nasal, vc: vd, mod: [palatalized], orth: nh}
-- {ipa: ŋ, pl: velar, mn: nasal, vc: vd, orth: ng}
+- {ipa: ŋ, pl: alveolar, mn: nasal, vc: vd, mod: [exotic], orth: ng}
 - {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
 secondary_series:
 - type: aspirated
