@@ -264,12 +264,19 @@ neither alone). Audited with `lang_delta --drop`, and one entry there is wrong i
 keeping visible: **Turkish is credited with locking `u`~`ɯ` (kul/kıl), but the mechanical lock is
 JAPANESE** — JA's /w/ is a nonsyllabic *rounded* close back vowel (the /u/ point) while う is /ɯ/,
 so JA carries both points and the pair can never merge. Turkish's contrast is the witness-principle
-justification; Japanese is what makes it unmergeable. **ID FI HE FA NL UK PL TH RO CS HI BN PT** are
+justification; Japanese is what makes it unmergeable. **ID FI HE FA NL UK PL TH RO CS HI BN PT SW** are
 *coverage* languages — their inventories are subsets of the existing points + modifiers (folds:
 FI/FA æ→a, FA ɒ→ɑ, HE ʁ→ɣ, UK г entered as ɣ, PL ʑ→ʒ), added to grow the covering claim at zero
 structural cost. **Polish** is the three-way sibilant test: s ~ sz [ʂ] ~ ś [ɕ] = `s` ~ `sjx` ~ `sj`,
 the retroflex LAYER doing the work. **Thai** brings five tones (digits 1-5) and a three-way stop
 series via the existing `aspirated`.
+
+**Swahili — the first Niger-Congo language, and the slot principle's cleanest win.** The famous
+implosives are NOT contrastive ([ɓ ɗ ʄ ɠ] ~ [b d dʒ ɡ] in free variation), so they are the plain
+voiced stops with the realisation in `note` — the Vietnamese đ call. Prenasalised mb nd nj ng
+follow the majority analysis as CLUSTERS. The Arabic-loan θ ð land on the SAME exotic slots
+English and Arabic use (`ty dy` — Swahili spells them th dh!), ɣ x on the velar points, ɟ (j,
+usually [ʄ]) on the palatal stop `dj`, ŋ (ng') on `ny`. Zero new structure; 31 languages.
 
 **Bengali and Portuguese — two more of the largest languages, free.** Bengali reuses everything
 Hindi established (the four-way series on `aspirated`, the retroflex layer) with no retroflex nasal
@@ -309,8 +316,8 @@ prints length for Korean fortis; the phonetics lives in the `note`.
 See the near-merge verdicts below.
 
 ## Current state
-62 fine-grained points → **49 general** (32 C · 17 V) after 13 merges, 0 merged contrasts, 1003
-phoneme records, 30 languages (12 core + 5 witnesses + 13 coverage). **Every point is a base or base + ONE
+62 fine-grained points → **49 general** (32 C · 17 V) after 13 merges, 0 merged contrasts, 1034
+phoneme records, 31 languages (12 core + 5 witnesses + 14 coverage). **Every point is a base or base + ONE
 operator** — no 2-operator points, no bi-vowels. NOT points (allophones or otherwise excluded):
 `ç` (German ich-laut, an allophone of `x`), `ɸ` (Japanese *fu*, allophone of `h`), `ɐ` (German
 `-er`), **Mandarin j/q/x `[tɕ tɕʰ ɕ]`** (allophones of the retroflex series), and **`ʌ`**
