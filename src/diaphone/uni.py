@@ -64,25 +64,19 @@ language target).
 import unicodedata
 
 from .decode import tokenize, tokenize_cased, _cap, apply_cap
-from .notation import _label_maps, _mod_chars, full_label, doubles
+from .notation import _label_maps, _mod_chars, full_label, modifier_letter
 
 # combining marks
-_DB = "̣"                   # U+0323 one dot below (the derived-point dot)
+_DB = "̣"                   # U+0323 one dot below — the c/x point dot AND the exotic dot
+_DA = "̇"                   # U+0307 one dot above (its above form: ṗ ġ k̇ ċ̦)
 _DDA = "̈"                  # U+0308 two dots ABOVE — the second-degree mark, and it never moves:
                             #   aspiration on a consonant, the front↔back flip on a vowel. One mark,
                             #   ONE side, so the below zone belongs to the place-like layers alone.
-_TILDE_B = "̰"              # U+0330 tilde below (the emphatics — the dark colour)
 _VLB = "̦"                  # U+0326 COMBINING COMMA BELOW — the j-mark (one j = one comma). Chosen over
                             #   the vertical line U+0329: better covered (9/10 common fonts vs 6/10), it
                             #   leans like the retroflex tail instead of standing vertical, and NFC folds
                             #   s/t into the PRECOMPOSED ș ț (U+0219/U+021B) that every Latin font has.
 _VLA = "̓"                  # U+0313 combining comma above (the same mark on the descenders p g)
-_DVLB = "͈"                 # U+0348 combining double vertical line below (two j's — sjj zjj,
-                            #   i.e. wherever base+j is itself a point). NOTE: Unicode has NO double comma
-                            #   below, so the doubled form cannot match the single one's shape — the pair
-                            #   reads by count-and-weight, not by the same mark twice. It is also the
-                            #   worst-covered mark we use (4/10 fonts), and only ET RU UK need it.
-_DVLA = "̎"                 # U+030E combining double vertical line above (ditto on descenders)
 _GRB = "̖"                  # U+0316 combining grave below — the "\" tail (retroflex; flips a "/" tail)
 _TILDE, _ACUTE = "̃", "́"
 _DACUTE = "̋"               # U+030B double acute — a flipped vowel's long form (ű ő i̋ e̋ a̋)
@@ -94,16 +88,16 @@ def _below_taken(g):
     """Side rule for the PLACE-like marks (dot, comma): they move ABOVE when the below zone is
     taken — a descender letter, or a glyph already wearing a below mark. The two dots never consult
     this: they are always above."""
-    return g[0] in _DESCENDERS or any(m in g for m in (_VLB, _DVLB, _DB, _GRB, _TILDE_B))
+    return g[0] in _DESCENDERS or any(m in g for m in (_VLB, _DB, _GRB))
 
 # point label -> uni base glyph
 _CONS = {
     "p": "p", "b": "b", "t": "t", "d": "d", "k": "k", "g": "g",
     "kq": "q",                                       # q = the uvular LETTER-point (see below)
-    "m": "m", "n": "n", "nx": "ṇ",                                # ṇ (velar ŋ: x = dot)
-    "tc": "c", "dc": "x", "pc": "ṗ",                            # the affricate LETTER-pair c /ts/ · x /dz/ · ṗ (pf)
+    "m": "m", "n": "n", "ny": "ṇ",                                # ṇ = the exotic n (ŋ: sing)
+    "tc": "c", "dc": "x", "py": "ṗ",                            # the affricate LETTER-pair c /ts/ · x /dz/ · ṗ = the exotic p (pf, pʰ)
     "tq": "c" + _VLB, "dq": "x" + _VLB,                            # c̦ x̦ (hush = affricate + the j-stroke)
-    "f": "f", "v": "v", "tx": "ṭ", "dx": "ḍ",                  # ṭ ḍ (dental fricatives: x = dot below)
+    "f": "f", "v": "v", "ty": "ṭ", "dy": "ḍ",                  # ṭ ḍ = the exotic t d (θ ð · tʰ dʱ — the language decides)
     "s": "s", "z": "z", "sj": "s" + _VLB, "zj": "z" + _VLB,        # ș z̦ (ʃ ʒ)
     "kx": "ḳ", "gx": "ġ", "hx": "h" + _DB, "hj": "h" + _VLB, "hq": "'", "h": "h",  # ḳ ġ (velar: x = dot; above on g) · ḥ=/ħ/ (x → the dot) · h̦=/ʕ/ (j → the comma) · '=/ʔ/ (see below) · h
     "l": "l", "r": "r", "rc": "r" + _DB,                          # r trill · ṛ=/ɾ/ tap (`c` → the dot, the general rule)
@@ -121,11 +115,13 @@ _VOW = {
 _POINT_GLYPHS = frozenset(unicodedata.normalize("NFC", v) for v in {**_CONS, **_VOW}.values())
 
 
-def _doubles_glyph(g):
-    """True when this glyph plus ONE j-mark would already spell a point's glyph, so the mark must
-    double to stay distinct. The glyph-level cousin of `notation.doubles` (which guards labels)."""
-    one = _VLA if _below_taken(g) else _VLB
-    return unicodedata.normalize("NFC", g + one) in _POINT_GLYPHS
+def _dot(g):
+    """The exotic dot: below by default, above when the below zone is taken — and if the result is
+    already a POINT'S glyph, the other side (k+dot-below is ḳ=/x/, so kʰ is k̇; g's above-dot is
+    ġ=/ɣ/, so gʱ is g̣). One dot, always distinct."""
+    first, second = (_DA, _DB) if _below_taken(g) else (_DB, _DA)
+    cand = unicodedata.normalize("NFC", g + first)
+    return cand if cand not in _POINT_GLYPHS else unicodedata.normalize("NFC", g + second)
 
 
 def _apply(base, label, mods, is_vowel, data_dir="data"):
@@ -144,21 +140,18 @@ def _apply(base, label, mods, is_vowel, data_dir="data"):
                                    #   first-letter doubling is an orthography rule, decode.py only)
         elif m == "nasal":
             g = g + _TILDE
-        elif m == "aspirated":
-            g = g + _DDA          # ALWAYS above — the release is a vowel-side quality, and it is the
-                                  #   same two dots that flip a vowel, which are always above
-        elif m == "pharyngealized":
-            g = g + _TILDE_B                               # tilde below (emphatics t̰ d̰ s̰ z̰)
-        elif m == "palatalized":
-            # One j = one mark (ț d̦ n̦ l̦ p̓ k̦ b̦ …), doubled only where the SINGLE mark would
-            # already spell a point: ș z̦ (the hush pair), c̦ x̦ (their affricates), h̦ (/ħ/).
-            # This is a GLYPH constraint and is deliberately separate from the label rule — see
-            # notation.doubles. Hence `tcj` (a 3-char label, nothing collides) still draws c͈.
-            dbl = _doubles_glyph(g)
-            if _below_taken(g):
-                g = g + (_DVLA if dbl else _VLA)
-            else:
-                g = g + (_DVLB if dbl else _VLB)
+        elif m in ("aspirated", "pharyngealized", "palatalized"):
+            # THE EXOTIC LADDER. The mark follows the LETTER the modifier spells on this point
+            # (notation.modifier_letter): `j` = the palatal comma, `y` = the exotic DOT, `x` = the
+            # second-exotic ANTI-COMMA. One mark each, no doubling anywhere.
+            ch = modifier_letter(label, m, {"aspirated": "y", "pharyngealized": "y",
+                                            "palatalized": "j"}, data_dir)
+            if ch == "j":
+                g = g + (_VLA if _below_taken(g) else _VLB)
+            elif ch == "x":
+                g = g.replace(_VLB, _GRB) if _VLB in g else g + _GRB
+            else:                                      # y — the exotic dot; side below, above when
+                g = _dot(g)                            #   taken, flipped again if a point owns it
         elif m == "retroflex":
             # the "\" tail: replaces the j-comma rather than stacking on it; else rides below (t̖ n̖ l̖ r̖)
             g = g.replace(_VLB, _GRB) if _VLB in g else g + _GRB

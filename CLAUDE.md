@@ -54,8 +54,9 @@ be produced by two different `(point, modifiers)` pairs. The three checks above 
 this — each language is injective by construction, so a clash exists only in the *unioned* universal
 stream, where the global set collapses the two readings into one entry. It is real: without the
 doubling rule `sj` would be both the hush point /ʃ/ (17 languages) and palatalized /s/ (ET RU UK) —
-same label, same glyph, different sounds. THE DOUBLING RULE (below) is what keeps this empty, and `--strict` fails
-on anything it reports.
+same label, same glyph, different sounds — IN RUSSIAN ITSELF, which has both. Restated for THE
+EXOTIC LADDER: one label = one analysis PER LANGUAGE; cross-language overloading is deliberate
+(the exotic registry). `--strict` fails on any within-language share (a "crime").
 
 **Fifth invariant — the point/MODIFIER boundary** (`derive.find_modifier_redundant`): no point may
 duplicate what a modifier already spells. If a *relocating* modifier (palatalized, retroflex,
@@ -79,7 +80,7 @@ src/diaphone/graph.py       the covering graph as a first-class artifact (out/gr
                             nodes = general points; edges = derivation (base+operator, the structural
                             proof of "base + ONE op") · adjacency (feature distance 1) · fold (ledger,
                             chain-resolved — canonical IPA is NOT a unique point id, base tuples are)
-src/diaphone/notation.py    THE DOUBLING RULE (`doubles`) + the decodability checks: per-language,
+src/diaphone/notation.py    THE EXOTIC LADDER (`modifier_letter`) + the decodability checks: per-language,
                             universal-stream, and one-label-one-analysis (`find_shared_labels`)
 src/diaphone/decode.py      notation → a language's spelling (greedy tokenise + per-lang rules)
 src/diaphone/render.py      notation → universal IPA target
@@ -121,13 +122,19 @@ pytest                   # runs the invariant guardrails
 maps back to its general point's canonical IPA, each modifier becomes an IPA diacritic (long /ː/,
 palatalised /ʲ/, aspirated /ʰ/, nasal / ̃/, rhotic /˞/, pharyngealised /ˤ/), trailing
 tone digit → superscript. `diaphone ipa "sjan1 kxaxn3 kau1"` → /ʃan¹ xən³ kau¹/.
-**The IPA target is an APPROXIMATION and says so.** Our unit is a phonemic point plus modifiers;
-IPA's is a phonetic segment, and they do not line up one-to-one — a point covers every realisation
-its languages give it (the R slot is trill, tap, approximant and uvular at once). So the target is a
+**THE IPA TARGET NAMES SLOTS — it is not a projection**, and the slot logic that governs the point
+set governs it too. A rendering that tracked each language's phonetics would BE a phonetic system,
+which this is not. A slot may be realised differently in different languages — `sj` is [ʃ ʂ ɕ], `r`
+is [r ɹ ʐ], the plain `d` is [d d̪ ɗ] because Vietnamese đ is an implosive with no plain /d/ to
+contrast against — and that overlap is the design. **Slots may overlap ACROSS languages; never
+WITHIN one**, which is provable, not hoped for: injectivity gives each phoneme a distinct
+(point, modifiers), the doubling rule gives each of those a distinct label, and the invert test
+gives each label a distinct glyph and IPA string. Asserted end-to-end per language for both
+universal targets by `test_universal_targets_are_slots_not_projections`. So the target is a
 *curated table*: one IPA rendering per label, chosen to be what a reader of IPA expects. Every point
 has one, and **where IPA has a LETTER for a point+modifier combination we print the letter** rather
 than composing a diacritic — `render._SEGMENT_IPA`: `tj dj nj lj` = c ɟ ɲ ʎ (not tʲ dʲ nʲ lʲ) and the
-retroflex series `txx nxx lx rx` = ʈ ɳ ɭ ɻ, with `sjx zjx` = ʂ ʐ. Remaining modifiers still compose
+retroflex series `tx nx lx rx` = ʈ ɳ ɭ ɻ, with `sjx zjx` = ʂ ʐ. Remaining modifiers still compose
 onto the letter (`tjw` = cː). None of this touches the analysis: it is rendering only, and the uni
 view — where one glyph per label is the point of the exercise — is unaffected.
 **Modifier order in a label: length LAST** (`notation._mod_chars`) — `w` holds the finished segment,
@@ -175,6 +182,37 @@ default; lazy never changes the point set.
   so the sh/x apical/front split is carried by the user's own Pinyin spelling. The one set NOT added is
   the aspirated stops `p/t/k` (they clash with the notation, where p/t/k are the *lenis* series) — so
   canonical still decodes in lazy mode; use `py/ty/ky` for aspirated stops. Canonical files stay pure.
+
+## The SLOT PRINCIPLE (Sz) — the rule the rest are instances of
+**A point is a SLOT, not a sound.** Where a language does not *contrast* X with Y, it may enter its
+X on Y's slot and realise it however it likes; the realisation goes in `note`. Having every language
+represented the *same* way is very much secondary — pursuing that turns the system phonetic, which
+is not the aim. **Relatively wide swings in one character's phonetic value are acceptable; an
+overlap inside one language never is.** The slots already swing: `sj` = [ʃ ʂ ɕ], `r` = [r ɹ ʐ],
+plain `d` = [d d̪ ɗ] (Vietnamese đ). It governs the IPA target identically — see "Universal render".
+
+Every hard call so far is an instance: Korean fortis on `long`, Czech ř on `rj`, Hindi's breathy
+series on `aspirated`, Mandarin sh / Russian ш / Tamil ஷ on the unmarked hush point, Polish ś on the
+hush point with sz taking the retroflex layer.
+
+**The method for any new sound:**
+1. Does the language CONTRAST it with the slot you would reuse? If not — reuse, and stop.
+2. If it does: is there a free base+operator LABEL?
+3. And a free GLYPH on that base — a mark not in use and not modifier-only (the tail and the tilde
+   belong to `retroflex` and `pharyngealized` and can never carry a point)?
+4. Both free → a real new point. Otherwise → reuse a slot THAT language leaves empty.
+
+**The slot budget** (`t` and `d` have no free operator at all — anything new on the coronal stops
+must reuse, which is why dental folds into alveolar and retroflex is a layer):
+```
+p  q x        b  c q x      k  c          g  c q        m n f v s z l h r   one or more each
+t  —          d  —          ^ k's only free glyph is the doubled comma
+```
+Worked examples: **labial-velars** k͡p ɡ͡b reuse `kx` ḳ / `gx` ġ — Yoruba and Igbo have no velar
+fricatives, and on `k` the only free glyph is the doubled comma, which says nothing about place, so
+reuse is forced rather than merely allowed. **Implosives** are usually not contrastive at all
+(Swahili, Vietnamese: plain b/d with an implosive realisation); where they are (Hausa, Sindhi), ɓ can
+be a real point `bc` ḅ but ɗ has no free label, so it reuses `dx` ḍ — the glyphs still pair.
 
 ## Adding a language
 **THE CLAIM IS PHONEMIC, NOT PHONETIC.** The system aims at universality in the *phonemic* sense:
@@ -249,9 +287,9 @@ is BREATHY VOICED (murmured), phonetically a different phonation from aspiration
 already separates it from the aspirated series and **no language contrasts [bʰ] with [bʱ]**, so it
 takes the `aspirated` slot on the voiced points: `p py b by`. Traditional grammars call the series
 "voiced aspirates" for exactly that reason. The same reuse as Korean fortis on `long` and Czech ř on
-`rj`. Retroflexion is the existing LAYER — ʈ ɖ ɳ = `txx dxx nxx`, ɽ = `rx` (the slot Tamil ழ uses;
+`rj`. Retroflexion is the existing LAYER — ʈ ɖ ɳ = `tx dx nx`, ɽ = `rx` (the slot Tamil ழ uses;
 flap vs approximant, contrasted nowhere) — and **Hindi is the first language with TWO modifiers on
-one phoneme**: ʈʰ = `txxy`, retroflex then aspirated. That surfaced two silent bugs, both fixed:
+one phoneme**: ʈʰ = `txy`, retroflex then aspirated. That surfaced two silent bugs, both fixed:
 the loader's series builders REPLACED the source's own modifiers instead of unioning them (so ʈʰ
 landed on the plain t point and collided with dental t̪ʰ), and `uni._below_taken` did not count the
 retroflex tail, so the aspiration stacked a second mark underneath it.
@@ -338,9 +376,9 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   `y` (`py ty ky`=/pʰ tʰ kʰ/), and its glyph — the two dots — is the ONE mark whose side never
   varies: **always above** (p̈ ẗ k̈ c̈), because the release is a vowel-side quality and it is the same
   two dots that flip a vowel. That leaves the below zone to the place-like layers alone, which is what
-  lets a doubly-modified segment wear one mark on each side: Hindi ʈʰ = `txxy` = ẗ̖, retroflex below,
+  lets a doubly-modified segment wear one mark on each side: Hindi ʈʰ = `txy` = ṫ̖, retroflex below,
   aspiration above. The tall-letter rule is now "nothing EXCEPT the two dots sits above a tall letter";
-  emphatics are the doubled `yy` (`tˤ`=`tyy`, the rarer phenomenon takes the longer spelling).
+  the Arabic emphatics ride the exotic slots (`sˤ`=`sy` ṣ · `tˤ`=`tx` t̖ — see THE EXOTIC LADDER).
 - **Vowels** (17, triangular — see `docs/index.html`): 5 cardinal bases `a e i o u` on the
   triangle edges; operators `c`=toggle-rounding (front gains: `ic`=y `ec`=ø; back loses: `uc`=ɯ `oc`=ɤ;
   apex marks back: `ac`=ɑ), `j`=**lower one step, uniformly** — each in-between vowel is its higher
@@ -355,48 +393,50 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   them; the injectivity check enforces it.
 - **Modifiers ride on top**: long `w`; **aspirated `y`** on a consonant (`py ty ky tcy tqy` =
   /pʰ tʰ kʰ tsʰ tʃʰ/ — `y` has no phoneme twin, so `Cy` never re-reads, and `Ch` is the sequence
-  /C/+/h/); **nasal `y`** on a vowel (`ay`=/ã/; French is 3-way /ẽ ã õ/, œ̃ merges); **pharyngealised
-  `yy`** — the doubled `y` (`tyy`=/tˤ/, the rarer phenomenon takes the longer spelling; AR-only);
-  **nonsyllabic `x`** on the close vowels (the glides — see the vowel bullet);
+  /C/+/h/); **nasal `y`** on a vowel (`ay`=/ã/; French is 3-way /ẽ ã õ/, œ̃ merges);
+  **pharyngealised** on the exotic slots (`sy zy` ṣ ẓ; `tx dx` t̖ d̖ where θ ð hold the y-slots —
+  AR-only); **nonsyllabic `x`** on the close vowels (the glides — see the vowel bullet);
   rhotic **`q`** on the schwa (`aq`=/ɝ/ — an irregular short label, ax+q with the x elided;
-  `q` is inert on a central vowel, so no trill overlap); palatalised `j` (`pj kj bj`…) doubled per
-  **THE DOUBLING RULE** below. There is NO labialised modifier: Latin
+  `q` is inert on a central vowel, so no trill overlap); palatalised `j` (`pj kj bj`…), falling to
+  the exotic `y` on s z tc per **THE EXOTIC LADDER** below. There is NO labialised modifier: Latin
   ⟨qu⟩/⟨ngu⟩ are k+w/g+w clusters via the glides (quī=`kuxiw` ~ cui=`kuix`, distinct sequences —
   bare `ku` would read /k/+/u/, which is exactly what cui is). See the notation invariant.
-- **THE DOUBLING RULE — TWO predicates, not one**, both derived from the data and never hardcoded:
-  - **Labels** (`notation.doubles`): a modifier letter doubles when *base+letter is already a POINT
-    LABEL*. FOUR labels do, and only four: `sj`=/ʃ/ so /sʲ/=`sjj`, `zj`=/ʒ/ so /zʲ/=`zjj`;
-    and `tx`=/θ/, `nx`=/ŋ/ so Tamil's retroflex ʈ ɳ are `txx nxx`.
-  - **Glyphs** (`uni._doubles_glyph`): a mark doubles when *glyph+one mark already spells a POINT'S
-    GLYPH* — ș z̦ c̦ x̦ h̦ are taken, so those bases wear two.
-  They agree almost everywhere but they are NOT the same constraint, and merging them cost length
-  for nothing: Ukrainian ць /tsʲ/ is **`tcj`** — a label that collides with no point — even though
-  its glyph would collide with `tq`=/tʃ/ and so draws the doubled c͈. Everything unoccupied stays
-  single on both sides: `tj dj nj lj rj pj kj gj fj vj mj bj`, `lx rx`.
-  **The two soft doublings are structural, not accidental** — see "Why `sjj zjj` stay" below.
-  **Why doubling and not a spare letter.** `q` is free on s and z, so `sq zq` could replace
-  `sjj zjj` — but **`t` has no free operator at all** (c j q x w y are all points or modifiers
-  there), so `txx` could never follow, and the system would carry two devices for one situation
-  instead of one. Doubling is also not a patch: **a doubled operator letter always means "the other
-  reading of this letter"** — `yy` is the second reading of `y` (aspirated → pharyngealised), `jj`
-  and `xx` the modifier reading where the point took the single letter. One law, three instances.
-  Cost in practice: 2-operator labels exist for four sounds in four languages (ET RU UK TA), and
-  among the 12 core languages only Russian ever types one.
+- **THE EXOTIC LADDER (Sz) — no letter ever doubles, no mark ever doubles.** Frequent, widespread
+  phenomena have dedicated notation; a rare, language-specific quality rides an EXOTIC SLOT whose
+  reading the language defines. `y` is the first exotic letter (glyph: ONE DOT — ṭ ḍ ṇ ṗ ṣ ẓ; side
+  below, above on descenders or where a point owns the below form: ṗ k̇ ċ̦ g̣); `x` is the second
+  (glyph: the ANTI-COMMA — t̖ d̖ n̖ …), used only where a language stacks TWO specials on one base.
+  They are NOT a progression — where both appear they are different phenomena (AR θ=ty ~ tˤ=tx;
+  HI t̪ʰ=ty ~ ʈ=tx ~ ʈʰ=txy). A slot may read differently per language but may NEVER carry two
+  sounds within one language (`find_shared_labels` proves it; crimes fail --strict). The
+  cross-language overloads are THE EXOTIC REGISTRY, printed by the CLI and on the page with each
+  language's precise IPA — currently 8 slots, e.g. `ty` = θ (AR EL EN ES) ~ tʰ (BN HI KO TH VI ZH),
+  `py` = pf (DE) ~ pʰ, `sy` = sʲ (ET RU UK) ~ sˤ (AR: ṣ, the scholarly mark exactly).
+  Mechanics (`notation.modifier_letter`): a modifier spells its own letter; where its slot is
+  occupied AND sharing would collide within a language, it falls down the ladder —
+  palatalized j→y on s z tc (RU has both ʃ and sʲ), pharyngealized y→x on t d (AR has both θ and
+  tˤ). Sharing is otherwise deliberate: aspiration stays `y` although ty is the θ point, because
+  no language has both /tʰ/ and /θ/ — verified, with the fallbacks' forcedness, by
+  `test_exotic_fallbacks_are_forced_and_shares_are_safe`.
+  **Exotic slots have NO universal IPA** — the ipa target prints the slot's own sign (ṭ) for the
+  overloaded ones and honest IPA for single tenants (ny=ŋ, ky=kʰ, nx=ɳ); per-language readings
+  live in the registry. θ ð ŋ pf stay POINTS in derive with honest features — only their LABELS
+  moved (tx dx nx pc → ty dy ny py), which is what freed single-x retroflex: ʈ ɖ ɳ = tx dx nx.
 - Validated: all **734** phoneme records get a distinct label per language, **0 collisions**, and
   **no label decomposes** — every one is base or base + operators.
 
-## Why `sjj zjj` stay, and why the tap is a point
+## Why soft s z fall to the exotic slot, and why the tap is a point
 Two questions that look alike and are not.
 
-**The doubled labels.** After the palatal merge, `sjj zjj` are the only labels the `palatalized`
-modifier doubles, and both are forced by a point sitting on base+`j` that is held there by a
+**The exotic fallback on s z.** The palatal slots `sj zj` are the hush points, held there by a
 **WITNESS** — the strongest kind, a same-language phonemic contrast. Russian has ш and сь
 (**сесть** /sʲestʲ/ 'sit down' ~ **шесть** /ʂestʲ/ 'six', a minimal pair) and ж and зь (**жевать**
 'chew' ~ **зевать** 'yawn'); UK and ET repeat the s case. Re-reading /ʃ/ as /s/+palatalized would
-merge a contrast in three languages — that breaks the FIRST invariant, not merely the fifth. (The
-fifth's finder never even compares them: palatalization relocates a coronal to PALATAL, and there is
-no palatal fricative point — German ç is an allophone of /x/ — while /ʃ/ is postalveolar, which no
-modifier reaches.)
+merge a contrast in three languages — that breaks the FIRST invariant, not merely the fifth. So the
+soft s z ARE the exotic s z of those languages: `sy zy`, ṣ ẓ — the same slots Arabic's ṣād and ẓāʾ
+read as emphatics, with no language holding both readings. (The fifth's finder never compares
+ʃ to sʲ: palatalization relocates a coronal to PALATAL, and there is no palatal fricative point —
+German ç is an allophone of /x/ — while /ʃ/ is postalveolar, which no modifier reaches.)
 
 **The tap `rc` and the soft r `rj` are two points-worth of different, not one — REVIEWED AND KEPT.**
 Nothing in the 23 contrasts them (RU/UK have рь and no tap; ES/JA/TR/TA have the tap and no soft
@@ -455,13 +495,13 @@ same-language neighbour — the shape of an allophone. Reviewed genuine contrast
   difference between /c/ and /tʲ/, or /ɲ/ and /nʲ/, is real and is exactly the kind of detail the
   system does not encode, the same call the ledger already makes for French R ≈ Greek γ. Hence the
   palatal coronals are `tj dj nj lj` and Tamil's ஷ is `sj`. What the principle does NOT reach:
-  a manner difference (trill~tap), which no modifier moves — see "Why `sjj zjj` stay".
+  a manner difference (trill~tap), which no modifier moves — see "Why soft s z fall to the exotic slot".
 - **Retroflex is a MODIFIER, never a point — literally, in the data.** There are no retroflex
   POINTS at all: a language that does not contrast retroflexion enters the plain point and realises
   it as it likes (Russian ш, Mandarin sh, Tamil ஷ are all the unmarked hush point `sj`, realised
   [ʂ]); a language that DOES contrast it takes the **retroflex layer** on top. **The single `j` is
   never retroflex** — it is the palatal, always — and the layer is drawn by FLIPPING the comma:
-  ș → s̖ (U+0326 → U+0316). So Tamil's ʈ ɳ ɭ ɻ are `txx nxx lx rx`, and a three-way sibilant
+  ș → s̖ (U+0326 → U+0316). So Tamil's ʈ ɳ ɭ ɻ are `tx nx lx rx`, and a three-way sibilant
   language spells the series plain / palatal / palatal+retroflex: Polish s ~ ś `sj` ~ sz `sjx`.
   The only retroflex entry left in the ledger is the APPROXIMANT `ɻ`, which folds (with `ɹ`) into
   the generic **R slot** `r` — because it is a rhotic, not a retroflexed anything. `ʁ` is NOT a

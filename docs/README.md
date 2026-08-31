@@ -9,7 +9,8 @@
   `out/general_inventory.json` (**49 general**); notation → `data/labels.yaml` → `out/labels.json`.
   `CLAUDE.md` ("Notation") is the prose summary; `docs/uni-view.md` is the uni-view spec. The `ipa`
 target is a curated **approximation** — one IPA rendering per label, using IPA's own letter wherever
-it has one for a point+modifier combination (`nj`=ɲ, `txx`=ʈ) — never an input to the point set.
+it has one (`nj`=ɲ, `nx`=ɳ); an OVERLOADED exotic slot has no universal IPA and prints its own
+sign (`ty`=ṭ: English θ, Mandarin tʰ) — never an input to the point set.
 
 ## The notation in one paragraph
 Flat scheme, base + one operator, no diacritics/case/tier. Six operators `c j q x w y`, all
@@ -17,7 +18,8 @@ base-dependent (`h` is only the /h/ base — a modifier letter never has a phone
 `c`=affricate (`tc`=/t͡s/) · `q`=hush affricate (`tq`=/t͡ʃ/) · `x`=dental/velar (`tx`=/θ/, `kx`=/x/) ·
 `j`=palatal — the hush points where base+`j` is one (`sj`=/ʃ/), the soft consonant everywhere else
 (`tj`= Hungarian ty = Russian ть, `nj`= Spanish ñ = Russian нь: one point each) · `w`=long · `y`=aspirated (`py ty ky`=/pʰ tʰ kʰ/; doubled
-`yy`=emphatic, `tyy`=/tˤ/). Gutturals all sit on `h` (`hx`=/ħ/ · `hj`=/ʕ/ · `hq`=/ʔ/, the last drawn with the apostrophe). There is no
+the exotic slots carry the language's special quality: `ty`=θ/tʰ ṭ, `sy`=sʲ/sˤ ṣ — see the exotic
+registry). Gutturals all sit on `h` (`hx`=/ħ/ · `hj`=/ʕ/ · `hq`=/ʔ/, the last drawn with the apostrophe). There is no
 labialised modifier — Latin ⟨qu⟩/⟨ngu⟩ are k+w/g+w clusters via the glides (quī=`kuxiw` ~ cui=`kuix`).
 Vowels: cardinals `a e i o u` + `c` (flip front↔back) / `j` (lower one step) /
 `q` (c+j) / `x` (centralise→schwa); on a vowel `y` is nasal (`ay`=/ã/). All 734 phonemes round-trip to

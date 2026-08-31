@@ -27,16 +27,18 @@ consonants:
                  #   Latin orthographies (Hawaiian ʻokina, Mayan, Tagalog) and hamza in ASCII Arabic.
   m: m
   n: n
-  ŋ: nx
+  ŋ: ny          # the EXOTIC n (one dot, ṇ): English sing. ɳ takes the freed nx (anti-comma).
   ts: tc         # affricate operator c  (Pinyin c = /ts/)
   dz: dc
-  pf: pc
+  pf: py         # the EXOTIC p (ṗ): German pf — and Mandarin pʰ, the same slot read per language.
   tʃ: tq         # hush affricate, operator q (Pinyin q); absorbs tɕ tʂ — no sign
   dʒ: dq         # absorbs dʑ
   f: f
   v: v
-  θ: tx
-  ð: dx
+  θ: ty          # the EXOTIC t (ṭ): English thank, Arabic ث — and ZH/TH/KO/VI/HI/BN tʰ. NO
+                 #   language pairs /θ/ with /tʰ/, so the slot never clashes within one language.
+  ð: dy          # the EXOTIC d (ḍ): English this, Arabic ذ — and HI/BN dʱ (breathy). Arabic is
+                 #   the ONE language stacking two specials on d (ð + dˤ), so ð=dy and dˤ=dx.
   s: s
   z: z
   ʃ: sj          # hush fricative = palatal `j` (Hungarian s); absorbs ɕ ʂ — no sign
@@ -78,32 +80,33 @@ vowels:
   ɑ: ac          # open back  (apex: rounding is moot, so c marks the back one)
   ə: ax          # schwa = the centre; centralise. (`y` is not a vowel base — it is the modifier letter.)
 
-modifiers:       # each is just a letter/combo — no separate tier
+# THE EXOTIC LADDER (Sz): frequent, widespread phenomena earn dedicated notation; a rare,
+# language-specific quality rides an EXOTIC SLOT whose reading the language defines. `y` is the
+# first exotic letter (glyph: ONE DOT — ṭ ḍ ṇ ṣ ẓ ṗ …), `x` the second (glyph: the ANTI-COMMA —
+# t̖ d̖ n̖ …), used only where a language stacks TWO specials on one base (AR θ+tˤ, HI t̪ʰ+ʈ).
+# They are NOT a progression — when both appear they are different phenomena. A slot may read
+# differently per language (ty = EN θ, ZH tʰ) but may NEVER carry two sounds within one language
+# (`notation.find_shared_labels` proves it; the cross-language overloads live in the exotic
+# registry the CLI prints). NO letter ever doubles.
+modifiers:       # each is just a letter — no separate tier
   long: w            # tw = /tː/ · iw = /iː/
-  palatalized: j     # /Cʲ/ = Cj (pj tj dj nj lj kj …). It DOUBLES on exactly three bases, where
-                     #   base+j is already a point: sj/zj are the hush /ʃ ʒ/ (Russian сесть/шесть,
-                     #   зевать/жевать contrast them) — so /sʲ zʲ/ = sjj zjj. /rʲ/ is plain `rj`:
-                     #   the tap sits on `rc`, so nothing occupies r+j
-  aspirated: "y"     # py ty ky tcy tqy = /pʰ tʰ kʰ tsʰ tʃʰ/ (single `y` on a consonant). `y` has no
+  palatalized: j     # /Cʲ/ = Cj (pj tj dj nj lj kj …). Where the palatal slot is occupied (sj zj
+                     #   are the hush points; tc's glyph c̦ is tq), that palatalization IS the
+                     #   language's exotic and spells `y`: /sʲ zʲ tsʲ/ = sy zy tcy (RU UK ET).
+  aspirated: "y"     # the exotic letter directly: py ty ky tcy tqy = /pʰ tʰ kʰ tsʰ tʃʰ/. `y` has no
                      #   phoneme twin, so Cy never re-reads; Ch is simply the sequence /C/+/h/
-                     #   (uphill, Korean 국화). The frequent phenomenon (10 phonemes, ZH KO VI) takes
-                     #   the one-letter slot.
-  pharyngealized: "yy" # tyy dyy syy zyy = /tˤ dˤ sˤ zˤ/ — the four Arabic emphatics (ظ is
-                     #   modelled as /zˤ/, see ar.yaml). The DOUBLED letter — the rarer
-                     #   phenomenon (AR-only, 4 phonemes) takes the longer spelling, same pattern as
-                     #   /sʲ/=sjj. Unambiguous: `y` is never a phoneme, so Cyy has no sequence reading.
-  # (no labialised modifier: Latin ⟨qu⟩/⟨ngu⟩ are k+w/g+w clusters — quī = `kuxiw` ~ cui = `kuix`,
-  #  distinct sequences via the glides; kc/gc stay unused slots, guarded by the decodability invariant.)
-  nasal: "y"         # vowels only: ay = /ã/. Base-dependent: `y` is aspiration on a consonant, nasal
-                     #   on a vowel. Renders as the tilde.
+                     #   (uphill, Korean 국화). ty ALSO carries the θ point — no language has both.
+  pharyngealized: "y" # the Arabic emphatics are the exotic slots: sˤ zˤ = sy zy (ṣ ẓ — the
+                     #   scholarly transliteration exactly). On t d the first slot is θ ð, which
+                     #   Arabic HAS, so tˤ dˤ take the SECOND exotic: tx dx (t̖ d̖).
+  nasal: "y"         # vowels only: ay = /ã/. Base-dependent: `y` is the exotic on a consonant,
+                     #   nasal on a vowel. Renders as the tilde.
   rhotic: q          # English /ɝ/ = axq (irregular short label `aq`). `q` does nothing on a central
                      #   vowel, so the slot is free and unambiguous — the trill `r` is a base and
                      #   could never carry it (axr must read /ə/+/r/).
-  retroflex: x       # consonants: lx=/ɭ/ rx=/ɻ/ — single x where base+x is no point;
-                     #   DOUBLED where it is one (tx dx kx gx nx are θ ð x ɣ ŋ): txx=/ʈ/ nxx=/ɳ/.
-                     #   The same point-if-exists-else-modifier rule as everywhere; x never stands
-                     #   alone, so nothing re-reads. Tamil-only (the modifier, like the emphatics,
-                     #   never creates points — ZH/EN retroflexion stays a realisation of the fold).
+  retroflex: x       # the second-exotic letter directly: ʈ ɖ ɳ = tx dx nx (freed by θ ð ŋ moving to
+                     #   the y-slots) · ɭ ɻ = lx rx · the hush layer sjx zjx tqx dqx (PL sz ż cz dż,
+                     #   glyph: the comma flipped). x never stands alone, so nothing re-reads.
   nonsyllabic: x     # GLIDES = reduced close vowels: ix=/j/ ux=/w/ icx=/ɥ/ ucx=/ɰ/. One story for
                      #   `x` on a vowel: REDUCE — `a` reduces to the schwa POINT (ax=/ə/), the close
                      #   vowels reduce to non-syllabic (the modifier) — the same point-if-exists-

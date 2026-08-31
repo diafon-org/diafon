@@ -44,17 +44,30 @@ def test_universal_stream_decodability():
     assert both == [], f"universal-stream collisions: {both}"
 
 
-def test_no_label_carries_two_analyses():
-    """FOURTH invariant — one label, one (point, modifiers). The two finders above ask whether a
-    label re-reads as a *sequence*; neither can see one label string produced by two different
-    analyses, because within a language it never is (that's derive's injectivity). The clash lives
-    only in the unioned UNIVERSAL stream, and it is real: `sj` is the hush point /ʃ/ (17 languages)
-    and would equally be palatalized /s/ (ET/RU/UK), one label and one glyph for two sounds. The
-    doubling rule in `_mod_chars` is derived from the point set precisely so this stays empty."""
+def test_no_label_carries_two_analyses_within_a_language():
+    """FOURTH invariant, restated for the EXOTIC LADDER — one label, one analysis PER LANGUAGE.
+    Across languages a slot is deliberately overloadable (ty = EN θ / ZH tʰ — the exotic registry);
+    within one language two analyses of one label would make that language's own text ambiguous,
+    and that must stay impossible. Also pins the registry itself, so a new overload is a conscious
+    edit here, not an accident."""
     from diaphone.notation import find_shared_labels
     features, languages, all_ph = load(DATA)
-    shared = find_shared_labels(all_ph, features, DATA)
-    assert shared == {}, f"labels with two analyses: {shared}"
+    crimes, registry = find_shared_labels(all_ph, features, DATA)
+    assert crimes == {}, f"one label, two analyses WITHIN a language: {crimes}"
+    assert sorted(registry) == ["dx", "dy", "py", "sy", "tcy", "tx", "ty", "zy"], sorted(registry)
+
+
+def test_exotic_fallbacks_are_forced_and_shares_are_safe():
+    """The exotic ladder's two fallbacks (palatalized j->y on s z tc; pharyngealized y->x on t d)
+    exist because SHARING there would collide within a language (RU has ʃ and sʲ; AR has θ and tˤ).
+    Every remaining share must be collision-free per language — that is the crimes=={} half above —
+    and every fallback must be genuinely forced, which this asserts: the slot it dodges is occupied
+    by a same-language phoneme."""
+    features, languages, all_ph = load(DATA)
+    have = lambda lg, ipa: any(p["ipa"] == ipa for p in all_ph[lg])
+    assert have("RU", "ʂ") and have("RU", "sʲ")      # sj occupied -> soft s falls to sy
+    assert have("AR", "θ") and have("AR", "tˤ")      # ty occupied -> emphatic t falls to tx
+    assert have("UK", "ts") and have("UK", "tsʲ")    # tc's comma-glyph is tq -> soft ts falls to tcy
 
 
 def test_label_map_folds_by_tuple_not_canonical_ipa():
@@ -82,11 +95,38 @@ def test_adoption_scale_ends_at_the_universal_view():
     from diaphone.engine import render
     from diaphone.decode import load_groups
     for lang, text in (("hu", "sjok sewp njawr aclmac hoswuw ejdj kisj kutjac"),
-                       ("en", "dxax kat sijts acn dxax mat sji sejlz fijsj"),
-                       ("zh", "tqonx1kuo2 tqya2 kxaxn3 kxau3 sjiau3 nic3")):
+                       ("en", "dyax kat sijts acn dyax mat sji sejlz fijsj"),
+                       ("zh", "tqony1kuo2 tqya2 kxaxn3 kxau3 sjiau3 nic3")):
         groups = list(load_groups(lang, DATA))
         assert groups, f"{lang} declares no adoption groups"
         assert render(text, lang, DATA, off=groups) == render(text, "uni", DATA), lang
+
+
+def test_universal_targets_are_slots_not_projections():
+    """THE SLOT GUARANTEE. `uni` and `ipa` name SLOTS, not sounds. A slot may be realised differently
+    in different languages — `sj` is [ʃ ʂ ɕ], `r` is [r ɹ ʐ], the plain `d` is [d d̪ ɗ] (Vietnamese
+    đ is an implosive) — and that overlap is the design, not a defect: a rendering that tracked each
+    language's phonetics would BE a phonetic system, which this is not. What must never happen is an
+    overlap WITHIN one language, and that is provable rather than hoped for: injectivity gives each
+    phoneme a distinct (point, modifiers), the doubling rule gives each of those a distinct label,
+    and the invert test gives each label a distinct glyph and IPA string. This asserts the end of
+    that chain directly, per language, for both targets."""
+    from diaphone.notation import _label_maps, full_label
+    from diaphone.engine import export_data
+    features, languages, all_ph = load(DATA)
+    lab_of, mod_map = _label_maps(all_ph, features, DATA)
+    maps = export_data(DATA)["maps"]
+    for tgt, m in maps.items():
+        for code, phs in all_ph.items():
+            seen = {}
+            for ph in phs:
+                pl = lab_of.get(ph["base"])
+                if pl is None:
+                    continue
+                lab = full_label(pl, ph["mods"], mod_map, DATA)
+                g = m.get(lab, lab)
+                assert seen.get(g, lab) == lab, (tgt, code, g, seen[g], lab)
+                seen[g] = lab
 
 
 def test_mapping_is_injective_per_language():
@@ -115,11 +155,11 @@ def test_a_series_never_drops_the_source_modifiers():
 
 def test_modifier_order_is_place_then_rest_then_length():
     """A label spells what modifies what: place-like layers closest to the base, length last.
-    Hindi's ʈʰ is `txxy` — a retroflex t, then aspirated — not `tyxx`."""
+    Hindi's ʈʰ is `txy` — a retroflex t, then aspirated — not `tyx`."""
     from diaphone.notation import _mod_chars, _label_maps
     features, languages, all_ph = load(DATA)
     _lab, mod_map = _label_maps(all_ph, features, DATA)
-    assert _mod_chars({"aspirated", "retroflex"}, "t", mod_map, DATA) == "xxy"
+    assert _mod_chars({"aspirated", "retroflex"}, "t", mod_map, DATA) == "xy"
     assert _mod_chars({"long", "palatalized"}, "t", mod_map, DATA) == "jw"
 
 
@@ -266,13 +306,14 @@ def test_engine_render_targets():
     assert render("sjan1", "ipa", DATA) == "ʃan¹"              # superscript tone = IPA only
     assert render("sjan1", "uni", DATA) == "șan1"          # uni keeps the plain digit (no upper-index outside IPA)
     assert render("njawr", "uni", DATA) == "n̦ár"           # nj→ņ, aw→á (long)
-    assert render("tyy dyy syy zyy", "uni", DATA) == "t̰ d̰ s̰ z̰"   # emphatics = tilde below (the dark colour)
-    assert render("py ty ky", "uni", DATA) == "p̈ ẗ k̈"     # aspirated = two dots, ALWAYS above
-    assert render("tcy tqy", "uni", DATA) == "c̈ c̦̈"         # the two dots never move; c̦ keeps its comma below
-    assert render("py ty ky", "ipa", DATA) == "pʰ tʰ kʰ"       # aspiration = `y`, which has no phoneme twin
+    assert render("tx dx sy zy", "uni", DATA) == "t̖ d̖ ṣ ẓ"   # the AR emphatics: second-exotic t d · first-exotic s z
+    assert render("py ty ky", "uni", DATA) == "ṗ ṭ k̇"     # the exotic dot (above on p g k — descender or taken)
+    assert render("tcy tqy", "uni", DATA) == "c̣ ċ̦"         # dot below on c; above on c̦ (its below is taken)
+    assert render("ky tqy", "ipa", DATA) == "kʰ tʃʰ"          # single-tenant exotic slots keep honest IPA
+    assert render("ty py sy", "ipa", DATA) == "ṭ ṗ ṣ"       # overloaded slots print the slot sign — no universal IPA
     assert render("aphijl", "ipa", DATA) == "aphɪl"            # ph = the sequence /p/+/h/ (uphill-type words)
-    assert render("tx dx kx gx nx", "uni", DATA) == "ṭ ḍ ḳ ġ ṇ"  # x-family = one dot (above on the descender g)
-    assert render("pc", "uni", DATA) == "ṗ"                 # pf: the dot above the descender p
+    assert render("ty dy kx gx ny", "uni", DATA) == "ṭ ḍ ḳ ġ ṇ"  # dot family: exotic t d n (θ ð ŋ …) + the velar points
+    assert render("py", "uni", DATA) == "ṗ"                 # the exotic p: German pf AND Mandarin pʰ — one slot
     assert render("h hx hj hq", "uni", DATA) == "h ḥ h̦ '"  # every mark follows its operator (x→dot, j→comma); /ʔ/ has no buildable glyph (see uni.py) and takes the apostrophe
     assert render("ax axw aq", "uni", DATA) == "ạ ạ́ r̈"    # schwa = ạ (a + the x-dot); long and rhotic compose
     assert render("TW Tw SJOKK", "uni", DATA) == "TT Tt ȘOKK"   # ALL-CAPS uppercases whole glyphs
@@ -280,12 +321,13 @@ def test_engine_render_targets():
     assert render("ay", "ipa", DATA) == "ã"
     assert render("aq", "ipa", DATA) == "ə˞" and render("aq", "uni", DATA) == "r̈"  # rhotic ɝ = `aq`; uni = vocalic r̈
     assert render("r rc rj rx aq", "uni", DATA) == "r ṛ r̦ r̖ r̈"   # r-family: trill · tap · soft · retroflex · vocalic — five sounds, five marks, no exception
-    assert render("txx nxx lx rx", "uni", DATA) == "t̖ n̖ l̖ r̖"   # retroflex = the "\\" tail (Tamil)
-    assert render("rx txx nxx lx", "ipa", DATA) == "ɻ ʈ ɳ ɭ"   # IPA has letters for these: we print them
+    assert render("tx nx lx rx", "uni", DATA) == "t̖ n̖ l̖ r̖"   # retroflex = the "\\" tail — single x, freed by θ ŋ moving to y
+    assert render("rx nx lx", "ipa", DATA) == "ɻ ɳ ɭ"          # single-tenant retroflex keeps honest IPA
+    assert render("txy dxy", "ipa", DATA) == "ʈʰ ɖʰ"           # …and composes (HI ʈʰ; tx alone is overloaded -> t̖)
     assert render("varxi vali valxi", "uni", DATA) == "var̖i vali val̖i"   # Tamil vaḻi~vali~vaḷi
     assert render("aq", "en", DATA) == "er"
     assert render("acswonj", "hu", DATA) == "asszony"          # language target still works (HU a = ac)
-    assert render("sjj zjj rj", "uni", DATA) == "s͈ z͈ r̦"   # two commas only where one would spell a point
+    assert render("sy zy rj", "uni", DATA) == "ṣ ẓ r̦"      # soft s z fall to the exotic slot; soft r keeps its comma
     #   (ș z̦ = ʃ ʒ); on r the tap sits on `rc`, so the soft r is plain `rj` — one j, one comma
     assert render("pj kj bj", "uni", DATA) == "p̓ k̦ b̦"     # one j = ONE stroke (above on the descender p)
     assert render("tj dj nj lj", "uni", DATA) == "ț d̦ n̦ l̦"  # ONE point each: HU ty = RU ть, ES ñ = RU нь
@@ -329,11 +371,11 @@ def test_notation_to_ipa_universal():
     from diaphone.render import to_ipa
     features, languages, all_ph = load(DATA)
     f = lambda s: to_ipa(s, all_ph, features, DATA)
-    assert f("sjan") == "ʃan" and f("tx") == "θ" and f("nj") == "ɲ" and f("kx") == "x"
+    assert f("sjan") == "ʃan" and f("ty") == "ṭ" and f("nj") == "ɲ" and f("kx") == "x"
     # the ipa target is a curated approximation: where IPA writes a point+modifier with a LETTER we
     # print the letter (nj = ɲ, not nʲ), and remaining modifiers compose onto it — length LAST
-    assert f("tj dj lj") == "c ɟ ʎ" and f("tjw") == "cː" and f("sjjw") == "sʲː"
-    assert f("pya") == "pʰa" and f("tw") == "tː" and f("sjj") == "sʲ" and f("tyy") == "tˤ"
+    assert f("tj dj lj") == "c ɟ ʎ" and f("tjw") == "cː" and f("syw") == "ṣː"
+    assert f("pya") == "ṗa" and f("tw") == "tː" and f("sy") == "ṣ" and f("tx") == "t̖"
     assert f("sjan1") == "ʃan¹"                        # trailing tone digit -> superscript
 
 
@@ -372,7 +414,7 @@ def test_en_simplified_vowels():
     from diaphone.decode import decode
     assert decode("show boy law moon see day", "en", DATA, lazy=True) == "show boy law moon see day"
     assert decode("gud berd", "en", DATA, lazy=True) == "good berd"        # respell stays readable
-    assert decode("dxax kat", "en", DATA) == "thu kat"                     # strict respell
+    assert decode("dyax kat", "en", DATA) == "thu kat"                     # strict respell
 
 
 def test_decode_lazy_mode_aliases():

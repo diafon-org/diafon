@@ -11,13 +11,13 @@ DATA = os.path.join(os.path.dirname(__file__), "..", "data")
 
 CORPUS = [
     "sjok sewp njawr", "kecsecnecm sewpejn", "acswonj", "hoswuw", "ejdj nacdj kutjac",
-    "ejdj kisj kutjac aclsik acz acstacl aclactt", "pjatj", "sjj zjj py ky", "tyy dyy syy zyy",
-    "h hx hj hq", "r rc rj rx aq", "baqd", "dxax kat sijts acn dxax mat", "sji sejlz fijsj",
-    "sjan1 kxaxn3 kau1", "tqonx1 kuo2 tqya2 kxaxn3 kxau3", "tqi1 sji1 tquc1 sjuc4",
+    "ejdj kisj kutjac aclsik acz acstacl aclactt", "pjatj", "sy zy py ky", "tx dx sy zy",
+    "h hx hj hq", "r rc rj rx aq", "baqd", "dyax kat sijts acn dyax mat", "sji sejlz fijsj",
+    "sjan1 kxaxn3 kau1", "tqony1 kuo2 tqya2 kxaxn3 kxau3", "tqi1 sji1 tquc1 sjuc4",
     "nic3", "de5", "de0", "raxn2", "alma kert", "ni3 hao3", "zhong1 guo2", "xiao3", "cai4",
-    "tqonx1kuo2 niu2nai3", "sji1kua1 tqoc4sjuc4",
-    "iu3 ui4 un2 u3 i1 ican2 puo1 aq2 inx1 unx1",
-    "txx nxx lx rx", "pj kj bj sjj", "tj dj nj lj",
+    "tqony1kuo2 niu2nai3", "sji1kua1 tqoc4sjuc4",
+    "iu3 ui4 un2 u3 i1 ican2 puo1 aq2 iny1 uny1",
+    "tx nx lx rx", "pj kj bj sy", "tj dj nj lj",
     "hacix ixow fiuw", "ixejs uxejst", "ix ux icx ucx",
     "sjiau3 liu2 tou1", "berd werld show boy law", "dhuh kat sijts awn dhuh flawr",
 ]

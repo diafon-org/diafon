@@ -53,7 +53,7 @@ def analyse(data_dir):
         return out
     for name, fn in (("collisions", find_collisions),
                      ("universal", find_universal_collisions),
-                     ("shared", find_shared_labels)):
+                     ("shared", lambda *a: find_shared_labels(*a)[0])):   # crimes only; the registry is by design
         try:
             out[name] = fn(all_ph, features, data_dir)
         except Exception as e:                    # labels.yaml has no entry for a brand-new point

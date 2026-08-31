@@ -99,7 +99,7 @@ function decode(text, lang, lazy, off) { let orth = { ...D.orth[lang] };
 const WORDS = [
   "sjok sewp njawr", "pjatj", "kecsecnecm sewpejn", "acswonj", "hoswuw", "ejdj nacdj kutjac",
   "kxaxn3 kau1", "sjan1 kxaxn3 kau1", "tqix1 sjuc4", "tqi1 sji1 tqic1 sjic1", "tquc1 sjuc4 suc4",
-  "nic3", "de5", "de0", "tou1 kxau3 kuo2", "hacix ixow fiuw", "ixejs uxejst", "ix ux icx ucx", "raxn2", "sjj zjj py ky", "tqx dqx", "py ty ky", "tqonx1kuo2 niu2nai3", "txx nxx lx rx tj dj nj lj pj kj", "TW Tw SJOKK h hx hj hq ax", "Hqalif hqalif HQALIF", "r rc rj rx aq", "SJOK SEWP NJAWR HOSWUW DXAX", "iu3 ui4 un2 u3 i1 ican2 puo1 aq2",
+  "nic3", "de5", "de0", "tou1 kxau3 kuo2", "hacix ixow fiuw", "ixejs uxejst", "ix ux icx ucx", "raxn2", "sy zy py ky", "tqx dqx", "py ty ky", "tqony1kuo2 niu2nai3", "tx nx lx rx tj dj nj lj pj kj", "TW Tw SJOKK h hx hj hq ax", "Hqalif hqalif HQALIF", "r rc rj rx aq", "SJOK SEWP NJAWR HOSWUW DYAX", "iu3 ui4 un2 u3 i1 ican2 puo1 aq2",
   "sjiau3 liu2 tou1",
   "alma kert", "ni3 hao3", "xiao3", "zhong1 guo2", "ren2", "cai4", "bao3 dao4", "pa4",
   "berd werld show boy law", "dhuh kat sijts awn dhuh flawr",
