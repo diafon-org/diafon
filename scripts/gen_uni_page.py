@@ -527,7 +527,9 @@ table.grid{border-collapse:collapse;width:100%;min-width:760px}
 .cell{display:flex;gap:2px;justify-content:center;min-height:100%}
 .pt{flex:1;padding:.4rem .2rem;display:flex;flex-direction:column;align-items:center;gap:1px}
 .pt .lab{font-size:.62rem;opacity:.55}
-.pt.guest{opacity:.75;outline:1.5px dashed var(--muted);outline-offset:-3px;border-radius:8px}
+.pt.guest{opacity:.85;outline:1.5px dashed var(--muted);outline-offset:-3px;border-radius:8px}
+/* an exotic-slot point: counted in the 49, but its spelling is the wildcard slot — reading moves */
+.pt.exo{outline:2px dotted var(--accent);outline-offset:-3px;border-radius:8px}
 .pt.vl{background:var(--base-t)}.pt.vd{background:var(--c-t)}
 .pt .nat{font-family:var(--serif);font-size:1.35rem;color:var(--ink);line-height:1.15}
 .pt .lab{font:600 .74rem/1 var(--mono);color:var(--accent)}
@@ -665,7 +667,7 @@ footer a.fref{color:var(--accent);text-decoration:none;border-bottom:1px dotted 
     <span>each tile — <span style="font-family:var(--serif)"><b>uni glyph</b></span> · ipa (→ Wikipedia) · small <code>code</code> = input reference (section 2)</span>
     <span>gutturals: all on h — ḥ=<code>hx</code> (/ħ/) · h̦=<code>hj</code> (/ʕ/) · '=<code>hq</code> (/ʔ/: no glyph the marks can build, so a whole character)</span>
     <span>dashed = <b>phonemes that are not points</b> — the soft coronals (<code>tj</code>=ty, <code>nj</code>=ñ, and <code>rj</code> with its trill), and the glides (vowel + <code>x</code>); not in the counts</span>
-    <span>two separate marks answer two separate questions — <b>dashed</b> = not a point (not in the 49: the soft coronals and the glides) · <b>≈</b> = the IPA shown is a <i>moving</i> representation, read per language (tj = HU c, RU tʲ; ty = EN θ, ZH tʰ, KA tʼ) — the exotic registry is the authority</span>
+    <span><b>solid</b> = a point with a fixed reading · <b>dashed</b> = not a separate point, just the regular machinery's output (soft coronals = base + <code>j</code>; glides = vowel + <code>x</code>) — shown where a reader looks, not counted · <b>dotted</b> = an EXOTIC-SLOT point: counted in the 49, but its spelling is the wildcard slot and its reading moves by language · <b>≈</b> on any IPA = a moving representation; the exotic registry is the authority</span>
   </div>
   <h3 style="margin:1.2rem 0 0">The families, in words</h3>
   <div class="gloss" id="glossBody"></div>
@@ -1030,7 +1032,8 @@ draw();run();
     const tds=D.place.map(([pl])=>{const pts=(byCell[m+"|"+pl]||[]).sort((a,b)=>rank(a.voice)-rank(b.voice));
       if(!pts.length)return "<td></td>";
       const MOV2=new Set(D.moving||[]);
-      const tiles=pts.map(p=>`<div class="pt ${p.voice==="vl"?"vl":"vd"}${p.guest?" guest":""}"><span class="nat">${esc(p.uni)}</span><span class="lab">${esc(p.label)}</span><span class="ipa"><a class="wref" href="${esc(p.wiki)}" target="_blank" rel="noopener">${MOV2.has(p.label)?"≈":""}${esc(p.ipa)}</a></span></div>`).join("");
+      const EXOP=new Set(["ty","dy","ny","py"]);
+      const tiles=pts.map(p=>`<div class="pt ${p.voice==="vl"?"vl":"vd"}${p.guest?" guest":""}${EXOP.has(p.label)?" exo":""}"><span class="nat">${esc(p.uni)}</span><span class="lab">${esc(p.label)}</span><span class="ipa"><a class="wref" href="${esc(p.wiki)}" target="_blank" rel="noopener">${MOV2.has(p.label)?"≈":""}${esc(p.ipa)}</a></span></div>`).join("");
       return `<td><div class="cell">${tiles}</div></td>`;}).join("");
     return `<tr><th>${esc(ml)}</th>${tds}</tr>`;});
   $("cBody").innerHTML=rows.join("");})();
