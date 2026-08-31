@@ -172,7 +172,7 @@ def test_points_nonempty_and_typed():
 
 def test_every_language_loads():
     _, languages, *_ = _run()
-    assert len(languages) == 30   # 12 core + 5 witnesses (TR ET VI KO TA) + 13 coverage (ID FI HE FA NL UK PL TH RO CS HI BN PT)
+    assert len(languages) == 31   # 12 core + 5 witnesses (TR ET VI KO TA) + 14 coverage (ID FI HE FA NL UK PL TH RO CS HI BN PT SW)
 
 
 def test_removed_allophones_absent():
