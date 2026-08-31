@@ -54,7 +54,7 @@ def test_no_label_carries_two_analyses_within_a_language():
     features, languages, all_ph = load(DATA)
     crimes, registry = find_shared_labels(all_ph, features, DATA)
     assert crimes == {}, f"one label, two analyses WITHIN a language: {crimes}"
-    assert sorted(registry) == ["dx", "dy", "ky", "py", "sy", "tcy", "tqy", "tx", "ty", "zy"], sorted(registry)
+    assert sorted(registry) == ["dx", "dy", "gy", "ky", "py", "sy", "tcy", "tqy", "tx", "ty", "zy"], sorted(registry)
 
 
 def test_exotic_fallbacks_are_forced_and_shares_are_safe():
@@ -219,7 +219,7 @@ def test_general_inventory_ledger():
     general, folded = apply_merges(points)
     assert len(folded) == 13, [f[0] for f in folded]
     assert len(general) == len(points) - len(folded)
-    assert len(general) == 45, len(general)   # 58 fine - 13 merges (θ ð ŋ pf are t d n p + exotic now)
+    assert len(general) == 43, len(general)   # 56 fine - 13 merges (θ ð ŋ pf ħ ʕ are exotic forms, not points)
     assert ("V", "open", "back", True) not in general             # ɒ folded into ɔ
     # source points are gone; targets remain
     assert ("C", "dental", "plosive", "vl") not in general        # t̪ folded into t
@@ -241,7 +241,7 @@ def test_covering_graph_structure():
     general, folded = apply_merges(points)
     g = build_graph(points, general, load_labels(DATA), features)
     labels = [n["label"] for n in g["nodes"]]
-    assert len(labels) == 45 and len(set(labels)) == 45
+    assert len(labels) == 43 and len(set(labels)) == 43
     # base + ONE operator, structurally: every non-base label has exactly one derivation edge in
     multi = {l for l in labels if len(l) > 1}
     tos = [e["to"] for e in g["edges"]["derivation"]]
@@ -310,12 +310,15 @@ def test_engine_render_targets():
     assert render("py ty ky", "uni", DATA) == "ṗ ṭ k̇"     # the exotic dot (above on p g k — descender or taken)
     assert render("tcy tqy", "uni", DATA) == "c̣ ċ̦"         # dot below on c; above on c̦ (its below is taken)
     assert render("ny nx lx", "ipa", DATA) == "ŋ ɳ ɭ"          # ny = its declared default; nx lx compose
-    assert render("ty py sy ky", "ipa", DATA) == "θ pf sˤ kʰ"  # STATED DEFAULTS: exotic from labels.yaml
-    #   (ty py), the primary composition elsewhere (sy ky); the registry lists per-language overrides
+    assert render("ty py sy ky", "ipa", DATA) == "θ pf sˤ ħ"   # STATED DEFAULTS: exotic from labels.yaml
+    #   (ty py ky — the pharyngeals ride k/g), the primary composition elsewhere (sy); the registry
+    #   lists per-language overrides (kʰ kʼ are ky's overrides now)
     assert render("aphijl", "ipa", DATA) == "aphɪl"            # ph = the sequence /p/+/h/ (uphill-type words)
     assert render("ty dy kx gx ny", "uni", DATA) == "ṭ ḍ ḳ ġ ṇ"  # dot family: exotic t d n (θ ð ŋ …) + the velar points
     assert render("py", "uni", DATA) == "ṗ"                 # the exotic p: German pf AND Mandarin pʰ — one slot
-    assert render("h hx hj hq", "uni", DATA) == "h ḥ h̦ '"  # every mark follows its operator (x→dot, j→comma); /ʔ/ has no buildable glyph (see uni.py) and takes the apostrophe
+    assert render("h hq", "uni", DATA) == "h '"             # /ʔ/ has no buildable glyph (see uni.py) and takes the apostrophe
+    assert render("ky gy", "uni", DATA) == "k̇ g̣"           # the pharyngeals ride the k/g exotic slots
+    assert render("ky gy", "ipa", DATA) == "ħ ʕ"            # …with ħ ʕ their stated defaults (AR ح ع)
     assert render("ax axw aq", "uni", DATA) == "ạ ạ́ r̈"    # schwa = ạ (a + the x-dot); long and rhotic compose
     assert render("TW Tw SJOKK", "uni", DATA) == "TT Tt ȘOKK"   # ALL-CAPS uppercases whole glyphs
     assert render("ey ay oy", "uni", DATA) == "ẽ ã õ"      # nasal = dedicated `y` operator (not h), tilde on cardinals

@@ -17,8 +17,12 @@ consonants:
 - {ipa: ʃ, pl: postalveolar, mn: fricative, vc: vl, orth: ش}
 - {ipa: x, pl: velar, mn: fricative, vc: vl, orth: خ}
 - {ipa: ʁ, pl: uvular, mn: fricative, vc: vd, orth: غ}
-- {ipa: ħ, pl: pharyngeal, mn: fricative, vc: vl, orth: ح}
-- {ipa: ʕ, pl: pharyngeal, mn: fricative, vc: vd, orth: ع}
+# The pharyngeals ride the k/g EXOTIC slots (Sz): ħ = ky, ʕ = gy — symmetric with خ غ on kx gx,
+# the exotic as the guttural one step beyond x. No pharyngeal points exist; AR has no aspirates
+# or ejectives, so ky gy are free within Arabic. (AR has no bare /g/ either — the g base carries
+# only غ ɣ and this exotic.)
+- {ipa: ħ, pl: velar, mn: plosive, vc: vl, mod: [exotic], orth: ح, note: "voiceless pharyngeal fricative [ħ]"}
+- {ipa: ʕ, pl: velar, mn: plosive, vc: vd, mod: [exotic], orth: ع, note: "voiced pharyngeal fricative [ʕ]"}
 - {ipa: h, pl: glottal, mn: fricative, vc: vl, orth: ه}
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd}
 - {ipa: n, pl: alveolar, mn: nasal, vc: vd}

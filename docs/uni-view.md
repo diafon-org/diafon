@@ -17,10 +17,10 @@ appears; which side of the letter it sits on says nothing — the letterform dec
 
 | mark | meaning | glyphs |
 |---|---|---|
-| **one dot** | the `c`/`x` mark | the x-family ṭ ḍ ḳ ġ ṇ ḥ (θ ð x ɣ ŋ ħ) · pf ṗ (`pc`) · the tap ṛ (`rc`) · the schwa ạ (`ax`) · lowered vowels ị ẹ ụ ọ (`j`) |
-| **two dots** | the second-degree mark — **always above**, the one mark whose side never varies | aspiration p̈ ẗ k̈ c̈ c̦̈ (`y`) · vocalic r̈ (`aq`) · vowel FLIP front↔back ü ö (y ø) · ï ë ä (ɯ ɤ ɑ) (`c`) |
-| **tilde** | resonance colour | nasal above a vowel ã ẽ õ (`y`) · the dark emphatics below t̰ d̰ s̰ z̰ (`yy`, U+0330) |
-| **comma** | the `j` mark, one per j — and never doubled | the hush points ș z̦ and their affricates c̦ x̦ · every soft consonant ț d̦ n̦ l̦ p̓ k̦ b̦ m̦ r̦ … · the voiced pharyngeal h̦ (`hj`, the one `j` that is not palatal). Where the comma's slot is a point (s z tc), that palatalization is the language's EXOTIC and takes the dot instead: сь = `sy` ṣ |
+| **one dot** | the `c`/`x`/`y` mark | the x-points ḳ ġ (x ɣ) · THE EXOTIC SLOTS ṭ ḍ ṇ ṗ ṣ ẓ k̇ g̣ (`y` — defaults θ ð ŋ pf ħ ʕ; aspiration, ejectives and the fallen soft s z ride the same dot) · the tap ṛ (`rc`) · the schwa ạ (`ax`) · lowered vowels ị ẹ ụ ọ (`j`) |
+| **two dots** | **always above** | vowel FLIP front↔back ü ö (y ø) · ï ë ä (ɯ ɤ ɑ) (`c`) · vocalic r̈ (`aq`) — and nothing else |
+| **tilde** | nasal, nothing else | above a vowel: ã ẽ õ (`y`) |
+| **comma** | the `j` mark, one per j — and never doubled | the hush points ș z̦ and their affricates c̦ x̦ · every soft consonant ț d̦ n̦ l̦ p̓ k̦ b̦ m̦ r̦ … — every comma is palatal. Where the comma's slot is a point (s z tc), that palatalization is the language's EXOTIC and takes the dot instead: сь = `sy` ṣ |
 | **"\\" tail** | the SECOND-exotic `x` | retroflex ʈ ɖ ɳ ɭ ɻ = `tx dx nx lx rx` · the hush layer s̖ z̖ c̖ x̖ (PL sz ż cz dż; it replaces the j-comma rather than stacking) · Arabic tˤ dˤ (`tx dx` — the same slots, read per language) |
 
 ## Consonants
@@ -29,13 +29,12 @@ appears; which side of the letter it sits on says nothing — the letterform dec
 |---|---|---|
 | palatal & soft (`j`) | one comma per j | the hush points ș z̦ · their affricates c̦ x̦ · the soft consonants ț d̦ n̦ l̦ k̦ b̦ m̦ … (s and t precompose to ș ț) · p̓ above |
 | … where the slot is taken | the exotic dot | soft s z ts fall to the exotic slot: `sy zy tcy` = ṣ ẓ c̣ — one dot, never a doubled mark |
-| retroflex modifier (`x`/`xx`) | the "\\" tail | t̖ n̖ l̖ r̖ (Tamil-only) |
-| dental/velar fricativise (`x`) | one dot | ṭ ḍ ḳ ṇ · ġ above (θ ð x ŋ ɣ) |
+| retroflex modifier (`x`) | the "\\" tail | t̖ d̖ n̖ l̖ r̖ · s̖ z̖ c̖ x̖ (TA HI BN PL …) |
+| velar fricatives (`x`) | one dot | ḳ · ġ above (x ɣ) |
+| the exotic slots (`y`) | one dot | ṭ ḍ ṇ ṣ ẓ · ṗ k̇ above · g̣ — stated defaults θ ð ŋ ħ ʕ, pf; the Arabic emphatics read ṣ ẓ (and t̖ d̖ on the second slot) |
 | tap (`rc`) | one dot | ṛ (trill stays r) — `c` draws the dot here as everywhere; `j` on r is left to the soft r̦ |
-| pf (`pc`) | one dot | ṗ above |
-| emphatic (`yy`) | tilde below | t̰ d̰ s̰ z̰ |
-| aspirated (`y`) | two dots, always above | p̈ ẗ k̈ c̈ · c̦̈ over its comma |
-| whole characters | no mark | c (ts `tc`) · x (dz `dc`) · q (`kq`) · ' (ʕ `hq`) — see below |
+| aspirated (`y`) | the exotic dot | ṗ ṭ k̇ c̣ ċ̦ — a reading of the same slots; stacked above a tail: ṫ̖ (HI ʈʰ `txy`) |
+| whole characters | no mark | c (ts `tc`) · x (dz `dc`) · q (`kq`) · ' (ʔ `hq`) — see below |
 | long (`w`) | doubled letter | tt șș … |
 
 **Letter-points.** A base carries more points than the mark grammar can build for it, so the extras
@@ -44,27 +43,26 @@ take a whole character instead: **c** /ts/ (`tc`), **x** /dz/ (`dc`), **q** /q/ 
 became the letter c and `tq` the letter-plus-mark c̦. k is the same case one point earlier: ḳ takes
 the dot for /x/, and /q/ takes the letter.
 
-The first three are **operator letters** (`c` `x` `q`), never the modifier-only ones (`y` `yy` `w`)
+The first three are **operator letters** (`c` `x` `q`), never the modifier-only ones (`y` `w`)
 — the same line the marks obey. And the pair c/x follows the system's own shape for voicing: every
 voiced partner is a plain, visually unrelated letter (p/b, t/d, k/g, f/v, s/z), never a modified one.
 
 **The view is therefore plain ASCII letters + combining marks, with one exception** — the apostrophe
-for /ʕ/. Every other character is a letter (the last non-ASCII one, đ for /dz/ and /dʒ/, is gone),
+for /ʔ/. Every other character is a letter (the last non-ASCII one, đ for /dz/ and /dʒ/, is gone),
 which is what lets the view survive in an arbitrary font, a message box, or a plain-text field, with
 or without the project font.
 
-**Gutturals** (off-grid): the whole block sits on the letter h — h /h/ · **ḥ** /ħ/ (`hx`) ·
-**h̦** /ʕ/ (`hj`) · **'** /ʔ/ (`hq`). No stroked letter. `hx` is `x` doing what it does everywhere,
-the fricative one step back (`tx` = θ, `kx` = x), and it lands on ḥ — which is how the world already
-writes ح (Muḥammad).
+**Gutturals**: h carries h /h/ and **'** /ʔ/ (`hq`). **The pharyngeals are not h-forms**: ħ ʕ ride
+the k/g exotic slots — **k̇** (`ky`) and **g̣** (`gy`) — symmetric with the velar fricatives ḳ ġ
+(Arabic خ~ح = `kx`~`ky`, غ~ع = `gx`~`gy`), the exotic as the guttural one step beyond x.
 
 /ʔ/ is the one point the mark grammar cannot draw: `q` composes both marks where it can
-(`iq` = ụ̈), but on h the dot is already ḥ, two below marks never stack, and nothing sits above a
+(`iq` = ụ̈), but on h it cannot — the c-dot and the j-comma both live below, two below marks never
+stack, and nothing sits above a
 tall letter. So `hq` takes a whole character — and **which sound gets it is decided by precedent,
 because a whole character has no shape the grammar could derive.** It goes to the glottal stop: `'`
 is the glottal stop in Hawaiian, Samoan, Tongan and Māori (the ʻokina), across Mayan, in Tagalog and
-Guaraní, and hamza in ASCII Arabic. /ʔ/ is also the commoner sound — five of the 23 languages against
-one for /ʕ/. U+0027 is the only candidate every font and keyboard has: 40/40 scanned fonts, against
+Guaraní, and hamza in ASCII Arabic. U+0027 is the only candidate every font and keyboard has: 40/40 scanned fonts, against
 27/40 for ʼ (U+02BC) and 18/40 for ʿ (U+02BF). Two prices, both taken knowingly: it is punctuation
 rather than a letter, so a word-break splits it off and some editors autocorrect it to ’; and it has
 no capital form.
@@ -81,15 +79,14 @@ targets print and which never moves when a language is added; the exotic registr
 language's override and is the per-language authority.
 
 **The mark always follows the operator — everywhere, no exceptions.** `c`/`x` draw the dot and `j`
-draws the comma on every base, h included: **ḥ /ħ/ is `hx`** and **h̦ /ʕ/ is `hj`**. What an operator
-*means* is base-dependent — `c` is affricate on t/d and the tap on r; `j` is palatal everywhere
-except h, where it gives the voiced pharyngeal — but what it *draws* never varies. So h̦ is the one
-comma in the view on a sound that is not palatal, and it is there because `j` put it there. h ran out
-of marks before it ran out of points, which is why its fourth, /ʔ/, is a whole character.
+draws the comma on every base. What an operator *means* is base-dependent — `c` is affricate on t/d
+and the tap on r — but `j` is palatal everywhere and every comma in the view is palatal. /ʔ/ is a
+whole character because the mark grammar cannot build it on the tall h (both q-marks live below,
+and two below marks never stack).
 
-**No point wears a modifier-only mark.** The modifier-only letters are `y` (aspirated/nasal), `yy`
-(pharyngealised) and `w` (long) — none of them ever forms a point, so their marks belong to the
-modifiers alone: **the tilde below is pharyngealised, full stop** (t̰ d̰ s̰ z̰), and the "\\" tail is
+**No point wears a modifier-only mark.** The modifier-only letters are `y` (the exotic dot —
+aspiration, ejectives, the emphatics; nasal on a vowel) and `w` (long) — neither ever forms a
+point, so their marks belong to the modifiers alone, and the "\\" tail is
 retroflex, full stop. `j` `x` `c` `q` are different — they are operator *and* modifier letters by
 design (base+letter is that point if it exists, else it reads as the modifier), so their marks are
 shared: k̦ is /kʲ/ and ț is Hungarian *ty* and Russian *ть* alike, all legitimately wearing the

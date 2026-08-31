@@ -326,7 +326,7 @@ prints length for Korean fortis; the phonetics lives in the `note`.
 See the near-merge verdicts below.
 
 ## Current state
-58 fine-grained points → **45 general** (28 C · 17 V) after 13 merges, 0 merged contrasts, 1068
+56 fine-grained points → **43 general** (26 C · 17 V) after 13 merges, 0 merged contrasts, 1068
 phoneme records, 32 languages (12 core + 6 witnesses + 14 coverage), 10 modifiers. **Every point is a base or base + ONE
 operator** — no 2-operator points, no bi-vowels. NOT points (allophones or otherwise excluded):
 `ç` (German ich-laut, an allophone of `x`), `ɸ` (Japanese *fu*, allophone of `h`), `ɐ` (German
@@ -372,24 +372,25 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   r̈ is the rhotic schwa `aq`, not an r point — never present this family as "five sounds".) The soft r is a
   plain member of the soft series (k̦ b̦ m̦ r̦). What `c` MEANS is base-dependent like every
   operator (affricate on t/d, the second rhotic on r); the MARK it draws never is.
-  **Gutturals**: the WHOLE block sits on `h` — `h` · `hx`=/ħ/ (`x`=the fricative ONE STEP BACK,
-  x's meaning everywhere: `tx`=θ, `kx`=x) · `hj`=/ʕ/ (`j`=the marked second guttural) ·
-  `hq`=/ʔ/. Glyphs `h · ḥ · h̦ · '` — the bare letter h with below-marks, no stroked letter; the
-  schwa is ạ. **/ʔ/ is the apostrophe `'`**: `q`=`c+j` composes BOTH marks where it can (`iq`=ụ̈),
-  but on h the dot is already ḥ, two below marks never stack, and nothing sits above a tall letter —
-  so `hq` has no glyph the grammar can build and takes a whole character, as `c`=/ts/, `x`=/dz/,
-  `q`=/q/ take letters. **Which SOUND gets it is decided by precedent**, because a whole character
-  has no shape the grammar could derive (this is what made the earlier `y` indefensible): it goes to
-  the glottal stop — `'` in Hawaiian, Samoan, Tongan and Māori (the ʻokina), across Mayan, in Tagalog
-  and Guaraní, and hamza in ASCII Arabic — which is also the commoner sound, /ʔ/ in five of the 23
-  languages against one for /ʕ/. U+0027 is the only candidate every font and keyboard has: 40/40
+  **Gutturals**: `h` carries `h` and `hq`=/ʔ/. **THE PHARYNGEALS ARE NOT POINTS AND NOT h-FORMS
+  (Sz)**: ħ ʕ ride the k/g EXOTIC slots — `ky` k̇ and `gy` g̣, declared in `exotic_defaults`,
+  symmetric with the velar fricatives `kx gx` (AR خ~ح = kx~ky, غ~ع = gx~gy; the exotic as the
+  guttural one step beyond x). This fixed ʕ's derivation (g is voiced; h has no voiced twin), costs
+  the ḥ scholarly glyph (accepted), and Arabic is safe within-language: no aspirates, no ejectives,
+  no bare /g/ (its g base carries only غ and this exotic). kʰ/kʼ/ɡʱ are ky/gy's registry overrides.
+  **/ʔ/ is the apostrophe `'`**: `q`=`c+j` composes BOTH marks where it can (`iq`=ụ̈),
+  but on h it cannot — the c-dot and j-comma both live below, two below marks never stack, and
+  nothing sits above a tall letter — so `hq` has no glyph the grammar can build and takes a whole
+  character, as `c`=/ts/, `x`=/dz/, `q`=/q/ take letters. **Which SOUND gets it is decided by
+  precedent**, because a whole character has no shape the grammar could derive (this is what made
+  the earlier `y` indefensible): it goes to the glottal stop — `'` in Hawaiian, Samoan, Tongan and
+  Māori (the ʻokina), across Mayan, in Tagalog and Guaraní, and hamza in ASCII Arabic.
+  U+0027 is the only candidate every font and keyboard has: 40/40
   scanned fonts, against 27/40 for ʼ U+02BC and 18/40 for ʿ U+02BF. Knowingly accepted: it is
   punctuation, not a letter, so a word-break splits it and some editors autocorrect it to ’.
   **THE MARK ALWAYS FOLLOWS THE OPERATOR**, on every base without exception: `c`/`x` draw the dot,
-  `j` draws the comma. So ḥ=/ħ/ (`hx`) and h̦=/ʕ/ (`hj`) — the one comma in the view on a sound that
-  is not palatal, and it is there because `j` put it there. What an operator MEANS is base-dependent
-  (affricate on t/d, the tap on r; `j` is palatal everywhere but h); what it DRAWS never is. ḥ is
-  also how the world already writes Arabic ح (Muḥammad).
+  `j` draws the comma — and `j` is palatal everywhere, no h exception left. What an operator MEANS
+  is base-dependent (affricate on t/d, the tap on r); what it DRAWS never is.
   Aspiration is single
   `y` (`py ty ky`=/pʰ tʰ kʰ/ — a reading of the exotic slot, so its glyph is the exotic DOT: ṭ below,
   ṗ k̇ above where the descender or a taken below-slot forces it). In a stack the dot rides above,
@@ -427,7 +428,7 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   HI t̪ʰ=ty ~ ʈ=tx ~ ʈʰ=txy). A slot may read differently per language but may NEVER carry two
   sounds within one language (`find_shared_labels` proves it; crimes fail --strict). The
   cross-language overloads are THE EXOTIC REGISTRY, printed by the CLI and on the page with each
-  language's precise IPA — currently 10 slots, e.g. `ty` = θ (AR EL EN ES SW) ~ tʰ (BN HI KO TH VI ZH),
+  language's precise IPA — currently 11 slots, e.g. `ty` = θ (AR EL EN ES SW) ~ tʰ (BN HI KO TH VI ZH),
   `py` = pf (DE) ~ pʰ, `sy` = sʲ (ET RU UK) ~ sˤ (AR: ṣ, the scholarly mark exactly).
   Mechanics (`notation.modifier_letter`): a modifier spells its own letter; where its slot is
   occupied AND sharing would collide within a language, it falls down the ladder —
@@ -439,11 +440,12 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   already implies an IPA by its cell position, so the value is declared, never hedged: it claims
   default-ness, not universality, and it never moves when a language is added (an INVISIBLE
   default is what went stale — ky printed kʰ as if universal until Georgian brought kʼ). The
-  `exotic` modifier's defaults are data (`labels.yaml exotic_defaults`: ty=θ dy=ð ny=ŋ py=pf —
+  `exotic` modifier's defaults are data (`labels.yaml exotic_defaults`: ty=θ dy=ð ny=ŋ py=pf ky=ħ gy=ʕ —
   a missing entry fails loudly); every other shared label defaults to its PRIMARY composition,
   decided by the label grammar itself in `render.ipa_labels`: a modifier spelling its own letter
   beats one that arrived by ladder fallback (tx=ʈ over AR tˤ; sy=sˤ over the fallen soft sʲ),
-  then exotic > aspirated/retroflex > pharyngealized > ejective (ky=kʰ over KA kʼ). Voiced
+  then exotic > aspirated/retroflex > pharyngealized > ejective (tcy=tsʰ over KA tsʼ; ky=ħ, the
+  exotic, over the aspirates' kʰ). Voiced
   aspirates print murmured (by=bʱ). The registry lists every per-language override and stays
   the per-language authority; the page states the default on the dotted tiles and in the
   registry table. θ ð ŋ pf are NOT points: they are t d n p + the `exotic`

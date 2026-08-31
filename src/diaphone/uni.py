@@ -3,63 +3,58 @@
 Like `render.ipa_labels`, this is a language-independent label→glyph map, built from a hand-assigned
 per-point base glyph plus generative modifier diacritics. All cells are decided (see the doc).
 
-The mark grammar — MEANING = mark shape and count. The TWO DOTS are always above, on every letter;
-the place-like marks go below and move above only when the below zone is taken, and nothing else
-ever sits above a tall letter:
-  one dot   = a derived point — the x-family ṭ ḍ ḳ ġ ṇ (θ ð x ɣ ŋ) · pf ṗ ·
-              the schwa ạ (ax = a + the x-dot) · lowered vowels ị ẹ ụ ọ ·
-              the tap ṛ (`rc`) · the pharyngeal ḥ (`hx`)
-  two dots  = the second-degree mark, and the ONE mark whose side never varies: always ABOVE.
-              aspiration p̈ ẗ k̈ c̈ c̦̈ · the vocalic r̈ · FLIP front↔back on a vowel (ü ö · ï ë ä).
-              The release is a vowel-side quality, so the below zone is left to the place layers
-  tilde     = nasal above a vowel (ã) · below, the PHARYNGEALISED MODIFIER and nothing else —
-              the emphatics t̰ d̰ s̰ z̰ (U+0330). A point never wears a modifier-only MARK
-              (no point LABEL contains y, yy or w). The letters are a separate matter: w is
+The mark grammar — MEANING = mark shape and count. The place-like marks go below and move above
+only when the below zone is taken; nothing but the vowel-flip dots ever sits above a tall letter:
+  one dot   = the c/x/y mark — the x-points ḳ ġ (x ɣ) · THE EXOTIC SLOTS ṭ ḍ ṇ ṗ ṣ ẓ k̇ g̣
+              (defaults θ ð ŋ pf ħ ʕ; aspiration, ejectives and the fallen soft s z ride the
+              same dot) · the schwa ạ (ax = a + the x-dot) · lowered vowels ị ẹ ụ ọ ·
+              the tap ṛ (`rc`)
+  two dots  = FLIP front↔back on a vowel (ü ö · ï ë ä) and the vocalic r̈ — always above,
+              and nothing else is ever two dots
+  tilde     = nasal on a vowel (ã), and nothing else — the Arabic emphatics are exotic-slot
+              dots and tails (ṣ ẓ t̖ d̖), never tildes. A point never wears a modifier-only
+              MARK (no point LABEL contains y or w). The letters are a separate matter: w is
               the glyph for the /w/ glide — a glyph is not a label.
-  comma     = the `j` mark — the hush points ș z̦ c̦ x̦, every soft consonant ț d̦ n̦ l̦ p̓ k̦ b̦ r̦ …
-              and the glottal stop h̦ (U+0326 below / U+0313 above); doubled only where the single
-              comma would already spell a point (sjj zjj → s͈ z͈; tcj → c͈, whose single-comma c̦
-              is the tq point)
-  "\\" tail  = retroflex (U+0316) — rides below (t̖ n̖ l̖ r̖; labels lx rx, doubled txx nxx
-              where base+x is a point), replacing the j-comma rather than stacking on it
+  comma     = the `j` mark, one per j and NEVER doubled — the hush points ș z̦ c̦ x̦ and every
+              soft consonant ț d̦ n̦ l̦ p̓ k̦ b̦ r̦ … (U+0326 below / U+0313 above); where the
+              single comma would already spell a point, the soft coronal falls down the exotic
+              ladder instead (soft s z ts = ṣ ẓ c̣, the dot)
+  "\\" tail  = retroflex (U+0316) — rides below (t̖ d̖ n̖ l̖ r̖ s̖ …; labels tx dx nx lx rx sjx …),
+              replacing the j-comma rather than stacking on it
 
-THE r BASE IS REGULAR. `c` gives the tap (`rc` → the dot, as `c`/`x` do everywhere) and `j` gives
-the soft r (`rj` → the comma, as `j` does everywhere), so r carries five sounds on five marks with no
-exception at all: r · ṛ · r̦ · r̖ · r̈. The soft r is a plain member of the soft series (k̦ b̦ m̦ r̦),
-one j and one comma, and nothing on r doubles. What `c` MEANS is base-dependent, as every operator
-is — affricate on t/d, pharyngeal on h, the second rhotic on r — but the MARK it draws never varies.
+THE r BASE IS REGULAR. `c` gives the tap (`rc` → the dot, as `c`/`x` draw everywhere) and `j`
+gives the soft r (`rj` → the comma, as `j` draws everywhere): one mark per slot — r · ṛ · r̦ ·
+r̖ · r̈ — nothing on r doubles, and the soft r is a plain member of the soft series (k̦ b̦ m̦ r̦).
 
-THE MARK ALWAYS FOLLOWS THE OPERATOR — no exceptions anywhere. `c`/`x` draw the dot, `j` draws the
-comma, on every base. What an operator MEANS is base-dependent — `c` is affricate on t/d, the tap on
-r, the pharyngeal on h; `j` is palatal everywhere except h, where it gives the glottal stop — but
-what it DRAWS never varies. So ḥ = /ħ/ (`hx`, the dot — and `x` means here exactly what it means
-everywhere, the fricative one step back, as in `tx`=θ and `kx`=x) and h̦ = /ʕ/ (`hj`, the comma):
-the one comma in the view on a sound that is not palatal, and it is there because `j` put it there.
-ḥ also happens to be how the world already writes Arabic ح (Muḥammad).
+THE MARK ALWAYS FOLLOWS THE OPERATOR — no exceptions anywhere. `c`/`x` draw the dot, `j` draws
+the comma, on every base. What an operator MEANS is base-dependent — `c` is affricate on t/d and
+the tap on r; `j` is palatal everywhere — but what it DRAWS never varies. The gutturals: `h`
+carries h and the glottal stop `hq`; THE PHARYNGEALS ARE NOT h-FORMS — ħ ʕ ride the k/g exotic
+slots (`ky`=k̇, `gy`=g̣), symmetric with the velar fricatives ḳ ġ (AR خ~ح = kx~ky, غ~ع = gx~gy).
 
 /ʔ/ IS THE APOSTROPHE. `q` = `c`+`j` and composes BOTH marks where it can (`iq`=ụ̈, `eq`=ọ̈: the
-c-dot below, the j-mark above). On h it cannot: the dot is already ḥ, two below marks never stack,
-and **nothing sits above a tall letter** — so `hq` has no glyph the grammar can build, and it takes
-a whole character like the other overflow points (c=/ts/, x=/dz/, q=/q/). Which SOUND gets that
-character is decided by precedent, because a whole character has no shape the grammar could derive:
-it goes to /ʔ/, the glottal stop, written **'** in Hawaiian, Samoan, Tongan and Māori (the ʻokina),
-across Mayan, in Tagalog and Guaraní, and as hamza in ASCII Arabic — and /ʔ/ is in five of the 23
-languages against one for /ʕ/. U+0027 is also the only candidate every font and keyboard has (40/40
-scanned fonts, against 27/40 for ʼ U+02BC and 18/40 for ʿ U+02BF). Two prices, both accepted
-knowingly: it is punctuation, not a letter, so a word-break splits it off and some editors
-autocorrect it to ’; and it has no capital form.
-Side: below by default; ABOVE only on the descenders p g (ṗ ġ p̈ p̓ g̓) and on a glyph whose
-below zone is already marked (c̦ → c̦̈). Generic mark placement varies by font; the bespoke font
-fixes that. The soft coronals ARE the palatal sounds — /c ɟ ɲ ʎ/ and /tʲ dʲ nʲ lʲ/ are one point
-each — so Hungarian ty, Spanish ñ and Russian ть нь all draw ț n̦: one j, one comma.
+c-dot below, the flip above). On h it cannot: the c-dot and the j-comma both live below, two below
+marks never stack, and **nothing sits above a tall letter** — so `hq` has no glyph the grammar can
+build, and it takes a whole character like the other overflow points (c=/ts/, x=/dz/, q=/q/).
+Which SOUND gets that character is decided by precedent, because a whole character has no shape
+the grammar could derive: it goes to /ʔ/, the glottal stop, written **'** in Hawaiian, Samoan,
+Tongan and Māori (the ʻokina), across Mayan, in Tagalog and Guaraní, and as hamza in ASCII Arabic.
+U+0027 is also the only candidate every font and keyboard has (40/40 scanned fonts, against 27/40
+for ʼ U+02BC and 18/40 for ʿ U+02BF). Two prices, both accepted knowingly: it is punctuation, not
+a letter, so a word-break splits it off and some editors autocorrect it to ’; and it has no
+capital form.
+Side: below by default; ABOVE only on the descenders p g (ṗ ġ p̓ g̓), on k (its below comma is
+the soft k̦), and on a glyph whose below zone is already marked (c̦ → ċ̦; Hindi ʈʰ `txy` = ṫ̖).
+Generic mark placement varies by font; the bespoke font fixes that. The soft coronals ARE the
+palatal sounds — /c ɟ ɲ ʎ/ and /tʲ dʲ nʲ lʲ/ are one point each — so Hungarian ty, Spanish ñ and
+Russian ть нь all draw ț n̦: one j, one comma.
 
 Vowels: `j` lowers (one dot below — ị ẹ ụ ọ), two dots flip front↔back (ü ö · ï ë ä), nasal
 `y` is the tilde (ã ẽ õ), and long is the acute — except on a FLIPPED vowel, where the two dots
 become the DOUBLE acute (ű ő i̋ e̋ a̋ · ụ̋ ọ̋), so marks never stack. GLIDES (nonsyllabic close vowels, labels ix ux icx ucx) get readable
-letters: j w and — carrying their vowel's flip mark — j̈ ẅ for the rounded/unrounded pair; the vocalic r is r̈ —
-the r-family: r trill · ṛ tap (rc) · r̦ soft (rj) · r̖ retroflex · r̈ vocalic. The view is strictly
-universal — one glyph per label, no per-language flavours (a language's own orthography is its
-language target).
+letters: j w and — carrying their vowel's flip mark — j̈ ẅ for the rounded/unrounded pair; the
+vocalic r is r̈. The view is strictly universal — one glyph per label, no per-language flavours
+(a language's own orthography is its language target).
 """
 import unicodedata
 
@@ -69,9 +64,9 @@ from .notation import _label_maps, _mod_chars, full_label, modifier_letter
 # combining marks
 _DB = "̣"                   # U+0323 one dot below — the c/x point dot AND the exotic dot
 _DA = "̇"                   # U+0307 one dot above (its above form: ṗ ġ k̇ ċ̦)
-_DDA = "̈"                  # U+0308 two dots ABOVE — the second-degree mark, and it never moves:
-                            #   aspiration on a consonant, the front↔back flip on a vowel. One mark,
-                            #   ONE side, so the below zone belongs to the place-like layers alone.
+_DDA = "̈"                  # U+0308 two dots ABOVE — the vowel front↔back flip and the vocalic r̈,
+                            #   nothing else. Always above, so the below zone belongs to the
+                            #   place-like layers alone.
 _VLB = "̦"                  # U+0326 COMBINING COMMA BELOW — the j-mark (one j = one comma). Chosen over
                             #   the vertical line U+0329: better covered (9/10 common fonts vs 6/10), it
                             #   leans like the retroflex tail instead of standing vertical, and NFC folds
@@ -99,7 +94,8 @@ _CONS = {
     "tq": "c" + _VLB, "dq": "x" + _VLB,                            # c̦ x̦ (hush = affricate + the j-stroke)
     "f": "f", "v": "v",
     "s": "s", "z": "z", "sj": "s" + _VLB, "zj": "z" + _VLB,        # ș z̦ (ʃ ʒ)
-    "kx": "ḳ", "gx": "ġ", "hx": "h" + _DB, "hj": "h" + _VLB, "hq": "'", "h": "h",  # ḳ ġ (velar: x = dot; above on g) · ḥ=/ħ/ (x → the dot) · h̦=/ʕ/ (j → the comma) · '=/ʔ/ (see below) · h
+    "kx": "ḳ", "gx": "ġ", "hq": "'", "h": "h",       # ḳ ġ (velar: x = dot; above on g) · '=/ʔ/ (see docstring) · h
+                                                     # (the pharyngeals ħ ʕ are the exotic slots ky gy — k̇ g̣, not h-forms)
     "l": "l", "r": "r", "rc": "r" + _DB,                          # r trill · ṛ=/ɾ/ tap (`c` → the dot, the general rule)
 }
 _VOW = {
@@ -156,7 +152,7 @@ def _apply(base, label, mods, is_vowel, data_dir="data"):
             # the "\" tail: replaces the j-comma rather than stacking on it; else rides below (t̖ n̖ l̖ r̖)
             g = g.replace(_VLB, _GRB) if _VLB in g else g + _GRB
         elif m == "rhotic":
-            g = "r" + _DDA              # the r-coloured vowel = the vocalic r̈ (r trill · r̦ tap · r̈ vocalic)
+            g = "r" + _DDA              # the r-coloured vowel = the vocalic r̈ (ṛ is the tap, r̦ the soft r)
         elif m == "nonsyllabic":
             # glides: readable letters, each inheriting its vowel's flip mark (ɥ = rounded j, ɰ = unrounded w)
             g = {"i": "j", "u": "w", "ü": "j" + _DDA, "ï": "w" + _DDA}.get(g, g + "̯")
