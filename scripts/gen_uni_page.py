@@ -89,11 +89,12 @@ MIX_LONG = ('dyax kat sijts acn dyax mat. ac kis kutjac aclsik. tqony1kuo2 tqya2
 HELP = {
     "uni": {"name": "uni",
                "note": "Our universal view — one glyph per point, Latin plus diacritics. Marks mean by "
-                       "shape and count, never by side: one dot = the c/x mark (ṭ ḳ ṇ ṛ ḥ; lowered vowel ẹ ọ) · "
-                       "two dots = the second-degree mark, ALWAYS above (aspirated ẗ p̈; vocalic r̈; vowel flip ü ö · ï ë ä) · "
-                       "a tilde = the pharyngealised modifier and nothing else (the emphatics t̰ s̰ below; nasal ã sits above a vowel) · "
+                       "shape and count, never by side: one dot = the c/x/y mark (ṭ ḳ ṇ ṛ ḥ; the exotic slots ṭ ṣ; "
+                       "lowered vowel ẹ ọ; schwa ạ) — below, unless a descender or a taken slot pushes it above (ṗ k̇ ġ) · "
+                       "two dots = the vowel flip (ü ö · ï ë ä) and the vocalic r̈, always above · "
+                       "a tilde = nasal and nothing else (ã õ) · "
                        "a comma per j = palatal/soft (ș ț n̦ r̦ · p̓ k̦ — s and t come out precomposed) · "
-                       "a \"\\\" tail = retroflex (t̖ r̖). The mark always follows the operator, on every base — so h̦ is /ʔ/ (from j) and ḥ is /ħ/ (from c), the one comma in the view on a sound that is not palatal. Tone digits stay "
+                       "a \"\\\" tail = retroflex (t̖ r̖; Arabic reads its t̖ d̖ as the emphatics). The mark always follows the operator, on every base — so ḥ is /ħ/ (the x-dot) and h̦ is /ʕ/ (the j-comma), the one comma in the view on a sound that is not palatal; /ʔ/ = hq has no glyph the marks can build and takes the apostrophe. Tone digits stay "
                        "plain digits; the tone-signs switch marks the vowel instead (șan1 → șān, "
                        "Pinyin-style placement).",
                "ex": [[EN_LONG, "two paragraphs (EN)"],
@@ -105,9 +106,9 @@ HELP = {
             "note": "The IPA value of each code, for reference — and an approximation on purpose. "
                     "A point here covers every realisation its languages give it, which IPA would "
                     "write several ways, so this is a curated table: one IPA rendering per code, "
-                    "using IPA's own letter wherever it has one (nj = ɲ, nx = ɳ) — and for the OVERLOADED exotic slots "
-                    "no universal IPA exists, so the slot's own sign is printed (ty = ṭ: English θ, Mandarin tʰ) "
-                    "and its diacritics otherwise. A trailing digit becomes a tone superscript (an "
+                    "using IPA's own letter wherever it has one (nj = ɲ, nx = ɳ). An exotic slot "
+                    "prints its STATED DEFAULT (ty = θ; Mandarin's tʰ is a per-language override — "
+                    "see the exotic registry). A trailing digit becomes a tone superscript (an "
                     "IPA-only device).",
             "ex": [["sjan1 kxaxn3 kau1", "shān hěn gāo"], ["pjatj njawrw", "soft + long"],
                    ["kecsecnecm sewpejn, ejdj kisj kutjac aclsik. sjan1 kxaxn3 kau1. dyax kat sijts acn dyax mat.", "a longer mixed passage"],
@@ -152,7 +153,7 @@ OPS_SPEC = [
      ["ic", "ec", "uc", "oc", "ac"]),
     ("j", None, "palatal: the hush points where base+j is one (sj=ʃ), the soft (palatalised) "
      "consonant everywhere else — tj is Hungarian ty AND Russian ть, one point; rj is the soft r; "
-     "on h it gives the glottal stop (the one base that bends the grammar)",
+     "on h it gives the voiced pharyngeal /ʕ/ (the marked second guttural)",
      ["sj", "tj", "nj", "lj", "pj", "rj", "hj"],
      "lower one step",
      ["ij", "ej", "uj", "oj"]),
@@ -161,15 +162,16 @@ OPS_SPEC = [
      "c + j (rounded + lowered); on the schwa: the r-coloured vowel",
      ["iq", "eq", "aq"]),
     ("x", None, "the velar fricative on k/g, the pharyngeal on h — and THE SECOND-EXOTIC layer "
-     "(the anti-comma): retroflex ʈ ɖ ɳ ɭ ɻ, the hush layer sjx (Polish sz), Arabic tˤ dˤ. Used "
-     "only where a language stacks TWO specials on one base; the language defines the reading",
+     "(the anti-comma): retroflex ʈ ɖ ɳ ɭ ɻ and the hush layer sjx (Polish sz); where a language "
+     "already holds the y-slot it is the second exotic (Arabic tˤ dˤ on tx dx, read over the "
+     "stated default ʈ ɖ)",
      ["kx", "gx", "hx", "tx", "nx", "lx", "sjx"],
      "REDUCE: a → the schwa; a close vowel → its glide (nonsyllabic)",
      ["ax", "ix", "ux", "icx"]),
     ("w", None, "long (a doubled letter)", ["tw", "sw"], "long", ["aw", "iw"]),
     ("y", None, "THE EXOTIC — the language's special quality on this base, one dot. English th (ty), "
      "German pf (py), Mandarin pʰ tʰ (py ty), Russian сь (sy), Arabic ṣ (sy): the same slot, read "
-     "per language; never two sounds within one language (the exotic registry below)",
+     "per language over a stated default; never two sounds within one language (the exotic registry below)",
      ["ty", "dy", "ny", "py", "sy"],
      "nasal", ["ay", "ey", "oy"]),
 ]
@@ -182,6 +184,8 @@ MODS_SPEC = [
     ("emphatic (pharyngealised)", "y — or x where the y-slot is θ ð", "a second, deep-throat squeeze that darkens the whole syllable — Arabic صار 'became' vs سار 'walked'. sy zy = ṣ ẓ, the scholarly marks exactly; tˤ dˤ take the second slot tx dx", ["sy", "tx"]),
     ("r-coloured (rhotic)", "q on the schwa", "the tongue bunches as for an r right through the vowel — American bird = br̈d; written aq", ["aq"]),
     ("retroflex", "x on a consonant", "the tongue tip curls back — Tamil/Hindi ʈ ɳ ɭ ɻ (vaḻi ~ vali ~ vaḷi), single x now that θ ð ŋ live on the y-slots", ["rx", "lx", "tx", "nx"]),
+    ("ejective", "y — the exotic slot directly", "the glottis closes and pops the release — Georgian ტ კ წ ჭ (tʼ kʼ tsʼ tʃʼ); rides the same slots as aspiration, which no language pairs with it", ["ky", "tqy"]),
+    ("exotic", "y — one dot", "the language's own special where no cross-linguistic name applies — English th (ty dy: θ ð, the stated defaults), German pf (py), the velar nasal ŋ (ny)", ["ty", "ny"]),
     ("glide (nonsyllabic)", "x on a close vowel", "the vowel reduced to a glide: j w ɥ ɰ", ["ix", "ux", "icx"]),
 ]
 # the point FAMILIES in plain words (shown under the consonant table). Examples: (label, word).
@@ -193,7 +197,7 @@ POINT_GLOSS = [
      [("nj", "Spanish niño"), ("tj", "Hungarian tyúk"), ("lj", "Italian figlio")]),
     ("hush", "The hushing s-sounds, made a little further back with a domed tongue.",
      [("sj", "ship"), ("zj", "measure")]),
-    ("dental · velar", "The x operator picks the fricative one step back from its base: at the teeth on t/d, at the soft palate on k/g.",
+    ("dental · velar", "The fricative a step away from its base: kx gx by the x operator at the soft palate; the dental th-sounds ride the exotic slots ty dy — their stated default.",
      [("ty", "thin"), ("dy", "this"), ("kx", "Scottish loch")]),
     ("pharyngeal", "Made deep in the throat by pulling the tongue root toward the back wall — Arabic ح and ع.",
      [("hx", "Muḥammad"), ("hj", "ʿarab")]),
@@ -251,11 +255,13 @@ def build():
     # palatal sounds (/c ɟ ɲ ʎ/ = /t d n l/ + palatalized) and would otherwise leave the palatal
     # column empty with no hint of where Spanish ñ or Hungarian ty went.
     for lab, gipa, place, manner, voice, wik in (
-            # the exotic slots readers will look for at their classical positions (dotted+≈):
-            ("ty", "θ…", "dental", "fricative", "vl", "Voiceless_dental_fricative"),
-            ("dy", "ð…", "dental", "fricative", "vd", "Voiced_dental_fricative"),
-            ("ny", "ŋ", "velar", "nasal", "vd", "Voiced_velar_nasal"),
-            ("py", "pf…", "labiodental", "affricate", "vl", "Voiceless_labiodental_affricate"),
+            # the exotic slots at their classical cells (dotted): the position implies an IPA, so
+            # the value is the slot's STATED DEFAULT — printed from the engine (labels.yaml
+            # exotic_defaults), never typed here; per-language overrides live in the registry
+            ("ty", ipa["ty"], "dental", "fricative", "vl", "Voiceless_dental_fricative"),
+            ("dy", ipa["dy"], "dental", "fricative", "vd", "Voiced_dental_fricative"),
+            ("ny", ipa["ny"], "velar", "nasal", "vd", "Voiced_velar_nasal"),
+            ("py", ipa["py"], "labiodental", "affricate", "vl", "Voiceless_labiodental_affricate"),
             ("tj", "c", "palatal", "plosive", "vl", "Voiceless_palatal_plosive"),
             ("dj", "ɟ", "palatal", "plosive", "vd", "Voiced_palatal_plosive"),
             ("nj", "ɲ", "palatal", "nasal", "vd", "Palatal_nasal"),
@@ -276,12 +282,9 @@ def build():
         lab = v["label"]
         vows.append({"ipa": ip, "label": lab, "uni": v["uni"], "x": x, "y": y, "wiki": v["wiki"],
                      "cat": "base" if len(lab) == 1 else lab[1], "nasal": 1 if ip in NASAL_IPA else 0})
-    nasals = [{"ipa": s, "label": lab, "uni": nat.get(lab, "?")}
-              for s, lab in [("ẽ", "ey"), ("ã", "ay"), ("õ", "oy")]]
-
     mod_examples = [("long (Cː)", "tw", "geminate"), ("long (Vː)", "aw", "acute"),
                     ("nasal (Ṽ)", "ay", "tilde (`y` operator)"), ("aspirated", "py", "the exotic dot"),
-                    ("pharyngealised", "tx", "tilde below"),
+                    ("pharyngealised", "tx", "the \"\\\" tail (second exotic)"),
                     ("soft (palatalised)", "pj", "one comma per j"), ("retroflex", "rx", "the \"\\\" tail"), ("rhotic (V˞)", "aq", "vocalic r̈"),
                     ("glide (V̯)", "ix", "the letters j/w")]
     mods = [{"name": nm, "label": lab, "uni": nat.get(lab, "?"), "ipa": ipa.get(lab, "?"), "gloss": gl}
@@ -338,6 +341,14 @@ def build():
     # `modForms` is the full listing, grouped by modifier, so nothing lives only in a prose note.
     from diaphone.notation import _label_maps as _lm, full_label as _fl
     _lab_of, _mods_map = _lm(all_ph, features, DATA)
+
+    # every ATTESTED nasal vowel, derived from the data (FR PL PT) — the row grows by itself
+    _nas = sorted({_fl(_lab_of[_ph["base"]], _ph["mods"], _mods_map, DATA)
+                   for _phs in all_ph.values() for _ph in _phs
+                   if _ph["kind"] == "V" and "nasal" in _ph["mods"] and _ph["base"] in _lab_of})
+    nasals = [{"ipa": ipa.get(lab, "?"), "label": lab, "uni": nat.get(lab, "?")} for lab in _nas]
+    nasal_langs = sorted({_code for _code, _phs in all_ph.items()
+                          for _ph in _phs if _ph["kind"] == "V" and "nasal" in _ph["mods"]})
     import collections as _c
     _seen, layers = _c.defaultdict(dict), _c.defaultdict(set)
     for _code, _phs in all_ph.items():
@@ -359,27 +370,9 @@ def build():
                            for lab, lgs in sorted(_seen[m].items())]}
                  for m in sorted(_seen)]
 
-    # MOVING REPRESENTATIONS: every exotic-slot label. The IPA shown anywhere for these is the
-    # slot's CURRENT reading and is free to move when a new language overloads it — the registry
-    # below is the authority, and the UI marks them all with ≈.
-    # DATA-DRIVEN: a label is a moving representation when its tenants disagree on the IPA —
-    # the four relabeled exotic points (θ/tʰ/tʼ on ty …), every overloaded y/x form, AND the
-    # guest soft coronals (tj = HU c, RU tʲ). A form all of whose tenants agree (pj = pʲ only)
-    # is not marked. Bare POINTS are deliberately excluded: their realisation spread (r = r/ɹ/ʐ)
-    # is the slot principle itself, told once in the prose, not per-tile noise.
-    _tenants = {}
-    for _code, _phs in all_ph.items():
-        for _ph in _phs:
-            _pl = _lab_of.get(_ph["base"])
-            if not _pl or not _ph["mods"]:
-                continue
-            if _ph["kind"] == "V" and _ph["mods"] == frozenset({"long"}):
-                continue          # a long vowel's spread (aː/ɑː) is the point's own, not the form's
-            _tenants.setdefault(_fl(_pl, _ph["mods"], _mods_map, DATA), set()).add(_ph["ipa"])
-    moving = {"ty", "dy", "ny", "py"}              # the relabeled exotic points
-    moving |= {lab for lab, ipas in _tenants.items() if len(ipas) > 1}
-
-    # THE EXOTIC REGISTRY for the page: each overloaded slot with every language's PRECISE IPA.
+    # THE EXOTIC REGISTRY for the page: each overloaded slot with its STATED DEFAULT (what every
+    # universal target prints — the engine's own value, never typed here) and every language's
+    # PRECISE IPA. The default never moves when a language is added; only the override list grows.
     from diaphone.notation import find_shared_labels as _fsl
     _crimes, _registry = _fsl(all_ph, features, DATA)
     assert not _crimes
@@ -390,7 +383,8 @@ def build():
             _ipas = sorted({ph["ipa"] for lg in _lgs for ph in all_ph[lg]
                             if _lab_of.get(ph["base"]) == _pl and sorted(ph["mods"]) == _mods})
             readings.append({"ipa": "/".join(_ipas), "langs": " ".join(_lgs)})
-        exotic_rows.append({"lab": _lab, "nat": nat.get(_lab, "?"), "readings": readings})
+        exotic_rows.append({"lab": _lab, "nat": nat.get(_lab, "?"),
+                            "def": ipa.get(_lab, "?"), "readings": readings})
 
     # THE PER-LANGUAGE NOTATION REFERENCE: for every language, every phoneme with its PRECISE IPA
     # (the language's own value, not the slot default), its label, uni glyph, and native spelling.
@@ -414,7 +408,8 @@ def build():
     keys = sorted(set(nat) | set(ipa), key=len, reverse=True)
     orth = {lg: load_orth(lg, DATA) for lg in ("hu", "zh", "en")}
     return {
-        "cons": cons, "place": PLACE, "manner": MANNER, "vows": vows, "nasals": nasals, "mods": mods,
+        "cons": cons, "place": PLACE, "manner": MANNER, "vows": vows, "nasals": nasals,
+        "nasalLangs": nasal_langs, "mods": mods,
         "nat": nat, "ipa": ipa, "keys": keys, "orth": orth,
         "lazy": {lg: load_lazy(lg) for lg in ("hu", "zh", "en")},
         "groups": {lg: load_groups(lg) for lg in ("hu", "zh", "en")},
@@ -423,7 +418,6 @@ def build():
         "layers": {k: " ".join(sorted(v, key=lambda x: (len(x), x))) for k, v in layers.items()},
         "modForms": mod_forms,
         "exotic": exotic_rows,
-        "moving": sorted(moving),
         "langsRef": langs_ref,
         "counts": {"C": (nC := sum(1 for c in cons if not c.get("guest"))), "V": len(vows),
                    "langs": len(languages),
@@ -533,7 +527,7 @@ table.grid{border-collapse:collapse;width:100%;min-width:760px}
 .pt{flex:1;padding:.4rem .2rem;display:flex;flex-direction:column;align-items:center;gap:1px}
 .pt .lab{font-size:.62rem;opacity:.55}
 .pt.guest{opacity:.85;outline:1.5px dashed var(--muted);outline-offset:-3px;border-radius:8px}
-/* an exotic-slot point: counted in the 49, but its spelling is the wildcard slot — reading moves */
+/* an exotic slot tile (not a point, not counted): shows its stated default; overrides in the registry */
 .pt.exo{outline:2px dotted var(--accent);outline-offset:-3px;border-radius:8px}
 .pt.vl{background:var(--base-t)}.pt.vd{background:var(--c-t)}
 .pt .nat{font-family:var(--serif);font-size:1.35rem;color:var(--ink);line-height:1.15}
@@ -671,8 +665,7 @@ footer a.fref{color:var(--accent);text-decoration:none;border-bottom:1px dotted 
     <span><span class="sw" style="background:var(--c-t);border:1.6px solid var(--c-c)"></span><b>voiced</b> (right)</span>
     <span>each tile — <span style="font-family:var(--serif)"><b>uni glyph</b></span> · ipa (→ Wikipedia) · small <code>code</code> = input reference (section 2)</span>
     <span>gutturals: all on h — ḥ=<code>hx</code> (/ħ/) · h̦=<code>hj</code> (/ʕ/) · '=<code>hq</code> (/ʔ/: no glyph the marks can build, so a whole character)</span>
-    <span>dashed = <b>phonemes that are not points</b> — the soft coronals (<code>tj</code>=ty, <code>nj</code>=ñ, and <code>rj</code> with its trill), and the glides (vowel + <code>x</code>); not in the counts</span>
-        <span><b>solid</b> = a point · <b>dashed</b> = not a point, the regular machinery's output (soft coronals = base + <code>j</code>; glides = vowel + <code>x</code>) · <b>dotted</b> = the EXOTIC layer (base + <code>y</code>/<code>x</code>): θ ð ŋ pf and their per-language siblings, shown where a reader looks · <b>≈</b> on any IPA = a moving representation, read per language; the exotic registry is the authority. None of the dashed/dotted tiles are in the counts.</span>
+    <span><b>solid</b> = a point · <b>dashed</b> = not a point, the regular machinery's output (soft coronals = base + <code>j</code>: <code>tj</code>=HU ty, <code>nj</code>=ñ; glides = vowel + <code>x</code>) · <b>dotted</b> = an EXOTIC slot (base + <code>y</code>) at the cell its position implies: the IPA shown is the slot's <b>stated default</b>, and each language may override it — the exotic registry below lists every reading. Modifiers (retroflex, aspiration, …) never enter this table. None of the dashed/dotted tiles are in the counts.</span>
   </div>
   <h3 style="margin:1.2rem 0 0">The families, in words</h3>
   <div class="gloss" id="glossBody"></div>
@@ -681,7 +674,7 @@ footer a.fref{color:var(--accent);text-decoration:none;border-bottom:1px dotted 
   <figure><svg id="tri" viewBox="0 0 840 700" role="img" aria-label="Vowel triangle"></svg></figure>
   <div class="legend" id="legend"></div>
   <p class="lede" style="margin-top:1rem">Nasalisation is the <code>y</code> operator on any vowel — orthogonal
-  to the triangle. In the 23 languages only <b>French</b> carries it; modelled as three nasalised cardinals:</p>
+  to the triangle. <b><span id="nasLangs"></span></b> carry it; every attested nasal vowel:</p>
   <div class="nasal-row" id="nasals"></div>
 
 
@@ -690,17 +683,17 @@ footer a.fref{color:var(--accent);text-decoration:none;border-bottom:1px dotted 
   <h2>The six operators <span class="n">c j q x w y — one mechanism, base-dependent</span></h2>
   <p class="lede">A label is a <b>base letter</b> plus attaching operators. Every operator is
   <b>base-dependent</b> — the same letter does one thing on a consonant, another on a vowel
-  (<code>x</code> = dental on t, velar on k; <code>y</code> = aspirated on t, nasal on a). Four of them
+  (<code>x</code> = velar on k, retroflex on t; <code>y</code> = the exotic on t, nasal on a). Four of them
   (<code>c j q x</code>) can form <i>new points</i>; the rule that decides each case:
   <b>base+letter is that point if it exists, otherwise the letter rides on top as a modifier</b>
   (<code>sj</code> → <span style="font-family:var(--serif)">ș</span> is a point, <code>pj</code> →
-  <span style="font-family:var(--serif)">p̓</span> a modifier; <code>tx</code> →
-  <span style="font-family:var(--serif)">ṭ</span> a point, <code>ux</code> →
+  <span style="font-family:var(--serif)">p̓</span> a modifier; <code>kx</code> →
+  <span style="font-family:var(--serif)">ḳ</span> a point, <code>ux</code> →
   <span style="font-family:var(--serif)">w</span> a modifier).</p>
   <div class="scroll"><table class="ops"><thead><tr><th>op</th><th>on a consonant</th><th>on a vowel</th></tr></thead><tbody id="opsBody"></tbody></table></div>
 
   <h2>Modifiers <span class="n">the features that ride on top — never new points, one operator each</span></h2>
-  <p class="lede">The phonological layer: eight <b>features</b> that never create a point — they're stripped
+  <p class="lede">The phonological layer: ten <b>features</b> that never create a point — they're stripped
   off to find the base. Each maps to one of the operators above, read in its modifier role.</p>
   <div class="mods" id="mBody"></div>
   <div class="scroll" style="margin-top:.7rem"><table class="ops"><thead><tr><th>modifier</th><th>char</th><th>what it does</th><th>example</th></tr></thead><tbody id="modsRefBody"></tbody></table></div>
@@ -713,14 +706,16 @@ footer a.fref{color:var(--accent);text-decoration:none;border-bottom:1px dotted 
   composes on every point, whether or not a language uses it.</p>
   <div class="scroll"><table class="ops" id="comboT"><thead id="comboHead"></thead><tbody id="comboBody"></tbody></table></div>
   <h3 style="margin:1.5rem 0 0">Modifier layers <span class="n">what rides on top of a finished point — the last column above, in full</span></h3>
-  <p class="lede">A point is base + one operator. Everything else is a <b>layer</b>: the same eight modifiers,
-  spelled with a letter that doubles only where the single one would already be a point.</p>
+  <p class="lede">A point is base + one operator. Everything else is a <b>layer</b>: the same ten modifiers,
+  each spelling one letter — falling down the exotic ladder (j → y → x) where its own letter is
+  already taken. No letter ever doubles.</p>
   <div class="scroll"><table class="ops"><thead><tr><th>modifier</th><th>char</th><th>forms</th><th>used by</th></tr></thead><tbody id="modFormsBody"></tbody></table></div>
 
-  <h3 style="margin:1.5rem 0 0">The exotic registry <span class="n">overloaded slots — the language defines the reading; never two sounds within one language</span></h3>
-  <p class="lede">An exotic slot has <b>no universal IPA</b> — it is free to be overloaded by language.
-  Each row lists every language's precise value.</p>
-  <div class="scroll"><table class="ops"><thead><tr><th>slot</th><th>glyph</th><th>read per language as</th></tr></thead><tbody id="exoticBody"></tbody></table></div>
+  <h3 style="margin:1.5rem 0 0">The exotic registry <span class="n">overloaded slots — a stated default, overridden per language; never two sounds within one language</span></h3>
+  <p class="lede">An exotic slot has a <b>stated default</b> — the reading every universal target prints —
+  and each language is free to override it. The default never moves when a language is added; only the
+  override list grows. Each row lists every language's precise value.</p>
+  <div class="scroll"><table class="ops"><thead><tr><th>slot</th><th>glyph</th><th>default</th><th>read per language as</th></tr></thead><tbody id="exoticBody"></tbody></table></div>
   <p class="note">Two labels are irregular by review: <code>aq</code> = ɝ (the schwa\'s x elided) and the
   trailing tone digit (see the tryout). Everything else composes.</p>
 
@@ -1008,8 +1003,7 @@ draw();run();
   const CB=["p","b","t","d","k","g","m","n","f","v","s","z","l","h","r"], VB=["a","e","i","o","u"];
   const ptSet=new Set([...D.cons.filter(c=>!c.guest).map(c=>c.label),...D.vows.map(v=>v.label)]);
   const wikiOf={};[...D.cons,...D.vows].forEach(r=>{if(r.wiki)wikiOf[r.label]=r.wiki;});
-  const MOV=new Set(D.moving||[]);
-  const ipaLink=(lab,ip)=>{const w=wikiOf[lab];const s=(MOV.has(lab)?"≈":"")+esc(ip||"");
+  const ipaLink=(lab,ip)=>{const w=wikiOf[lab];const s=esc(ip||"");
     return w?`<a class="cipa" href="${esc(w)}" target="_blank" rel="noopener" title="what this sound is">${s}</a>`
             :`<span class="cmut">${s}</span>`;};
   $("comboHead").innerHTML="<tr><th>base</th>"+OPS.map(o=>`<th><code>${o}</code></th>`).join("")+"</tr>";
@@ -1036,9 +1030,8 @@ draw();run();
   const rows=D.manner.filter(([m])=>D.cons.some(c=>c.manner===m)).map(([m,ml])=>{
     const tds=D.place.map(([pl])=>{const pts=(byCell[m+"|"+pl]||[]).sort((a,b)=>rank(a.voice)-rank(b.voice));
       if(!pts.length)return "<td></td>";
-      const MOV2=new Set(D.moving||[]);
       const EXOP=new Set(["ty","dy","ny","py"]);
-      const tiles=pts.map(p=>`<div class="pt ${p.voice==="vl"?"vl":"vd"}${p.guest?" guest":""}${EXOP.has(p.label)?" exo":""}"><span class="nat">${esc(p.uni)}</span><span class="lab">${esc(p.label)}</span><span class="ipa"><a class="wref" href="${esc(p.wiki)}" target="_blank" rel="noopener">${MOV2.has(p.label)?"≈":""}${esc(p.ipa)}</a></span></div>`).join("");
+      const tiles=pts.map(p=>`<div class="pt ${p.voice==="vl"?"vl":"vd"}${p.guest?" guest":""}${EXOP.has(p.label)?" exo":""}"><span class="nat">${esc(p.uni)}</span><span class="lab">${esc(p.label)}</span><span class="ipa"><a class="wref" href="${esc(p.wiki)}" target="_blank" rel="noopener"${EXOP.has(p.label)?' title="stated default reading — per-language overrides in the exotic registry"':""}>${esc(p.ipa)}</a></span></div>`).join("");
       return `<td><div class="cell">${tiles}</div></td>`;}).join("");
     return `<tr><th>${esc(ml)}</th>${tds}</tr>`;});
   $("cBody").innerHTML=rows.join("");})();
@@ -1060,6 +1053,7 @@ draw();run();
     svg.appendChild(g);}
   const LEG=[["base","base","i e a o u"],["c","c","flip front↔back"],["j","j","lower one step"],["q","q","c + j (front-round)"],["x","x","centralise → ạ"],["n","˜","nasal (+y)"]];
   $("legend").innerHTML=LEG.map(([cls,code,desc])=>`<div class="leg"><span class="sw sw-${cls}"></span><code>${esc(code)}</code> <span>${esc(desc)}</span></div>`).join("");
+  $("nasLangs").textContent=(D.nasalLangs||[]).join(" ");
   $("nasals").innerHTML=D.nasals.map(n=>`<div class="ntile"><div class="nat">${esc(n.uni)}</div><div class="l">${esc(n.label)}</div><div class="s">${esc(n.ipa)}</div></div>`).join("");})();
 
 /* operators + modifiers reference + glossary */
@@ -1072,7 +1066,7 @@ const zhRow=r=>`<tr><td class="mc">${esc(r.py)}</td>${r.code!==undefined?`<td cl
 $("zhRefI").innerHTML=D.zhRef.initials.map(zhRow).join("");
 $("zhRefF").innerHTML=D.zhRef.finals.map(zhRow).join("");
 $("zhRefZ").innerHTML=D.zhRef.zero.map(zhRow).join("");
-$("exoticBody").innerHTML=(D.exotic||[]).map(e=>`<tr><td><code>${esc(e.lab)}</code></td><td class="cserif" style="font-size:1.25rem">${esc(e.nat)}</td><td class="opex">${e.readings.map(r=>`<b>${esc(r.ipa)}</b> <span class="cmut">${esc(r.langs)}</span>`).join(" &nbsp;·&nbsp; ")}</td></tr>`).join("");
+$("exoticBody").innerHTML=(D.exotic||[]).map(e=>`<tr><td><code>${esc(e.lab)}</code></td><td class="cserif" style="font-size:1.25rem">${esc(e.nat)}</td><td><b>${esc(e.def)}</b></td><td class="opex">${e.readings.map(r=>`<b>${esc(r.ipa)}</b> <span class="cmut">${esc(r.langs)}</span>`).join(" &nbsp;·&nbsp; ")}</td></tr>`).join("");
 $("modFormsBody").innerHTML=(D.modForms||[]).map(m=>`<tr><td><b>${esc(m.mod)}</b>${m.sys?`<br><span class="cmut">${esc(m.sys)}</span>`:""}</td><td><code>${esc(m.char)}</code></td><td class="opex">${m.rows.map(r=>`<code>${esc(r.lab)}</code> <span class="cserif" style="color:var(--ink)">${esc(r.nat)}</span> <span class="cmut">${esc(r.ipa)}</span>`).join(" · ")}</td><td class="cmut" style="font-size:.75rem">${esc([...new Set(m.rows.flatMap(r=>r.langs.split(" ")))].filter(Boolean).sort().join(" "))}</td></tr>`).join("");
 $("glossBody").innerHTML=D.gloss.map(g=>`<div class="gitem"><div class="gt">${esc(g.title)}</div><div class="gw">${esc(g.text)}</div><div class="ge">${g.ex.map(e=>`${pairHTML(e)}${e.word?` <span style="color:var(--muted)">— ${esc(e.word)}</span>`:""}`).join(" · ")}</div></div>`).join("");
 /* modifiers + stats + theme */
