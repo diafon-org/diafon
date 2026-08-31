@@ -62,9 +62,10 @@ def _compose_ipa(point_label, mods, base_ipa):
     from .notation import _mod_order
     return core + "".join(_MOD_IPA.get(m, "") for m in sorted(rest, key=_mod_order))
 _TONE_SUP = {"1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵"}
-# Overloaded exotic slots print the SLOT SIGN (the uni glyph), and the set is DERIVED from the
-# exotic registry, never hand-listed — a hand list is exactly the stale default the
-# moving-representation rule forbids (ky was printing "kʰ" right up until Georgian added kʼ).
+# Every exotic-tier label has a STATED DEFAULT reading (see the block at the end of ipa_labels):
+# an INVISIBLE default is what goes stale (ky printed "kʰ" as if universal right up until Georgian
+# added kʼ) — a declared one cannot, because it claims default-ness, not universality, and the
+# registry prints every per-language override right next to it.
 
 
 def ipa_labels(all_ph, features, data_dir="data"):
@@ -99,30 +100,42 @@ def ipa_labels(all_ph, features, data_dir="data"):
                        _compose_ipa(pl, mods | {"long"}, base2ipa[pl]))
     for lab, g in _GLIDE_IPA.items():
         out.setdefault(lab, g)
-    # EXOTIC SLOTS have NO universal IPA — the language defines the reading (ty = EN θ, ZH tʰ,
-    # KA tʼ). For every slot the registry lists as OVERLOADED, the ipa target prints the slot's
-    # own sign (the uni glyph), exactly as `r` covers [ɹ ʐ]: a projection per language would BE
-    # a phonetic system. Single-tenant slots keep their current reading (ny=ŋ, nx=ɳ) — a MOVING
-    # representation that this same mechanism retires automatically the day a language overloads it.
-    from .notation import find_shared_labels
-    from .uni import uni_labels
-    _crimes, registry = find_shared_labels(all_ph, features, data_dir)
-    uglyphs = uni_labels(all_ph, features, data_dir)
-    # Exotic-tier forms: if every tenant agrees, print the tenants' own precise IPA (ny = ŋ,
-    # by = bʱ); the moment they disagree, the slot sign (ty = ṭ) — derived, never hand-listed.
+    # EXOTIC + shared modifier labels render by their PRIMARY analysis, and the value is a STATED
+    # DEFAULT — it never moves when a language is added (kʰ stays ky's default; Georgian kʼ is an
+    # override in the registry, which is the per-language authority). The primary is decided by the
+    # label grammar itself: a modifier that spells its own letter beats one that arrived by a
+    # ladder fallback (retroflex ʈ beats Arabic tˤ on `tx`; pharyngealised sˤ beats the fallen
+    # soft sʲ on `sy`), and the `exotic` modifier — whose reading has no cross-linguistic name and
+    # is therefore DECLARED DATA (labels.yaml `exotic_defaults`: ty = θ, the value the consonant
+    # table's own cell placement already implies) — beats everything.
     _TIER = {"exotic", "aspirated", "ejective", "pharyngealized", "retroflex"}
-    tier_tenants = {}
+    _PRIMARY = {"exotic": 0, "aspirated": 1, "retroflex": 1, "pharyngealized": 2, "ejective": 3}
+    from .notation import _mod_order, modifier_letter
+
+    def _rank(pl, mods):        # sortable: fallback-spelled loses, then the fixed order above
+        return sorted(((0 if modifier_letter(pl, m, mod_map, data_dir) == mod_map.get(m) else 1),
+                       _PRIMARY.get(m, 9)) for m in mods)
+    defaults = load_labels(data_dir).get("exotic_defaults", {})
+    voice_of = {lab: b[3] for b, lab in label_of_base.items() if b[0] == "C"}
+    tier_forms = {}
     for phs in all_ph.values():
         for ph in phs:
             pl = label_of_base.get(ph["base"])
             if pl and (ph["mods"] & _TIER):
-                tier_tenants.setdefault(full_label(pl, ph["mods"], mod_map, data_dir),
-                                        set()).add(ph["ipa"])
-    for lab, ipas in tier_tenants.items():
-        out[lab] = ipas.copy().pop() if len(ipas) == 1 else uglyphs.get(lab, out.get(lab, lab))
-    for lab in registry:
-        out[lab] = uglyphs.get(lab, out.get(lab, lab))
-    for lab in set(tier_tenants) | set(registry):            # the long form follows the value
+                tier_forms.setdefault(full_label(pl, ph["mods"], mod_map, data_dir),
+                                      set()).add((pl, frozenset(ph["mods"])))
+    for lab, forms in sorted(tier_forms.items()):
+        pl, mods = min(forms, key=lambda f: _rank(*f))
+        if "exotic" in mods:
+            # an exotic base with no declared default is a data error — fail loudly, never guess
+            out[lab] = defaults[pl] + "".join(_MOD_IPA.get(m, "")
+                                              for m in sorted(mods - {"exotic"}, key=_mod_order))
+        else:
+            s = _compose_ipa(pl, mods, base2ipa[pl])
+            if "aspirated" in mods and voice_of.get(pl) == "vd":
+                s = s.replace("ʰ", "ʱ")          # voiced aspirates are written murmured (bʱ dʱ ɡʱ)
+            out[lab] = s
+    for lab in tier_forms:                                   # the long form follows the value
         if lab + "w" in out:
             out[lab + "w"] = out[lab] + "ː"
     return {lab: unicodedata.normalize("NFC", ipa) for lab, ipa in out.items()}  # precompose (a+̃ → ã)

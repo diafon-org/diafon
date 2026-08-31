@@ -309,9 +309,9 @@ def test_engine_render_targets():
     assert render("tx dx sy zy", "uni", DATA) == "t̖ d̖ ṣ ẓ"   # the AR emphatics: second-exotic t d · first-exotic s z
     assert render("py ty ky", "uni", DATA) == "ṗ ṭ k̇"     # the exotic dot (above on p g k — descender or taken)
     assert render("tcy tqy", "uni", DATA) == "c̣ ċ̦"         # dot below on c; above on c̦ (its below is taken)
-    assert render("ny nx lx", "ipa", DATA) == "ŋ ɳ ɭ"          # single-tenant slots keep their current reading
-    assert render("ty py sy ky", "ipa", DATA) == "ṭ ṗ ṣ k̇"  # overloaded slots print the slot sign — no universal IPA
-    #   (the overloaded set is DERIVED from the registry: ky printed kʰ until Georgian added kʼ)
+    assert render("ny nx lx", "ipa", DATA) == "ŋ ɳ ɭ"          # ny = its declared default; nx lx compose
+    assert render("ty py sy ky", "ipa", DATA) == "θ pf sˤ kʰ"  # STATED DEFAULTS: exotic from labels.yaml
+    #   (ty py), the primary composition elsewhere (sy ky); the registry lists per-language overrides
     assert render("aphijl", "ipa", DATA) == "aphɪl"            # ph = the sequence /p/+/h/ (uphill-type words)
     assert render("ty dy kx gx ny", "uni", DATA) == "ṭ ḍ ḳ ġ ṇ"  # dot family: exotic t d n (θ ð ŋ …) + the velar points
     assert render("py", "uni", DATA) == "ṗ"                 # the exotic p: German pf AND Mandarin pʰ — one slot
@@ -323,9 +323,9 @@ def test_engine_render_targets():
     assert render("aq", "ipa", DATA) == "ə˞" and render("aq", "uni", DATA) == "r̈"  # rhotic ɝ = `aq`; uni = vocalic r̈
     assert render("r rc rj rx aq", "uni", DATA) == "r ṛ r̦ r̖ r̈"   # r-family: trill · tap · soft · retroflex · vocalic — five sounds, five marks, no exception
     assert render("tx nx lx rx", "uni", DATA) == "t̖ n̖ l̖ r̖"   # retroflex = the "\\" tail — single x, freed by θ ŋ moving to y
-    assert render("nx lx", "ipa", DATA) == "ɳ ɭ"               # single-tenant retroflex keeps honest IPA
-    assert render("rx", "ipa", DATA) == "r̖"                    # rx is overloaded (TA ɻ ~ HI ɽ) -> the slot sign
-    assert render("txy dxy", "ipa", DATA) == "ʈʰ ɖʰ"           # …and composes (HI ʈʰ; tx alone is overloaded -> t̖)
+    assert render("nx lx", "ipa", DATA) == "ɳ ɭ"               # retroflex composes to IPA's own letters
+    assert render("rx", "ipa", DATA) == "ɻ"                     # the composition is the default (HI ɽ = override)
+    assert render("txy dxy", "ipa", DATA) == "ʈʰ ɖʱ"           # …and stacks (HI ʈʰ; voiced aspirate = murmured ʱ)
     assert render("varxi vali valxi", "uni", DATA) == "var̖i vali val̖i"   # Tamil vaḻi~vali~vaḷi
     assert render("aq", "en", DATA) == "er"
     assert render("acswonj", "hu", DATA) == "asszony"          # language target still works (HU a = ac)
@@ -373,11 +373,11 @@ def test_notation_to_ipa_universal():
     from diaphone.render import to_ipa
     features, languages, all_ph = load(DATA)
     f = lambda s: to_ipa(s, all_ph, features, DATA)
-    assert f("sjan") == "ʃan" and f("ty") == "ṭ" and f("nj") == "ɲ" and f("kx") == "x"
+    assert f("sjan") == "ʃan" and f("ty") == "θ" and f("nj") == "ɲ" and f("kx") == "x"
     # the ipa target is a curated approximation: where IPA writes a point+modifier with a LETTER we
     # print the letter (nj = ɲ, not nʲ), and remaining modifiers compose onto it — length LAST
-    assert f("tj dj lj") == "c ɟ ʎ" and f("tjw") == "cː" and f("syw") == "ṣː"
-    assert f("pya") == "ṗa" and f("tw") == "tː" and f("sy") == "ṣ" and f("tx") == "t̖"
+    assert f("tj dj lj") == "c ɟ ʎ" and f("tjw") == "cː" and f("syw") == "sˤː"
+    assert f("pya") == "pfa" and f("tw") == "tː" and f("sy") == "sˤ" and f("tx") == "ʈ"
     assert f("sjan1") == "ʃan¹"                        # trailing tone digit -> superscript
 
 

@@ -153,8 +153,9 @@ def main(argv=None):
         readings = " vs ".join(f"{pl}+{'+'.join(mods) or 'ø'} [{','.join(langs)}]"
                                for pl, mods, langs in analyses)
         print(f"  CRIME [one language] {lab} = {readings}")
-    print(f"exotic registry  : {len(registry)} overloaded slots (deliberate, per-language reading)")
-    ipa_of = {ph["ipa"]: None for phs in all_ph.values() for ph in phs}
+    print(f"exotic registry  : {len(registry)} overloaded slots (stated default first; per-language overrides)")
+    from .render import ipa_labels
+    slot_default = ipa_labels(all_ph, features, args.data)
     for lab, analyses in registry.items():
         parts = []
         for pl, mods, langs in analyses:
@@ -162,7 +163,7 @@ def main(argv=None):
                            if label_of_base_cache.get(ph["base"]) == pl
                            and sorted(ph["mods"]) == mods})
             parts.append(f"{'/'.join(ipas)} [{','.join(langs)}]")
-        print(f"  {lab:5s} = " + "  ~  ".join(parts))
+        print(f"  {lab:5s} = {slot_default.get(lab, '?'):4s} default  ~  " + "  ~  ".join(parts))
 
     if args.strict and (violations or redundant or collisions or uni_collisions or shared):
         sys.exit(1)
