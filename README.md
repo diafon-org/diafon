@@ -57,8 +57,8 @@ what a modifier already spells) — with zero accepted exceptions.
 
 ## Status
 **49 general points** (32 consonant · 17 vowel) folded from 62 fine-grained via 13 reviewed
-merges · 1034 phonemes (31 languages) · 8 modifiers · **0 merged contrasts, 0 notation collisions**.
-31 languages: 12 core targets + 5 **witnesses** (Turkish, Estonian, Vietnamese, Korean, Tamil) that
+merges · 1068 phonemes (32 languages) · 9 modifiers · **0 merged contrasts, 0 notation collisions**.
+32 languages: 12 core targets + 6 **witnesses** (Turkish, Estonian, Vietnamese, Korean, Tamil, Georgian) that
 prove near-merge pairs stay distinct where a significant language contrasts them, + 14 coverage
 languages whose inventories are subsets of the existing points.
 The uni Latin-diacritics view is fully specified (`docs/uni-view.md`) and set in the

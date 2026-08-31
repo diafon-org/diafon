@@ -256,7 +256,7 @@ The procedure:
   Korean contrasts fortis vs aspirated (/t͈/~/tʰ/). So: fortis ≈ long, but fortis ≠ aspirated.
 
 ## Witness and coverage languages
-The 12 core languages are the notation's target. **TR ET VI KO TA** are *witnesses* — significant
+The 12 core languages are the notation's target. **TR ET VI KO TA KA** are *witnesses* — significant
 languages that phonemically contrast a near-merge pair, forcing the point to stay distinct
 (Tamil forces the `retroflex` LAYER — ʈ~t̪ eṭṭu/ettu, ɳ~n maṇam/manam, ɭ~l~ɻ vaḷi/vali/vaḻi;
 **Czech forces the one new manner value**, see below; Estonian + Vietnamese lock `o`~`ɤ` JOINTLY,
@@ -270,6 +270,16 @@ FI/FA æ→a, FA ɒ→ɑ, HE ʁ→ɣ, UK г entered as ɣ, PL ʑ→ʒ), added to
 structural cost. **Polish** is the three-way sibilant test: s ~ sz [ʂ] ~ ś [ɕ] = `s` ~ `sjx` ~ `sj`,
 the retroflex LAYER doing the work. **Thai** brings five tones (digits 1-5) and a three-way stop
 series via the existing `aspirated`.
+
+**Georgian — the ejective witness, absorbed by the exotic ladder.** The three-way stops are
+voiced / aspirated / EJECTIVE; the aspirated series is the BARE voiceless point (exactly as
+English p t k, which are [pʰ tʰ kʰ]) and the ejective is the language's exotic: tʼ = `ty`, kʼ =
+`ky`, tsʼ = `tcy`, tʃʼ = `tqy`. No language pairs an ejective with θ / tʰ / pf on one base, so the
+slots never clash — but `ky` and `tqy` became OVERLOADED (they printed kʰ / tʃʰ as sole tenants
+until KA), which is why the ipa target's overloaded set is now DERIVED from the registry, never
+hand-listed. `ejective` joins the modifiers (9) as a data-honest name riding the exotic letter —
+zero new notation. The uvular ყ is ejective-only [qʼ] with no plain q, so it is the BARE `kq`
+point (slot principle). KA counts as a WITNESS: it forces the modifier, though no glyph or letter.
 
 **Swahili — the first Niger-Congo language, and the slot principle's cleanest win.** The famous
 implosives are NOT contrastive ([ɓ ɗ ʄ ɠ] ~ [b d dʒ ɡ] in free variation), so they are the plain
@@ -316,8 +326,8 @@ prints length for Korean fortis; the phonetics lives in the `note`.
 See the near-merge verdicts below.
 
 ## Current state
-62 fine-grained points → **49 general** (32 C · 17 V) after 13 merges, 0 merged contrasts, 1034
-phoneme records, 31 languages (12 core + 5 witnesses + 14 coverage). **Every point is a base or base + ONE
+62 fine-grained points → **49 general** (32 C · 17 V) after 13 merges, 0 merged contrasts, 1068
+phoneme records, 32 languages (12 core + 6 witnesses + 14 coverage). **Every point is a base or base + ONE
 operator** — no 2-operator points, no bi-vowels. NOT points (allophones or otherwise excluded):
 `ç` (German ich-laut, an allophone of `x`), `ɸ` (Japanese *fu*, allophone of `h`), `ɐ` (German
 `-er`), **Mandarin j/q/x `[tɕ tɕʰ ɕ]`** (allophones of the retroflex series), and **`ʌ`**
@@ -425,9 +435,10 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   tˤ). Sharing is otherwise deliberate: aspiration stays `y` although ty is the θ point, because
   no language has both /tʰ/ and /θ/ — verified, with the fallbacks' forcedness, by
   `test_exotic_fallbacks_are_forced_and_shares_are_safe`.
-  **Exotic slots have NO universal IPA** — the ipa target prints the slot's own sign (ṭ) for the
-  overloaded ones and honest IPA for single tenants (ny=ŋ, ky=kʰ, nx=ɳ); per-language readings
-  live in the registry. θ ð ŋ pf stay POINTS in derive with honest features — only their LABELS
+  **Exotic slots have NO universal IPA, and every IPA shown for one is a MOVING REPRESENTATION** —
+  the slot's *current* reading, free to move when a new language overloads it. The ipa target
+  prints the slot's own sign (ṭ) for the overloaded ones and the current sole reading for single
+  tenants (ny=ŋ, nx=ɳ); the page marks all of them ≈; the registry is the authority. θ ð ŋ pf stay POINTS in derive with honest features — only their LABELS
   moved (tx dx nx pc → ty dy ny py), which is what freed single-x retroflex: ʈ ɖ ɳ = tx dx nx.
 - Validated: all **734** phoneme records get a distinct label per language, **0 collisions**, and
   **no label decomposes** — every one is base or base + operators.
