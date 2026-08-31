@@ -89,12 +89,13 @@ MIX_LONG = ('dyax kat sijts acn dyax mat. ac kis kutjac aclsik. tqony1kuo2 tqya2
 HELP = {
     "uni": {"name": "uni",
                "note": "Our universal view — one glyph per point, Latin plus diacritics. Marks mean by "
-                       "shape and count, never by side: one dot = the c/x/y mark (ṭ ḳ ṇ ṛ ḥ; the exotic slots ṭ ṣ; "
-                       "lowered vowel ẹ ọ; schwa ạ) — below, unless a descender or a taken slot pushes it above (ṗ k̇ ġ) · "
+                       "shape and count, never by side: one dot = the c/x/y mark (the x-points ḳ ġ; the exotic slots ṭ ṣ k̇ g̣; "
+                       "the tap ṛ; lowered vowel ẹ ọ; schwa ạ) — below, unless a descender or a taken slot pushes it above (ṗ k̇ ġ) · "
                        "two dots = the vowel flip (ü ö · ï ë ä) and the vocalic r̈, always above · "
                        "a tilde = nasal and nothing else (ã õ) · "
                        "a comma per j = palatal/soft (ș ț n̦ r̦ · p̓ k̦ — s and t come out precomposed) · "
-                       "a \"\\\" tail = retroflex (t̖ r̖; Arabic reads its t̖ d̖ as the emphatics). The mark always follows the operator, on every base — so ḥ is /ħ/ (the x-dot) and h̦ is /ʕ/ (the j-comma), the one comma in the view on a sound that is not palatal; /ʔ/ = hq has no glyph the marks can build and takes the apostrophe. Tone digits stay "
+                       "a \"\\\" tail = retroflex (t̖ r̖; Arabic reads its t̖ d̖ as the emphatics). "
+                       "The gutturals: h and the apostrophe /ʔ/ = hq (no glyph the marks can build); the pharyngeals ħ ʕ are the k/g exotic slots k̇ g̣. Tone digits stay "
                        "plain digits; the tone-signs switch marks the vowel instead (șan1 → șān, "
                        "Pinyin-style placement).",
                "ex": [[EN_LONG, "two paragraphs (EN)"],
@@ -151,21 +152,21 @@ OPS_SPEC = [
      ["tc", "dc", "rc"],
      "flip front↔back, keeping rounding (at the open apex: mark back)",
      ["ic", "ec", "uc", "oc", "ac"]),
-    ("j", None, "palatal: the hush points where base+j is one (sj=ʃ), the soft (palatalised) "
-     "consonant everywhere else — tj is Hungarian ty AND Russian ть, one point; rj is the soft r; "
-     "on h it gives the voiced pharyngeal /ʕ/ (the marked second guttural)",
-     ["sj", "tj", "nj", "lj", "pj", "rj", "hj"],
+    ("j", None, "palatal, everywhere: the hush points where base+j is one (sj=ʃ), the soft "
+     "(palatalised) consonant everywhere else — tj is Hungarian ty AND Russian ть, one point; "
+     "rj is the soft r",
+     ["sj", "tj", "nj", "lj", "pj", "rj"],
      "lower one step",
      ["ij", "ej", "uj", "oj"]),
     ("q", "= c + j on a VOWEL", "on a consonant q is its own operator, not a composition: the hush affricate on t/d, the uvular stop on k, the glottal stop on h (the one point no mark can draw, so it takes the apostrophe)",
      ["tq", "dq", "kq", "hq"],
      "c + j (rounded + lowered); on the schwa: the r-coloured vowel",
      ["iq", "eq", "aq"]),
-    ("x", None, "the velar fricative on k/g, the pharyngeal on h — and THE SECOND-EXOTIC layer "
+    ("x", None, "the velar fricative on k/g — and THE SECOND-EXOTIC layer "
      "(the anti-comma): retroflex ʈ ɖ ɳ ɭ ɻ and the hush layer sjx (Polish sz); where a language "
      "already holds the y-slot it is the second exotic (Arabic tˤ dˤ on tx dx, read over the "
      "stated default ʈ ɖ)",
-     ["kx", "gx", "hx", "tx", "nx", "lx", "sjx"],
+     ["kx", "gx", "tx", "nx", "lx", "sjx"],
      "REDUCE: a → the schwa; a close vowel → its glide (nonsyllabic)",
      ["ax", "ix", "ux", "icx"]),
     ("w", None, "long (a doubled letter)", ["tw", "sw"], "long", ["aw", "iw"]),
@@ -199,8 +200,8 @@ POINT_GLOSS = [
      [("sj", "ship"), ("zj", "measure")]),
     ("dental · velar", "The fricative a step away from its base: kx gx by the x operator at the soft palate; the dental th-sounds ride the exotic slots ty dy — their stated default.",
      [("ty", "thin"), ("dy", "this"), ("kx", "Scottish loch")]),
-    ("pharyngeal", "Made deep in the throat by pulling the tongue root toward the back wall — Arabic ح and ع.",
-     [("hx", "Muḥammad"), ("hj", "ʿarab")]),
+    ("pharyngeal", "Made deep in the throat by pulling the tongue root toward the back wall — Arabic ح and ع, riding the k/g exotic slots as the guttural one step beyond x.",
+     [("ky", "Arabic ḥāl"), ("gy", "ʿarab")]),
 ]
 
 
@@ -262,6 +263,8 @@ def build():
             ("dy", ipa["dy"], "dental", "fricative", "vd", "Voiced_dental_fricative"),
             ("ny", ipa["ny"], "velar", "nasal", "vd", "Voiced_velar_nasal"),
             ("py", ipa["py"], "labiodental", "affricate", "vl", "Voiceless_labiodental_affricate"),
+            ("ky", ipa["ky"], "pharyngeal", "fricative", "vl", "Voiceless_pharyngeal_fricative"),
+            ("gy", ipa["gy"], "pharyngeal", "fricative", "vd", "Voiced_pharyngeal_fricative"),
             ("tj", "c", "palatal", "plosive", "vl", "Voiceless_palatal_plosive"),
             ("dj", "ɟ", "palatal", "plosive", "vd", "Voiced_palatal_plosive"),
             ("nj", "ɲ", "palatal", "nasal", "vd", "Palatal_nasal"),
@@ -664,7 +667,7 @@ footer a.fref{color:var(--accent);text-decoration:none;border-bottom:1px dotted 
     <span><span class="sw" style="background:var(--base-t);border:1.6px solid var(--base-c)"></span><b>voiceless</b> (left)</span>
     <span><span class="sw" style="background:var(--c-t);border:1.6px solid var(--c-c)"></span><b>voiced</b> (right)</span>
     <span>each tile — <span style="font-family:var(--serif)"><b>uni glyph</b></span> · ipa (→ Wikipedia) · small <code>code</code> = input reference (section 2)</span>
-    <span>gutturals: all on h — ḥ=<code>hx</code> (/ħ/) · h̦=<code>hj</code> (/ʕ/) · '=<code>hq</code> (/ʔ/: no glyph the marks can build, so a whole character)</span>
+    <span>gutturals: h and '=<code>hq</code> (/ʔ/: no glyph the marks can build, so a whole character); the pharyngeals ħ ʕ are the k/g exotic slots <code>ky</code> <code>gy</code> — symmetric with <code>kx</code> <code>gx</code> (Arabic خ~ح, غ~ع)</span>
     <span><b>solid</b> = a point · <b>dashed</b> = not a point, the regular machinery's output (soft coronals = base + <code>j</code>: <code>tj</code>=HU ty, <code>nj</code>=ñ; glides = vowel + <code>x</code>) · <b>dotted</b> = an EXOTIC slot (base + <code>y</code>) at the cell its position implies: the IPA shown is the slot's <b>stated default</b>, and each language may override it — the exotic registry below lists every reading. Modifiers (retroflex, aspiration, …) never enter this table. None of the dashed/dotted tiles are in the counts.</span>
   </div>
   <h3 style="margin:1.2rem 0 0">The families, in words</h3>

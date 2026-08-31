@@ -1,16 +1,18 @@
 # One label per general point. Flat: base + ONE operator. No tier, no case, no diacritics.
 # LAW: a modifier letter never has a phoneme twin — so no label can re-read as a phoneme sequence.
 # CONSONANT BASES: p b t d k g m n f v s z l h · trill r.  `h` is ONLY a base, never a modifier.
-# CONSONANT OPERATORS (never a bare label):  c=affricate  q=hush  x=dental/velar  j=palatal  w=long
-#   coronal fan:  tc=/ts/ · tq=/tʃ/ · tx=/θ/      (fricatives: sj=/ʃ/)
+# CONSONANT OPERATORS (never a bare label):  c=affricate  q=hush  x=velar/retroflex  j=palatal  w=long
+#   coronal fan:  tc=/ts/ · tq=/tʃ/      (fricatives: sj=/ʃ/; θ ð are the EXOTIC slots ty dy)
 # NOT points: the palatal coronals. /c ɟ ɲ ʎ/ ARE /t d n l/ + palatalized — no language contrasts
 #   them with the soft series, and the difference is phonetic. So HU ty = RU ть = `tj`, ES ñ = `nj`.
-# Gutturals: the whole block sits on `h` — h · hx=/ħ/ (`x`=the fricative one step back, x's meaning
-#   everywhere) · hj=/ʕ/ (`j`=the marked second guttural) · hq=/ʔ/. `hq` has no glyph the mark grammar
-#   can build (see uni.py), so it takes a whole character in the uni view — the apostrophe ', which is
-#   the glottal stop across the world's Latin orthographies — as c=/ts/, x=/dz/, q=/q/ take letters.
-#   Aspiration is single `y` on a
-#   consonant (py ty ky = /pʰ tʰ kʰ/); emphatics are the doubled `yy` (tyy=/tˤ/).
+# Gutturals: `h` carries h and hq=/ʔ/. `hq` has no glyph the mark grammar can build (see uni.py),
+#   so it takes a whole character in the uni view — the apostrophe ', which is the glottal stop
+#   across the world's Latin orthographies — as c=/ts/, x=/dz/, q=/q/ take letters.
+#   THE PHARYNGEALS ARE NOT POINTS (Sz): ħ ʕ ride the k/g EXOTIC slots ky gy, symmetric with the
+#   velar fricatives kx gx (AR خ~ح = kx~ky, غ~ع = gx~gy) — the exotic as the guttural one step
+#   beyond x. Their defaults are declared in exotic_defaults below; only Arabic reads them so.
+#   Aspiration is single `y` on a consonant (py ty ky = /pʰ tʰ kʰ/); the Arabic emphatics ride
+#   the exotic slots (sˤ zˤ = sy zy · tˤ dˤ = tx dx).
 # VOWEL BASES: a e i o u (the cardinals; `y` is not a base). VOWEL OPERATORS: c=toggle-rounding,
 #   j=lower one step, q=c+j (front-round lowered), x=centralise→schwa. Triangular.
 
@@ -37,13 +39,10 @@ consonants:
   z: z
   ʃ: sj          # hush fricative = palatal `j` (Hungarian s); absorbs ɕ ʂ — no sign
   ʒ: zj          # absorbs ʐ-fricative
-  x: kx          # velar fricative
+  x: kx          # velar fricative  (the pharyngeals ħ ʕ are NOT points — the exotic slots ky gy)
   ɣ: gx
-  ħ: hx          # voiceless pharyngeal fricative = h + `x`, the fricative ONE STEP BACK — x's meaning
-                 #   everywhere (tx=θ, kx=x). uni ḥ, which is how the world writes ح (Muḥammad).
   h: h
   l: l
-  ʕ: hj          # voiced pharyngeal fricative = h + `j`, the marked second guttural — uni h̦
   r: r           # trill = the generic R slot; also absorbs the retroflex approximant ɻ (EN/ZH ⟨r⟩) and ɹ
   ɾ: rc          # tap (marked; the rarer rhotic — Spanish perro/pero). `c` on r, so `j` on r stays
                  #   PALATAL: /rʲ/ = rj, one j, one comma, like every other soft consonant.
@@ -123,3 +122,5 @@ exotic_defaults:
   d: ð
   n: ŋ
   p: pf
+  k: ħ             # the pharyngeals (AR ح ع) ride the k/g exotic slots — see the guttural note above;
+  g: ʕ             #   kʰ/ɡʱ and the Georgian ejectives stay per-language overrides in the registry

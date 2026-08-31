@@ -12,7 +12,7 @@ DATA = os.path.join(os.path.dirname(__file__), "..", "data")
 CORPUS = [
     "sjok sewp njawr", "kecsecnecm sewpejn", "acswonj", "hoswuw", "ejdj nacdj kutjac",
     "ejdj kisj kutjac aclsik acz acstacl aclactt", "pjatj", "sy zy py ky", "tx dx sy zy",
-    "h hx hj hq", "r rc rj rx aq", "baqd", "dyax kat sijts acn dyax mat", "sji sejlz fijsj",
+    "h hq ky gy", "r rc rj rx aq", "baqd", "dyax kat sijts acn dyax mat", "sji sejlz fijsj",
     "sjan1 kxaxn3 kau1", "tqony1 kuo2 tqya2 kxaxn3 kxau3", "tqi1 sji1 tquc1 sjuc4",
     "nic3", "de5", "de0", "raxn2", "alma kert", "ni3 hao3", "zhong1 guo2", "xiao3", "cai4",
     "tqony1kuo2 niu2nai3", "sji1kua1 tqoc4sjuc4",
