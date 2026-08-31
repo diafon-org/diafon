@@ -438,8 +438,9 @@ regenerates it. **Every point is a base or base + ONE operator** — no tier, no
   **Exotic slots have NO universal IPA, and every IPA shown for one is a MOVING REPRESENTATION** —
   the slot's *current* reading, free to move when a new language overloads it. The ipa target
   prints the slot's own sign (ṭ) for the overloaded ones and the current sole reading for single
-  tenants (ny=ŋ, nx=ɳ); the page marks all of them ≈; the registry is the authority. θ ð ŋ pf stay POINTS in derive with honest features — only their LABELS
-  moved (tx dx nx pc → ty dy ny py), which is what freed single-x retroflex: ʈ ɖ ɳ = tx dx nx.
+  tenants (ny=ŋ, nx=ɳ); the page marks all of them ≈; the registry is the authority. θ ð ŋ pf are NOT points: they are t d n p + the `exotic`
+  modifier in the data itself (features carry the SLOT, the phonetics lives in `note` — the ř/ś
+  pattern), which is what freed single-x retroflex: ʈ ɖ ɳ = tx dx nx.
 - Validated: all **734** phoneme records get a distinct label per language, **0 collisions**, and
   **no label decomposes** — every one is base or base + operators.
 

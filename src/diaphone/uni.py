@@ -94,10 +94,10 @@ def _below_taken(g):
 _CONS = {
     "p": "p", "b": "b", "t": "t", "d": "d", "k": "k", "g": "g",
     "kq": "q",                                       # q = the uvular LETTER-point (see below)
-    "m": "m", "n": "n", "ny": "ṇ",                                # ṇ = the exotic n (ŋ: sing)
-    "tc": "c", "dc": "x", "py": "ṗ",                            # the affricate LETTER-pair c /ts/ · x /dz/ · ṗ = the exotic p (pf, pʰ)
+    "m": "m", "n": "n",
+    "tc": "c", "dc": "x",                                       # the affricate LETTER-pair c /ts/ · x /dz/
     "tq": "c" + _VLB, "dq": "x" + _VLB,                            # c̦ x̦ (hush = affricate + the j-stroke)
-    "f": "f", "v": "v", "ty": "ṭ", "dy": "ḍ",                  # ṭ ḍ = the exotic t d (θ ð · tʰ dʱ — the language decides)
+    "f": "f", "v": "v",
     "s": "s", "z": "z", "sj": "s" + _VLB, "zj": "z" + _VLB,        # ș z̦ (ʃ ʒ)
     "kx": "ḳ", "gx": "ġ", "hx": "h" + _DB, "hj": "h" + _VLB, "hq": "'", "h": "h",  # ḳ ġ (velar: x = dot; above on g) · ḥ=/ħ/ (x → the dot) · h̦=/ʕ/ (j → the comma) · '=/ʔ/ (see below) · h
     "l": "l", "r": "r", "rc": "r" + _DB,                          # r trill · ṛ=/ɾ/ tap (`c` → the dot, the general rule)
@@ -140,11 +140,11 @@ def _apply(base, label, mods, is_vowel, data_dir="data"):
                                    #   first-letter doubling is an orthography rule, decode.py only)
         elif m == "nasal":
             g = g + _TILDE
-        elif m in ("aspirated", "ejective", "pharyngealized", "palatalized"):
+        elif m in ("aspirated", "ejective", "exotic", "pharyngealized", "palatalized"):
             # THE EXOTIC LADDER. The mark follows the LETTER the modifier spells on this point
             # (notation.modifier_letter): `j` = the palatal comma, `y` = the exotic DOT, `x` = the
             # second-exotic ANTI-COMMA. One mark each, no doubling anywhere.
-            ch = modifier_letter(label, m, {"aspirated": "y", "ejective": "y",
+            ch = modifier_letter(label, m, {"aspirated": "y", "ejective": "y", "exotic": "y",
                                             "pharyngealized": "y", "palatalized": "j"}, data_dir)
             if ch == "j":
                 g = g + (_VLA if _below_taken(g) else _VLB)

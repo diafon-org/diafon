@@ -251,6 +251,11 @@ def build():
     # palatal sounds (/c ɟ ɲ ʎ/ = /t d n l/ + palatalized) and would otherwise leave the palatal
     # column empty with no hint of where Spanish ñ or Hungarian ty went.
     for lab, gipa, place, manner, voice, wik in (
+            # the exotic slots readers will look for at their classical positions (dotted+≈):
+            ("ty", "θ…", "dental", "fricative", "vl", "Voiceless_dental_fricative"),
+            ("dy", "ð…", "dental", "fricative", "vd", "Voiced_dental_fricative"),
+            ("ny", "ŋ", "velar", "nasal", "vd", "Voiced_velar_nasal"),
+            ("py", "pf…", "labiodental", "affricate", "vl", "Voiceless_labiodental_affricate"),
             ("tj", "c", "palatal", "plosive", "vl", "Voiceless_palatal_plosive"),
             ("dj", "ɟ", "palatal", "plosive", "vd", "Voiced_palatal_plosive"),
             ("nj", "ɲ", "palatal", "nasal", "vd", "Palatal_nasal"),
@@ -667,7 +672,7 @@ footer a.fref{color:var(--accent);text-decoration:none;border-bottom:1px dotted 
     <span>each tile — <span style="font-family:var(--serif)"><b>uni glyph</b></span> · ipa (→ Wikipedia) · small <code>code</code> = input reference (section 2)</span>
     <span>gutturals: all on h — ḥ=<code>hx</code> (/ħ/) · h̦=<code>hj</code> (/ʕ/) · '=<code>hq</code> (/ʔ/: no glyph the marks can build, so a whole character)</span>
     <span>dashed = <b>phonemes that are not points</b> — the soft coronals (<code>tj</code>=ty, <code>nj</code>=ñ, and <code>rj</code> with its trill), and the glides (vowel + <code>x</code>); not in the counts</span>
-    <span><b>solid</b> = a point with a fixed reading · <b>dashed</b> = not a separate point, just the regular machinery's output (soft coronals = base + <code>j</code>; glides = vowel + <code>x</code>) — shown where a reader looks, not counted · <b>dotted</b> = an EXOTIC-SLOT point: counted in the 49, but its spelling is the wildcard slot and its reading moves by language · <b>≈</b> on any IPA = a moving representation; the exotic registry is the authority</span>
+        <span><b>solid</b> = a point · <b>dashed</b> = not a point, the regular machinery's output (soft coronals = base + <code>j</code>; glides = vowel + <code>x</code>) · <b>dotted</b> = the EXOTIC layer (base + <code>y</code>/<code>x</code>): θ ð ŋ pf and their per-language siblings, shown where a reader looks · <b>≈</b> on any IPA = a moving representation, read per language; the exotic registry is the authority. None of the dashed/dotted tiles are in the counts.</span>
   </div>
   <h3 style="margin:1.2rem 0 0">The families, in words</h3>
   <div class="gloss" id="glossBody"></div>

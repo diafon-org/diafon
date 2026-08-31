@@ -10,8 +10,8 @@ consonants:
 - {ipa: ʔ, pl: glottal, mn: plosive, vc: vl, orth: ء}
 - {ipa: dʒ, pl: postalveolar, mn: affricate, vc: vd, orth: ج}
 - {ipa: f, pl: labiodental, mn: fricative, vc: vl}
-- {ipa: θ, pl: dental, mn: fricative, vc: vl, orth: ث}
-- {ipa: ð, pl: dental, mn: fricative, vc: vd, orth: ذ}
+- {ipa: θ, pl: alveolar, mn: plosive, vc: vl, mod: [exotic], orth: ث}
+- {ipa: ð, pl: alveolar, mn: plosive, vc: vd, mod: [exotic], orth: ذ}
 - {ipa: s, pl: alveolar, mn: fricative, vc: vl}
 - {ipa: z, pl: alveolar, mn: fricative, vc: vd}
 - {ipa: ʃ, pl: postalveolar, mn: fricative, vc: vl, orth: ش}

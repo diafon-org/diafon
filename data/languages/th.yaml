@@ -22,7 +22,7 @@ consonants:
 - {ipa: h, pl: glottal, mn: fricative, vc: vl, orth: ห}
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd, orth: ม}
 - {ipa: n, pl: alveolar, mn: nasal, vc: vd, orth: น}
-- {ipa: ŋ, pl: velar, mn: nasal, vc: vd, orth: ง}
+- {ipa: ŋ, pl: alveolar, mn: nasal, vc: vd, mod: [exotic], orth: ง}
 - {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd, orth: ล}
 - {ipa: r, pl: alveolar, mn: trill, vc: vd, orth: ร, note: "often [l] or a tap in speech — one phoneme"}
 vowels:

@@ -16,7 +16,7 @@ consonants:
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd}
 - {ipa: n, pl: alveolar, mn: nasal, vc: vd}
 - {ipa: ɲ, pl: alveolar, mn: nasal, vc: vd, mod: [palatalized], orth: ny}
-- {ipa: ŋ, pl: velar, mn: nasal, vc: vd, orth: ng}
+- {ipa: ŋ, pl: alveolar, mn: nasal, vc: vd, mod: [exotic], orth: ng}
 - {ipa: f, pl: labiodental, mn: fricative, vc: vl, st: loan}
 - {ipa: z, pl: alveolar, mn: fricative, vc: vd, st: loan}
 - {ipa: s, pl: alveolar, mn: fricative, vc: vl}

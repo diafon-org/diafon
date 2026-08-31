@@ -11,7 +11,7 @@ consonants:
 - {ipa: g, pl: velar, mn: plosive, vc: vd}
 - {ipa: tʃ, pl: postalveolar, mn: affricate, vc: vl}
 - {ipa: f, pl: labiodental, mn: fricative, vc: vl}
-- {ipa: θ, pl: dental, mn: fricative, vc: vl, note: Castilian only}
+- {ipa: θ, pl: alveolar, mn: plosive, vc: vl, mod: [exotic], note: Castilian only}
 - {ipa: s, pl: alveolar, mn: fricative, vc: vl}
 - {ipa: x, pl: velar, mn: fricative, vc: vl, orth: j}
 - {ipa: m, pl: bilabial, mn: nasal, vc: vd}
