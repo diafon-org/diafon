@@ -1,0 +1,35 @@
+# The script layer: how a form draws its glyph.
+# Combining marks are approximations until the Diaphone font carries the true
+# attached anchor. Rules (docs/index.html): a consonant's mark sits below,
+# floating above on descender letters (the float rule); a vowel wears at most
+# one mark above and one below; w doubles a consonant glyph and draws the
+# acute on a vowel; a secondary x flips the mark already there; the special
+# (secondary y / the yx pair) draws the double dot on the free side.
+
+descenders: [g, j, p, q, y]
+
+whole_letters:            # forms that are whole script letters, not compositions
+  tc: c
+  dc: x
+  tq: c̦
+  dq: x̦
+  hq: q
+  kq: q̇
+  ix: j
+  ux: w
+  icx: j̈
+  ucx: ẅ
+  aq: r̈
+
+marks:
+  anchor:        {below: "̦", above: "̓"}   # j — the anchor
+  dot:           {below: "̣", above: "̇"}   # x — the fricative shift
+  reverse:       {below: "̖", above: "̔"}   # y — the back-lean
+  special:       {below: "̤", above: "̈"}   # secondary y / yx — the double dot
+  underdot:      {below: "̣"}                    # vowel j — lowered
+  grave:         {above: "̀"}                    # vowel y — the exotic, default nasal
+  acute:         {above: "́"}                    # vowel w — long
+  double_acute:  {above: "̋"}                    # flip + long fused
+  flip:          {above: "̈"}                    # vowel c — on the partner letter
+
+flip_partner: {i: u, u: i, e: o, o: e, a: a}
