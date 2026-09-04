@@ -1,0 +1,230 @@
+# The mapping: phoneme (IPA, as written in languages/*.yaml) -> input form.
+#
+# This is the explicit, reviewable layer between the language metadata and
+# everything generated (the master table, the engine). The rules the forms
+# follow are defined in docs/index.html; this file is their application,
+# symbol by symbol.
+#
+# - `consonants` / `vowels`: the global map. A symbol always maps the same
+#   way unless a language appears under `overrides`.
+# - `overrides`: per-language mapping decisions.
+# - `merges`: within one language, two metadata symbols written on the SAME
+#   form — each entry is a reviewed claim that they are one phoneme. Any
+#   other within-language form collision is an error.
+# - X (marginal) phonemes are not mapped and never counted.
+
+consonants:
+  # bare bases
+  m: m
+  n: n
+  k: k
+  l: l
+  s: s
+  p: p
+  t: t
+  b: b
+  f: f
+  g: g
+  d: d
+  h: h
+  r: r
+  v: v
+  z: z
+  # shares riding a base the language leaves free
+  t̪: t          # dental fold
+  d̪: d
+  ʋ: v
+  ɹ: r
+  ɦ: h
+  ɓ: b
+  ɗ: d
+  ɸ: f
+  # marked points
+  ʃ: sj
+  ʒ: zj
+  tʃ: tq
+  dʒ: dq
+  ts: tc
+  dz: dc
+  x: kx
+  ɣ: gx
+  q: kq
+  ʔ: hq
+  ɾ: rc
+  θ: tx
+  ð: dx
+  ŋ: nx
+  # the deep points
+  pf: py
+  ħ: ky
+  ʕ: gy
+  # shares on marked points
+  χ: kx
+  ʁ: gx
+  ɕ: sj
+  ʑ: zj
+  ʂ: sj          # overridden for PL (three-way sibilants)
+  ʐ: zj          # overridden for PL
+  tʂ: tq         # overridden for PL
+  tɕ: tq
+  dʑ: dq
+  # soft (j)
+  pʲ: pj
+  bʲ: bj
+  tʲ: tj
+  dʲ: dj
+  kʲ: kj
+  gʲ: gj
+  fʲ: fj
+  vʲ: vj
+  mʲ: mj
+  nʲ: nj
+  lʲ: lj
+  rʲ: rj
+  ɲ: nj
+  ʎ: lj
+  c: tj
+  ɟ: dj
+  ʝ: dj
+  r̝: rj         # Czech ř, the modified r
+  # retroflex (y) — the back-lean
+  ʈ: ty
+  ɖ: dy
+  ɳ: ny
+  ɭ: ly
+  ɻ: ry
+  ɽ: ry
+  # the special: secondary y on a marked form, the pair yx on a bare letter
+  pʰ: pyx
+  tʰ: tyx
+  kʰ: kyx
+  tsʰ: tcy
+  tʃʰ: tqy
+  tɕʰ: tqy
+  tʂʰ: tqy
+  t̪ʰ: tyx
+  ʈʰ: tyy
+  bʱ: byx
+  d̪ʱ: dyx
+  ɖʱ: dyy
+  dʒʱ: dqy
+  gʱ: gyx
+  ɽʱ: ryy
+  # long (w) — Korean fortis rides length
+  p͈: pw
+  t͈: tw
+  k͈: kw
+  s͈: sw
+  t͈ɕ: tqw
+  ɕː: sjw        # Russian щ, the long hush
+  # glides
+  j: ix
+  w: ux
+  ɥ: icx
+
+vowels:
+  # bases and points
+  i: i
+  u: u
+  a: a
+  o: o
+  e: e
+  ɛ: ej
+  ɔ: oj
+  ɪ: ij
+  ʊ: uj
+  ə: aj
+  ɑ: ac
+  ɒ: ac
+  y: ic
+  ø: ec
+  ɯ: uc
+  ɤ: oc
+  œ: eq
+  ʏ: iq
+  ɚ: aq
+  ɝ: aq
+  # shares
+  ʌ: aj          # stressed schwa (EN, KO)
+  ɐ: aj
+  æ: a
+  ɨ: uc
+  # long (w)
+  aː: aw
+  iː: iw
+  uː: uw
+  eː: ew
+  oː: ow
+  ɛː: ejw
+  ɔː: ojw
+  øː: ecw
+  yː: icw
+  ɯː: ucw
+  ɤː: ocw
+  æː: aw
+  ɑː: acw
+  # nasal (y)
+  ĩ: iy
+  ẽ: ey
+  ã: ay
+  õ: oy
+  ũ: uy
+  ɑ̃: ay          # FR, HI — the a slot; nasal on ä would stack two above
+  ɛ̃: ejy
+  ɔ̃: ojy
+  # sequences: nucleus + glide
+  aɪ: aix
+  aʊ: aux
+  ɔɪ: ojix
+  eɪ: eix
+  oʊ: oux
+  ɔʏ: ojicx
+  ɛi: ejix
+  œy: eqicx
+  ʌu: ajux
+
+# Languages whose mapping has been reviewed and finalised:
+reviewed: [en, hu, zh]
+
+overrides:
+  hu:            # no plain /a e/ to contrast: the bare slots are free and one
+    ɒ: a         #   column away — Hungarian a/á e/é write as a/á e/é
+    ɛ: e
+  ka:            # bare voiceless = the aspirated series; ejectives = the special
+    pʰ: p
+    tʰ: t
+    kʰ: k
+    tsʰ: tc
+    tʃʰ: tq
+    pʼ: pyx
+    tʼ: tyx
+    kʼ: kyx
+    qʼ: kq       # ejective-only, no plain q to contrast
+    tsʼ: tcy
+    tʃʼ: tqy
+  ar:            # the emphatics = the special
+    tˤ: tyx
+    dˤ: dyx
+    sˤ: syx
+    ðˤ: zyx
+  ru:            # soft s z: the anchor is taken by the hush points
+    sʲ: syx
+    zʲ: zyx
+  uk:
+    sʲ: syx
+    zʲ: zyx
+    tsʲ: tcy    # the anchor on c would collide with c̦ /tʃ/
+  et:
+    sʲ: syx
+  ja:            # the moraic nasal ん contrasts with n (kani ~ kan'i) — it is
+    ɴ: nyx       #   Japanese's special; its yx is otherwise unspent
+
+  pl:            # three-way sibilants: plain / hush / hush+shift
+    ʂ: sjx
+    ʐ: zjx
+    tʂ: tqx
+    dʐ: dqx
+
+merges:
+  # reviewed within-language identifications: two symbols, one phoneme
+  en: [[ʌ, ə]]   # STRUT is the stressed schwa

@@ -1,43 +1,45 @@
-# Dutch (Northern Standard)  [NL]
-# Coverage language — near-free: tense long vowels entered inline with len (no short tense
-# counterparts, like HU é). Diphthongs ɛi œy ʌu are SEQUENCES (ej+i, eq+ic, ac+u), not points.
-# ⟨w⟩ [ʋ] is entered as the glide /w/ (ux) — wier/vier = glide vs fricative, no new point.
-# Excluded: ɣ (merged with x in the north — one dorsal fricative), g (loans only).
+# Dutch — phoneme metadata only (IPA inventory, coarse frequency,
+# speakers). No point mapping. freq: L frequent · M ordinary ·
+# S infrequent · X marginal/loan. See data/README.md.
+code: nl
 name: Dutch
-family: Germanic
+speakers: {native: 25, total: 30}   # millions, rough 2025
 consonants:
-- {ipa: p, pl: bilabial, mn: plosive, vc: vl}
-- {ipa: b, pl: bilabial, mn: plosive, vc: vd}
-- {ipa: t, pl: alveolar, mn: plosive, vc: vl}
-- {ipa: d, pl: alveolar, mn: plosive, vc: vd}
-- {ipa: k, pl: velar, mn: plosive, vc: vl}
-- {ipa: g, pl: velar, mn: plosive, vc: vd, st: loan}
-- {ipa: m, pl: bilabial, mn: nasal, vc: vd}
-- {ipa: n, pl: alveolar, mn: nasal, vc: vd}
-- {ipa: ŋ, pl: alveolar, mn: nasal, vc: vd, mod: [exotic], orth: ng}
-- {ipa: f, pl: labiodental, mn: fricative, vc: vl}
-- {ipa: v, pl: labiodental, mn: fricative, vc: vd}
-- {ipa: s, pl: alveolar, mn: fricative, vc: vl}
-- {ipa: z, pl: alveolar, mn: fricative, vc: vd}
-- {ipa: ʃ, pl: postalveolar, mn: fricative, vc: vl, st: marginal, orth: sj}
-- {ipa: x, pl: velar, mn: fricative, vc: vl, orth: g/ch}
-- {ipa: h, pl: glottal, mn: fricative, vc: vl, note: phonetically often ɦ}
-- {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
-- {ipa: r, pl: alveolar, mn: trill, vc: vd, note: realisations vary (trill/tap/uvular) — the R slot}
+  ʒ: X
+  p: M
+  b: M
+  t: L
+  d: L
+  k: L
+  g: X
+  m: L
+  n: L
+  ŋ: M
+  f: M
+  v: M
+  s: L
+  z: M
+  ʃ: X
+  x: M
+  h: M
+  l: L
+  r: L
+  j: M
+  w: M
 vowels:
-- {ipa: i, hi: close, bk: front, rd: false, orth: ie}
-- {ipa: y, hi: close, bk: front, rd: true, orth: uu}
-- {ipa: u, hi: close, bk: back, rd: true, orth: oe}
-- {ipa: ɪ, hi: near-close, bk: front, rd: false, orth: i}
-- {ipa: ʏ, hi: near-close, bk: front, rd: true, orth: u}
-- {ipa: ɛ, hi: open-mid, bk: front, rd: false, orth: e}
-- {ipa: ɔ, hi: open-mid, bk: back, rd: true, orth: o}
-- {ipa: ɑ, hi: open, bk: back, rd: false, orth: a}
-- {ipa: ə, hi: mid, bk: central, rd: false}
-- {ipa: eː, hi: close-mid, bk: front, rd: false, len: long, orth: ee}
-- {ipa: øː, hi: close-mid, bk: front, rd: true, len: long, orth: eu}
-- {ipa: oː, hi: close-mid, bk: back, rd: true, len: long, orth: oo}
-- {ipa: aː, hi: open, bk: central, rd: false, len: long, orth: aa}
-# glides
-- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: j, note: ja}
-- {ipa: w, hi: close, bk: back, rd: true, mod: [nonsyllabic], orth: w, note: '[ʋ] — wier~vier'}
+  i: M
+  y: M
+  u: M
+  ɪ: M
+  ʏ: M
+  ɛ: M
+  ɔ: M
+  ɑ: L
+  ə: L
+  eː: M
+  øː: M
+  oː: M
+  aː: M
+  ɛi: M
+  œy: M
+  ʌu: M

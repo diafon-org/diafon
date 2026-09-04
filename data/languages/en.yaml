@@ -1,49 +1,49 @@
-# English (General American)  [EN]
-name: English (General American)
-family: Germanic
-stress: true
+# English — phoneme metadata only (IPA inventory, coarse frequency,
+# speakers). No point mapping. freq: L frequent · M ordinary ·
+# S infrequent · X marginal/loan. See data/README.md.
+code: en
+name: English
+speakers: {native: 380, total: 1500}   # millions, rough 2025
 consonants:
-- {ipa: p, pl: bilabial, mn: plosive, vc: vl}
-- {ipa: b, pl: bilabial, mn: plosive, vc: vd}
-- {ipa: t, pl: alveolar, mn: plosive, vc: vl}
-- {ipa: d, pl: alveolar, mn: plosive, vc: vd}
-- {ipa: k, pl: velar, mn: plosive, vc: vl}
-- {ipa: g, pl: velar, mn: plosive, vc: vd}
-- {ipa: tʃ, pl: postalveolar, mn: affricate, vc: vl}
-- {ipa: dʒ, pl: postalveolar, mn: affricate, vc: vd}
-- {ipa: f, pl: labiodental, mn: fricative, vc: vl}
-- {ipa: v, pl: labiodental, mn: fricative, vc: vd}
-- {ipa: θ, pl: alveolar, mn: plosive, vc: vl, mod: [exotic]}
-- {ipa: ð, pl: alveolar, mn: plosive, vc: vd, mod: [exotic]}
-- {ipa: s, pl: alveolar, mn: fricative, vc: vl}
-- {ipa: z, pl: alveolar, mn: fricative, vc: vd}
-- {ipa: ʃ, pl: postalveolar, mn: fricative, vc: vl}
-- {ipa: ʒ, pl: postalveolar, mn: fricative, vc: vd}
-- {ipa: h, pl: glottal, mn: fricative, vc: vl}
-- {ipa: m, pl: bilabial, mn: nasal, vc: vd}
-- {ipa: n, pl: alveolar, mn: nasal, vc: vd}
-- {ipa: ŋ, pl: alveolar, mn: nasal, vc: vd, mod: [exotic]}
-- {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
-- {ipa: ɹ, pl: alveolar, mn: approximant, vc: vd}
+  p: M
+  b: M
+  t: L
+  d: L
+  k: L
+  g: M
+  tʃ: M
+  dʒ: M
+  f: M
+  v: M
+  θ: S
+  ð: L
+  s: L
+  z: M
+  ʃ: M
+  ʒ: S
+  h: M
+  x: X
+  m: L
+  n: L
+  ŋ: M
+  l: L
+  ɹ: L
+  j: M
+  w: M
 vowels:
-- {ipa: i, hi: close, bk: front, rd: false}
-- {ipa: ɪ, hi: near-close, bk: front, rd: false}
-- {ipa: ɛ, hi: open-mid, bk: front, rd: false}
-- {ipa: æ, hi: near-open, bk: front, rd: false}
-# /ʌ/ (STRUT) is stressed /ə/ — same mid-central phoneme, complementary by stress, so not a point
-- {ipa: ɑ, hi: open, bk: back, rd: false}
-- {ipa: ɔ, hi: open-mid, bk: back, rd: true}
-- {ipa: ʊ, hi: near-close, bk: back, rd: true}
-- {ipa: u, hi: close, bk: back, rd: true}
-- {ipa: ə, hi: mid, bk: central, rd: false}
-- ipa: ɝ
-  hi: mid
-  bk: central
-  rd: false
-  mod: [rhotic]
-  note: NURSE
-- {ipa: e, hi: close-mid, bk: front, rd: false, note: FACE nucleus (diphthong)}
-- {ipa: o, hi: close-mid, bk: back, rd: true, note: GOAT nucleus (diphthong)}
-# glides = nonsyllabic close vowels (labels ix/ux/icx via the x=reduce modifier)
-- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: y, note: yes — contrasts with /i/ (yeast~east)}
-- {ipa: w, hi: close, bk: back, rd: true, mod: [nonsyllabic], orth: w, note: wet — contrasts with /u/ (woo~ooze)}
+  i: L
+  ɪ: L
+  ɛ: M
+  æ: M
+  ɑ: M
+  ɔ: M
+  ʊ: S
+  u: M
+  ə: L
+  ɝ: M
+  eɪ: M
+  oʊ: M
+  aɪ: M
+  aʊ: M
+  ɔɪ: S
+  ʌ: M

@@ -1,42 +1,45 @@
-# French  [FR]
+# French — phoneme metadata only (IPA inventory, coarse frequency,
+# speakers). No point mapping. freq: L frequent · M ordinary ·
+# S infrequent · X marginal/loan. See data/README.md.
+code: fr
 name: French
-family: Romance
+speakers: {native: 80, total: 310}   # millions, rough 2025
 consonants:
-- {ipa: p, pl: bilabial, mn: plosive, vc: vl}
-- {ipa: b, pl: bilabial, mn: plosive, vc: vd}
-- {ipa: t, pl: alveolar, mn: plosive, vc: vl}
-- {ipa: d, pl: alveolar, mn: plosive, vc: vd}
-- {ipa: k, pl: velar, mn: plosive, vc: vl}
-- {ipa: g, pl: velar, mn: plosive, vc: vd}
-- {ipa: f, pl: labiodental, mn: fricative, vc: vl}
-- {ipa: v, pl: labiodental, mn: fricative, vc: vd}
-- {ipa: s, pl: alveolar, mn: fricative, vc: vl}
-- {ipa: z, pl: alveolar, mn: fricative, vc: vd}
-- {ipa: ʃ, pl: postalveolar, mn: fricative, vc: vl}
-- {ipa: ʒ, pl: postalveolar, mn: fricative, vc: vd}
-- {ipa: ʁ, pl: uvular, mn: fricative, vc: vd, orth: r}
-- {ipa: m, pl: bilabial, mn: nasal, vc: vd}
-- {ipa: n, pl: alveolar, mn: nasal, vc: vd}
-- {ipa: ɲ, pl: alveolar, mn: nasal, vc: vd, mod: [palatalized], orth: gn}
-- {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
-# glides /j/ /w/ /ɥ/ = non-syllabic /i/ /u/ /y/ — vowel points + the nonsyllabic modifier, not consonant points
+  ŋ: X
+  p: M
+  b: M
+  t: L
+  d: L
+  k: M
+  g: M
+  f: M
+  v: M
+  s: L
+  z: M
+  ʃ: M
+  ʒ: M
+  ʁ: L
+  m: L
+  n: L
+  ɲ: S
+  l: L
+  j: M
+  ɥ: M
+  w: M
 vowels:
-- {ipa: i, hi: close, bk: front, rd: false}
-- {ipa: y, hi: close, bk: front, rd: true}
-- {ipa: u, hi: close, bk: back, rd: true}
-- {ipa: e, hi: close-mid, bk: front, rd: false}
-- {ipa: ø, hi: close-mid, bk: front, rd: true}
-- {ipa: o, hi: close-mid, bk: back, rd: true}
-- {ipa: ɛ, hi: open-mid, bk: front, rd: false}
-- {ipa: œ, hi: open-mid, bk: front, rd: true}
-- {ipa: ɔ, hi: open-mid, bk: back, rd: true}
-- {ipa: a, hi: open, bk: central, rd: false}
-- {ipa: ɑ, hi: open, bk: back, rd: false, st: marginal}
-- {ipa: ə, hi: mid, bk: central, rd: false}
-# glides = nonsyllabic close vowels (labels ix/ux/icx via the x=reduce modifier)
-- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: y, note: yeux/fille — paye /pɛj/ ~ pays /pei/ contrasts syllabicity}
-- {ipa: ɥ, hi: close, bk: front, rd: true, mod: [nonsyllabic], orth: u, note: huit/lui — the nonsyllabic /y/}
-- {ipa: w, hi: close, bk: back, rd: true, mod: [nonsyllabic], orth: ou, note: oui/moi}
-nasal_series: [e, a, o]   # ẽ ã õ — the French nasals as nasalised cardinals (simplified base).
-                          # œ̃ dropped: brin~brun is merging into ɛ̃ across modern French, so we model
-                          # the 3-way system (bon=õ, banc=ã, brin=ẽ). Re-add œ for conservative French.
+  i: L
+  y: M
+  u: L
+  e: L
+  ø: M
+  o: L
+  ɛ: L
+  œ: M
+  ɔ: M
+  a: L
+  ɑ: X
+  ə: L
+  ɛ̃: M
+  ɑ̃: L
+  ɔ̃: M
+  œ̃: X

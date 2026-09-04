@@ -1,35 +1,48 @@
-# Russian  [RU]
+# Russian — phoneme metadata only (IPA inventory, coarse frequency,
+# speakers). No point mapping. freq: L frequent · M ordinary ·
+# S infrequent · X marginal/loan. See data/README.md.
+code: ru
 name: Russian
-family: Slavic
-stress: true
+speakers: {native: 145, total: 255}   # millions, rough 2025
 consonants:
-- {ipa: p, pl: bilabial, mn: plosive, vc: vl}
-- {ipa: b, pl: bilabial, mn: plosive, vc: vd}
-- {ipa: t, pl: alveolar, mn: plosive, vc: vl}
-- {ipa: d, pl: alveolar, mn: plosive, vc: vd}
-- {ipa: k, pl: velar, mn: plosive, vc: vl}
-- {ipa: g, pl: velar, mn: plosive, vc: vd}
-- {ipa: ts, pl: alveolar, mn: affricate, vc: vl, orth: ц}
-- {ipa: tɕ, pl: alveolopalatal, mn: affricate, vc: vl, orth: ч}
-- {ipa: f, pl: labiodental, mn: fricative, vc: vl}
-- {ipa: v, pl: labiodental, mn: fricative, vc: vd}
-- {ipa: s, pl: alveolar, mn: fricative, vc: vl}
-- {ipa: z, pl: alveolar, mn: fricative, vc: vd}
-- {ipa: ʂ, pl: postalveolar, mn: fricative, vc: vl, orth: ш, note: 'realised [ʂ]; Russian has no ɕ~ʂ contrast, so the hush point is unmarked'}
-- {ipa: ʐ, pl: postalveolar, mn: fricative, vc: vd, orth: ж, note: 'realised [ʐ]; see ш'}
-- {ipa: x, pl: velar, mn: fricative, vc: vl, orth: х}
-- {ipa: m, pl: bilabial, mn: nasal, vc: vd}
-- {ipa: n, pl: alveolar, mn: nasal, vc: vd}
-- {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
-- {ipa: r, pl: alveolar, mn: trill, vc: vd}
+  p: M
+  b: M
+  t: L
+  d: M
+  k: L
+  g: M
+  ts: M
+  tɕ: M
+  f: M
+  v: L
+  s: L
+  z: M
+  ʂ: M
+  ʐ: M
+  ɕː: M
+  x: M
+  m: L
+  n: L
+  l: L
+  r: L
+  j: M
+  pʲ: M
+  bʲ: M
+  tʲ: M
+  dʲ: M
+  kʲ: M
+  gʲ: M
+  fʲ: M
+  vʲ: M
+  sʲ: M
+  zʲ: M
+  mʲ: M
+  nʲ: M
+  lʲ: M
+  rʲ: M
 vowels:
-- {ipa: i, hi: close, bk: front, rd: false}
-- {ipa: e, hi: close-mid, bk: front, rd: false}
-- {ipa: a, hi: open, bk: central, rd: false}
-- {ipa: o, hi: close-mid, bk: back, rd: true}
-- {ipa: u, hi: close, bk: back, rd: true}
-# glides = nonsyllabic close vowels (labels ix/ux/icx via the x=reduce modifier)
-- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: й, note: мой /moj/ ~ мои /mai/ — syllabicity is contrastive}
-secondary_series:
-- type: palatalized
-  applies_to: [p, b, t, d, k, g, f, v, s, z, m, n, l, r]
+  i: L
+  e: L
+  a: L
+  o: L
+  u: M
