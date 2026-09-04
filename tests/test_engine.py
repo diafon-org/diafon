@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The engine's guarantees, as tests. Run: python3 -m pytest scripts/test_engine.py
+"""The engine's guarantees, as tests. Run: python3 tests/test_engine.py  (or pytest tests/)
 
 1. Totality: every form the mapping uses parses to itself.
 2. Stream decodability: any two in-use forms concatenated tokenize back to
@@ -14,7 +14,7 @@ import unicodedata as ud
 
 import yaml
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'scripts'))
 import engine
 from gen_master import aggregate
 
