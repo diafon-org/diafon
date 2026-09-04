@@ -1,41 +1,39 @@
-# Swahili [SW] — the first Niger-Congo language, drafted under the SLOT PRINCIPLE. The famous
-# implosives are NOT contrastive ("implosive/voiced [ɓ ɗ ʄ ɠ] ~ [b d dʒ ɡ]" — free variation):
-# plain voiced stops with the realisation in `note`, exactly the Vietnamese đ call. Prenasalised
-# stops (mb nd nj ng) follow the majority analysis as CLUSTERS (nasal + stop) — no entries.
-# Marginal Arabic-loan θ ð ɣ x sit on the exotic/velar slots (loan status marked). Aspirates are
-# dialectal and unmarked in orthography — allophonic, in note only. Five vowels, no length.
+# Swahili — phoneme metadata only (IPA inventory, coarse frequency,
+# speakers). No point mapping. freq: L frequent · M ordinary ·
+# S infrequent · X marginal/loan. See data/README.md.
+code: sw
 name: Swahili
-family: Niger-Congo (Bantu)
+speakers: {native: 16, total: 80}   # millions, rough 2025
 consonants:
-- {ipa: p, pl: bilabial, mn: plosive, vc: vl}
-- {ipa: b, pl: bilabial, mn: plosive, vc: vd, note: "usually implosive [ɓ] — free variation, one phoneme"}
-- {ipa: t, pl: alveolar, mn: plosive, vc: vl}
-- {ipa: d, pl: alveolar, mn: plosive, vc: vd, note: "usually [ɗ]"}
-- {ipa: k, pl: velar, mn: plosive, vc: vl}
-- {ipa: g, pl: velar, mn: plosive, vc: vd, note: "usually [ɠ]"}
-- {ipa: tʃ, pl: postalveolar, mn: affricate, vc: vl, orth: ch}
-- {ipa: ɟ, pl: alveolar, mn: plosive, vc: vd, mod: [palatalized], orth: j, note: "usually implosive [ʄ]; the palatal stop slot"}
-- {ipa: f, pl: labiodental, mn: fricative, vc: vl}
-- {ipa: v, pl: labiodental, mn: fricative, vc: vd}
-- {ipa: s, pl: alveolar, mn: fricative, vc: vl}
-- {ipa: z, pl: alveolar, mn: fricative, vc: vd}
-- {ipa: ʃ, pl: postalveolar, mn: fricative, vc: vl, orth: sh}
-- {ipa: θ, pl: alveolar, mn: plosive, vc: vl, mod: [exotic], orth: th, st: loan, note: "Arabic loans (thelathini)"}
-- {ipa: ð, pl: alveolar, mn: plosive, vc: vd, mod: [exotic], orth: dh, st: loan}
-- {ipa: x, pl: velar, mn: fricative, vc: vl, orth: kh, st: loan, note: "often [h]"}
-- {ipa: ɣ, pl: velar, mn: fricative, vc: vd, orth: gh, st: loan}
-- {ipa: h, pl: glottal, mn: fricative, vc: vl}
-- {ipa: m, pl: bilabial, mn: nasal, vc: vd}
-- {ipa: n, pl: alveolar, mn: nasal, vc: vd}
-- {ipa: ɲ, pl: alveolar, mn: nasal, vc: vd, mod: [palatalized], orth: ny}
-- {ipa: ŋ, pl: alveolar, mn: nasal, vc: vd, mod: [exotic], orth: "ng'"}
-- {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
-- {ipa: r, pl: alveolar, mn: trill, vc: vd, note: "often a tap — one phoneme"}
+  p: M
+  b: M
+  t: L
+  d: M
+  k: L
+  g: M
+  tʃ: M
+  ɟ: M
+  f: M
+  v: M
+  s: M
+  z: M
+  ʃ: M
+  θ: X
+  ð: X
+  x: X
+  ɣ: X
+  h: M
+  m: L
+  n: L
+  ɲ: M
+  ŋ: M
+  l: L
+  r: M
+  j: M
+  w: M
 vowels:
-- {ipa: ɑ, hi: open, bk: central, rd: false, orth: a}
-- {ipa: ɛ, hi: open-mid, bk: front, rd: false, orth: e}
-- {ipa: i, hi: close, bk: front, rd: false}
-- {ipa: ɔ, hi: open-mid, bk: back, rd: true, orth: o}
-- {ipa: u, hi: close, bk: back, rd: true}
-- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: y}
-- {ipa: w, hi: close, bk: back, rd: true, mod: [nonsyllabic]}
+  ɑ: L
+  ɛ: M
+  i: L
+  ɔ: M
+  u: L

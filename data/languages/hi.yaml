@@ -1,51 +1,62 @@
-# Hindi-Urdu [HI] — the four-way stop series: p / pʰ / b / bʱ at five places. The fourth is
-# BREATHY VOICED (murmured), not truly aspirated — phonetically a different phonation. But voicing
-# already separates it from the aspirated series, and NO language contrasts [bʰ] with [bʱ], so it
-# takes the `aspirated` slot on the voiced points: the same reuse as Korean fortis on `long` and
-# Czech ř on `rj`. Traditional grammars call the series "voiced aspirates" for exactly this reason.
-# Retroflexion is the existing LAYER: ʈ ɖ ɳ = t d n + retroflex, ɽ = the retroflex r (`rx`, the slot
-# Tamil ழ also uses — flap vs approximant, contrasted nowhere).
+# Hindi-Urdu — phoneme metadata only (IPA inventory, coarse frequency,
+# speakers). No point mapping. freq: L frequent · M ordinary ·
+# S infrequent · X marginal/loan. See data/README.md.
+code: hi
 name: Hindi-Urdu
-family: Indo-European
+speakers: {native: 500, total: 850}   # millions, rough 2025
 consonants:
-- {ipa: p, pl: bilabial, mn: plosive, vc: vl, orth: प}
-- {ipa: b, pl: bilabial, mn: plosive, vc: vd, orth: ब}
-- {ipa: t̪, pl: dental, mn: plosive, vc: vl, orth: त}
-- {ipa: d̪, pl: dental, mn: plosive, vc: vd, orth: द}
-- {ipa: ʈ, pl: alveolar, mn: plosive, vc: vl, mod: [retroflex], orth: ट}
-- {ipa: ɖ, pl: alveolar, mn: plosive, vc: vd, mod: [retroflex], orth: ड}
-- {ipa: k, pl: velar, mn: plosive, vc: vl, orth: क}
-- {ipa: g, pl: velar, mn: plosive, vc: vd, orth: ग}
-- {ipa: q, pl: uvular, mn: plosive, vc: vl, orth: क़, st: loan}
-- {ipa: tʃ, pl: postalveolar, mn: affricate, vc: vl, orth: च}
-- {ipa: dʒ, pl: postalveolar, mn: affricate, vc: vd, orth: ज}
-- {ipa: f, pl: labiodental, mn: fricative, vc: vl, orth: फ़, st: loan}
-- {ipa: s, pl: alveolar, mn: fricative, vc: vl, orth: स}
-- {ipa: z, pl: alveolar, mn: fricative, vc: vd, orth: ज़, st: loan}
-- {ipa: ʃ, pl: postalveolar, mn: fricative, vc: vl, orth: श}
-- {ipa: x, pl: velar, mn: fricative, vc: vl, orth: ख़, st: loan}
-- {ipa: ɣ, pl: velar, mn: fricative, vc: vd, orth: ग़, st: loan}
-- {ipa: h, pl: glottal, mn: fricative, vc: vl, orth: ह, note: "realised [ɦ]"}
-- {ipa: m, pl: bilabial, mn: nasal, vc: vd, orth: म}
-- {ipa: n, pl: alveolar, mn: nasal, vc: vd, orth: न}
-- {ipa: ɳ, pl: alveolar, mn: nasal, vc: vd, mod: [retroflex], orth: ण}
-- {ipa: ʋ, pl: labiodental, mn: fricative, vc: vd, orth: व, note: "an approximant [ʋ]; the labiodental point"}
-- {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd, orth: ल}
-- {ipa: r, pl: alveolar, mn: trill, vc: vd, orth: र, note: "a tap [ɾ] in most positions — one phoneme"}
-- {ipa: ɽ, pl: alveolar, mn: trill, vc: vd, mod: [retroflex], orth: ड़, note: "retroflex flap; contrasts with ɖ"}
+  p: M
+  b: M
+  t̪: M
+  d̪: M
+  ʈ: M
+  ɖ: M
+  k: L
+  g: M
+  q: X
+  tʃ: M
+  dʒ: M
+  f: X
+  s: L
+  z: X
+  ʃ: M
+  x: X
+  ɣ: X
+  h: M
+  m: L
+  n: L
+  ɳ: S
+  ʋ: M
+  l: L
+  r: L
+  ɽ: M
+  j: M
+  pʰ: M
+  bʱ: M
+  t̪ʰ: M
+  d̪ʱ: M
+  ʈʰ: M
+  ɖʱ: M
+  tʃʰ: M
+  dʒʱ: M
+  kʰ: M
+  gʱ: M
+  ɽʱ: M
 vowels:
-- {ipa: ə, hi: mid, bk: central, rd: false, orth: अ}
-- {ipa: ɑ, hi: open, bk: back, rd: false, orth: आ, note: "long — ā"}
-- {ipa: ɪ, hi: near-close, bk: front, rd: false, orth: इ}
-- {ipa: i, hi: close, bk: front, rd: false, orth: ई, note: "long — ī"}
-- {ipa: ʊ, hi: near-close, bk: back, rd: true, orth: उ}
-- {ipa: u, hi: close, bk: back, rd: true, orth: ऊ, note: "long — ū"}
-- {ipa: e, hi: close-mid, bk: front, rd: false, orth: ए}
-- {ipa: ɛ, hi: open-mid, bk: front, rd: false, orth: ऐ}
-- {ipa: o, hi: close-mid, bk: back, rd: true, orth: ओ}
-- {ipa: ɔ, hi: open-mid, bk: back, rd: true, orth: औ}
-- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: य}
-nasal_series: [ɑ, i, u, e, ɛ, o, ɔ]
-secondary_series:
-- type: aspirated
-  applies_to: [p, b, t̪, d̪, ʈ, ɖ, tʃ, dʒ, k, g, ɽ]
+  ə: L
+  ɑ: L
+  ɪ: M
+  i: L
+  ʊ: M
+  u: M
+  e: M
+  ɛ: M
+  o: M
+  ɔ: M
+  ɑ̃: M
+  ĩ: M
+  ũ: M
+  ẽ: M
+  ɛ̃: M
+  õ: M
+  ɔ̃: M

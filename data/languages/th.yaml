@@ -1,43 +1,53 @@
-# Thai [TH] — CANDIDATE (drafted here, needs review). Three-way stops p/pʰ/b at the labial and
-# alveolar, two-way at the velar; five tones (digits 1-5); nine vowel qualities × length.
-# FIVE TONES, written as the trailing digits 1-5 in the order of the Thai tone names:
-#   1 mid (สามัญ, unmarked) · 2 low (เอก ่) · 3 falling (โท ้) · 4 high (ตรี ๊) · 5 rising (จัตวา ๋)
-# Digits are PER-LANGUAGE indices — 3 is Mandarin's dipping tone and Thai's falling one; the digit
-# identifies the tone within its language, the mechanism does not change. NOTE: the opt-in tone
-# SIGNS (uni --tones) are the Pinyin four and would mis-render Thai (and swallow 5 as neutral);
-# Thai's default plain-digit rendering is correct, the signs need a per-language table first.
+# Thai — phoneme metadata only (IPA inventory, coarse frequency,
+# speakers). No point mapping. freq: L frequent · M ordinary ·
+# S infrequent · X marginal/loan. See data/README.md.
+code: th
 name: Thai
-family: Kra-Dai
-tone: true
+speakers: {native: 21, total: 61}   # millions, rough 2025
+tones:   # input digit -> standard contour (defined in data/README.md)
+  1: mid
+  2: low
+  3: falling
+  4: high
+  5: rising
 consonants:
-- {ipa: p, pl: bilabial, mn: plosive, vc: vl, orth: ป}
-- {ipa: b, pl: bilabial, mn: plosive, vc: vd, orth: บ}
-- {ipa: t, pl: alveolar, mn: plosive, vc: vl, orth: ต}
-- {ipa: d, pl: alveolar, mn: plosive, vc: vd, orth: ด}
-- {ipa: k, pl: velar, mn: plosive, vc: vl, orth: ก}
-- {ipa: ʔ, pl: glottal, mn: plosive, vc: vl, orth: อ, note: zero-onset and final glottal}
-- {ipa: tɕ, pl: postalveolar, mn: affricate, vc: vl, orth: จ}
-- {ipa: f, pl: labiodental, mn: fricative, vc: vl, orth: ฟ}
-- {ipa: s, pl: alveolar, mn: fricative, vc: vl, orth: ส}
-- {ipa: h, pl: glottal, mn: fricative, vc: vl, orth: ห}
-- {ipa: m, pl: bilabial, mn: nasal, vc: vd, orth: ม}
-- {ipa: n, pl: alveolar, mn: nasal, vc: vd, orth: น}
-- {ipa: ŋ, pl: alveolar, mn: nasal, vc: vd, mod: [exotic], orth: ง}
-- {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd, orth: ล}
-- {ipa: r, pl: alveolar, mn: trill, vc: vd, orth: ร, note: "often [l] or a tap in speech — one phoneme"}
+  p: M
+  b: M
+  t: L
+  d: M
+  k: L
+  ʔ: M
+  tɕ: M
+  f: M
+  s: M
+  h: M
+  m: L
+  n: L
+  ŋ: M
+  l: L
+  r: S
+  j: M
+  w: M
+  pʰ: M
+  tʰ: M
+  kʰ: M
+  tɕʰ: M
 vowels:
-- {ipa: i, hi: close, bk: front, rd: false, orth: อิ}
-- {ipa: e, hi: close-mid, bk: front, rd: false, orth: เอ}
-- {ipa: ɛ, hi: open-mid, bk: front, rd: false, orth: แอ}
-- {ipa: a, hi: open, bk: central, rd: false, orth: อะ}
-- {ipa: ɯ, hi: close, bk: back, rd: false, orth: อึ}
-- {ipa: ɤ, hi: close-mid, bk: back, rd: false, orth: เออ}
-- {ipa: u, hi: close, bk: back, rd: true, orth: อุ}
-- {ipa: o, hi: close-mid, bk: back, rd: true, orth: โอ}
-- {ipa: ɔ, hi: open-mid, bk: back, rd: true, orth: ออ}
-- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: ย}
-- {ipa: w, hi: close, bk: back, rd: true, mod: [nonsyllabic], orth: ว}
-long_series: [i, e, ɛ, a, ɯ, ɤ, u, o, ɔ]
-secondary_series:
-- type: aspirated
-  applies_to: [p, t, k, tɕ]
+  i: L
+  e: M
+  ɛ: M
+  a: L
+  ɯ: M
+  ɤ: M
+  u: L
+  o: M
+  ɔ: M
+  iː: M
+  eː: M
+  ɛː: M
+  aː: M
+  ɯː: M
+  ɤː: M
+  uː: M
+  oː: M
+  ɔː: M

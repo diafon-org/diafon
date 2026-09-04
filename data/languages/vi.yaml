@@ -1,48 +1,48 @@
-# Vietnamese (Hanoi / Northern)  [VI]
-# Witness language: a major language (~85M) backing /o/~/ɤ/ (ô /o/ ~ ơ /ɤ/).
-# CONTESTED: ⟨ơ⟩ is transcribed /ɤ/ (Thompson) or /əː/ (central) by different sources;
-# entered here as /ɤ/, making it a second o~ɤ witness alongside Estonian. If /əː/ is
-# preferred it falls back to the ə point and Estonian still locks o~ɤ.
-# Implosives /ɓ ɗ/ are folded into the plain b/d points (Vietnamese has no plain b/d, so
-# no contrast is lost). Tones (6) are suprasegmental. Diphthongs (iê ươ uô) excluded.
-name: Vietnamese (Hanoi)
-family: Austroasiatic (Vietic)
-tone: true
+# Vietnamese — phoneme metadata only (IPA inventory, coarse frequency,
+# speakers). No point mapping. freq: L frequent · M ordinary ·
+# S infrequent · X marginal/loan. See data/README.md.
+code: vi
+name: Vietnamese
+speakers: {native: 85, total: 86}   # millions, rough 2025
+tones:   # input digit -> standard contour (defined in data/README.md)
+  1: mid
+  2: low
+  3: rising
+  4: dipping
+  5: glottal-rising
+  6: glottal-low
 consonants:
-- {ipa: ɓ, pl: bilabial, mn: plosive, vc: vd, orth: b, note: 'implosive [ɓ]; no plain /b/'}
-- {ipa: ɗ, pl: alveolar, mn: plosive, vc: vd, orth: đ, note: 'implosive [ɗ]; no plain /d/'}
-- {ipa: t, pl: alveolar, mn: plosive, vc: vl}
-- {ipa: tɕ, pl: alveolopalatal, mn: affricate, vc: vl, orth: ch, note: 'also realised [c]'}
-- {ipa: k, pl: velar, mn: plosive, vc: vl}
-- {ipa: ʔ, pl: glottal, mn: plosive, vc: vl, note: zero-onset syllables}
-- {ipa: f, pl: labiodental, mn: fricative, vc: vl, orth: ph}
-- {ipa: v, pl: labiodental, mn: fricative, vc: vd}
-- {ipa: s, pl: alveolar, mn: fricative, vc: vl, note: Hanoi merges s/x}
-- {ipa: z, pl: alveolar, mn: fricative, vc: vd, orth: d/gi/r}
-- {ipa: x, pl: velar, mn: fricative, vc: vl, orth: kh}
-- {ipa: ɣ, pl: velar, mn: fricative, vc: vd, orth: g}
-- {ipa: h, pl: glottal, mn: fricative, vc: vl}
-- {ipa: m, pl: bilabial, mn: nasal, vc: vd}
-- {ipa: n, pl: alveolar, mn: nasal, vc: vd}
-- {ipa: ɲ, pl: alveolar, mn: nasal, vc: vd, mod: [palatalized], orth: nh}
-- {ipa: ŋ, pl: alveolar, mn: nasal, vc: vd, mod: [exotic], orth: ng}
-- {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
-secondary_series:
-- type: aspirated
-  applies_to: [t]
+  p: X
+  ɓ: M
+  ɗ: M
+  t: L
+  tɕ: M
+  k: L
+  ʔ: M
+  f: M
+  v: M
+  s: M
+  z: M
+  x: M
+  ɣ: M
+  h: L
+  m: L
+  n: L
+  ɲ: M
+  ŋ: M
+  l: M
+  j: M
+  w: M
+  tʰ: M
 vowels:
-- {ipa: i, hi: close, bk: front, rd: false}
-- {ipa: e, hi: close-mid, bk: front, rd: false, orth: ê}
-- {ipa: ɛ, hi: open-mid, bk: front, rd: false, orth: e}
-- {ipa: ɨ, hi: close, bk: central, rd: false, orth: ư}
-- {ipa: ə, hi: mid, bk: central, rd: false, orth: â, note: short}
-- {ipa: ɤ, hi: close-mid, bk: back, rd: false, orth: ơ, note: contested /ɤ/~/əː/}
-- {ipa: a, hi: open, bk: central, rd: false, orth: ă, note: 'short /a/; the long counterpart ⟨a⟩ /aː/ is the length variant. [ɐ] is its short realisation, not a separate quality'}
-- {ipa: u, hi: close, bk: back, rd: true}
-- {ipa: o, hi: close-mid, bk: back, rd: true, orth: ô}
-- {ipa: ɔ, hi: open-mid, bk: back, rd: true, orth: o}
-# glides = nonsyllabic close vowels (labels ix/ux/icx via the x=reduce modifier)
-- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: y, note: on/off-glide — mây}
-- {ipa: w, hi: close, bk: back, rd: true, mod: [nonsyllabic], orth: o/u, note: medial — hoa, huy}
-# ⟨a⟩ /aː/ is the long counterpart of ⟨ă⟩ /a/ — same point, length modifier
-long_series: [a]
+  i: L
+  e: M
+  ɛ: M
+  ɨ: M
+  ə: M
+  ɤ: M
+  a: L
+  u: L
+  o: M
+  ɔ: M
+  aː: M

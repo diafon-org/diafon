@@ -1,34 +1,37 @@
-# Romanian [RO] — CANDIDATE (drafted here, needs review). Seven vowels including ə (ă) and ɨ (â/î).
+# Romanian — phoneme metadata only (IPA inventory, coarse frequency,
+# speakers). No point mapping. freq: L frequent · M ordinary ·
+# S infrequent · X marginal/loan. See data/README.md.
+code: ro
 name: Romanian
-family: Indo-European
+speakers: {native: 24, total: 28}   # millions, rough 2025
 consonants:
-- {ipa: p, pl: bilabial, mn: plosive, vc: vl}
-- {ipa: b, pl: bilabial, mn: plosive, vc: vd}
-- {ipa: t, pl: alveolar, mn: plosive, vc: vl}
-- {ipa: d, pl: alveolar, mn: plosive, vc: vd}
-- {ipa: k, pl: velar, mn: plosive, vc: vl}
-- {ipa: g, pl: velar, mn: plosive, vc: vd}
-- {ipa: ts, pl: alveolar, mn: affricate, vc: vl, orth: ț}
-- {ipa: tʃ, pl: postalveolar, mn: affricate, vc: vl, orth: ce/ci}
-- {ipa: dʒ, pl: postalveolar, mn: affricate, vc: vd, orth: ge/gi}
-- {ipa: f, pl: labiodental, mn: fricative, vc: vl}
-- {ipa: v, pl: labiodental, mn: fricative, vc: vd}
-- {ipa: s, pl: alveolar, mn: fricative, vc: vl}
-- {ipa: z, pl: alveolar, mn: fricative, vc: vd}
-- {ipa: ʃ, pl: postalveolar, mn: fricative, vc: vl, orth: ș}
-- {ipa: ʒ, pl: postalveolar, mn: fricative, vc: vd, orth: j}
-- {ipa: h, pl: glottal, mn: fricative, vc: vl}
-- {ipa: m, pl: bilabial, mn: nasal, vc: vd}
-- {ipa: n, pl: alveolar, mn: nasal, vc: vd}
-- {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
-- {ipa: r, pl: alveolar, mn: trill, vc: vd}
+  p: M
+  b: M
+  t: L
+  d: M
+  k: L
+  g: M
+  ts: M
+  tʃ: M
+  dʒ: M
+  f: M
+  v: M
+  s: L
+  z: M
+  ʃ: M
+  ʒ: M
+  h: M
+  m: L
+  n: L
+  l: L
+  r: L
+  j: M
+  w: M
 vowels:
-- {ipa: i, hi: close, bk: front, rd: false}
-- {ipa: e, hi: close-mid, bk: front, rd: false}
-- {ipa: a, hi: open, bk: central, rd: false}
-- {ipa: o, hi: close-mid, bk: back, rd: true}
-- {ipa: u, hi: close, bk: back, rd: true}
-- {ipa: ə, hi: mid, bk: central, rd: false, orth: ă}
-- {ipa: ɨ, hi: close, bk: central, rd: false, orth: â/î}
-- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: i}
-- {ipa: w, hi: close, bk: back, rd: true, mod: [nonsyllabic], orth: u}
+  i: L
+  e: L
+  a: L
+  o: L
+  u: M
+  ə: M
+  ɨ: M

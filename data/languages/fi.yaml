@@ -1,35 +1,42 @@
-# Finnish (Standard)  [FI]
-# Coverage language — "free": ä/a resolve to the existing æ-fold and ɑ points (like the
-# Danish prediction in the æ~a merge verdict). Length is pervasive on vowels AND consonants.
-# Excluded: [ŋ] short (allophone of /n/ before k; only the geminate /ŋː/ is contrastive —
-# entered as the long velar nasal), loan letters b g f (marginal).
+# Finnish — phoneme metadata only (IPA inventory, coarse frequency,
+# speakers). No point mapping. freq: L frequent · M ordinary ·
+# S infrequent · X marginal/loan. See data/README.md.
+code: fi
 name: Finnish
-family: Uralic
+speakers: {native: 5.4, total: 5.8}   # millions, rough 2025
+geminates: true
 consonants:
-- {ipa: p, pl: bilabial, mn: plosive, vc: vl}
-- {ipa: b, pl: bilabial, mn: plosive, vc: vd, st: loan}
-- {ipa: t, pl: alveolar, mn: plosive, vc: vl}
-- {ipa: d, pl: alveolar, mn: plosive, vc: vd}
-- {ipa: k, pl: velar, mn: plosive, vc: vl}
-- {ipa: g, pl: velar, mn: plosive, vc: vd, st: loan}
-- {ipa: m, pl: bilabial, mn: nasal, vc: vd}
-- {ipa: n, pl: alveolar, mn: nasal, vc: vd}
-- {ipa: ŋ, pl: alveolar, mn: nasal, vc: vd, mod: [exotic], len: long, orth: ng, note: kengän — only long is contrastive}
-- {ipa: f, pl: labiodental, mn: fricative, vc: vl, st: loan}
-- {ipa: v, pl: labiodental, mn: fricative, vc: vd, note: phonetically ʋ (approximant)}
-- {ipa: s, pl: alveolar, mn: fricative, vc: vl}
-- {ipa: h, pl: glottal, mn: fricative, vc: vl}
-- {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
-- {ipa: r, pl: alveolar, mn: trill, vc: vd}
-long_series: [p, t, k, s, m, n, l, r, i, y, u, e, ø, o, æ, ɑ]
+  ʃ: X
+  p: M
+  b: X
+  t: L
+  d: S
+  k: L
+  g: X
+  m: L
+  n: L
+  ŋ: M
+  f: X
+  v: M
+  s: L
+  h: M
+  l: L
+  r: M
+  j: M
 vowels:
-- {ipa: i, hi: close, bk: front, rd: false}
-- {ipa: y, hi: close, bk: front, rd: true}
-- {ipa: u, hi: close, bk: back, rd: true}
-- {ipa: e, hi: close-mid, bk: front, rd: false}
-- {ipa: ø, hi: close-mid, bk: front, rd: true, orth: ö}
-- {ipa: o, hi: close-mid, bk: back, rd: true}
-- {ipa: æ, hi: near-open, bk: front, rd: false, orth: ä, note: folds to the a point; a is back}
-- {ipa: ɑ, hi: open, bk: back, rd: false, orth: a}
-# glides
-- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: j, note: ja, pojat}
+  i: L
+  y: M
+  u: M
+  e: L
+  ø: M
+  o: M
+  æ: L
+  ɑ: L
+  iː: M
+  yː: M
+  uː: M
+  eː: M
+  øː: M
+  oː: M
+  æː: M
+  ɑː: M

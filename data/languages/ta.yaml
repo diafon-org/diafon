@@ -1,36 +1,39 @@
-# Tamil  [TA] — the retroflex witness. Retroflex is a MODIFIER, never a point (the emphatics
-# mechanism): ʈ ɳ ɭ ɻ = the plain t n l r points + `retroflex`. The contrasts that force it:
-# eṭṭu~ettu (ʈ~t), maṇam~manam (ɳ~n), and the classic triple vaḻi~vali~vaḷi (ɻ~l~ɭ).
-# ற~ர is the trill~tap pair (already witnessed by Spanish). ŋ (ங) is homorganic-only → allophone.
+# Tamil — phoneme metadata only (IPA inventory, coarse frequency,
+# speakers). No point mapping. freq: L frequent · M ordinary ·
+# S infrequent · X marginal/loan. See data/README.md.
+code: ta
 name: Tamil
-family: Dravidian
+speakers: {native: 79, total: 86}   # millions, rough 2025
+geminates: true
 consonants:
-- {ipa: p, pl: bilabial, mn: plosive, vc: vl, orth: ப, note: "voiced [b] medially — one phoneme"}
-- {ipa: t̪, pl: dental, mn: plosive, vc: vl, orth: த}
-- {ipa: ʈ, pl: alveolar, mn: plosive, vc: vl, mod: [retroflex], orth: ட, note: "eṭṭu ~ ettu"}
-- {ipa: tʃ, pl: postalveolar, mn: affricate, vc: vl, orth: ச, note: "[s] medially — one phoneme"}
-- {ipa: k, pl: velar, mn: plosive, vc: vl, orth: க}
-- {ipa: m, pl: bilabial, mn: nasal, vc: vd, orth: ம}
-- {ipa: n, pl: alveolar, mn: nasal, vc: vd, orth: ந/ன, note: "dental ந ~ alveolar ன complementary — one phoneme"}
-- {ipa: ɳ, pl: alveolar, mn: nasal, vc: vd, mod: [retroflex], orth: ண, note: "maṇam ~ manam"}
-- {ipa: ɲ, pl: alveolar, mn: nasal, vc: vd, mod: [palatalized], orth: ஞ, st: marginal, note: "mostly before ச"}
-- {ipa: r, pl: alveolar, mn: trill, vc: vd, orth: ற}
-- {ipa: ɾ, pl: alveolar, mn: tap, vc: vd, orth: ர}
-- {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd, orth: ல}
-- {ipa: ɭ, pl: alveolar, mn: lateral-approximant, vc: vd, mod: [retroflex], orth: ள, note: "vaḷi ~ vali"}
-- {ipa: ɻ, pl: alveolar, mn: trill, vc: vd, mod: [retroflex], orth: ழ, note: "phonetically a retroflex approximant — the R slot + retroflex; vaḻi ~ vali ~ vaḷi"}
-- {ipa: v, pl: labiodental, mn: fricative, vc: vd, orth: வ, note: "realised [ʋ]"}
-- {ipa: s, pl: alveolar, mn: fricative, vc: vl, orth: ஸ, st: loan}
-- {ipa: ʂ, pl: postalveolar, mn: fricative, vc: vl, orth: ஷ, st: loan, note: "Grantha; realised [ʂ] but Tamil has no contrast, so the hush point is unmarked — the retroflex LAYER is only for languages that contrast it"}
-- {ipa: dʒ, pl: postalveolar, mn: affricate, vc: vd, orth: ஜ, st: loan}
-- {ipa: h, pl: glottal, mn: fricative, vc: vl, orth: ஹ, st: loan}
+  p: M
+  t̪: L
+  ʈ: M
+  tʃ: M
+  k: L
+  m: L
+  n: L
+  ɳ: M
+  ɲ: S
+  r: L
+  ɾ: M
+  l: L
+  ɭ: M
+  ɻ: M
+  v: M
+  s: X
+  ʂ: X
+  dʒ: X
+  h: X
+  j: M
 vowels:
-- {ipa: i, hi: close, bk: front, rd: false, orth: இ}
-- {ipa: e, hi: close-mid, bk: front, rd: false, orth: எ}
-- {ipa: a, hi: open, bk: central, rd: false, orth: அ}
-- {ipa: o, hi: close-mid, bk: back, rd: true, orth: ஒ}
-- {ipa: u, hi: close, bk: back, rd: true, orth: உ}
-# glide = nonsyllabic close vowel; the diphthongs ஐ /ai̯/ and ஔ /au̯/ are V+glide sequences
-- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: ய}
-long_series: [i, e, a, o, u]
-gemination: true
+  i: L
+  e: M
+  a: L
+  o: M
+  u: L
+  iː: M
+  eː: M
+  aː: M
+  oː: M
+  uː: M

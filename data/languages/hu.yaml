@@ -1,42 +1,48 @@
-# Hungarian  [HU]
+# Hungarian — phoneme metadata only (IPA inventory, coarse frequency,
+# speakers). No point mapping. freq: L frequent · M ordinary ·
+# S infrequent · X marginal/loan. See data/README.md.
+code: hu
 name: Hungarian
-family: Uralic
+speakers: {native: 13, total: 13}   # millions, rough 2025
+geminates: true
 consonants:
-- {ipa: p, pl: bilabial, mn: plosive, vc: vl}
-- {ipa: b, pl: bilabial, mn: plosive, vc: vd}
-- {ipa: t, pl: alveolar, mn: plosive, vc: vl}
-- {ipa: d, pl: alveolar, mn: plosive, vc: vd}
-- {ipa: k, pl: velar, mn: plosive, vc: vl}
-- {ipa: g, pl: velar, mn: plosive, vc: vd}
-- {ipa: c, pl: alveolar, mn: plosive, vc: vl, mod: [palatalized], orth: ty}
-- {ipa: ɟ, pl: alveolar, mn: plosive, vc: vd, mod: [palatalized], orth: gy}
-- {ipa: ts, pl: alveolar, mn: affricate, vc: vl, orth: c}
-- {ipa: dz, pl: alveolar, mn: affricate, vc: vd, orth: dz}
-- {ipa: tʃ, pl: postalveolar, mn: affricate, vc: vl, orth: cs}
-- {ipa: dʒ, pl: postalveolar, mn: affricate, vc: vd, orth: dzs}
-- {ipa: f, pl: labiodental, mn: fricative, vc: vl}
-- {ipa: v, pl: labiodental, mn: fricative, vc: vd}
-- {ipa: s, pl: alveolar, mn: fricative, vc: vl, orth: sz}
-- {ipa: z, pl: alveolar, mn: fricative, vc: vd}
-- {ipa: ʃ, pl: postalveolar, mn: fricative, vc: vl, orth: s}
-- {ipa: ʒ, pl: postalveolar, mn: fricative, vc: vd, orth: zs}
-- {ipa: h, pl: glottal, mn: fricative, vc: vl}
-- {ipa: m, pl: bilabial, mn: nasal, vc: vd}
-- {ipa: n, pl: alveolar, mn: nasal, vc: vd}
-- {ipa: ɲ, pl: alveolar, mn: nasal, vc: vd, mod: [palatalized], orth: ny}
-- {ipa: l, pl: alveolar, mn: lateral-approximant, vc: vd}
-- {ipa: r, pl: alveolar, mn: trill, vc: vd}
+  p: M
+  b: M
+  t: L
+  d: M
+  k: L
+  g: M
+  c: M
+  ɟ: M
+  ts: M
+  dz: S
+  tʃ: M
+  dʒ: X
+  f: M
+  v: M
+  s: M
+  z: M
+  ʃ: L
+  ʒ: S
+  h: M
+  m: L
+  n: L
+  ɲ: M
+  l: L
+  r: L
+  j: M
 vowels:
-- {ipa: i, hi: close, bk: front, rd: false}
-- {ipa: y, hi: close, bk: front, rd: true, orth: ü}
-- {ipa: u, hi: close, bk: back, rd: true}
-- {ipa: ø, hi: close-mid, bk: front, rd: true, orth: ö}
-- {ipa: o, hi: close-mid, bk: back, rd: true}
-- {ipa: ɛ, hi: open-mid, bk: front, rd: false, orth: e}
-- {ipa: ɒ, hi: open, bk: back, rd: true, orth: a}
-- {ipa: eː, hi: close-mid, bk: front, rd: false, len: long, orth: é}
-- {ipa: aː, hi: open, bk: central, rd: false, len: long, orth: á}
-# glides = nonsyllabic close vowels (labels ix/ux/icx via the x=reduce modifier)
-- {ipa: j, hi: close, bk: front, rd: false, mod: [nonsyllabic], orth: j, note: j/ly — haj/jó; contrasts with vowel /i/ (hazai keeps i)}
-long_series: [i, y, u, ø, o]
-gemination: true
+  i: L
+  y: M
+  u: M
+  ø: M
+  o: L
+  ɛ: L
+  ɒ: L
+  eː: M
+  aː: M
+  iː: M
+  yː: M
+  uː: M
+  øː: M
+  oː: M
