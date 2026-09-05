@@ -90,3 +90,33 @@ def name(sym):
         raise KeyError(f'no IPA name for {sym!r} (core {core!r})')
     parts = prefixes + [BASE[core]]
     return ' '.join(parts)
+
+
+_URL_SPECIAL = {
+    'ə': 'Mid_central_vowel', 'ɚ': 'R-colored_vowel', 'ɝ': 'R-colored_vowel',
+    'ɴ': 'Uvular_nasal', 'r̝': 'Voiced_dental,_alveolar_and_postalveolar_trills',
+    't͈ɕ': 'Voiceless_alveolo-palatal_affricate', 'ʔ': 'Glottal_stop',
+}
+
+
+def url(sym):
+    """Wikipedia article for the symbol's core sound."""
+    n = ud.normalize('NFD', sym)
+    if ud.normalize('NFC', n) in DIPH or n in DIPH:
+        return 'https://en.wikipedia.org/wiki/Diphthong'
+    nfc = ud.normalize('NFC', sym)
+    if nfc in _URL_SPECIAL:
+        return 'https://en.wikipedia.org/wiki/' + _URL_SPECIAL[nfc]
+    core = n
+    changed = True
+    while changed and core not in BASE:
+        changed = False
+        for mod in MODS:
+            if core.endswith(mod):
+                core = core[:-len(mod)]; changed = True
+            elif mod in core and mod == '̪':
+                core = core.replace(mod, '', 1); changed = True
+    if ud.normalize('NFC', core) in _URL_SPECIAL:
+        return 'https://en.wikipedia.org/wiki/' + _URL_SPECIAL[ud.normalize('NFC', core)]
+    title = BASE[core].split('(')[0].strip().replace(' ', '_')
+    return 'https://en.wikipedia.org/wiki/' + title[0].upper() + title[1:]

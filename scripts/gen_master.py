@@ -135,6 +135,8 @@ h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,4.5vw,2.3rem)
 h2{font-family:var(--serif);font-weight:600;font-size:1.3rem;margin:2.4rem 0 .4rem}
 .lede{color:var(--muted);margin:.2rem 0 0;max-width:74ch}
 a{color:var(--accent)}
+a.wref{color:inherit;text-decoration:none;border-bottom:1px dotted var(--line)}
+a.wref:hover{border-bottom-color:var(--accent)}
 code{font:600 .78em/1.4 var(--mono);color:var(--accent);background:var(--sunken);padding:.1em .32em;border-radius:.32em}
 .ug{font-family:var(--serif)}
 .opswrap{overflow-x:auto;margin:.8rem 0 0;border:1px solid var(--line);border-radius:14px;background:var(--card)}
@@ -201,7 +203,8 @@ def universal_table(agg):
             out.append(f'<tr class="grp"><th colspan="{3 + max_r}">'
                        f'{keys} keystroke{"s" if keys > 1 else ""}</th></tr>')
         cells = ''.join(
-            f'<td><span class="ug" title="{ipa_names.name(ipa)}">{ipa}</span> '
+            f'<td><a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank" '
+            f'title="{ipa_names.name(ipa)}">{ipa}</a> '
             f'<span class="st" title="{" ".join(sorted(codes))}">{n}·{fmt(s)}</span></td>'
             for ipa, (n, s, codes) in rd) + '<td></td>' * (max_r - len(rd))
         out.append(f'<tr><td><code>{form}</code></td><td class="g">{engine.render(form)}</td>'
@@ -225,11 +228,11 @@ def language_tables():
                 key = nfd(ipa)
                 form = over.get(code, {}).get(key) or table.get(key)
                 if freq == 'X':
-                    rows.append(f'<tr><td class="g" title="{ipa_names.name(ipa)}">{ud.normalize("NFC", ipa)}</td>'
+                    rows.append(f'<tr><td class="g"><a class="wref" href="{ipa_names.url(ipa)}" target="_blank" title="{ipa_names.name(ipa)}">{ud.normalize("NFC", ipa)}</a></td>'
                                 f'<td class="tt">X</td><td><code>{form}</code></td>'
                                 f'<td class="g">{engine.render(form)}</td></tr>')
                     continue
-                rows.append(f'<tr><td class="g" title="{ipa_names.name(ipa)}">{ud.normalize("NFC", ipa)}</td>'
+                rows.append(f'<tr><td class="g"><a class="wref" href="{ipa_names.url(ipa)}" target="_blank" title="{ipa_names.name(ipa)}">{ud.normalize("NFC", ipa)}</a></td>'
                             f'<td class="tt">{freq}</td><td><code>{form}</code></td>'
                             f'<td class="g">{engine.render(form)}</td></tr>')
         secs.append(
