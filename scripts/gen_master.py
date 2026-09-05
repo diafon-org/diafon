@@ -251,7 +251,7 @@ const secs=[...document.querySelectorAll('section[id^=sec-]')];
 sel.innerHTML='<option value="universal" selected>universal</option>'+
   secs.filter(x=>x.id!=='sec-universal').map(x=>{
     const c=x.id.slice(4);
-    return `<option value="${c}">${x.dataset.name} — ${x.dataset.state}</option>`;}).join('');
+    return `<option value="${c}">${x.dataset.name}</option>`;}).join('');
 function show(){
   for(const x of secs) x.hidden = (x.id!=='sec-'+sel.value);
   const cur=document.getElementById('sec-'+sel.value);
