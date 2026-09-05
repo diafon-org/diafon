@@ -21,7 +21,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import engine
 
-C_POINTS = {'sj','zj','tq','dq','tc','dc','kx','gx','kq','hq','rc','tx','dx','nx','py','ky','gy'}
+C_POINTS = {'sj','zj','tq','dq','tc','dc','kx','gx','kq','hx','rc','tx','dx','nx','py','ky','gy'}
 RETRO = {'ty','dy','ny','ly','ry'}
 SPECIAL2 = {'tcy','tqy','dqy','tyy','dyy','ryy'}
 V_POINTS = {'ij','ej','uj','oj','aj','ic','ec','uc','oc','ac','eq','iq','aq'}
