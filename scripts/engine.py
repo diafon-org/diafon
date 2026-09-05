@@ -14,6 +14,7 @@ Usage: engine.py "input text"   -> prints the script form.
 """
 import os
 import sys
+import unicodedata as ud
 
 import yaml
 
@@ -109,7 +110,7 @@ def glyph(form):
                 g += MARKS['acute']['above']
         else:
             g += g  # long consonant doubles its letter
-    return g
+    return ud.normalize('NFC', g)  # one codepoint per visual representation
 
 
 def _consonant(base, ops):

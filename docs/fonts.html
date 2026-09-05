@@ -63,14 +63,14 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
   <p class="lede">Every glyph the system can draw, as one matrix: bases across,
   derivations down. Study it in the custom <b>Diaphone</b> font (the default)
   or any other face, and see the support gaps. Each tile carries its
-  codepoints and its language count — faded tiles are the grammar's reserve,
+  language count — faded tiles are the grammar's reserve,
   drawn by the rules but used by no current language. Part of
   <a href="index.html">Diaphone</a>.</p>
 </header>
 
 <div class="row">
   <label for="font">font</label>
-  <select id="font">
+  <select id="font" autocomplete="off">
     <optgroup label="custom">
       <option value="Diaphone" selected>Diaphone (the system font)</option>
     </optgroup>
@@ -95,7 +95,7 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
     </optgroup>
   </select>
   <label for="custom">or any installed font</label>
-  <input type="text" id="custom" placeholder="type a font name…" size="18">
+  <input type="text" id="custom" placeholder="type a font name…" size="18" autocomplete="off">
 </div>
 
 <div class="summary" id="summary"></div>
@@ -103,7 +103,7 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 <div class="legend">
   <span><span class="sw" style="border-color:var(--bad)"></span><b>mark missing</b> — renders no differently from the bare base</span>
   <span><span class="sw" style="border-color:var(--warn)"></span><b>fallback</b> — another font stepped in</span>
-  <span><b>faded</b> — reserve: grammatical, not yet used · tile lines: glyph · codepoints · languages using it</span>
+  <span><b>faded</b> — reserve: grammatical, not yet used · hover a tile for its input form and codepoints</span>
 </div>
 
 <h2>Consonants</h2>
@@ -150,15 +150,14 @@ function section(sec, fam, famCss, counts){
   let h = '<table><thead><tr><th></th>' +
     sec.bases.map(b => `<th>${b}</th>`).join('') + '</tr></thead><tbody>';
   for (const row of sec.rows){
-    h += `<tr><th>${esc(row.label)}</th>`;
+    h += `<tr><th>${row.ops ? '<code>+' + row.ops + '</code> ' : ''}${esc(row.label)}</th>`;
     for (const cell of row.cells){
       if (!cell){ h += '<td></td>'; continue; }
       const p = probe(cell.g, fam);
       if (p.missing) counts.miss++; else if (p.fell) counts.fall++;
       const cls = (cell.langs ? '' : ' unused') + (p.missing ? ' miss' : p.fell ? ' fall' : '');
-      h += `<td><div class="t${cls}" title="${esc(cell.f)}">` +
+      h += `<td><div class="t${cls}" title="${esc(cell.f)} · ${cell.cps}">` +
            `<span class="g" style="font-family:${esc(famCss)}, serif">${esc(cell.g)}</span>` +
-           `<span class="c">${cell.cps}</span>` +
            `<span class="n">${cell.langs ? cell.langs + ' lang' + (cell.langs > 1 ? 's' : '') : 'reserve'}</span>` +
            `</div></td>`;
       counts.n++;
@@ -179,6 +178,8 @@ function render(){
     `<span style="color:var(--warn)">${counts.fall} falling back</span>`;
 }
 
+$font.value = 'Diaphone';                 // the custom font is the default, always
+$custom.value = '';
 $font.addEventListener('change', () => { $custom.value = ''; render(); });
 $custom.addEventListener('change', render);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);
