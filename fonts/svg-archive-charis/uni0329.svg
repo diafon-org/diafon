@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1024 0 4096 2048" width="512">
+  <!-- Diaphone glyph "uni0329" — edit ONLY inside g#glyph; g#guides is ignored on import.
+       Font baseline is the dashed line at SVG y=1520; the em is 2048 units. -->
+  <g id="guides" opacity="0.5">
+    <line x1="-1024" x2="3072" y1="1520" y2="1520" stroke="#8bf" stroke-width="4" stroke-dasharray="24 24"/><!-- baseline (font y=0) -->
+    <line x1="-1024" x2="3072" y1="533" y2="533" stroke="#8bf" stroke-width="4" stroke-dasharray="24 24"/><!-- x-height (font y=987) -->
+    <line x1="-1024" x2="3072" y1="2048" y2="2048" stroke="#8bf" stroke-width="4" stroke-dasharray="24 24"/><!-- descender (font y=-528) -->
+  </g>
+  <g id="glyph">
+    <path fill="#111" d="M-842 1632Q-842 1572 -826.5 1528.5Q-811 1485 -786 1455L-411 1026H-272L-598 1712Q-626 1768 -652.0 1799.0Q-678 1830 -729 1830Q-793 1830 -817.5 1765.5Q-842 1701 -842 1632Z"/>
+  </g>
+</svg>

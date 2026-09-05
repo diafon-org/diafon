@@ -183,8 +183,13 @@ vowels:
   œy: eqicx
   ʌu: ajux
 
-# Languages whose mapping has been reviewed and finalised:
-reviewed: [en, hu, zh]
+# Review state of each language's mapping. Full confidence requires a native
+# or expert reviewer per language; absent entries are non-reviewed.
+# States: reviewed (checked against the sources) · native (native/expert-reviewed)
+review:
+  en: reviewed
+  hu: native
+  zh: reviewed
 
 overrides:
   hu:            # no plain /a e/ to contrast: the bare slots are free and one

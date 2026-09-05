@@ -9,7 +9,7 @@
   --paper:#f5f6f8; --card:#ffffff; --sunken:#eef0f4; --ink:#1a1d24; --muted:#5b6472; --line:#dde1e8;
   --accent:#0e7c86; --base-c:#0e7c86; --c-c:#b06f14; --j-c:#3f5bc0; --q-c:#8a4bb0; --x-c:#2f8f66; --y-c:#c0468a;
   --base-t:#0e7c8615; --c-t:#b06f1418; --j-t:#3f5bc016; --q-t:#8a4bb016; --x-t:#2f8f6618; --y-t:#c0468a1a;
-  --serif:"Charis SIL","Gentium Plus","Noto Serif","Times New Roman",Georgia,serif;
+  --serif:"Diaphone","Charis SIL","Gentium Plus","Noto Serif","Times New Roman",Georgia,serif;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
   --mono:"SF Mono","JetBrains Mono","Menlo","Consolas",monospace;
 }
@@ -23,6 +23,7 @@
   --accent:#3ec8cf; --base-c:#3ec8cf; --c-c:#e0a44a; --j-c:#8b9ff0; --q-c:#c08ee0; --x-c:#4fc79a; --y-c:#e88ac0;
   --base-t:#3ec8cf1e; --c-t:#e0a44a22; --j-t:#8b9ff01e; --q-t:#c08ee01e; --x-t:#4fc79a22; --y-t:#e88ac022;
 }
+@font-face{font-family:"Diaphone";src:url(diaphone.woff2) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1020px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -496,30 +497,30 @@ centre.</p>
 
 <figure>
 <svg viewBox="0 0 840 660" role="img" aria-label="The vowel triangle: all seventeen vowel points">
-  <polygon class="edge" points="90,60 750,60 420,610" stroke-dasharray="6 6"/>
+  <polygon class="edge" points="90,52 750,52 420,640" stroke-dasharray="6 6"/>
   <!-- close -->
   <g class="chip-g cat-base" transform="translate(90,60)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">i</text><text class="lab" y="14">i</text><text class="ipa" y="26">i</text></g>
-  <g class="chip-g cat-c" transform="translate(190,60)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ü</text><text class="lab" y="14">ic</text><text class="ipa" y="26">y</text></g>
-  <g class="chip-g cat-c" transform="translate(650,60)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ï</text><text class="lab" y="14">uc</text><text class="ipa" y="26">ɯ</text></g>
+  <g class="chip-g cat-c" transform="translate(176,60)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ü</text><text class="lab" y="14">ic</text><text class="ipa" y="26">y</text></g>
+  <g class="chip-g cat-c" transform="translate(664,60)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ï</text><text class="lab" y="14">uc</text><text class="ipa" y="26">ɯ</text></g>
   <g class="chip-g cat-base" transform="translate(750,60)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">u</text><text class="lab" y="14">u</text><text class="ipa" y="26">u</text></g>
   <!-- near-close -->
-  <g class="chip-g cat-j" transform="translate(150,170)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ị</text><text class="lab" y="14">ij</text><text class="ipa" y="26">ɪ</text></g>
-  <g class="chip-g cat-q" transform="translate(250,170)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ụ̈</text><text class="lab" y="14">iq</text><text class="ipa" y="26">ʏ</text></g>
-  <g class="chip-g cat-j" transform="translate(690,170)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ụ</text><text class="lab" y="14">uj</text><text class="ipa" y="26">ʊ</text></g>
+  <g class="chip-g cat-j" transform="translate(164,190)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ị</text><text class="lab" y="14">ij</text><text class="ipa" y="26">ɪ</text></g>
+  <g class="chip-g cat-q" transform="translate(250,190)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ụ̈</text><text class="lab" y="14">iq</text><text class="ipa" y="26">ʏ</text></g>
+  <g class="chip-g cat-j" transform="translate(676,190)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ụ</text><text class="lab" y="14">uj</text><text class="ipa" y="26">ʊ</text></g>
   <!-- close-mid -->
-  <g class="chip-g cat-base" transform="translate(210,280)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">e</text><text class="lab" y="14">e</text><text class="ipa" y="26">e</text></g>
-  <g class="chip-g cat-c" transform="translate(310,280)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ö</text><text class="lab" y="14">ec</text><text class="ipa" y="26">ø</text></g>
-  <g class="chip-g cat-c" transform="translate(530,280)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ë</text><text class="lab" y="14">oc</text><text class="ipa" y="26">ɤ</text></g>
-  <g class="chip-g cat-base" transform="translate(630,280)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">o</text><text class="lab" y="14">o</text><text class="ipa" y="26">o</text></g>
+  <g class="chip-g cat-base" transform="translate(238,320)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">e</text><text class="lab" y="14">e</text><text class="ipa" y="26">e</text></g>
+  <g class="chip-g cat-c" transform="translate(324,320)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ö</text><text class="lab" y="14">ec</text><text class="ipa" y="26">ø</text></g>
+  <g class="chip-g cat-c" transform="translate(516,320)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ë</text><text class="lab" y="14">oc</text><text class="ipa" y="26">ɤ</text></g>
+  <g class="chip-g cat-base" transform="translate(602,320)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">o</text><text class="lab" y="14">o</text><text class="ipa" y="26">o</text></g>
+  <!-- the reduced vowel floats at the centre -->
+  <g class="chip-g cat-j" transform="translate(420,380)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ạ</text><text class="lab" y="14">aj</text><text class="ipa" y="26">ə</text></g>
   <!-- open-mid -->
-  <g class="chip-g cat-j" transform="translate(270,390)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ẹ</text><text class="lab" y="14">ej</text><text class="ipa" y="26">ɛ</text></g>
-  <g class="chip-g cat-q" transform="translate(370,390)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ọ̈</text><text class="lab" y="14">eq</text><text class="ipa" y="26">œ</text></g>
-  <g class="chip-g cat-j" transform="translate(570,390)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ọ</text><text class="lab" y="14">oj</text><text class="ipa" y="26">ɔ</text></g>
-  <!-- mid central -->
-  <g class="chip-g cat-j" transform="translate(420,480)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ạ</text><text class="lab" y="14">aj</text><text class="ipa" y="26">ə</text></g>
+  <g class="chip-g cat-j" transform="translate(312,450)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ẹ</text><text class="lab" y="14">ej</text><text class="ipa" y="26">ɛ</text></g>
+  <g class="chip-g cat-q" transform="translate(398,450)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ọ̈</text><text class="lab" y="14">eq</text><text class="ipa" y="26">œ</text></g>
+  <g class="chip-g cat-j" transform="translate(528,450)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ọ</text><text class="lab" y="14">oj</text><text class="ipa" y="26">ɔ</text></g>
   <!-- open -->
-  <g class="chip-g cat-base" transform="translate(370,580)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">a</text><text class="lab" y="14">a</text><text class="ipa" y="26">a</text></g>
-  <g class="chip-g cat-c" transform="translate(480,580)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ä</text><text class="lab" y="14">ac</text><text class="ipa" y="26">ɑ</text></g>
+  <g class="chip-g cat-base" transform="translate(382,580)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">a</text><text class="lab" y="14">a</text><text class="ipa" y="26">a</text></g>
+  <g class="chip-g cat-c" transform="translate(458,580)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ä</text><text class="lab" y="14">ac</text><text class="ipa" y="26">ɑ</text></g>
 </svg>
 </figure>
 
@@ -532,10 +533,9 @@ centre.</p>
     always one mark above, one below at most</span>
 </div>
 
-<p>The full form-by-form statistics — every input form with its readings,
-languages and native-speaker counts — live in the <b>master table</b>
-(<code>data/master.xlsx</code>), regenerated from the language metadata by
-<code>scripts/gen_master.py</code> — and the
+<p>The full form-by-form statistics live in the
+<a href="master.html"><b>master tables</b></a> — the universal table and every
+language's own, each stamped with its review state — and the
 <a href="play.html"><b>playground</b></a> lets you type the input form and
 read the script form live, per language.</p>
 
