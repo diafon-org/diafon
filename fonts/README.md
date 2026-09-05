@@ -8,16 +8,13 @@ Current state in the remake:
   pages: basic Latin + only the combining marks the system uses
   (U+0300 0301 0307 0308 030B 0313 0314 0316 0323 0324 0326) — regenerate with
   `fontTools.subset` from `Diaphone-Regular.ttf` (72 KB → 19 KB).
-- **Two glyphs the remake needs are missing from the source font** (they did
-  not exist in the previous system) and fall back to Charis/Noto until drawn:
-  U+0314 (the reverse anchor above — g̔ p̔) and U+0324 (the double dot below —
-  the special, t̤ b̤ s̤).
-- The old build referenced marks the remake no longer uses (U+0329 stroke
-  below, U+0348 double stroke, U+030D/030E) — prune when the font is next
-  rebuilt.
-- `tools/` holds the build workflow (build_font.py, font_svg.py,
-  check_font_coverage.py); paths inside still assume the old repo layout and
-  need updating before the next rebuild.
+- `tools/build_font.py` is rebuilt for the remake: charset from
+  `docs/fonts-data.js`; the anchor and reverse anchor end in a parametric
+  **serif foot** (SERIF_W/SERIF_T), matching the font's own descender
+  terminals; U+0314, U+0324 and the precomposed ḷ ṃ ṿ ẍ ẗ are generated
+  procedurally — the drawing to-do is closed. SVG overrides still win where
+  present (`tools/font_svg.py`; paths inside font_svg still assume the old
+  layout).
 
 The previous workflow notes follow, kept for the rebuild:
 
