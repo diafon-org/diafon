@@ -374,10 +374,13 @@ shares:
       fa: æ is the open front; the rounded back sits on ä
       fi: as Estonian — ɑ on ä, æ on the open slot
   ac:
-    ɑ: primary
-    ɒ:
-      fa: rounded open back — no ɑ~ɒ contrast
-      hu: the Hungarian a — rounded, one column from ɑ
+    ɒ: primary          # c is the rounding flip: the flipped a is the ROUNDED open vowel
+    ɑ:
+      en: unrounded open back — no ɒ to contrast; one step from a, which æ holds
+      et: unrounded open back — the flip slot carries its ɑ against æ on a
+      fi: as Estonian — ɑ on the flip, æ on a
+      hi: the unrounded ā — no ɒ to contrast
+      nl: unrounded open back — no ɒ to contrast
   aj:
     ə: primary
     ʌ:
