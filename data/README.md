@@ -6,12 +6,14 @@ Two layers, strictly separated:
   per the standard descriptive literature. No system analysis in here.
 - `mapping.yaml` — **the mapping**: phoneme → input form, the explicit,
   reviewable layer between the metadata and everything generated. Global map
-  plus per-language `overrides` and reviewed within-language `merges`.
+  plus per-language `overrides`, reviewed within-language `merges`, and the
+  per-language `review` state: non-reviewed → reviewed → native-reviewed.
+  Every language ultimately needs a native or expert reviewer.
 
 `scripts/gen_master.py` validates the mapping (full coverage; no
 within-language form collision outside `merges`) and renders
-`master.xlsx` — every input form with its readings, languages and native
-speaker counts, grouped by keystroke cost.
+`docs/master.html` — the universal table plus every language's own table,
+each stamped with its review state.
 
 ## Schema
 
