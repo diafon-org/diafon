@@ -20,7 +20,7 @@
   --paper:#14161b; --card:#1b1e25; --sunken:#101216; --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37;
   --accent:#3ec8cf; --good:#4fc79a; --warn:#e0a44a;
 }
-@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788616135) format("woff2");font-display:swap}
+@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788616436) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:15px}
 .wrap{max-width:1020px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -71,6 +71,7 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 </div>
 <section id="sec-universal">
 <h2>The universal table</h2>
+<p class="lede">The form inventory: base + up to two operators. Length (<code>w</code>) rides free on any of these, and diphthongs are two forms in a row — neither is a form of its own.</p>
 <div class="opswrap"><table>
 <tr><th>input</th><th>glyph</th><th>type</th><th>reading 1</th><th>reading 2</th><th>reading 3</th><th>reading 4</th></tr>
 <tr class="grp"><th colspan="7">1 keystroke</th></tr>
@@ -123,22 +124,17 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 <tr><td><code>uj</code></td><td class="g">ụ</td><td class="tt">point</td><td><span class="ug">ʊ</span> <span class="st">3·956M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>rc</code></td><td class="g">ṛ</td><td class="tt">point</td><td><span class="ug">ɾ</span> <span class="st">4·888M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>gx</code></td><td class="g">ġ</td><td class="tt">point</td><td><span class="ug">ʁ</span> <span class="st">6·785M</span></td><td><span class="ug">ɣ</span> <span class="st">2·98M</span></td><td></td><td></td></tr>
-<tr><td><code>aw</code></td><td class="g">á</td><td class="tt">long</td><td><span class="ug">aː</span> <span class="st">10·813M</span></td><td><span class="ug">æː</span> <span class="st">2·6M</span></td><td></td><td></td></tr>
 <tr><td><code>ry</code></td><td class="g">r̖</td><td class="tt">retro</td><td><span class="ug">ɽ</span> <span class="st">2·740M</span></td><td><span class="ug">ɻ</span> <span class="st">1·79M</span></td><td></td><td></td></tr>
 <tr><td><code>ty</code></td><td class="g">t̖</td><td class="tt">retro</td><td><span class="ug">ʈ</span> <span class="st">3·819M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>dx</code></td><td class="g">ḍ</td><td class="tt">point</td><td><span class="ug">ð</span> <span class="st">3·773M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>dy</code></td><td class="g">d̖</td><td class="tt">retro</td><td><span class="ug">ɖ</span> <span class="st">2·740M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>iw</code></td><td class="g">í</td><td class="tt">long</td><td><span class="ug">iː</span> <span class="st">10·709M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>dj</code></td><td class="g">d̦</td><td class="tt">soft</td><td><span class="ug">ʝ</span> <span class="st">1·485M</span></td><td><span class="ug">dʲ</span> <span class="st">2·178M</span></td><td><span class="ug">ɟ</span> <span class="st">3·40M</span></td><td></td></tr>
-<tr><td><code>uw</code></td><td class="g">ú</td><td class="tt">long</td><td><span class="ug">uː</span> <span class="st">9·586M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>ny</code></td><td class="g">n̖</td><td class="tt">retro</td><td><span class="ug">ɳ</span> <span class="st">2·579M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>hx</code></td><td class="g">ḥ</td><td class="tt">point</td><td><span class="ug">ʔ</span> <span class="st">5·571M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>lj</code></td><td class="g">l̦</td><td class="tt">soft</td><td><span class="ug">ʎ</span> <span class="st">2·304M</span></td><td><span class="ug">lʲ</span> <span class="st">3·179M</span></td><td></td><td></td></tr>
 <tr><td><code>kq</code></td><td class="g">q</td><td class="tt">point</td><td><span class="ug">q</span> <span class="st">2·460M</span></td><td><span class="ug">qʼ</span> <span class="st">1·4M</span></td><td></td><td></td></tr>
 <tr><td><code>gy</code></td><td class="g">g̔</td><td class="tt">point</td><td><span class="ug">ʕ</span> <span class="st">1·380M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>ky</code></td><td class="g">k̖</td><td class="tt">point</td><td><span class="ug">ħ</span> <span class="st">1·380M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>ow</code></td><td class="g">ó</td><td class="tt">long</td><td><span class="ug">oː</span> <span class="st">10·354M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>ew</code></td><td class="g">é</td><td class="tt">long</td><td><span class="ug">eː</span> <span class="st">9·344M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>ec</code></td><td class="g">ö</td><td class="tt">point</td><td><span class="ug">ø</span> <span class="st">6·260M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>tj</code></td><td class="g">ț</td><td class="tt">soft</td><td><span class="ug">tʲ</span> <span class="st">3·179M</span></td><td><span class="ug">c</span> <span class="st">2·24M</span></td><td></td><td></td></tr>
 <tr><td><code>rj</code></td><td class="g">r̦</td><td class="tt">soft</td><td><span class="ug">rʲ</span> <span class="st">2·178M</span></td><td><span class="ug">r̝</span> <span class="st">1·11M</span></td><td></td><td></td></tr>
@@ -152,10 +148,6 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 <tr><td><code>pj</code></td><td class="g">p̓</td><td class="tt">soft</td><td><span class="ug">pʲ</span> <span class="st">1·145M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>vj</code></td><td class="g">v̦</td><td class="tt">soft</td><td><span class="ug">vʲ</span> <span class="st">1·145M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>iq</code></td><td class="g">ụ̈</td><td class="tt">point</td><td><span class="ug">ʏ</span> <span class="st">2·101M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>kw</code></td><td class="g">kk</td><td class="tt">long</td><td><span class="ug">k͈</span> <span class="st">1·81M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>pw</code></td><td class="g">pp</td><td class="tt">long</td><td><span class="ug">p͈</span> <span class="st">1·81M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>sw</code></td><td class="g">ss</td><td class="tt">long</td><td><span class="ug">s͈</span> <span class="st">1·81M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>tw</code></td><td class="g">tt</td><td class="tt">long</td><td><span class="ug">t͈</span> <span class="st">1·81M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>ly</code></td><td class="g">l̖</td><td class="tt">retro</td><td><span class="ug">ɭ</span> <span class="st">1·79M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>py</code></td><td class="g">p̔</td><td class="tt">point</td><td><span class="ug">pf</span> <span class="st">1·76M</span></td><td></td><td></td><td></td></tr>
 <tr class="grp"><th colspan="7">3 keystrokes</th></tr>
@@ -175,32 +167,12 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 <tr><td><code>syx</code></td><td class="g">s̤</td><td class="tt">special</td><td><span class="ug">sˤ</span> <span class="st">1·380M</span></td><td><span class="ug">sʲ</span> <span class="st">3·179M</span></td><td></td><td></td></tr>
 <tr><td><code>zyx</code></td><td class="g">z̤</td><td class="tt">special</td><td><span class="ug">ðˤ</span> <span class="st">1·380M</span></td><td><span class="ug">zʲ</span> <span class="st">2·178M</span></td><td></td><td></td></tr>
 <tr><td><code>ryy</code></td><td class="g">r̖̈</td><td class="tt">special</td><td><span class="ug">ɽʱ</span> <span class="st">1·500M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>aix</code></td><td class="g">aj</td><td class="tt">sequence</td><td><span class="ug">aɪ</span> <span class="st">2·456M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>aux</code></td><td class="g">aw</td><td class="tt">sequence</td><td><span class="ug">aʊ</span> <span class="st">2·456M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>eix</code></td><td class="g">ej</td><td class="tt">sequence</td><td><span class="ug">eɪ</span> <span class="st">1·380M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>oux</code></td><td class="g">ow</td><td class="tt">sequence</td><td><span class="ug">oʊ</span> <span class="st">1·380M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>sjw</code></td><td class="g">șș</td><td class="tt">long</td><td><span class="ug">ɕː</span> <span class="st">1·145M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>ucw</code></td><td class="g">i̋</td><td class="tt">long</td><td><span class="ug">ɯː</span> <span class="st">2·144M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>nyx</code></td><td class="g">n̤</td><td class="tt">special</td><td><span class="ug">ɴ</span> <span class="st">1·123M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>ecw</code></td><td class="g">ő</td><td class="tt">long</td><td><span class="ug">øː</span> <span class="st">5·120M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>ejw</code></td><td class="g">ẹ́</td><td class="tt">long</td><td><span class="ug">ɛː</span> <span class="st">3·108M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>icw</code></td><td class="g">ű</td><td class="tt">long</td><td><span class="ug">yː</span> <span class="st">4·96M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>tqw</code></td><td class="g">c̦c̦</td><td class="tt">long</td><td><span class="ug">t͈ɕ</span> <span class="st">1·81M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>icx</code></td><td class="g">j̈</td><td class="tt">glide</td><td><span class="ug">ɥ</span> <span class="st">1·80M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>dqx</code></td><td class="g">x̖</td><td class="tt">shift</td><td><span class="ug">dʐ</span> <span class="st">1·40M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>sjx</code></td><td class="g">s̖</td><td class="tt">shift</td><td><span class="ug">ʂ</span> <span class="st">1·40M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>tqx</code></td><td class="g">c̖</td><td class="tt">shift</td><td><span class="ug">tʂ</span> <span class="st">1·40M</span></td><td></td><td></td><td></td></tr>
 <tr><td><code>zjx</code></td><td class="g">z̖</td><td class="tt">shift</td><td><span class="ug">ʐ</span> <span class="st">1·40M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>ocw</code></td><td class="g">e̋</td><td class="tt">long</td><td><span class="ug">ɤː</span> <span class="st">2·22M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>ojw</code></td><td class="g">ọ́</td><td class="tt">long</td><td><span class="ug">ɔː</span> <span class="st">1·21M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>acw</code></td><td class="g">a̋</td><td class="tt">long</td><td><span class="ug">ɑː</span> <span class="st">2·6M</span></td><td></td><td></td><td></td></tr>
-<tr class="grp"><th colspan="7">4 keystrokes</th></tr>
-<tr><td><code>ojix</code></td><td class="g">ọj</td><td class="tt">sequence</td><td><span class="ug">ɔɪ</span> <span class="st">1·380M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>ajux</code></td><td class="g">ạw</td><td class="tt">sequence</td><td><span class="ug">ʌu</span> <span class="st">1·25M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>ejix</code></td><td class="g">ẹj</td><td class="tt">sequence</td><td><span class="ug">ɛi</span> <span class="st">1·25M</span></td><td></td><td></td><td></td></tr>
-<tr class="grp"><th colspan="7">5 keystrokes</th></tr>
-<tr><td><code>ojicx</code></td><td class="g">ọj̈</td><td class="tt">sequence</td><td><span class="ug">ɔʏ</span> <span class="st">1·76M</span></td><td></td><td></td><td></td></tr>
-<tr><td><code>eqicx</code></td><td class="g">ọ̈j̈</td><td class="tt">sequence</td><td><span class="ug">œy</span> <span class="st">1·25M</span></td><td></td><td></td><td></td></tr>
 </table></div></section>
 <section id="sec-zh" hidden data-name="Mandarin Chinese" data-state="reviewed" data-cls="st-rev"><h2>Mandarin Chinese <span class="tt">zh · 940M native</span><span class="badge st-rev">reviewed</span></h2>
 <div class="opswrap"><table><tr><th>ipa</th><th>freq</th><th>input</th><th>glyph</th></tr><tr><td class="g">p</td><td class="tt">M</td><td><code>p</code></td><td class="g">p</td></tr><tr><td class="g">t</td><td class="tt">L</td><td><code>t</code></td><td class="g">t</td></tr><tr><td class="g">k</td><td class="tt">L</td><td><code>k</code></td><td class="g">k</td></tr><tr><td class="g">ts</td><td class="tt">M</td><td><code>tc</code></td><td class="g">c</td></tr><tr><td class="g">tʂ</td><td class="tt">M</td><td><code>tq</code></td><td class="g">c̦</td></tr><tr><td class="g">f</td><td class="tt">M</td><td><code>f</code></td><td class="g">f</td></tr><tr><td class="g">s</td><td class="tt">M</td><td><code>s</code></td><td class="g">s</td></tr><tr><td class="g">ʂ</td><td class="tt">L</td><td><code>sj</code></td><td class="g">ș</td></tr><tr><td class="g">x</td><td class="tt">M</td><td><code>kx</code></td><td class="g">ḳ</td></tr><tr><td class="g">ʐ</td><td class="tt">M</td><td><code>zj</code></td><td class="g">z̦</td></tr><tr><td class="g">m</td><td class="tt">L</td><td><code>m</code></td><td class="g">m</td></tr><tr><td class="g">n</td><td class="tt">L</td><td><code>n</code></td><td class="g">n</td></tr><tr><td class="g">ŋ</td><td class="tt">M</td><td><code>nx</code></td><td class="g">ṇ</td></tr><tr><td class="g">l</td><td class="tt">L</td><td><code>l</code></td><td class="g">l</td></tr><tr><td class="g">pʰ</td><td class="tt">M</td><td><code>pyx</code></td><td class="g">p̈</td></tr><tr><td class="g">tʰ</td><td class="tt">M</td><td><code>tyx</code></td><td class="g">t̤</td></tr><tr><td class="g">kʰ</td><td class="tt">M</td><td><code>kyx</code></td><td class="g">k̤</td></tr><tr><td class="g">tsʰ</td><td class="tt">M</td><td><code>tcy</code></td><td class="g">c̤</td></tr><tr><td class="g">tʂʰ</td><td class="tt">M</td><td><code>tqy</code></td><td class="g">c̦̈</td></tr><tr><td class="g">i</td><td class="tt">L</td><td><code>i</code></td><td class="g">i</td></tr><tr><td class="g">ɨ</td><td class="tt">L</td><td><code>uc</code></td><td class="g">ï</td></tr><tr><td class="g">y</td><td class="tt">M</td><td><code>ic</code></td><td class="g">ü</td></tr><tr><td class="g">u</td><td class="tt">L</td><td><code>u</code></td><td class="g">u</td></tr><tr><td class="g">ɤ</td><td class="tt">M</td><td><code>oc</code></td><td class="g">ë</td></tr><tr><td class="g">ə</td><td class="tt">M</td><td><code>aj</code></td><td class="g">ạ</td></tr><tr><td class="g">a</td><td class="tt">L</td><td><code>a</code></td><td class="g">a</td></tr><tr><td class="g">ɚ</td><td class="tt">S</td><td><code>aq</code></td><td class="g">r̈</td></tr></table></div></section>
