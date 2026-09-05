@@ -28,11 +28,14 @@ OUT = os.path.join(ROOT, 'fonts', 'Diaphone-Regular.ttf')
 BASIC = ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
          " .,;:!?()[]/-–—'\"·")
 
-# anchor geometry (fractions: TOP of x-height, TIP of the em; serif in em units)
-SINGLE_TOP = 0.15
-SINGLE_TIP = -0.16
-SERIF_W = 0.115     # serif foot width
-SERIF_T = 0.028     # serif foot thickness
+# anchor geometry (TOP as fraction of x-height; the rest in em units)
+SINGLE_TOP = 0.15   # how deep the anchor embeds into the letter
+SINGLE_TIP = -0.15  # its tip below the baseline
+STEM_W_TOP = 0.054  # stem width where it leaves the letter
+STEM_W_TIP = 0.030  # stem width at the tip
+LEAN = -0.042       # comma lean of the tip (mirrored pair must read apart)
+SERIF_W = 0.084     # serif foot width
+SERIF_T = 0.026     # serif foot thickness
 
 NEW_PRECOMPOSED = {         # cp: (base, mark, above?)
     0x1E37: ('l', 'dotbelowcomb', False),   # ḷ
@@ -75,6 +78,35 @@ def _register(font, name):
         go.append(name)
 
 
+def _clone_gpos_mark(font, model, new):
+    """Give a new mark glyph the same GPOS attachment records as its model."""
+    if 'GPOS' not in font:
+        return
+    n = 0
+    for lookup in font['GPOS'].table.LookupList.Lookup:
+        for sub in lookup.SubTable:
+            for covname, arrname, recname in (
+                    ('MarkCoverage', 'MarkArray', 'MarkRecord'),
+                    ('Mark1Coverage', 'Mark1Array', 'MarkRecord'),
+                    ('Coverage', None, None)):
+                cov = getattr(sub, covname, None)
+                if cov is None or model not in cov.glyphs or new in cov.glyphs:
+                    continue
+                if arrname is None:
+                    cov.glyphs.append(new)
+                    n += 1
+                    continue
+                idx = cov.glyphs.index(model)
+                arr = getattr(sub, arrname)
+                import copy
+                rec = copy.deepcopy(arr.MarkRecord[idx])
+                cov.glyphs.append(new)
+                arr.MarkRecord.append(rec)
+                arr.MarkCount = len(arr.MarkRecord)
+                n += 1
+    print(f'  GPOS: {new} inherits {n} attachment records from {model}')
+
+
 def _anchor_glyphs(font):
     """The anchor family: rotated acute strokes with a serif foot at the tip."""
     from fontTools.pens.recordingPen import RecordingPen
@@ -85,21 +117,23 @@ def _anchor_glyphs(font):
     glyf, cmap = font['glyf'], font.getBestCmap()
     upm = font['head'].unitsPerEm
     gs = font.getGlyphSet()
-    acute, a_cx, a_ymin, a_ymax = _outline(gs, cmap[0x0301])
     _, _, _, xh = _outline(gs, cmap[ord('x')])
     top, tip = SINGLE_TOP * xh, SINGLE_TIP * upm
-    sw, st = SERIF_W * upm, SERIF_T * upm
+    w1, w2 = STEM_W_TOP * upm / 2, STEM_W_TIP * upm / 2
+    lean, sw, st = LEAN * upm, SERIF_W * upm / 2, SERIF_T * upm
 
-    # the serifed anchor, built once centred on x = 0 (spans y[tip, top])
+    # the serifed anchor: an upright elongated comma, one contour, centred on
+    # x = 0 at the attachment so GPOS lands it mid-letter; spans y[tip, top]
     seed = RecordingPen()
-    sy = (top - tip) / (a_ymax - a_ymin)
-    acute.replay(TransformPen(seed, Transform(-1, 0, 0, -sy, a_cx, top + a_ymin * sy)))
-    pts = [pt for op, args in seed.value for pt in args if isinstance(pt, tuple)]
-    tip_x = min(pts, key=lambda p: p[1])[0]
-    y0, y1 = tip, tip + st
-    x0, x1 = tip_x - sw / 2, tip_x + sw / 2
-    seed.moveTo((x0, y1)); seed.lineTo((x1, y1))
-    seed.lineTo((x1, y0)); seed.lineTo((x0, y0)); seed.closePath()
+    seed.moveTo((-w1, top))
+    seed.lineTo((w1, top))                        # top edge, inside the letter
+    seed.lineTo((lean + w2, tip + st))            # right side tapers down
+    seed.lineTo((lean + sw, tip + st))            # serif foot, right
+    seed.lineTo((lean + sw, tip))
+    seed.lineTo((lean - sw, tip))                 # serif foot, left
+    seed.lineTo((lean - sw, tip + st))
+    seed.lineTo((lean - w2, tip + st))            # back up the left side
+    seed.closePath()
 
     def stroke(target_cp, mirror=False, above=False):
         _, cx, _, _ = _outline(gs, cmap[target_cp]) if target_cp in cmap else (None, 0, 0, 0)
@@ -140,7 +174,9 @@ def _anchor_glyphs(font):
     for off in (-sep / 2, sep / 2):
         dot.replay(TransformPen(pen, Transform(1, 0, 0, 1, off, 0)))
     put(0x0324, pen.glyph(), 0x0323)
-    print(f'  anchor family serifed (foot {sw:.0f}x{st:.0f}); 0314 and 0324 created')
+    _clone_gpos_mark(font, cmap[0x0313], 'uni0314')
+    _clone_gpos_mark(font, cmap[0x0323], 'uni0324')
+    print(f'  anchor family: upright comma, serif foot {2*sw:.0f}x{st:.0f}; 0314 and 0324 created')
 
 
 def _precomposed(font):
