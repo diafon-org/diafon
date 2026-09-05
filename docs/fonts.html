@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diaphone — Fonts</title>
+<style>
+:root{
+  --paper:#f5f6f8; --card:#ffffff; --sunken:#eef0f4; --ink:#1a1d24; --muted:#5b6472; --line:#dde1e8;
+  --accent:#0e7c86; --bad:#c04646; --warn:#b06f14; --good:#2f8f66;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+  --mono:"SF Mono","JetBrains Mono","Menlo","Consolas",monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#14161b; --card:#1b1e25; --sunken:#101216; --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37;
+  --accent:#3ec8cf; --bad:#e07a7a; --warn:#e0a44a; --good:#4fc79a;
+}}
+:root[data-theme="dark"]{
+  --paper:#14161b; --card:#1b1e25; --sunken:#101216; --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37;
+  --accent:#3ec8cf; --bad:#e07a7a; --warn:#e0a44a; --good:#4fc79a;
+}
+@font-face{font-family:"Diaphone";src:url(diaphone.woff2) format("woff2");font-display:swap}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:15px}
+.wrap{max-width:1020px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
+h1{font-family:Georgia,serif;font-weight:600;font-size:clamp(1.7rem,4.5vw,2.3rem);margin:0 0 .2rem}
+h2{font-family:Georgia,serif;font-weight:600;font-size:1.25rem;margin:2.2rem 0 .4rem}
+.lede{color:var(--muted);margin:.2rem 0 0;max-width:74ch}
+a{color:var(--accent)}
+code{font:600 .78em/1.4 var(--mono);color:var(--accent);background:var(--sunken);padding:.1em .32em;border-radius:.32em}
+.row{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin:1.6rem 0 .2rem}
+label{font:600 .72rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+select,input[type=text]{font:600 .85rem var(--sans);color:var(--ink);background:var(--card);
+  border:1px solid var(--line);border-radius:.5rem;padding:.4rem .6rem}
+.summary{font:600 .8rem/1.5 var(--mono);color:var(--muted);margin:.6rem 0 0}
+.summary b{color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:.45rem;margin:.8rem 0 0}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:.7rem;padding:.5rem .3rem .4rem;
+  display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
+.tile .g{font-size:2.1rem;line-height:1.25;min-height:2.7rem}
+.tile .f{font:600 .7rem/1 var(--mono);color:var(--accent)}
+.tile .c{font:500 .6rem/1.2 var(--mono);color:var(--muted)}
+.tile.miss{border-color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad)}
+.tile.fall{border-color:var(--warn)}
+.legend{display:flex;flex-wrap:wrap;gap:.5rem 1.3rem;margin:.9rem 0 0;font-size:.85rem;color:var(--muted)}
+.legend b{color:var(--ink)}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:.3rem;border:2px solid}
+footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<header>
+  <h1>Fonts</h1>
+  <p class="lede">Every glyph the system can draw, in one place — study it in
+  the custom Diaphone font, in popular faces, or in whatever is installed, and
+  see where support gaps are. Each tile names its codepoints, so a font fix can
+  be requested precisely. Part of <a href="index.html">Diaphone</a>.</p>
+</header>
+
+<div class="row">
+  <label for="font">font</label>
+  <select id="font">
+    <optgroup label="custom">
+      <option value="Diaphone" selected>Diaphone (the system font)</option>
+    </optgroup>
+    <optgroup label="popular">
+      <option>Arial</option>
+      <option>Times New Roman</option>
+      <option>Georgia</option>
+      <option>Verdana</option>
+      <option>Helvetica</option>
+      <option>Calibri</option>
+      <option>Segoe UI</option>
+      <option>Roboto</option>
+      <option>Noto Serif</option>
+      <option>Charis SIL</option>
+      <option>Gentium Plus</option>
+    </optgroup>
+    <optgroup label="system defaults">
+      <option value="serif">serif (browser default)</option>
+      <option value="sans-serif">sans-serif (browser default)</option>
+      <option value="monospace">monospace (browser default)</option>
+      <option value="system-ui">system-ui</option>
+    </optgroup>
+  </select>
+  <label for="custom">or any installed font</label>
+  <input type="text" id="custom" placeholder="type a font name…" size="18">
+</div>
+
+<div class="summary" id="summary"></div>
+
+<div class="legend">
+  <span><span class="sw" style="border-color:var(--bad)"></span><b>mark missing</b> — the composed glyph renders no differently from its bare base</span>
+  <span><span class="sw" style="border-color:var(--warn)"></span><b>fallback</b> — this font does not draw it; another font stepped in</span>
+  <span>categories: <b>core</b> = 8+ languages · <b>common</b> = in use · <b>systematic</b> = the grammar's reserve, used by no current language</span>
+</div>
+
+<div id="sections"></div>
+
+<footer>Diaphone — fonts · <a href="index.html">description</a> ·
+  <a href="master.html">master tables</a> · <a href="play.html">playground</a></footer>
+
+</main>
+<script src="fonts-data.js"></script>
+<script>
+'use strict';
+const $font = document.getElementById('font'), $custom = document.getElementById('custom'),
+      $sections = document.getElementById('sections'), $summary = document.getElementById('summary');
+const CATS = [['core', 'Core'], ['common', 'Common'], ['systematic', 'Systematic — the reserve']];
+
+// --- canvas probes ---
+const cv = document.createElement('canvas');
+cv.width = 72; cv.height = 72;
+const cx = cv.getContext('2d', {willReadFrequently: true});
+function pixels(text, family){
+  cx.clearRect(0, 0, 72, 72);
+  cx.font = '40px ' + family;
+  cx.textBaseline = 'middle';
+  cx.fillText(text, 6, 40);
+  return cx.getImageData(0, 0, 72, 72).data;
+}
+function same(a, b){
+  if (a.length !== b.length) return false;
+  for (let i = 0; i < a.length; i += 16) if (a[i] !== b[i] || a[i+3] !== b[i+3]) return false;
+  for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
+  return true;
+}
+function probe(entry, fam){
+  const q = JSON.stringify(fam);
+  // fallback: the font contributes nothing beyond generic rendering
+  const inFont = pixels(entry.g, q + ', monospace');
+  const generic = pixels(entry.g, 'monospace');
+  const fell = same(inFont, generic) && fam !== 'monospace';
+  // mark missing: composed glyph identical to its bare base letter
+  const baseCh = entry.g.replace(/[̀-ͯ]/g, '');
+  let missing = false;
+  if (baseCh !== entry.g){
+    missing = same(pixels(entry.g, q + ', serif'), pixels(baseCh, q + ', serif'));
+  }
+  return {fell, missing};
+}
+
+function esc(s){ return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+
+function render(){
+  const fam = $custom.value.trim() || $font.value;
+  const famCss = /^(serif|sans-serif|monospace|system-ui)$/.test(fam) ? fam : JSON.stringify(fam);
+  let html = '', nMiss = 0, nFall = 0;
+  for (const [cat, title] of CATS){
+    const items = GLYPHS.filter(e => e.cat === cat);
+    html += `<h2>${title} <span style="font:600 .7rem var(--mono);color:var(--muted)">${items.length}</span></h2><div class="grid">`;
+    for (const e of items){
+      const p = probe(e, fam);
+      if (p.missing) nMiss++; else if (p.fell) nFall++;
+      const cls = p.missing ? ' miss' : (p.fell ? ' fall' : '');
+      html += `<div class="tile${cls}"><span class="g" style="font-family:${esc(famCss)}, serif">${esc(e.g)}</span>` +
+              `<span class="f">${esc(e.f)}</span><span class="c">${e.cps}</span></div>`;
+    }
+    html += '</div>';
+  }
+  $sections.innerHTML = html;
+  $summary.innerHTML = `<b>${esc(fam)}</b> — ${GLYPHS.length} glyphs · ` +
+    `<span style="color:var(--bad)">${nMiss} marks missing</span> · ` +
+    `<span style="color:var(--warn)">${nFall} falling back</span>`;
+}
+
+$font.addEventListener('change', () => { $custom.value = ''; render(); });
+$custom.addEventListener('change', render);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);
+render();
+</script>
+</body>
+</html>
