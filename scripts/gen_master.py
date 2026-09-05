@@ -169,6 +169,11 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
   <a href="index.html">the description</a>, and the
   <a href="play.html">playground</a> renders it live.</p>
 </header>
+<div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin:1.4rem 0 0">
+  <label for="table" style="font:600 .72rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">table</label>
+  <select id="table" autocomplete="off" style="font:600 .85rem var(--sans);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:.5rem;padding:.4rem .6rem"></select>
+  <span id="state"></span>
+</div>
 '''
 
 
@@ -180,7 +185,7 @@ def universal_table(agg):
         rows.append((len(form), -total, form, form_type(form), rd))
     rows.sort()
     max_r = max(len(r[4]) for r in rows)
-    out = ['<h2 id="universal">The universal table</h2>',
+    out = ['<section id="sec-universal">', '<h2>The universal table</h2>',
            '<div class="opswrap"><table>',
            '<tr><th>input</th><th>glyph</th><th>type</th>' +
            ''.join(f'<th>reading {i}</th>' for i in range(1, max_r + 1)) + '</tr>']
@@ -194,7 +199,7 @@ def universal_table(agg):
                         for ipa, (n, s) in rd) + '<td></td>' * (max_r - len(rd))
         out.append(f'<tr><td><code>{form}</code></td><td class="g">{engine.render(form)}</td>'
                    f'<td class="tt">{t}</td>{cells}</tr>')
-    out.append('</table></div>')
+    out.append('</table></div></section>')
     return '\n'.join(out)
 
 
@@ -220,21 +225,41 @@ def language_tables():
                             f'<td class="tt">{freq}</td><td><code>{form}</code></td>'
                             f'<td class="g">{engine.render(form)}</td></tr>')
         secs.append(
-            f'<h2 id="{code}">{d["name"]} <span class="tt">{code} · '
+            f'<section id="sec-{code}" hidden data-name="{d["name"]}" data-state="{label}" data-cls="{cls}">'
+            f'<h2>{d["name"]} <span class="tt">{code} · '
             f'{fmt(d["speakers"]["native"])} native</span>'
             f'<span class="badge {cls}">{label}</span></h2>\n'
             '<div class="opswrap"><table>'
             '<tr><th>ipa</th><th>freq</th><th>input</th><th>glyph</th></tr>'
-            + ''.join(rows) + '</table></div>')
-    return ('<div class="toc">' + ''.join(toc) + '</div>', '\n'.join(secs))
+            + ''.join(rows) + '</table></div></section>')
+    return ('', '\n'.join(secs))
 
 
 def main():
     agg = aggregate()  # validates
-    toc, secs = language_tables()
-    html = (HEAD + toc + '\n' + universal_table(agg) + '\n' + secs +
+    _, secs = language_tables()
+    js = """
+<script>
+'use strict';
+const sel=document.getElementById('table'), badge=document.getElementById('state');
+const secs=[...document.querySelectorAll('section[id^=sec-]')];
+sel.innerHTML='<option value="universal" selected>universal</option>'+
+  secs.filter(x=>x.id!=='sec-universal').map(x=>{
+    const c=x.id.slice(4);
+    return `<option value="${c}">${x.dataset.name} — ${x.dataset.state}</option>`;}).join('');
+function show(){
+  for(const x of secs) x.hidden = (x.id!=='sec-'+sel.value);
+  const cur=document.getElementById('sec-'+sel.value);
+  badge.innerHTML = cur.dataset.state ? `<span class="badge ${cur.dataset.cls}">${cur.dataset.state}</span>` : '';
+}
+sel.value='universal';
+sel.addEventListener('change', show);
+show();
+</script>"""
+    html = (HEAD + universal_table(agg) + '\n' + secs +
             '\n<footer>Diaphone — master tables · <a href="index.html">description</a> · '
-            '<a href="play.html">playground</a></footer>\n</main>\n</body>\n</html>\n')
+            '<a href="play.html">playground</a> · <a href="fonts.html">fonts</a></footer>\n</main>'
+            + js + '\n</body>\n</html>\n')
     out = os.path.join(ROOT, 'docs', 'master.html')
     open(out, 'w').write(html)
     print(f'mapping valid · {out}: {len(agg)} forms, {len(load_languages())} languages')

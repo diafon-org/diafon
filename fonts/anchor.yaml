@@ -1,0 +1,15 @@
+# THE ANCHOR — the signature mark. Every number is 1/1000 em.
+# Edit, then:  python3 fonts/tools/build_font.py && python3 fonts/tools/subset_web.py
+# Proof sheet: python3 fonts/tools/proof.py   -> fonts/proof.png (annotated)
+#
+# mode:
+#   comma  — the typeface's own comma (ball + curved tail), raised to attach
+#            to the letter and stretched to the tip depth
+#   wedge  — a drawn tapered stroke (straight, minimal)
+mode: comma
+attach: 30          # how deep the head reaches INTO the letter, above its bottom edge
+tip: -160           # tail tip depth below the baseline
+width: 1.0          # horizontal scale of the mark
+serif: {w: 84, t: 26}     # foot at the tail tip; w: 0 removes it
+wedge: {top_w: 54, tip_w: 30, lean: -42}    # wedge mode only
+above: {embed: 30}  # the rotated above-anchor: how deep into the letter top
