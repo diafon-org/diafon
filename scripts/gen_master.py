@@ -180,12 +180,17 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 def universal_table(agg):
     rows = []
     for form, reads in agg.items():
+        if form in SEQ or 'w' in form:
+            continue    # sequences are two forms in a row; w is length riding free
         rd = sorted(reads.items(), key=lambda kv: -kv[1][1])
         total = sum(s for _, (_, s) in reads.items())
         rows.append((len(form), -total, form, form_type(form), rd))
     rows.sort()
     max_r = max(len(r[4]) for r in rows)
     out = ['<section id="sec-universal">', '<h2>The universal table</h2>',
+           '<p class="lede">The form inventory: base + up to two operators. '
+           'Length (<code>w</code>) rides free on any of these, and diphthongs are '
+           'two forms in a row — neither is a form of its own.</p>',
            '<div class="opswrap"><table>',
            '<tr><th>input</th><th>glyph</th><th>type</th>' +
            ''.join(f'<th>reading {i}</th>' for i in range(1, max_r + 1)) + '</tr>']
