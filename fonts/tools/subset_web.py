@@ -37,6 +37,15 @@ def main():
     subset.main([src, f'--unicodes={unis}', '--layout-features=*',
                  '--flavor=woff2', f'--output-file={out}'])
     print(f'{out}: {os.path.getsize(out)} bytes, {len(cps & have)} codepoints kept')
+    ver = os.path.getmtime(out).__int__()
+    for page in ('index.html', 'play.html', 'fonts.html', 'master.html'):
+        p = os.path.join(ROOT, 'docs', page)
+        if not os.path.exists(p):
+            continue
+        html = open(p).read()
+        html = re.sub(r'diaphone\.woff2(\?v=\d+)?', f'diaphone.woff2?v={ver}', html)
+        open(p, 'w').write(html)
+    print(f'cache-bust: pages now reference diaphone.woff2?v={ver}')
     if missing:
         print('codepoints the source font still needs drawn:',
               ' '.join(f'U+{c:04X}({chr(c)})' for c in missing))
