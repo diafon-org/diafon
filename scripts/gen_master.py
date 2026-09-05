@@ -20,6 +20,7 @@ import yaml
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import engine
+import ipa_names
 
 C_POINTS = {'sj','zj','tq','dq','tc','dc','kx','gx','kq','hx','rc','tx','dx','nx','py','ky','gy'}
 RETRO = {'ty','dy','ny','ly','ry'}
@@ -90,9 +91,10 @@ def aggregate():
                         errors.append(f'{code}: {ipa} and {taken[form]} both on {form}')
                         continue
                 taken[form] = ipa
-                e = agg.setdefault(form, {}).setdefault(ud.normalize('NFC', ipa), [0, 0.0])
+                e = agg.setdefault(form, {}).setdefault(ud.normalize('NFC', ipa), [0, 0.0, []])
                 e[0] += 1
                 e[1] += native
+                e[2].append(code)
     if errors:
         print('MAPPING INVALID:', *errors, sep='\n  ')
         sys.exit(1)
@@ -181,7 +183,7 @@ def universal_table(agg):
         if form in SEQ or 'w' in form:
             continue    # sequences are two forms in a row; w is length riding free
         rd = sorted(reads.items(), key=lambda kv: -kv[1][1])
-        total = sum(s for _, (_, s) in reads.items())
+        total = sum(v[1] for v in reads.values())
         rows.append((len(form), -total, form, form_type(form), rd))
     rows.sort()
     max_r = max(len(r[4]) for r in rows)
@@ -198,8 +200,10 @@ def universal_table(agg):
             grp = keys
             out.append(f'<tr class="grp"><th colspan="{3 + max_r}">'
                        f'{keys} keystroke{"s" if keys > 1 else ""}</th></tr>')
-        cells = ''.join(f'<td><span class="ug">{ipa}</span> <span class="st">{n}·{fmt(s)}</span></td>'
-                        for ipa, (n, s) in rd) + '<td></td>' * (max_r - len(rd))
+        cells = ''.join(
+            f'<td><span class="ug" title="{ipa_names.name(ipa)}">{ipa}</span> '
+            f'<span class="st" title="{" ".join(sorted(codes))}">{n}·{fmt(s)}</span></td>'
+            for ipa, (n, s, codes) in rd) + '<td></td>' * (max_r - len(rd))
         out.append(f'<tr><td><code>{form}</code></td><td class="g">{engine.render(form)}</td>'
                    f'<td class="tt">{t}</td>{cells}</tr>')
     out.append('</table></div></section>')
@@ -221,11 +225,11 @@ def language_tables():
                 key = nfd(ipa)
                 form = over.get(code, {}).get(key) or table.get(key)
                 if freq == 'X':
-                    rows.append(f'<tr><td class="g">{ud.normalize("NFC", ipa)}</td>'
+                    rows.append(f'<tr><td class="g" title="{ipa_names.name(ipa)}">{ud.normalize("NFC", ipa)}</td>'
                                 f'<td class="tt">X</td><td><code>{form}</code></td>'
                                 f'<td class="g">{engine.render(form)}</td></tr>')
                     continue
-                rows.append(f'<tr><td class="g">{ud.normalize("NFC", ipa)}</td>'
+                rows.append(f'<tr><td class="g" title="{ipa_names.name(ipa)}">{ud.normalize("NFC", ipa)}</td>'
                             f'<td class="tt">{freq}</td><td><code>{form}</code></td>'
                             f'<td class="g">{engine.render(form)}</td></tr>')
         secs.append(
