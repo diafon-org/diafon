@@ -172,7 +172,6 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin:1.4rem 0 0">
   <label for="table" style="font:600 .72rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">table</label>
   <select id="table" autocomplete="off" style="font:600 .85rem var(--sans);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:.5rem;padding:.4rem .6rem"></select>
-  <span id="state"></span>
 </div>
 '''
 
@@ -246,7 +245,7 @@ def main():
     js = """
 <script>
 'use strict';
-const sel=document.getElementById('table'), badge=document.getElementById('state');
+const sel=document.getElementById('table');
 const secs=[...document.querySelectorAll('section[id^=sec-]')];
 sel.innerHTML='<option value="universal" selected>universal</option>'+
   secs.filter(x=>x.id!=='sec-universal').map(x=>{
@@ -254,8 +253,6 @@ sel.innerHTML='<option value="universal" selected>universal</option>'+
     return `<option value="${c}">${x.dataset.name}</option>`;}).join('');
 function show(){
   for(const x of secs) x.hidden = (x.id!=='sec-'+sel.value);
-  const cur=document.getElementById('sec-'+sel.value);
-  badge.innerHTML = cur.dataset.state ? `<span class="badge ${cur.dataset.cls}">${cur.dataset.state}</span>` : '';
 }
 sel.value='universal';
 sel.addEventListener('change', show);
