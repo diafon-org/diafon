@@ -77,13 +77,13 @@ def aggregate():
         taken = {}
         for sec, table in (('consonants', cons), ('vowels', vows)):
             for ipa, freq in d[sec].items():
-                if freq == 'X':
-                    continue
                 key = nfd(ipa)
                 form = over.get(code, {}).get(key) or table.get(key)
                 if not form:
                     errors.append(f'{code}: unmapped {ipa}')
                     continue
+                if freq == 'X':
+                    continue    # writable, but out of the stats and the injectivity check
                 if form in taken:
                     pair = {key, nfd(taken[form])}
                     if pair not in merges.get(code, []):
@@ -220,11 +220,12 @@ def language_tables():
         for sec, table in (('consonants', cons), ('vowels', vows)):
             for ipa, freq in d[sec].items():
                 key = nfd(ipa)
+                form = over.get(code, {}).get(key) or table.get(key)
                 if freq == 'X':
                     rows.append(f'<tr class="xrow"><td class="g">{ud.normalize("NFC", ipa)}</td>'
-                                f'<td class="tt">X</td><td>—</td><td></td></tr>')
+                                f'<td class="tt">X</td><td><code>{form}</code></td>'
+                                f'<td class="g">{engine.render(form)}</td></tr>')
                     continue
-                form = over.get(code, {}).get(key) or table.get(key)
                 rows.append(f'<tr><td class="g">{ud.normalize("NFC", ipa)}</td>'
                             f'<td class="tt">{freq}</td><td><code>{form}</code></td>'
                             f'<td class="g">{engine.render(form)}</td></tr>')

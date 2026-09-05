@@ -171,6 +171,7 @@ vowels:
   ũ: uy
   ɑ̃: ay          # FR, HI — the a slot; nasal on ä would stack two above
   ɛ̃: ejy
+  œ̃: ejy         # recessive, merged into ɛ̃ for modern speakers
   ɔ̃: ojy
   # sequences: nucleus + glide
   aɪ: aix
