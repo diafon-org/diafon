@@ -160,6 +160,9 @@ td.g{font-family:var(--serif);font-size:1.15rem}
 .rname{display:block;font:500 .64rem/1.3 var(--mono);color:var(--muted);margin-top:1px}
 .just{display:block;font-size:.74rem;line-height:1.35;color:var(--muted);margin-top:2px;max-width:26ch}
 .just b{color:var(--ink);font:600 .68rem var(--mono)}
+.rgroup{margin-bottom:.55rem}
+.rgroup:last-child{margin-bottom:0}
+.just{max-width:none}
 .tt{font:600 .68rem/1.4 var(--mono);color:var(--muted)}
 tr.grp th{background:var(--sunken);color:var(--accent)}
 .badge{display:inline-block;font:600 .66rem/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;
@@ -194,6 +197,19 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 '''
 
 
+_C_BASES = 'ptkbdgfvszmnlrh'
+_V_BASES = 'aeiou'
+_OPS_ORDER = ['', 'j', 'c', 'q', 'x', 'y', 'jx', 'cx', 'qx', 'cy', 'jy', 'qy', 'yy', 'yx']
+
+
+def _order_key(form):
+    base, ops = form[0], form[1:]
+    isv = base in _V_BASES
+    ops_rank = _OPS_ORDER.index(ops) if ops in _OPS_ORDER else len(_OPS_ORDER)
+    base_rank = (_V_BASES if isv else _C_BASES).index(base)
+    return (len(form), isv, ops_rank, base_rank)
+
+
 def universal_table(agg, shares):
     rows = []
     for form, reads in agg.items():
@@ -203,42 +219,40 @@ def universal_table(agg, shares):
         prim = next((i for i, v in sh.items() if v == 'primary'), None)
         rd = sorted(reads.items(),
                     key=lambda kv: (0 if nfd(kv[0]) == prim else 1, -kv[1][1]))
-        total = sum(v[1] for v in reads.values())
-        rows.append((len(form), -total, form, form_type(form), rd))
+        rows.append((_order_key(form), form, form_type(form), rd))
     rows.sort()
-    max_r = max(len(r[4]) for r in rows)
     out = ['<section id="sec-universal">', '<h2>The universal table</h2>',
            '<p class="lede">The form inventory: base + up to two operators. '
            'Length (<code>w</code>) rides free on any of these, and diphthongs are '
            'two forms in a row — neither is a form of its own.</p>',
            '<div class="opswrap"><table>',
-           '<tr><th>input</th><th>glyph</th><th>type</th>' +
-           '<th>primary reading</th>' +
-           ''.join(f'<th>reading {i}</th>' for i in range(2, max_r + 1)) + '</tr>']
+           '<tr><th>input</th><th>glyph</th><th>type</th>'
+           '<th>primary reading</th><th>other readings — who and why</th></tr>']
     grp = 0
-    for keys, _, form, t, rd in rows:
+    for key, form, t, rd in rows:
+        keys = key[0]
         if keys != grp:
             grp = keys
-            out.append(f'<tr class="grp"><th colspan="{3 + max_r}">'
+            out.append(f'<tr class="grp"><th colspan="5">'
                        f'{keys} keystroke{"s" if keys > 1 else ""}</th></tr>')
         sh = shares.get(form, {})
-        cells = ''
-        for i, (ipa, (n, s, codes)) in enumerate(rd):
-            head = (f'<a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank">{ipa}</a> ')
-            if i == 0:
-                head += f'<span class="st" title="{" ".join(sorted(codes))}">{n}·{fmt(s)}</span>'
-            head += f'<span class="rname">{ipa_names.name(ipa)}</span>'
-            if i > 0:
-                just = sh.get(nfd(ipa))
-                if isinstance(just, dict):
-                    head += ''.join(f'<span class="just"><b>{c}</b> {just.get(c, "")}</span>'
-                                    for c in sorted(codes))
-                else:
-                    head += f'<span class="just">{" ".join(sorted(codes))}</span>'
-            cells += f'<td>{head}</td>'
-        cells += '<td></td>' * (max_r - len(rd))
+        ipa, (n, s, codes) = rd[0]
+        primary = (f'<a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank">{ipa}</a>'
+                   f'<span class="rname">{ipa_names.name(ipa)}</span>'
+                   f'<span class="st" title="{" ".join(sorted(codes))}">'
+                   f'{n} language{"s" if n > 1 else ""} · {fmt(s)} native</span>')
+        groups = ''
+        for ipa, (n, s, codes) in rd[1:]:
+            just = sh.get(nfd(ipa))
+            lines = (''.join(f'<span class="just"><b>{c}</b> {just.get(c, "")}</span>'
+                             for c in sorted(codes))
+                     if isinstance(just, dict)
+                     else f'<span class="just">{" ".join(sorted(codes))}</span>')
+            groups += (f'<div class="rgroup">'
+                       f'<a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank">{ipa}</a>'
+                       f'<span class="rname">{ipa_names.name(ipa)}</span>{lines}</div>')
         out.append(f'<tr><td><code>{form}</code></td><td class="g">{engine.render(form)}</td>'
-                   f'<td class="tt">{t}</td>{cells}</tr>')
+                   f'<td class="tt">{t}</td><td>{primary}</td><td>{groups}</td></tr>')
     out.append('</table></div></section>')
     return '\n'.join(out)
 
