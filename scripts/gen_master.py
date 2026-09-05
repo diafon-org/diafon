@@ -153,7 +153,6 @@ tr.grp th{background:var(--sunken);color:var(--accent)}
   padding:.34rem .55rem;background:var(--card);color:var(--muted)}
 .toc a b{color:var(--ink)}
 .toc a.st-nat{border-color:var(--good)} .toc a.st-rev{border-color:var(--warn)}
-.xrow{color:var(--muted);opacity:.6}
 footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
 </style>
 </head>
@@ -222,7 +221,7 @@ def language_tables():
                 key = nfd(ipa)
                 form = over.get(code, {}).get(key) or table.get(key)
                 if freq == 'X':
-                    rows.append(f'<tr class="xrow"><td class="g">{ud.normalize("NFC", ipa)}</td>'
+                    rows.append(f'<tr><td class="g">{ud.normalize("NFC", ipa)}</td>'
                                 f'<td class="tt">X</td><td><code>{form}</code></td>'
                                 f'<td class="g">{engine.render(form)}</td></tr>')
                     continue
