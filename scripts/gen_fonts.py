@@ -73,7 +73,7 @@ def build(bases, rows, langs_of):
 
 def main():
     inuse = aggregate()
-    langs_of = lambda f: sum(n for n, _ in inuse.get(f, {}).values())
+    langs_of = lambda f: sum(v[0] for v in inuse.get(f, {}).values())
     data = {
         'cons': {'bases': C_BASES, 'rows': build(C_BASES, C_ROWS, langs_of)},
         'vows': {'bases': V_BASES, 'rows': build(V_BASES, V_ROWS, langs_of)},

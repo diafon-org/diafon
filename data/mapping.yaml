@@ -193,9 +193,6 @@ review:
   zh: reviewed
 
 overrides:
-  hu:            # no plain /a e/ to contrast: the bare slots are free and one
-    ɒ: a         #   column away — Hungarian a/á e/é write as a/á e/é
-    ɛ: e
   ka:            # bare voiceless = the aspirated series; ejectives = the special
     pʰ: p
     tʰ: t
@@ -234,3 +231,40 @@ overrides:
 merges:
   # reviewed within-language identifications: two symbols, one phoneme
   en: [[ʌ, ə]]   # STRUT is the stressed schwa
+
+# Multiple readings belong to the back-lean (y) and the special (yx / secondary
+# y) families, and to the vowel grave. A REGULAR form carries one reading; the
+# accepted exceptions below are near-identical realisations within one column,
+# plus Georgian's bare aspirates — forced by the affricates' two-operator
+# ceiling (dz~tsʰ~tsʼ has only tc and tcy to land on). The generator fails on
+# any share not listed here.
+shares:
+  t: [t, t̪, tʰ]
+  d: [d, d̪, ɗ]
+  b: [b, ɓ]
+  p: [p, pʰ]
+  k: [k, kʰ]
+  tc: [ts, tsʰ]
+  tq: [tʃ, tʂ, tɕ, tʃʰ]
+  dq: [dʒ, dʑ]
+  r: [r, ɹ]
+  h: [h, ɦ]
+  v: [v, ʋ]
+  sj: [ʃ, ʂ, ɕ]
+  zj: [ʒ, ʐ, ʑ]
+  kx: [x, χ]
+  gx: [ɣ, ʁ]
+  kq: [q, qʼ]    # Georgian's ejective-only uvular, its lone q
+  a: [a, æ]
+  aj: [ə, ʌ, ɐ]
+  ac: [ɑ, ɒ]
+  uc: [ɯ, ɨ]
+  aw: [aː, æː]   # the a-share, carried through length (ET FI)
+  aq: [ɚ, ɝ]     # both are the rhotacized mid-central vowel
+  # the soft series identifications: a palatal stop IS the soft coronal — no
+  # language contrasts the pair (Czech ř is the modified r the same way)
+  tj: [c, tʲ]
+  dj: [dʲ, ɟ, ʝ]
+  nj: [nʲ, ɲ]
+  lj: [lʲ, ʎ]
+  rj: [rʲ, r̝]

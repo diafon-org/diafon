@@ -58,7 +58,8 @@ def load_mapping():
     merges = {c: [{nfd(a), nfd(b)} for a, b in pairs]
               for c, pairs in (m.get('merges') or {}).items()}
     review = m.get('review') or {}
-    return cons, vows, over, merges, review
+    shares = {f: {nfd(i) for i in lst} for f, lst in (m.get('shares') or {}).items()}
+    return cons, vows, over, merges, review, shares
 
 
 def load_languages():
@@ -70,7 +71,7 @@ def load_languages():
 
 
 def aggregate():
-    cons, vows, over, merges, _ = load_mapping()
+    cons, vows, over, merges, _, shares = load_mapping()
     langs = load_languages()
     agg, errors = {}, []
     for code, d in langs.items():
@@ -95,6 +96,16 @@ def aggregate():
                 e[0] += 1
                 e[1] += native
                 e[2].append(code)
+    # one reading per regular form: polyvalence belongs to y / yx / the grave
+    def polyvalent_ok(f):
+        return (f.endswith('y') or f.endswith('yx'))
+    for form, reads in agg.items():
+        if len(reads) < 2 or polyvalent_ok(form) or form in SEQ:
+            continue
+        allowed = shares.get(form, set())
+        extra = {i for i in map(nfd, reads) if i not in allowed}
+        if extra or not allowed:
+            errors.append(f'unlisted share on {form}: {sorted(reads)}')
     if errors:
         print('MAPPING INVALID:', *errors, sep='\n  ')
         sys.exit(1)
@@ -214,7 +225,7 @@ def universal_table(agg):
 
 
 def language_tables():
-    cons, vows, over, merges, review = load_mapping()
+    cons, vows, over, merges, review, _ = load_mapping()
     langs = load_languages()
     order = sorted(langs, key=lambda c: -langs[c]['speakers']['native'])
     toc, secs = [], []
