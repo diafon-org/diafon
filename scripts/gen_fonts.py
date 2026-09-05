@@ -20,18 +20,18 @@ V_BASES = list('aeiou')
 
 # (ops, label, restricted-to-bases or None)
 C_ROWS = [
-    ('',   'base',            None),
-    ('j',  '+j · soft',       None),
-    ('c',  '+c · affricate',  'tdr'),
-    ('q',  '+q',              'tdkh'),
-    ('x',  '+x · shift',      None),
-    ('y',  '+y · back-lean',  None),
-    ('jx', '+jx · retro hush','sz'),
-    ('qx', '+qx · retro',     'td'),
-    ('yx', 'special',         None),
-    ('cy', '+c special',      'td'),
-    ('qy', '+q special',      'td'),
-    ('yy', 'retro special',   'tdnlr'),
+    ('',   'base',               None),
+    ('j',  'soft',               None),
+    ('c',  'affricate · tap',    'tdr'),
+    ('q',  'hush · guttural',    'tdkh'),
+    ('x',  'fricative shift',    None),
+    ('y',  'back-lean',          None),
+    ('jx', 'retroflex hush',     'sz'),
+    ('qx', 'retroflex affricate','td'),
+    ('yx', 'the special',        None),
+    ('cy', 'special affricate',  'td'),
+    ('qy', 'special hush',       'td'),
+    ('yy', 'special retroflex',  'tdnlr'),
 ]
 V_ROWS = [
     ('',   'base',            None),
