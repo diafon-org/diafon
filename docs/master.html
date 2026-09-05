@@ -20,7 +20,7 @@
   --paper:#14161b; --card:#1b1e25; --sunken:#101216; --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37;
   --accent:#3ec8cf; --good:#4fc79a; --warn:#e0a44a;
 }
-@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788616500) format("woff2");font-display:swap}
+@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788616538) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:15px}
 .wrap{max-width:1020px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -67,7 +67,6 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin:1.4rem 0 0">
   <label for="table" style="font:600 .72rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">table</label>
   <select id="table" autocomplete="off" style="font:600 .85rem var(--sans);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:.5rem;padding:.4rem .6rem"></select>
-  <span id="state"></span>
 </div>
 <section id="sec-universal">
 <h2>The universal table</h2>
@@ -242,7 +241,7 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 </main>
 <script>
 'use strict';
-const sel=document.getElementById('table'), badge=document.getElementById('state');
+const sel=document.getElementById('table');
 const secs=[...document.querySelectorAll('section[id^=sec-]')];
 sel.innerHTML='<option value="universal" selected>universal</option>'+
   secs.filter(x=>x.id!=='sec-universal').map(x=>{
@@ -250,8 +249,6 @@ sel.innerHTML='<option value="universal" selected>universal</option>'+
     return `<option value="${c}">${x.dataset.name}</option>`;}).join('');
 function show(){
   for(const x of secs) x.hidden = (x.id!=='sec-'+sel.value);
-  const cur=document.getElementById('sec-'+sel.value);
-  badge.innerHTML = cur.dataset.state ? `<span class="badge ${cur.dataset.cls}">${cur.dataset.state}</span>` : '';
 }
 sel.value='universal';
 sel.addEventListener('change', show);
