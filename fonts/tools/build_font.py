@@ -28,14 +28,7 @@ OUT = os.path.join(ROOT, 'fonts', 'Diaphone-Regular.ttf')
 BASIC = ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
          " .,;:!?()[]/-–—'\"·")
 
-# anchor geometry (TOP as fraction of x-height; the rest in em units)
-SINGLE_TOP = 0.15   # how deep the anchor embeds into the letter
-SINGLE_TIP = -0.15  # its tip below the baseline
-STEM_W_TOP = 0.054  # stem width where it leaves the letter
-STEM_W_TIP = 0.030  # stem width at the tip
-LEAN = -0.042       # comma lean of the tip (mirrored pair must read apart)
-SERIF_W = 0.084     # serif foot width
-SERIF_T = 0.026     # serif foot thickness
+# anchor geometry lives in fonts/anchor.yaml — the precise-instruction file
 
 NEW_PRECOMPOSED = {         # cp: (base, mark, above?)
     0x1E37: ('l', 'dotbelowcomb', False),   # ḷ
@@ -114,33 +107,48 @@ def _anchor_glyphs(font):
     from fontTools.pens.transformPen import TransformPen
     from fontTools.misc.transform import Transform
 
+    import yaml as _yaml
+    P = _yaml.safe_load(open(os.path.join(ROOT, 'fonts', 'anchor.yaml')))
     glyf, cmap = font['glyf'], font.getBestCmap()
     upm = font['head'].unitsPerEm
     gs = font.getGlyphSet()
     _, _, _, xh = _outline(gs, cmap[ord('x')])
-    top, tip = SINGLE_TOP * xh, SINGLE_TIP * upm
-    w1, w2 = STEM_W_TOP * upm / 2, STEM_W_TIP * upm / 2
-    lean, sw, st = LEAN * upm, SERIF_W * upm / 2, SERIF_T * upm
+    top, tip = P['attach'], P['tip']
+    sw, st = P['serif']['w'] / 2, P['serif']['t']
 
-    # the serifed anchor: an upright elongated comma, one contour, centred on
-    # x = 0 at the attachment so GPOS lands it mid-letter; spans y[tip, top]
     seed = RecordingPen()
-    seed.moveTo((-w1, top))
-    seed.lineTo((w1, top))                        # top edge, inside the letter
-    seed.lineTo((lean + w2, tip + st))            # right side tapers down
-    seed.lineTo((lean + sw, tip + st))            # serif foot, right
-    seed.lineTo((lean + sw, tip))
-    seed.lineTo((lean - sw, tip))                 # serif foot, left
-    seed.lineTo((lean - sw, tip + st))
-    seed.lineTo((lean - w2, tip + st))            # back up the left side
-    seed.closePath()
+    if P['mode'] == 'comma':
+        # the typeface's own comma, centred, raised to attach, stretched to tip
+        comma, c_cx, c_ymin, c_ymax = _outline(gs, cmap[0x0326])
+        sy = (top - tip) / (c_ymax - c_ymin)
+        t = Transform(P['width'], 0, 0, sy, -P['width'] * c_cx, top - sy * c_ymax)
+        rec = RecordingPen()
+        comma.replay(TransformPen(rec, t))
+        rec.replay(seed)
+        if sw > 0:
+            pts = [pt for op, args in rec.value for pt in args if isinstance(pt, tuple)]
+            tx = min(pts, key=lambda p: p[1])[0]
+            seed.moveTo((tx - sw, tip + st)); seed.lineTo((tx + sw, tip + st))
+            seed.lineTo((tx + sw, tip)); seed.lineTo((tx - sw, tip)); seed.closePath()
+    else:
+        w1, w2 = P['wedge']['top_w'] / 2, P['wedge']['tip_w'] / 2
+        lean = P['wedge']['lean']
+        seed.moveTo((-w1, top))
+        seed.lineTo((w1, top))
+        seed.lineTo((lean + w2, tip + st))
+        seed.lineTo((lean + sw, tip + st))
+        seed.lineTo((lean + sw, tip))
+        seed.lineTo((lean - sw, tip))
+        seed.lineTo((lean - sw, tip + st))
+        seed.lineTo((lean - w2, tip + st))
+        seed.closePath()
 
     def stroke(target_cp, mirror=False, above=False):
         _, cx, _, _ = _outline(gs, cmap[target_cp]) if target_cp in cmap else (None, 0, 0, 0)
         pen = TTGlyphPen(None)
         sx = -1 if mirror else 1
         if above:   # the below anchor rotated 180°, attached at the letter-body top
-            t = Transform(-sx, 0, 0, -1, cx, 0.85 * xh + top)
+            t = Transform(-sx, 0, 0, -1, cx, xh - P['above']['embed'] + top)
         else:
             t = Transform(sx, 0, 0, 1, cx, 0)
         seed.replay(TransformPen(pen, t))
@@ -176,7 +184,7 @@ def _anchor_glyphs(font):
     put(0x0324, pen.glyph(), 0x0323)
     _clone_gpos_mark(font, cmap[0x0313], 'uni0314')
     _clone_gpos_mark(font, cmap[0x0323], 'uni0324')
-    print(f'  anchor family: upright comma, serif foot {2*sw:.0f}x{st:.0f}; 0314 and 0324 created')
+    print(f"  anchor family ({P['mode']}): attach {top} tip {tip} serif {2*sw:.0f}x{st:.0f}; 0314/0324 created")
 
 
 def _precomposed(font):
