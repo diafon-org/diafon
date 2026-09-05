@@ -58,7 +58,8 @@ def load_mapping():
     merges = {c: [{nfd(a), nfd(b)} for a, b in pairs]
               for c, pairs in (m.get('merges') or {}).items()}
     review = m.get('review') or {}
-    shares = {f: {nfd(i) for i in lst} for f, lst in (m.get('shares') or {}).items()}
+    shares = {f: {nfd(i): v for i, v in d.items()}
+              for f, d in (m.get('shares') or {}).items()}
     return cons, vows, over, merges, review, shares
 
 
@@ -102,7 +103,7 @@ def aggregate():
     for form, reads in agg.items():
         if len(reads) < 2 or polyvalent_ok(form) or form in SEQ:
             continue
-        allowed = shares.get(form, set())
+        allowed = set(shares.get(form, {}))
         extra = {i for i in map(nfd, reads) if i not in allowed}
         if extra or not allowed:
             errors.append(f'unlisted share on {form}: {sorted(reads)}')
@@ -156,6 +157,9 @@ th{font:600 .66rem/1.1 var(--mono);letter-spacing:.04em;text-transform:uppercase
 td{padding:.42rem .8rem;border-top:1px solid var(--line);vertical-align:top}
 td.g{font-family:var(--serif);font-size:1.15rem}
 .st{font:600 .68rem/1.3 var(--mono);color:var(--muted);white-space:nowrap}
+.rname{display:block;font:500 .64rem/1.3 var(--mono);color:var(--muted);margin-top:1px}
+.just{display:block;font-size:.74rem;line-height:1.35;color:var(--muted);margin-top:2px;max-width:26ch}
+.just b{color:var(--ink);font:600 .68rem var(--mono)}
 .tt{font:600 .68rem/1.4 var(--mono);color:var(--muted)}
 tr.grp th{background:var(--sunken);color:var(--accent)}
 .badge{display:inline-block;font:600 .66rem/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;
@@ -190,12 +194,15 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 '''
 
 
-def universal_table(agg):
+def universal_table(agg, shares):
     rows = []
     for form, reads in agg.items():
         if form in SEQ or 'w' in form:
             continue    # sequences are two forms in a row; w is length riding free
-        rd = sorted(reads.items(), key=lambda kv: -kv[1][1])
+        sh = shares.get(form, {})
+        prim = next((i for i, v in sh.items() if v == 'primary'), None)
+        rd = sorted(reads.items(),
+                    key=lambda kv: (0 if nfd(kv[0]) == prim else 1, -kv[1][1]))
         total = sum(v[1] for v in reads.values())
         rows.append((len(form), -total, form, form_type(form), rd))
     rows.sort()
@@ -206,18 +213,30 @@ def universal_table(agg):
            'two forms in a row — neither is a form of its own.</p>',
            '<div class="opswrap"><table>',
            '<tr><th>input</th><th>glyph</th><th>type</th>' +
-           ''.join(f'<th>reading {i}</th>' for i in range(1, max_r + 1)) + '</tr>']
+           '<th>primary reading</th>' +
+           ''.join(f'<th>reading {i}</th>' for i in range(2, max_r + 1)) + '</tr>']
     grp = 0
     for keys, _, form, t, rd in rows:
         if keys != grp:
             grp = keys
             out.append(f'<tr class="grp"><th colspan="{3 + max_r}">'
                        f'{keys} keystroke{"s" if keys > 1 else ""}</th></tr>')
-        cells = ''.join(
-            f'<td><a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank" '
-            f'title="{ipa_names.name(ipa)}">{ipa}</a> '
-            f'<span class="st" title="{" ".join(sorted(codes))}">{n}·{fmt(s)}</span></td>'
-            for ipa, (n, s, codes) in rd) + '<td></td>' * (max_r - len(rd))
+        sh = shares.get(form, {})
+        cells = ''
+        for i, (ipa, (n, s, codes)) in enumerate(rd):
+            head = (f'<a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank">{ipa}</a> ')
+            if i == 0:
+                head += f'<span class="st" title="{" ".join(sorted(codes))}">{n}·{fmt(s)}</span>'
+            head += f'<span class="rname">{ipa_names.name(ipa)}</span>'
+            if i > 0:
+                just = sh.get(nfd(ipa))
+                if isinstance(just, dict):
+                    head += ''.join(f'<span class="just"><b>{c}</b> {just.get(c, "")}</span>'
+                                    for c in sorted(codes))
+                else:
+                    head += f'<span class="just">{" ".join(sorted(codes))}</span>'
+            cells += f'<td>{head}</td>'
+        cells += '<td></td>' * (max_r - len(rd))
         out.append(f'<tr><td><code>{form}</code></td><td class="g">{engine.render(form)}</td>'
                    f'<td class="tt">{t}</td>{cells}</tr>')
     out.append('</table></div></section>')
@@ -259,6 +278,7 @@ def language_tables():
 
 def main():
     agg = aggregate()  # validates
+    shares = load_mapping()[5]
     _, secs = language_tables()
     js = """
 <script>
@@ -276,7 +296,7 @@ sel.value='universal';
 sel.addEventListener('change', show);
 show();
 </script>"""
-    html = (HEAD + universal_table(agg) + '\n' + secs +
+    html = (HEAD + universal_table(agg, shares) + '\n' + secs +
             '\n<footer>Diaphone — master tables · <a href="index.html">description</a> · '
             '<a href="play.html">playground</a> · <a href="fonts.html">fonts</a></footer>\n</main>'
             + js + '\n</body>\n</html>\n')

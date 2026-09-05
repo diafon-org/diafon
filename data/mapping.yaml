@@ -233,38 +233,225 @@ merges:
   en: [[ʌ, ə]]   # STRUT is the stressed schwa
 
 # Multiple readings belong to the back-lean (y) and the special (yx / secondary
-# y) families, and to the vowel grave. A REGULAR form carries one reading; the
-# accepted exceptions below are near-identical realisations within one column,
-# plus Georgian's bare aspirates — forced by the affricates' two-operator
-# ceiling (dz~tsʰ~tsʼ has only tc and tcy to land on). The generator fails on
-# any share not listed here.
+# y) families, and to the vowel grave. A REGULAR form carries one reading; every
+# other reading of any form is justified below, language by language. The
+# reading marked `primary` is the form's canonical value (shown aggregated);
+# the special has no canonical value, so its first reading is simply its
+# largest. The generator fails on any reading of a regular form not listed.
 shares:
-  t: [t, t̪, tʰ]
-  d: [d, d̪, ɗ]
-  b: [b, ɓ]
-  p: [p, pʰ]
-  k: [k, kʰ]
-  tc: [ts, tsʰ]
-  tq: [tʃ, tʂ, tɕ, tʃʰ]
-  dq: [dʒ, dʑ]
-  r: [r, ɹ]
-  h: [h, ɦ]
-  v: [v, ʋ]
-  sj: [ʃ, ʂ, ɕ]
-  zj: [ʒ, ʐ, ʑ]
-  kx: [x, χ]
-  gx: [ɣ, ʁ]
-  kq: [q, qʼ]    # Georgian's ejective-only uvular, its lone q
-  a: [a, æ]
-  aj: [ə, ʌ, ɐ]
-  ac: [ɑ, ɒ]
-  uc: [ɯ, ɨ]
-  aw: [aː, æː]   # the a-share, carried through length (ET FI)
-  aq: [ɚ, ɝ]     # both are the rhotacized mid-central vowel
-  # the soft series identifications: a palatal stop IS the soft coronal — no
-  # language contrasts the pair (Czech ř is the modified r the same way)
-  tj: [c, tʲ]
-  dj: [dʲ, ɟ, ʝ]
-  nj: [nʲ, ɲ]
-  lj: [lʲ, ʎ]
-  rj: [rʲ, r̝]
+  t:
+    t: primary
+    t̪:
+      bn: the dental series on the plain slot — retroflex rides y
+      hi: the dental series; ʈ is carried by ty
+      ta: dental t̪ against retroflex ʈ (ty) — the plain slot is the dental
+    tʰ:
+      ka: the bare voiceless series is aspirated — forced by the affricates' two-operator ceiling
+  d:
+    d: primary
+    d̪:
+      bn: the dental series on the plain slot
+      hi: the dental series; ɖ is carried by dy
+    ɗ:
+      vi: implosive realisation of its only voiced coronal stop — the exotic licence
+  b:
+    b: primary
+    ɓ:
+      vi: implosive realisation of its only voiced labial stop — the exotic licence
+  p:
+    p: primary
+    pʰ:
+      ka: the bare voiceless series is aspirated — the two-operator ceiling
+  k:
+    k: primary
+    kʰ:
+      ka: the bare voiceless series is aspirated — the two-operator ceiling
+  tc:
+    ts: primary
+    tsʰ:
+      ka: the bare affricate is aspirated — dz~tsʰ~tsʼ has only tc and tcy to land on
+  tq:
+    tʃ: primary
+    tʂ:
+      zh: the sole hush affricate, retroflex-realised
+    tɕ:
+      ja: the sole hush affricate, alveolo-palatal
+      ko: the sole hush affricate, alveolo-palatal
+      pl: ć — its second hush cz takes the flip (tqx)
+      ru: ч — the sole hush affricate
+      th: the sole hush affricate
+      vi: ch — the sole hush affricate
+    tʃʰ:
+      ka: the bare affricate is aspirated — the two-operator ceiling
+  dq:
+    dʒ: primary
+    dʑ:
+      ja: the sole voiced hush affricate, alveolo-palatal
+      pl: dź — its second hush dż takes the flip (dqx)
+  sj:
+    ʃ: primary
+    ʂ:
+      ru: ш — the sole hush series, retroflex-realised
+      zh: sh — the sole hush series, retroflex-realised
+    ɕ:
+      ja: the sole hush, alveolo-palatal
+      pl: ś — its second hush sz takes the flip (sjx)
+  zj:
+    ʒ: primary
+    ʐ:
+      ru: ж — the sole voiced hush, retroflex-realised
+      zh: r- — the sole voiced hush
+    ʑ:
+      pl: ź — its second hush ż takes the flip (zjx)
+  kx:
+    x: primary
+    χ:
+      ka: uvular, one column from velar — no velar x to contrast
+  gx:
+    ɣ: primary
+    ʁ:
+      ar: ghayn — contrasts the trill r, never ɣ
+      de: the uvular R on the voiced velar slot
+      fr: the uvular R on the voiced velar slot
+      he: resh — the same uvular R
+      ka: voiced uvular fricative, one column out
+      pt: the strong R, uvular-realised
+  kq:
+    q: primary
+    qʼ:
+      ka: ejective-only uvular — its lone q, nothing plainer to contrast
+  r:
+    r: primary
+    ɹ:
+      en: the only rhotic — the r slot, approximant-realised
+  h:
+    h: primary
+    ɦ:
+      cs: voiced h — its only glottal fricative
+      uk: г — voiced h, its only glottal fricative
+  v:
+    v: primary
+    ʋ:
+      hi: the labial approximant — its only v-like sound
+  tj:
+    c: primary
+    tʲ:
+      et: the soft t — one phoneme with the palatal stop
+      ru: ть — the soft t
+      uk: ть — the soft t
+  dj:
+    ɟ: primary
+    dʲ:
+      ru: дь — the soft d
+      uk: дь — the soft d
+    ʝ:
+      es: yeísmo y — the palatal voiced slot, fricative-realised
+  nj:
+    ɲ: primary
+    nʲ:
+      et: the soft n — one phoneme with ɲ
+      ru: нь — the soft n
+      uk: нь — the soft n
+  lj:
+    ʎ: primary
+    lʲ:
+      et: the soft l — one phoneme with ʎ
+      ru: ль — the soft l
+      uk: ль — the soft l
+  rj:
+    rʲ: primary
+    r̝:
+      cs: ř — the modified r; no soft r to contrast
+  ry:
+    ɽ: primary
+    ɻ:
+      ta: ழ — the retroflex approximant; flap and approximant contrast nowhere
+  a:
+    a: primary
+    æ:
+      en: its open front vowel — ɑ sits on ä
+      et: the ä~a pair carries back ɑ against front æ
+      fa: æ is the open front; the rounded back sits on ä
+      fi: as Estonian — ɑ on ä, æ on the open slot
+  ac:
+    ɑ: primary
+    ɒ:
+      fa: rounded open back — no ɑ~ɒ contrast
+      hu: the Hungarian a — rounded, one column from ɑ
+  aj:
+    ə: primary
+    ʌ:
+      en: stressed schwa (merged in the mapping)
+      ko: ㅓ — mid back unrounded, no schwa to contrast
+    ɐ:
+      pt: the reduced a — its only central vowel
+  uc:
+    ɯ: primary
+    ɨ:
+      pl: y — central and back unrounded are interchangeable
+      ro: î/â — the same interchangeable close unrounded
+      vi: ư — the same
+      zh: the apical vowel of zhi/shi/si — closest unrounded slot
+  aw:
+    aː: primary
+    æː:
+      et: the long æ — the a-share carried through length
+      fi: the long æ — the a-share carried through length
+  aq:
+    ɝ: primary
+    ɚ:
+      zh: er (儿/二) — the same rhotacized schwa
+  ay:
+    ã: primary
+    ɑ̃:
+      fr: the nasal low vowel, back-realised — nasal on ä would stack two marks above
+      hi: the nasal low vowel on the plain a slot
+  # the special and the back-lean: per-language readings by design
+  tyx:
+    tʰ: primary
+    t̪ʰ:
+      bn: the aspirated dental — its special
+      hi: the aspirated dental — its special
+    tˤ:
+      ar: the emphatic ṭāʾ — its special
+    tʼ:
+      ka: the ejective — its special
+  dyx:
+    d̪ʱ: primary
+    dˤ:
+      ar: the emphatic ḍād — its special
+  pyx:
+    pʰ: primary
+    pʼ:
+      ka: the ejective — its special
+  kyx:
+    kʰ: primary
+    kʼ:
+      ka: the ejective — its special
+  tcy:
+    tsʰ: primary
+    tsʲ:
+      uk: ць — the soft ts; the anchor on c would collide with c̦
+    tsʼ:
+      ka: the ejective — its special
+  tqy:
+    tʂʰ: primary
+    tʃʰ:
+      bn: the aspirated hush affricate — its special
+      hi: the aspirated hush affricate — its special
+    tɕʰ:
+      ko: the aspirated hush affricate — its special
+      th: the aspirated hush affricate — its special
+    tʃʼ:
+      ka: the ejective — its special
+  syx:
+    sˤ: primary
+    sʲ:
+      et: the soft s — the anchor is taken by the hush point
+      ru: сь — the soft s
+      uk: сь — the soft s
+  zyx:
+    ðˤ: primary
+    zʲ:
+      ru: зь — the soft z
+      uk: зь — the soft z
