@@ -90,27 +90,26 @@ def _anchor_glyphs(font):
     top, tip = SINGLE_TOP * xh, SINGLE_TIP * upm
     sw, st = SERIF_W * upm, SERIF_T * upm
 
-    def stroke(target_cp, mirror=False, above=False, serif=True):
+    # the serifed anchor, built once centred on x = 0 (spans y[tip, top])
+    seed = RecordingPen()
+    sy = (top - tip) / (a_ymax - a_ymin)
+    acute.replay(TransformPen(seed, Transform(-1, 0, 0, -sy, a_cx, top + a_ymin * sy)))
+    pts = [pt for op, args in seed.value for pt in args if isinstance(pt, tuple)]
+    tip_x = min(pts, key=lambda p: p[1])[0]
+    y0, y1 = tip, tip + st
+    x0, x1 = tip_x - sw / 2, tip_x + sw / 2
+    seed.moveTo((x0, y1)); seed.lineTo((x1, y1))
+    seed.lineTo((x1, y0)); seed.lineTo((x0, y0)); seed.closePath()
+
+    def stroke(target_cp, mirror=False, above=False):
         _, cx, _, _ = _outline(gs, cmap[target_cp]) if target_cp in cmap else (None, 0, 0, 0)
         pen = TTGlyphPen(None)
-        if above:
-            sx = -1 if mirror else 1
-            t = Transform(sx, 0, 0, 1, cx - sx * a_cx, xh - a_ymin)
-            acute.replay(TransformPen(pen, t))
+        sx = -1 if mirror else 1
+        if above:   # the below anchor rotated 180°, attached at the letter-body top
+            t = Transform(-sx, 0, 0, -1, cx, 0.85 * xh + top)
         else:
-            sy = (top - tip) / (a_ymax - a_ymin)
-            sx = 1 if mirror else -1
-            t = Transform(sx, 0, 0, -sy, cx - sx * a_cx, top + a_ymin * sy)
-            rec = RecordingPen()
-            acute.replay(TransformPen(rec, t))
-            rec.replay(pen)
-            if serif:
-                pts = [pt for op, args in rec.value for pt in args if isinstance(pt, tuple)]
-                tip_x = min(pts, key=lambda p: p[1])[0]
-                y0, y1 = tip, tip + st
-                x0, x1 = tip_x - sw / 2, tip_x + sw / 2
-                pen.moveTo((x0, y1)); pen.lineTo((x1, y1))
-                pen.lineTo((x1, y0)); pen.lineTo((x0, y0)); pen.closePath()
+            t = Transform(sx, 0, 0, 1, cx, 0)
+        seed.replay(TransformPen(pen, t))
         return pen.glyph()
 
     def put(cp, glyph, model_cp):
