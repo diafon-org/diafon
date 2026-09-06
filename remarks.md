@@ -38,11 +38,10 @@ state only the current system.
   within one language.
 - The mark doctrine: a single dot or anchor is a point of its own, drifting
   only slightly; a doubled dot or reversed anchor flags a variant the base
-  form approximates, the two never contrasting within one language and never
-  stacking. Three-way contrasts prefer plain, anchor and dot (Polish s ś sz =
+  form approximates; the double dot and the anti-anchor contrast freely, and
+  neither ever stacks. Three-way contrasts prefer plain, anchor and dot (Polish s ś sz =
   s ș ṣ); Georgian's ejectives are the bare letters now that its aspirates
-  are h-sequences, which also removed the only double-dot against
-  anti-anchor contrasts (its kʼ~χ and tsʼ~tʃʼ). No language puts four marked
+  are h-sequences, the cleanest reading of the exotic licence. No language puts four marked
   forms on one letter.
 - Retroflex hush rides the flipped anchor (sjy zjy tqy dqy: y flips an
   anchored hush), so retroflex is the anti-anchor everywhere except the thin
