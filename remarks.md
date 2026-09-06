@@ -62,3 +62,9 @@ state only the current system.
   typing always passes through unchanged; the generator enforces it. Mandarin
   cannot lazily flip p t k to Pinyin's aspirates, those keys being spent as
   the plain stops, so the aspirates stay h-sequences.
+- The anchor's construction law (stroke mode): it starts at the letter's own
+  outermost bottom point (right edge for the anchor, left for the reverse),
+  bites up into the letter to absorb its serif, slants toward the letter's
+  middle, always reaches the depth of the deepest descender, and ends in a
+  serif foot; the above-anchors of the float rule mirror this to the
+  ascender line. Baked per letter, so the joint is the letter's own.
