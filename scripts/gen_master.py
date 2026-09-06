@@ -267,13 +267,9 @@ def universal_table(agg, shares):
         shown = (f'<code>{form}</code>' if len(form) == 1 else
                  f'<code>{stem}</code><span class="plus op-{last}">+{last}</span>')
         # when the modifier adds to an already modified form, show that form
-        if len(stem) >= 2 and not form.endswith('xy') and stem in agg:
-            s_sh = shares.get(stem, {})
-            s_prim = next((i for i, v in s_sh.items() if v == 'primary'), None)
-            s_rd = sorted(agg[stem].items(),
-                          key=lambda kv: (0 if nfd(kv[0]) == s_prim else 1, -kv[1][1]))
+        if len(stem) >= 2 and not form.endswith('xy'):
             shown += (f'<span class="prev">from <span class="ug">'
-                      f'{engine.render(stem)}</span> {s_rd[0][0]}</span>')
+                      f'{engine.render(stem)}</span></span>')
         out.append(f'<tr><td>{shown}</td><td class="g">{engine.render(form)}</td>'
                    f'<td class="tt">{t}</td><td>{primary}</td><td>{groups}</td></tr>')
     out.append('</table></div></section>')
