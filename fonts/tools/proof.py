@@ -40,15 +40,14 @@ def main():
     guides = [(0, 'baseline', (160, 160, 160)),
               (xh, 'x-height', (160, 160, 160))]
     if P['mode'] == 'stroke':
-        from fontTools.ttLib import TTFont
-        tt = TTFont(FONT)
-        gl, cm = tt['glyf'], tt.getBestCmap()
-        depth = gl[cm[ord('j')]].yMin
-        rise = gl[cm[ord('l')]].yMax
         S = P['stroke']
+        depth = S['depth']
+        if isinstance(depth, str):
+            from fontTools.ttLib import TTFont
+            tt = TTFont(FONT)
+            depth = tt['glyf'][tt.getBestCmap()[ord('j')]].yMin
         guides += [(S['bite'], f"bite {S['bite']}", (70, 140, 200)),
-                   (depth, f"depth {depth}", (200, 90, 90)),
-                   (rise, f"rise {rise}", (200, 90, 90))]
+                   (depth, f"depth {depth}", (200, 90, 90))]
     else:
         guides += [(P['attach'], f"attach {P['attach']}", (70, 140, 200)),
                    (P['tip'], f"tip {P['tip']}", (200, 90, 90))]

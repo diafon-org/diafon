@@ -7,8 +7,9 @@
 #            right edge for the anchor, the left for the reverse), bites up
 #            into the letter to absorb its serif, slants toward the letter's
 #            middle, reaches the depth of the deepest descender, and ends in
-#            a serif foot. Baked per letter pair via ccmp ligatures; the
-#            above-anchor mirrors it toward the ascender line.
+#            a serif foot: a big long serif with some tilt. Baked per letter
+#            pair via ccmp ligatures; the above-anchor of the float rule is
+#            the vowels' long acute, mirrored for the reverse.
 #   comma  — the typeface's own comma (ball + curved tail), raised to attach
 #            to the letter and stretched to the tip depth
 #   wedge  — a drawn tapered stroke (straight, minimal), centred; also the
@@ -19,8 +20,9 @@ stroke:
   tip_w: 40         # stroke width just above the tip serif
   lean_frac: 0.38   # how far the tip pulls toward the letter's middle (0..1)
   bite: 34          # how far the head climbs into the letter, absorbing the serif
-  depth: j          # tip depth: j = the deepest descender, or a number (e.g. -205)
-  rise: l           # above-anchor tip height: l = the ascender, or a number
+  depth: -330       # tip depth: a number, or j = the deepest descender (-240)
+  above_scale: 1.0  # the above-anchor is the vowels' long acute (mirrored for
+                    #   the reverse), scaled by this, centred on the letter
 attach: 30          # comma/wedge: how deep the head reaches INTO the letter
 tip: -160           # comma/wedge: tail tip depth below the baseline
 width: 1.0          # comma/wedge: horizontal scale of the mark

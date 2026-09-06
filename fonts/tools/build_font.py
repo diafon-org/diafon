@@ -168,14 +168,16 @@ def _bake_strokes(font, gs, cmap, P, xh):
     toward its middle, to descender depth, serifed at the tip; the head bites
     into the letter to absorb its serif. Above-anchors mirror to the ascender."""
     from fontTools.pens.ttGlyphPen import TTGlyphPen
+    from fontTools.pens.transformPen import TransformPen
+    from fontTools.misc.transform import Transform
     S = P['stroke']
     head_w, tw = S['head_w'], S['tip_w'] / 2
     lean, bite = S['lean_frac'], S['bite']
     sw, st = P['serif']['w'] / 2, P['serif']['t']
     depth = (_outline(gs, cmap[ord('j')])[2] if isinstance(S['depth'], str)
              else S['depth'])
-    rise = (_outline(gs, cmap[ord('l')])[3] if isinstance(S['rise'], str)
-            else S['rise'])
+    a_rec, a_cx, a_ymin, _ = _outline(gs, cmap[0x0301])
+    ascale = S.get('above_scale', 1.0)
     glyf, hmtx = font['glyf'], font['hmtx']
     liga = {}
     for base, mark in _anchor_pairs():
@@ -188,29 +190,26 @@ def _bake_strokes(font, gs, cmap, P, xh):
         mx = (min(p[0] for p in pts) + max(p[0] for p in pts)) / 2
         above = mark in (0x0313, 0x0314)
         left = mark in (0x0316, 0x0314)
-        if above:
-            zone = [p for p in pts if p[1] >= xh * 0.85] or pts
-            y0, ty = xh - bite, rise
-        else:
-            zone = [p for p in pts if p[1] <= xh * 0.35] or pts
-            y0, ty = bite, depth
-        edge = (min if left else max)(p[0] for p in zone)
-        tx = edge + lean * (mx - edge)
-        h1, h2 = sorted((edge, edge + head_w if left else edge - head_w))
-        if above:
-            ys = ty - st
-            poly = [(h2, y0), (h1, y0), (tx - tw, ys), (tx - sw, ys),
-                    (tx - sw, ty), (tx + sw, ty), (tx + sw, ys), (tx + tw, ys)]
-        else:
-            ys = ty + st
-            poly = [(h1, y0), (h2, y0), (tx + tw, ys), (tx + sw, ys),
-                    (tx + sw, ty), (tx - sw, ty), (tx - sw, ys), (tx - tw, ys)]
         pen = TTGlyphPen(None)
         rec.replay(pen)
-        pen.moveTo(poly[0])
-        for p in poly[1:]:
-            pen.lineTo(p)
-        pen.closePath()
+        if above:   # the vowels' long acute, mirrored for the reverse
+            sxx = -ascale if left else ascale
+            t = Transform(sxx, 0, 0, ascale,
+                          mx - sxx * a_cx, a_ymin - ascale * a_ymin)
+            a_rec.replay(TransformPen(pen, t))
+        else:
+            zone = [p for p in pts if p[1] <= xh * 0.35] or pts
+            edge = (min if left else max)(p[0] for p in zone)
+            tx = edge + lean * (mx - edge)
+            h1, h2 = sorted((edge, edge + head_w if left else edge - head_w))
+            ys = depth + st
+            poly = [(h1, bite), (h2, bite), (tx + tw, ys), (tx + sw, ys),
+                    (tx + sw, depth), (tx - sw, depth), (tx - sw, ys),
+                    (tx - tw, ys)]
+            pen.moveTo(poly[0])
+            for p in poly[1:]:
+                pen.lineTo(p)
+            pen.closePath()
         name = f'{bname}_uni{mark:04X}'
         glyf[name] = pen.glyph()
         hmtx[name] = hmtx[bname]
@@ -223,8 +222,8 @@ def _bake_strokes(font, gs, cmap, P, xh):
             for table in font['cmap'].tables:
                 if table.isUnicode():
                     table.cmap[cp] = name
-    print(f'  stroke anchors baked: {len(liga)} pairs · '
-          f'depth {depth:.0f} · rise {rise:.0f}')
+    print(f'  stroke anchors baked: {len(liga)} pairs · depth {depth:.0f} · '
+          f'above = acute x{ascale}')
 
 
 def _anchor_glyphs(font):
@@ -299,8 +298,20 @@ def _anchor_glyphs(font):
 
     put(0x0326, stroke(0x0326), 0x0326)                    # the anchor, serifed
     put(0x0316, stroke(0x0316, mirror=True), 0x0316)       # reverse anchor, serifed
-    put(0x0313, stroke(0x0313, above=True), 0x0313)        # comma above
-    put(0x0314, stroke(0x0313, mirror=True, above=True), 0x0313)   # NEW mirror above
+    if P['mode'] == 'stroke':   # bare above marks: the vowels' long acute
+        a_rec, a_cx, a_ymin, _ = _outline(gs, cmap[0x0301])
+        asc = P['stroke'].get('above_scale', 1.0)
+        def acute_mark(mirror=False):
+            pen = TTGlyphPen(None)
+            sxx = -asc if mirror else asc
+            a_rec.replay(TransformPen(pen, Transform(
+                sxx, 0, 0, asc, a_cx - sxx * a_cx, a_ymin - asc * a_ymin)))
+            return pen.glyph()
+        put(0x0313, acute_mark(), 0x0313)
+        put(0x0314, acute_mark(True), 0x0313)
+    else:
+        put(0x0313, stroke(0x0313, above=True), 0x0313)        # comma above
+        put(0x0314, stroke(0x0313, mirror=True, above=True), 0x0313)   # mirror above
 
     # NEW U+0324: two copies of the font's dot below
     dot, d_cx, _, _ = _outline(gs, 'dotbelowcomb')
