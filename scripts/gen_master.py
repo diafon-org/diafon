@@ -127,6 +127,7 @@ HEAD = '''<!doctype html>
 :root{
   --paper:#f5f6f8; --card:#ffffff; --sunken:#eef0f4; --ink:#1a1d24; --muted:#5b6472; --line:#dde1e8;
   --accent:#0e7c86; --good:#2f8f66; --warn:#b06f14;
+  --c-c:#b06f14; --j-c:#3f5bc0; --q-c:#8a4bb0; --x-c:#2f8f66; --y-c:#c0468a;
   --serif:"Diaphone","Charis SIL","Gentium Plus","Noto Serif","Times New Roman",Georgia,serif;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
   --mono:"SF Mono","JetBrains Mono","Menlo","Consolas",monospace;
@@ -134,10 +135,12 @@ HEAD = '''<!doctype html>
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --paper:#14161b; --card:#1b1e25; --sunken:#101216; --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37;
   --accent:#3ec8cf; --good:#4fc79a; --warn:#e0a44a;
+  --c-c:#e0a44a; --j-c:#8b9ff0; --q-c:#c08ee0; --x-c:#4fc79a; --y-c:#e88ac0;
 }}
 :root[data-theme="dark"]{
   --paper:#14161b; --card:#1b1e25; --sunken:#101216; --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37;
   --accent:#3ec8cf; --good:#4fc79a; --warn:#e0a44a;
+  --c-c:#e0a44a; --j-c:#8b9ff0; --q-c:#c08ee0; --x-c:#4fc79a; --y-c:#e88ac0;
 }
 @font-face{font-family:"Diaphone";src:url(diaphone.woff2) format("woff2");font-display:swap}
 *{box-sizing:border-box}
@@ -175,6 +178,8 @@ tr.grp th{background:var(--sunken);color:var(--accent)}
   padding:.34rem .55rem;background:var(--card);color:var(--muted)}
 .toc a b{color:var(--ink)}
 .toc a.st-nat{border-color:var(--good)} .toc a.st-rev{border-color:var(--warn)}
+.plus{font:600 .82rem var(--mono);margin-left:.2rem}
+.op-c{color:var(--c-c)} .op-j{color:var(--j-c)} .op-q{color:var(--q-c)} .op-x{color:var(--x-c)} .op-y{color:var(--y-c)}
 footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
 </style>
 </head>
@@ -202,12 +207,18 @@ _V_BASES = 'aeiou'
 _OPS_ORDER = ['', 'j', 'c', 'q', 'x', 'y', 'jx', 'cx', 'qx', 'cy', 'jy', 'qy', 'yy', 'xy']
 
 
+_LAST_ORDER = ['', 'j', 'c', 'q', 'x', 'y']
+
+
 def _order_key(form):
     base, ops = form[0], form[1:]
     isv = base in _V_BASES
-    ops_rank = _OPS_ORDER.index(ops) if ops in _OPS_ORDER else len(_OPS_ORDER)
+    last = ops[-1] if ops else ''
+    mid = ops[:-1]
+    last_rank = _LAST_ORDER.index(last)
+    mid_rank = _LAST_ORDER.index(mid) if mid in _LAST_ORDER else len(_LAST_ORDER)
     base_rank = (_V_BASES if isv else _C_BASES).index(base)
-    return (len(form), isv, ops_rank, base_rank)
+    return (len(form), last_rank, isv, mid_rank, base_rank)
 
 
 def universal_table(agg, shares):
@@ -251,7 +262,10 @@ def universal_table(agg, shares):
             groups += (f'<div class="rgroup">'
                        f'<a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank">{ipa}</a>'
                        f'<span class="rname">{ipa_names.name(ipa)}</span>{lines}</div>')
-        out.append(f'<tr><td><code>{form}</code></td><td class="g">{engine.render(form)}</td>'
+        stem, last = form[:-1], form[-1]
+        shown = (f'<code>{form}</code>' if len(form) == 1 else
+                 f'<code>{stem}</code><span class="plus op-{last}">+{last}</span>')
+        out.append(f'<tr><td>{shown}</td><td class="g">{engine.render(form)}</td>'
                    f'<td class="tt">{t}</td><td>{primary}</td><td>{groups}</td></tr>')
     out.append('</table></div></section>')
     return '\n'.join(out)
