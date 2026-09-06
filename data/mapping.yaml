@@ -55,7 +55,7 @@ consonants:
   ð: dx
   ŋ: nx
   # the deep points
-  pf: py
+  pf: pf         # a sequence: German never contrasts pf with p+f
   ħ: ky
   ʕ: gy
   # shares on marked points

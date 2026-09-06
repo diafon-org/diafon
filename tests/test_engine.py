@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(
 import engine
 from gen_master import aggregate
 
-SEQS = {'aix', 'aux', 'ojix', 'eix', 'oux', 'ojicx', 'ejix', 'eqicx', 'ajux', 'tyh', 'dyh', 'ryh'}
+SEQS = {'aix', 'aux', 'ojix', 'eix', 'oux', 'ojicx', 'ejix', 'eqicx', 'ajux', 'tyh', 'dyh', 'ryh', 'pf'}
 
 
 def in_use_forms():
