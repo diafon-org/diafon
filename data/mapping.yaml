@@ -62,7 +62,7 @@ consonants:
   ʁ: gx
   ɕ: sj
   ʑ: zj
-  ʂ: sjy        # the flipped anchor; Russian excepted below
+  ʂ: sjy        # the flipped anchor
   ʐ: zjy
   tʂ: tqy
   tɕ: tq
@@ -202,9 +202,7 @@ overrides:
     dˤ: dxy
     sˤ: sxy
     ðˤ: zxy
-  ru:            # soft s z: the anchor is taken by the hush points; and its
-    ʂ: sj        #   hush stays on the plain anchors: s̤ z̤ may not contrast
-    ʐ: zj        #   the anti-anchors within one language
+  ru:            # soft s z: the anchor is taken by the hush points
     sʲ: sxy      #   f v follow them, the anchor sitting badly on their stems
     zʲ: zxy
     fʲ: fxy
@@ -284,15 +282,11 @@ shares:
       pl: dź; its second hush dż takes the dot (dcx)
   sj:
     ʃ: primary
-    ʂ:
-      ru: ш; the plain anchor, since s̤ may not contrast the anti-anchor
     ɕ:
       ja: the sole hush, alveolo-palatal
       pl: ś; its second hush sz takes the dot (sx)
   zj:
     ʒ: primary
-    ʐ:
-      ru: ж; the plain anchor, since z̤ may not contrast the anti-anchor
     ʑ:
       pl: ź; its second hush ż takes the dot (zx)
   kx:
