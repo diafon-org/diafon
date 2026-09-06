@@ -55,3 +55,10 @@ state only the current system.
   default). The mark triangle carries both hierarchies at once: contrast
   strength and value width. "Exotic" said "no universal value", which stopped
   being true when every slot got a stated default.
+- The lazy input layer gets its data home: a `lazy` section in the mapping,
+  per-language candidate shortcuts shown on the language's master table. The
+  law: a shortcut may only claim a sequence the language leaves unspent (an
+  unused form, or one that cannot start a segment in strict mode), so strict
+  typing always passes through unchanged; the generator enforces it. Mandarin
+  cannot lazily flip p t k to Pinyin's aspirates, those keys being spent as
+  the plain stops, so the aspirates stay h-sequences.
