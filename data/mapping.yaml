@@ -75,8 +75,6 @@ consonants:
   dʲ: dj
   kʲ: kj
   gʲ: gj
-  fʲ: fj
-  vʲ: vj
   mʲ: mj
   nʲ: nj
   lʲ: lj
@@ -210,9 +208,11 @@ overrides:
     dˤ: dxy
     sˤ: sxy
     ðˤ: zxy
-  ru:            # soft s z: the anchor is taken by the hush points
-    sʲ: sxy
+  ru:            # soft s z: the anchor is taken by the hush points;
+    sʲ: sxy      #   f v follow them, the anchor sitting badly on their stems
     zʲ: zxy
+    fʲ: fxy
+    vʲ: vxy
   uk:
     sʲ: sxy
     zʲ: zxy
