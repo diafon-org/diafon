@@ -292,28 +292,32 @@ def language_tables():
         d = langs[code]
         label, cls = STATES.get(review.get(code), STATES[None])
         toc.append(f'<a href="#{code}" class="{cls}"><b>{code}</b> {d["name"]}</a>')
-        entries = []
+        byform = {}
         for sec, table in (('consonants', cons), ('vowels', vows)):
             for ipa, freq in d[sec].items():
                 key = nfd(ipa)
                 form = over.get(code, {}).get(key) or table.get(key)
-                entries.append((_order_key(form), form, ipa, freq))
-        entries.sort()
+                byform.setdefault(form, []).append((ipa, freq))
         rows, grp = [], 0
-        for okey, form, ipa, freq in entries:
-            keys = okey[0]
+        rank = {'L': 0, 'M': 1, 'S': 2, 'X': 3}
+        for form in sorted(byform, key=_order_key):
+            keys = _order_key(form)[0]
             if keys != grp:
                 grp = keys
                 rows.append(f'<tr class="grp"><th colspan="5">'
                             f'{keys} keystroke{"s" if keys > 1 else ""}</th></tr>')
-            reading = (f'<a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank">'
-                       f'{ud.normalize("NFC", ipa)}</a>'
-                       f'<span class="rname">{ipa_names.name(ipa)}</span>')
+            pairs = sorted(byform[form], key=lambda p: rank[p[1]])
+            reading = ' = '.join(
+                f'<a class="wref ug" href="{ipa_names.url(i)}" target="_blank">'
+                f'{ud.normalize("NFC", i)}</a>' for i, _ in pairs)
+            reading += f'<span class="rname">{ipa_names.name(pairs[0][0])}</span>'
+            if len(pairs) > 1:
+                reading += '<span class="rname">one phoneme, merged</span>'
             rows.append(f'<tr><td>{form_cell(form)}</td>'
                         f'<td class="g">{engine.render(form)}</td>'
                         f'<td class="tt">{form_type(form)}</td>'
                         f'<td>{reading}</td>'
-                        f'<td class="tt">{freq}</td></tr>')
+                        f'<td class="tt">{pairs[0][1]}</td></tr>')
         secs.append(
             f'<section id="sec-{code}" hidden data-name="{d["name"]}" data-state="{label}" data-cls="{cls}">'
             f'<h2>{d["name"]} <span class="tt">{code} · '
