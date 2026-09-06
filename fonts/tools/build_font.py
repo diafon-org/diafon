@@ -215,18 +215,61 @@ def _bake_strokes(font, gs, cmap, P, xh):
         hmtx[name] = hmtx[bname]
         _register(font, name)
         liga[(bname, mname)] = name
+    # the double dot below (0324) and the double acute (030B), centred on
+    # the letter's middle; the seed is the font's final (svg-curated) mark
+    gsl = font.getGlyphSet()
+    for seed_name, mark, letters in (
+            (cmap.get(0x0324, 'uni0324'), 0x0324, 'bcdfhklmnrstvxz'),
+            ('hungarumlaut', 0x030B, 'aeiou')):
+        if seed_name not in gsl:
+            continue
+        s_rec, s_cx, _, _ = _outline(gsl, seed_name)
+        mname = cmap.get(mark) or f'uni{mark:04X}'
+        for ch in letters:
+            bname = cmap.get(ord(ch))
+            if bname is None:
+                continue
+            rec, mx, _, _ = _outline(gsl, bname)
+            pen = TTGlyphPen(None)
+            if ch == 'i' and mark == 0x030B:   # the tittle yields to the mark
+                cur, kept = [], []
+                for op, args in rec.value:
+                    cur.append((op, args))
+                    if op in ('closePath', 'endPath'):
+                        cpts = [pt for o, a in cur for pt in a
+                                if isinstance(pt, tuple)]
+                        if not cpts or min(p[1] for p in cpts) < xh:
+                            kept.extend(cur)
+                        cur = []
+                for op, args in kept:
+                    getattr(pen, op)(*args)
+            else:
+                rec.replay(pen)
+            s_rec.replay(TransformPen(pen, Transform(1, 0, 0, 1, mx - s_cx, 0)))
+            name = f'{bname}_uni{mark:04X}'
+            glyf[name] = pen.glyph()
+            hmtx[name] = hmtx[bname]
+            _register(font, name)
+            liga[(bname, mname)] = name
+            if ch == 'i' and mark == 0x030B:
+                # the font's own ccmp turns i dotless before our lookup runs
+                for dn in ('dotlessi', 'uni0131'):
+                    if dn in gsl:
+                        liga[(dn, mname)] = name
+                        break
     _add_ccmp_ligatures(font, liga)
-    for cp, base in ((0x0219, 's'), (0x021B, 't')):   # precomposed ș ț
-        name = f'{cmap[ord(base)]}_uni0326'
+    for cp, base, mark in ((0x0219, 's', '0326'), (0x021B, 't', '0326'),
+                           (0x0151, 'o', '030B'), (0x0171, 'u', '030B')):
+        name = f'{cmap[ord(base)]}_uni{mark}'   # precomposed ș ț ő ű
         if name in glyf and cp in cmap:
             for table in font['cmap'].tables:
                 if table.isUnicode():
                     table.cmap[cp] = name
-    print(f'  stroke anchors baked: {len(liga)} pairs · depth {depth:.0f} · '
-          f'above = acute x{ascale}')
+    print(f'  baked: {len(liga)} pairs (anchors, double dots, double acutes) · '
+          f'depth {depth:.0f} · above = acute x{ascale}')
 
 
-def _anchor_glyphs(font):
+def _anchor_glyphs(font, skip_0324=False):
     """The anchor family: rotated acute strokes with a serif foot at the tip."""
     from fontTools.pens.recordingPen import RecordingPen
     from fontTools.pens.ttGlyphPen import TTGlyphPen
@@ -313,13 +356,14 @@ def _anchor_glyphs(font):
         put(0x0313, stroke(0x0313, above=True), 0x0313)        # comma above
         put(0x0314, stroke(0x0313, mirror=True, above=True), 0x0313)   # mirror above
 
-    # NEW U+0324: two copies of the font's dot below
-    dot, d_cx, _, _ = _outline(gs, 'dotbelowcomb')
-    sep = 0.145 * upm
-    pen = TTGlyphPen(None)
-    for off in (-sep / 2, sep / 2):
-        dot.replay(TransformPen(pen, Transform(1, 0, 0, 1, off, 0)))
-    put(0x0324, pen.glyph(), 0x0323)
+    # U+0324: two copies of the font's dot below, unless an svg supplies it
+    if not skip_0324:
+        dot, d_cx, _, _ = _outline(gs, 'dotbelowcomb')
+        sep = 0.145 * upm
+        pen = TTGlyphPen(None)
+        for off in (-sep / 2, sep / 2):
+            dot.replay(TransformPen(pen, Transform(1, 0, 0, 1, off, 0)))
+        put(0x0324, pen.glyph(), 0x0323)
     _clone_gpos_mark(font, cmap[0x0313], 'uni0314')
     _clone_gpos_mark(font, cmap[0x0323], 'uni0324')
     print(f"  anchor family ({P['mode']}): attach {top} tip {tip} serif {2*sw:.0f}x{st:.0f}; 0314/0324 created")
@@ -382,9 +426,8 @@ def build():
     ss.populate(unicodes=sorted((needed - creatable) | {0x0301}))
     ss.subset(font)
 
-    _anchor_glyphs(font)
-    _precomposed(font)
-
+    # svg overrides FIRST, so every baked composition copies the curated shapes
+    svg_done = []
     svg_mod = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'font_svg.py')
     if os.path.exists(svg_mod):
         import importlib.util
@@ -392,9 +435,12 @@ def build():
         font_svg = importlib.util.module_from_spec(spec)
         try:
             spec.loader.exec_module(font_svg)
-            font_svg.import_overrides(font)
+            svg_done = font_svg.import_overrides(font)
         except Exception as e:
             print(f'  (svg overrides skipped: {e})')
+
+    _anchor_glyphs(font, skip_0324='uni0324' in svg_done)
+    _precomposed(font)
 
     name = font['name']
     for nid, val in {1: 'Diaphone', 4: 'Diaphone Regular',

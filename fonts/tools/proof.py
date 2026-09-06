@@ -17,7 +17,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 FONT = os.path.join(ROOT, 'fonts', 'Diaphone-Regular.ttf')
 OUT = os.path.join(ROOT, 'fonts', 'proof.png')
 SIZE = 300
-TEXT = 'ș z̦ c̦ x̦ ț d̦ n̦ m̦ k̦ b̦ s̖ z̖ c̖ x̖ t̖ d̖ n̖ p̓ g̓ p̔'
+TEXT = 'ș z̦ c̦ x̦ ț d̦ n̦ s̖ z̖ c̖ x̖ t̖ d̖ p̓ g̓ p̔ t̤ s̤ z̤ k̤ f̤ v̤ l̤ r̤ c̤ a̋ e̋ i̋ ő ű'
 
 def main():
     P = yaml.safe_load(open(os.path.join(ROOT, 'fonts', 'anchor.yaml')))
