@@ -15,3 +15,11 @@ state only the current system.
 - The Hindi and Bengali aspirated retroflexes are sequences (tyh dyh ryh): a
   consonant wears one mark, the special never stacks, and every one-side
   glyph on those bases is spent.
+- German pf is the sequence p+f (typed pf): German never contrasts the
+  affricate with the cluster, and it was the last one-language point. py
+  returns to the reserve.
+- The low-usage review keeps mj and Russia's other soft-series members (one
+  rule over the series; only s z f v ride the special, the first two forced,
+  the second two for stem fit), keeps eq iq (witnessed points, no glyph
+  cost), keeps ky gy (the back-lean family is per-language by design), and
+  keeps kq and dc (the bare letters q and x doing their script jobs).
