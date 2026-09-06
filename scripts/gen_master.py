@@ -222,6 +222,19 @@ def _order_key(form):
     return (len(form), last_rank, isv, mid_rank, base_rank)
 
 
+def form_cell(form):
+    """Input shown as stem plus its last operator, with the previous form
+    where the stem is itself modified; sequences show as plain letters."""
+    if form in SEQ or len(form) == 1:
+        return f'<code>{form}</code>'
+    stem, last = form[:-1], form[-1]
+    s = f'<code>{stem}</code><span class="plus op-{last}">+{last}</span>'
+    if len(stem) >= 2 and not form.endswith('xy'):
+        s += (f'<span class="prev">from <span class="ug">'
+              f'{engine.render(stem)}</span></span>')
+    return s
+
+
 def universal_table(agg, shares):
     rows = []
     for form, reads in agg.items():
@@ -263,13 +276,7 @@ def universal_table(agg, shares):
             groups += (f'<div class="rgroup">'
                        f'<a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank">{ipa}</a>'
                        f'<span class="rname">{ipa_names.name(ipa)}</span>{lines}</div>')
-        stem, last = form[:-1], form[-1]
-        shown = (f'<code>{form}</code>' if len(form) == 1 else
-                 f'<code>{stem}</code><span class="plus op-{last}">+{last}</span>')
-        # when the modifier adds to an already modified form, show that form
-        if len(stem) >= 2 and not form.endswith('xy'):
-            shown += (f'<span class="prev">from <span class="ug">'
-                      f'{engine.render(stem)}</span></span>')
+        shown = form_cell(form)
         out.append(f'<tr><td>{shown}</td><td class="g">{engine.render(form)}</td>'
                    f'<td class="tt">{t}</td><td>{primary}</td><td>{groups}</td></tr>')
     out.append('</table></div></section>')
@@ -292,11 +299,11 @@ def language_tables():
                 form = over.get(code, {}).get(key) or table.get(key)
                 if freq == 'X':
                     rows.append(f'<tr><td class="g"><a class="wref" href="{ipa_names.url(ipa)}" target="_blank" title="{ipa_names.name(ipa)}">{ud.normalize("NFC", ipa)}</a></td>'
-                                f'<td class="tt">X</td><td><code>{form}</code></td>'
+                                f'<td class="tt">X</td><td>{form_cell(form)}</td>'
                                 f'<td class="g">{engine.render(form)}</td></tr>')
                     continue
                 rows.append(f'<tr><td class="g"><a class="wref" href="{ipa_names.url(ipa)}" target="_blank" title="{ipa_names.name(ipa)}">{ud.normalize("NFC", ipa)}</a></td>'
-                            f'<td class="tt">{freq}</td><td><code>{form}</code></td>'
+                            f'<td class="tt">{freq}</td><td>{form_cell(form)}</td>'
                             f'<td class="g">{engine.render(form)}</td></tr>')
         secs.append(
             f'<section id="sec-{code}" hidden data-name="{d["name"]}" data-state="{label}" data-cls="{cls}">'
