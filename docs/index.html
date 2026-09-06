@@ -72,6 +72,9 @@ svg{width:100%;height:auto;display:block}
 .cat-c rect{fill:var(--c-t);stroke:var(--c-c)} .cat-c .lab{fill:var(--c-c)}
 .cat-j rect{fill:var(--j-t);stroke:var(--j-c)} .cat-j .lab{fill:var(--j-c)}
 .cat-q rect{fill:var(--q-t);stroke:var(--q-c)} .cat-q .lab{fill:var(--q-c)}
+.cat-x rect{fill:var(--x-t);stroke:var(--x-c)} .cat-x .lab{fill:var(--x-c)}
+.cat-y rect{fill:var(--y-t);stroke:var(--y-c)} .cat-y .lab{fill:var(--y-c)}
+.tlab{font-family:var(--mono);font-size:12px;letter-spacing:.05em;fill:var(--muted)}
 footer{margin-top:4rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
 </style>
 </head>
@@ -359,6 +362,36 @@ where nothing contrasts it. Aspiration and
 breathiness are not marks at all: they are the sequence with h
 (<code>th tqh tyh bh</code>), as Hindi, Thai and Vietnamese already
 romanize.</p>
+
+<figure>
+<svg viewBox="0 0 840 480" role="img" aria-label="The mark triangle: one base, two branches, contrast strength falling with proximity">
+  <polygon class="edge" points="420,34 140,446 700,446" stroke-dasharray="6 6"/>
+  <line x1="392" y1="112" x2="330" y2="190" stroke="var(--line)" stroke-width="2"/>
+  <line x1="448" y1="112" x2="510" y2="190" stroke="var(--line)" stroke-width="2"/>
+  <line x1="278" y1="252" x2="240" y2="348" stroke="var(--line)" stroke-width="2"/>
+  <line x1="562" y1="252" x2="600" y2="348" stroke="var(--line)" stroke-width="2"/>
+  <g class="chip-g cat-base" transform="translate(420,80)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">t</text><text class="lab" y="14">t</text><text class="ipa" y="26">the base</text></g>
+  <g class="chip-g cat-j" transform="translate(300,222)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ț</text><text class="lab" y="14">tj</text><text class="ipa" y="26">soft</text></g>
+  <g class="chip-g cat-x" transform="translate(540,222)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ṭ</text><text class="lab" y="14">tx</text><text class="ipa" y="26">θ</text></g>
+  <g class="chip-g cat-y" transform="translate(218,380)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">t̖</text><text class="lab" y="14">ty</text><text class="ipa" y="26">retroflex</text></g>
+  <g class="chip-g cat-y" transform="translate(622,380)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">t̤</text><text class="lab" y="14">txy</text><text class="ipa" y="26">the special</text></g>
+  <line x1="262" y1="418" x2="578" y2="418" stroke="var(--muted)" stroke-width="1.5" marker-start="url(#a1)" marker-end="url(#a2)"/>
+  <defs>
+    <marker id="a1" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M10,0 L0,5 L10,10" fill="none" stroke="var(--muted)"/></marker>
+    <marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="var(--muted)"/></marker>
+  </defs>
+  <text class="tlab" x="420" y="440" text-anchor="middle">strongest contrast</text>
+  <text class="tlab" x="510" y="140" text-anchor="start">second</text>
+  <text class="tlab" x="596" y="305" text-anchor="start">weakest, avoid</text>
+</svg>
+</figure>
+
+<p>The mark triangle is the vowel triangle turned. The base sits at the apex;
+the anchor and the dot grow out of it as two branches, and each branch ends
+in its flagged form, the anti-anchor and the double dot. Contrast strength
+falls with proximity: strongest between the branches, then between the base
+and a branch, weakest between the two forms of one branch, and that last one
+is avoided as a contrast.</p>
 
 <p style="margin-top:1rem">Lowering sits below, everything else above, so
 every attested combination keeps to one mark per side:
