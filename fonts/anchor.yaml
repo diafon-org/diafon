@@ -3,13 +3,27 @@
 # Proof sheet: python3 fonts/tools/proof.py   -> fonts/proof.png (annotated)
 #
 # mode:
+#   stroke — per-letter: starts at the letter's outermost bottom point (the
+#            right edge for the anchor, the left for the reverse), bites up
+#            into the letter to absorb its serif, slants toward the letter's
+#            middle, reaches the depth of the deepest descender, and ends in
+#            a serif foot. Baked per letter pair via ccmp ligatures; the
+#            above-anchor mirrors it toward the ascender line.
 #   comma  — the typeface's own comma (ball + curved tail), raised to attach
 #            to the letter and stretched to the tip depth
-#   wedge  — a drawn tapered stroke (straight, minimal)
-mode: comma
-attach: 30          # how deep the head reaches INTO the letter, above its bottom edge
-tip: -160           # tail tip depth below the baseline
-width: 1.0          # horizontal scale of the mark
+#   wedge  — a drawn tapered stroke (straight, minimal), centred; also the
+#            fallback shape of the bare mark glyphs in stroke mode
+mode: stroke
+stroke:
+  head_w: 88        # stroke width at the joint where it leaves the letter
+  tip_w: 40         # stroke width just above the tip serif
+  lean_frac: 0.38   # how far the tip pulls toward the letter's middle (0..1)
+  bite: 34          # how far the head climbs into the letter, absorbing the serif
+  depth: j          # tip depth: j = the deepest descender, or a number (e.g. -205)
+  rise: l           # above-anchor tip height: l = the ascender, or a number
+attach: 30          # comma/wedge: how deep the head reaches INTO the letter
+tip: -160           # comma/wedge: tail tip depth below the baseline
+width: 1.0          # comma/wedge: horizontal scale of the mark
 serif: {w: 84, t: 26}     # foot at the tail tip; w: 0 removes it
-wedge: {top_w: 54, tip_w: 30, lean: -42}    # wedge mode only
-above: {embed: 30}  # the rotated above-anchor: how deep into the letter top
+wedge: {top_w: 54, tip_w: 30, lean: -42}    # wedge mode and the stroke fallback mark
+above: {embed: 30}  # comma/wedge: the rotated above-anchor's depth into the letter top

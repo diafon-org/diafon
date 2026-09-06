@@ -100,6 +100,133 @@ def _clone_gpos_mark(font, model, new):
     print(f'  GPOS: {new} inherits {n} attachment records from {model}')
 
 
+ANCHOR_MARKS = {0x0326, 0x0316, 0x0313, 0x0314}
+
+
+def _anchor_pairs():
+    """(base letter, anchor mark cp) pairs the system's glyph matrix uses."""
+    src = open(os.path.join(ROOT, 'docs', 'fonts-data.js')).read()
+    data = json.loads(re.search(r'const MATRIX = (.*);', src).group(1))
+    pairs = set()
+    for sec in data.values():
+        for row in sec['rows']:
+            for cell in row['cells']:
+                if not cell:
+                    continue
+                s = unicodedata.normalize('NFD', cell['g'])
+                for i, ch in enumerate(s):
+                    prev = s[i - 1] if i else ''
+                    if ord(ch) in ANCHOR_MARKS and 'a' <= prev <= 'z':
+                        pairs.add((prev, ord(ch)))
+    # the full principled set: below marks on every anchorable letter, above
+    # marks on the descenders and g (the float rule); l r f never anchor
+    for ch in 'bcdghjkmnpqstvxyz':
+        marks = (0x0313, 0x0314) if ch in 'gjpqy' else (0x0326, 0x0316)
+        pairs.update((ch, m) for m in marks)
+    return sorted(pairs)
+
+
+def _add_ccmp_ligatures(font, mapping):
+    """base+mark -> baked glyph, appended to the ccmp feature."""
+    if not mapping or 'GSUB' not in font:
+        return
+    from fontTools.otlLib.builder import buildLigatureSubstSubtable
+    from fontTools.ttLib.tables import otTables as ot
+    st = buildLigatureSubstSubtable(mapping)
+    lookup = ot.Lookup()
+    lookup.LookupType, lookup.LookupFlag = 4, 0
+    lookup.SubTable, lookup.SubTableCount = [st], 1
+    gsub = font['GSUB'].table
+    gsub.LookupList.Lookup.append(lookup)
+    gsub.LookupList.LookupCount = len(gsub.LookupList.Lookup)
+    idx = gsub.LookupList.LookupCount - 1
+    feats = [fr.Feature for fr in gsub.FeatureList.FeatureRecord
+             if fr.FeatureTag == 'ccmp']
+    if not feats:
+        fr = ot.FeatureRecord()
+        fr.FeatureTag = 'ccmp'
+        fr.Feature = ot.Feature()
+        fr.Feature.FeatureParams = None
+        fr.Feature.LookupListIndex, fr.Feature.LookupCount = [], 0
+        gsub.FeatureList.FeatureRecord.append(fr)
+        gsub.FeatureList.FeatureCount = len(gsub.FeatureList.FeatureRecord)
+        fidx = gsub.FeatureList.FeatureCount - 1
+        for sr in gsub.ScriptList.ScriptRecord:
+            for ls in ([sr.Script.DefaultLangSys]
+                       + [r.LangSys for r in sr.Script.LangSysRecord]):
+                if ls:
+                    ls.FeatureIndex.append(fidx)
+                    ls.FeatureCount = len(ls.FeatureIndex)
+        feats = [fr.Feature]
+    for f in feats:
+        f.LookupListIndex.append(idx)
+        f.LookupCount = len(f.LookupListIndex)
+
+
+def _bake_strokes(font, gs, cmap, P, xh):
+    """Per-letter anchors: from the letter's outer bottom point, slanted
+    toward its middle, to descender depth, serifed at the tip; the head bites
+    into the letter to absorb its serif. Above-anchors mirror to the ascender."""
+    from fontTools.pens.ttGlyphPen import TTGlyphPen
+    S = P['stroke']
+    head_w, tw = S['head_w'], S['tip_w'] / 2
+    lean, bite = S['lean_frac'], S['bite']
+    sw, st = P['serif']['w'] / 2, P['serif']['t']
+    depth = (_outline(gs, cmap[ord('j')])[2] if isinstance(S['depth'], str)
+             else S['depth'])
+    rise = (_outline(gs, cmap[ord('l')])[3] if isinstance(S['rise'], str)
+            else S['rise'])
+    glyf, hmtx = font['glyf'], font['hmtx']
+    liga = {}
+    for base, mark in _anchor_pairs():
+        bname = cmap.get(ord(base))
+        if bname is None:
+            continue
+        mname = cmap.get(mark) or f'uni{mark:04X}'
+        rec, _, _, _ = _outline(gs, bname)
+        pts = [pt for op, args in rec.value for pt in args if isinstance(pt, tuple)]
+        mx = (min(p[0] for p in pts) + max(p[0] for p in pts)) / 2
+        above = mark in (0x0313, 0x0314)
+        left = mark in (0x0316, 0x0314)
+        if above:
+            zone = [p for p in pts if p[1] >= xh * 0.85] or pts
+            y0, ty = xh - bite, rise
+        else:
+            zone = [p for p in pts if p[1] <= xh * 0.35] or pts
+            y0, ty = bite, depth
+        edge = (min if left else max)(p[0] for p in zone)
+        tx = edge + lean * (mx - edge)
+        h1, h2 = sorted((edge, edge + head_w if left else edge - head_w))
+        if above:
+            ys = ty - st
+            poly = [(h2, y0), (h1, y0), (tx - tw, ys), (tx - sw, ys),
+                    (tx - sw, ty), (tx + sw, ty), (tx + sw, ys), (tx + tw, ys)]
+        else:
+            ys = ty + st
+            poly = [(h1, y0), (h2, y0), (tx + tw, ys), (tx + sw, ys),
+                    (tx + sw, ty), (tx - sw, ty), (tx - sw, ys), (tx - tw, ys)]
+        pen = TTGlyphPen(None)
+        rec.replay(pen)
+        pen.moveTo(poly[0])
+        for p in poly[1:]:
+            pen.lineTo(p)
+        pen.closePath()
+        name = f'{bname}_uni{mark:04X}'
+        glyf[name] = pen.glyph()
+        hmtx[name] = hmtx[bname]
+        _register(font, name)
+        liga[(bname, mname)] = name
+    _add_ccmp_ligatures(font, liga)
+    for cp, base in ((0x0219, 's'), (0x021B, 't')):   # precomposed ș ț
+        name = f'{cmap[ord(base)]}_uni0326'
+        if name in glyf and cp in cmap:
+            for table in font['cmap'].tables:
+                if table.isUnicode():
+                    table.cmap[cp] = name
+    print(f'  stroke anchors baked: {len(liga)} pairs · '
+          f'depth {depth:.0f} · rise {rise:.0f}')
+
+
 def _anchor_glyphs(font):
     """The anchor family: rotated acute strokes with a serif foot at the tip."""
     from fontTools.pens.recordingPen import RecordingPen
@@ -185,6 +312,8 @@ def _anchor_glyphs(font):
     _clone_gpos_mark(font, cmap[0x0313], 'uni0314')
     _clone_gpos_mark(font, cmap[0x0323], 'uni0324')
     print(f"  anchor family ({P['mode']}): attach {top} tip {tip} serif {2*sw:.0f}x{st:.0f}; 0314/0324 created")
+    if P['mode'] == 'stroke':
+        _bake_strokes(font, gs, cmap, P, xh)
 
 
 def _precomposed(font):
