@@ -23,3 +23,7 @@ state only the current system.
   the second two for stem fit), keeps eq iq (witnessed points, no glyph
   cost), keeps ky gy (the back-lean family is per-language by design), and
   keeps kq and dc (the bare letters q and x doing their script jobs).
+- The retroflex lateral is lx (ḷ, the Indological form): the reverse anchor
+  fights the foot serif on l, and lx was free. The retroflex r stays r̖:
+  Tamil holds three rhotics at once, and the dot and the soft anchor are
+  spent on the tap and the modified r.
