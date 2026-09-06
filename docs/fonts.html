@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Diaphone — Fonts</title>
+<title>Diaphone · Fonts</title>
 <style>
 :root{
   --paper:#f5f6f8; --card:#ffffff; --sunken:#eef0f4; --ink:#1a1d24; --muted:#5b6472; --line:#dde1e8;
@@ -19,7 +19,7 @@
   --paper:#14161b; --card:#1b1e25; --sunken:#101216; --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37;
   --accent:#3ec8cf; --bad:#e07a7a; --warn:#e0a44a;
 }
-@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788656133) format("woff2");font-display:swap}
+@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788685301) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:15px}
 .wrap{max-width:1100px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -63,7 +63,7 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
   <p class="lede">Every glyph the system can draw, as one matrix: bases across,
   derivations down. Study it in the custom <b>Diaphone</b> font (the default)
   or any other face, and see the support gaps. Each tile carries its
-  language count — faded tiles are the grammar's reserve,
+  language count; faded tiles are the grammar's reserve,
   drawn by the rules but used by no current language. Part of
   <a href="index.html">Diaphone</a>.</p>
 </header>
@@ -101,9 +101,9 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 <div class="summary" id="summary"></div>
 
 <div class="legend">
-  <span><span class="sw" style="border-color:var(--bad)"></span><b>mark missing</b> — renders no differently from the bare base</span>
-  <span><span class="sw" style="border-color:var(--warn)"></span><b>fallback</b> — another font stepped in</span>
-  <span><b>faded</b> — reserve: grammatical, not yet used · hover a tile for its input form and codepoints</span>
+  <span><span class="sw" style="border-color:var(--bad)"></span><b>mark missing</b>: renders no differently from the bare base</span>
+  <span><span class="sw" style="border-color:var(--warn)"></span><b>fallback</b>: another font stepped in</span>
+  <span><b>faded</b>: the reserve, grammatical but not yet used · hover a tile for its input form and codepoints</span>
 </div>
 
 <h2>Consonants</h2>
@@ -112,7 +112,7 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 <h2>Vowels</h2>
 <div class="scroll" id="vows"></div>
 
-<footer>Diaphone — fonts · <a href="index.html">description</a> ·
+<footer>Diaphone · fonts · <a href="index.html">description</a> ·
   <a href="master.html">master tables</a> · <a href="play.html">playground</a></footer>
 
 </main>
@@ -174,7 +174,7 @@ function render(){
   const counts = {n: 0, miss: 0, fall: 0};
   document.getElementById('cons').innerHTML = section(MATRIX.cons, fam, famCss, counts);
   document.getElementById('vows').innerHTML = section(MATRIX.vows, fam, famCss, counts);
-  $summary.innerHTML = `<b>${esc(fam)}</b> — ${counts.n} glyphs · ` +
+  $summary.innerHTML = `<b>${esc(fam)}</b>; ${counts.n} glyphs · ` +
     `<span style="color:var(--bad)">${counts.miss} marks missing</span> · ` +
     `<span style="color:var(--warn)">${counts.fall} falling back</span>`;
 }
