@@ -179,6 +179,7 @@ tr.grp th{background:var(--sunken);color:var(--accent)}
 .toc a b{color:var(--ink)}
 .toc a.st-nat{border-color:var(--good)} .toc a.st-rev{border-color:var(--warn)}
 .plus{font:600 .82rem var(--mono);margin-left:.2rem}
+.prev{display:block;font-size:.72rem;color:var(--muted);margin-top:2px;white-space:nowrap}
 .op-c{color:var(--c-c)} .op-j{color:var(--j-c)} .op-q{color:var(--q-c)} .op-x{color:var(--x-c)} .op-y{color:var(--y-c)}
 footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
 </style>
@@ -265,6 +266,14 @@ def universal_table(agg, shares):
         stem, last = form[:-1], form[-1]
         shown = (f'<code>{form}</code>' if len(form) == 1 else
                  f'<code>{stem}</code><span class="plus op-{last}">+{last}</span>')
+        # when the modifier adds to an already modified form, show that form
+        if len(stem) >= 2 and not form.endswith('xy') and stem in agg:
+            s_sh = shares.get(stem, {})
+            s_prim = next((i for i, v in s_sh.items() if v == 'primary'), None)
+            s_rd = sorted(agg[stem].items(),
+                          key=lambda kv: (0 if nfd(kv[0]) == s_prim else 1, -kv[1][1]))
+            shown += (f'<span class="prev">from <span class="ug">'
+                      f'{engine.render(stem)}</span> {s_rd[0][0]}</span>')
         out.append(f'<tr><td>{shown}</td><td class="g">{engine.render(form)}</td>'
                    f'<td class="tt">{t}</td><td>{primary}</td><td>{groups}</td></tr>')
     out.append('</table></div></section>')
