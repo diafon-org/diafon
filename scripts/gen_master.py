@@ -161,6 +161,8 @@ td{padding:.42rem .8rem;border-top:1px solid var(--line);vertical-align:top}
 td.g{font-family:var(--serif);font-size:1.15rem}
 .st{font:600 .68rem/1.3 var(--mono);color:var(--muted);white-space:nowrap}
 .rname{display:block;font:500 .64rem/1.3 var(--mono);color:var(--muted);margin-top:1px}
+a.rname{text-decoration:none}
+a.rname:hover{color:var(--accent);text-decoration:underline}
 .just{display:block;font-size:.74rem;line-height:1.35;color:var(--muted);margin-top:2px;max-width:26ch}
 .just b{color:var(--ink);font:600 .68rem var(--mono)}
 .rgroup{margin-bottom:.55rem}
@@ -263,7 +265,7 @@ def universal_table(agg, shares):
         sh = shares.get(form, {})
         ipa, (n, s, codes) = rd[0]
         primary = (f'<a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank">{ipa}</a>'
-                   f'<span class="rname">{ipa_names.name(ipa)}</span>'
+                   f'<a class="rname" href="{ipa_names.url(ipa)}" target="_blank">{ipa_names.name(ipa)}</a>'
                    f'<span class="st" title="{" ".join(sorted(codes))}">'
                    f'{n} language{"s" if n > 1 else ""} · {fmt(s)} native</span>')
         groups = ''
@@ -275,7 +277,7 @@ def universal_table(agg, shares):
                      else f'<span class="just">{" ".join(sorted(codes))}</span>')
             groups += (f'<div class="rgroup">'
                        f'<a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank">{ipa}</a>'
-                       f'<span class="rname">{ipa_names.name(ipa)}</span>{lines}</div>')
+                       f'<a class="rname" href="{ipa_names.url(ipa)}" target="_blank">{ipa_names.name(ipa)}</a>{lines}</div>')
         shown = form_cell(form)
         out.append(f'<tr><td>{shown}</td><td class="g">{engine.render(form)}</td>'
                    f'<td class="tt">{t}</td><td>{primary}</td><td>{groups}</td></tr>')
@@ -310,7 +312,8 @@ def language_tables():
             reading = ' = '.join(
                 f'<a class="wref ug" href="{ipa_names.url(i)}" target="_blank">'
                 f'{ud.normalize("NFC", i)}</a>' for i, _ in pairs)
-            reading += f'<span class="rname">{ipa_names.name(pairs[0][0])}</span>'
+            reading += (f'<a class="rname" href="{ipa_names.url(pairs[0][0])}"'
+                        f' target="_blank">{ipa_names.name(pairs[0][0])}</a>')
             if len(pairs) > 1:
                 reading += '<span class="rname">one phoneme, merged</span>'
             rows.append(f'<tr><td>{form_cell(form)}</td>'
