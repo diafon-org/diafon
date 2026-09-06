@@ -23,7 +23,7 @@
   --accent:#3ec8cf; --base-c:#3ec8cf; --c-c:#e0a44a; --j-c:#8b9ff0; --q-c:#c08ee0; --x-c:#4fc79a; --y-c:#e88ac0;
   --base-t:#3ec8cf1e; --c-t:#e0a44a22; --j-t:#8b9ff01e; --q-t:#c08ee01e; --x-t:#4fc79a22; --y-t:#e88ac022;
 }
-@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788687312) format("woff2");font-display:swap}
+@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788687900) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1020px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -292,7 +292,9 @@ otherwise have to. Marks, like operators, read per letter class.</p>
 <b>elongated</b> and <b>attached</b> to its base letter. This is deliberate:
 the attached form is not in wide use anywhere, so it can become Diaphone's
 visual signature, and the attachment gives handwriting an easy, distinctive
-gesture: one continuous stroke flowing off the letter. Approximated with
+gesture: one continuous stroke flowing off the letter. It never sits on
+l, r or f; those stems are too thin for it, and their modified forms ride
+the dot family instead (ḷ ṛ r̤ r̈ l̤). Approximated with
 standard combining marks until the Diaphone font carries the true attached
 form: <span class="ug">ț ș n̦</span>, and by the placement rule,
 <span class="ug">g</span> wears its anchor on top.</p>

@@ -23,10 +23,10 @@ import engine
 import ipa_names
 
 C_POINTS = {'sj','zj','tq','dq','tc','dc','kx','gx','kq','hx','rc','tx','dx','nx','py','ky','gy'}
-RETRO = {'ty','dy','ny','ly','ry'}
+RETRO = {'ty','dy','ny'}
 SPECIAL2 = {'tcy','dcy'}
 V_POINTS = {'ij','ej','uj','oj','aj','ic','ec','uc','oc','ac','eq','iq','aq'}
-SEQ = {'aix','aux','ojix','eix','oux','ojicx','ejix','eqicx','ajux','tyh','dyh','ryh','pf'}
+SEQ = {'aix','aux','ojix','eix','oux','ojicx','ejix','eqicx','ajux','tyh','dyh','rch','pf'}
 STATES = {'native': ('native-reviewed', 'st-nat'),
           'reviewed': ('reviewed', 'st-rev'),
           None: ('non-reviewed', 'st-non')}

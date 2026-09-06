@@ -77,21 +77,21 @@ consonants:
   gʲ: gj
   mʲ: mj
   nʲ: nj
-  lʲ: lj
-  rʲ: rj
+  lʲ: lxy
+  rʲ: rxy
   ɲ: nj
-  ʎ: lj
+  ʎ: lxy
   c: tj
   ɟ: dj
   ʝ: dj
-  r̝: rj         # Czech ř, the modified r
+  r̝: rxy       # Czech ř, its special r
   # retroflex (y); the back-lean
   ʈ: ty
   ɖ: dy
   ɳ: ny
   ɭ: lx        # the dot; ḷ is the Indological form, and lx was free
-  ɻ: ry
-  ɽ: ry
+  ɻ: aq        # the vocalic r; the most vowel-like rhotic
+  ɽ: rc        # tap and flap contrast nowhere; Indic writes ṛ
   # the special: secondary y on a marked form, the pair yx on a bare letter
   pʰ: pxy
   tʰ: txy
@@ -107,7 +107,7 @@ consonants:
   ɖʱ: dyh
   dʒʱ: dqx
   gʱ: gxy
-  ɽʱ: ryh
+  ɽʱ: rch
   # long (w); Korean fortis rides length
   p͈: pw
   t͈: tw
@@ -352,20 +352,21 @@ shares:
       et: the soft n; one phoneme with ɲ
       ru: нь; the soft n
       uk: нь; the soft n
-  lj:
-    ʎ: primary
-    lʲ:
-      et: the soft l; one phoneme with ʎ
-      ru: ль; the soft l
-      uk: ль; the soft l
-  rj:
+  rc:
+    ɾ: primary
+    ɽ:
+      bn: flap and tap contrast nowhere; Indic writes ṛ for the flap
+      hi: flap and tap contrast nowhere; Indic writes ṛ for the flap
+  rxy:
     rʲ: primary
     r̝:
-      cs: ř; the modified r; no soft r to contrast
-  ry:
-    ɽ: primary
-    ɻ:
-      ta: ழ; the retroflex approximant; flap and approximant contrast nowhere
+      cs: ř, its special r
+  lxy:
+    ʎ: primary
+    lʲ:
+      et: the soft l, its special
+      ru: ль, the soft l
+      uk: ль, the soft l
   a:
     a: primary
     æ:
@@ -404,6 +405,8 @@ shares:
     ɝ: primary
     ɚ:
       zh: er (儿/二); the same rhotacized schwa
+    ɻ:
+      ta: ழ; the vocalic r, the most vowel-like rhotic
   ay:
     ã: primary
     ɑ̃:

@@ -27,3 +27,8 @@ state only the current system.
   fights the foot serif on l, and lx was free. The retroflex r stays r̖:
   Tamil holds three rhotics at once, and the dot and the soft anchor are
   spent on the tap and the modified r.
+- No anchor ever sits on l, r or f (the stems are too thin). Their families
+  ride the dots: the tap and flap share ṛ, the special r̤ carries the soft r
+  and Czech ř, the vocalic r̈ carries ɚ ɝ and Tamil ɻ, and the soft and
+  palatal laterals sit on l̤. The double dot below and above never contrast
+  within one language.
