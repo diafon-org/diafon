@@ -95,11 +95,14 @@ def glyph(form):
                    for v in MARKS.values() if isinstance(v, dict)):
                 raise ParseError(f'{core}: the dot cannot stack on a marked form')
             g = _mark(g, g[0], 'dot')
-        elif op2 == 'y':                    # the special on a whole letter
-            if any(v.get('below') and v['below'] in g
-                   for v in MARKS.values() if isinstance(v, dict)):
+        elif op2 == 'y':
+            if MARKS['anchor']['below'] in g:   # y flips the anchored affricate
+                g = g.replace(MARKS['anchor']['below'], MARKS['reverse']['below'])
+            elif any(v.get('below') and v['below'] in g
+                     for v in MARKS.values() if isinstance(v, dict)):
                 raise ParseError(f'{core}: the special cannot stack on a marked form')
-            g = _special(g, g[0])
+            else:                               # the special on a bare whole letter
+                g = _special(g, g[0])
         else:
             raise ParseError(f'{core}: {op2} cannot be secondary')
     elif base in V_BASES:
@@ -140,9 +143,12 @@ def _consonant(base, ops):
     op2 = ops[1]
     if op2 == 'x':
         raise ParseError(f'{base}{ops}: x cannot follow {op1}')
-    if op2 == 'y':                          # the special
+    if op2 == 'y':
         if op1 == 'x':                      # the pair xy: y doubles the dot
             return _special(base, base)
+        if op1 == 'j' and base in 'sz':     # y flips the anchored hush
+            a, r = MARKS['anchor'], MARKS['reverse']
+            return g.replace(a['below'], r['below'])
         raise ParseError(f'{base}{ops}: the special cannot stack on a marked form')
     raise ParseError(f'{base}{ops}: {op2} cannot be secondary')
 
