@@ -26,7 +26,7 @@ C_POINTS = {'sj','zj','tq','dq','tc','dc','kx','gx','kq','hx','rc','tx','dx','nx
 RETRO = {'ty','dy','ny'}
 SPECIAL2 = {'tcy','dcy'}
 V_POINTS = {'ij','ej','uj','oj','aj','ic','ec','uc','oc','ac','eq','iq','aq'}
-SEQ = {'aix','aux','ojix','eix','oux','ojicx','ejix','eqicx','ajux','tyh','dyh','rch','pf','ph','th','kh','bh','dh','gh','tch','tqh','dqh'}
+SEQ = {'aix','aux','ojix','eix','oux','ojicx','ejix','eqicx','ajux','tyh','dyh','rch','pf','ph','th','kh','bh','dh','gh','tch','tqh','dqh','tqyh'}
 STATES = {'native': ('native-reviewed', 'st-nat'),
           'reviewed': ('reviewed', 'st-rev'),
           None: ('non-reviewed', 'st-non')}
