@@ -2,9 +2,9 @@
 
 Two layers, strictly separated:
 
-- `languages/<code>.yaml` — **metadata only**: what each language contrasts,
+- `languages/<code>.yaml`, **metadata only**: what each language contrasts,
   per the standard descriptive literature. No system analysis in here.
-- `mapping.yaml` — **the mapping**: phoneme → input form, the explicit,
+- `mapping.yaml`, **the mapping**: phoneme → input form, the explicit,
   reviewable layer between the metadata and everything generated. Global map
   plus per-language `overrides`, reviewed within-language `merges`, and the
   per-language `review` state: non-reviewed → reviewed → native-reviewed.
@@ -12,7 +12,7 @@ Two layers, strictly separated:
 
 `scripts/gen_master.py` validates the mapping (full coverage; no
 within-language form collision outside `merges`) and renders
-`docs/master.html` — the universal table plus every language's own table,
+`docs/master.html`, the universal table plus every language's own table,
 each stamped with its review state.
 
 ## Schema
@@ -34,15 +34,15 @@ vowels:
 
 Per-phoneme T-shirt sizing of how often the phoneme occurs in running text:
 
-- **L** — among the language's most frequent phonemes
-- **M** — ordinary
-- **S** — notably infrequent
-- **X** — marginal: loanword-only, interjection-only, or recessive /
+- **L**: among the language's most frequent phonemes
+- **M**: ordinary
+- **S**: notably infrequent
+- **X**: marginal: loanword-only, interjection-only, or recessive /
   dialect-restricted (Spanish ʎ, French ɑ, Korean ø y)
 
 ## Standard tone vocabulary
 
-Every tonal language maps its input digits onto one canonical contour set —
+Every tonal language maps its input digits onto one canonical contour set,
 never onto ad-hoc accent characters:
 
 | Contour | Chao letters | Shape |
@@ -69,7 +69,7 @@ its own file.
   per-language phoneme frequency studies where available and typological
   judgment otherwise.
 - **Speaker numbers** are rough 2025 estimates of the Ethnologue /
-  encyclopedic ballpark, in millions. Statistics sum **native** counts —
+  encyclopedic ballpark, in millions. Statistics sum **native** counts;
   totals double-count multilingual people.
 
 Phonemes are listed as the language's own contrastive units under the
@@ -77,5 +77,5 @@ mainstream analysis (allophones excluded); long vowels are listed as
 segments, contrastive consonant length is the `geminates` flag; glides j/w
 appear under consonants as is conventional. Where mainstream analyses
 disagree (e.g. English diphthongs, Polish nasal vowels), the file follows
-the majority description, and the Diaphone mapping layer — not this data —
+the majority description, and the Diaphone mapping layer, not this data,
 is where system-specific analysis happens.

@@ -1,4 +1,4 @@
-# French — phoneme metadata only (IPA inventory, coarse frequency,
+# French; phoneme metadata only (IPA inventory, coarse frequency,
 # speakers). No point mapping. freq: L frequent · M ordinary ·
 # S infrequent · X marginal/loan. See data/README.md.
 code: fr

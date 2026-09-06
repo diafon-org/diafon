@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Generate docs/master.html — the master tables.
+"""Generate docs/master.html, the master tables.
 
 The universal table: every input form in use, grouped by keystroke count,
 with its glyph and its readings from the most to the least used (languages ·
-native speakers). Then one table per language — IPA, frequency, input form,
-glyph — stamped with the mapping's review state (non-reviewed · reviewed ·
+native speakers). Then one table per language (IPA, frequency, input form,
+glyph), stamped with the mapping's review state (non-reviewed · reviewed ·
 native-reviewed) from data/mapping.yaml.
 
 Validation as before: every non-X phoneme mapped; no within-language form
@@ -122,7 +122,7 @@ HEAD = '''<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Diaphone — Master Tables</title>
+<title>Diaphone · Master Tables</title>
 <style>
 :root{
   --paper:#f5f6f8; --card:#ffffff; --sunken:#eef0f4; --ink:#1a1d24; --muted:#5b6472; --line:#dde1e8;
@@ -187,9 +187,9 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 <main class="wrap">
 <header>
   <h1>Master tables</h1>
-  <p class="lede">The universal table — every input form in use, its glyph and
-  its readings — and every language's own table, stamped with the review state
-  of its mapping. A language reaches full confidence only with a native or
+  <p class="lede">The universal table lists every input form in use, with its
+  glyph and readings; each language's own table follows, stamped with the
+  review state of its mapping. A language reaches full confidence only with a native or
   expert reviewer. Generated from <code>data/</code> by
   <code>scripts/gen_master.py</code>; the system is defined in
   <a href="index.html">the description</a>, and the
@@ -235,10 +235,10 @@ def universal_table(agg, shares):
     out = ['<section id="sec-universal">', '<h2>The universal table</h2>',
            '<p class="lede">The form inventory: base + up to two operators. '
            'Length (<code>w</code>) rides free on any of these, and diphthongs are '
-           'two forms in a row — neither is a form of its own.</p>',
+           'two forms in a row; neither is a form of its own.</p>',
            '<div class="opswrap"><table>',
            '<tr><th>input</th><th>glyph</th><th>type</th>'
-           '<th>primary reading</th><th>other readings — who and why</th></tr>']
+           '<th>primary reading</th><th>other readings</th></tr>']
     grp = 0
     for key, form, t, rd in rows:
         keys = key[0]
@@ -325,7 +325,7 @@ sel.addEventListener('change', show);
 show();
 </script>"""
     html = (HEAD + universal_table(agg, shares) + '\n' + secs +
-            '\n<footer>Diaphone — master tables · <a href="index.html">description</a> · '
+            '\n<footer>Diaphone · master tables · <a href="index.html">description</a> · '
             '<a href="play.html">playground</a> · <a href="fonts.html">fonts</a></footer>\n</main>'
             + js + '\n</body>\n</html>\n')
     out = os.path.join(ROOT, 'docs', 'master.html')

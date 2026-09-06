@@ -9,7 +9,7 @@
 #   way unless a language appears under `overrides`.
 # - `overrides`: per-language mapping decisions.
 # - `merges`: within one language, two metadata symbols written on the SAME
-#   form — each entry is a reviewed claim that they are one phoneme. Any
+#   form; each entry is a reviewed claim that they are one phoneme. Any
 #   other within-language form collision is an error.
 # - X (marginal) phonemes are not mapped and never counted.
 
@@ -49,7 +49,7 @@ consonants:
   x: kx
   ɣ: gx
   q: kq
-  ʔ: hx      # the shift on h — the dot bears the stop meaning
+  ʔ: hx      # the shift on h; the dot bears the stop meaning
   ɾ: rc
   θ: tx
   ð: dx
@@ -87,7 +87,7 @@ consonants:
   ɟ: dj
   ʝ: dj
   r̝: rj         # Czech ř, the modified r
-  # retroflex (y) — the back-lean
+  # retroflex (y); the back-lean
   ʈ: ty
   ɖ: dy
   ɳ: ny
@@ -103,14 +103,14 @@ consonants:
   tɕʰ: tqx
   tʂʰ: tqx
   t̪ʰ: txy
-  ʈʰ: tyh   # a sequence: ʈ + h — the special cannot stack on the anti-anchor
+  ʈʰ: tyh   # a sequence: ʈ + h; the special cannot stack on the anti-anchor
   bʱ: bxy
   d̪ʱ: dxy
   ɖʱ: dyh
   dʒʱ: dqx
   gʱ: gxy
   ɽʱ: ryh
-  # long (w) — Korean fortis rides length
+  # long (w); Korean fortis rides length
   p͈: pw
   t͈: tw
   k͈: kw
@@ -169,7 +169,7 @@ vowels:
   ã: ay
   õ: oy
   ũ: uy
-  ɑ̃: ay          # FR, HI — the a slot; nasal on ä would stack two above
+  ɑ̃: ay          # FR, HI; the a slot; nasal on ä would stack two above
   ɛ̃: ejy
   œ̃: ejy         # recessive, merged into ɛ̃ for modern speakers
   ɔ̃: ojy
@@ -219,7 +219,7 @@ overrides:
     tsʲ: tcy    # the anchor on c would collide with c̦ /tʃ/
   et:
     sʲ: sxy
-  ja:            # the moraic nasal ん contrasts with n (kani ~ kan'i) — it is
+  ja:            # the moraic nasal ん contrasts with n (kani ~ kan'i); it is
     ɴ: nxy       #   Japanese's special; its yx is otherwise unspent
 
   pl:            # three-way sibilants: plain / hush / hush+shift
@@ -242,34 +242,34 @@ shares:
   t:
     t: primary
     t̪:
-      bn: the dental series on the plain slot — retroflex rides y
+      bn: the dental series on the plain slot; retroflex rides y
       hi: the dental series; ʈ is carried by ty
-      ta: dental t̪ against retroflex ʈ (ty) — the plain slot is the dental
+      ta: dental t̪ against retroflex ʈ (ty); the plain slot is the dental
     tʰ:
-      ka: the bare voiceless series is aspirated — forced by the affricates' two-operator ceiling
+      ka: the bare voiceless series is aspirated; forced by the affricates' two-operator ceiling
   d:
     d: primary
     d̪:
       bn: the dental series on the plain slot
       hi: the dental series; ɖ is carried by dy
     ɗ:
-      vi: implosive realisation of its only voiced coronal stop — the exotic licence
+      vi: implosive realisation of its only voiced coronal stop; the exotic licence
   b:
     b: primary
     ɓ:
-      vi: implosive realisation of its only voiced labial stop — the exotic licence
+      vi: implosive realisation of its only voiced labial stop; the exotic licence
   p:
     p: primary
     pʰ:
-      ka: the bare voiceless series is aspirated — the two-operator ceiling
+      ka: the bare voiceless series is aspirated; the two-operator ceiling
   k:
     k: primary
     kʰ:
-      ka: the bare voiceless series is aspirated — the two-operator ceiling
+      ka: the bare voiceless series is aspirated; the two-operator ceiling
   tc:
     ts: primary
     tsʰ:
-      ka: the bare affricate is aspirated — dz~tsʰ~tsʼ has only tc and tcy to land on
+      ka: the bare affricate is aspirated; dz~tsʰ~tsʼ has only tc and tcy to land on
   tq:
     tʃ: primary
     tʂ:
@@ -277,170 +277,170 @@ shares:
     tɕ:
       ja: the sole hush affricate, alveolo-palatal
       ko: the sole hush affricate, alveolo-palatal
-      pl: ć — its second hush cz takes the flip (tqx)
-      ru: ч — the sole hush affricate
+      pl: ć; its second hush cz takes the flip (tqx)
+      ru: ч; the sole hush affricate
       th: the sole hush affricate
-      vi: ch — the sole hush affricate
+      vi: ch; the sole hush affricate
     tʃʰ:
-      ka: the bare affricate is aspirated — the two-operator ceiling
+      ka: the bare affricate is aspirated; the two-operator ceiling
   dq:
     dʒ: primary
     dʑ:
       ja: the sole voiced hush affricate, alveolo-palatal
-      pl: dź — its second hush dż takes the flip (dqx)
+      pl: dź; its second hush dż takes the flip (dqx)
   sj:
     ʃ: primary
     ʂ:
-      ru: ш — the sole hush series, retroflex-realised
-      zh: sh — the sole hush series, retroflex-realised
+      ru: ш; the sole hush series, retroflex-realised
+      zh: sh; the sole hush series, retroflex-realised
     ɕ:
       ja: the sole hush, alveolo-palatal
-      pl: ś — its second hush sz takes the flip (sjx)
+      pl: ś; its second hush sz takes the flip (sjx)
   zj:
     ʒ: primary
     ʐ:
-      ru: ж — the sole voiced hush, retroflex-realised
-      zh: r- — the sole voiced hush
+      ru: ж; the sole voiced hush, retroflex-realised
+      zh: r-; the sole voiced hush
     ʑ:
-      pl: ź — its second hush ż takes the flip (zjx)
+      pl: ź; its second hush ż takes the flip (zjx)
   kx:
     x: primary
     χ:
-      ka: uvular, one column from velar — no velar x to contrast
+      ka: uvular, one column from velar; no velar x to contrast
   gx:
     ɣ: primary
     ʁ:
-      ar: ghayn — contrasts the trill r, never ɣ
+      ar: ghayn; contrasts the trill r, never ɣ
       de: the uvular R on the voiced velar slot
       fr: the uvular R on the voiced velar slot
-      he: resh — the same uvular R
+      he: resh; the same uvular R
       ka: voiced uvular fricative, one column out
       pt: the strong R, uvular-realised
   kq:
     q: primary
     qʼ:
-      ka: ejective-only uvular — its lone q, nothing plainer to contrast
+      ka: ejective-only uvular; its lone q, nothing plainer to contrast
   r:
     r: primary
     ɹ:
-      en: the only rhotic — the r slot, approximant-realised
+      en: the only rhotic; the r slot, approximant-realised
   h:
     h: primary
     ɦ:
-      cs: voiced h — its only glottal fricative
-      uk: г — voiced h, its only glottal fricative
+      cs: voiced h; its only glottal fricative
+      uk: г; voiced h, its only glottal fricative
   v:
     v: primary
     ʋ:
-      hi: the labial approximant — its only v-like sound
+      hi: the labial approximant; its only v-like sound
   tj:
     c: primary
     tʲ:
-      et: the soft t — one phoneme with the palatal stop
-      ru: ть — the soft t
-      uk: ть — the soft t
+      et: the soft t; one phoneme with the palatal stop
+      ru: ть; the soft t
+      uk: ть; the soft t
   dj:
     ɟ: primary
     dʲ:
-      ru: дь — the soft d
-      uk: дь — the soft d
+      ru: дь; the soft d
+      uk: дь; the soft d
     ʝ:
-      es: yeísmo y — the palatal voiced slot, fricative-realised
+      es: yeísmo y; the palatal voiced slot, fricative-realised
   nj:
     ɲ: primary
     nʲ:
-      et: the soft n — one phoneme with ɲ
-      ru: нь — the soft n
-      uk: нь — the soft n
+      et: the soft n; one phoneme with ɲ
+      ru: нь; the soft n
+      uk: нь; the soft n
   lj:
     ʎ: primary
     lʲ:
-      et: the soft l — one phoneme with ʎ
-      ru: ль — the soft l
-      uk: ль — the soft l
+      et: the soft l; one phoneme with ʎ
+      ru: ль; the soft l
+      uk: ль; the soft l
   rj:
     rʲ: primary
     r̝:
-      cs: ř — the modified r; no soft r to contrast
+      cs: ř; the modified r; no soft r to contrast
   ry:
     ɽ: primary
     ɻ:
-      ta: ழ — the retroflex approximant; flap and approximant contrast nowhere
+      ta: ழ; the retroflex approximant; flap and approximant contrast nowhere
   a:
     a: primary
     æ:
-      en: its open front vowel — ɑ sits on ä
+      en: its open front vowel; ɑ sits on ä
       et: the ä~a pair carries back ɑ against front æ
       fa: æ is the open front; the rounded back sits on ä
-      fi: as Estonian — ɑ on ä, æ on the open slot
+      fi: as Estonian; ɑ on ä, æ on the open slot
   ac:
     ɒ: primary          # c is the rounding flip: the flipped a is the ROUNDED open vowel
     ɑ:
-      en: unrounded open back — no ɒ to contrast; one step from a, which æ holds
-      et: unrounded open back — the flip slot carries its ɑ against æ on a
-      fi: as Estonian — ɑ on the flip, æ on a
-      hi: the unrounded ā — no ɒ to contrast
-      nl: unrounded open back — no ɒ to contrast
+      en: unrounded open back; no ɒ to contrast; one step from a, which æ holds
+      et: unrounded open back; the flip slot carries its ɑ against æ on a
+      fi: as Estonian; ɑ on the flip, æ on a
+      hi: the unrounded ā; no ɒ to contrast
+      nl: unrounded open back; no ɒ to contrast
   aj:
     ə: primary
     ʌ:
       en: stressed schwa (merged in the mapping)
-      ko: ㅓ — mid back unrounded, no schwa to contrast
+      ko: ㅓ; mid back unrounded, no schwa to contrast
     ɐ:
-      pt: the reduced a — its only central vowel
+      pt: the reduced a; its only central vowel
   uc:
     ɯ: primary
     ɨ:
-      pl: y — central and back unrounded are interchangeable
-      ro: î/â — the same interchangeable close unrounded
-      vi: ư — the same
-      zh: the apical vowel of zhi/shi/si — closest unrounded slot
+      pl: y; central and back unrounded are interchangeable
+      ro: î/â; the same interchangeable close unrounded
+      vi: ư; the same
+      zh: the apical vowel of zhi/shi/si; closest unrounded slot
   aw:
     aː: primary
     æː:
-      et: the long æ — the a-share carried through length
-      fi: the long æ — the a-share carried through length
+      et: the long æ; the a-share carried through length
+      fi: the long æ; the a-share carried through length
   aq:
     ɝ: primary
     ɚ:
-      zh: er (儿/二) — the same rhotacized schwa
+      zh: er (儿/二); the same rhotacized schwa
   ay:
     ã: primary
     ɑ̃:
-      fr: the nasal low vowel, back-realised — nasal on ä would stack two marks above
+      fr: the nasal low vowel, back-realised; nasal on ä would stack two marks above
       hi: the nasal low vowel on the plain a slot
   # the special and the back-lean: per-language readings by design
   txy:
     tʰ: primary
     t̪ʰ:
-      bn: the aspirated dental — its special
-      hi: the aspirated dental — its special
+      bn: the aspirated dental; its special
+      hi: the aspirated dental; its special
     tˤ:
-      ar: the emphatic ṭāʾ — its special
+      ar: the emphatic ṭāʾ; its special
     tʼ:
-      ka: the ejective — its special
+      ka: the ejective; its special
   dxy:
     d̪ʱ: primary
     dˤ:
-      ar: the emphatic ḍād — its special
+      ar: the emphatic ḍād; its special
   pxy:
     pʰ: primary
     pʼ:
-      ka: the ejective — its special
+      ka: the ejective; its special
   kxy:
     kʰ: primary
     kʼ:
-      ka: the ejective — its special
+      ka: the ejective; its special
   tcy:
     tsʰ: primary
     tsʲ:
-      uk: ць — the soft ts; the anchor on c would collide with c̦
+      uk: ць; the soft ts; the anchor on c would collide with c̦
     tsʼ:
-      ka: the ejective — its special
+      ka: the ejective; its special
   tqx:
-    tʂ: primary          # the flipped hush — Polish's second series
+    tʂ: primary          # the flipped hush; Polish's second series
     tʂʰ:
-      zh: the aspirated hush — the special cannot stack on the anchor, the flip is free
+      zh: the aspirated hush; the special cannot stack on the anchor, the flip is free
     tʃʰ:
       bn: the aspirated hush affricate on the free flip
       hi: the aspirated hush affricate on the free flip
@@ -457,11 +457,11 @@ shares:
   sxy:
     sˤ: primary
     sʲ:
-      et: the soft s — the anchor is taken by the hush point
-      ru: сь — the soft s
-      uk: сь — the soft s
+      et: the soft s; the anchor is taken by the hush point
+      ru: сь; the soft s
+      uk: сь; the soft s
   zxy:
     ðˤ: primary
     zʲ:
-      ru: зь — the soft z
-      uk: зь — the soft z
+      ru: зь; the soft z
+      uk: зь; the soft z

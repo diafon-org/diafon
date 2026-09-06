@@ -21,14 +21,14 @@ whole_letters:            # forms that are whole script letters, not composition
   aq: r̈
 
 marks:
-  anchor:        {below: "̦", above: "̓"}   # j — the anchor
-  dot:           {below: "̣", above: "̇"}   # x — the fricative shift
-  reverse:       {below: "̖", above: "̔"}   # y — the back-lean
-  special:       {below: "̤", above: "̈"}   # secondary y / yx — the double dot
-  underdot:      {below: "̣"}                    # vowel j — lowered
-  grave:         {above: "̀"}                    # vowel y — the exotic, default nasal
-  acute:         {above: "́"}                    # vowel w — long
+  anchor:        {below: "̦", above: "̓"}   # j; the anchor
+  dot:           {below: "̣", above: "̇"}   # x; the fricative shift
+  reverse:       {below: "̖", above: "̔"}   # y; the back-lean
+  special:       {below: "̤", above: "̈"}   # secondary y / yx; the double dot
+  underdot:      {below: "̣"}                    # vowel j; lowered
+  grave:         {above: "̀"}                    # vowel y; the exotic, default nasal
+  acute:         {above: "́"}                    # vowel w; long
   double_acute:  {above: "̋"}                    # flip + long fused
-  flip:          {above: "̈"}                    # vowel c — on the partner letter
+  flip:          {above: "̈"}                    # vowel c; on the partner letter
 
 flip_partner: {i: u, u: i, e: o, o: e, a: a}
