@@ -121,6 +121,8 @@ def _consonant(base, ops):
     if not ops:
         return g
     op1 = ops[0]
+    if op1 in 'jy' and base in 'lrf':
+        raise ParseError(f'{base}{ops}: no anchor on the thin stems l r f')
     if op1 == 'j':
         g = _mark(g, base, 'anchor')
     elif op1 == 'x':
