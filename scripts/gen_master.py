@@ -24,9 +24,9 @@ import ipa_names
 
 C_POINTS = {'sj','zj','tq','dq','tc','dc','kx','gx','kq','hx','rc','tx','dx','nx','py','ky','gy'}
 RETRO = {'ty','dy','ny','ly','ry'}
-SPECIAL2 = {'tcy','tqy','dqy','tyy','dyy','ryy'}
+SPECIAL2 = {'tcy','dcy'}
 V_POINTS = {'ij','ej','uj','oj','aj','ic','ec','uc','oc','ac','eq','iq','aq'}
-SEQ = {'aix','aux','ojix','eix','oux','ojicx','ejix','eqicx','ajux'}
+SEQ = {'aix','aux','ojix','eix','oux','ojicx','ejix','eqicx','ajux','tyh','dyh','ryh'}
 STATES = {'native': ('native-reviewed', 'st-nat'),
           'reviewed': ('reviewed', 'st-rev'),
           None: ('non-reviewed', 'st-non')}

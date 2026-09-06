@@ -99,17 +99,17 @@ consonants:
   tʰ: txy
   kʰ: kxy
   tsʰ: tcy
-  tʃʰ: tqy
-  tɕʰ: tqy
-  tʂʰ: tqy
+  tʃʰ: tqx
+  tɕʰ: tqx
+  tʂʰ: tqx
   t̪ʰ: txy
-  ʈʰ: tyy
+  ʈʰ: tyh   # a sequence: ʈ + h — the special cannot stack on the anti-anchor
   bʱ: bxy
   d̪ʱ: dxy
-  ɖʱ: dyy
-  dʒʱ: dqy
+  ɖʱ: dyh
+  dʒʱ: dqx
   gʱ: gxy
-  ɽʱ: ryy
+  ɽʱ: ryh
   # long (w) — Korean fortis rides length
   p͈: pw
   t͈: tw
@@ -204,7 +204,7 @@ overrides:
     kʼ: kxy
     qʼ: kq       # ejective-only, no plain q to contrast
     tsʼ: tcy
-    tʃʼ: tqy
+    tʃʼ: tqx
   ar:            # the emphatics = the special
     tˤ: txy
     dˤ: dxy
@@ -437,16 +437,23 @@ shares:
       uk: ць — the soft ts; the anchor on c would collide with c̦
     tsʼ:
       ka: the ejective — its special
-  tqy:
-    tʂʰ: primary
+  tqx:
+    tʂ: primary          # the flipped hush — Polish's second series
+    tʂʰ:
+      zh: the aspirated hush — the special cannot stack on the anchor, the flip is free
     tʃʰ:
-      bn: the aspirated hush affricate — its special
-      hi: the aspirated hush affricate — its special
+      bn: the aspirated hush affricate on the free flip
+      hi: the aspirated hush affricate on the free flip
     tɕʰ:
-      ko: the aspirated hush affricate — its special
-      th: the aspirated hush affricate — its special
+      ko: the aspirated hush affricate on the free flip
+      th: the aspirated hush affricate on the free flip
     tʃʼ:
-      ka: the ejective — its special
+      ka: the ejective hush on the free flip
+  dqx:
+    dʐ: primary
+    dʒʱ:
+      bn: the breathy hush affricate on the free flip
+      hi: the breathy hush affricate on the free flip
   sxy:
     sˤ: primary
     sʲ:

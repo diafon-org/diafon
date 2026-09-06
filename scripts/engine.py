@@ -94,6 +94,9 @@ def glyph(form):
             a, r = MARKS['anchor'], MARKS['reverse']
             g = g.replace(a.get('below', ''), r['below'])
         elif op2 == 'y':                    # the special on a whole letter
+            if any(v.get('below') and v['below'] in g
+                   for v in MARKS.values() if isinstance(v, dict)):
+                raise ParseError(f'{core}: the special cannot stack on a marked form')
             g = _special(g, g[0])
         else:
             raise ParseError(f'{core}: {op2} cannot be secondary')
@@ -137,10 +140,10 @@ def _consonant(base, ops):
             return g.replace(a.get('below', ''), r['below']) \
                     .replace(a.get('above', ''), r['above'])
         raise ParseError(f'{base}{ops}: x cannot follow {op1}')
-    if op2 == 'y':                          # secondary y = the special
+    if op2 == 'y':                          # the special
         if op1 == 'x':                      # the pair xy: y doubles the dot
             return _special(base, base)
-        return _special(g, base)
+        raise ParseError(f'{base}{ops}: the special cannot stack on a marked form')
     raise ParseError(f'{base}{ops}: {op2} cannot be secondary')
 
 
