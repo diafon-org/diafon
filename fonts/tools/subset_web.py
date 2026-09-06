@@ -9,6 +9,7 @@ import json
 import os
 import re
 
+import yaml
 from fontTools import subset
 from fontTools.ttLib import TTFont
 
@@ -24,7 +25,15 @@ def needed_codepoints():
             for cell in row['cells']:
                 if cell:
                     cps.update(ord(c) for c in cell['g'])
-    return cps
+    # every mark the script defines: the playground free-types any form
+    def walk(node):
+        if isinstance(node, dict):
+            for v in node.values():
+                walk(v)
+        elif isinstance(node, str):
+            cps.update(ord(c) for c in node)
+    walk(yaml.safe_load(open(os.path.join(ROOT, 'data', 'script.yaml'))))
+    return {c for c in cps if c >= 0x20}
 
 
 def main():
