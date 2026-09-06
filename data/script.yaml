@@ -26,7 +26,7 @@ marks:
   reverse:       {below: "̖", above: "̔"}   # y; the back-lean
   special:       {below: "̤", above: "̈"}   # secondary y / yx; the double dot
   underdot:      {below: "̣"}                    # vowel j; lowered
-  grave:         {above: "̀"}                    # vowel y; the exotic, default nasal
+  grave:         {above: "̀"}                    # vowel y; the special, default nasal
   acute:         {above: "́"}                    # vowel w; long
   double_acute:  {above: "̋"}                    # flip + long fused
   flip:          {above: "̈"}                    # vowel c; on the partner letter

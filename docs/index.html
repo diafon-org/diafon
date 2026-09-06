@@ -23,7 +23,7 @@
   --accent:#3ec8cf; --base-c:#3ec8cf; --c-c:#e0a44a; --j-c:#8b9ff0; --q-c:#c08ee0; --x-c:#4fc79a; --y-c:#e88ac0;
   --base-t:#3ec8cf1e; --c-t:#e0a44a22; --j-t:#8b9ff01e; --q-t:#c08ee01e; --x-t:#4fc79a22; --y-t:#e88ac022;
 }
-@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788697925) format("woff2");font-display:swap}
+@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788700567) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1020px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -125,7 +125,9 @@ dead keys, no candidate menus, no guessing.</p>
     language-specific or phonetic, and Diaphone is deliberately neither.</li>
   <li><b>A point is not a fixed sound everywhere.</b> A small set covering
     many languages means most points cannot carry one fixed phonetic value.
-    Diaphone makes this graded and explicit; see the bands below.</li>
+    Diaphone makes this graded and explicit; every point holds one stated
+    reading, and one mark family, the special, is read per language; see
+    the mark triangle below.</li>
 </ul>
 
 <h2>Typing: bases and operators</h2>
@@ -203,23 +205,23 @@ base itself, but each meaning is fixed system-wide:</p>
           <code>dy</code> /ɖ/, <code>ny</code> /ɳ/; as a secondary on an
           anchored hush it flips the anchor: <code>sjy</code> /ʂ/,
           <code>tqy</code> /tʂ/, Mandarin zh;
-          and <b>the special</b>, the language's own series with no universal
-          default: <b>the pair xy on a bare letter</b>; emphatic
+          and <b>the special</b>, the language's own series read per
+          language over a stated default: <b>the pair xy on a bare letter</b>; emphatic
           <code>txy</code> /tˤ/, ejective /tʼ/, the soft
           <code>sxy zxy</code>; or a trailing <code>y</code> where the dot's
           place is free (<code>tcy</code>). <b>The special never stacks</b>.
           Aspiration and breathiness are not specials at all: they are
           sequences with h, exactly as they sound; <code>th</code> /tʰ/,
-          <code>bh</code> /bʱ/, <code>tqh</code> for Mandarin ch,
+          <code>bh</code> /bʱ/, <code>tqyh</code> for Mandarin ch,
           <code>tyh</code> /ʈʰ/</td>
-      <td>the exotic slot; its stated default is <b>nasal</b>: <code>ay</code> /ã/</td></tr>
+      <td>the vowel's special; its stated default is <b>nasal</b>: <code>ay</code> /ã/</td></tr>
 </table></div>
 
-<p style="margin-top:1rem">So the exotic band covers vowels by the same
+<p style="margin-top:1rem">So the special covers vowels by the same
 mechanism as consonants, and nasality is not a separate concept; it is the
-vowel exotic's default reading. The exotic does not thin the vowel point set,
+vowel special's stated default. The special does not thin the vowel point set,
 though: the rare front-rounded pair /œ ʏ/ cannot ride it, because French holds
-both /œ/ and nasal vowels and one slot never carries two sounds within one
+both /œ/ and nasal vowels and the special never carries two sounds within one
 language; so they stay ordinary <code>q</code>-points.</p>
 
 <p>Tones need no operator: plain trailing digits, in input and script alike
@@ -232,31 +234,23 @@ costs more than three keystrokes</b>. Any operator can serve as the
 secondary, its reading set by the one before it, exactly as first operators
 read by their base.</p>
 
-<h2>The two bands</h2>
+<h2>Points and the special</h2>
 
-<p>Every point belongs to one of two <span class="term">bands</span>,
-describing how widely its phonetic value may swing across languages:</p>
+<p>Every written form is one of two things:</p>
 
 <div class="opswrap"><table class="ops">
-  <tr><th>Band</th><th>What it covers</th><th>Its law</th></tr>
-  <tr>
-    <td><span class="term">regular</span></td>
-    <td>the point inventory: bases and operator points</td>
-    <td>a point's per-language readings stay in its cell of the point table,
-        drifting at most into a <b>neighbouring column</b>; adjacent place
-        for a consonant, an adjacent quality step for a vowel</td>
-  </tr>
-  <tr>
-    <td><span class="term">exotic</span></td>
-    <td>the special (<code>xy</code>)</td>
-    <td>a language's own series, read per language with no universal value:
-        emphatic, ejective, the soft series; never an arbitrary one-off
-        sound, always in the neighbourhood of its base</td>
-  </tr>
+  <tr><td><span class="term">point</span></td>
+      <td>one reading; per-language values drift at most into a
+          <b>neighbouring column</b>: adjacent place for a consonant, one
+          quality step for a vowel</td></tr>
+  <tr><td><span class="term">the special</span></td>
+      <td>a language's own series over a stated default: emphatic, ejective,
+          soft, nasal; read per language, never an arbitrary one-off sound,
+          always in the neighbourhood of its base</td></tr>
 </table></div>
 
 <p style="margin-top:1rem">There is no sharp line between "fixed" and
-"approximate" points inside the regular band: a <i>p</i> is the same
+"approximate" points: a <i>p</i> is the same
 everywhere, a <i>t</i> may be dental here and alveolar there, and the system
 does not pretend one exists: the neighbouring-column law is the whole
 guarantee.</p>
@@ -271,7 +265,7 @@ dental for alveolar, aspiration on a voiceless stop, rounding in the open
 region (a for ɒ). Neither case covers a miss a listener would notice: no u
 for y, no voicing or manner swaps.</p>
 
-<p><b>Dialect and speech impediments are never recorded.</b> The exotic
+<p><b>Dialect and speech impediments are never recorded.</b> The special's
 notation may be borrowed for such cases (it is rare otherwise), but no new
 notation is ever invented for them. Very fine phonetic qualities stay outside
 the notation entirely, as they do in every practical orthography; Diaphone
@@ -294,9 +288,9 @@ the attached form is not in wide use anywhere, so it can become Diaphone's
 visual signature, and the attachment gives handwriting an easy, distinctive
 gesture: one continuous stroke flowing off the letter. It never sits on
 l, r or f; those stems are too thin for it, and their modified forms ride
-the dot family instead (ḷ ṛ r̤ r̈ l̤). Approximated with
-standard combining marks until the Diaphone font carries the true attached
-form: <span class="ug">ț ș n̦</span>, and by the placement rule,
+the dot family instead (ḷ ṛ r̤ r̈ l̤). Written with the standard
+comma-below characters, which the Diaphone font draws as the true attached
+form: <span class="ug">ț ș n̦</span>, and by the float rule,
 <span class="ug">g</span> wears its anchor on top.</p>
 
 <div class="opswrap"><table class="ops">
@@ -313,8 +307,8 @@ form: <span class="ug">ț ș n̦</span>, and by the placement rule,
   <tr><td><span class="term">double dot</span></td>
       <td>two dots</td>
       <td class="op"><span class="op-x">x</span>+<span class="op-y">y</span></td>
-      <td><b>the special</b>: the mark of a language's own series, no
-          universal default: the pharyngeal series <span class="ug">t̤ s̤ k̤ g̤</span>
+      <td><b>the special</b>: the mark of a language's own series, read
+          per language: the pharyngeal series <span class="ug">t̤ s̤ k̤ g̤</span>
           /tˤ sˤ ħ ʕ/ (Arabic), the soft <span class="ug">s̤ z̤ l̤ r̤</span> (Russian,
           Ukrainian, Estonian; the palatal <span class="ug">l̤</span> /ʎ/ in
           Italian and Portuguese)</td></tr>
@@ -347,7 +341,7 @@ consistent. The vowel marks:</p>
   <tr><td><span class="term">acute</span></td><td>´</td><td class="op op-w">w</td><td>long</td></tr>
   <tr><td><span class="term">double dot</span></td><td>¨</td><td class="op op-c">c</td><td>rounding flip</td></tr>
   <tr><td><span class="term">double acute</span></td><td>˝</td><td class="op op-w"><span class="op-c">c</span> + w</td><td>long flip</td></tr>
-  <tr><td><span class="term">grave</span></td><td>`</td><td class="op op-y">y</td><td>the exotic slot: default nasal: <span class="ug">à</span> /ã/</td></tr>
+  <tr><td><span class="term">grave</span></td><td>`</td><td class="op op-y">y</td><td>the special: default nasal: <span class="ug">à</span> /ã/</td></tr>
   <tr><td><span class="term">underdot</span></td><td>◌̣ (below)</td><td class="op op-j">j</td><td>one step lower: <span class="ug">ị ẹ ụ ọ</span>; on <i>a</i>, the reduced vowel <span class="ug">ạ</span> /ə/</td></tr>
 </table></div>
 
@@ -383,6 +377,9 @@ romanize.</p>
   <text class="tlab" x="420" y="440" text-anchor="middle">strongest contrast</text>
   <text class="tlab" x="510" y="140" text-anchor="start">second</text>
   <text class="tlab" x="596" y="305" text-anchor="start">weakest, avoid</text>
+  <text class="tlab" x="66" y="84">base</text>
+  <text class="tlab" x="66" y="226">point</text>
+  <text class="tlab" x="66" y="384">flag</text>
 </svg>
 </figure>
 
@@ -391,7 +388,10 @@ the anchor and the dot grow out of it as two branches, and each branch ends
 in its flagged form, the anti-anchor and the double dot. Contrast strength
 falls with proximity: strongest between the branches, then between the base
 and a branch, weakest between the two forms of one branch, and that last one
-is avoided as a contrast.</p>
+is avoided as a contrast. Value width follows the same tree: the base and
+the single marks are points, one reading each; at the branch ends the
+reverse anchor stays a point, retroflex everywhere, while the double dot is
+the special, read per language.</p>
 
 <p style="margin-top:1rem">Lowering sits below, everything else above, so
 every attested combination keeps to one mark per side:
@@ -515,12 +515,12 @@ its reading:</p>
     orientation (<span class="ug">ț d̦ n̦</span> = t d n + <code>j</code>).
     The <b>double dot is the special</b>; a language's own series, read per
     language: emphatic, ejective, soft. Aspiration is never a mark: it is the
-    sequence with h (<span class="ug">th c̦h</span> /tʰ tʂʰ/). Retroflex stops ride the anti-anchor
-    (<span class="ug">t̖ d̖ n̖</span>); like palatal and length, retroflexion
+    sequence with h (<span class="ug">th c̖h</span> /tʰ tʂʰ/). Retroflex rides the anti-anchor
+    (<span class="ug">t̖ d̖ n̖ s̖ z̖ c̖ x̖</span>); like palatal and length, retroflexion
     never enters this table beyond the dashed tiles.</span>
 </div>
 
-<p>Sharing in practice: Georgian's ejectives ride its special; Korean fortis
+<p>Sharing in practice: Georgian's ejectives ride the bare letters; Korean fortis
 rides length (<span class="ug">tt</span>); English ʌ is the stressed schwa,
 on <span class="ug">ạ</span>; Hindi's nasal low vowel sits on
 <span class="ug">à</span>, since nasal on <span class="ug">ä</span> would
@@ -573,7 +573,7 @@ centre.</p>
 
 <p>The full form-by-form statistics live in the
 <a href="master.html"><b>master tables</b></a> (the universal table and every
-language's own, each stamped with its review state; the
+language's own, each stamped with its review state); the
 <a href="play.html"><b>playground</b></a> lets you type the input form and
 read the script form live, per language, and the
 <a href="fonts.html"><b>fonts page</b></a> shows every glyph the system can
@@ -591,10 +591,8 @@ draw, in any font, with its support gaps.</p>
   <tr><td>the read form</td><td><span class="term">script form</span></td></tr>
   <tr><td>a letter that carries a point alone</td><td><span class="term">base</span></td></tr>
   <tr><td>a letter that only modifies</td><td><span class="term">operator</span></td></tr>
-  <tr><td>the two value-width classes</td><td><span class="term">bands</span>: regular · exotic</td></tr>
   <tr><td>the signature mark</td><td><span class="term">anchor</span></td></tr>
-  <tr><td>the exotic marks</td><td><span class="term">double dot</span> (the special, consonants) · <span class="term">grave</span> (vowels)</td></tr>
-  <tr><td>the language's own series (xy, double dot)</td><td><span class="term">the special</span></td></tr>
+  <tr><td>the language's own series, read per language</td><td><span class="term">the special</span>: double dot (consonants, <code>xy</code>) · grave (vowels, <code>y</code>)</td></tr>
   <tr><td>marks move above on descender letters</td><td><span class="term">the float rule</span></td></tr>
 </table></div>
 

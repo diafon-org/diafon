@@ -49,3 +49,9 @@ state only the current system.
   its soft s̤ z̤ may not contrast the anti-anchors within one language.
   Polish returns from the dots to the flipped anchors; the dotted sibilants
   retire to reserve. Mandarin ch is tqyh.
+- The bands vocabulary retires. Every written form is either a point (one
+  reading, drifting at most a neighbouring column) or the special (double dot
+  on consonants, grave on vowels: a language's own series over a stated
+  default). The mark triangle carries both hierarchies at once: contrast
+  strength and value width. "Exotic" said "no universal value", which stopped
+  being true when every slot got a stated default.
