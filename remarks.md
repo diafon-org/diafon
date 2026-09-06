@@ -36,3 +36,11 @@ state only the current system.
   and Czech ř, the vocalic r̈ carries ɚ ɝ and Tamil ɻ, and the soft and
   palatal laterals sit on l̤. The double dot below and above never contrast
   within one language.
+- The mark doctrine: a single dot or anchor is a point of its own, drifting
+  only slightly; a doubled dot or reversed anchor flags a variant the base
+  form approximates, the two never contrasting within one language and never
+  stacking. Three-way contrasts prefer plain, anchor and dot (Polish s ś sz =
+  s ș ṣ); Georgian's ejectives are the bare letters now that its aspirates
+  are h-sequences, which also removed the only double-dot against
+  anti-anchor contrasts (its kʼ~χ and tsʼ~tʃʼ). No language puts four marked
+  forms on one letter.

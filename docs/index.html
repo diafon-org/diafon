@@ -23,7 +23,7 @@
   --accent:#3ec8cf; --base-c:#3ec8cf; --c-c:#e0a44a; --j-c:#8b9ff0; --q-c:#c08ee0; --x-c:#4fc79a; --y-c:#e88ac0;
   --base-t:#3ec8cf1e; --c-t:#e0a44a22; --j-t:#8b9ff01e; --q-t:#c08ee01e; --x-t:#4fc79a22; --y-t:#e88ac022;
 }
-@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788691174) format("woff2");font-display:swap}
+@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788692674) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1020px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -189,10 +189,10 @@ base itself, but each meaning is fixed system-wide:</p>
       <td>the manner shift, six fixed points: to the fricative from a stop,
           <code>tx</code> /θ/, <code>dx</code> /ð/, <code>nx</code> /ŋ/,
           <code>kx</code> /x/, <code>gx</code> /ɣ/, and to the stop from the
-          glottal fricative, <code>hx</code> /ʔ/; as a <b>secondary</b> it
-          flips the mark already there; retroflex <code>sjx</code> /ʂ/,
-          <code>tqx</code> /tʂ/; on l, the retroflex lateral,
-          <code>lx</code> /ɭ/</td>
+          glottal fricative, <code>hx</code> /ʔ/; and further dotted points where the letter is free:
+          the second sibilants <code>sx zx</code> /ʂ ʐ/, the retroflex
+          lateral <code>lx</code> /ɭ/, and as a secondary the dotted
+          affricates <code>tcx dcx</code> /tʂ dʐ/</td>
       <td>nonsyllabic on the close vowels: the glides <code>ix</code> /j/,
           <code>ux</code> /w/</td></tr>
   <tr><td class="op op-w">w</td>
@@ -322,11 +322,9 @@ form: <span class="ug">ț ș n̦</span>, and by the placement rule,
   <tr><td><span class="term">reverse anchor</span></td>
       <td>the anchor leaning the other way</td>
       <td class="op op-y">y</td>
-      <td>leans back as the tongue does: retroflex
-          <span class="ug">t̖ d̖ n̖ l̖ r̖</span>, and on a hush point the same
-          flip spelled with secondary <code>x</code>
-          (<span class="ug">ș → s̖</span>, <code>sjx</code>); and the deep
-          points <span class="ug">k̖ g̔</span> /ħ ʕ/</td></tr>
+      <td>leans back as the tongue does: the retroflex stops
+          <span class="ug">t̖ d̖ n̖</span> and the deep points
+          <span class="ug">k̖ g̔</span> /ħ ʕ/</td></tr>
 </table></div>
 
 <p style="margin-top:1rem">Not every point composes from marks; the operator
@@ -355,14 +353,13 @@ consistent. The vowel marks:</p>
 </table></div>
 
 <p style="margin-top:1rem"><code>y</code> is deliberately the nasty letter.
-Alone on a bare base it draws the back-lean, the anti-anchor in its pure
-form; paired with <code>x</code> it always doubles the dot (the special); and
-wherever an anchor flips, the glyph you see is the anti-anchor. A consonant
-wears <b>one mark</b>, and the special never stacks: where a mark already
-sits, the flip carries the special's reading, and what cannot be composed is
-written as the sequence it is: aspiration and breathiness are always
-<code>+h</code> (<code>th tqh tyh bh</code>), as Hindi, Thai and Vietnamese
-already romanize.</p>
+A single mark, dot or anchor, is a point of its own whose value drifts only
+slightly. A doubled dot or a reversed anchor flags a variant the reader
+should notice, with the base form as the good-enough approximation; the two
+never contrast within one language, and neither ever stacks. Aspiration and
+breathiness are not marks at all: they are the sequence with h
+(<code>th tqh tyh bh</code>), as Hindi, Thai and Vietnamese already
+romanize.</p>
 
 <p style="margin-top:1rem">Lowering sits below, everything else above, so
 every attested combination keeps to one mark per side:
@@ -490,8 +487,8 @@ its reading:</p>
     orientation (<span class="ug">ț d̦ n̦</span> = t d n + <code>j</code>).
     The <b>double dot is the special</b>; a language's own series, read per
     language: emphatic, ejective, soft. Aspiration is never a mark: it is the
-    sequence with h (<span class="ug">th c̦h</span> /tʰ tʂʰ/). Retroflex (<span class="ug">t̖ n̖ r̖</span>, the flipped anchor
-    <span class="ug">s̖</span> on hush points), like palatal and length,
+    sequence with h (<span class="ug">th c̦h</span> /tʰ tʂʰ/). Retroflex stops ride the anti-anchor
+    (<span class="ug">t̖ d̖ n̖</span>); like palatal and length, retroflexion
     never enters this table beyond the dashed tiles.</span>
 </div>
 
