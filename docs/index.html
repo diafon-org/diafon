@@ -23,7 +23,7 @@
   --accent:#3ec8cf; --base-c:#3ec8cf; --c-c:#e0a44a; --j-c:#8b9ff0; --q-c:#c08ee0; --x-c:#4fc79a; --y-c:#e88ac0;
   --base-t:#3ec8cf1e; --c-t:#e0a44a22; --j-t:#8b9ff01e; --q-t:#c08ee01e; --x-t:#4fc79a22; --y-t:#e88ac022;
 }
-@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788692674) format("woff2");font-display:swap}
+@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788694031) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1020px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -163,7 +163,7 @@ affricate distinct from affricate-plus-palatal, Korean /t͈/ ~ /tʰ/ keeps
 length distinct from the exotic slot. Between the two beyond-regular letters
 the roles divide by direction: <code>x</code> is the fricative shift
 (<code>kx</code> preserves the letter that names /x/), while <code>y</code>
-leans back, retroflex and the deep points, and pairs into the special.
+leans back for the retroflex stops, and pairs into the special.
 The palatal seat itself belongs to <code>j</code> (<code>tj</code> <i>is</i>
 Hungarian ty), so <code>ty</code> cannot be mistaken for it.</p>
 
@@ -199,9 +199,8 @@ base itself, but each meaning is fixed system-wide:</p>
       <td>long, geminate</td>
       <td>long</td></tr>
   <tr><td class="op op-y">y</td>
-      <td>leans back: retroflex on the coronals: <code>ty</code> /ʈ/,
-          <code>ny</code> /ɳ/, <code>ry</code> /ɽ/; the deep points
-          <code>ky</code> /ħ/, <code>gy</code> /ʕ/;
+      <td>leans back: the retroflex stops <code>ty</code> /ʈ/,
+          <code>dy</code> /ɖ/, <code>ny</code> /ɳ/;
           and <b>the special</b>, the language's own series with no universal
           default: <b>the pair xy on a bare letter</b>; emphatic
           <code>txy</code> /tˤ/, ejective /tʼ/, the soft
@@ -314,17 +313,15 @@ form: <span class="ug">ț ș n̦</span>, and by the placement rule,
       <td>two dots</td>
       <td class="op"><span class="op-x">x</span>+<span class="op-y">y</span></td>
       <td><b>the special</b>: the mark of a language's own series, no
-          universal default: emphatic <span class="ug">t̤ s̤</span>
-          /tˤ sˤ/ (Arabic), ejective <span class="ug">t̤</span> /tʼ/
-          (Georgian), the soft <span class="ug">s̤ z̤ l̤ r̤</span> (Russian,
+          universal default: the pharyngeal series <span class="ug">t̤ s̤ k̤ g̤</span>
+          /tˤ sˤ ħ ʕ/ (Arabic), the soft <span class="ug">s̤ z̤ l̤ r̤</span> (Russian,
           Ukrainian, Estonian; the palatal <span class="ug">l̤</span> /ʎ/ in
           Italian and Portuguese)</td></tr>
   <tr><td><span class="term">reverse anchor</span></td>
       <td>the anchor leaning the other way</td>
       <td class="op op-y">y</td>
       <td>leans back as the tongue does: the retroflex stops
-          <span class="ug">t̖ d̖ n̖</span> and the deep points
-          <span class="ug">k̖ g̔</span> /ħ ʕ/</td></tr>
+          <span class="ug">t̖ d̖ n̖</span></td></tr>
 </table></div>
 
 <p style="margin-top:1rem">Not every point composes from marks; the operator
@@ -369,7 +366,7 @@ flip-and-lowered pair <span class="ug">ọ̈</span> /œ/,
 
 <h2>The consonant table</h2>
 
-<p>All thirty-one consonant points: the script glyph, its input label, and
+<p>All twenty-nine consonant points: the script glyph, its input label, and
 its reading:</p>
 
 <div class="scroll"><table class="grid">
@@ -439,10 +436,7 @@ its reading:</p>
     <div class="pt vl"><span class="nat">ḳ</span><span class="lab">kx</span><span class="ipa">x</span></div>
     <div class="pt vd"><span class="nat">ġ</span><span class="lab">gx</span><span class="ipa">ɣ</span></div>
   </div></td>
-  <td><div class="cell">
-    <div class="pt vl"><span class="nat">k̖</span><span class="lab">ky</span><span class="ipa">ħ</span></div>
-    <div class="pt vd"><span class="nat">g̔</span><span class="lab">gy</span><span class="ipa">ʕ</span></div>
-  </div></td>
+  <td></td>
   <td><div class="cell">
     <div class="pt vl"><span class="nat">h</span><span class="lab">h</span><span class="ipa">h</span></div>
   </div></td>
@@ -480,9 +474,8 @@ its reading:</p>
   <span><span class="sw" style="background:var(--base-t);border:1.6px solid var(--base-c)"></span><b>voiceless</b> (left)</span>
   <span><span class="sw" style="background:var(--c-t);border:1.6px solid var(--c-c)"></span><b>voiced</b> (right)</span>
   <span>each tile: <span class="ug"><b>script glyph</b></span> · <code>input</code> · ipa</span>
-  <span><b>solid</b> = a point, one universal reading: the shifted fricatives
-    <span class="ug">ṭ ḍ ṇ ḳ ġ</span> /θ ð ŋ x ɣ/ and the deep
-    <span class="ug">k̖ g̔</span> /ħ ʕ/ included ·
+  <span><b>solid</b> = a point, one universal reading; the shifted fricatives
+    <span class="ug">ṭ ḍ ṇ ḳ ġ ḥ</span> /θ ð ŋ x ɣ ʔ/ included ·
     <b>dashed</b> = a composition of the regular machinery, shown for
     orientation (<span class="ug">ț d̦ n̦</span> = t d n + <code>j</code>).
     The <b>double dot is the special</b>; a language's own series, read per
