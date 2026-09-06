@@ -52,7 +52,7 @@ BASE = {
  'æ': 'near-open front unrounded vowel', 'ɐ': 'near-open central vowel',
  'a': 'open central unrounded vowel', 'ɑ': 'open back unrounded vowel',
  'ɒ': 'open back rounded vowel',
- 'r̝': 'raised alveolar trill (Czech ř)',
+ 'r̝': 'raised alveolar trill',
  't͈ɕ': 'fortis alveolo-palatal affricate',
 }
 MODS = {
