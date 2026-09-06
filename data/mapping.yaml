@@ -93,20 +93,20 @@ consonants:
   ɻ: aq        # the vocalic r; the most vowel-like rhotic
   ɽ: rc        # tap and flap contrast nowhere; Indic writes ṛ
   # the special: secondary y on a marked form, the pair yx on a bare letter
-  pʰ: pxy
-  tʰ: txy
-  kʰ: kxy
-  tsʰ: tcy
-  tʃʰ: tqx
-  tɕʰ: tqx
-  tʂʰ: tqx
-  t̪ʰ: txy
+  pʰ: ph        # aspiration is always the sequence with h
+  tʰ: th
+  kʰ: kh
+  tsʰ: tch
+  tʃʰ: tqh
+  tɕʰ: tqh
+  tʂʰ: tqh
+  t̪ʰ: th
   ʈʰ: tyh   # a sequence: ʈ + h; the special cannot stack on the anti-anchor
-  bʱ: bxy
-  d̪ʱ: dxy
+  bʱ: bh
+  d̪ʱ: dh
   ɖʱ: dyh
-  dʒʱ: dqx
-  gʱ: gxy
+  dʒʱ: dqh
+  gʱ: gh
   ɽʱ: rch
   # long (w); Korean fortis rides length
   p͈: pw
@@ -191,12 +191,7 @@ review:
   zh: reviewed
 
 overrides:
-  ka:            # bare voiceless = the aspirated series; ejectives = the special
-    pʰ: p
-    tʰ: t
-    kʰ: k
-    tsʰ: tc
-    tʃʰ: tq
+  ka:            # the ejectives are its special
     pʼ: pxy
     tʼ: txy
     kʼ: kxy
@@ -245,8 +240,6 @@ shares:
       bn: the dental series on the plain slot; retroflex rides y
       hi: the dental series; ʈ is carried by ty
       ta: dental t̪ against retroflex ʈ (ty); the plain slot is the dental
-    tʰ:
-      ka: the bare voiceless series is aspirated; forced by the affricates' two-operator ceiling
   d:
     d: primary
     d̪:
@@ -260,16 +253,10 @@ shares:
       vi: implosive realisation of its only voiced labial stop; the exotic licence
   p:
     p: primary
-    pʰ:
-      ka: the bare voiceless series is aspirated; the two-operator ceiling
   k:
     k: primary
-    kʰ:
-      ka: the bare voiceless series is aspirated; the two-operator ceiling
   tc:
     ts: primary
-    tsʰ:
-      ka: the bare affricate is aspirated; dz~tsʰ~tsʼ has only tc and tcy to land on
   tq:
     tʃ: primary
     tʂ:
@@ -281,8 +268,6 @@ shares:
       ru: ч; the sole hush affricate
       th: the sole hush affricate
       vi: ch; the sole hush affricate
-    tʃʰ:
-      ka: the bare affricate is aspirated; the two-operator ceiling
   dq:
     dʒ: primary
     dʑ:
@@ -414,49 +399,17 @@ shares:
       hi: the nasal low vowel on the plain a slot
   # the special and the back-lean: per-language readings by design
   txy:
-    tʰ: primary
-    t̪ʰ:
-      bn: the aspirated dental; its special
-      hi: the aspirated dental; its special
-    tˤ:
-      ar: the emphatic ṭāʾ; its special
+    tˤ: primary
     tʼ:
-      ka: the ejective; its special
-  dxy:
-    d̪ʱ: primary
-    dˤ:
-      ar: the emphatic ḍād; its special
-  pxy:
-    pʰ: primary
-    pʼ:
-      ka: the ejective; its special
-  kxy:
-    kʰ: primary
-    kʼ:
-      ka: the ejective; its special
+      ka: the ejective, its special
   tcy:
-    tsʰ: primary
-    tsʲ:
-      uk: ць; the soft ts; the anchor on c would collide with c̦
+    tsʲ: primary
     tsʼ:
-      ka: the ejective; its special
+      ka: the ejective, its special
   tqx:
     tʂ: primary          # the flipped hush; Polish's second series
-    tʂʰ:
-      zh: the aspirated hush; the special cannot stack on the anchor, the flip is free
-    tʃʰ:
-      bn: the aspirated hush affricate on the free flip
-      hi: the aspirated hush affricate on the free flip
-    tɕʰ:
-      ko: the aspirated hush affricate on the free flip
-      th: the aspirated hush affricate on the free flip
     tʃʼ:
       ka: the ejective hush on the free flip
-  dqx:
-    dʐ: primary
-    dʒʱ:
-      bn: the breathy hush affricate on the free flip
-      hi: the breathy hush affricate on the free flip
   sxy:
     sˤ: primary
     sʲ:

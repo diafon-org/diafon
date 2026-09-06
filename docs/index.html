@@ -23,7 +23,7 @@
   --accent:#3ec8cf; --base-c:#3ec8cf; --c-c:#e0a44a; --j-c:#8b9ff0; --q-c:#c08ee0; --x-c:#4fc79a; --y-c:#e88ac0;
   --base-t:#3ec8cf1e; --c-t:#e0a44a22; --j-t:#8b9ff01e; --q-t:#c08ee01e; --x-t:#4fc79a22; --y-t:#e88ac022;
 }
-@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788687900) format("woff2");font-display:swap}
+@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788691174) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1020px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -203,14 +203,14 @@ base itself, but each meaning is fixed system-wide:</p>
           <code>ny</code> /ɳ/, <code>ry</code> /ɽ/; the deep points
           <code>ky</code> /ħ/, <code>gy</code> /ʕ/;
           and <b>the special</b>, the language's own series with no universal
-          default: <b>the pair xy on a bare letter</b>; aspirated
-          <code>txy</code> /tʰ/, breathy <code>bxy</code> /bʱ/, ejective,
-          emphatic, the soft <code>sxy zxy</code>; or a trailing
-          <code>y</code> where the dot's place is free (<code>tcy</code>
-          /tsʰ/). <b>The special never stacks</b>: on an anchored form the
-          flip carries its reading (<code>tqx</code> /tʂʰ/ in Mandarin), and
-          the aspirated retroflexes are true sequences: ʈʰ =
-          <code>tyh</code>, ʈ plus h</td>
+          default: <b>the pair xy on a bare letter</b>; emphatic
+          <code>txy</code> /tˤ/, ejective /tʼ/, the soft
+          <code>sxy zxy</code>; or a trailing <code>y</code> where the dot's
+          place is free (<code>tcy</code>). <b>The special never stacks</b>.
+          Aspiration and breathiness are not specials at all: they are
+          sequences with h, exactly as they sound; <code>th</code> /tʰ/,
+          <code>bh</code> /bʱ/, <code>tqh</code> for Mandarin ch,
+          <code>tyh</code> /ʈʰ/</td>
       <td>the exotic slot; its stated default is <b>nasal</b>: <code>ay</code> /ã/</td></tr>
 </table></div>
 
@@ -314,11 +314,11 @@ form: <span class="ug">ț ș n̦</span>, and by the placement rule,
       <td>two dots</td>
       <td class="op"><span class="op-x">x</span>+<span class="op-y">y</span></td>
       <td><b>the special</b>: the mark of a language's own series, no
-          universal default: aspirated <span class="ug">t̤</span> /tʰ/,
-          breathy <span class="ug">b̤</span> /bʱ/ (ZH TH KO VI HI BN),
-          ejective <span class="ug">p̤</span> /pʼ/ (KA), emphatic
-          <span class="ug">t̤ s̤</span> /tˤ sˤ/ (AR), the soft
-          <span class="ug">s̤ z̤ c̤</span> /sʲ zʲ tsʲ/ (RU UK ET)</td></tr>
+          universal default: emphatic <span class="ug">t̤ s̤</span>
+          /tˤ sˤ/ (Arabic), ejective <span class="ug">t̤</span> /tʼ/
+          (Georgian), the soft <span class="ug">s̤ z̤ l̤ r̤</span> (Russian,
+          Ukrainian, Estonian; the palatal <span class="ug">l̤</span> /ʎ/ in
+          Italian and Portuguese)</td></tr>
   <tr><td><span class="term">reverse anchor</span></td>
       <td>the anchor leaning the other way</td>
       <td class="op op-y">y</td>
@@ -360,7 +360,9 @@ form; paired with <code>x</code> it always doubles the dot (the special); and
 wherever an anchor flips, the glyph you see is the anti-anchor. A consonant
 wears <b>one mark</b>, and the special never stacks: where a mark already
 sits, the flip carries the special's reading, and what cannot be composed is
-written as the sequence it is (ʈʰ = <code>tyh</code>).</p>
+written as the sequence it is: aspiration and breathiness are always
+<code>+h</code> (<code>th tqh tyh bh</code>), as Hindi, Thai and Vietnamese
+already romanize.</p>
 
 <p style="margin-top:1rem">Lowering sits below, everything else above, so
 every attested combination keeps to one mark per side:
@@ -487,18 +489,17 @@ its reading:</p>
     <b>dashed</b> = a composition of the regular machinery, shown for
     orientation (<span class="ug">ț d̦ n̦</span> = t d n + <code>j</code>).
     The <b>double dot is the special</b>; a language's own series, read per
-    language: aspirated <span class="ug">t̤</span> /tʰ/, ejective, emphatic,
-    soft. Retroflex (<span class="ug">t̖ n̖ r̖</span>, the flipped anchor
+    language: emphatic, ejective, soft. Aspiration is never a mark: it is the
+    sequence with h (<span class="ug">th c̦h</span> /tʰ tʂʰ/). Retroflex (<span class="ug">t̖ n̖ r̖</span>, the flipped anchor
     <span class="ug">s̖</span> on hush points), like palatal and length,
     never enters this table beyond the dashed tiles.</span>
 </div>
 
-<p>Sharing in practice: Georgian's aspirated stops sit on the bare voiceless
-letters (they contrast with nothing plainer, exactly as English p t k), and
-its ejectives on the special; Korean fortis rides length (<span class="ug">tt</span>),
-its special being spent on aspiration; English ʌ is the stressed schwa, on
-<span class="ug">ạ</span>; Hindi's nasal low vowel sits on <span class="ug">à</span>,
-since nasal on <span class="ug">ä</span> would stack two marks above.</p>
+<p>Sharing in practice: Georgian's ejectives ride its special; Korean fortis
+rides length (<span class="ug">tt</span>); English ʌ is the stressed schwa,
+on <span class="ug">ạ</span>; Hindi's nasal low vowel sits on
+<span class="ug">à</span>, since nasal on <span class="ug">ä</span> would
+stack two marks above.</p>
 
 <h2>The vowel triangle</h2>
 

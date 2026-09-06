@@ -10,8 +10,12 @@ state only the current system.
 - Hungarian takes no cheap-slot exception (its a e write as ä ẹ): bare-letter
   typing comfort belongs to a future lazy-input layer, not the canonical
   mapping.
-- Georgian's bare voiceless letters carry its aspirated series: the three-way
-  affricates have only tc and tcy to land on, so one series must sit bare.
+- Aspiration and breathiness are sequences with h everywhere (th, bh, tqh,
+  tyh): no covered language contrasts an aspirate with the cluster, Mandarin
+  has no h phoneme at all, Korean's coda-h clusters already coalesce to
+  aspiration in speech, and Hindi, Thai and Vietnamese romanize exactly so.
+  This also freed Georgian's bare letters: its aspirates are h-sequences like
+  everyone's, its ejectives its special.
 - The Hindi and Bengali aspirated retroflexes are sequences (tyh dyh ryh): a
   consonant wears one mark, the special never stacks, and every one-side
   glyph on those bases is spent.
