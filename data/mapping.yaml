@@ -54,10 +54,9 @@ consonants:
   θ: tx
   ð: dx
   ŋ: nx
-  # the deep points
   pf: pf         # a sequence: German never contrasts pf with p+f
-  ħ: ky
-  ʕ: gy
+  ħ: kxy         # the pharyngeals join the emphatics: Arabic's special is
+  ʕ: gxy         #   pharyngeal quality across the board; k̤ approximates ḳ /x/
   # shares on marked points
   χ: kx
   ʁ: gx
