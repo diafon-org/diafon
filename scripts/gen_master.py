@@ -35,7 +35,7 @@ STATES = {'native': ('native-reviewed', 'st-nat'),
 def form_type(f):
     if len(f) == 1: return 'base'
     if f in C_POINTS or f in V_POINTS: return 'point'
-    if f.endswith('yx') or f in SPECIAL2: return 'special'
+    if f.endswith('xy') or f in SPECIAL2: return 'special'
     if f in RETRO: return 'retro'
     if f in SEQ: return 'sequence'
     if f in {'ix','ux','icx'}: return 'glide'
@@ -99,7 +99,7 @@ def aggregate():
                 e[2].append(code)
     # one reading per regular form: polyvalence belongs to y / yx / the grave
     def polyvalent_ok(f):
-        return (f.endswith('y') or f.endswith('yx'))
+        return (f.endswith('y') or f.endswith('xy'))
     for form, reads in agg.items():
         if len(reads) < 2 or polyvalent_ok(form) or form in SEQ:
             continue
@@ -199,7 +199,7 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 
 _C_BASES = 'ptkbdgfvszmnlrh'
 _V_BASES = 'aeiou'
-_OPS_ORDER = ['', 'j', 'c', 'q', 'x', 'y', 'jx', 'cx', 'qx', 'cy', 'jy', 'qy', 'yy', 'yx']
+_OPS_ORDER = ['', 'j', 'c', 'q', 'x', 'y', 'jx', 'cx', 'qx', 'cy', 'jy', 'qy', 'yy', 'xy']
 
 
 def _order_key(form):
