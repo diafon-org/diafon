@@ -28,7 +28,7 @@ C_ROWS = [
     ('y',  'back-lean',          None),
     ('jx', 'retroflex hush',     'sz'),
     ('qx', 'retroflex affricate','td'),
-    ('yx', 'the special',        None),
+    ('xy', 'the special',        None),
     ('cy', 'special affricate',  'td'),
     ('qy', 'special hush',       'td'),
     ('yy', 'special retroflex',  'tdnlr'),

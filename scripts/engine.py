@@ -7,7 +7,7 @@ Implements the grammar of docs/index.html:
   rides free after them; trailing digits are tones.
 - Glyphs compose from data/script.yaml: whole letters, per-operator marks,
   the float rule (descenders take their mark above), secondary x flips the
-  mark already there, the special (secondary y / the pair yx) is the double
+  mark already there, the special (secondary y / the pair xy) is the double
   dot on the free side, w doubles a consonant glyph / draws the vowel acute.
 
 Usage: engine.py "input text"   -> prints the script form.
@@ -136,10 +136,10 @@ def _consonant(base, ops):
             a, r = MARKS['anchor'], MARKS['reverse']
             return g.replace(a.get('below', ''), r['below']) \
                     .replace(a.get('above', ''), r['above'])
-        if op1 == 'y':                      # the pair yx = the special on a bare base
-            return _special(base, base)
         raise ParseError(f'{base}{ops}: x cannot follow {op1}')
-    if op2 == 'y':                          # secondary y = the special on a marked form
+    if op2 == 'y':                          # secondary y = the special
+        if op1 == 'x':                      # the pair xy: y doubles the dot
+            return _special(base, base)
         return _special(g, base)
     raise ParseError(f'{base}{ops}: {op2} cannot be secondary')
 

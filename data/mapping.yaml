@@ -95,20 +95,20 @@ consonants:
   ɻ: ry
   ɽ: ry
   # the special: secondary y on a marked form, the pair yx on a bare letter
-  pʰ: pyx
-  tʰ: tyx
-  kʰ: kyx
+  pʰ: pxy
+  tʰ: txy
+  kʰ: kxy
   tsʰ: tcy
   tʃʰ: tqy
   tɕʰ: tqy
   tʂʰ: tqy
-  t̪ʰ: tyx
+  t̪ʰ: txy
   ʈʰ: tyy
-  bʱ: byx
-  d̪ʱ: dyx
+  bʱ: bxy
+  d̪ʱ: dxy
   ɖʱ: dyy
   dʒʱ: dqy
-  gʱ: gyx
+  gʱ: gxy
   ɽʱ: ryy
   # long (w) — Korean fortis rides length
   p͈: pw
@@ -199,28 +199,28 @@ overrides:
     kʰ: k
     tsʰ: tc
     tʃʰ: tq
-    pʼ: pyx
-    tʼ: tyx
-    kʼ: kyx
+    pʼ: pxy
+    tʼ: txy
+    kʼ: kxy
     qʼ: kq       # ejective-only, no plain q to contrast
     tsʼ: tcy
     tʃʼ: tqy
   ar:            # the emphatics = the special
-    tˤ: tyx
-    dˤ: dyx
-    sˤ: syx
-    ðˤ: zyx
+    tˤ: txy
+    dˤ: dxy
+    sˤ: sxy
+    ðˤ: zxy
   ru:            # soft s z: the anchor is taken by the hush points
-    sʲ: syx
-    zʲ: zyx
+    sʲ: sxy
+    zʲ: zxy
   uk:
-    sʲ: syx
-    zʲ: zyx
+    sʲ: sxy
+    zʲ: zxy
     tsʲ: tcy    # the anchor on c would collide with c̦ /tʃ/
   et:
-    sʲ: syx
+    sʲ: sxy
   ja:            # the moraic nasal ん contrasts with n (kani ~ kan'i) — it is
-    ɴ: nyx       #   Japanese's special; its yx is otherwise unspent
+    ɴ: nxy       #   Japanese's special; its yx is otherwise unspent
 
   pl:            # three-way sibilants: plain / hush / hush+shift
     ʂ: sjx
@@ -232,7 +232,7 @@ merges:
   # reviewed within-language identifications: two symbols, one phoneme
   en: [[ʌ, ə]]   # STRUT is the stressed schwa
 
-# Multiple readings belong to the back-lean (y) and the special (yx / secondary
+# Multiple readings belong to the back-lean (y) and the special (xy / secondary
 # y) families, and to the vowel grave. A REGULAR form carries one reading; every
 # other reading of any form is justified below, language by language. The
 # reading marked `primary` is the form's canonical value (shown aggregated);
@@ -410,7 +410,7 @@ shares:
       fr: the nasal low vowel, back-realised — nasal on ä would stack two marks above
       hi: the nasal low vowel on the plain a slot
   # the special and the back-lean: per-language readings by design
-  tyx:
+  txy:
     tʰ: primary
     t̪ʰ:
       bn: the aspirated dental — its special
@@ -419,15 +419,15 @@ shares:
       ar: the emphatic ṭāʾ — its special
     tʼ:
       ka: the ejective — its special
-  dyx:
+  dxy:
     d̪ʱ: primary
     dˤ:
       ar: the emphatic ḍād — its special
-  pyx:
+  pxy:
     pʰ: primary
     pʼ:
       ka: the ejective — its special
-  kyx:
+  kxy:
     kʰ: primary
     kʼ:
       ka: the ejective — its special
@@ -447,13 +447,13 @@ shares:
       th: the aspirated hush affricate — its special
     tʃʼ:
       ka: the ejective — its special
-  syx:
+  sxy:
     sˤ: primary
     sʲ:
       et: the soft s — the anchor is taken by the hush point
       ru: сь — the soft s
       uk: сь — the soft s
-  zyx:
+  zxy:
     ðˤ: primary
     zʲ:
       ru: зь — the soft z
