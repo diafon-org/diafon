@@ -31,7 +31,6 @@ C_ROWS = [
     ('xy', 'the special',        None),
     ('cy', 'special affricate',  'td'),
     ('qy', 'special hush',       'td'),
-    ('yy', 'special retroflex',  'tdnlr'),
 ]
 V_ROWS = [
     ('',   'base',            None),
