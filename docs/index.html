@@ -23,7 +23,7 @@
   --accent:#3ec8cf; --base-c:#3ec8cf; --c-c:#e0a44a; --j-c:#8b9ff0; --q-c:#c08ee0; --x-c:#4fc79a; --y-c:#e88ac0;
   --base-t:#3ec8cf1e; --c-t:#e0a44a22; --j-t:#8b9ff01e; --q-t:#c08ee01e; --x-t:#4fc79a22; --y-t:#e88ac022;
 }
-@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788694031) format("woff2");font-display:swap}
+@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788694890) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1020px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -159,8 +159,8 @@ duplicate value; making any base an operator would rob a common phoneme of
 its letter. Six is also the necessary number: the system needs six mutually
 independent operator meanings, each pair held apart by a language that
 contrasts what a smaller set would merge: Ukrainian ч ~ ць keeps the hush
-affricate distinct from affricate-plus-palatal, Korean /t͈/ ~ /tʰ/ keeps
-length distinct from the exotic slot. Between the two beyond-regular letters
+affricate distinct from affricate-plus-palatal, and Hindi t̪ ~ ʈ needs the
+back-lean beside the plain letter. Between the two beyond-regular letters
 the roles divide by direction: <code>x</code> is the fricative shift
 (<code>kx</code> preserves the letter that names /x/), while <code>y</code>
 leans back for the retroflex stops, and pairs into the special.
@@ -247,10 +247,9 @@ describing how widely its phonetic value may swing across languages:</p>
   <tr>
     <td><span class="term">exotic</span></td>
     <td>the special (<code>xy</code>)</td>
-    <td>a systemic modifier (aspiration, velarisation, retroflexion, …) read
-        per language against a stated default: wider than any regular point,
-        never an arbitrary one-off sound, always in the neighbourhood of its
-        base</td>
+    <td>a language's own series, read per language with no universal value:
+        emphatic, ejective, the soft series; never an arbitrary one-off
+        sound, always in the neighbourhood of its base</td>
   </tr>
 </table></div>
 
