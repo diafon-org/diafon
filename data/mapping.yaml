@@ -191,13 +191,13 @@ review:
   zh: reviewed
 
 overrides:
-  ka:            # the ejectives are its special
-    pʼ: pxy
-    tʼ: txy
-    kʼ: kxy
-    qʼ: kq       # ejective-only, no plain q to contrast
-    tsʼ: tcy
-    tʃʼ: tqx
+  ka:            # the ejectives are the bare letters: aspirates are Ch,
+    pʼ: p        #   and an outsider's plain reading is the licensed approximation
+    tʼ: t
+    kʼ: k
+    qʼ: kq
+    tsʼ: tc
+    tʃʼ: tq
   ar:            # the emphatics = the special
     tˤ: txy
     dˤ: dxy
@@ -217,11 +217,11 @@ overrides:
   ja:            # the moraic nasal ん contrasts with n (kani ~ kan'i); it is
     ɴ: nxy       #   Japanese's special; its yx is otherwise unspent
 
-  pl:            # three-way sibilants: plain / hush / hush+shift
-    ʂ: sjx
-    ʐ: zjx
-    tʂ: tqx
-    dʐ: dqx
+  pl:            # three-way sibilants: plain / anchored / dotted
+    ʂ: sx
+    ʐ: zx
+    tʂ: tcx
+    dʐ: dcx
 
 merges:
   # reviewed within-language identifications: two symbols, one phoneme
@@ -236,6 +236,8 @@ merges:
 shares:
   t:
     t: primary
+    tʼ:
+      ka: the ejective; the bare letter is the licensed approximation
     t̪:
       bn: the dental series on the plain slot; retroflex rides y
       hi: the dental series; ʈ is carried by ty
@@ -253,18 +255,26 @@ shares:
       vi: implosive realisation of its only voiced labial stop; the exotic licence
   p:
     p: primary
+    pʼ:
+      ka: the ejective; the bare letter is the licensed approximation
   k:
     k: primary
+    kʼ:
+      ka: the ejective; the bare letter is the licensed approximation
   tc:
     ts: primary
+    tsʼ:
+      ka: the ejective; the bare letter is the licensed approximation
   tq:
     tʃ: primary
+    tʃʼ:
+      ka: the ejective; the bare letter is the licensed approximation
     tʂ:
       zh: the sole hush affricate, retroflex-realised
     tɕ:
       ja: the sole hush affricate, alveolo-palatal
       ko: the sole hush affricate, alveolo-palatal
-      pl: ć; its second hush cz takes the flip (tqx)
+      pl: ć; its second hush cz takes the dot (tcx)
       ru: ч; the sole hush affricate
       th: the sole hush affricate
       vi: ch; the sole hush affricate
@@ -272,7 +282,7 @@ shares:
     dʒ: primary
     dʑ:
       ja: the sole voiced hush affricate, alveolo-palatal
-      pl: dź; its second hush dż takes the flip (dqx)
+      pl: dź; its second hush dż takes the dot (dcx)
   sj:
     ʃ: primary
     ʂ:
@@ -280,14 +290,14 @@ shares:
       zh: sh; the sole hush series, retroflex-realised
     ɕ:
       ja: the sole hush, alveolo-palatal
-      pl: ś; its second hush sz takes the flip (sjx)
+      pl: ś; its second hush sz takes the dot (sx)
   zj:
     ʒ: primary
     ʐ:
       ru: ж; the sole voiced hush, retroflex-realised
       zh: r-; the sole voiced hush
     ʑ:
-      pl: ź; its second hush ż takes the flip (zjx)
+      pl: ź; its second hush ż takes the dot (zx)
   kx:
     x: primary
     χ:
@@ -398,18 +408,6 @@ shares:
       fr: the nasal low vowel, back-realised; nasal on ä would stack two marks above
       hi: the nasal low vowel on the plain a slot
   # the special and the back-lean: per-language readings by design
-  txy:
-    tˤ: primary
-    tʼ:
-      ka: the ejective, its special
-  tcy:
-    tsʲ: primary
-    tsʼ:
-      ka: the ejective, its special
-  tqx:
-    tʂ: primary          # the flipped hush; Polish's second series
-    tʃʼ:
-      ka: the ejective hush on the free flip
   sxy:
     sˤ: primary
     sʲ:

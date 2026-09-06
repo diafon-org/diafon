@@ -90,9 +90,11 @@ def glyph(form):
     elif core[:2] in WHOLE and len(core) == 3:
         g = WHOLE[core[:2]]
         op2 = core[2]
-        if op2 == 'x':                      # the flip: anchor -> reverse anchor
-            a, r = MARKS['anchor'], MARKS['reverse']
-            g = g.replace(a.get('below', ''), r['below'])
+        if op2 == 'x':                      # the dot on an unmarked whole letter
+            if any(v.get('below') and v['below'] in g
+                   for v in MARKS.values() if isinstance(v, dict)):
+                raise ParseError(f'{core}: the dot cannot stack on a marked form')
+            g = _mark(g, g[0], 'dot')
         elif op2 == 'y':                    # the special on a whole letter
             if any(v.get('below') and v['below'] in g
                    for v in MARKS.values() if isinstance(v, dict)):
@@ -137,10 +139,6 @@ def _consonant(base, ops):
         return g
     op2 = ops[1]
     if op2 == 'x':
-        if op1 == 'j':                      # the flip: anchor -> reverse anchor
-            a, r = MARKS['anchor'], MARKS['reverse']
-            return g.replace(a.get('below', ''), r['below']) \
-                    .replace(a.get('above', ''), r['above'])
         raise ParseError(f'{base}{ops}: x cannot follow {op1}')
     if op2 == 'y':                          # the special
         if op1 == 'x':                      # the pair xy: y doubles the dot
