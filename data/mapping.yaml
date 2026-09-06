@@ -62,9 +62,9 @@ consonants:
   ʁ: gx
   ɕ: sj
   ʑ: zj
-  ʂ: sj          # overridden for PL (three-way sibilants)
-  ʐ: zj          # overridden for PL
-  tʂ: tq         # overridden for PL
+  ʂ: sjy        # the flipped anchor; Russian excepted below
+  ʐ: zjy
+  tʂ: tqy
   tɕ: tq
   dʑ: dq
   # soft (j)
@@ -98,7 +98,7 @@ consonants:
   tsʰ: tch
   tʃʰ: tqh
   tɕʰ: tqh
-  tʂʰ: tqh
+  tʂʰ: tqyh
   t̪ʰ: th
   ʈʰ: tyh   # a sequence: ʈ + h; the special cannot stack on the anti-anchor
   bʱ: bh
@@ -202,7 +202,9 @@ overrides:
     dˤ: dxy
     sˤ: sxy
     ðˤ: zxy
-  ru:            # soft s z: the anchor is taken by the hush points;
+  ru:            # soft s z: the anchor is taken by the hush points; and its
+    ʂ: sj        #   hush stays on the plain anchors: s̤ z̤ may not contrast
+    ʐ: zj        #   the anti-anchors within one language
     sʲ: sxy      #   f v follow them, the anchor sitting badly on their stems
     zʲ: zxy
     fʲ: fxy
@@ -216,11 +218,11 @@ overrides:
   ja:            # the moraic nasal ん contrasts with n (kani ~ kan'i); it is
     ɴ: nxy       #   Japanese's special; its yx is otherwise unspent
 
-  pl:            # three-way sibilants: plain / anchored / dotted
-    ʂ: sx
-    ʐ: zx
-    tʂ: tcx
-    dʐ: dcx
+  pl:            # three-way sibilants: plain / anchored / flipped
+    ʂ: sjy
+    ʐ: zjy
+    tʂ: tqy
+    dʐ: dqy
 
 merges:
   # reviewed within-language identifications: two symbols, one phoneme
@@ -268,8 +270,6 @@ shares:
     tʃ: primary
     tʃʼ:
       ka: the ejective; the bare letter is the licensed approximation
-    tʂ:
-      zh: the sole hush affricate, retroflex-realised
     tɕ:
       ja: the sole hush affricate, alveolo-palatal
       ko: the sole hush affricate, alveolo-palatal
@@ -285,16 +285,14 @@ shares:
   sj:
     ʃ: primary
     ʂ:
-      ru: ш; the sole hush series, retroflex-realised
-      zh: sh; the sole hush series, retroflex-realised
+      ru: ш; the plain anchor, since s̤ may not contrast the anti-anchor
     ɕ:
       ja: the sole hush, alveolo-palatal
       pl: ś; its second hush sz takes the dot (sx)
   zj:
     ʒ: primary
     ʐ:
-      ru: ж; the sole voiced hush, retroflex-realised
-      zh: r-; the sole voiced hush
+      ru: ж; the plain anchor, since z̤ may not contrast the anti-anchor
     ʑ:
       pl: ź; its second hush ż takes the dot (zx)
   kx:

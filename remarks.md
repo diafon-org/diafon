@@ -44,3 +44,9 @@ state only the current system.
   are h-sequences, which also removed the only double-dot against
   anti-anchor contrasts (its kʼ~χ and tsʼ~tʃʼ). No language puts four marked
   forms on one letter.
+- Retroflex hush rides the flipped anchor (sjy zjy tqy dqy: y flips an
+  anchored hush), so retroflex is the anti-anchor everywhere except the thin
+  stems. Russian is the one exception, its hush staying on the plain anchors:
+  its soft s̤ z̤ may not contrast the anti-anchors within one language.
+  Polish returns from the dots to the flipped anchors; the dotted sibilants
+  retire to reserve. Mandarin ch is tqyh.
