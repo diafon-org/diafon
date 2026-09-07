@@ -20,7 +20,7 @@
   --paper:#14161b; --card:#1b1e25; --sunken:#101216; --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37;
   --accent:#3ec8cf; --bad:#e07a7a;
 }
-@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788791103) format("woff2");font-display:swap}
+@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788806251) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:15px}
 .wrap{max-width:880px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -103,7 +103,7 @@ const BELOWS = Object.values(MARKS).map(m => m.below).filter(Boolean);
 function tokenize(text){
   const out = []; let i = 0;
   while (i < text.length){
-    const ch = text[i].toLowerCase();
+    const raw = text[i], ch = text[i].toLowerCase();
     if (!CB.has(ch) && !VB.has(ch)){
       out.push({t: (OPS.has(ch) || /\d/.test(ch)) ? 'err' : 'raw', ch: text[i]});
       i++; continue;
@@ -115,7 +115,8 @@ function tokenize(text){
     let tones = '';
     while (j < text.length && /\d/.test(text[j])){ tones += text[j]; j++; }
     const form = ch + core + (w ? 'w' : '');
-    out.push(bad ? {t: 'err', ch: text.slice(i, j)} : {t: 'form', form, tones});
+    out.push(bad ? {t: 'err', ch: text.slice(i, j)}
+                 : {t: 'form', form, tones, caps: raw !== ch});
     i = j;
   }
   return out;
@@ -228,7 +229,8 @@ function update(){
       chipsHtml += `<div class="chip err"><span class="g">${esc(tok.form)}</span><span class="f">${esc(tok.form)}</span><span class="r">no such form</span></div>`;
       continue;
     }
-    outHtml += esc(g) + tok.tones;
+    const shown = tok.caps ? (g[0].toUpperCase() + g.slice(1)).normalize('NFC') : g;
+    outHtml += esc(shown) + tok.tones;
     let reading, absent = false;
     if (lang){
       reading = DIA.langs[lang].readings[tok.form];
@@ -236,7 +238,7 @@ function update(){
     } else {
       reading = DIA.default[tok.form] || '·';
     }
-    chipsHtml += `<div class="chip${absent ? ' absent' : ''}"><span class="g">${esc(g)}</span>` +
+    chipsHtml += `<div class="chip${absent ? ' absent' : ''}"><span class="g">${esc(shown)}</span>` +
       `<span class="f">${esc(tok.form + tok.tones)}</span><span class="r">${reading === '\u00b7' ? '\u00b7' : '/' + esc(reading) + '/'}</span></div>`;
   }
   $out.innerHTML = outHtml || '<span style="color:var(--muted)">·</span>';
