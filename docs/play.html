@@ -223,7 +223,7 @@ function update(){
       reading = DIA.default[tok.form] || '·';
     }
     chipsHtml += `<div class="chip${absent ? ' absent' : ''}"><span class="g">${esc(g)}</span>` +
-      `<span class="f">${esc(tok.form + tok.tones)}</span><span class="r">${esc(reading)}</span></div>`;
+      `<span class="f">${esc(tok.form + tok.tones)}</span><span class="r">${reading === '\u00b7' ? '\u00b7' : '/' + esc(reading) + '/'}</span></div>`;
   }
   $out.innerHTML = outHtml || '<span style="color:var(--muted)">·</span>';
   $chips.innerHTML = chipsHtml;

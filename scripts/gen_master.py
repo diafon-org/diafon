@@ -195,7 +195,9 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
   <p class="lede">The universal table lists every input form in use, with its
   glyph and readings; each language's own table follows, stamped with the
   review state of its mapping. A language reaches full confidence only with a native or
-  expert reviewer. Generated from <code>data/</code> by
+  expert reviewer. Notation: <code>input forms</code> in type style, script
+  forms in the Diaphone serif, and IPA always between slashes, /ʃ/.
+  Generated from <code>data/</code> by
   <code>scripts/gen_master.py</code>; the system is defined in
   <a href="index.html">the description</a>, and the
   <a href="play.html">playground</a> renders it live.</p>
@@ -266,7 +268,7 @@ def universal_table(agg, shares):
                        f'{keys} keystroke{"s" if keys > 1 else ""}</th></tr>')
         sh = shares.get(form, {})
         ipa, (n, s, codes) = rd[0]
-        primary = (f'<a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank">{ipa}</a>'
+        primary = (f'<a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank">/{ipa}/</a>'
                    f'<a class="rname" href="{ipa_names.url(ipa)}" target="_blank">{ipa_names.name(ipa)}</a>'
                    f'<span class="st" title="{" ".join(sorted(codes))}">'
                    f'{n} language{"s" if n > 1 else ""} · {fmt(s)} native</span>')
@@ -278,7 +280,7 @@ def universal_table(agg, shares):
                      if isinstance(just, dict)
                      else f'<span class="just">{" ".join(sorted(codes))}</span>')
             groups += (f'<div class="rgroup">'
-                       f'<a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank">{ipa}</a>'
+                       f'<a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank">/{ipa}/</a>'
                        f'<a class="rname" href="{ipa_names.url(ipa)}" target="_blank">{ipa_names.name(ipa)}</a>{lines}</div>')
         shown = form_cell(form)
         out.append(f'<tr><td>{shown}</td><td class="g">{engine.render(form)}</td>'
@@ -328,7 +330,7 @@ def language_tables():
             pairs = sorted(byform[form], key=lambda p: rank[p[1]])
             reading = ' = '.join(
                 f'<a class="wref ug" href="{ipa_names.url(i)}" target="_blank">'
-                f'{ud.normalize("NFC", i)}</a>' for i, _ in pairs)
+                f'/{ud.normalize("NFC", i)}/</a>' for i, _ in pairs)
             reading += (f'<a class="rname" href="{ipa_names.url(pairs[0][0])}"'
                         f' target="_blank">{ipa_names.name(pairs[0][0])}</a>')
             if len(pairs) > 1:

@@ -1,5 +1,9 @@
 # The mapping: phoneme (IPA, as written in languages/*.yaml) -> input form.
 #
+# Notation: KEYS are bare IPA symbols; VALUES are ascii input sequences.
+# Prose (docs, comments) always writes IPA between slashes, /S/, to keep it
+# apart from input forms and script glyphs.
+#
 # This is the explicit, reviewable layer between the language metadata and
 # everything generated (the master table, the engine). The rules the forms
 # follow are defined in docs/index.html; this file is their application,
