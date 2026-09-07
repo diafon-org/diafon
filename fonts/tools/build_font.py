@@ -119,10 +119,11 @@ def _anchor_pairs():
                     if ord(ch) in ANCHOR_MARKS and 'a' <= prev <= 'z':
                         pairs.add((prev, ord(ch)))
     # the full principled set: below marks on every anchorable letter, above
-    # marks on the descenders and g (the float rule); l r f never anchor
+    # marks on the descenders and g (the float rule); l r f never anchor.
+    # Capitals inherit their small form's side.
     for ch in 'bcdghjkmnpqstvxyz':
         marks = (0x0313, 0x0314) if ch in 'gjpqy' else (0x0326, 0x0316)
-        pairs.update((ch, m) for m in marks)
+        pairs.update((c, m) for c in (ch, ch.upper()) for m in marks)
     return sorted(pairs)
 
 
@@ -185,17 +186,19 @@ def _bake_strokes(font, gs, cmap, P, xh):
         if bname is None:
             continue
         mname = cmap.get(mark) or f'uni{mark:04X}'
-        rec, _, _, _ = _outline(gs, bname)
+        rec, _, _, bymax = _outline(gs, bname)
         pts = [pt for op, args in rec.value for pt in args if isinstance(pt, tuple)]
         mx = (min(p[0] for p in pts) + max(p[0] for p in pts)) / 2
         above = mark in (0x0313, 0x0314)
         left = mark in (0x0316, 0x0314)
         pen = TTGlyphPen(None)
         rec.replay(pen)
-        if above:   # the vowels' long acute, mirrored for the reverse
+        if above:   # the vowels' long acute, mirrored for the reverse,
+            # lifted over letters taller than the x-height (the capitals)
+            dy = max(0, bymax - xh)
             sxx = -ascale if left else ascale
             t = Transform(sxx, 0, 0, ascale,
-                          mx - sxx * a_cx, a_ymin - ascale * a_ymin)
+                          mx - sxx * a_cx, dy + a_ymin - ascale * a_ymin)
             a_rec.replay(TransformPen(pen, t))
         else:
             zone = [p for p in pts if p[1] <= xh * 0.35] or pts
@@ -219,8 +222,9 @@ def _bake_strokes(font, gs, cmap, P, xh):
     # the letter's middle; the seed is the font's final (svg-curated) mark
     gsl = font.getGlyphSet()
     for seed_name, mark, letters in (
-            (cmap.get(0x0324, 'uni0324'), 0x0324, 'bcdfhklmnrstvxz'),
-            ('hungarumlaut', 0x030B, 'aeiou')):
+            (cmap.get(0x0324, 'uni0324'), 0x0324,
+             'bcdfhklmnrstvxz' + 'bcdfhklmnrstvxz'.upper()),
+            ('hungarumlaut', 0x030B, 'aeiou' + 'AEIOU')):
         if seed_name not in gsl:
             continue
         s_rec, s_cx, _, _ = _outline(gsl, seed_name)
@@ -229,7 +233,8 @@ def _bake_strokes(font, gs, cmap, P, xh):
             bname = cmap.get(ord(ch))
             if bname is None:
                 continue
-            rec, mx, _, _ = _outline(gsl, bname)
+            rec, mx, _, bymax = _outline(gsl, bname)
+            dy = max(0, bymax - xh) if mark == 0x030B else 0
             pen = TTGlyphPen(None)
             if ch == 'i' and mark == 0x030B:   # the tittle yields to the mark
                 cur, kept = [], []
@@ -245,7 +250,7 @@ def _bake_strokes(font, gs, cmap, P, xh):
                     getattr(pen, op)(*args)
             else:
                 rec.replay(pen)
-            s_rec.replay(TransformPen(pen, Transform(1, 0, 0, 1, mx - s_cx, 0)))
+            s_rec.replay(TransformPen(pen, Transform(1, 0, 0, 1, mx - s_cx, dy)))
             name = f'{bname}_uni{mark:04X}'
             glyf[name] = pen.glyph()
             hmtx[name] = hmtx[bname]
@@ -259,8 +264,10 @@ def _bake_strokes(font, gs, cmap, P, xh):
                         break
     _add_ccmp_ligatures(font, liga)
     for cp, base, mark in ((0x0219, 's', '0326'), (0x021B, 't', '0326'),
-                           (0x0151, 'o', '030B'), (0x0171, 'u', '030B')):
-        name = f'{cmap[ord(base)]}_uni{mark}'   # precomposed ș ț ő ű
+                           (0x0151, 'o', '030B'), (0x0171, 'u', '030B'),
+                           (0x0218, 'S', '0326'), (0x021A, 'T', '0326'),
+                           (0x0150, 'O', '030B'), (0x0170, 'U', '030B')):
+        name = f'{cmap[ord(base)]}_uni{mark}'   # precomposed ș ț ő ű Ș Ț Ő Ű
         if name in glyf and cp in cmap:
             for table in font['cmap'].tables:
                 if table.isUnicode():

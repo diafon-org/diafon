@@ -73,3 +73,9 @@ state only the current system.
   index.html (teaser tiles with live counts and specimens) and refreshes the
   nav markers on the static pages, while gen_master.py emits the nav into
   master.html directly. The description moved to description.html.
+- Capitals are orthographic, not phonemic. An uppercase base letter
+  capitalizes its point (Sjan = Șan); operators read the same in either
+  case, so all-caps text works point by point (SJAN = ȘAN); the capital
+  wears its marks on the same side as its small form (ġ Ġ, p̓ P̓), and a
+  long consonant capitalizes only its first letter (Șș). No new forms, no
+  mapping changes: case never carries phonemic weight.

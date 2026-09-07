@@ -20,11 +20,14 @@ def needed_codepoints():
     src = open(os.path.join(ROOT, 'docs', 'fonts-data.js')).read()
     data = json.loads(re.search(r'const MATRIX = (.*);', src).group(1))
     cps = set(range(0x20, 0x7F))
+    import unicodedata as ud
     for sec in data.values():
         for row in sec['rows']:
             for cell in row['cells']:
                 if cell:
-                    cps.update(ord(c) for c in cell['g'])
+                    for form in ('NFC', 'NFD'):
+                        cps.update(ord(c) for c in ud.normalize(form, cell['g']))
+                        cps.update(ord(c) for c in ud.normalize(form, cell['g'].upper()))
     # every mark the script defines: the playground free-types any form
     def walk(node):
         if isinstance(node, dict):

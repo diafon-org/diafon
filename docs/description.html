@@ -23,7 +23,7 @@
   --accent:#3ec8cf; --base-c:#3ec8cf; --c-c:#e0a44a; --j-c:#8b9ff0; --q-c:#c08ee0; --x-c:#4fc79a; --y-c:#e88ac0;
   --base-t:#3ec8cf1e; --c-t:#e0a44a22; --j-t:#8b9ff01e; --q-t:#c08ee01e; --x-t:#4fc79a22; --y-t:#e88ac022;
 }
-@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788791103) format("woff2");font-display:swap}
+@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788806251) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1020px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -293,7 +293,16 @@ of cases.</p>
 
 <h2>The marks</h2>
 
-<p>The script form is always built on <b>small letters</b>. A consonant wears
+<p>The script form is built on small letters; <b>capitals are orthographic,
+not phonemic</b>. A point is capitalized by typing its base letter uppercase
+(<code>Sjan</code> <span class="ug">Șan</span>); operators read the same in
+either case, so all-caps text works point by point (<code>SJAN</code>
+<span class="ug">ȘAN</span>); a capital wears its marks on the same side as
+its small form (<span class="ug">ġ Ġ</span>, <span class="ug">p̓ P̓</span>),
+and a long consonant capitalizes only its first letter
+(<span class="ug">Șș</span>).</p>
+
+<p>A consonant wears
 its mark <b>below</b>, governed by <span class="term">the float rule</span>:
 <b>every mark floats above when its letter has a descender</b>. A vowel wears
 at most <b>one mark above and one below</b>; <b>two marks never stack

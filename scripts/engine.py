@@ -9,6 +9,11 @@ Implements the grammar of docs/index.html:
   the float rule (descenders take their mark above), secondary x flips the
   mark already there, the special (secondary y / the pair xy) is the double
   dot on the free side, w doubles a consonant glyph / draws the vowel acute.
+- Case is orthographic, not phonemic: an uppercase base letter capitalizes
+  its point (Sjan -> Șan); operators read the same in either case, so
+  all-caps text works point by point; the capital wears its marks on the
+  same side as its small form, and a long consonant capitalizes only its
+  first letter (Sjw -> Șș).
 
 Usage: engine.py "input text"   -> prints the script form.
 """
@@ -40,7 +45,7 @@ def tokenize(text):
     """-> list of ('form', form, tones) and ('raw', char) tokens."""
     out, i, n = [], 0, len(text)
     while i < n:
-        ch = text[i].lower()
+        raw, ch = text[i], text[i].lower()
         if ch not in BASES:
             if ch in OPS or ch.isdigit():
                 raise ParseError(f'position {i}: {text[i]!r} cannot start a segment')
@@ -62,7 +67,7 @@ def tokenize(text):
         while j < n and text[j].isdigit():
             tones += text[j]
             j += 1
-        out.append(('form', ch + core + ('w' if w else ''), tones))
+        out.append(('form', raw + core + ('w' if w else ''), tones))
         i = j
     return out
 
@@ -81,7 +86,11 @@ def _mark(glyph, base, kind):
 
 
 def glyph(form):
-    """Script glyph for one segment form."""
+    """Script glyph for one segment form. An uppercase base letter
+    capitalizes the glyph; marks stay on the small form's side."""
+    caps = form[0].isupper()
+    if caps:
+        form = form[0].lower() + form[1:]
     w = form.endswith('w')
     core = form[:-1] if w else form
     base, ops = core[0], core[1:]
@@ -118,7 +127,10 @@ def glyph(form):
                 g += MARKS['acute']['above']
         else:
             g += g  # long consonant doubles its letter
-    return ud.normalize('NFC', g)  # one codepoint per visual representation
+    g = ud.normalize('NFC', g)  # one codepoint per visual representation
+    if caps:
+        g = ud.normalize('NFC', g[0].upper() + g[1:])
+    return g
 
 
 def _consonant(base, ops):
