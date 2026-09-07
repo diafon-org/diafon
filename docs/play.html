@@ -20,7 +20,7 @@
   --paper:#14161b; --card:#1b1e25; --sunken:#101216; --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37;
   --accent:#3ec8cf; --bad:#e07a7a;
 }
-@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788727875) format("woff2");font-display:swap}
+@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788791103) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:15px}
 .wrap{max-width:880px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -53,10 +53,24 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 <body>
 <main class="wrap">
 
+<!-- sitenav -->
+<style>
+nav.sitenav{display:flex;gap:1.1rem;align-items:baseline;flex-wrap:wrap;
+  font:600 .72rem/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;
+  margin:0 0 1.7rem;padding-bottom:.85rem;border-bottom:1px solid var(--line)}
+nav.sitenav a{color:var(--muted);text-decoration:none}
+nav.sitenav a:hover{color:var(--accent)}
+nav.sitenav a.brand{color:var(--ink);font-family:var(--serif);font-size:1rem;
+  font-weight:600;text-transform:none;letter-spacing:0;margin-right:.4rem}
+nav.sitenav .here{color:var(--accent)}
+</style>
+<nav class="sitenav"><a class="brand" href="index.html">Diaphone</a><a href="description.html">description</a><a href="master.html">master tables</a><span class="here">playground</span><a href="fonts.html">fonts</a></nav>
+<!-- /sitenav -->
+
 <header>
   <h1>Diaphone playground</h1>
   <p class="lede">Type the input form, read the script form, live.
-    The system is defined in <a href="index.html">the description</a>.</p>
+    The system is defined in <a href="description.html">the description</a>.</p>
 </header>
 
 <div class="row">
@@ -75,7 +89,7 @@ language does not use the form; red = not a well-formed segment (an operator
 or digit cannot start one, and a form carries at most two operators plus
 <code>w</code>). Tones are trailing digits.</p>
 
-<footer>Diaphone · playground · <a href="index.html">system description</a> · <a href="fonts.html">fonts</a></footer>
+<footer>Diaphone · playground · <a href="description.html">system description</a> · <a href="fonts.html">fonts</a></footer>
 
 </main>
 <script src="play-data.js"></script>
