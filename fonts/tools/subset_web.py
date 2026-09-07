@@ -47,7 +47,7 @@ def main():
                  '--flavor=woff2', f'--output-file={out}'])
     print(f'{out}: {os.path.getsize(out)} bytes, {len(cps & have)} codepoints kept')
     ver = os.path.getmtime(out).__int__()
-    for page in ('index.html', 'play.html', 'fonts.html', 'master.html'):
+    for page in ('index.html', 'description.html', 'play.html', 'fonts.html', 'master.html'):
         p = os.path.join(ROOT, 'docs', page)
         if not os.path.exists(p):
             continue

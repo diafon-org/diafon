@@ -68,3 +68,8 @@ state only the current system.
   middle, always reaches the depth of the deepest descender, and ends in a
   serif foot; the above-anchors of the float rule mirror this to the
   ascender line. Baked per letter, so the joint is the letter's own.
+- The site layer: scripts/pages.py is the page registry (file, label, tease)
+  and the shared navigation block; scripts/gen_site.py builds the landing
+  index.html (teaser tiles with live counts and specimens) and refreshes the
+  nav markers on the static pages, while gen_master.py emits the nav into
+  master.html directly. The description moved to description.html.

@@ -21,6 +21,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import engine
 import ipa_names
+import pages
 
 C_POINTS = {'sj','zj','tq','dq','tc','dc','kx','gx','kq','hx','rc','tx','dx','nx','py','ky','gy'}
 RETRO = {'ty','dy','ny','sjy','zjy','tqy','dqy'}  # the stops and the flipped hush
@@ -199,7 +200,7 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
   forms in the Diaphone serif, and IPA always between slashes, /ʃ/.
   Generated from <code>data/</code> by
   <code>scripts/gen_master.py</code>; the system is defined in
-  <a href="index.html">the description</a>, and the
+  <a href="description.html">the description</a>, and the
   <a href="play.html">playground</a> renders it live.</p>
 </header>
 <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin:1.4rem 0 0">
@@ -376,8 +377,10 @@ sel.addEventListener('change', ()=>{ history.replaceState(null,'','#'+sel.value)
 window.addEventListener('hashchange', apply);
 apply();
 </script>"""
-    html = (HEAD + universal_table(agg, shares) + '\n' + secs +
-            '\n<footer>Diaphone · master tables · <a href="index.html">description</a> · '
+    head = HEAD.replace('<main class="wrap">',
+                        '<main class="wrap">\n\n' + pages.nav_block('master.html'), 1)
+    html = (head + universal_table(agg, shares) + '\n' + secs +
+            '\n<footer>Diaphone · master tables · <a href="description.html">description</a> · '
             '<a href="play.html">playground</a> · <a href="fonts.html">fonts</a></footer>\n</main>'
             + js + '\n</body>\n</html>\n')
     out = os.path.join(ROOT, 'docs', 'master.html')
