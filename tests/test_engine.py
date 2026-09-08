@@ -68,8 +68,8 @@ def test_glyph_injectivity():
 def test_case():
     """Capitals: base case carries the point; marks keep the small side."""
     cases = [('Sjan1', 'Șan1'), ('SJAN', 'ȘAN'), ('sjan', 'șan'),
-             ('Gj', 'G̓'), ('Txy', 'T̤'), ('Ic', 'Ü'), ('Sjw', 'Șș'),
-             ('Tqyh', 'C̖h'), ('Aw', 'Á')]
+             ('Gj', 'G̦'), ('Pj', 'P̦'), ('Gxy', 'G̤'), ('Txy', 'T̤'),
+             ('Ic', 'Ü'), ('Sjw', 'Șș'), ('Tqyh', 'C̖h'), ('Aw', 'Á')]
     for inp, want in cases:
         got = engine.render(inp)
         assert got == want, f'{inp}: {got!r} != {want!r}'
@@ -78,7 +78,9 @@ def test_case():
         cap = engine.glyph(f[0].upper() + f[1:])
         low = engine.glyph(f)
         assert cap != low, f'{f}: capital form identical to small'
-        assert cap.lower() == low.lower(), f'{f}: capital diverges beyond case'
+        import unicodedata as _ud
+        assert (_ud.normalize('NFD', cap)[0].lower()
+                == _ud.normalize('NFD', low)[0]), f'{f}: base letter mismatch'
 
 
 if __name__ == '__main__':

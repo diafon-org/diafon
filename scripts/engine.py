@@ -11,8 +11,9 @@ Implements the grammar of docs/index.html:
   dot on the free side, w doubles a consonant glyph / draws the vowel acute.
 - Case is orthographic, not phonemic: an uppercase base letter capitalizes
   its point (Sjan -> Șan); operators read the same in either case, so
-  all-caps text works point by point; the capital wears its marks on the
-  same side as its small form, and a long consonant capitalizes only its
+  all-caps text works point by point; the float rule reads the capital's own
+  shape, and no capital in the system has a descender, so a capital always
+  wears its mark below (p̓ P̦, ġ G̣); a long consonant capitalizes only its
   first letter (Sjw -> Șș).
 
 Usage: engine.py "input text"   -> prints the script form.
@@ -72,13 +73,15 @@ def tokenize(text):
     return out
 
 
-def _mark(glyph, base, kind):
-    """Attach a mark to a glyph, by the float rule and one-per-side."""
+def _mark(glyph, base, kind, caps=False):
+    """Attach a mark to a glyph, by the float rule and one-per-side. The rule
+    reads the rendered letter: no capital has a descender, so caps never
+    float their mark above."""
     m = MARKS[kind]
     below, above = m.get('below'), m.get('above')
     has_below = any(v.get('below') and v['below'] in glyph
                     for v in MARKS.values() if isinstance(v, dict))
-    if below and base not in DESC and not has_below:
+    if below and (caps or base not in DESC) and not has_below:
         return glyph + below
     if above:
         return glyph + above
@@ -103,7 +106,7 @@ def glyph(form):
             if any(v.get('below') and v['below'] in g
                    for v in MARKS.values() if isinstance(v, dict)):
                 raise ParseError(f'{core}: the dot cannot stack on a marked form')
-            g = _mark(g, g[0], 'dot')
+            g = _mark(g, g[0], 'dot', caps)
         elif op2 == 'y':
             if MARKS['anchor']['below'] in g:   # y flips the anchored affricate
                 g = g.replace(MARKS['anchor']['below'], MARKS['reverse']['below'])
@@ -111,13 +114,13 @@ def glyph(form):
                      for v in MARKS.values() if isinstance(v, dict)):
                 raise ParseError(f'{core}: the special cannot stack on a marked form')
             else:                               # the special on a bare whole letter
-                g = _special(g, g[0])
+                g = _special(g, g[0], caps)
         else:
             raise ParseError(f'{core}: {op2} cannot be secondary')
     elif base in V_BASES:
         g = _vowel(base, ops)
     else:
-        g = _consonant(base, ops)
+        g = _consonant(base, ops, caps)
     if w:
         if base in V_BASES and core not in WHOLE:
             flip = MARKS['flip']['above']
@@ -133,7 +136,7 @@ def glyph(form):
     return g
 
 
-def _consonant(base, ops):
+def _consonant(base, ops, caps=False):
     g = base
     if not ops:
         return g
@@ -141,13 +144,13 @@ def _consonant(base, ops):
     if op1 in 'jy' and base in 'lrf':
         raise ParseError(f'{base}{ops}: no anchor on the thin stems l r f')
     if op1 == 'j':
-        g = _mark(g, base, 'anchor')
+        g = _mark(g, base, 'anchor', caps)
     elif op1 == 'x':
-        g = _mark(g, base, 'dot')
+        g = _mark(g, base, 'dot', caps)
     elif op1 == 'y':
-        g = _mark(g, base, 'reverse')
+        g = _mark(g, base, 'reverse', caps)
     elif op1 == 'c':
-        g = _mark(g, base, 'dot')           # the tap rc = ṛ; other affricates are whole letters
+        g = _mark(g, base, 'dot', caps)     # the tap rc = ṛ; other affricates are whole letters
     elif op1 == 'q':
         raise ParseError(f'{base}{ops}: no such form')  # q-forms are whole letters
     if len(ops) == 1:
@@ -157,7 +160,7 @@ def _consonant(base, ops):
         raise ParseError(f'{base}{ops}: x cannot follow {op1}')
     if op2 == 'y':
         if op1 == 'x':                      # the pair xy: y doubles the dot
-            return _special(base, base)
+            return _special(base, base, caps)
         if op1 == 'j' and base in 'sz':     # y flips the anchored hush
             a, r = MARKS['anchor'], MARKS['reverse']
             return g.replace(a['below'], r['below'])
@@ -165,11 +168,11 @@ def _consonant(base, ops):
     raise ParseError(f'{base}{ops}: {op2} cannot be secondary')
 
 
-def _special(g, base):
+def _special(g, base, caps=False):
     sp = MARKS['special']
     has_below = any(v.get('below') and v['below'] in g
                     for v in MARKS.values() if isinstance(v, dict))
-    if base not in DESC and not has_below:
+    if (caps or base not in DESC) and not has_below:
         return g + sp['below']
     return g + sp['above']
 
