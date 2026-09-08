@@ -87,3 +87,14 @@ state only the current system.
   first cornerstone; the data leaves the mapping and the master tables. If
   convenience layers return at all, they live inside a per-language IME as
   its own affair, never in the system.
+- The float rule (below unless the rendered letter descends) is accepted as
+  current law but may need sophistication later; open.
+- Script-form stages are an accepted direction: renderings of the same point
+  stream that sit closer to each language's current orthography, as adoption
+  on-ramps. Conceptually a font-level thing (OpenType locl: same codepoints,
+  language-tagged alternate forms), and the baking machinery could emit such
+  variants; but font delivery is not controllable in critical third-party
+  surfaces (messengers, WhatsApp, the iPhone keyboard), so a stage there
+  would have to live at the IME level, emitting a language-closer Unicode
+  spelling of the same points. Nothing is designed yet; the two delivery
+  paths are the constraint to design against.
