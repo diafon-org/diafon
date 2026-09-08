@@ -61,8 +61,7 @@ def load_mapping():
     review = m.get('review') or {}
     shares = {f: {nfd(i): v for i, v in d.items()}
               for f, d in (m.get('shares') or {}).items()}
-    lazy = {c: dict(d) for c, d in (m.get('lazy') or {}).items()}
-    return cons, vows, over, merges, review, shares, lazy
+    return cons, vows, over, merges, review, shares
 
 
 def load_languages():
@@ -74,7 +73,7 @@ def load_languages():
 
 
 def aggregate():
-    cons, vows, over, merges, _, shares, _ = load_mapping()
+    cons, vows, over, merges, _, shares = load_mapping()
     langs = load_languages()
     agg, errors = {}, []
     for code, d in langs.items():
@@ -171,7 +170,6 @@ a.rname:hover{color:var(--accent);text-decoration:underline}
 .rgroup:last-child{margin-bottom:0}
 .just{max-width:none}
 .tt{font:600 .68rem/1.4 var(--mono);color:var(--muted)}
-.lazy{margin:.5rem 0 0;font-size:.84rem;color:var(--muted)}
 tr.grp th{background:var(--sunken);color:var(--accent)}
 .badge{display:inline-block;font:600 .66rem/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;
   border-radius:999px;padding:.28rem .6rem;vertical-align:2px;margin-left:.5rem;border:1px solid var(--line)}
@@ -291,7 +289,7 @@ def universal_table(agg, shares):
 
 
 def language_tables():
-    cons, vows, over, merges, review, _, lazy = load_mapping()
+    cons, vows, over, merges, review, _ = load_mapping()
     langs = load_languages()
     order = sorted(langs, key=lambda c: -langs[c]['speakers']['native'])
     toc, secs = [], []
@@ -305,21 +303,6 @@ def language_tables():
                 key = nfd(ipa)
                 form = over.get(code, {}).get(key) or table.get(key)
                 byform.setdefault(form, []).append((ipa, freq))
-        shorts = lazy.get(code, {})
-        for key, tgt in shorts.items():
-            if tgt not in byform:
-                sys.exit(f'lazy {code}: target {tgt} is not a form the language uses')
-            try:
-                toks = engine.tokenize(key)
-            except engine.ParseError:
-                continue    # cannot start a segment in strict mode: free
-            if all(t[1] in byform for t in toks if t[0] == 'form'):
-                sys.exit(f'lazy {code}: shortcut {key} collides with strict input')
-        lz = ''
-        if shorts:
-            items = ' · '.join(f'<code>{k}</code>\u2192<code>{v}</code>'
-                               for k, v in shorts.items())
-            lz = f'<p class="lazy">lazy input, candidate shortcuts: {items}</p>\n'
         rows, grp = [], 0
         rank = {'L': 0, 'M': 1, 'S': 2, 'X': 3}
         for form in sorted(byform, key=_order_key):
@@ -345,7 +328,7 @@ def language_tables():
             f'<section id="sec-{code}" hidden data-name="{d["name"]}" data-state="{label}" data-cls="{cls}">'
             f'<h2>{d["name"]} <span class="tt">{code} · '
             f'{fmt(d["speakers"]["native"])} native</span>'
-            f'<span class="badge {cls}">{label}</span></h2>\n{lz}'
+            f'<span class="badge {cls}">{label}</span></h2>\n'
             '<div class="opswrap"><table>'
             '<tr><th>input</th><th>glyph</th><th>type</th><th>reading</th><th>freq</th></tr>'
             + ''.join(rows) + '</table></div></section>')

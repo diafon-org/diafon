@@ -20,7 +20,7 @@
   --paper:#14161b; --card:#1b1e25; --sunken:#101216; --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37;
   --accent:#3ec8cf; --bad:#e07a7a;
 }
-@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788806251) format("woff2");font-display:swap}
+@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788894930) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:15px}
 .wrap{max-width:880px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -124,19 +124,19 @@ function tokenize(text){
 
 function hasBelow(g){ return BELOWS.some(b => g.includes(b)); }
 
-function mark(g, base, kind){
+function mark(g, base, kind, caps){
   const m = MARKS[kind];
-  if (m.below && !DESC.has(base) && !hasBelow(g)) return g + m.below;
+  if (m.below && (caps || !DESC.has(base)) && !hasBelow(g)) return g + m.below;
   if (m.above) return g + m.above;
   return g + (m.below || '');
 }
 
-function special(g, base){
+function special(g, base, caps){
   const sp = MARKS.special;
-  return (!DESC.has(base) && !hasBelow(g)) ? g + sp.below : g + sp.above;
+  return ((caps || !DESC.has(base)) && !hasBelow(g)) ? g + sp.below : g + sp.above;
 }
 
-function glyph(form){
+function glyph(form, caps){
   const w = form.endsWith('w'), core = w ? form.slice(0, -1) : form;
   const base = core[0], ops = core.slice(1);
   let g;
@@ -146,18 +146,18 @@ function glyph(form){
     const op2 = core[2];
     if (op2 === 'x'){
       if (hasBelow(g)) return null;                      // the dot never stacks
-      g = mark(g, g[0], 'dot');
+      g = mark(g, g[0], 'dot', caps);
     }
     else if (op2 === 'y'){
       if (g.includes(MARKS.anchor.below))                // y flips the anchored affricate
         g = g.replace(MARKS.anchor.below, MARKS.reverse.below);
       else if (hasBelow(g)) return null;                 // the special never stacks
-      else g = special(g, g[0]);
+      else g = special(g, g[0], caps);
     }
     else return null;
   }
   else if (VB.has(base)) g = vowel(base, ops);
-  else g = consonant(base, ops);
+  else g = consonant(base, ops, caps);
   if (g === null) return null;
   if (w){
     if (VB.has(base) && WHOLE[core] === undefined){
@@ -169,21 +169,21 @@ function glyph(form){
   return g.normalize('NFC');  // one codepoint per visual representation
 }
 
-function consonant(base, ops){
+function consonant(base, ops, caps){
   let g = base;
   if (!ops) return g;
   const op1 = ops[0];
   if ((op1 === 'j' || op1 === 'y') && 'lrf'.includes(base)) return null;
-  if (op1 === 'j') g = mark(g, base, 'anchor');
-  else if (op1 === 'x') g = mark(g, base, 'dot');
-  else if (op1 === 'y') g = mark(g, base, 'reverse');
-  else if (op1 === 'c') g = mark(g, base, 'dot');       // the tap rc
+  if (op1 === 'j') g = mark(g, base, 'anchor', caps);
+  else if (op1 === 'x') g = mark(g, base, 'dot', caps);
+  else if (op1 === 'y') g = mark(g, base, 'reverse', caps);
+  else if (op1 === 'c') g = mark(g, base, 'dot', caps); // the tap rc
   else return null;                                      // bare q-forms are whole letters
   if (ops.length === 1) return g;
   const op2 = ops[1];
   if (op2 === 'x') return null;
   if (op2 === 'y'){
-    if (op1 === 'x') return special(base, base);         // the pair xy: y doubles the dot
+    if (op1 === 'x') return special(base, base, caps);   // the pair xy: y doubles the dot
     if (op1 === 'j' && 'sz'.includes(base))              // y flips the anchored hush
       return g.replace(MARKS.anchor.below, MARKS.reverse.below);
     return null;                                         // the special never stacks
@@ -223,7 +223,7 @@ function update(){
       chipsHtml += `<div class="chip err"><span class="g">${esc(tok.ch)}</span><span class="f">?</span><span class="r">not a segment</span></div>`;
       continue;
     }
-    const g = glyph(tok.form);
+    const g = glyph(tok.form, tok.caps);
     if (g === null){
       outHtml += `<span class="err">${esc(tok.form + tok.tones)}</span>`;
       chipsHtml += `<div class="chip err"><span class="g">${esc(tok.form)}</span><span class="f">${esc(tok.form)}</span><span class="r">no such form</span></div>`;

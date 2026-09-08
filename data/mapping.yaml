@@ -15,10 +15,6 @@
 # - `merges`: within one language, two metadata symbols written on the SAME
 #   form; each entry is a reviewed claim that they are one phoneme. Any
 #   other within-language form collision is an error.
-# - `lazy`: per-language candidate shortcuts for the lazy input layer. A
-#   shortcut may only claim a sequence the language leaves unspent (an unused
-#   form, or one that cannot start a segment), so strict typing always passes
-#   through unchanged. Candidates, not final.
 # - X (marginal) phonemes are not mapped and never counted.
 
 consonants:
@@ -233,19 +229,6 @@ overrides:
 merges:
   # reviewed within-language identifications: two symbols, one phoneme
   en: [[ʌ, ə]]   # STRUT is the stressed schwa
-
-lazy:
-  hu:            # bare a and e are unspent: Hungarian a is ac, e is ej
-    a: ac
-    e: ej
-  zh:            # type-Pinyin: each initial on its Pinyin key; the aspirated
-    zh: tqy      #   stops stay h-sequences, since p t k are spent as the
-    ch: tqyh     #   plain stops
-    sh: sjy      # j q x claim nothing: the alveolo-palatals are allophones,
-    r: zjy       #   not in the inventory
-    z: tc
-    c: tch
-    v: ic        # the IME convention for ü
 
 # Multiple readings belong to the back-lean (y) and the special (xy / secondary
 # y) families, and to the vowel grave. A REGULAR form carries one reading; every
