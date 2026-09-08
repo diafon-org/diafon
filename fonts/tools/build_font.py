@@ -123,7 +123,8 @@ def _anchor_pairs():
     # Capitals inherit their small form's side.
     for ch in 'bcdghjkmnpqstvxyz':
         marks = (0x0313, 0x0314) if ch in 'gjpqy' else (0x0326, 0x0316)
-        pairs.update((c, m) for c in (ch, ch.upper()) for m in marks)
+        pairs.update((ch, m) for m in marks)
+        pairs.update((ch.upper(), m) for m in (0x0326, 0x0316))  # caps never float
     return sorted(pairs)
 
 
@@ -223,7 +224,7 @@ def _bake_strokes(font, gs, cmap, P, xh):
     gsl = font.getGlyphSet()
     for seed_name, mark, letters in (
             (cmap.get(0x0324, 'uni0324'), 0x0324,
-             'bcdfhklmnrstvxz' + 'bcdfhklmnrstvxz'.upper()),
+             'bcdfhklmnrstvxz' + 'bcdfhklmnrstvxz'.upper() + 'GP'),
             ('hungarumlaut', 0x030B, 'aeiou' + 'AEIOU')):
         if seed_name not in gsl:
             continue

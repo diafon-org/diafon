@@ -79,3 +79,11 @@ state only the current system.
   wears its marks on the same side as its small form (ġ Ġ, p̓ P̓), and a
   long consonant capitalizes only its first letter (Șș). No new forms, no
   mapping changes: case never carries phonemic weight.
+- The float rule reads the rendered letter, capitals included: no capital in
+  the system has a descender, so a capital always wears its mark below
+  (p̓ P̦, ġ G̣). The earlier inherit-the-small-form idea is withdrawn.
+- The lazy input layer is parked. Per-language shortcuts work against the
+  linear learning curve and the universality of the input, the system's
+  first cornerstone; the data leaves the mapping and the master tables. If
+  convenience layers return at all, they live inside a per-language IME as
+  its own affair, never in the system.
