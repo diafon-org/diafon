@@ -195,11 +195,7 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
   glyph and readings; each language's own table follows, stamped with the
   review state of its mapping. A language reaches full confidence only with a native or
   expert reviewer. Notation: <code>input forms</code> in type style, script
-  forms in the Diaphone serif, and IPA always between slashes, /ʃ/.
-  Generated from <code>data/</code> by
-  <code>scripts/gen_master.py</code>; the system is defined in
-  <a href="description.html">the description</a>, and the
-  <a href="play.html">playground</a> renders it live.</p>
+  forms in the Diaphone serif, and IPA always between slashes, /ʃ/.</p>
 </header>
 <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin:1.4rem 0 0">
   <label for="table" style="font:600 .72rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">table</label>
@@ -282,7 +278,9 @@ def universal_table(agg, shares):
                        f'<a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank">/{ipa}/</a>'
                        f'<a class="rname" href="{ipa_names.url(ipa)}" target="_blank">{ipa_names.name(ipa)}</a>{lines}</div>')
         shown = form_cell(form)
-        out.append(f'<tr><td>{shown}</td><td class="g">{engine.render(form)}</td>'
+        out.append(f'<tr><td>{shown}</td>'
+                   f'<td class="g">{engine.render(form)} '
+                   f'{engine.render(form[0].upper() + form[1:])}</td>'
                    f'<td class="tt">{t}</td><td>{primary}</td><td>{groups}</td></tr>')
     out.append('</table></div></section>')
     return '\n'.join(out)
@@ -320,7 +318,8 @@ def language_tables():
             if len(pairs) > 1:
                 reading += '<span class="rname">one phoneme, merged</span>'
             rows.append(f'<tr><td>{form_cell(form)}</td>'
-                        f'<td class="g">{engine.render(form)}</td>'
+                        f'<td class="g">{engine.render(form)} '
+                        f'{engine.render(form[0].upper() + form[1:])}</td>'
                         f'<td class="tt">{form_type(form)}</td>'
                         f'<td>{reading}</td>'
                         f'<td class="tt">{pairs[0][1]}</td></tr>')
