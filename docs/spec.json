@@ -1,0 +1,12924 @@
+{
+ "name": "Diafon",
+ "generated": "2026-09-11",
+ "source": "10eb37a",
+ "alphabet": {
+  "consonant_bases": [
+   "b",
+   "d",
+   "f",
+   "g",
+   "h",
+   "k",
+   "l",
+   "m",
+   "n",
+   "p",
+   "r",
+   "s",
+   "t",
+   "v",
+   "z"
+  ],
+  "vowel_bases": [
+   "a",
+   "e",
+   "i",
+   "o",
+   "u"
+  ],
+  "operators": [
+   "c",
+   "j",
+   "q",
+   "x",
+   "y"
+  ],
+  "length": "w",
+  "tones": "trailing digits after a segment"
+ },
+ "grammar": [
+  "A segment is one base letter followed by at most two operators (c j q x y), then w at most once and last, then tone digits.",
+  "An operator or a digit never starts a segment; strictly, such input is an error; leniently, it passes through as typed.",
+  "Case is orthographic: an uppercase base capitalizes its point, operators fold case, a long consonant capitalizes its first letter only.",
+  "Segmentation is greedy left to right and unique: no two forms concatenated ever re-read as anything else.",
+  "Streaming: everything before the last segment is final; a last segment that is a form may still grow, so it stays pending.",
+  "Any character outside the 26 letters and the digits is raw and passes through."
+ ],
+ "script": {
+  "descenders": [
+   "g",
+   "j",
+   "p",
+   "q",
+   "y"
+  ],
+  "whole_letters": {
+   "tc": "c",
+   "dc": "x",
+   "tq": "c̦",
+   "dq": "x̦",
+   "kq": "q",
+   "ix": "j",
+   "ux": "w",
+   "icx": "j̈",
+   "ucx": "ẅ",
+   "aq": "r̈"
+  },
+  "marks": {
+   "anchor": {
+    "below": "̦",
+    "above": "̓"
+   },
+   "dot": {
+    "below": "̣",
+    "above": "̇"
+   },
+   "reverse": {
+    "below": "̖",
+    "above": "̔"
+   },
+   "special": {
+    "below": "̤",
+    "above": "̈"
+   },
+   "underdot": {
+    "below": "̣"
+   },
+   "grave": {
+    "above": "̀"
+   },
+   "acute": {
+    "above": "́"
+   },
+   "double_acute": {
+    "above": "̋"
+   },
+   "flip": {
+    "above": "̈"
+   }
+  },
+  "flip_partner": {
+   "i": "u",
+   "u": "i",
+   "e": "o",
+   "o": "e",
+   "a": "a"
+  },
+  "web": {
+   "g̓": "ģ",
+   "p̓": "ṕ",
+   "b̦": "ḃ",
+   "d̦": "ḑ",
+   "x̦": "ẋ",
+   "k̦": "ķ",
+   "m̦": "ɱ",
+   "n̦": "ņ",
+   "c̦": "ç",
+   "z̦": "ȥ",
+   "s̖": "š",
+   "z̖": "ž",
+   "x̖": "ẍ",
+   "d̖": "ď",
+   "n̖": "ň",
+   "c̖": "č",
+   "t̖": "ť",
+   "ġ": "ġ",
+   "ạ": "ą",
+   "ẹ": "ę",
+   "ị": "į",
+   "ọ": "ǫ",
+   "ụ": "ų",
+   "d̤": "ḏ",
+   "f̤": "ƒ",
+   "k̤": "ḵ",
+   "l̤": "ḻ",
+   "n̤": "ṉ",
+   "r̤": "ṟ",
+   "s̤": "ʂ",
+   "c̤": "ƈ",
+   "t̤": "ṯ",
+   "v̤": "ʋ",
+   "z̤": "ẕ",
+   "r̈": "ř",
+   "g̈": "ǧ",
+   "j̈": "ĵ",
+   "ọ̈": "õ",
+   "ụ̈": "ũ",
+   "a̋": "ȁ",
+   "ő": "ȍ",
+   "ű": "ȕ",
+   "e̋": "ȅ",
+   "i̋": "ȉ",
+   "ẹ́": "ê",
+   "ọ́": "ô",
+   "ẹ̀": "ĕ",
+   "ọ̀": "ŏ"
+  }
+ },
+ "forms": [
+  {
+   "form": "p",
+   "glyph": "p",
+   "capital": "P",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "p": {
+     "languages": [
+      "bn",
+      "cs",
+      "de",
+      "el",
+      "en",
+      "es",
+      "et",
+      "fa",
+      "fi",
+      "fr",
+      "he",
+      "hi",
+      "hu",
+      "id",
+      "it",
+      "ja",
+      "ko",
+      "la",
+      "nl",
+      "pl",
+      "pt",
+      "ro",
+      "ru",
+      "sw",
+      "ta",
+      "th",
+      "tr",
+      "uk",
+      "zh"
+     ],
+     "native": 3848.2
+    },
+    "pʼ": {
+     "languages": [
+      "ka"
+     ],
+     "native": 3.8
+    }
+   },
+   "primary": "p"
+  },
+  {
+   "form": "t",
+   "glyph": "t",
+   "capital": "T",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "t": {
+     "languages": [
+      "ar",
+      "cs",
+      "de",
+      "el",
+      "en",
+      "es",
+      "et",
+      "fa",
+      "fi",
+      "fr",
+      "he",
+      "hu",
+      "id",
+      "it",
+      "ja",
+      "ko",
+      "la",
+      "nl",
+      "pl",
+      "pt",
+      "ro",
+      "ru",
+      "sw",
+      "th",
+      "tr",
+      "uk",
+      "vi",
+      "zh"
+     ],
+     "native": 3494.2
+    },
+    "t̪": {
+     "languages": [
+      "bn",
+      "hi",
+      "ta"
+     ],
+     "native": 819.0
+    },
+    "tʼ": {
+     "languages": [
+      "ka"
+     ],
+     "native": 3.8
+    }
+   },
+   "primary": "t"
+  },
+  {
+   "form": "k",
+   "glyph": "k",
+   "capital": "K",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "k": {
+     "languages": [
+      "ar",
+      "bn",
+      "cs",
+      "de",
+      "el",
+      "en",
+      "es",
+      "et",
+      "fa",
+      "fi",
+      "fr",
+      "he",
+      "hi",
+      "hu",
+      "id",
+      "it",
+      "ja",
+      "ko",
+      "la",
+      "nl",
+      "pl",
+      "pt",
+      "ro",
+      "ru",
+      "sw",
+      "ta",
+      "th",
+      "tr",
+      "uk",
+      "vi",
+      "zh"
+     ],
+     "native": 4313.2
+    },
+    "kʼ": {
+     "languages": [
+      "ka"
+     ],
+     "native": 3.8
+    }
+   },
+   "primary": "k"
+  },
+  {
+   "form": "b",
+   "glyph": "b",
+   "capital": "B",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "b": {
+     "languages": [
+      "ar",
+      "bn",
+      "cs",
+      "de",
+      "en",
+      "es",
+      "fa",
+      "fr",
+      "he",
+      "hi",
+      "hu",
+      "id",
+      "it",
+      "ja",
+      "ka",
+      "la",
+      "nl",
+      "pl",
+      "pt",
+      "ro",
+      "ru",
+      "sw",
+      "th",
+      "tr",
+      "uk"
+     ],
+     "native": 3112.5
+    },
+    "ɓ": {
+     "languages": [
+      "vi"
+     ],
+     "native": 85.0
+    }
+   },
+   "primary": "b"
+  },
+  {
+   "form": "d",
+   "glyph": "d",
+   "capital": "D",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "d": {
+     "languages": [
+      "ar",
+      "cs",
+      "de",
+      "en",
+      "es",
+      "fa",
+      "fi",
+      "fr",
+      "he",
+      "hu",
+      "id",
+      "it",
+      "ja",
+      "ka",
+      "la",
+      "nl",
+      "pl",
+      "pt",
+      "ro",
+      "ru",
+      "sw",
+      "th",
+      "tr",
+      "uk"
+     ],
+     "native": 2377.9
+    },
+    "d̪": {
+     "languages": [
+      "bn",
+      "hi"
+     ],
+     "native": 740.0
+    },
+    "ɗ": {
+     "languages": [
+      "vi"
+     ],
+     "native": 85.0
+    }
+   },
+   "primary": "d"
+  },
+  {
+   "form": "g",
+   "glyph": "g",
+   "capital": "G",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "g": {
+     "languages": [
+      "bn",
+      "de",
+      "en",
+      "es",
+      "fa",
+      "fr",
+      "he",
+      "hi",
+      "hu",
+      "id",
+      "it",
+      "ja",
+      "ka",
+      "la",
+      "pl",
+      "pt",
+      "ro",
+      "ru",
+      "sw",
+      "tr"
+     ],
+     "native": 2642.8
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "f",
+   "glyph": "f",
+   "capital": "F",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "f": {
+     "languages": [
+      "ar",
+      "cs",
+      "de",
+      "el",
+      "en",
+      "es",
+      "fa",
+      "fr",
+      "he",
+      "hu",
+      "it",
+      "la",
+      "nl",
+      "pl",
+      "pt",
+      "ro",
+      "ru",
+      "sw",
+      "th",
+      "tr",
+      "vi",
+      "zh"
+     ],
+     "native": 3206.7
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "v",
+   "glyph": "v",
+   "capital": "V",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "v": {
+     "languages": [
+      "cs",
+      "de",
+      "el",
+      "en",
+      "et",
+      "fa",
+      "fi",
+      "fr",
+      "he",
+      "hu",
+      "it",
+      "ka",
+      "nl",
+      "pl",
+      "pt",
+      "ro",
+      "ru",
+      "sw",
+      "ta",
+      "tr",
+      "uk",
+      "vi"
+     ],
+     "native": 1503.0
+    },
+    "ʋ": {
+     "languages": [
+      "hi"
+     ],
+     "native": 500.0
+    }
+   },
+   "primary": "v"
+  },
+  {
+   "form": "s",
+   "glyph": "s",
+   "capital": "S",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "s": {
+     "languages": [
+      "ar",
+      "cs",
+      "de",
+      "el",
+      "en",
+      "es",
+      "et",
+      "fa",
+      "fi",
+      "fr",
+      "he",
+      "hi",
+      "hu",
+      "id",
+      "it",
+      "ja",
+      "ka",
+      "ko",
+      "la",
+      "nl",
+      "pl",
+      "pt",
+      "ro",
+      "ru",
+      "sw",
+      "th",
+      "tr",
+      "uk",
+      "vi",
+      "zh"
+     ],
+     "native": 3998.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "z",
+   "glyph": "z",
+   "capital": "Z",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "z": {
+     "languages": [
+      "ar",
+      "cs",
+      "de",
+      "el",
+      "en",
+      "fa",
+      "fr",
+      "he",
+      "hu",
+      "it",
+      "ja",
+      "ka",
+      "nl",
+      "pl",
+      "pt",
+      "ro",
+      "ru",
+      "sw",
+      "tr",
+      "uk",
+      "vi"
+     ],
+     "native": 1920.5
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "m",
+   "glyph": "m",
+   "capital": "M",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "m": {
+     "languages": [
+      "ar",
+      "bn",
+      "cs",
+      "de",
+      "el",
+      "en",
+      "es",
+      "et",
+      "fa",
+      "fi",
+      "fr",
+      "he",
+      "hi",
+      "hu",
+      "id",
+      "it",
+      "ja",
+      "ka",
+      "ko",
+      "la",
+      "nl",
+      "pl",
+      "pt",
+      "ro",
+      "ru",
+      "sw",
+      "ta",
+      "th",
+      "tr",
+      "uk",
+      "vi",
+      "zh"
+     ],
+     "native": 4317.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "n",
+   "glyph": "n",
+   "capital": "N",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "n": {
+     "languages": [
+      "ar",
+      "bn",
+      "cs",
+      "de",
+      "el",
+      "en",
+      "es",
+      "et",
+      "fa",
+      "fi",
+      "fr",
+      "he",
+      "hi",
+      "hu",
+      "id",
+      "it",
+      "ja",
+      "ka",
+      "ko",
+      "la",
+      "nl",
+      "pl",
+      "pt",
+      "ro",
+      "ru",
+      "sw",
+      "ta",
+      "th",
+      "tr",
+      "uk",
+      "vi",
+      "zh"
+     ],
+     "native": 4317.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "l",
+   "glyph": "l",
+   "capital": "L",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "l": {
+     "languages": [
+      "ar",
+      "bn",
+      "cs",
+      "de",
+      "el",
+      "en",
+      "es",
+      "et",
+      "fa",
+      "fi",
+      "fr",
+      "he",
+      "hi",
+      "hu",
+      "id",
+      "it",
+      "ka",
+      "ko",
+      "la",
+      "nl",
+      "pl",
+      "pt",
+      "ro",
+      "ru",
+      "sw",
+      "ta",
+      "th",
+      "tr",
+      "uk",
+      "vi",
+      "zh"
+     ],
+     "native": 4194.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "r",
+   "glyph": "r",
+   "capital": "R",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "r": {
+     "languages": [
+      "ar",
+      "bn",
+      "cs",
+      "el",
+      "es",
+      "et",
+      "fa",
+      "fi",
+      "hi",
+      "hu",
+      "id",
+      "it",
+      "ja",
+      "ka",
+      "la",
+      "nl",
+      "pl",
+      "ro",
+      "ru",
+      "sw",
+      "ta",
+      "th",
+      "uk"
+     ],
+     "native": 2346.0
+    },
+    "ɹ": {
+     "languages": [
+      "en"
+     ],
+     "native": 380.0
+    }
+   },
+   "primary": "r"
+  },
+  {
+   "form": "h",
+   "glyph": "h",
+   "capital": "H",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "h": {
+     "languages": [
+      "ar",
+      "bn",
+      "de",
+      "en",
+      "et",
+      "fa",
+      "fi",
+      "he",
+      "hi",
+      "hu",
+      "id",
+      "ja",
+      "ka",
+      "ko",
+      "la",
+      "nl",
+      "ro",
+      "sw",
+      "th",
+      "tr",
+      "vi"
+     ],
+     "native": 2187.3
+    },
+    "ɦ": {
+     "languages": [
+      "cs",
+      "uk"
+     ],
+     "native": 43.7
+    }
+   },
+   "primary": "h"
+  },
+  {
+   "form": "a",
+   "glyph": "a",
+   "capital": "A",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "a": {
+     "languages": [
+      "ar",
+      "bn",
+      "cs",
+      "de",
+      "el",
+      "es",
+      "fr",
+      "he",
+      "id",
+      "it",
+      "ja",
+      "ka",
+      "ko",
+      "la",
+      "pl",
+      "pt",
+      "ro",
+      "ru",
+      "ta",
+      "th",
+      "tr",
+      "uk",
+      "vi",
+      "zh"
+     ],
+     "native": 3296.5
+    },
+    "æ": {
+     "languages": [
+      "en",
+      "et",
+      "fa",
+      "fi"
+     ],
+     "native": 466.5
+    }
+   },
+   "primary": "a"
+  },
+  {
+   "form": "e",
+   "glyph": "e",
+   "capital": "E",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "e": {
+     "languages": [
+      "bn",
+      "de",
+      "el",
+      "es",
+      "et",
+      "fa",
+      "fi",
+      "fr",
+      "he",
+      "hi",
+      "id",
+      "it",
+      "ja",
+      "ka",
+      "ko",
+      "la",
+      "pt",
+      "ro",
+      "ru",
+      "ta",
+      "th",
+      "tr",
+      "vi"
+     ],
+     "native": 2479.3
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "i",
+   "glyph": "i",
+   "capital": "I",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "i": {
+     "languages": [
+      "ar",
+      "bn",
+      "cs",
+      "de",
+      "el",
+      "en",
+      "es",
+      "et",
+      "fa",
+      "fi",
+      "fr",
+      "he",
+      "hi",
+      "hu",
+      "id",
+      "it",
+      "ja",
+      "ka",
+      "ko",
+      "la",
+      "nl",
+      "pl",
+      "pt",
+      "ro",
+      "ru",
+      "sw",
+      "ta",
+      "th",
+      "tr",
+      "uk",
+      "vi",
+      "zh"
+     ],
+     "native": 4317.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "o",
+   "glyph": "o",
+   "capital": "O",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "o": {
+     "languages": [
+      "bn",
+      "cs",
+      "de",
+      "el",
+      "es",
+      "et",
+      "fa",
+      "fi",
+      "fr",
+      "he",
+      "hi",
+      "hu",
+      "id",
+      "it",
+      "ja",
+      "ka",
+      "ko",
+      "la",
+      "pt",
+      "ro",
+      "ru",
+      "ta",
+      "th",
+      "tr",
+      "vi"
+     ],
+     "native": 2503.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "u",
+   "glyph": "u",
+   "capital": "U",
+   "type": "base",
+   "segments": 1,
+   "readings": {
+    "u": {
+     "languages": [
+      "ar",
+      "bn",
+      "cs",
+      "de",
+      "el",
+      "en",
+      "es",
+      "et",
+      "fa",
+      "fi",
+      "fr",
+      "he",
+      "hi",
+      "hu",
+      "id",
+      "it",
+      "ka",
+      "ko",
+      "la",
+      "nl",
+      "pl",
+      "pt",
+      "ro",
+      "ru",
+      "sw",
+      "ta",
+      "th",
+      "tr",
+      "uk",
+      "vi",
+      "zh"
+     ],
+     "native": 4194.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "pj",
+   "glyph": "ṕ",
+   "capital": "Ṕ",
+   "type": "soft",
+   "segments": 1,
+   "readings": {
+    "pʲ": {
+     "languages": [
+      "ru"
+     ],
+     "native": 145.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "tj",
+   "glyph": "ț",
+   "capital": "Ț",
+   "type": "soft",
+   "segments": 1,
+   "readings": {
+    "c": {
+     "languages": [
+      "cs",
+      "hu"
+     ],
+     "native": 23.7
+    },
+    "tʲ": {
+     "languages": [
+      "et",
+      "ru",
+      "uk"
+     ],
+     "native": 179.1
+    }
+   },
+   "primary": "c"
+  },
+  {
+   "form": "kj",
+   "glyph": "ķ",
+   "capital": "Ķ",
+   "type": "soft",
+   "segments": 1,
+   "readings": {
+    "kʲ": {
+     "languages": [
+      "ru"
+     ],
+     "native": 145.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "bj",
+   "glyph": "ḃ",
+   "capital": "Ḃ",
+   "type": "soft",
+   "segments": 1,
+   "readings": {
+    "bʲ": {
+     "languages": [
+      "ru"
+     ],
+     "native": 145.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "dj",
+   "glyph": "ḑ",
+   "capital": "Ḑ",
+   "type": "soft",
+   "segments": 1,
+   "readings": {
+    "ɟ": {
+     "languages": [
+      "cs",
+      "hu",
+      "sw"
+     ],
+     "native": 39.7
+    },
+    "ʝ": {
+     "languages": [
+      "es"
+     ],
+     "native": 485.0
+    },
+    "dʲ": {
+     "languages": [
+      "ru",
+      "uk"
+     ],
+     "native": 178.0
+    }
+   },
+   "primary": "ɟ"
+  },
+  {
+   "form": "gj",
+   "glyph": "ģ",
+   "capital": "Ģ",
+   "type": "soft",
+   "segments": 1,
+   "readings": {
+    "gʲ": {
+     "languages": [
+      "ru"
+     ],
+     "native": 145.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "sj",
+   "glyph": "ș",
+   "capital": "Ș",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ʃ": {
+     "languages": [
+      "ar",
+      "bn",
+      "cs",
+      "de",
+      "en",
+      "fa",
+      "fr",
+      "he",
+      "hi",
+      "hu",
+      "it",
+      "ka",
+      "pt",
+      "ro",
+      "sw",
+      "tr",
+      "uk"
+     ],
+     "native": 2229.5
+    },
+    "ɕ": {
+     "languages": [
+      "ja",
+      "pl"
+     ],
+     "native": 163.0
+    }
+   },
+   "primary": "ʃ"
+  },
+  {
+   "form": "zj",
+   "glyph": "ȥ",
+   "capital": "Ȥ",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ʒ": {
+     "languages": [
+      "cs",
+      "en",
+      "fa",
+      "fr",
+      "hu",
+      "ka",
+      "pt",
+      "ro",
+      "tr",
+      "uk"
+     ],
+     "native": 948.5
+    },
+    "ʑ": {
+     "languages": [
+      "pl"
+     ],
+     "native": 40.0
+    }
+   },
+   "primary": "ʒ"
+  },
+  {
+   "form": "mj",
+   "glyph": "ɱ",
+   "capital": "Ɱ",
+   "type": "soft",
+   "segments": 1,
+   "readings": {
+    "mʲ": {
+     "languages": [
+      "ru"
+     ],
+     "native": 145.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "nj",
+   "glyph": "ņ",
+   "capital": "Ņ",
+   "type": "soft",
+   "segments": 1,
+   "readings": {
+    "ɲ": {
+     "languages": [
+      "cs",
+      "es",
+      "fr",
+      "hu",
+      "id",
+      "it",
+      "pl",
+      "pt",
+      "sw",
+      "ta",
+      "vi"
+     ],
+     "native": 1156.7
+    },
+    "nʲ": {
+     "languages": [
+      "et",
+      "ru",
+      "uk"
+     ],
+     "native": 179.1
+    }
+   },
+   "primary": "ɲ"
+  },
+  {
+   "form": "aj",
+   "glyph": "ą",
+   "capital": "Ą",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ə": {
+     "languages": [
+      "de",
+      "en",
+      "fr",
+      "hi",
+      "id",
+      "nl",
+      "ro",
+      "vi",
+      "zh"
+     ],
+     "native": 2154.0
+    },
+    "ʌ": {
+     "languages": [
+      "en",
+      "ko"
+     ],
+     "native": 461.0
+    },
+    "ɐ": {
+     "languages": [
+      "pt"
+     ],
+     "native": 240.0
+    }
+   },
+   "primary": "ə"
+  },
+  {
+   "form": "ej",
+   "glyph": "ę",
+   "capital": "Ę",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ɛ": {
+     "languages": [
+      "bn",
+      "cs",
+      "de",
+      "en",
+      "fr",
+      "hi",
+      "hu",
+      "it",
+      "ko",
+      "nl",
+      "pl",
+      "pt",
+      "sw",
+      "th",
+      "uk",
+      "vi"
+     ],
+     "native": 1904.7
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ij",
+   "glyph": "į",
+   "capital": "Į",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ɪ": {
+     "languages": [
+      "de",
+      "en",
+      "hi",
+      "nl",
+      "uk"
+     ],
+     "native": 1014.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "oj",
+   "glyph": "ǫ",
+   "capital": "Ǫ",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ɔ": {
+     "languages": [
+      "bn",
+      "de",
+      "en",
+      "fr",
+      "hi",
+      "it",
+      "nl",
+      "pl",
+      "pt",
+      "sw",
+      "th",
+      "uk",
+      "vi"
+     ],
+     "native": 1800.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "uj",
+   "glyph": "ų",
+   "capital": "Ų",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ʊ": {
+     "languages": [
+      "de",
+      "en",
+      "hi"
+     ],
+     "native": 956.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "tc",
+   "glyph": "c",
+   "capital": "C",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ts": {
+     "languages": [
+      "cs",
+      "de",
+      "el",
+      "he",
+      "hu",
+      "it",
+      "ja",
+      "pl",
+      "ro",
+      "ru",
+      "uk",
+      "zh"
+     ],
+     "native": 1486.7
+    },
+    "tsʼ": {
+     "languages": [
+      "ka"
+     ],
+     "native": 3.8
+    }
+   },
+   "primary": "ts"
+  },
+  {
+   "form": "dc",
+   "glyph": "x",
+   "capital": "X",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "dz": {
+     "languages": [
+      "el",
+      "hu",
+      "it",
+      "ka",
+      "pl",
+      "uk"
+     ],
+     "native": 166.8
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "rc",
+   "glyph": "ṛ",
+   "capital": "Ṛ",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ɽ": {
+     "languages": [
+      "bn",
+      "hi"
+     ],
+     "native": 740.0
+    },
+    "ɾ": {
+     "languages": [
+      "es",
+      "pt",
+      "ta",
+      "tr"
+     ],
+     "native": 888.0
+    }
+   },
+   "primary": "ɾ"
+  },
+  {
+   "form": "ac",
+   "glyph": "ä",
+   "capital": "Ä",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ɑ": {
+     "languages": [
+      "en",
+      "et",
+      "fi",
+      "hi",
+      "nl",
+      "sw"
+     ],
+     "native": 927.5
+    },
+    "ɒ": {
+     "languages": [
+      "fa",
+      "hu"
+     ],
+     "native": 93.0
+    }
+   },
+   "primary": "ɒ"
+  },
+  {
+   "form": "ec",
+   "glyph": "ö",
+   "capital": "Ö",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ø": {
+     "languages": [
+      "de",
+      "et",
+      "fi",
+      "fr",
+      "hu",
+      "tr"
+     ],
+     "native": 259.5
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ic",
+   "glyph": "ü",
+   "capital": "Ü",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "y": {
+     "languages": [
+      "de",
+      "et",
+      "fi",
+      "fr",
+      "hu",
+      "nl",
+      "tr",
+      "zh"
+     ],
+     "native": 1224.5
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "oc",
+   "glyph": "ë",
+   "capital": "Ë",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ɤ": {
+     "languages": [
+      "et",
+      "th",
+      "vi",
+      "zh"
+     ],
+     "native": 1047.1
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "uc",
+   "glyph": "ï",
+   "capital": "Ï",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ɯ": {
+     "languages": [
+      "ja",
+      "ko",
+      "th",
+      "tr"
+     ],
+     "native": 309.0
+    },
+    "ɨ": {
+     "languages": [
+      "pl",
+      "ro",
+      "vi",
+      "zh"
+     ],
+     "native": 1089.0
+    }
+   },
+   "primary": "ɯ"
+  },
+  {
+   "form": "tq",
+   "glyph": "ç",
+   "capital": "Ç",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "tʃ": {
+     "languages": [
+      "bn",
+      "cs",
+      "de",
+      "en",
+      "es",
+      "fa",
+      "hi",
+      "hu",
+      "id",
+      "it",
+      "ro",
+      "sw",
+      "ta",
+      "tr",
+      "uk"
+     ],
+     "native": 2128.7
+    },
+    "tɕ": {
+     "languages": [
+      "ja",
+      "ko",
+      "pl",
+      "ru",
+      "th",
+      "vi"
+     ],
+     "native": 495.0
+    },
+    "tʃʼ": {
+     "languages": [
+      "ka"
+     ],
+     "native": 3.8
+    }
+   },
+   "primary": "tʃ"
+  },
+  {
+   "form": "kq",
+   "glyph": "q",
+   "capital": "Q",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "q": {
+     "languages": [
+      "ar",
+      "fa"
+     ],
+     "native": 460.0
+    },
+    "qʼ": {
+     "languages": [
+      "ka"
+     ],
+     "native": 3.8
+    }
+   },
+   "primary": "q"
+  },
+  {
+   "form": "dq",
+   "glyph": "ẋ",
+   "capital": "Ẋ",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "dʒ": {
+     "languages": [
+      "ar",
+      "bn",
+      "en",
+      "fa",
+      "hi",
+      "id",
+      "it",
+      "ka",
+      "ro",
+      "tr",
+      "uk"
+     ],
+     "native": 1832.8
+    },
+    "dʑ": {
+     "languages": [
+      "ja",
+      "pl"
+     ],
+     "native": 163.0
+    }
+   },
+   "primary": "dʒ"
+  },
+  {
+   "form": "aq",
+   "glyph": "ř",
+   "capital": "Ř",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ɝ": {
+     "languages": [
+      "en"
+     ],
+     "native": 380.0
+    },
+    "ɻ": {
+     "languages": [
+      "ta"
+     ],
+     "native": 79.0
+    },
+    "ɚ": {
+     "languages": [
+      "zh"
+     ],
+     "native": 940.0
+    }
+   },
+   "primary": "ɝ"
+  },
+  {
+   "form": "eq",
+   "glyph": "õ",
+   "capital": "Õ",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "œ": {
+     "languages": [
+      "de",
+      "fr"
+     ],
+     "native": 156.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "iq",
+   "glyph": "ũ",
+   "capital": "Ũ",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ʏ": {
+     "languages": [
+      "de",
+      "nl"
+     ],
+     "native": 101.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "tx",
+   "glyph": "ṭ",
+   "capital": "Ṭ",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "θ": {
+     "languages": [
+      "ar",
+      "el",
+      "en",
+      "es"
+     ],
+     "native": 1258.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "kx",
+   "glyph": "ḳ",
+   "capital": "Ḳ",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "x": {
+     "languages": [
+      "ar",
+      "cs",
+      "de",
+      "el",
+      "es",
+      "fa",
+      "he",
+      "nl",
+      "pl",
+      "ru",
+      "uk",
+      "vi",
+      "zh"
+     ],
+     "native": 2317.7
+    },
+    "χ": {
+     "languages": [
+      "ka"
+     ],
+     "native": 3.8
+    }
+   },
+   "primary": "x"
+  },
+  {
+   "form": "dx",
+   "glyph": "ḍ",
+   "capital": "Ḍ",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ð": {
+     "languages": [
+      "ar",
+      "el",
+      "en"
+     ],
+     "native": 773.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "gx",
+   "glyph": "ġ",
+   "capital": "Ġ",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ʁ": {
+     "languages": [
+      "ar",
+      "de",
+      "fr",
+      "he",
+      "ka",
+      "pt"
+     ],
+     "native": 784.8
+    },
+    "ɣ": {
+     "languages": [
+      "el",
+      "vi"
+     ],
+     "native": 98.0
+    }
+   },
+   "primary": "ɣ"
+  },
+  {
+   "form": "nx",
+   "glyph": "ṇ",
+   "capital": "Ṇ",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ŋ": {
+     "languages": [
+      "bn",
+      "de",
+      "en",
+      "fi",
+      "id",
+      "ko",
+      "nl",
+      "sw",
+      "th",
+      "vi",
+      "zh"
+     ],
+     "native": 1913.4
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "lx",
+   "glyph": "ḷ",
+   "capital": "Ḷ",
+   "type": "shift",
+   "segments": 1,
+   "readings": {
+    "ɭ": {
+     "languages": [
+      "ta"
+     ],
+     "native": 79.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "hx",
+   "glyph": "ḥ",
+   "capital": "Ḥ",
+   "type": "point",
+   "segments": 1,
+   "readings": {
+    "ʔ": {
+     "languages": [
+      "ar",
+      "fa",
+      "he",
+      "th",
+      "vi"
+     ],
+     "native": 571.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ix",
+   "glyph": "j",
+   "capital": "J",
+   "type": "glide",
+   "segments": 1,
+   "readings": {
+    "j": {
+     "languages": [
+      "ar",
+      "bn",
+      "cs",
+      "de",
+      "en",
+      "et",
+      "fa",
+      "fi",
+      "fr",
+      "he",
+      "hi",
+      "hu",
+      "id",
+      "ja",
+      "ko",
+      "la",
+      "nl",
+      "pl",
+      "pt",
+      "ro",
+      "ru",
+      "sw",
+      "ta",
+      "th",
+      "tr",
+      "uk",
+      "vi"
+     ],
+     "native": 2811.2
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ux",
+   "glyph": "w",
+   "capital": "W",
+   "type": "glide",
+   "segments": 1,
+   "readings": {
+    "w": {
+     "languages": [
+      "ar",
+      "en",
+      "fr",
+      "id",
+      "ja",
+      "ko",
+      "la",
+      "nl",
+      "pl",
+      "pt",
+      "ro",
+      "sw",
+      "th",
+      "vi"
+     ],
+     "native": 1539.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ty",
+   "glyph": "ť",
+   "capital": "Ť",
+   "type": "retro",
+   "segments": 1,
+   "readings": {
+    "ʈ": {
+     "languages": [
+      "bn",
+      "hi",
+      "ta"
+     ],
+     "native": 819.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "dy",
+   "glyph": "ď",
+   "capital": "Ď",
+   "type": "retro",
+   "segments": 1,
+   "readings": {
+    "ɖ": {
+     "languages": [
+      "bn",
+      "hi"
+     ],
+     "native": 740.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ny",
+   "glyph": "ň",
+   "capital": "Ň",
+   "type": "retro",
+   "segments": 1,
+   "readings": {
+    "ɳ": {
+     "languages": [
+      "hi",
+      "ta"
+     ],
+     "native": 579.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ay",
+   "glyph": "à",
+   "capital": "À",
+   "type": "nasal",
+   "segments": 1,
+   "readings": {
+    "ã": {
+     "languages": [
+      "bn",
+      "pt"
+     ],
+     "native": 480.0
+    },
+    "ɑ̃": {
+     "languages": [
+      "fr",
+      "hi"
+     ],
+     "native": 580.0
+    }
+   },
+   "primary": "ã"
+  },
+  {
+   "form": "ey",
+   "glyph": "è",
+   "capital": "È",
+   "type": "nasal",
+   "segments": 1,
+   "readings": {
+    "ẽ": {
+     "languages": [
+      "bn",
+      "hi",
+      "pt"
+     ],
+     "native": 980.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "iy",
+   "glyph": "ì",
+   "capital": "Ì",
+   "type": "nasal",
+   "segments": 1,
+   "readings": {
+    "ĩ": {
+     "languages": [
+      "bn",
+      "hi",
+      "pt"
+     ],
+     "native": 980.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "oy",
+   "glyph": "ò",
+   "capital": "Ò",
+   "type": "nasal",
+   "segments": 1,
+   "readings": {
+    "õ": {
+     "languages": [
+      "bn",
+      "hi",
+      "pt"
+     ],
+     "native": 980.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "uy",
+   "glyph": "ù",
+   "capital": "Ù",
+   "type": "nasal",
+   "segments": 1,
+   "readings": {
+    "ũ": {
+     "languages": [
+      "bn",
+      "hi",
+      "pt"
+     ],
+     "native": 980.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "pw",
+   "glyph": "pp",
+   "capital": "Pp",
+   "type": "long",
+   "segments": 1,
+   "readings": {
+    "p͈": {
+     "languages": [
+      "ko"
+     ],
+     "native": 81.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "tw",
+   "glyph": "tt",
+   "capital": "Tt",
+   "type": "long",
+   "segments": 1,
+   "readings": {
+    "t͈": {
+     "languages": [
+      "ko"
+     ],
+     "native": 81.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "kw",
+   "glyph": "kk",
+   "capital": "Kk",
+   "type": "long",
+   "segments": 1,
+   "readings": {
+    "k͈": {
+     "languages": [
+      "ko"
+     ],
+     "native": 81.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "sw",
+   "glyph": "ss",
+   "capital": "Ss",
+   "type": "long",
+   "segments": 1,
+   "readings": {
+    "s͈": {
+     "languages": [
+      "ko"
+     ],
+     "native": 81.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "aw",
+   "glyph": "á",
+   "capital": "Á",
+   "type": "long",
+   "segments": 1,
+   "readings": {
+    "aː": {
+     "languages": [
+      "ar",
+      "cs",
+      "de",
+      "hu",
+      "ja",
+      "la",
+      "nl",
+      "ta",
+      "th",
+      "vi"
+     ],
+     "native": 812.7
+    },
+    "æː": {
+     "languages": [
+      "et",
+      "fi"
+     ],
+     "native": 6.5
+    }
+   },
+   "primary": "aː"
+  },
+  {
+   "form": "ew",
+   "glyph": "é",
+   "capital": "É",
+   "type": "long",
+   "segments": 1,
+   "readings": {
+    "eː": {
+     "languages": [
+      "de",
+      "et",
+      "fi",
+      "hu",
+      "ja",
+      "la",
+      "nl",
+      "ta",
+      "th"
+     ],
+     "native": 343.5
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "iw",
+   "glyph": "í",
+   "capital": "Í",
+   "type": "long",
+   "segments": 1,
+   "readings": {
+    "iː": {
+     "languages": [
+      "ar",
+      "cs",
+      "de",
+      "et",
+      "fi",
+      "hu",
+      "ja",
+      "la",
+      "ta",
+      "th"
+     ],
+     "native": 709.2
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ow",
+   "glyph": "ó",
+   "capital": "Ó",
+   "type": "long",
+   "segments": 1,
+   "readings": {
+    "oː": {
+     "languages": [
+      "cs",
+      "de",
+      "et",
+      "fi",
+      "hu",
+      "ja",
+      "la",
+      "nl",
+      "ta",
+      "th"
+     ],
+     "native": 354.2
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "uw",
+   "glyph": "ú",
+   "capital": "Ú",
+   "type": "long",
+   "segments": 1,
+   "readings": {
+    "uː": {
+     "languages": [
+      "ar",
+      "cs",
+      "de",
+      "et",
+      "fi",
+      "hu",
+      "la",
+      "ta",
+      "th"
+     ],
+     "native": 586.2
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ph",
+   "glyph": "ph",
+   "capital": "Ph",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "pʰ": {
+     "languages": [
+      "bn",
+      "hi",
+      "ka",
+      "ko",
+      "th",
+      "zh"
+     ],
+     "native": 1785.8
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "pf",
+   "glyph": "pf",
+   "capital": "Pf",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "pf": {
+     "languages": [
+      "de"
+     ],
+     "native": 76.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "th",
+   "glyph": "th",
+   "capital": "Th",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "t̪ʰ": {
+     "languages": [
+      "bn",
+      "hi"
+     ],
+     "native": 740.0
+    },
+    "tʰ": {
+     "languages": [
+      "ka",
+      "ko",
+      "th",
+      "vi",
+      "zh"
+     ],
+     "native": 1130.8
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "kh",
+   "glyph": "kh",
+   "capital": "Kh",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "kʰ": {
+     "languages": [
+      "bn",
+      "hi",
+      "ka",
+      "ko",
+      "th",
+      "zh"
+     ],
+     "native": 1785.8
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "bh",
+   "glyph": "bh",
+   "capital": "Bh",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "bʱ": {
+     "languages": [
+      "bn",
+      "hi"
+     ],
+     "native": 740.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "dh",
+   "glyph": "dh",
+   "capital": "Dh",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "d̪ʱ": {
+     "languages": [
+      "bn",
+      "hi"
+     ],
+     "native": 740.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "gh",
+   "glyph": "gh",
+   "capital": "Gh",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "gʱ": {
+     "languages": [
+      "bn",
+      "hi"
+     ],
+     "native": 740.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "icx",
+   "glyph": "ĵ",
+   "capital": "Ĵ",
+   "type": "glide",
+   "segments": 1,
+   "readings": {
+    "ɥ": {
+     "languages": [
+      "fr"
+     ],
+     "native": 80.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "sjy",
+   "glyph": "š",
+   "capital": "Š",
+   "type": "retro",
+   "segments": 1,
+   "readings": {
+    "ʂ": {
+     "languages": [
+      "pl",
+      "ru",
+      "zh"
+     ],
+     "native": 1125.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "zjy",
+   "glyph": "ž",
+   "capital": "Ž",
+   "type": "retro",
+   "segments": 1,
+   "readings": {
+    "ʐ": {
+     "languages": [
+      "pl",
+      "ru",
+      "zh"
+     ],
+     "native": 1125.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "tcy",
+   "glyph": "ƈ",
+   "capital": "Ƈ",
+   "type": "special",
+   "segments": 1,
+   "readings": {
+    "tsʲ": {
+     "languages": [
+      "uk"
+     ],
+     "native": 33.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "tqy",
+   "glyph": "č",
+   "capital": "Č",
+   "type": "retro",
+   "segments": 1,
+   "readings": {
+    "tʂ": {
+     "languages": [
+      "pl",
+      "zh"
+     ],
+     "native": 980.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "dqy",
+   "glyph": "ẍ",
+   "capital": "Ẍ",
+   "type": "retro",
+   "segments": 1,
+   "readings": {
+    "dʐ": {
+     "languages": [
+      "pl"
+     ],
+     "native": 40.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "txy",
+   "glyph": "ṯ",
+   "capital": "Ṯ",
+   "type": "special",
+   "segments": 1,
+   "readings": {
+    "tˤ": {
+     "languages": [
+      "ar"
+     ],
+     "native": 380.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "kxy",
+   "glyph": "ḵ",
+   "capital": "Ḵ",
+   "type": "special",
+   "segments": 1,
+   "readings": {
+    "ħ": {
+     "languages": [
+      "ar"
+     ],
+     "native": 380.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "dxy",
+   "glyph": "ḏ",
+   "capital": "Ḏ",
+   "type": "special",
+   "segments": 1,
+   "readings": {
+    "dˤ": {
+     "languages": [
+      "ar"
+     ],
+     "native": 380.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "gxy",
+   "glyph": "ǧ",
+   "capital": "Ǧ",
+   "type": "special",
+   "segments": 1,
+   "readings": {
+    "ʕ": {
+     "languages": [
+      "ar"
+     ],
+     "native": 380.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "fxy",
+   "glyph": "ƒ",
+   "capital": "Ƒ",
+   "type": "special",
+   "segments": 1,
+   "readings": {
+    "fʲ": {
+     "languages": [
+      "ru"
+     ],
+     "native": 145.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "vxy",
+   "glyph": "ʋ",
+   "capital": "Ʋ",
+   "type": "special",
+   "segments": 1,
+   "readings": {
+    "vʲ": {
+     "languages": [
+      "ru"
+     ],
+     "native": 145.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "sxy",
+   "glyph": "ʂ",
+   "capital": "Ʂ",
+   "type": "special",
+   "segments": 1,
+   "readings": {
+    "sˤ": {
+     "languages": [
+      "ar"
+     ],
+     "native": 380.0
+    },
+    "sʲ": {
+     "languages": [
+      "et",
+      "ru",
+      "uk"
+     ],
+     "native": 179.1
+    }
+   },
+   "primary": "sˤ"
+  },
+  {
+   "form": "zxy",
+   "glyph": "ẕ",
+   "capital": "Ẕ",
+   "type": "special",
+   "segments": 1,
+   "readings": {
+    "ðˤ": {
+     "languages": [
+      "ar"
+     ],
+     "native": 380.0
+    },
+    "zʲ": {
+     "languages": [
+      "ru",
+      "uk"
+     ],
+     "native": 178.0
+    }
+   },
+   "primary": "ðˤ"
+  },
+  {
+   "form": "nxy",
+   "glyph": "ṉ",
+   "capital": "Ṉ",
+   "type": "special",
+   "segments": 1,
+   "readings": {
+    "ɴ": {
+     "languages": [
+      "ja"
+     ],
+     "native": 123.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "lxy",
+   "glyph": "ḻ",
+   "capital": "Ḻ",
+   "type": "special",
+   "segments": 1,
+   "readings": {
+    "lʲ": {
+     "languages": [
+      "et",
+      "ru",
+      "uk"
+     ],
+     "native": 179.1
+    },
+    "ʎ": {
+     "languages": [
+      "it",
+      "pt"
+     ],
+     "native": 304.0
+    }
+   },
+   "primary": "ʎ"
+  },
+  {
+   "form": "rxy",
+   "glyph": "ṟ",
+   "capital": "Ṟ",
+   "type": "special",
+   "segments": 1,
+   "readings": {
+    "r̝": {
+     "languages": [
+      "cs"
+     ],
+     "native": 10.7
+    },
+    "rʲ": {
+     "languages": [
+      "ru",
+      "uk"
+     ],
+     "native": 178.0
+    }
+   },
+   "primary": "rʲ"
+  },
+  {
+   "form": "ejy",
+   "glyph": "ĕ",
+   "capital": "Ĕ",
+   "type": "nasal",
+   "segments": 1,
+   "readings": {
+    "ɛ̃": {
+     "languages": [
+      "fr",
+      "hi",
+      "pl"
+     ],
+     "native": 620.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ojy",
+   "glyph": "ŏ",
+   "capital": "Ŏ",
+   "type": "nasal",
+   "segments": 1,
+   "readings": {
+    "ɔ̃": {
+     "languages": [
+      "fr",
+      "hi",
+      "pl"
+     ],
+     "native": 620.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "sjw",
+   "glyph": "șș",
+   "capital": "Șș",
+   "type": "long",
+   "segments": 1,
+   "readings": {
+    "ɕː": {
+     "languages": [
+      "ru"
+     ],
+     "native": 145.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "tqw",
+   "glyph": "çç",
+   "capital": "Çç",
+   "type": "long",
+   "segments": 1,
+   "readings": {
+    "t͈ɕ": {
+     "languages": [
+      "ko"
+     ],
+     "native": 81.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ejw",
+   "glyph": "ê",
+   "capital": "Ê",
+   "type": "long",
+   "segments": 1,
+   "readings": {
+    "ɛː": {
+     "languages": [
+      "cs",
+      "de",
+      "th"
+     ],
+     "native": 107.7
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ojw",
+   "glyph": "ô",
+   "capital": "Ô",
+   "type": "long",
+   "segments": 1,
+   "readings": {
+    "ɔː": {
+     "languages": [
+      "th"
+     ],
+     "native": 21.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "acw",
+   "glyph": "ȁ",
+   "capital": "Ȁ",
+   "type": "long",
+   "segments": 1,
+   "readings": {
+    "ɑː": {
+     "languages": [
+      "et",
+      "fi"
+     ],
+     "native": 6.5
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ecw",
+   "glyph": "ȍ",
+   "capital": "Ȍ",
+   "type": "long",
+   "segments": 1,
+   "readings": {
+    "øː": {
+     "languages": [
+      "de",
+      "et",
+      "fi",
+      "hu",
+      "nl"
+     ],
+     "native": 120.5
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "icw",
+   "glyph": "ȕ",
+   "capital": "Ȕ",
+   "type": "long",
+   "segments": 1,
+   "readings": {
+    "yː": {
+     "languages": [
+      "de",
+      "et",
+      "fi",
+      "hu"
+     ],
+     "native": 95.5
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ocw",
+   "glyph": "ȅ",
+   "capital": "Ȅ",
+   "type": "long",
+   "segments": 1,
+   "readings": {
+    "ɤː": {
+     "languages": [
+      "et",
+      "th"
+     ],
+     "native": 22.1
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ucw",
+   "glyph": "ȉ",
+   "capital": "Ȉ",
+   "type": "long",
+   "segments": 1,
+   "readings": {
+    "ɯː": {
+     "languages": [
+      "ja",
+      "th"
+     ],
+     "native": 144.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "aix",
+   "glyph": "aj",
+   "capital": "Aj",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "aɪ": {
+     "languages": [
+      "de",
+      "en"
+     ],
+     "native": 456.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "aux",
+   "glyph": "aw",
+   "capital": "Aw",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "aʊ": {
+     "languages": [
+      "de",
+      "en"
+     ],
+     "native": 456.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "eix",
+   "glyph": "ej",
+   "capital": "Ej",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "eɪ": {
+     "languages": [
+      "en"
+     ],
+     "native": 380.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "oux",
+   "glyph": "ow",
+   "capital": "Ow",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "oʊ": {
+     "languages": [
+      "en"
+     ],
+     "native": 380.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "tch",
+   "glyph": "ch",
+   "capital": "Ch",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "tsʰ": {
+     "languages": [
+      "ka",
+      "zh"
+     ],
+     "native": 943.8
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "rch",
+   "glyph": "ṛh",
+   "capital": "Ṛh",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "ɽʱ": {
+     "languages": [
+      "hi"
+     ],
+     "native": 500.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "tqh",
+   "glyph": "çh",
+   "capital": "Çh",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "tʃʰ": {
+     "languages": [
+      "bn",
+      "hi",
+      "ka"
+     ],
+     "native": 743.8
+    },
+    "tɕʰ": {
+     "languages": [
+      "ko",
+      "th"
+     ],
+     "native": 102.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "dqh",
+   "glyph": "ẋh",
+   "capital": "Ẋh",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "dʒʱ": {
+     "languages": [
+      "bn",
+      "hi"
+     ],
+     "native": 740.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "tyh",
+   "glyph": "ťh",
+   "capital": "Ťh",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "ʈʰ": {
+     "languages": [
+      "bn",
+      "hi"
+     ],
+     "native": 740.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "dyh",
+   "glyph": "ďh",
+   "capital": "Ďh",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "ɖʱ": {
+     "languages": [
+      "bn",
+      "hi"
+     ],
+     "native": 740.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ajux",
+   "glyph": "ąw",
+   "capital": "Ąw",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "ʌu": {
+     "languages": [
+      "nl"
+     ],
+     "native": 25.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ejix",
+   "glyph": "ęj",
+   "capital": "Ęj",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "ɛi": {
+     "languages": [
+      "nl"
+     ],
+     "native": 25.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ojix",
+   "glyph": "ǫj",
+   "capital": "Ǫj",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "ɔɪ": {
+     "languages": [
+      "en"
+     ],
+     "native": 380.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "tqyh",
+   "glyph": "čh",
+   "capital": "Čh",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "tʂʰ": {
+     "languages": [
+      "zh"
+     ],
+     "native": 940.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "eqicx",
+   "glyph": "õĵ",
+   "capital": "Õĵ",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "œy": {
+     "languages": [
+      "nl"
+     ],
+     "native": 25.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "ojicx",
+   "glyph": "ǫĵ",
+   "capital": "Ǫĵ",
+   "type": "sequence",
+   "segments": 2,
+   "readings": {
+    "ɔʏ": {
+     "languages": [
+      "de"
+     ],
+     "native": 76.0
+    }
+   },
+   "primary": null
+  }
+ ],
+ "languages": {
+  "ar": {
+   "name": "Arabic (MSA)",
+   "native": 380,
+   "review": "non-reviewed",
+   "geminates": true,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "aw": [
+     {
+      "ipa": "aː",
+      "freq": "L"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "L"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "L"
+     }
+    ],
+    "dq": [
+     {
+      "ipa": "dʒ",
+      "freq": "M"
+     }
+    ],
+    "dx": [
+     {
+      "ipa": "ð",
+      "freq": "M"
+     }
+    ],
+    "dxy": [
+     {
+      "ipa": "dˤ",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "gx": [
+     {
+      "ipa": "ʁ",
+      "freq": "M"
+     }
+    ],
+    "gxy": [
+     {
+      "ipa": "ʕ",
+      "freq": "M"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "hx": [
+     {
+      "ipa": "ʔ",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "iw": [
+     {
+      "ipa": "iː",
+      "freq": "M"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "L"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kq": [
+     {
+      "ipa": "q",
+      "freq": "M"
+     }
+    ],
+    "kx": [
+     {
+      "ipa": "x",
+      "freq": "M"
+     }
+    ],
+    "kxy": [
+     {
+      "ipa": "ħ",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "M"
+     }
+    ],
+    "sxy": [
+     {
+      "ipa": "sˤ",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tx": [
+     {
+      "ipa": "θ",
+      "freq": "M"
+     }
+    ],
+    "txy": [
+     {
+      "ipa": "tˤ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "L"
+     }
+    ],
+    "uw": [
+     {
+      "ipa": "uː",
+      "freq": "M"
+     }
+    ],
+    "ux": [
+     {
+      "ipa": "w",
+      "freq": "L"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ],
+    "zxy": [
+     {
+      "ipa": "ðˤ",
+      "freq": "S"
+     }
+    ]
+   }
+  },
+  "bn": {
+   "name": "Bengali",
+   "native": 240,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "M"
+     }
+    ],
+    "ay": [
+     {
+      "ipa": "ã",
+      "freq": "M"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "bh": [
+     {
+      "ipa": "bʱ",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d̪",
+      "freq": "M"
+     }
+    ],
+    "dh": [
+     {
+      "ipa": "d̪ʱ",
+      "freq": "M"
+     }
+    ],
+    "dq": [
+     {
+      "ipa": "dʒ",
+      "freq": "M"
+     }
+    ],
+    "dqh": [
+     {
+      "ipa": "dʒʱ",
+      "freq": "M"
+     }
+    ],
+    "dy": [
+     {
+      "ipa": "ɖ",
+      "freq": "M"
+     }
+    ],
+    "dyh": [
+     {
+      "ipa": "ɖʱ",
+      "freq": "M"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "L"
+     }
+    ],
+    "ej": [
+     {
+      "ipa": "ɛ",
+      "freq": "M"
+     }
+    ],
+    "ey": [
+     {
+      "ipa": "ẽ",
+      "freq": "M"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "gh": [
+     {
+      "ipa": "gʱ",
+      "freq": "M"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "iy": [
+     {
+      "ipa": "ĩ",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kh": [
+     {
+      "ipa": "kʰ",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nx": [
+     {
+      "ipa": "ŋ",
+      "freq": "M"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "L"
+     }
+    ],
+    "oj": [
+     {
+      "ipa": "ɔ",
+      "freq": "L"
+     }
+    ],
+    "oy": [
+     {
+      "ipa": "õ",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "ph": [
+     {
+      "ipa": "pʰ",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "rc": [
+     {
+      "ipa": "ɽ",
+      "freq": "M"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "X"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "L"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t̪",
+      "freq": "L"
+     }
+    ],
+    "th": [
+     {
+      "ipa": "t̪ʰ",
+      "freq": "M"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tʃ",
+      "freq": "M"
+     }
+    ],
+    "tqh": [
+     {
+      "ipa": "tʃʰ",
+      "freq": "M"
+     }
+    ],
+    "ty": [
+     {
+      "ipa": "ʈ",
+      "freq": "M"
+     }
+    ],
+    "tyh": [
+     {
+      "ipa": "ʈʰ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "uy": [
+     {
+      "ipa": "ũ",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "X"
+     }
+    ]
+   }
+  },
+  "cs": {
+   "name": "Czech",
+   "native": 10.7,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "aw": [
+     {
+      "ipa": "aː",
+      "freq": "M"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "M"
+     }
+    ],
+    "dc": [
+     {
+      "ipa": "dz",
+      "freq": "X"
+     }
+    ],
+    "dj": [
+     {
+      "ipa": "ɟ",
+      "freq": "M"
+     }
+    ],
+    "dq": [
+     {
+      "ipa": "dʒ",
+      "freq": "X"
+     }
+    ],
+    "ej": [
+     {
+      "ipa": "ɛ",
+      "freq": "L"
+     }
+    ],
+    "ejw": [
+     {
+      "ipa": "ɛː",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "S"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "X"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "ɦ",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "iw": [
+     {
+      "ipa": "iː",
+      "freq": "M"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kx": [
+     {
+      "ipa": "x",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nj": [
+     {
+      "ipa": "ɲ",
+      "freq": "M"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "L"
+     }
+    ],
+    "ow": [
+     {
+      "ipa": "oː",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "rxy": [
+     {
+      "ipa": "r̝",
+      "freq": "M"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tc": [
+     {
+      "ipa": "ts",
+      "freq": "M"
+     }
+    ],
+    "tj": [
+     {
+      "ipa": "c",
+      "freq": "M"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tʃ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "uw": [
+     {
+      "ipa": "uː",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "L"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ],
+    "zj": [
+     {
+      "ipa": "ʒ",
+      "freq": "M"
+     }
+    ]
+   }
+  },
+  "de": {
+   "name": "German",
+   "native": 76,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "M"
+     }
+    ],
+    "aix": [
+     {
+      "ipa": "aɪ",
+      "freq": "M"
+     }
+    ],
+    "aj": [
+     {
+      "ipa": "ə",
+      "freq": "L"
+     }
+    ],
+    "aux": [
+     {
+      "ipa": "aʊ",
+      "freq": "M"
+     }
+    ],
+    "aw": [
+     {
+      "ipa": "aː",
+      "freq": "M"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "L"
+     }
+    ],
+    "dq": [
+     {
+      "ipa": "dʒ",
+      "freq": "X"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "M"
+     }
+    ],
+    "ec": [
+     {
+      "ipa": "ø",
+      "freq": "M"
+     }
+    ],
+    "ecw": [
+     {
+      "ipa": "øː",
+      "freq": "M"
+     }
+    ],
+    "ej": [
+     {
+      "ipa": "ɛ",
+      "freq": "M"
+     }
+    ],
+    "ejw": [
+     {
+      "ipa": "ɛː",
+      "freq": "S"
+     }
+    ],
+    "eq": [
+     {
+      "ipa": "œ",
+      "freq": "S"
+     }
+    ],
+    "ew": [
+     {
+      "ipa": "eː",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "gx": [
+     {
+      "ipa": "ʁ",
+      "freq": "L"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "M"
+     }
+    ],
+    "ic": [
+     {
+      "ipa": "y",
+      "freq": "M"
+     }
+    ],
+    "icw": [
+     {
+      "ipa": "yː",
+      "freq": "M"
+     }
+    ],
+    "ij": [
+     {
+      "ipa": "ɪ",
+      "freq": "M"
+     }
+    ],
+    "iq": [
+     {
+      "ipa": "ʏ",
+      "freq": "S"
+     }
+    ],
+    "iw": [
+     {
+      "ipa": "iː",
+      "freq": "M"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "M"
+     }
+    ],
+    "kx": [
+     {
+      "ipa": "x",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nx": [
+     {
+      "ipa": "ŋ",
+      "freq": "M"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "M"
+     }
+    ],
+    "oj": [
+     {
+      "ipa": "ɔ",
+      "freq": "M"
+     }
+    ],
+    "ojicx": [
+     {
+      "ipa": "ɔʏ",
+      "freq": "M"
+     }
+    ],
+    "ow": [
+     {
+      "ipa": "oː",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "pf": [
+     {
+      "ipa": "pf",
+      "freq": "S"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tc": [
+     {
+      "ipa": "ts",
+      "freq": "M"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tʃ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "uj": [
+     {
+      "ipa": "ʊ",
+      "freq": "M"
+     }
+    ],
+    "uw": [
+     {
+      "ipa": "uː",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ],
+    "zj": [
+     {
+      "ipa": "ʒ",
+      "freq": "X"
+     }
+    ]
+   }
+  },
+  "el": {
+   "name": "Modern Greek",
+   "native": 13,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "X"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "X"
+     }
+    ],
+    "dc": [
+     {
+      "ipa": "dz",
+      "freq": "S"
+     }
+    ],
+    "dx": [
+     {
+      "ipa": "ð",
+      "freq": "M"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "L"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "X"
+     }
+    ],
+    "gx": [
+     {
+      "ipa": "ɣ",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kx": [
+     {
+      "ipa": "x",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "L"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "L"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tc": [
+     {
+      "ipa": "ts",
+      "freq": "M"
+     }
+    ],
+    "tx": [
+     {
+      "ipa": "θ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ]
+   }
+  },
+  "en": {
+   "name": "English",
+   "native": 380,
+   "review": "reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "æ",
+      "freq": "M"
+     }
+    ],
+    "ac": [
+     {
+      "ipa": "ɑ",
+      "freq": "M"
+     }
+    ],
+    "aix": [
+     {
+      "ipa": "aɪ",
+      "freq": "M"
+     }
+    ],
+    "aj": [
+     {
+      "ipa": "ə",
+      "freq": "L"
+     },
+     {
+      "ipa": "ʌ",
+      "freq": "M"
+     }
+    ],
+    "aq": [
+     {
+      "ipa": "ɝ",
+      "freq": "M"
+     }
+    ],
+    "aux": [
+     {
+      "ipa": "aʊ",
+      "freq": "M"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "L"
+     }
+    ],
+    "dq": [
+     {
+      "ipa": "dʒ",
+      "freq": "M"
+     }
+    ],
+    "dx": [
+     {
+      "ipa": "ð",
+      "freq": "L"
+     }
+    ],
+    "eix": [
+     {
+      "ipa": "eɪ",
+      "freq": "M"
+     }
+    ],
+    "ej": [
+     {
+      "ipa": "ɛ",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ij": [
+     {
+      "ipa": "ɪ",
+      "freq": "L"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kx": [
+     {
+      "ipa": "x",
+      "freq": "X"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nx": [
+     {
+      "ipa": "ŋ",
+      "freq": "M"
+     }
+    ],
+    "oj": [
+     {
+      "ipa": "ɔ",
+      "freq": "M"
+     }
+    ],
+    "ojix": [
+     {
+      "ipa": "ɔɪ",
+      "freq": "S"
+     }
+    ],
+    "oux": [
+     {
+      "ipa": "oʊ",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "ɹ",
+      "freq": "L"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tʃ",
+      "freq": "M"
+     }
+    ],
+    "tx": [
+     {
+      "ipa": "θ",
+      "freq": "S"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "uj": [
+     {
+      "ipa": "ʊ",
+      "freq": "S"
+     }
+    ],
+    "ux": [
+     {
+      "ipa": "w",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ],
+    "zj": [
+     {
+      "ipa": "ʒ",
+      "freq": "S"
+     }
+    ]
+   }
+  },
+  "es": {
+   "name": "Spanish",
+   "native": 485,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "L"
+     }
+    ],
+    "dj": [
+     {
+      "ipa": "ʝ",
+      "freq": "M"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "L"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kx": [
+     {
+      "ipa": "x",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "lxy": [
+     {
+      "ipa": "ʎ",
+      "freq": "X"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nj": [
+     {
+      "ipa": "ɲ",
+      "freq": "M"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "L"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "rc": [
+     {
+      "ipa": "ɾ",
+      "freq": "M"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tʃ",
+      "freq": "M"
+     }
+    ],
+    "tx": [
+     {
+      "ipa": "θ",
+      "freq": "S"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ]
+   }
+  },
+  "et": {
+   "name": "Estonian",
+   "native": 1.1,
+   "review": "non-reviewed",
+   "geminates": true,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "æ",
+      "freq": "M"
+     }
+    ],
+    "ac": [
+     {
+      "ipa": "ɑ",
+      "freq": "L"
+     }
+    ],
+    "acw": [
+     {
+      "ipa": "ɑː",
+      "freq": "M"
+     }
+    ],
+    "aw": [
+     {
+      "ipa": "æː",
+      "freq": "M"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "L"
+     }
+    ],
+    "ec": [
+     {
+      "ipa": "ø",
+      "freq": "M"
+     }
+    ],
+    "ecw": [
+     {
+      "ipa": "øː",
+      "freq": "M"
+     }
+    ],
+    "ew": [
+     {
+      "ipa": "eː",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "X"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ic": [
+     {
+      "ipa": "y",
+      "freq": "M"
+     }
+    ],
+    "icw": [
+     {
+      "ipa": "yː",
+      "freq": "M"
+     }
+    ],
+    "iw": [
+     {
+      "ipa": "iː",
+      "freq": "M"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "lxy": [
+     {
+      "ipa": "lʲ",
+      "freq": "M"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nj": [
+     {
+      "ipa": "nʲ",
+      "freq": "M"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "M"
+     }
+    ],
+    "oc": [
+     {
+      "ipa": "ɤ",
+      "freq": "M"
+     }
+    ],
+    "ocw": [
+     {
+      "ipa": "ɤː",
+      "freq": "M"
+     }
+    ],
+    "ow": [
+     {
+      "ipa": "oː",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "X"
+     }
+    ],
+    "sxy": [
+     {
+      "ipa": "sʲ",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tj": [
+     {
+      "ipa": "tʲ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "uw": [
+     {
+      "ipa": "uː",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "M"
+     }
+    ]
+   }
+  },
+  "fa": {
+   "name": "Persian",
+   "native": 80,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "æ",
+      "freq": "M"
+     }
+    ],
+    "ac": [
+     {
+      "ipa": "ɒ",
+      "freq": "L"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "L"
+     }
+    ],
+    "dq": [
+     {
+      "ipa": "dʒ",
+      "freq": "M"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "L"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "hx": [
+     {
+      "ipa": "ʔ",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kq": [
+     {
+      "ipa": "q",
+      "freq": "M"
+     }
+    ],
+    "kx": [
+     {
+      "ipa": "x",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tʃ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ],
+    "zj": [
+     {
+      "ipa": "ʒ",
+      "freq": "S"
+     }
+    ]
+   }
+  },
+  "fi": {
+   "name": "Finnish",
+   "native": 5.4,
+   "review": "non-reviewed",
+   "geminates": true,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "æ",
+      "freq": "L"
+     }
+    ],
+    "ac": [
+     {
+      "ipa": "ɑ",
+      "freq": "L"
+     }
+    ],
+    "acw": [
+     {
+      "ipa": "ɑː",
+      "freq": "M"
+     }
+    ],
+    "aw": [
+     {
+      "ipa": "æː",
+      "freq": "M"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "X"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "S"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "L"
+     }
+    ],
+    "ec": [
+     {
+      "ipa": "ø",
+      "freq": "M"
+     }
+    ],
+    "ecw": [
+     {
+      "ipa": "øː",
+      "freq": "M"
+     }
+    ],
+    "ew": [
+     {
+      "ipa": "eː",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "X"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "X"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ic": [
+     {
+      "ipa": "y",
+      "freq": "M"
+     }
+    ],
+    "icw": [
+     {
+      "ipa": "yː",
+      "freq": "M"
+     }
+    ],
+    "iw": [
+     {
+      "ipa": "iː",
+      "freq": "M"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nx": [
+     {
+      "ipa": "ŋ",
+      "freq": "M"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "M"
+     }
+    ],
+    "ow": [
+     {
+      "ipa": "oː",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "M"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "X"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "uw": [
+     {
+      "ipa": "uː",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "M"
+     }
+    ]
+   }
+  },
+  "fr": {
+   "name": "French",
+   "native": 80,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "ac": [
+     {
+      "ipa": "ɑ",
+      "freq": "X"
+     }
+    ],
+    "aj": [
+     {
+      "ipa": "ə",
+      "freq": "L"
+     }
+    ],
+    "ay": [
+     {
+      "ipa": "ɑ̃",
+      "freq": "L"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "L"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "L"
+     }
+    ],
+    "ec": [
+     {
+      "ipa": "ø",
+      "freq": "M"
+     }
+    ],
+    "ej": [
+     {
+      "ipa": "ɛ",
+      "freq": "L"
+     }
+    ],
+    "ejy": [
+     {
+      "ipa": "ɛ̃",
+      "freq": "M"
+     },
+     {
+      "ipa": "œ̃",
+      "freq": "X"
+     }
+    ],
+    "eq": [
+     {
+      "ipa": "œ",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "gx": [
+     {
+      "ipa": "ʁ",
+      "freq": "L"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ic": [
+     {
+      "ipa": "y",
+      "freq": "M"
+     }
+    ],
+    "icx": [
+     {
+      "ipa": "ɥ",
+      "freq": "M"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nj": [
+     {
+      "ipa": "ɲ",
+      "freq": "S"
+     }
+    ],
+    "nx": [
+     {
+      "ipa": "ŋ",
+      "freq": "X"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "L"
+     }
+    ],
+    "oj": [
+     {
+      "ipa": "ɔ",
+      "freq": "M"
+     }
+    ],
+    "ojy": [
+     {
+      "ipa": "ɔ̃",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "L"
+     }
+    ],
+    "ux": [
+     {
+      "ipa": "w",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ],
+    "zj": [
+     {
+      "ipa": "ʒ",
+      "freq": "M"
+     }
+    ]
+   }
+  },
+  "he": {
+   "name": "Hebrew",
+   "native": 5,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "M"
+     }
+    ],
+    "dq": [
+     {
+      "ipa": "dʒ",
+      "freq": "X"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "L"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "gx": [
+     {
+      "ipa": "ʁ",
+      "freq": "L"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "hx": [
+     {
+      "ipa": "ʔ",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kx": [
+     {
+      "ipa": "x",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "L"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "M"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "L"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tc": [
+     {
+      "ipa": "ts",
+      "freq": "M"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tʃ",
+      "freq": "X"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ],
+    "zj": [
+     {
+      "ipa": "ʒ",
+      "freq": "X"
+     }
+    ]
+   }
+  },
+  "hi": {
+   "name": "Hindi-Urdu",
+   "native": 500,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "ac": [
+     {
+      "ipa": "ɑ",
+      "freq": "L"
+     }
+    ],
+    "aj": [
+     {
+      "ipa": "ə",
+      "freq": "L"
+     }
+    ],
+    "ay": [
+     {
+      "ipa": "ɑ̃",
+      "freq": "M"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "bh": [
+     {
+      "ipa": "bʱ",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d̪",
+      "freq": "M"
+     }
+    ],
+    "dh": [
+     {
+      "ipa": "d̪ʱ",
+      "freq": "M"
+     }
+    ],
+    "dq": [
+     {
+      "ipa": "dʒ",
+      "freq": "M"
+     }
+    ],
+    "dqh": [
+     {
+      "ipa": "dʒʱ",
+      "freq": "M"
+     }
+    ],
+    "dy": [
+     {
+      "ipa": "ɖ",
+      "freq": "M"
+     }
+    ],
+    "dyh": [
+     {
+      "ipa": "ɖʱ",
+      "freq": "M"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "M"
+     }
+    ],
+    "ej": [
+     {
+      "ipa": "ɛ",
+      "freq": "M"
+     }
+    ],
+    "ejy": [
+     {
+      "ipa": "ɛ̃",
+      "freq": "M"
+     }
+    ],
+    "ey": [
+     {
+      "ipa": "ẽ",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "X"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "gh": [
+     {
+      "ipa": "gʱ",
+      "freq": "M"
+     }
+    ],
+    "gx": [
+     {
+      "ipa": "ɣ",
+      "freq": "X"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ij": [
+     {
+      "ipa": "ɪ",
+      "freq": "M"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "iy": [
+     {
+      "ipa": "ĩ",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kh": [
+     {
+      "ipa": "kʰ",
+      "freq": "M"
+     }
+    ],
+    "kq": [
+     {
+      "ipa": "q",
+      "freq": "X"
+     }
+    ],
+    "kx": [
+     {
+      "ipa": "x",
+      "freq": "X"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "ny": [
+     {
+      "ipa": "ɳ",
+      "freq": "S"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "M"
+     }
+    ],
+    "oj": [
+     {
+      "ipa": "ɔ",
+      "freq": "M"
+     }
+    ],
+    "ojy": [
+     {
+      "ipa": "ɔ̃",
+      "freq": "M"
+     }
+    ],
+    "oy": [
+     {
+      "ipa": "õ",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "ph": [
+     {
+      "ipa": "pʰ",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "rc": [
+     {
+      "ipa": "ɽ",
+      "freq": "M"
+     }
+    ],
+    "rch": [
+     {
+      "ipa": "ɽʱ",
+      "freq": "M"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t̪",
+      "freq": "M"
+     }
+    ],
+    "th": [
+     {
+      "ipa": "t̪ʰ",
+      "freq": "M"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tʃ",
+      "freq": "M"
+     }
+    ],
+    "tqh": [
+     {
+      "ipa": "tʃʰ",
+      "freq": "M"
+     }
+    ],
+    "ty": [
+     {
+      "ipa": "ʈ",
+      "freq": "M"
+     }
+    ],
+    "tyh": [
+     {
+      "ipa": "ʈʰ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "uj": [
+     {
+      "ipa": "ʊ",
+      "freq": "M"
+     }
+    ],
+    "uy": [
+     {
+      "ipa": "ũ",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "ʋ",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "X"
+     }
+    ]
+   }
+  },
+  "hu": {
+   "name": "Hungarian",
+   "native": 13,
+   "review": "native",
+   "geminates": true,
+   "tones": null,
+   "forms": {
+    "ac": [
+     {
+      "ipa": "ɒ",
+      "freq": "L"
+     }
+    ],
+    "aw": [
+     {
+      "ipa": "aː",
+      "freq": "M"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "M"
+     }
+    ],
+    "dc": [
+     {
+      "ipa": "dz",
+      "freq": "S"
+     }
+    ],
+    "dj": [
+     {
+      "ipa": "ɟ",
+      "freq": "M"
+     }
+    ],
+    "dq": [
+     {
+      "ipa": "dʒ",
+      "freq": "X"
+     }
+    ],
+    "ec": [
+     {
+      "ipa": "ø",
+      "freq": "M"
+     }
+    ],
+    "ecw": [
+     {
+      "ipa": "øː",
+      "freq": "M"
+     }
+    ],
+    "ej": [
+     {
+      "ipa": "ɛ",
+      "freq": "L"
+     }
+    ],
+    "ew": [
+     {
+      "ipa": "eː",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ic": [
+     {
+      "ipa": "y",
+      "freq": "M"
+     }
+    ],
+    "icw": [
+     {
+      "ipa": "yː",
+      "freq": "M"
+     }
+    ],
+    "iw": [
+     {
+      "ipa": "iː",
+      "freq": "M"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nj": [
+     {
+      "ipa": "ɲ",
+      "freq": "M"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "L"
+     }
+    ],
+    "ow": [
+     {
+      "ipa": "oː",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "M"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "L"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tc": [
+     {
+      "ipa": "ts",
+      "freq": "M"
+     }
+    ],
+    "tj": [
+     {
+      "ipa": "c",
+      "freq": "M"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tʃ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "uw": [
+     {
+      "ipa": "uː",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ],
+    "zj": [
+     {
+      "ipa": "ʒ",
+      "freq": "S"
+     }
+    ]
+   }
+  },
+  "id": {
+   "name": "Indonesian",
+   "native": 44,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "aj": [
+     {
+      "ipa": "ə",
+      "freq": "M"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "M"
+     }
+    ],
+    "dq": [
+     {
+      "ipa": "dʒ",
+      "freq": "M"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "X"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "hx": [
+     {
+      "ipa": "ʔ",
+      "freq": "X"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kx": [
+     {
+      "ipa": "x",
+      "freq": "X"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nj": [
+     {
+      "ipa": "ɲ",
+      "freq": "M"
+     }
+    ],
+    "nx": [
+     {
+      "ipa": "ŋ",
+      "freq": "M"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "X"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tʃ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "L"
+     }
+    ],
+    "ux": [
+     {
+      "ipa": "w",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "X"
+     }
+    ]
+   }
+  },
+  "it": {
+   "name": "Italian",
+   "native": 64,
+   "review": "non-reviewed",
+   "geminates": true,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "L"
+     }
+    ],
+    "dc": [
+     {
+      "ipa": "dz",
+      "freq": "S"
+     }
+    ],
+    "dq": [
+     {
+      "ipa": "dʒ",
+      "freq": "M"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "L"
+     }
+    ],
+    "ej": [
+     {
+      "ipa": "ɛ",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "lxy": [
+     {
+      "ipa": "ʎ",
+      "freq": "M"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nj": [
+     {
+      "ipa": "ɲ",
+      "freq": "M"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "L"
+     }
+    ],
+    "oj": [
+     {
+      "ipa": "ɔ",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tc": [
+     {
+      "ipa": "ts",
+      "freq": "M"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tʃ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "S"
+     }
+    ]
+   }
+  },
+  "ja": {
+   "name": "Japanese",
+   "native": 123,
+   "review": "non-reviewed",
+   "geminates": true,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "aw": [
+     {
+      "ipa": "aː",
+      "freq": "M"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "M"
+     }
+    ],
+    "dq": [
+     {
+      "ipa": "dʑ",
+      "freq": "M"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "L"
+     }
+    ],
+    "ew": [
+     {
+      "ipa": "eː",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "ɸ",
+      "freq": "X"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "iw": [
+     {
+      "ipa": "iː",
+      "freq": "M"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nxy": [
+     {
+      "ipa": "ɴ",
+      "freq": "M"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "L"
+     }
+    ],
+    "ow": [
+     {
+      "ipa": "oː",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "S"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ɕ",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tc": [
+     {
+      "ipa": "ts",
+      "freq": "M"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tɕ",
+      "freq": "M"
+     }
+    ],
+    "uc": [
+     {
+      "ipa": "ɯ",
+      "freq": "L"
+     }
+    ],
+    "ucw": [
+     {
+      "ipa": "ɯː",
+      "freq": "M"
+     }
+    ],
+    "ux": [
+     {
+      "ipa": "w",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ]
+   }
+  },
+  "ka": {
+   "name": "Georgian",
+   "native": 3.8,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "M"
+     }
+    ],
+    "dc": [
+     {
+      "ipa": "dz",
+      "freq": "M"
+     }
+    ],
+    "dq": [
+     {
+      "ipa": "dʒ",
+      "freq": "M"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "L"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "X"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "gx": [
+     {
+      "ipa": "ʁ",
+      "freq": "M"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "kʼ",
+      "freq": "M"
+     }
+    ],
+    "kh": [
+     {
+      "ipa": "kʰ",
+      "freq": "L"
+     }
+    ],
+    "kq": [
+     {
+      "ipa": "qʼ",
+      "freq": "M"
+     }
+    ],
+    "kx": [
+     {
+      "ipa": "χ",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "L"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "pʼ",
+      "freq": "M"
+     }
+    ],
+    "ph": [
+     {
+      "ipa": "pʰ",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "tʼ",
+      "freq": "M"
+     }
+    ],
+    "tc": [
+     {
+      "ipa": "tsʼ",
+      "freq": "M"
+     }
+    ],
+    "tch": [
+     {
+      "ipa": "tsʰ",
+      "freq": "M"
+     }
+    ],
+    "th": [
+     {
+      "ipa": "tʰ",
+      "freq": "L"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tʃʼ",
+      "freq": "M"
+     }
+    ],
+    "tqh": [
+     {
+      "ipa": "tʃʰ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "L"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ],
+    "zj": [
+     {
+      "ipa": "ʒ",
+      "freq": "M"
+     }
+    ]
+   }
+  },
+  "ko": {
+   "name": "Korean",
+   "native": 81,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "aj": [
+     {
+      "ipa": "ʌ",
+      "freq": "M"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "M"
+     }
+    ],
+    "ec": [
+     {
+      "ipa": "ø",
+      "freq": "X"
+     }
+    ],
+    "ej": [
+     {
+      "ipa": "ɛ",
+      "freq": "M"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ic": [
+     {
+      "ipa": "y",
+      "freq": "X"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kh": [
+     {
+      "ipa": "kʰ",
+      "freq": "M"
+     }
+    ],
+    "kw": [
+     {
+      "ipa": "k͈",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nx": [
+     {
+      "ipa": "ŋ",
+      "freq": "M"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "ph": [
+     {
+      "ipa": "pʰ",
+      "freq": "M"
+     }
+    ],
+    "pw": [
+     {
+      "ipa": "p͈",
+      "freq": "M"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sw": [
+     {
+      "ipa": "s͈",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "th": [
+     {
+      "ipa": "tʰ",
+      "freq": "M"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tɕ",
+      "freq": "M"
+     }
+    ],
+    "tqh": [
+     {
+      "ipa": "tɕʰ",
+      "freq": "M"
+     }
+    ],
+    "tqw": [
+     {
+      "ipa": "t͈ɕ",
+      "freq": "M"
+     }
+    ],
+    "tw": [
+     {
+      "ipa": "t͈",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "L"
+     }
+    ],
+    "uc": [
+     {
+      "ipa": "ɯ",
+      "freq": "L"
+     }
+    ],
+    "ux": [
+     {
+      "ipa": "w",
+      "freq": "M"
+     }
+    ]
+   }
+  },
+  "la": {
+   "name": "Latin",
+   "native": 0,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "aw": [
+     {
+      "ipa": "aː",
+      "freq": "M"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "M"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "L"
+     }
+    ],
+    "ew": [
+     {
+      "ipa": "eː",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ic": [
+     {
+      "ipa": "y",
+      "freq": "X"
+     }
+    ],
+    "iw": [
+     {
+      "ipa": "iː",
+      "freq": "M"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "M"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "M"
+     }
+    ],
+    "ow": [
+     {
+      "ipa": "oː",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "L"
+     }
+    ],
+    "uw": [
+     {
+      "ipa": "uː",
+      "freq": "M"
+     }
+    ],
+    "ux": [
+     {
+      "ipa": "w",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "X"
+     }
+    ]
+   }
+  },
+  "nl": {
+   "name": "Dutch",
+   "native": 25,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "ac": [
+     {
+      "ipa": "ɑ",
+      "freq": "L"
+     }
+    ],
+    "aj": [
+     {
+      "ipa": "ə",
+      "freq": "L"
+     }
+    ],
+    "ajux": [
+     {
+      "ipa": "ʌu",
+      "freq": "M"
+     }
+    ],
+    "aw": [
+     {
+      "ipa": "aː",
+      "freq": "M"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "L"
+     }
+    ],
+    "ecw": [
+     {
+      "ipa": "øː",
+      "freq": "M"
+     }
+    ],
+    "ej": [
+     {
+      "ipa": "ɛ",
+      "freq": "M"
+     }
+    ],
+    "ejix": [
+     {
+      "ipa": "ɛi",
+      "freq": "M"
+     }
+    ],
+    "eqicx": [
+     {
+      "ipa": "œy",
+      "freq": "M"
+     }
+    ],
+    "ew": [
+     {
+      "ipa": "eː",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "X"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "M"
+     }
+    ],
+    "ic": [
+     {
+      "ipa": "y",
+      "freq": "M"
+     }
+    ],
+    "ij": [
+     {
+      "ipa": "ɪ",
+      "freq": "M"
+     }
+    ],
+    "iq": [
+     {
+      "ipa": "ʏ",
+      "freq": "M"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kx": [
+     {
+      "ipa": "x",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nx": [
+     {
+      "ipa": "ŋ",
+      "freq": "M"
+     }
+    ],
+    "oj": [
+     {
+      "ipa": "ɔ",
+      "freq": "M"
+     }
+    ],
+    "ow": [
+     {
+      "ipa": "oː",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "X"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "ux": [
+     {
+      "ipa": "w",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ],
+    "zj": [
+     {
+      "ipa": "ʒ",
+      "freq": "X"
+     }
+    ]
+   }
+  },
+  "pl": {
+   "name": "Polish",
+   "native": 40,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "M"
+     }
+    ],
+    "dc": [
+     {
+      "ipa": "dz",
+      "freq": "S"
+     }
+    ],
+    "dq": [
+     {
+      "ipa": "dʑ",
+      "freq": "M"
+     }
+    ],
+    "dqy": [
+     {
+      "ipa": "dʐ",
+      "freq": "M"
+     }
+    ],
+    "ej": [
+     {
+      "ipa": "ɛ",
+      "freq": "L"
+     }
+    ],
+    "ejy": [
+     {
+      "ipa": "ɛ̃",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kx": [
+     {
+      "ipa": "x",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nj": [
+     {
+      "ipa": "ɲ",
+      "freq": "M"
+     }
+    ],
+    "oj": [
+     {
+      "ipa": "ɔ",
+      "freq": "L"
+     }
+    ],
+    "ojy": [
+     {
+      "ipa": "ɔ̃",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ɕ",
+      "freq": "M"
+     }
+    ],
+    "sjy": [
+     {
+      "ipa": "ʂ",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tc": [
+     {
+      "ipa": "ts",
+      "freq": "M"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tɕ",
+      "freq": "M"
+     }
+    ],
+    "tqy": [
+     {
+      "ipa": "tʂ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "uc": [
+     {
+      "ipa": "ɨ",
+      "freq": "M"
+     }
+    ],
+    "ux": [
+     {
+      "ipa": "w",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "L"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ],
+    "zj": [
+     {
+      "ipa": "ʑ",
+      "freq": "M"
+     }
+    ],
+    "zjy": [
+     {
+      "ipa": "ʐ",
+      "freq": "M"
+     }
+    ]
+   }
+  },
+  "pt": {
+   "name": "Portuguese",
+   "native": 240,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "aj": [
+     {
+      "ipa": "ɐ",
+      "freq": "S"
+     }
+    ],
+    "ay": [
+     {
+      "ipa": "ã",
+      "freq": "M"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "L"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "L"
+     }
+    ],
+    "ej": [
+     {
+      "ipa": "ɛ",
+      "freq": "M"
+     }
+    ],
+    "ey": [
+     {
+      "ipa": "ẽ",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "gx": [
+     {
+      "ipa": "ʁ",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "iy": [
+     {
+      "ipa": "ĩ",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "lxy": [
+     {
+      "ipa": "ʎ",
+      "freq": "S"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nj": [
+     {
+      "ipa": "ɲ",
+      "freq": "M"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "L"
+     }
+    ],
+    "oj": [
+     {
+      "ipa": "ɔ",
+      "freq": "M"
+     }
+    ],
+    "oy": [
+     {
+      "ipa": "õ",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "rc": [
+     {
+      "ipa": "ɾ",
+      "freq": "L"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "L"
+     }
+    ],
+    "ux": [
+     {
+      "ipa": "w",
+      "freq": "M"
+     }
+    ],
+    "uy": [
+     {
+      "ipa": "ũ",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ],
+    "zj": [
+     {
+      "ipa": "ʒ",
+      "freq": "M"
+     }
+    ]
+   }
+  },
+  "ro": {
+   "name": "Romanian",
+   "native": 24,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "aj": [
+     {
+      "ipa": "ə",
+      "freq": "M"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "M"
+     }
+    ],
+    "dq": [
+     {
+      "ipa": "dʒ",
+      "freq": "M"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "L"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "L"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tc": [
+     {
+      "ipa": "ts",
+      "freq": "M"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tʃ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "uc": [
+     {
+      "ipa": "ɨ",
+      "freq": "M"
+     }
+    ],
+    "ux": [
+     {
+      "ipa": "w",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ],
+    "zj": [
+     {
+      "ipa": "ʒ",
+      "freq": "M"
+     }
+    ]
+   }
+  },
+  "ru": {
+   "name": "Russian",
+   "native": 145,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "bj": [
+     {
+      "ipa": "bʲ",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "M"
+     }
+    ],
+    "dj": [
+     {
+      "ipa": "dʲ",
+      "freq": "M"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "L"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "fxy": [
+     {
+      "ipa": "fʲ",
+      "freq": "M"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "gj": [
+     {
+      "ipa": "gʲ",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kj": [
+     {
+      "ipa": "kʲ",
+      "freq": "M"
+     }
+    ],
+    "kx": [
+     {
+      "ipa": "x",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "lxy": [
+     {
+      "ipa": "lʲ",
+      "freq": "M"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "mj": [
+     {
+      "ipa": "mʲ",
+      "freq": "M"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nj": [
+     {
+      "ipa": "nʲ",
+      "freq": "M"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "L"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "pj": [
+     {
+      "ipa": "pʲ",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "rxy": [
+     {
+      "ipa": "rʲ",
+      "freq": "M"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sjw": [
+     {
+      "ipa": "ɕː",
+      "freq": "M"
+     }
+    ],
+    "sjy": [
+     {
+      "ipa": "ʂ",
+      "freq": "M"
+     }
+    ],
+    "sxy": [
+     {
+      "ipa": "sʲ",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tc": [
+     {
+      "ipa": "ts",
+      "freq": "M"
+     }
+    ],
+    "tj": [
+     {
+      "ipa": "tʲ",
+      "freq": "M"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tɕ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "L"
+     }
+    ],
+    "vxy": [
+     {
+      "ipa": "vʲ",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ],
+    "zjy": [
+     {
+      "ipa": "ʐ",
+      "freq": "M"
+     }
+    ],
+    "zxy": [
+     {
+      "ipa": "zʲ",
+      "freq": "M"
+     }
+    ]
+   }
+  },
+  "sw": {
+   "name": "Swahili",
+   "native": 16,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "ac": [
+     {
+      "ipa": "ɑ",
+      "freq": "L"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "M"
+     }
+    ],
+    "dj": [
+     {
+      "ipa": "ɟ",
+      "freq": "M"
+     }
+    ],
+    "dx": [
+     {
+      "ipa": "ð",
+      "freq": "X"
+     }
+    ],
+    "ej": [
+     {
+      "ipa": "ɛ",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "gx": [
+     {
+      "ipa": "ɣ",
+      "freq": "X"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kx": [
+     {
+      "ipa": "x",
+      "freq": "X"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nj": [
+     {
+      "ipa": "ɲ",
+      "freq": "M"
+     }
+    ],
+    "nx": [
+     {
+      "ipa": "ŋ",
+      "freq": "M"
+     }
+    ],
+    "oj": [
+     {
+      "ipa": "ɔ",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "M"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "M"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tʃ",
+      "freq": "M"
+     }
+    ],
+    "tx": [
+     {
+      "ipa": "θ",
+      "freq": "X"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "L"
+     }
+    ],
+    "ux": [
+     {
+      "ipa": "w",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ]
+   }
+  },
+  "ta": {
+   "name": "Tamil",
+   "native": 79,
+   "review": "non-reviewed",
+   "geminates": true,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "aq": [
+     {
+      "ipa": "ɻ",
+      "freq": "M"
+     }
+    ],
+    "aw": [
+     {
+      "ipa": "aː",
+      "freq": "M"
+     }
+    ],
+    "dq": [
+     {
+      "ipa": "dʒ",
+      "freq": "X"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "M"
+     }
+    ],
+    "ew": [
+     {
+      "ipa": "eː",
+      "freq": "M"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "X"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "iw": [
+     {
+      "ipa": "iː",
+      "freq": "M"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "lx": [
+     {
+      "ipa": "ɭ",
+      "freq": "M"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nj": [
+     {
+      "ipa": "ɲ",
+      "freq": "S"
+     }
+    ],
+    "ny": [
+     {
+      "ipa": "ɳ",
+      "freq": "M"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "M"
+     }
+    ],
+    "ow": [
+     {
+      "ipa": "oː",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "rc": [
+     {
+      "ipa": "ɾ",
+      "freq": "M"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "X"
+     }
+    ],
+    "sjy": [
+     {
+      "ipa": "ʂ",
+      "freq": "X"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t̪",
+      "freq": "L"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tʃ",
+      "freq": "M"
+     }
+    ],
+    "ty": [
+     {
+      "ipa": "ʈ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "L"
+     }
+    ],
+    "uw": [
+     {
+      "ipa": "uː",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "M"
+     }
+    ]
+   }
+  },
+  "th": {
+   "name": "Thai",
+   "native": 21,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": {
+    "1": "mid",
+    "2": "low",
+    "3": "falling",
+    "4": "high",
+    "5": "rising"
+   },
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "aw": [
+     {
+      "ipa": "aː",
+      "freq": "M"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "M"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "M"
+     }
+    ],
+    "ej": [
+     {
+      "ipa": "ɛ",
+      "freq": "M"
+     }
+    ],
+    "ejw": [
+     {
+      "ipa": "ɛː",
+      "freq": "M"
+     }
+    ],
+    "ew": [
+     {
+      "ipa": "eː",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "hx": [
+     {
+      "ipa": "ʔ",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "iw": [
+     {
+      "ipa": "iː",
+      "freq": "M"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kh": [
+     {
+      "ipa": "kʰ",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nx": [
+     {
+      "ipa": "ŋ",
+      "freq": "M"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "M"
+     }
+    ],
+    "oc": [
+     {
+      "ipa": "ɤ",
+      "freq": "M"
+     }
+    ],
+    "ocw": [
+     {
+      "ipa": "ɤː",
+      "freq": "M"
+     }
+    ],
+    "oj": [
+     {
+      "ipa": "ɔ",
+      "freq": "M"
+     }
+    ],
+    "ojw": [
+     {
+      "ipa": "ɔː",
+      "freq": "M"
+     }
+    ],
+    "ow": [
+     {
+      "ipa": "oː",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "ph": [
+     {
+      "ipa": "pʰ",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "S"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "th": [
+     {
+      "ipa": "tʰ",
+      "freq": "M"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tɕ",
+      "freq": "M"
+     }
+    ],
+    "tqh": [
+     {
+      "ipa": "tɕʰ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "L"
+     }
+    ],
+    "uc": [
+     {
+      "ipa": "ɯ",
+      "freq": "M"
+     }
+    ],
+    "ucw": [
+     {
+      "ipa": "ɯː",
+      "freq": "M"
+     }
+    ],
+    "uw": [
+     {
+      "ipa": "uː",
+      "freq": "M"
+     }
+    ],
+    "ux": [
+     {
+      "ipa": "w",
+      "freq": "M"
+     }
+    ]
+   }
+  },
+  "tr": {
+   "name": "Turkish",
+   "native": 84,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "aw": [
+     {
+      "ipa": "aː",
+      "freq": "X"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "L"
+     }
+    ],
+    "dq": [
+     {
+      "ipa": "dʒ",
+      "freq": "M"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "L"
+     }
+    ],
+    "ec": [
+     {
+      "ipa": "ø",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "M"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ic": [
+     {
+      "ipa": "y",
+      "freq": "M"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "rc": [
+     {
+      "ipa": "ɾ",
+      "freq": "L"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tʃ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "uc": [
+     {
+      "ipa": "ɯ",
+      "freq": "L"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ],
+    "zj": [
+     {
+      "ipa": "ʒ",
+      "freq": "S"
+     }
+    ]
+   }
+  },
+  "uk": {
+   "name": "Ukrainian",
+   "native": 33,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": null,
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "b",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "d",
+      "freq": "M"
+     }
+    ],
+    "dc": [
+     {
+      "ipa": "dz",
+      "freq": "S"
+     }
+    ],
+    "dj": [
+     {
+      "ipa": "dʲ",
+      "freq": "M"
+     }
+    ],
+    "dq": [
+     {
+      "ipa": "dʒ",
+      "freq": "S"
+     }
+    ],
+    "ej": [
+     {
+      "ipa": "ɛ",
+      "freq": "L"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "X"
+     }
+    ],
+    "g": [
+     {
+      "ipa": "g",
+      "freq": "X"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "ɦ",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ij": [
+     {
+      "ipa": "ɪ",
+      "freq": "L"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kx": [
+     {
+      "ipa": "x",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "lxy": [
+     {
+      "ipa": "lʲ",
+      "freq": "M"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nj": [
+     {
+      "ipa": "nʲ",
+      "freq": "M"
+     }
+    ],
+    "oj": [
+     {
+      "ipa": "ɔ",
+      "freq": "L"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "r": [
+     {
+      "ipa": "r",
+      "freq": "L"
+     }
+    ],
+    "rxy": [
+     {
+      "ipa": "rʲ",
+      "freq": "M"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "L"
+     }
+    ],
+    "sj": [
+     {
+      "ipa": "ʃ",
+      "freq": "M"
+     }
+    ],
+    "sxy": [
+     {
+      "ipa": "sʲ",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tc": [
+     {
+      "ipa": "ts",
+      "freq": "M"
+     }
+    ],
+    "tcy": [
+     {
+      "ipa": "tsʲ",
+      "freq": "M"
+     }
+    ],
+    "tj": [
+     {
+      "ipa": "tʲ",
+      "freq": "M"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tʃ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "L"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ],
+    "zj": [
+     {
+      "ipa": "ʒ",
+      "freq": "M"
+     }
+    ],
+    "zxy": [
+     {
+      "ipa": "zʲ",
+      "freq": "M"
+     }
+    ]
+   }
+  },
+  "vi": {
+   "name": "Vietnamese",
+   "native": 85,
+   "review": "non-reviewed",
+   "geminates": false,
+   "tones": {
+    "1": "mid",
+    "2": "low",
+    "3": "rising",
+    "4": "dipping",
+    "5": "glottal-rising",
+    "6": "glottal-low"
+   },
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "aj": [
+     {
+      "ipa": "ə",
+      "freq": "M"
+     }
+    ],
+    "aw": [
+     {
+      "ipa": "aː",
+      "freq": "M"
+     }
+    ],
+    "b": [
+     {
+      "ipa": "ɓ",
+      "freq": "M"
+     }
+    ],
+    "d": [
+     {
+      "ipa": "ɗ",
+      "freq": "M"
+     }
+    ],
+    "e": [
+     {
+      "ipa": "e",
+      "freq": "M"
+     }
+    ],
+    "ej": [
+     {
+      "ipa": "ɛ",
+      "freq": "M"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "gx": [
+     {
+      "ipa": "ɣ",
+      "freq": "M"
+     }
+    ],
+    "h": [
+     {
+      "ipa": "h",
+      "freq": "L"
+     }
+    ],
+    "hx": [
+     {
+      "ipa": "ʔ",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ix": [
+     {
+      "ipa": "j",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kx": [
+     {
+      "ipa": "x",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "M"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nj": [
+     {
+      "ipa": "ɲ",
+      "freq": "M"
+     }
+    ],
+    "nx": [
+     {
+      "ipa": "ŋ",
+      "freq": "M"
+     }
+    ],
+    "o": [
+     {
+      "ipa": "o",
+      "freq": "M"
+     }
+    ],
+    "oc": [
+     {
+      "ipa": "ɤ",
+      "freq": "M"
+     }
+    ],
+    "oj": [
+     {
+      "ipa": "ɔ",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "X"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "M"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "th": [
+     {
+      "ipa": "tʰ",
+      "freq": "M"
+     }
+    ],
+    "tq": [
+     {
+      "ipa": "tɕ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "L"
+     }
+    ],
+    "uc": [
+     {
+      "ipa": "ɨ",
+      "freq": "M"
+     }
+    ],
+    "ux": [
+     {
+      "ipa": "w",
+      "freq": "M"
+     }
+    ],
+    "v": [
+     {
+      "ipa": "v",
+      "freq": "M"
+     }
+    ],
+    "z": [
+     {
+      "ipa": "z",
+      "freq": "M"
+     }
+    ]
+   }
+  },
+  "zh": {
+   "name": "Mandarin Chinese",
+   "native": 940,
+   "review": "reviewed",
+   "geminates": false,
+   "tones": {
+    "1": "high",
+    "2": "rising",
+    "3": "dipping",
+    "4": "falling"
+   },
+   "forms": {
+    "a": [
+     {
+      "ipa": "a",
+      "freq": "L"
+     }
+    ],
+    "aj": [
+     {
+      "ipa": "ə",
+      "freq": "M"
+     }
+    ],
+    "aq": [
+     {
+      "ipa": "ɚ",
+      "freq": "S"
+     }
+    ],
+    "f": [
+     {
+      "ipa": "f",
+      "freq": "M"
+     }
+    ],
+    "i": [
+     {
+      "ipa": "i",
+      "freq": "L"
+     }
+    ],
+    "ic": [
+     {
+      "ipa": "y",
+      "freq": "M"
+     }
+    ],
+    "k": [
+     {
+      "ipa": "k",
+      "freq": "L"
+     }
+    ],
+    "kh": [
+     {
+      "ipa": "kʰ",
+      "freq": "M"
+     }
+    ],
+    "kx": [
+     {
+      "ipa": "x",
+      "freq": "M"
+     }
+    ],
+    "l": [
+     {
+      "ipa": "l",
+      "freq": "L"
+     }
+    ],
+    "m": [
+     {
+      "ipa": "m",
+      "freq": "L"
+     }
+    ],
+    "n": [
+     {
+      "ipa": "n",
+      "freq": "L"
+     }
+    ],
+    "nx": [
+     {
+      "ipa": "ŋ",
+      "freq": "M"
+     }
+    ],
+    "oc": [
+     {
+      "ipa": "ɤ",
+      "freq": "M"
+     }
+    ],
+    "p": [
+     {
+      "ipa": "p",
+      "freq": "M"
+     }
+    ],
+    "ph": [
+     {
+      "ipa": "pʰ",
+      "freq": "M"
+     }
+    ],
+    "s": [
+     {
+      "ipa": "s",
+      "freq": "M"
+     }
+    ],
+    "sjy": [
+     {
+      "ipa": "ʂ",
+      "freq": "L"
+     }
+    ],
+    "t": [
+     {
+      "ipa": "t",
+      "freq": "L"
+     }
+    ],
+    "tc": [
+     {
+      "ipa": "ts",
+      "freq": "M"
+     }
+    ],
+    "tch": [
+     {
+      "ipa": "tsʰ",
+      "freq": "M"
+     }
+    ],
+    "th": [
+     {
+      "ipa": "tʰ",
+      "freq": "M"
+     }
+    ],
+    "tqy": [
+     {
+      "ipa": "tʂ",
+      "freq": "M"
+     }
+    ],
+    "tqyh": [
+     {
+      "ipa": "tʂʰ",
+      "freq": "M"
+     }
+    ],
+    "u": [
+     {
+      "ipa": "u",
+      "freq": "L"
+     }
+    ],
+    "uc": [
+     {
+      "ipa": "ɨ",
+      "freq": "L"
+     }
+    ],
+    "zjy": [
+     {
+      "ipa": "ʐ",
+      "freq": "M"
+     }
+    ]
+   }
+  }
+ },
+ "stages": {
+  "hu": {
+   "name": "Hungarian spelling",
+   "state": "draft",
+   "letters": [
+    "a",
+    "á",
+    "b",
+    "c",
+    "cs",
+    "d",
+    "dz",
+    "dzs",
+    "e",
+    "é",
+    "f",
+    "g",
+    "gy",
+    "h",
+    "i",
+    "í",
+    "j",
+    "k",
+    "l",
+    "ly",
+    "m",
+    "n",
+    "ny",
+    "o",
+    "ó",
+    "ö",
+    "ő",
+    "p",
+    "r",
+    "s",
+    "sz",
+    "t",
+    "ty",
+    "u",
+    "ú",
+    "ü",
+    "ű",
+    "v",
+    "z",
+    "zs"
+   ],
+   "long": "first-letter",
+   "forms": {
+    "p": "p",
+    "b": "b",
+    "t": "t",
+    "d": "d",
+    "k": "k",
+    "g": "g",
+    "tj": "ty",
+    "dj": "gy",
+    "tc": "c",
+    "dc": "dz",
+    "tq": "cs",
+    "dq": "dzs",
+    "f": "f",
+    "v": "v",
+    "s": "sz",
+    "z": "z",
+    "sj": "s",
+    "zj": "zs",
+    "h": "h",
+    "m": "m",
+    "n": "n",
+    "nj": "ny",
+    "l": "l",
+    "r": "r",
+    "ix": "j",
+    "ac": "a",
+    "aw": "á",
+    "ej": "e",
+    "ew": "é",
+    "i": "i",
+    "iw": "í",
+    "o": "o",
+    "ow": "ó",
+    "ec": "ö",
+    "ecw": "ő",
+    "u": "u",
+    "uw": "ú",
+    "ic": "ü",
+    "icw": "ű"
+   },
+   "caps": {}
+  },
+  "marks": {
+   "name": "Composed marks (base letter + combining marks)",
+   "state": "reviewed",
+   "letters": [],
+   "long": "double",
+   "forms": {
+    "a": "a",
+    "ac": "ä",
+    "acw": "a̋",
+    "aj": "ạ",
+    "aq": "r̈",
+    "aw": "á",
+    "ay": "à",
+    "b": "b",
+    "bj": "b̦",
+    "d": "d",
+    "dc": "x",
+    "dj": "d̦",
+    "dq": "x̦",
+    "dqy": "x̖",
+    "dx": "ḍ",
+    "dxy": "d̤",
+    "dy": "d̖",
+    "e": "e",
+    "ec": "ö",
+    "ecw": "ő",
+    "ej": "ẹ",
+    "ejw": "ẹ́",
+    "ejy": "ẹ̀",
+    "eq": "ọ̈",
+    "ew": "é",
+    "ey": "è",
+    "f": "f",
+    "fxy": "f̤",
+    "g": "g",
+    "gj": "g̓",
+    "gx": "ġ",
+    "gxy": "g̈",
+    "h": "h",
+    "hx": "ḥ",
+    "i": "i",
+    "ic": "ü",
+    "icw": "ű",
+    "icx": "j̈",
+    "ij": "ị",
+    "iq": "ụ̈",
+    "iw": "í",
+    "ix": "j",
+    "iy": "ì",
+    "k": "k",
+    "kj": "k̦",
+    "kq": "q",
+    "kx": "ḳ",
+    "kxy": "k̤",
+    "l": "l",
+    "lx": "ḷ",
+    "lxy": "l̤",
+    "m": "m",
+    "mj": "m̦",
+    "n": "n",
+    "nj": "n̦",
+    "nx": "ṇ",
+    "nxy": "n̤",
+    "ny": "n̖",
+    "o": "o",
+    "oc": "ë",
+    "ocw": "e̋",
+    "oj": "ọ",
+    "ojw": "ọ́",
+    "ojy": "ọ̀",
+    "ow": "ó",
+    "oy": "ò",
+    "p": "p",
+    "pj": "p̓",
+    "r": "r",
+    "rc": "ṛ",
+    "rxy": "r̤",
+    "s": "s",
+    "sj": "ș",
+    "sjy": "s̖",
+    "sxy": "s̤",
+    "t": "t",
+    "tc": "c",
+    "tcy": "c̤",
+    "tj": "ț",
+    "tq": "c̦",
+    "tqy": "c̖",
+    "tx": "ṭ",
+    "txy": "t̤",
+    "ty": "t̖",
+    "u": "u",
+    "uc": "ï",
+    "ucw": "i̋",
+    "uj": "ụ",
+    "uw": "ú",
+    "ux": "w",
+    "uy": "ù",
+    "v": "v",
+    "vxy": "v̤",
+    "z": "z",
+    "zj": "z̦",
+    "zjy": "z̖",
+    "zxy": "z̤"
+   },
+   "caps": {
+    "gj": "G̦",
+    "gx": "G̣",
+    "gxy": "G̤",
+    "pj": "P̦"
+   }
+  }
+ },
+ "vectors": {
+  "render": [
+   [
+    "p",
+    "p"
+   ],
+   [
+    "P",
+    "P"
+   ],
+   [
+    "P",
+    "P"
+   ],
+   [
+    "t",
+    "t"
+   ],
+   [
+    "T",
+    "T"
+   ],
+   [
+    "T",
+    "T"
+   ],
+   [
+    "k",
+    "k"
+   ],
+   [
+    "K",
+    "K"
+   ],
+   [
+    "K",
+    "K"
+   ],
+   [
+    "b",
+    "b"
+   ],
+   [
+    "B",
+    "B"
+   ],
+   [
+    "B",
+    "B"
+   ],
+   [
+    "d",
+    "d"
+   ],
+   [
+    "D",
+    "D"
+   ],
+   [
+    "D",
+    "D"
+   ],
+   [
+    "g",
+    "g"
+   ],
+   [
+    "G",
+    "G"
+   ],
+   [
+    "G",
+    "G"
+   ],
+   [
+    "f",
+    "f"
+   ],
+   [
+    "F",
+    "F"
+   ],
+   [
+    "F",
+    "F"
+   ],
+   [
+    "v",
+    "v"
+   ],
+   [
+    "V",
+    "V"
+   ],
+   [
+    "V",
+    "V"
+   ],
+   [
+    "s",
+    "s"
+   ],
+   [
+    "S",
+    "S"
+   ],
+   [
+    "S",
+    "S"
+   ],
+   [
+    "z",
+    "z"
+   ],
+   [
+    "Z",
+    "Z"
+   ],
+   [
+    "Z",
+    "Z"
+   ],
+   [
+    "m",
+    "m"
+   ],
+   [
+    "M",
+    "M"
+   ],
+   [
+    "M",
+    "M"
+   ],
+   [
+    "n",
+    "n"
+   ],
+   [
+    "N",
+    "N"
+   ],
+   [
+    "N",
+    "N"
+   ],
+   [
+    "l",
+    "l"
+   ],
+   [
+    "L",
+    "L"
+   ],
+   [
+    "L",
+    "L"
+   ],
+   [
+    "r",
+    "r"
+   ],
+   [
+    "R",
+    "R"
+   ],
+   [
+    "R",
+    "R"
+   ],
+   [
+    "h",
+    "h"
+   ],
+   [
+    "H",
+    "H"
+   ],
+   [
+    "H",
+    "H"
+   ],
+   [
+    "a",
+    "a"
+   ],
+   [
+    "A",
+    "A"
+   ],
+   [
+    "A",
+    "A"
+   ],
+   [
+    "e",
+    "e"
+   ],
+   [
+    "E",
+    "E"
+   ],
+   [
+    "E",
+    "E"
+   ],
+   [
+    "i",
+    "i"
+   ],
+   [
+    "I",
+    "I"
+   ],
+   [
+    "I",
+    "I"
+   ],
+   [
+    "o",
+    "o"
+   ],
+   [
+    "O",
+    "O"
+   ],
+   [
+    "O",
+    "O"
+   ],
+   [
+    "u",
+    "u"
+   ],
+   [
+    "U",
+    "U"
+   ],
+   [
+    "U",
+    "U"
+   ],
+   [
+    "pj",
+    "ṕ"
+   ],
+   [
+    "Pj",
+    "Ṕ"
+   ],
+   [
+    "PJ",
+    "Ṕ"
+   ],
+   [
+    "tj",
+    "ț"
+   ],
+   [
+    "Tj",
+    "Ț"
+   ],
+   [
+    "TJ",
+    "Ț"
+   ],
+   [
+    "kj",
+    "ķ"
+   ],
+   [
+    "Kj",
+    "Ķ"
+   ],
+   [
+    "KJ",
+    "Ķ"
+   ],
+   [
+    "bj",
+    "ḃ"
+   ],
+   [
+    "Bj",
+    "Ḃ"
+   ],
+   [
+    "BJ",
+    "Ḃ"
+   ],
+   [
+    "dj",
+    "ḑ"
+   ],
+   [
+    "Dj",
+    "Ḑ"
+   ],
+   [
+    "DJ",
+    "Ḑ"
+   ],
+   [
+    "gj",
+    "ģ"
+   ],
+   [
+    "Gj",
+    "Ģ"
+   ],
+   [
+    "GJ",
+    "Ģ"
+   ],
+   [
+    "sj",
+    "ș"
+   ],
+   [
+    "Sj",
+    "Ș"
+   ],
+   [
+    "SJ",
+    "Ș"
+   ],
+   [
+    "zj",
+    "ȥ"
+   ],
+   [
+    "Zj",
+    "Ȥ"
+   ],
+   [
+    "ZJ",
+    "Ȥ"
+   ],
+   [
+    "mj",
+    "ɱ"
+   ],
+   [
+    "Mj",
+    "Ɱ"
+   ],
+   [
+    "MJ",
+    "Ɱ"
+   ],
+   [
+    "nj",
+    "ņ"
+   ],
+   [
+    "Nj",
+    "Ņ"
+   ],
+   [
+    "NJ",
+    "Ņ"
+   ],
+   [
+    "aj",
+    "ą"
+   ],
+   [
+    "Aj",
+    "Ą"
+   ],
+   [
+    "AJ",
+    "Ą"
+   ],
+   [
+    "ej",
+    "ę"
+   ],
+   [
+    "Ej",
+    "Ę"
+   ],
+   [
+    "EJ",
+    "Ę"
+   ],
+   [
+    "ij",
+    "į"
+   ],
+   [
+    "Ij",
+    "Į"
+   ],
+   [
+    "IJ",
+    "Į"
+   ],
+   [
+    "oj",
+    "ǫ"
+   ],
+   [
+    "Oj",
+    "Ǫ"
+   ],
+   [
+    "OJ",
+    "Ǫ"
+   ],
+   [
+    "uj",
+    "ų"
+   ],
+   [
+    "Uj",
+    "Ų"
+   ],
+   [
+    "UJ",
+    "Ų"
+   ],
+   [
+    "tc",
+    "c"
+   ],
+   [
+    "Tc",
+    "C"
+   ],
+   [
+    "TC",
+    "C"
+   ],
+   [
+    "dc",
+    "x"
+   ],
+   [
+    "Dc",
+    "X"
+   ],
+   [
+    "DC",
+    "X"
+   ],
+   [
+    "rc",
+    "ṛ"
+   ],
+   [
+    "Rc",
+    "Ṛ"
+   ],
+   [
+    "RC",
+    "Ṛ"
+   ],
+   [
+    "ac",
+    "ä"
+   ],
+   [
+    "Ac",
+    "Ä"
+   ],
+   [
+    "AC",
+    "Ä"
+   ],
+   [
+    "ec",
+    "ö"
+   ],
+   [
+    "Ec",
+    "Ö"
+   ],
+   [
+    "EC",
+    "Ö"
+   ],
+   [
+    "ic",
+    "ü"
+   ],
+   [
+    "Ic",
+    "Ü"
+   ],
+   [
+    "IC",
+    "Ü"
+   ],
+   [
+    "oc",
+    "ë"
+   ],
+   [
+    "Oc",
+    "Ë"
+   ],
+   [
+    "OC",
+    "Ë"
+   ],
+   [
+    "uc",
+    "ï"
+   ],
+   [
+    "Uc",
+    "Ï"
+   ],
+   [
+    "UC",
+    "Ï"
+   ],
+   [
+    "tq",
+    "ç"
+   ],
+   [
+    "Tq",
+    "Ç"
+   ],
+   [
+    "TQ",
+    "Ç"
+   ],
+   [
+    "kq",
+    "q"
+   ],
+   [
+    "Kq",
+    "Q"
+   ],
+   [
+    "KQ",
+    "Q"
+   ],
+   [
+    "dq",
+    "ẋ"
+   ],
+   [
+    "Dq",
+    "Ẋ"
+   ],
+   [
+    "DQ",
+    "Ẋ"
+   ],
+   [
+    "aq",
+    "ř"
+   ],
+   [
+    "Aq",
+    "Ř"
+   ],
+   [
+    "AQ",
+    "Ř"
+   ],
+   [
+    "eq",
+    "õ"
+   ],
+   [
+    "Eq",
+    "Õ"
+   ],
+   [
+    "EQ",
+    "Õ"
+   ],
+   [
+    "iq",
+    "ũ"
+   ],
+   [
+    "Iq",
+    "Ũ"
+   ],
+   [
+    "IQ",
+    "Ũ"
+   ],
+   [
+    "tx",
+    "ṭ"
+   ],
+   [
+    "Tx",
+    "Ṭ"
+   ],
+   [
+    "TX",
+    "Ṭ"
+   ],
+   [
+    "kx",
+    "ḳ"
+   ],
+   [
+    "Kx",
+    "Ḳ"
+   ],
+   [
+    "KX",
+    "Ḳ"
+   ],
+   [
+    "dx",
+    "ḍ"
+   ],
+   [
+    "Dx",
+    "Ḍ"
+   ],
+   [
+    "DX",
+    "Ḍ"
+   ],
+   [
+    "gx",
+    "ġ"
+   ],
+   [
+    "Gx",
+    "Ġ"
+   ],
+   [
+    "GX",
+    "Ġ"
+   ],
+   [
+    "nx",
+    "ṇ"
+   ],
+   [
+    "Nx",
+    "Ṇ"
+   ],
+   [
+    "NX",
+    "Ṇ"
+   ],
+   [
+    "lx",
+    "ḷ"
+   ],
+   [
+    "Lx",
+    "Ḷ"
+   ],
+   [
+    "LX",
+    "Ḷ"
+   ],
+   [
+    "hx",
+    "ḥ"
+   ],
+   [
+    "Hx",
+    "Ḥ"
+   ],
+   [
+    "HX",
+    "Ḥ"
+   ],
+   [
+    "ix",
+    "j"
+   ],
+   [
+    "Ix",
+    "J"
+   ],
+   [
+    "IX",
+    "J"
+   ],
+   [
+    "ux",
+    "w"
+   ],
+   [
+    "Ux",
+    "W"
+   ],
+   [
+    "UX",
+    "W"
+   ],
+   [
+    "ty",
+    "ť"
+   ],
+   [
+    "Ty",
+    "Ť"
+   ],
+   [
+    "TY",
+    "Ť"
+   ],
+   [
+    "dy",
+    "ď"
+   ],
+   [
+    "Dy",
+    "Ď"
+   ],
+   [
+    "DY",
+    "Ď"
+   ],
+   [
+    "ny",
+    "ň"
+   ],
+   [
+    "Ny",
+    "Ň"
+   ],
+   [
+    "NY",
+    "Ň"
+   ],
+   [
+    "ay",
+    "à"
+   ],
+   [
+    "Ay",
+    "À"
+   ],
+   [
+    "AY",
+    "À"
+   ],
+   [
+    "ey",
+    "è"
+   ],
+   [
+    "Ey",
+    "È"
+   ],
+   [
+    "EY",
+    "È"
+   ],
+   [
+    "iy",
+    "ì"
+   ],
+   [
+    "Iy",
+    "Ì"
+   ],
+   [
+    "IY",
+    "Ì"
+   ],
+   [
+    "oy",
+    "ò"
+   ],
+   [
+    "Oy",
+    "Ò"
+   ],
+   [
+    "OY",
+    "Ò"
+   ],
+   [
+    "uy",
+    "ù"
+   ],
+   [
+    "Uy",
+    "Ù"
+   ],
+   [
+    "UY",
+    "Ù"
+   ],
+   [
+    "pw",
+    "pp"
+   ],
+   [
+    "Pw",
+    "Pp"
+   ],
+   [
+    "PW",
+    "Pp"
+   ],
+   [
+    "tw",
+    "tt"
+   ],
+   [
+    "Tw",
+    "Tt"
+   ],
+   [
+    "TW",
+    "Tt"
+   ],
+   [
+    "kw",
+    "kk"
+   ],
+   [
+    "Kw",
+    "Kk"
+   ],
+   [
+    "KW",
+    "Kk"
+   ],
+   [
+    "sw",
+    "ss"
+   ],
+   [
+    "Sw",
+    "Ss"
+   ],
+   [
+    "SW",
+    "Ss"
+   ],
+   [
+    "aw",
+    "á"
+   ],
+   [
+    "Aw",
+    "Á"
+   ],
+   [
+    "AW",
+    "Á"
+   ],
+   [
+    "ew",
+    "é"
+   ],
+   [
+    "Ew",
+    "É"
+   ],
+   [
+    "EW",
+    "É"
+   ],
+   [
+    "iw",
+    "í"
+   ],
+   [
+    "Iw",
+    "Í"
+   ],
+   [
+    "IW",
+    "Í"
+   ],
+   [
+    "ow",
+    "ó"
+   ],
+   [
+    "Ow",
+    "Ó"
+   ],
+   [
+    "OW",
+    "Ó"
+   ],
+   [
+    "uw",
+    "ú"
+   ],
+   [
+    "Uw",
+    "Ú"
+   ],
+   [
+    "UW",
+    "Ú"
+   ],
+   [
+    "icx",
+    "ĵ"
+   ],
+   [
+    "Icx",
+    "Ĵ"
+   ],
+   [
+    "ICX",
+    "Ĵ"
+   ],
+   [
+    "sjy",
+    "š"
+   ],
+   [
+    "Sjy",
+    "Š"
+   ],
+   [
+    "SJY",
+    "Š"
+   ],
+   [
+    "zjy",
+    "ž"
+   ],
+   [
+    "Zjy",
+    "Ž"
+   ],
+   [
+    "ZJY",
+    "Ž"
+   ],
+   [
+    "tcy",
+    "ƈ"
+   ],
+   [
+    "Tcy",
+    "Ƈ"
+   ],
+   [
+    "TCY",
+    "Ƈ"
+   ],
+   [
+    "tqy",
+    "č"
+   ],
+   [
+    "Tqy",
+    "Č"
+   ],
+   [
+    "TQY",
+    "Č"
+   ],
+   [
+    "dqy",
+    "ẍ"
+   ],
+   [
+    "Dqy",
+    "Ẍ"
+   ],
+   [
+    "DQY",
+    "Ẍ"
+   ],
+   [
+    "txy",
+    "ṯ"
+   ],
+   [
+    "Txy",
+    "Ṯ"
+   ],
+   [
+    "TXY",
+    "Ṯ"
+   ],
+   [
+    "kxy",
+    "ḵ"
+   ],
+   [
+    "Kxy",
+    "Ḵ"
+   ],
+   [
+    "KXY",
+    "Ḵ"
+   ],
+   [
+    "dxy",
+    "ḏ"
+   ],
+   [
+    "Dxy",
+    "Ḏ"
+   ],
+   [
+    "DXY",
+    "Ḏ"
+   ],
+   [
+    "gxy",
+    "ǧ"
+   ],
+   [
+    "Gxy",
+    "Ǧ"
+   ],
+   [
+    "GXY",
+    "Ǧ"
+   ],
+   [
+    "fxy",
+    "ƒ"
+   ],
+   [
+    "Fxy",
+    "Ƒ"
+   ],
+   [
+    "FXY",
+    "Ƒ"
+   ],
+   [
+    "vxy",
+    "ʋ"
+   ],
+   [
+    "Vxy",
+    "Ʋ"
+   ],
+   [
+    "VXY",
+    "Ʋ"
+   ],
+   [
+    "sxy",
+    "ʂ"
+   ],
+   [
+    "Sxy",
+    "Ʂ"
+   ],
+   [
+    "SXY",
+    "Ʂ"
+   ],
+   [
+    "zxy",
+    "ẕ"
+   ],
+   [
+    "Zxy",
+    "Ẕ"
+   ],
+   [
+    "ZXY",
+    "Ẕ"
+   ],
+   [
+    "nxy",
+    "ṉ"
+   ],
+   [
+    "Nxy",
+    "Ṉ"
+   ],
+   [
+    "NXY",
+    "Ṉ"
+   ],
+   [
+    "lxy",
+    "ḻ"
+   ],
+   [
+    "Lxy",
+    "Ḻ"
+   ],
+   [
+    "LXY",
+    "Ḻ"
+   ],
+   [
+    "rxy",
+    "ṟ"
+   ],
+   [
+    "Rxy",
+    "Ṟ"
+   ],
+   [
+    "RXY",
+    "Ṟ"
+   ],
+   [
+    "ejy",
+    "ĕ"
+   ],
+   [
+    "Ejy",
+    "Ĕ"
+   ],
+   [
+    "EJY",
+    "Ĕ"
+   ],
+   [
+    "ojy",
+    "ŏ"
+   ],
+   [
+    "Ojy",
+    "Ŏ"
+   ],
+   [
+    "OJY",
+    "Ŏ"
+   ],
+   [
+    "sjw",
+    "șș"
+   ],
+   [
+    "Sjw",
+    "Șș"
+   ],
+   [
+    "SJW",
+    "Șș"
+   ],
+   [
+    "tqw",
+    "çç"
+   ],
+   [
+    "Tqw",
+    "Çç"
+   ],
+   [
+    "TQW",
+    "Çç"
+   ],
+   [
+    "ejw",
+    "ê"
+   ],
+   [
+    "Ejw",
+    "Ê"
+   ],
+   [
+    "EJW",
+    "Ê"
+   ],
+   [
+    "ojw",
+    "ô"
+   ],
+   [
+    "Ojw",
+    "Ô"
+   ],
+   [
+    "OJW",
+    "Ô"
+   ],
+   [
+    "acw",
+    "ȁ"
+   ],
+   [
+    "Acw",
+    "Ȁ"
+   ],
+   [
+    "ACW",
+    "Ȁ"
+   ],
+   [
+    "ecw",
+    "ȍ"
+   ],
+   [
+    "Ecw",
+    "Ȍ"
+   ],
+   [
+    "ECW",
+    "Ȍ"
+   ],
+   [
+    "icw",
+    "ȕ"
+   ],
+   [
+    "Icw",
+    "Ȕ"
+   ],
+   [
+    "ICW",
+    "Ȕ"
+   ],
+   [
+    "ocw",
+    "ȅ"
+   ],
+   [
+    "Ocw",
+    "Ȅ"
+   ],
+   [
+    "OCW",
+    "Ȅ"
+   ],
+   [
+    "ucw",
+    "ȉ"
+   ],
+   [
+    "Ucw",
+    "Ȉ"
+   ],
+   [
+    "UCW",
+    "Ȉ"
+   ],
+   [
+    "ph",
+    "ph"
+   ],
+   [
+    "pf",
+    "pf"
+   ],
+   [
+    "th",
+    "th"
+   ],
+   [
+    "kh",
+    "kh"
+   ],
+   [
+    "bh",
+    "bh"
+   ],
+   [
+    "dh",
+    "dh"
+   ],
+   [
+    "gh",
+    "gh"
+   ],
+   [
+    "aix",
+    "aj"
+   ],
+   [
+    "aux",
+    "aw"
+   ],
+   [
+    "eix",
+    "ej"
+   ],
+   [
+    "oux",
+    "ow"
+   ],
+   [
+    "tch",
+    "ch"
+   ],
+   [
+    "rch",
+    "ṛh"
+   ],
+   [
+    "tqh",
+    "çh"
+   ],
+   [
+    "dqh",
+    "ẋh"
+   ],
+   [
+    "tyh",
+    "ťh"
+   ],
+   [
+    "dyh",
+    "ďh"
+   ],
+   [
+    "ajux",
+    "ąw"
+   ],
+   [
+    "ejix",
+    "ęj"
+   ],
+   [
+    "ojix",
+    "ǫj"
+   ],
+   [
+    "tqyh",
+    "čh"
+   ],
+   [
+    "eqicx",
+    "õĵ"
+   ],
+   [
+    "ojicx",
+    "ǫĵ"
+   ],
+   [
+    "sjok sewp njawr",
+    "șok sép ņár"
+   ],
+   [
+    "Sjan1, sjok!",
+    "Șan1, șok!"
+   ],
+   [
+    "SJAN",
+    "ȘAN"
+   ],
+   [
+    "Gj Pj Gxy Txy Ic Sjw Tqyh Aw",
+    "Ģ Ṕ Ǧ Ṯ Ü Șș Čh Á"
+   ],
+   [
+    "ma1 ma2 ma3 ma4",
+    "ma1 ma2 ma3 ma4"
+   ],
+   [
+    "hoswuw aclmac",
+    "hossú älmä"
+   ],
+   [
+    "tqi3 sjuc3 tquc1",
+    "çi3 șï3 çï1"
+   ],
+   [
+    "Diafon: ix i ux.",
+    "Diafon: j i w."
+   ],
+   [
+    "kxy gxy txy dxy sxy zxy",
+    "ḵ ǧ ṯ ḏ ʂ ẕ"
+   ],
+   [
+    "ty dy ny sjy zjy tqy dqy",
+    "ť ď ň š ž č ẍ"
+   ],
+   [
+    "tcy dcy tcx dcx",
+    "ƈ x̤ c̣ x̣"
+   ],
+   [
+    "aq r ix ux icx ucx",
+    "ř r j w ĵ ẅ"
+   ],
+   [
+    "aj ej ij oj uj ay ey iy oy uy",
+    "ą ę į ǫ ų à è ì ò ù"
+   ],
+   [
+    "tyh dyh rch pf th kh",
+    "ťh ďh ṛh pf th kh"
+   ]
+  ],
+  "lenient": [
+   [
+    "Sjan1, jok!",
+    "Șan1, jok!"
+   ],
+   [
+    "jok",
+    "jok"
+   ],
+   [
+    "1ma",
+    "1ma"
+   ],
+   [
+    "tqyx",
+    "tqyx"
+   ],
+   [
+    "tww",
+    "tww"
+   ],
+   [
+    "twx",
+    "twx"
+   ],
+   [
+    "lj rj fj",
+    "lj rj fj"
+   ],
+   [
+    "bq ax txx",
+    "bq ax txx"
+   ],
+   [
+    "qwerty",
+    "qwerť"
+   ],
+   [
+    "Hello, world!",
+    "Hello, world!"
+   ],
+   [
+    "x-ray",
+    "x-rà"
+   ],
+   [
+    "sj+ok",
+    "ș+ok"
+   ]
+  ],
+  "invalid": [
+   "jok",
+   "1",
+   "tqyx",
+   "tww",
+   "twx",
+   "lj",
+   "rj",
+   "fj",
+   "bq",
+   "ax",
+   "txx",
+   "tcq",
+   "yx",
+   "wa",
+   "ejx",
+   "txyx"
+  ],
+  "stream": {
+   "sjok sewp njawr": [
+    [
+     "s",
+     "",
+     "s"
+    ],
+    [
+     "sj",
+     "",
+     "sj"
+    ],
+    [
+     "sjo",
+     "ș",
+     "o"
+    ],
+    [
+     "ok",
+     "o",
+     "k"
+    ],
+    [
+     "k ",
+     "k ",
+     ""
+    ],
+    [
+     "s",
+     "",
+     "s"
+    ],
+    [
+     "se",
+     "s",
+     "e"
+    ],
+    [
+     "ew",
+     "",
+     "ew"
+    ],
+    [
+     "ewp",
+     "é",
+     "p"
+    ],
+    [
+     "p ",
+     "p ",
+     ""
+    ],
+    [
+     "n",
+     "",
+     "n"
+    ],
+    [
+     "nj",
+     "",
+     "nj"
+    ],
+    [
+     "nja",
+     "ņ",
+     "a"
+    ],
+    [
+     "aw",
+     "",
+     "aw"
+    ],
+    [
+     "awr",
+     "á",
+     "r"
+    ]
+   ],
+   "Sjan1, sjok!": [
+    [
+     "S",
+     "",
+     "S"
+    ],
+    [
+     "Sj",
+     "",
+     "Sj"
+    ],
+    [
+     "Sja",
+     "Ș",
+     "a"
+    ],
+    [
+     "an",
+     "a",
+     "n"
+    ],
+    [
+     "n1",
+     "",
+     "n1"
+    ],
+    [
+     "n1,",
+     "n1,",
+     ""
+    ],
+    [
+     " ",
+     " ",
+     ""
+    ],
+    [
+     "s",
+     "",
+     "s"
+    ],
+    [
+     "sj",
+     "",
+     "sj"
+    ],
+    [
+     "sjo",
+     "ș",
+     "o"
+    ],
+    [
+     "ok",
+     "o",
+     "k"
+    ],
+    [
+     "k!",
+     "k!",
+     ""
+    ]
+   ],
+   "SJAN": [
+    [
+     "S",
+     "",
+     "S"
+    ],
+    [
+     "SJ",
+     "",
+     "SJ"
+    ],
+    [
+     "SJA",
+     "Ș",
+     "A"
+    ],
+    [
+     "AN",
+     "A",
+     "N"
+    ]
+   ]
+  },
+  "stages": {
+   "hu": [
+    [
+     "ac",
+     "a"
+    ],
+    [
+     "aw",
+     "á"
+    ],
+    [
+     "b",
+     "b"
+    ],
+    [
+     "d",
+     "d"
+    ],
+    [
+     "dc",
+     "dz"
+    ],
+    [
+     "dj",
+     "gy"
+    ],
+    [
+     "dq",
+     "dzs"
+    ],
+    [
+     "ec",
+     "ö"
+    ],
+    [
+     "ecw",
+     "ő"
+    ],
+    [
+     "ej",
+     "e"
+    ],
+    [
+     "ew",
+     "é"
+    ],
+    [
+     "f",
+     "f"
+    ],
+    [
+     "g",
+     "g"
+    ],
+    [
+     "h",
+     "h"
+    ],
+    [
+     "i",
+     "i"
+    ],
+    [
+     "ic",
+     "ü"
+    ],
+    [
+     "icw",
+     "ű"
+    ],
+    [
+     "iw",
+     "í"
+    ],
+    [
+     "ix",
+     "j"
+    ],
+    [
+     "k",
+     "k"
+    ],
+    [
+     "l",
+     "l"
+    ],
+    [
+     "m",
+     "m"
+    ],
+    [
+     "n",
+     "n"
+    ],
+    [
+     "nj",
+     "ny"
+    ],
+    [
+     "o",
+     "o"
+    ],
+    [
+     "ow",
+     "ó"
+    ],
+    [
+     "p",
+     "p"
+    ],
+    [
+     "r",
+     "r"
+    ],
+    [
+     "s",
+     "sz"
+    ],
+    [
+     "sj",
+     "s"
+    ],
+    [
+     "t",
+     "t"
+    ],
+    [
+     "tc",
+     "c"
+    ],
+    [
+     "tj",
+     "ty"
+    ],
+    [
+     "tq",
+     "cs"
+    ],
+    [
+     "u",
+     "u"
+    ],
+    [
+     "uw",
+     "ú"
+    ],
+    [
+     "v",
+     "v"
+    ],
+    [
+     "z",
+     "z"
+    ],
+    [
+     "zj",
+     "zs"
+    ],
+    [
+     "bw",
+     "bb"
+    ],
+    [
+     "dw",
+     "dd"
+    ],
+    [
+     "dcw",
+     "ddz"
+    ],
+    [
+     "djw",
+     "ggy"
+    ],
+    [
+     "dqw",
+     "ddzs"
+    ],
+    [
+     "fw",
+     "ff"
+    ],
+    [
+     "gw",
+     "gg"
+    ],
+    [
+     "hw",
+     "hh"
+    ],
+    [
+     "kw",
+     "kk"
+    ],
+    [
+     "lw",
+     "ll"
+    ],
+    [
+     "mw",
+     "mm"
+    ],
+    [
+     "nw",
+     "nn"
+    ],
+    [
+     "njw",
+     "nny"
+    ],
+    [
+     "pw",
+     "pp"
+    ],
+    [
+     "rw",
+     "rr"
+    ],
+    [
+     "sw",
+     "ssz"
+    ],
+    [
+     "sjw",
+     "ss"
+    ],
+    [
+     "tw",
+     "tt"
+    ],
+    [
+     "tcw",
+     "cc"
+    ],
+    [
+     "tjw",
+     "tty"
+    ],
+    [
+     "tqw",
+     "ccs"
+    ],
+    [
+     "vw",
+     "vv"
+    ],
+    [
+     "zw",
+     "zz"
+    ],
+    [
+     "zjw",
+     "zzs"
+    ],
+    [
+     "sjok sewp njawr",
+     "sok szép nyár"
+    ],
+    [
+     "Sjan1, sjok!",
+     "San1, sok!"
+    ],
+    [
+     "SJAN",
+     "SAN"
+    ],
+    [
+     "Gj Pj Gxy Txy Ic Sjw Tqyh Aw",
+     "Ģ Ṕ Ǧ Ṯ Ü Ss Čh Á"
+    ],
+    [
+     "ma1 ma2 ma3 ma4",
+     "ma1 ma2 ma3 ma4"
+    ],
+    [
+     "hoswuw aclmac",
+     "hosszú alma"
+    ],
+    [
+     "tqi3 sjuc3 tquc1",
+     "csi3 sï3 csï1"
+    ],
+    [
+     "Diafon: ix i ux.",
+     "Diafon: j i w."
+    ],
+    [
+     "kxy gxy txy dxy sxy zxy",
+     "ḵ ǧ ṯ ḏ ʂ ẕ"
+    ],
+    [
+     "ty dy ny sjy zjy tqy dqy",
+     "ť ď ň š ž č ẍ"
+    ],
+    [
+     "tcy dcy tcx dcx",
+     "ƈ x̤ c̣ x̣"
+    ],
+    [
+     "aq r ix ux icx ucx",
+     "ř r j w ĵ ẅ"
+    ],
+    [
+     "aj ej ij oj uj ay ey iy oy uy",
+     "ą e į ǫ ų à è ì ò ù"
+    ],
+    [
+     "tyh dyh rch pf th kh",
+     "ťh ďh ṛh pf th kh"
+    ]
+   ],
+   "marks": [
+    [
+     "a",
+     "a"
+    ],
+    [
+     "ac",
+     "ä"
+    ],
+    [
+     "acw",
+     "a̋"
+    ],
+    [
+     "aj",
+     "ạ"
+    ],
+    [
+     "aq",
+     "r̈"
+    ],
+    [
+     "aw",
+     "á"
+    ],
+    [
+     "ay",
+     "à"
+    ],
+    [
+     "b",
+     "b"
+    ],
+    [
+     "bj",
+     "b̦"
+    ],
+    [
+     "d",
+     "d"
+    ],
+    [
+     "dc",
+     "x"
+    ],
+    [
+     "dj",
+     "d̦"
+    ],
+    [
+     "dq",
+     "x̦"
+    ],
+    [
+     "dqy",
+     "x̖"
+    ],
+    [
+     "dx",
+     "ḍ"
+    ],
+    [
+     "dxy",
+     "d̤"
+    ],
+    [
+     "dy",
+     "d̖"
+    ],
+    [
+     "e",
+     "e"
+    ],
+    [
+     "ec",
+     "ö"
+    ],
+    [
+     "ecw",
+     "ő"
+    ],
+    [
+     "ej",
+     "ẹ"
+    ],
+    [
+     "ejw",
+     "ẹ́"
+    ],
+    [
+     "ejy",
+     "ẹ̀"
+    ],
+    [
+     "eq",
+     "ọ̈"
+    ],
+    [
+     "ew",
+     "é"
+    ],
+    [
+     "ey",
+     "è"
+    ],
+    [
+     "f",
+     "f"
+    ],
+    [
+     "fxy",
+     "f̤"
+    ],
+    [
+     "g",
+     "g"
+    ],
+    [
+     "gj",
+     "g̓"
+    ],
+    [
+     "gx",
+     "ġ"
+    ],
+    [
+     "gxy",
+     "g̈"
+    ],
+    [
+     "h",
+     "h"
+    ],
+    [
+     "hx",
+     "ḥ"
+    ],
+    [
+     "i",
+     "i"
+    ],
+    [
+     "ic",
+     "ü"
+    ],
+    [
+     "icw",
+     "ű"
+    ],
+    [
+     "icx",
+     "j̈"
+    ],
+    [
+     "ij",
+     "ị"
+    ],
+    [
+     "iq",
+     "ụ̈"
+    ],
+    [
+     "iw",
+     "í"
+    ],
+    [
+     "ix",
+     "j"
+    ],
+    [
+     "iy",
+     "ì"
+    ],
+    [
+     "k",
+     "k"
+    ],
+    [
+     "kj",
+     "k̦"
+    ],
+    [
+     "kq",
+     "q"
+    ],
+    [
+     "kx",
+     "ḳ"
+    ],
+    [
+     "kxy",
+     "k̤"
+    ],
+    [
+     "l",
+     "l"
+    ],
+    [
+     "lx",
+     "ḷ"
+    ],
+    [
+     "lxy",
+     "l̤"
+    ],
+    [
+     "m",
+     "m"
+    ],
+    [
+     "mj",
+     "m̦"
+    ],
+    [
+     "n",
+     "n"
+    ],
+    [
+     "nj",
+     "n̦"
+    ],
+    [
+     "nx",
+     "ṇ"
+    ],
+    [
+     "nxy",
+     "n̤"
+    ],
+    [
+     "ny",
+     "n̖"
+    ],
+    [
+     "o",
+     "o"
+    ],
+    [
+     "oc",
+     "ë"
+    ],
+    [
+     "ocw",
+     "e̋"
+    ],
+    [
+     "oj",
+     "ọ"
+    ],
+    [
+     "ojw",
+     "ọ́"
+    ],
+    [
+     "ojy",
+     "ọ̀"
+    ],
+    [
+     "ow",
+     "ó"
+    ],
+    [
+     "oy",
+     "ò"
+    ],
+    [
+     "p",
+     "p"
+    ],
+    [
+     "pj",
+     "p̓"
+    ],
+    [
+     "r",
+     "r"
+    ],
+    [
+     "rc",
+     "ṛ"
+    ],
+    [
+     "rxy",
+     "r̤"
+    ],
+    [
+     "s",
+     "s"
+    ],
+    [
+     "sj",
+     "ș"
+    ],
+    [
+     "sjy",
+     "s̖"
+    ],
+    [
+     "sxy",
+     "s̤"
+    ],
+    [
+     "t",
+     "t"
+    ],
+    [
+     "tc",
+     "c"
+    ],
+    [
+     "tcy",
+     "c̤"
+    ],
+    [
+     "tj",
+     "ț"
+    ],
+    [
+     "tq",
+     "c̦"
+    ],
+    [
+     "tqy",
+     "c̖"
+    ],
+    [
+     "tx",
+     "ṭ"
+    ],
+    [
+     "txy",
+     "t̤"
+    ],
+    [
+     "ty",
+     "t̖"
+    ],
+    [
+     "u",
+     "u"
+    ],
+    [
+     "uc",
+     "ï"
+    ],
+    [
+     "ucw",
+     "i̋"
+    ],
+    [
+     "uj",
+     "ụ"
+    ],
+    [
+     "uw",
+     "ú"
+    ],
+    [
+     "ux",
+     "w"
+    ],
+    [
+     "uy",
+     "ù"
+    ],
+    [
+     "v",
+     "v"
+    ],
+    [
+     "vxy",
+     "v̤"
+    ],
+    [
+     "z",
+     "z"
+    ],
+    [
+     "zj",
+     "z̦"
+    ],
+    [
+     "zjy",
+     "z̖"
+    ],
+    [
+     "zxy",
+     "z̤"
+    ],
+    [
+     "bw",
+     "bb"
+    ],
+    [
+     "bjw",
+     "b̦b̦"
+    ],
+    [
+     "dw",
+     "dd"
+    ],
+    [
+     "dcw",
+     "xx"
+    ],
+    [
+     "djw",
+     "d̦d̦"
+    ],
+    [
+     "dqw",
+     "x̦x̦"
+    ],
+    [
+     "dqyw",
+     "x̖x̖"
+    ],
+    [
+     "dxw",
+     "ḍḍ"
+    ],
+    [
+     "dxyw",
+     "d̤d̤"
+    ],
+    [
+     "dyw",
+     "d̖d̖"
+    ],
+    [
+     "fw",
+     "ff"
+    ],
+    [
+     "fxyw",
+     "f̤f̤"
+    ],
+    [
+     "gw",
+     "gg"
+    ],
+    [
+     "gjw",
+     "g̓g̓"
+    ],
+    [
+     "gxw",
+     "ġġ"
+    ],
+    [
+     "gxyw",
+     "g̈g̈"
+    ],
+    [
+     "hw",
+     "hh"
+    ],
+    [
+     "hxw",
+     "ḥḥ"
+    ],
+    [
+     "kw",
+     "kk"
+    ],
+    [
+     "kjw",
+     "k̦k̦"
+    ],
+    [
+     "kqw",
+     "qq"
+    ],
+    [
+     "kxw",
+     "ḳḳ"
+    ],
+    [
+     "kxyw",
+     "k̤k̤"
+    ],
+    [
+     "lw",
+     "ll"
+    ],
+    [
+     "lxw",
+     "ḷḷ"
+    ],
+    [
+     "lxyw",
+     "l̤l̤"
+    ],
+    [
+     "mw",
+     "mm"
+    ],
+    [
+     "mjw",
+     "m̦m̦"
+    ],
+    [
+     "nw",
+     "nn"
+    ],
+    [
+     "njw",
+     "n̦n̦"
+    ],
+    [
+     "nxw",
+     "ṇṇ"
+    ],
+    [
+     "nxyw",
+     "n̤n̤"
+    ],
+    [
+     "nyw",
+     "n̖n̖"
+    ],
+    [
+     "pw",
+     "pp"
+    ],
+    [
+     "pjw",
+     "p̓p̓"
+    ],
+    [
+     "rw",
+     "rr"
+    ],
+    [
+     "rcw",
+     "ṛṛ"
+    ],
+    [
+     "rxyw",
+     "r̤r̤"
+    ],
+    [
+     "sw",
+     "ss"
+    ],
+    [
+     "sjw",
+     "șș"
+    ],
+    [
+     "sjyw",
+     "s̖s̖"
+    ],
+    [
+     "sxyw",
+     "s̤s̤"
+    ],
+    [
+     "tw",
+     "tt"
+    ],
+    [
+     "tcw",
+     "cc"
+    ],
+    [
+     "tcyw",
+     "c̤c̤"
+    ],
+    [
+     "tjw",
+     "țț"
+    ],
+    [
+     "tqw",
+     "c̦c̦"
+    ],
+    [
+     "tqyw",
+     "c̖c̖"
+    ],
+    [
+     "txw",
+     "ṭṭ"
+    ],
+    [
+     "txyw",
+     "t̤t̤"
+    ],
+    [
+     "tyw",
+     "t̖t̖"
+    ],
+    [
+     "vw",
+     "vv"
+    ],
+    [
+     "vxyw",
+     "v̤v̤"
+    ],
+    [
+     "zw",
+     "zz"
+    ],
+    [
+     "zjw",
+     "z̦z̦"
+    ],
+    [
+     "zjyw",
+     "z̖z̖"
+    ],
+    [
+     "zxyw",
+     "z̤z̤"
+    ],
+    [
+     "sjok sewp njawr",
+     "șok sép n̦ár"
+    ],
+    [
+     "Sjan1, sjok!",
+     "Șan1, șok!"
+    ],
+    [
+     "SJAN",
+     "ȘAN"
+    ],
+    [
+     "Gj Pj Gxy Txy Ic Sjw Tqyh Aw",
+     "G̦ P̦ G̤ T̤ Ü Șș C̖h Á"
+    ],
+    [
+     "ma1 ma2 ma3 ma4",
+     "ma1 ma2 ma3 ma4"
+    ],
+    [
+     "hoswuw aclmac",
+     "hossú älmä"
+    ],
+    [
+     "tqi3 sjuc3 tquc1",
+     "c̦i3 șï3 c̦ï1"
+    ],
+    [
+     "Diafon: ix i ux.",
+     "Diafon: j i w."
+    ],
+    [
+     "kxy gxy txy dxy sxy zxy",
+     "k̤ g̈ t̤ d̤ s̤ z̤"
+    ],
+    [
+     "ty dy ny sjy zjy tqy dqy",
+     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+    ],
+    [
+     "tcy dcy tcx dcx",
+     "c̤ x̤ c̣ x̣"
+    ],
+    [
+     "aq r ix ux icx ucx",
+     "r̈ r j w j̈ ẅ"
+    ],
+    [
+     "aj ej ij oj uj ay ey iy oy uy",
+     "ạ ẹ ị ọ ụ à è ì ò ù"
+    ],
+    [
+     "tyh dyh rch pf th kh",
+     "t̖h d̖h ṛh pf th kh"
+    ]
+   ]
+  }
+ }
+}
