@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Diaphone · Fonts</title>
+<title>Diafon · Fonts</title>
 <style>
 :root{
   --paper:#f5f6f8; --card:#ffffff; --sunken:#eef0f4; --ink:#1a1d24; --muted:#5b6472; --line:#dde1e8;
@@ -19,7 +19,7 @@
   --paper:#14161b; --card:#1b1e25; --sunken:#101216; --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37;
   --accent:#3ec8cf; --bad:#e07a7a; --warn:#e0a44a;
 }
-@font-face{font-family:"Diaphone";src:url(diaphone.woff2?v=1788894930) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon";src:url(diafon.woff2?v=1789150475) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:15px}
 .wrap{max-width:1100px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -69,24 +69,24 @@ nav.sitenav a.brand{color:var(--ink);font-family:var(--serif);font-size:1rem;
   font-weight:600;text-transform:none;letter-spacing:0;margin-right:.4rem}
 nav.sitenav .here{color:var(--accent)}
 </style>
-<nav class="sitenav"><a class="brand" href="index.html">Diaphone</a><a href="description.html">description</a><a href="master.html">master tables</a><a href="play.html">playground</a><span class="here">fonts</span></nav>
+<nav class="sitenav"><a class="brand" href="index.html">Diafon</a><a href="description.html">description</a><a href="master.html">master tables</a><a href="play.html">playground</a><span class="here">fonts</span></nav>
 <!-- /sitenav -->
 
 <header>
   <h1>Fonts</h1>
   <p class="lede">Every glyph the system can draw, as one matrix: bases across,
-  derivations down. Study it in the custom <b>Diaphone</b> font (the default)
+  derivations down. Study it in the custom <b>Diafon</b> font (the default)
   or any other face, and see the support gaps. Each tile carries its
   language count; faded tiles are the grammar's reserve,
   drawn by the rules but used by no current language. Part of
-  <a href="description.html">Diaphone</a>.</p>
+  <a href="description.html">Diafon</a>.</p>
 </header>
 
 <div class="row">
   <label for="font">font</label>
   <select id="font" autocomplete="off">
     <optgroup label="custom">
-      <option value="Diaphone" selected>Diaphone (the system font)</option>
+      <option value="Diafon" selected>Diafon (the system font)</option>
     </optgroup>
     <optgroup label="popular">
       <option>Arial</option>
@@ -126,7 +126,7 @@ nav.sitenav .here{color:var(--accent)}
 <h2>Vowels</h2>
 <div class="scroll" id="vows"></div>
 
-<footer>Diaphone · fonts · <a href="description.html">description</a> ·
+<footer>Diafon · fonts · <a href="description.html">description</a> ·
   <a href="master.html">master tables</a> · <a href="play.html">playground</a></footer>
 
 </main>
@@ -193,7 +193,7 @@ function render(){
     `<span style="color:var(--warn)">${counts.fall} falling back</span>`;
 }
 
-$font.value = 'Diaphone';                 // the custom font is the default, always
+$font.value = 'Diafon';                 // the custom font is the default, always
 $custom.value = '';
 $font.addEventListener('change', () => { $custom.value = ''; render(); });
 $custom.addEventListener('change', render);
