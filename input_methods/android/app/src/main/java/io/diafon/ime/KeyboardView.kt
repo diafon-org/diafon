@@ -1,6 +1,7 @@
-// The keys: the 26 letters, digits for tones, and the few functional keys.
-// No dictionary, no prediction, one layout: the system needs none of them.
-// Operators are tinted with the site's colours so the eye learns the split.
+// The keys: the 26 letters on the chosen base layout (Layouts.kt), digits for
+// tones, and the few functional keys. No dictionary, no prediction: the
+// system needs none of them. Operators are tinted with the site's colours so
+// the eye learns the split.
 package io.diafon.ime
 
 import android.content.Context
@@ -26,6 +27,8 @@ class KeyboardView(ctx: Context, private val onKey: (Key) -> Unit) : View(ctx) {
         set(v) { field = v; invalidate() }
     var enabledMode = true
         set(v) { field = v; invalidate() }
+    var layout = "qwerty"
+        set(v) { if (field != v) { field = v; rows = buildRows(v); if (width > 0) onSizeChanged(width, height, width, height); requestLayout(); invalidate() } }
 
     private class Slot(val key: Key, val rect: RectF)
 
@@ -41,14 +44,21 @@ class KeyboardView(ctx: Context, private val onKey: (Key) -> Unit) : View(ctx) {
         'c' to 0xFFB06F14.toInt(), 'j' to 0xFF2F6FB0.toInt(), 'q' to 0xFF7A4FB0.toInt(),
         'x' to 0xFF2F8F66.toInt(), 'y' to 0xFFB03F7A.toInt(), 'w' to 0xFF5B6472.toInt())
 
-    // rows of (key, width in letter-key units)
-    private val rows: List<List<Pair<Key, Float>>> = listOf(
-        "1234567890".map { Key.Char(it) to 1f },
-        "qwertyuiop".map { Key.Char(it) to 1f },
-        "asdfghjkl".map { Key.Char(it) to 1f },
-        listOf<Pair<Key, Float>>(Key.Shift to 1.5f) + "zxcvbnm".map { Key.Char(it) to 1f } + listOf<Pair<Key, Float>>(Key.Backspace to 1.5f),
-        listOf(Key.Toggle to 1.5f, Key.Settings to 1f, Key.Char(',') to 1f, Key.Space to 4f, Key.Char('.') to 1f, Key.Enter to 1.5f),
-    )
+    // rows of (key, width in letter-key units); the letter rows follow the layout
+    private var rows: List<List<Pair<Key, Float>>> = buildRows("qwerty")
+
+    private fun buildRows(code: String): List<List<Pair<Key, Float>>> {
+        val letters = Layouts.rows(code)
+        val last = letters[2]
+        val side = ((10f - last.length) / 2f).coerceAtLeast(1f)     // shift and backspace share what the row leaves
+        return listOf(
+            "1234567890".map { Key.Char(it) to 1f },
+            letters[0].map { Key.Char(it) to 1f },
+            letters[1].map { Key.Char(it) to 1f },
+            listOf<Pair<Key, Float>>(Key.Shift to side) + last.map { Key.Char(it) to 1f } + listOf<Pair<Key, Float>>(Key.Backspace to side),
+            listOf(Key.Toggle to 1.5f, Key.Settings to 1f, Key.Char(',') to 1f, Key.Space to 4f, Key.Char('.') to 1f, Key.Enter to 1.5f),
+        )
+    }
 
     override fun onMeasure(widthSpec: Int, heightSpec: Int) {
         setMeasuredDimension(MeasureSpec.getSize(widthSpec), (rowH * rows.size + gap).toInt())
