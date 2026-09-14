@@ -27,74 +27,21 @@ import engine
 import gen_master
 
 
-MARKS = 'marks'     # the built-in universal stage: base letters plus combining marks
-
-
 def codes():
     return sorted(os.path.basename(p)[:-5]
-                  for p in glob.glob(os.path.join(ROOT, 'data', 'stages', '*.yaml'))) + [MARKS]
-
-
-def _in_use_forms():
-    """Every single-segment form in use, with its (small, capital) composition."""
-    out = {}
-    for form in sorted(gen_master.aggregate()):
-        if form.endswith('w') and form[0] in engine.C_BASES:
-            continue                     # length: derived from the short form
-        try:
-            if len(engine.tokenize(form)) != 1:
-                continue                 # a sequence (th, aix): its segments are covered
-            out[form] = engine.compositions(form)
-        except engine.ParseError:
-            continue
-    return out
-
-
-def marks_stage():
-    """The composed spelling: every form written as its base letter plus
-    combining marks, the shape the Diafon font draws. Derived from the
-    engine, never a hand table, so it cannot drift from the script rules;
-    the inverse of the web letters (normalise() maps it back). For surfaces
-    that draw combining marks but never receive the font."""
-    forms, caps = {}, {}
-    for form, (small, cap) in _in_use_forms().items():
-        forms[form] = small
-        if cap != ud.normalize('NFC', small[0].upper() + small[1:]):
-            caps[form] = cap             # the float rule reads the capital: g̓ -> G̦
-    return {'code': MARKS, 'name': 'Composed marks (base letter + combining marks)',
-            'state': 'reviewed', 'letters': [], 'long': 'double', 'forms': forms, 'caps': caps}
+                  for p in glob.glob(os.path.join(ROOT, 'data', 'stages', '*.yaml')))
 
 
 def load(code):
-    if code == MARKS:
-        return marks_stage()
     d = yaml.safe_load(open(os.path.join(ROOT, 'data', 'stages', f'{code}.yaml')))
     d['letters'] = d['letters'].split()
     d.setdefault('caps', {})
+    d.setdefault('sample', '')
     return d
 
 
-def normalise(text):
-    """Composed spelling -> the canonical text (the web letters), lossless:
-    both spellings are injective over the forms in use."""
-    if not hasattr(normalise, '_map'):
-        m = {}
-        for form, (small, cap) in _in_use_forms().items():
-            m[small] = engine.glyph(form)
-            m[cap] = engine.glyph(form[0].upper() + form[1:])
-        normalise._map = sorted(((k, v) for k, v in m.items() if k != v),
-                                key=lambda kv: -len(kv[0]))
-    text = ud.normalize('NFC', text)
-    for comp, canon in normalise._map:
-        text = text.replace(comp, canon)
-    return text
-
-
 def language_forms(code):
-    """-> {form: [ipa, ...]} for one language, from the mapping (X included);
-    for the marks stage, every form in use."""
-    if code == MARKS:
-        return {form: [] for form in _in_use_forms()}
+    """-> {form: [ipa, ...]} for one language, from the mapping (X included)."""
     cons, vows, over, _, _, _ = gen_master.load_mapping()
     d = gen_master.load_languages()[code]
     byform = {}
@@ -149,21 +96,6 @@ def render(text, code, strict=False):
 
 def validate(code):
     stage = load(code)
-    if code == MARKS:
-        errors = []
-        for form in language_forms(code):
-            cap = form[0].upper() + form[1:]
-            longs = (form + 'w', cap + 'w') if form[0] in engine.C_BASES else ()
-            for f in (form, cap) + longs:
-                back = normalise(render(f, stage, strict=True))
-                if back != engine.glyph(f):
-                    errors.append(f'{MARKS}: {f} renders {render(f, stage)!r}, normalises to {back!r}')
-        seen = {}
-        for form, sp in stage['forms'].items():
-            if sp in seen and not (form.endswith('w') or seen[sp].endswith('w')):
-                errors.append(f'{MARKS}: {form} and {seen[sp]} both spelled {sp}')
-            seen[sp] = form
-        return errors
     letters = set(stage['letters'])
     errors = []
     forms = language_forms(code)
@@ -179,6 +111,11 @@ def validate(code):
         if sp in seen:
             errors.append(f'{code}: {form} and {seen[sp]} both spelled {sp}')
         seen[sp] = form
+    if stage.get('sample'):
+        # the sample sentence must be spelled in full by the stage itself
+        for seg in engine.segments(stage['sample']):
+            if seg['kind'] == 'form' and spell(stage, seg['form']) is None:
+                errors.append(f'{code}: the sample uses {seg["form"]}, which the stage does not spell')
     for form in list(forms):
         if form[0] in engine.C_BASES and stage['forms'].get(form) is not None:
             long = spell(stage, form + 'w')

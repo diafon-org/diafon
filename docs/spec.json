@@ -1,7 +1,7 @@
 {
  "name": "Diafon",
- "generated": "2026-09-11",
- "source": "10eb37a",
+ "generated": "2026-09-14",
+ "source": "dd7dd27",
  "alphabet": {
   "consonant_bases": [
    "b",
@@ -104,56 +104,6 @@
    "e": "o",
    "o": "e",
    "a": "a"
-  },
-  "web": {
-   "g̓": "ģ",
-   "p̓": "ṕ",
-   "b̦": "ḃ",
-   "d̦": "ḑ",
-   "x̦": "ẋ",
-   "k̦": "ķ",
-   "m̦": "ɱ",
-   "n̦": "ņ",
-   "c̦": "ç",
-   "z̦": "ȥ",
-   "s̖": "š",
-   "z̖": "ž",
-   "x̖": "ẍ",
-   "d̖": "ď",
-   "n̖": "ň",
-   "c̖": "č",
-   "t̖": "ť",
-   "ġ": "ġ",
-   "ạ": "ą",
-   "ẹ": "ę",
-   "ị": "į",
-   "ọ": "ǫ",
-   "ụ": "ų",
-   "d̤": "ḏ",
-   "f̤": "ƒ",
-   "k̤": "ḵ",
-   "l̤": "ḻ",
-   "n̤": "ṉ",
-   "r̤": "ṟ",
-   "s̤": "ʂ",
-   "c̤": "ƈ",
-   "t̤": "ṯ",
-   "v̤": "ʋ",
-   "z̤": "ẕ",
-   "r̈": "ř",
-   "g̈": "ǧ",
-   "j̈": "ĵ",
-   "ọ̈": "õ",
-   "ụ̈": "ũ",
-   "a̋": "ȁ",
-   "ő": "ȍ",
-   "ű": "ȕ",
-   "e̋": "ȅ",
-   "i̋": "ȉ",
-   "ẹ́": "ê",
-   "ọ́": "ô",
-   "ẹ̀": "ĕ",
-   "ọ̀": "ŏ"
   }
  },
  "forms": [
@@ -1058,8 +1008,8 @@
   },
   {
    "form": "pj",
-   "glyph": "ṕ",
-   "capital": "Ṕ",
+   "glyph": "p̓",
+   "capital": "P̦",
    "type": "soft",
    "segments": 1,
    "readings": {
@@ -1099,8 +1049,8 @@
   },
   {
    "form": "kj",
-   "glyph": "ķ",
-   "capital": "Ķ",
+   "glyph": "k̦",
+   "capital": "K̦",
    "type": "soft",
    "segments": 1,
    "readings": {
@@ -1115,8 +1065,8 @@
   },
   {
    "form": "bj",
-   "glyph": "ḃ",
-   "capital": "Ḃ",
+   "glyph": "b̦",
+   "capital": "B̦",
    "type": "soft",
    "segments": 1,
    "readings": {
@@ -1131,8 +1081,8 @@
   },
   {
    "form": "dj",
-   "glyph": "ḑ",
-   "capital": "Ḑ",
+   "glyph": "d̦",
+   "capital": "D̦",
    "type": "soft",
    "segments": 1,
    "readings": {
@@ -1162,8 +1112,8 @@
   },
   {
    "form": "gj",
-   "glyph": "ģ",
-   "capital": "Ģ",
+   "glyph": "g̓",
+   "capital": "G̦",
    "type": "soft",
    "segments": 1,
    "readings": {
@@ -1217,8 +1167,8 @@
   },
   {
    "form": "zj",
-   "glyph": "ȥ",
-   "capital": "Ȥ",
+   "glyph": "z̦",
+   "capital": "Z̦",
    "type": "point",
    "segments": 1,
    "readings": {
@@ -1248,8 +1198,8 @@
   },
   {
    "form": "mj",
-   "glyph": "ɱ",
-   "capital": "Ɱ",
+   "glyph": "m̦",
+   "capital": "M̦",
    "type": "soft",
    "segments": 1,
    "readings": {
@@ -1264,8 +1214,8 @@
   },
   {
    "form": "nj",
-   "glyph": "ņ",
-   "capital": "Ņ",
+   "glyph": "n̦",
+   "capital": "N̦",
    "type": "soft",
    "segments": 1,
    "readings": {
@@ -1298,8 +1248,8 @@
   },
   {
    "form": "aj",
-   "glyph": "ą",
-   "capital": "Ą",
+   "glyph": "ạ",
+   "capital": "Ạ",
    "type": "point",
    "segments": 1,
    "readings": {
@@ -1335,8 +1285,8 @@
   },
   {
    "form": "ej",
-   "glyph": "ę",
-   "capital": "Ę",
+   "glyph": "ẹ",
+   "capital": "Ẹ",
    "type": "point",
    "segments": 1,
    "readings": {
@@ -1366,8 +1316,8 @@
   },
   {
    "form": "ij",
-   "glyph": "į",
-   "capital": "Į",
+   "glyph": "ị",
+   "capital": "Ị",
    "type": "point",
    "segments": 1,
    "readings": {
@@ -1386,8 +1336,8 @@
   },
   {
    "form": "oj",
-   "glyph": "ǫ",
-   "capital": "Ǫ",
+   "glyph": "ọ",
+   "capital": "Ọ",
    "type": "point",
    "segments": 1,
    "readings": {
@@ -1414,8 +1364,8 @@
   },
   {
    "form": "uj",
-   "glyph": "ų",
-   "capital": "Ų",
+   "glyph": "ụ",
+   "capital": "Ụ",
    "type": "point",
    "segments": 1,
    "readings": {
@@ -1631,8 +1581,8 @@
   },
   {
    "form": "tq",
-   "glyph": "ç",
-   "capital": "Ç",
+   "glyph": "c̦",
+   "capital": "C̦",
    "type": "point",
    "segments": 1,
    "readings": {
@@ -1701,8 +1651,8 @@
   },
   {
    "form": "dq",
-   "glyph": "ẋ",
-   "capital": "Ẋ",
+   "glyph": "x̦",
+   "capital": "X̦",
    "type": "point",
    "segments": 1,
    "readings": {
@@ -1734,8 +1684,8 @@
   },
   {
    "form": "aq",
-   "glyph": "ř",
-   "capital": "Ř",
+   "glyph": "r̈",
+   "capital": "R̈",
    "type": "point",
    "segments": 1,
    "readings": {
@@ -1762,8 +1712,8 @@
   },
   {
    "form": "eq",
-   "glyph": "õ",
-   "capital": "Õ",
+   "glyph": "ọ̈",
+   "capital": "Ọ̈",
    "type": "point",
    "segments": 1,
    "readings": {
@@ -1779,8 +1729,8 @@
   },
   {
    "form": "iq",
-   "glyph": "ũ",
-   "capital": "Ũ",
+   "glyph": "ụ̈",
+   "capital": "Ụ̈",
    "type": "point",
    "segments": 1,
    "readings": {
@@ -1868,7 +1818,7 @@
   {
    "form": "gx",
    "glyph": "ġ",
-   "capital": "Ġ",
+   "capital": "G̣",
    "type": "point",
    "segments": 1,
    "readings": {
@@ -2028,8 +1978,8 @@
   },
   {
    "form": "ty",
-   "glyph": "ť",
-   "capital": "Ť",
+   "glyph": "t̖",
+   "capital": "T̖",
    "type": "retro",
    "segments": 1,
    "readings": {
@@ -2046,8 +1996,8 @@
   },
   {
    "form": "dy",
-   "glyph": "ď",
-   "capital": "Ď",
+   "glyph": "d̖",
+   "capital": "D̖",
    "type": "retro",
    "segments": 1,
    "readings": {
@@ -2063,8 +2013,8 @@
   },
   {
    "form": "ny",
-   "glyph": "ň",
-   "capital": "Ň",
+   "glyph": "n̖",
+   "capital": "N̖",
    "type": "retro",
    "segments": 1,
    "readings": {
@@ -2506,8 +2456,8 @@
   },
   {
    "form": "icx",
-   "glyph": "ĵ",
-   "capital": "Ĵ",
+   "glyph": "j̈",
+   "capital": "J̈",
    "type": "glide",
    "segments": 1,
    "readings": {
@@ -2522,8 +2472,8 @@
   },
   {
    "form": "sjy",
-   "glyph": "š",
-   "capital": "Š",
+   "glyph": "s̖",
+   "capital": "S̖",
    "type": "retro",
    "segments": 1,
    "readings": {
@@ -2540,8 +2490,8 @@
   },
   {
    "form": "zjy",
-   "glyph": "ž",
-   "capital": "Ž",
+   "glyph": "z̖",
+   "capital": "Z̖",
    "type": "retro",
    "segments": 1,
    "readings": {
@@ -2558,8 +2508,8 @@
   },
   {
    "form": "tcy",
-   "glyph": "ƈ",
-   "capital": "Ƈ",
+   "glyph": "c̤",
+   "capital": "C̤",
    "type": "special",
    "segments": 1,
    "readings": {
@@ -2574,8 +2524,8 @@
   },
   {
    "form": "tqy",
-   "glyph": "č",
-   "capital": "Č",
+   "glyph": "c̖",
+   "capital": "C̖",
    "type": "retro",
    "segments": 1,
    "readings": {
@@ -2591,8 +2541,8 @@
   },
   {
    "form": "dqy",
-   "glyph": "ẍ",
-   "capital": "Ẍ",
+   "glyph": "x̖",
+   "capital": "X̖",
    "type": "retro",
    "segments": 1,
    "readings": {
@@ -2607,8 +2557,8 @@
   },
   {
    "form": "txy",
-   "glyph": "ṯ",
-   "capital": "Ṯ",
+   "glyph": "t̤",
+   "capital": "T̤",
    "type": "special",
    "segments": 1,
    "readings": {
@@ -2623,8 +2573,8 @@
   },
   {
    "form": "kxy",
-   "glyph": "ḵ",
-   "capital": "Ḵ",
+   "glyph": "k̤",
+   "capital": "K̤",
    "type": "special",
    "segments": 1,
    "readings": {
@@ -2639,8 +2589,8 @@
   },
   {
    "form": "dxy",
-   "glyph": "ḏ",
-   "capital": "Ḏ",
+   "glyph": "d̤",
+   "capital": "D̤",
    "type": "special",
    "segments": 1,
    "readings": {
@@ -2655,8 +2605,8 @@
   },
   {
    "form": "gxy",
-   "glyph": "ǧ",
-   "capital": "Ǧ",
+   "glyph": "g̈",
+   "capital": "G̤",
    "type": "special",
    "segments": 1,
    "readings": {
@@ -2671,8 +2621,8 @@
   },
   {
    "form": "fxy",
-   "glyph": "ƒ",
-   "capital": "Ƒ",
+   "glyph": "f̤",
+   "capital": "F̤",
    "type": "special",
    "segments": 1,
    "readings": {
@@ -2687,8 +2637,8 @@
   },
   {
    "form": "vxy",
-   "glyph": "ʋ",
-   "capital": "Ʋ",
+   "glyph": "v̤",
+   "capital": "V̤",
    "type": "special",
    "segments": 1,
    "readings": {
@@ -2703,8 +2653,8 @@
   },
   {
    "form": "sxy",
-   "glyph": "ʂ",
-   "capital": "Ʂ",
+   "glyph": "s̤",
+   "capital": "S̤",
    "type": "special",
    "segments": 1,
    "readings": {
@@ -2727,8 +2677,8 @@
   },
   {
    "form": "zxy",
-   "glyph": "ẕ",
-   "capital": "Ẕ",
+   "glyph": "z̤",
+   "capital": "Z̤",
    "type": "special",
    "segments": 1,
    "readings": {
@@ -2750,8 +2700,8 @@
   },
   {
    "form": "nxy",
-   "glyph": "ṉ",
-   "capital": "Ṉ",
+   "glyph": "n̤",
+   "capital": "N̤",
    "type": "special",
    "segments": 1,
    "readings": {
@@ -2766,8 +2716,8 @@
   },
   {
    "form": "lxy",
-   "glyph": "ḻ",
-   "capital": "Ḻ",
+   "glyph": "l̤",
+   "capital": "L̤",
    "type": "special",
    "segments": 1,
    "readings": {
@@ -2791,8 +2741,8 @@
   },
   {
    "form": "rxy",
-   "glyph": "ṟ",
-   "capital": "Ṟ",
+   "glyph": "r̤",
+   "capital": "R̤",
    "type": "special",
    "segments": 1,
    "readings": {
@@ -2814,8 +2764,8 @@
   },
   {
    "form": "ejy",
-   "glyph": "ĕ",
-   "capital": "Ĕ",
+   "glyph": "ẹ̀",
+   "capital": "Ẹ̀",
    "type": "nasal",
    "segments": 1,
    "readings": {
@@ -2832,8 +2782,8 @@
   },
   {
    "form": "ojy",
-   "glyph": "ŏ",
-   "capital": "Ŏ",
+   "glyph": "ọ̀",
+   "capital": "Ọ̀",
    "type": "nasal",
    "segments": 1,
    "readings": {
@@ -2866,8 +2816,8 @@
   },
   {
    "form": "tqw",
-   "glyph": "çç",
-   "capital": "Çç",
+   "glyph": "c̦c̦",
+   "capital": "C̦c̦",
    "type": "long",
    "segments": 1,
    "readings": {
@@ -2882,8 +2832,8 @@
   },
   {
    "form": "ejw",
-   "glyph": "ê",
-   "capital": "Ê",
+   "glyph": "ẹ́",
+   "capital": "Ẹ́",
    "type": "long",
    "segments": 1,
    "readings": {
@@ -2900,8 +2850,8 @@
   },
   {
    "form": "ojw",
-   "glyph": "ô",
-   "capital": "Ô",
+   "glyph": "ọ́",
+   "capital": "Ọ́",
    "type": "long",
    "segments": 1,
    "readings": {
@@ -2916,8 +2866,8 @@
   },
   {
    "form": "acw",
-   "glyph": "ȁ",
-   "capital": "Ȁ",
+   "glyph": "a̋",
+   "capital": "A̋",
    "type": "long",
    "segments": 1,
    "readings": {
@@ -2933,8 +2883,8 @@
   },
   {
    "form": "ecw",
-   "glyph": "ȍ",
-   "capital": "Ȍ",
+   "glyph": "ő",
+   "capital": "Ő",
    "type": "long",
    "segments": 1,
    "readings": {
@@ -2953,8 +2903,8 @@
   },
   {
    "form": "icw",
-   "glyph": "ȕ",
-   "capital": "Ȕ",
+   "glyph": "ű",
+   "capital": "Ű",
    "type": "long",
    "segments": 1,
    "readings": {
@@ -2972,8 +2922,8 @@
   },
   {
    "form": "ocw",
-   "glyph": "ȅ",
-   "capital": "Ȅ",
+   "glyph": "e̋",
+   "capital": "E̋",
    "type": "long",
    "segments": 1,
    "readings": {
@@ -2989,8 +2939,8 @@
   },
   {
    "form": "ucw",
-   "glyph": "ȉ",
-   "capital": "Ȉ",
+   "glyph": "i̋",
+   "capital": "I̋",
    "type": "long",
    "segments": 1,
    "readings": {
@@ -3105,8 +3055,8 @@
   },
   {
    "form": "tqh",
-   "glyph": "çh",
-   "capital": "Çh",
+   "glyph": "c̦h",
+   "capital": "C̦h",
    "type": "sequence",
    "segments": 2,
    "readings": {
@@ -3130,8 +3080,8 @@
   },
   {
    "form": "dqh",
-   "glyph": "ẋh",
-   "capital": "Ẋh",
+   "glyph": "x̦h",
+   "capital": "X̦h",
    "type": "sequence",
    "segments": 2,
    "readings": {
@@ -3147,8 +3097,8 @@
   },
   {
    "form": "tyh",
-   "glyph": "ťh",
-   "capital": "Ťh",
+   "glyph": "t̖h",
+   "capital": "T̖h",
    "type": "sequence",
    "segments": 2,
    "readings": {
@@ -3164,8 +3114,8 @@
   },
   {
    "form": "dyh",
-   "glyph": "ďh",
-   "capital": "Ďh",
+   "glyph": "d̖h",
+   "capital": "D̖h",
    "type": "sequence",
    "segments": 2,
    "readings": {
@@ -3181,8 +3131,8 @@
   },
   {
    "form": "ajux",
-   "glyph": "ąw",
-   "capital": "Ąw",
+   "glyph": "ạw",
+   "capital": "Ạw",
    "type": "sequence",
    "segments": 2,
    "readings": {
@@ -3197,8 +3147,8 @@
   },
   {
    "form": "ejix",
-   "glyph": "ęj",
-   "capital": "Ęj",
+   "glyph": "ẹj",
+   "capital": "Ẹj",
    "type": "sequence",
    "segments": 2,
    "readings": {
@@ -3213,8 +3163,8 @@
   },
   {
    "form": "ojix",
-   "glyph": "ǫj",
-   "capital": "Ǫj",
+   "glyph": "ọj",
+   "capital": "Ọj",
    "type": "sequence",
    "segments": 2,
    "readings": {
@@ -3229,8 +3179,8 @@
   },
   {
    "form": "tqyh",
-   "glyph": "čh",
-   "capital": "Čh",
+   "glyph": "c̖h",
+   "capital": "C̖h",
    "type": "sequence",
    "segments": 2,
    "readings": {
@@ -3245,8 +3195,8 @@
   },
   {
    "form": "eqicx",
-   "glyph": "õĵ",
-   "capital": "Õĵ",
+   "glyph": "ọ̈j̈",
+   "capital": "Ọ̈j̈",
    "type": "sequence",
    "segments": 2,
    "readings": {
@@ -3261,8 +3211,8 @@
   },
   {
    "form": "ojicx",
-   "glyph": "ǫĵ",
-   "capital": "Ǫĵ",
+   "glyph": "ọj̈",
+   "capital": "Ọj̈",
    "type": "sequence",
    "segments": 2,
    "readings": {
@@ -10115,6 +10065,168 @@
   }
  },
  "stages": {
+  "cs": {
+   "name": "Czech spelling",
+   "state": "draft",
+   "letters": [
+    "a",
+    "á",
+    "b",
+    "c",
+    "č",
+    "d",
+    "ď",
+    "dz",
+    "dž",
+    "e",
+    "é",
+    "f",
+    "g",
+    "h",
+    "ch",
+    "i",
+    "í",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "ň",
+    "o",
+    "ó",
+    "p",
+    "r",
+    "ř",
+    "s",
+    "š",
+    "t",
+    "ť",
+    "u",
+    "ú",
+    "v",
+    "z",
+    "ž"
+   ],
+   "long": "double",
+   "forms": {
+    "p": "p",
+    "b": "b",
+    "t": "t",
+    "d": "d",
+    "k": "k",
+    "g": "g",
+    "f": "f",
+    "v": "v",
+    "s": "s",
+    "z": "z",
+    "sj": "š",
+    "zj": "ž",
+    "tc": "c",
+    "dc": "dz",
+    "tq": "č",
+    "dq": "dž",
+    "tj": "ť",
+    "dj": "ď",
+    "nj": "ň",
+    "kx": "ch",
+    "h": "h",
+    "m": "m",
+    "n": "n",
+    "l": "l",
+    "r": "r",
+    "rxy": "ř",
+    "ix": "j",
+    "a": "a",
+    "aw": "á",
+    "ej": "e",
+    "ejw": "é",
+    "i": "i",
+    "iw": "í",
+    "o": "o",
+    "ow": "ó",
+    "u": "u",
+    "uw": "ú"
+   },
+   "caps": {},
+   "sample": "dobriw dejn, prxyawtejlejw"
+  },
+  "fi": {
+   "name": "Finnish spelling",
+   "state": "draft",
+   "letters": [
+    "a",
+    "aa",
+    "ä",
+    "ää",
+    "b",
+    "d",
+    "e",
+    "ee",
+    "f",
+    "g",
+    "h",
+    "i",
+    "ii",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "ng",
+    "o",
+    "oo",
+    "ö",
+    "öö",
+    "p",
+    "r",
+    "s",
+    "š",
+    "t",
+    "u",
+    "uu",
+    "v",
+    "y",
+    "yy"
+   ],
+   "long": "double",
+   "forms": {
+    "p": "p",
+    "b": "b",
+    "t": "t",
+    "d": "d",
+    "k": "k",
+    "g": "g",
+    "f": "f",
+    "v": "v",
+    "s": "s",
+    "sj": "š",
+    "h": "h",
+    "m": "m",
+    "n": "n",
+    "nx": "ng",
+    "l": "l",
+    "r": "r",
+    "ix": "j",
+    "a": "ä",
+    "aw": "ää",
+    "ac": "a",
+    "acw": "aa",
+    "e": "e",
+    "ew": "ee",
+    "ec": "ö",
+    "ecw": "öö",
+    "i": "i",
+    "iw": "ii",
+    "ic": "y",
+    "icw": "yy",
+    "o": "o",
+    "ow": "oo",
+    "u": "u",
+    "uw": "uu"
+   },
+   "caps": {},
+   "sample": "hicvaw icecta ixac kacunistac kesaw"
+  },
   "hu": {
    "name": "Hungarian spelling",
    "state": "draft",
@@ -10202,118 +10314,235 @@
     "ic": "ü",
     "icw": "ű"
    },
-   "caps": {}
+   "caps": {},
+   "sample": "sjok sewp njawr, hoswuw aclmac"
   },
-  "marks": {
-   "name": "Composed marks (base letter + combining marks)",
-   "state": "reviewed",
-   "letters": [],
+  "pl": {
+   "name": "Polish spelling",
+   "state": "draft",
+   "letters": [
+    "a",
+    "ą",
+    "b",
+    "c",
+    "ć",
+    "ch",
+    "cz",
+    "d",
+    "dz",
+    "dź",
+    "dż",
+    "e",
+    "ę",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "ł",
+    "m",
+    "n",
+    "ń",
+    "o",
+    "ó",
+    "p",
+    "r",
+    "s",
+    "ś",
+    "sz",
+    "t",
+    "u",
+    "w",
+    "y",
+    "z",
+    "ź",
+    "ż"
+   ],
    "long": "double",
    "forms": {
-    "a": "a",
-    "ac": "ä",
-    "acw": "a̋",
-    "aj": "ạ",
-    "aq": "r̈",
-    "aw": "á",
-    "ay": "à",
+    "p": "p",
     "b": "b",
-    "bj": "b̦",
+    "t": "t",
     "d": "d",
-    "dc": "x",
-    "dj": "d̦",
-    "dq": "x̦",
-    "dqy": "x̖",
-    "dx": "ḍ",
-    "dxy": "d̤",
-    "dy": "d̖",
+    "k": "k",
+    "g": "g",
+    "f": "f",
+    "v": "w",
+    "s": "s",
+    "z": "z",
+    "sj": "ś",
+    "zj": "ź",
+    "sjy": "sz",
+    "zjy": "ż",
+    "tc": "c",
+    "dc": "dz",
+    "tq": "ć",
+    "dq": "dź",
+    "tqy": "cz",
+    "dqy": "dż",
+    "nj": "ń",
+    "kx": "ch",
+    "m": "m",
+    "n": "n",
+    "l": "l",
+    "ux": "ł",
+    "r": "r",
+    "ix": "j",
+    "a": "a",
+    "ej": "e",
+    "ejy": "ę",
+    "i": "i",
+    "oj": "o",
+    "ojy": "ą",
+    "u": "u",
+    "uc": "y"
+   },
+   "caps": {},
+   "sample": "dojbra nojtc, kojkxani"
+  },
+  "sw": {
+   "name": "Swahili spelling",
+   "state": "draft",
+   "letters": [
+    "a",
+    "b",
+    "ch",
+    "d",
+    "dh",
+    "e",
+    "f",
+    "g",
+    "gh",
+    "h",
+    "i",
+    "j",
+    "k",
+    "kh",
+    "l",
+    "m",
+    "n",
+    "ng'",
+    "ny",
+    "o",
+    "p",
+    "r",
+    "s",
+    "sh",
+    "t",
+    "th",
+    "u",
+    "v",
+    "w",
+    "y",
+    "z"
+   ],
+   "long": "double",
+   "forms": {
+    "p": "p",
+    "b": "b",
+    "t": "t",
+    "d": "d",
+    "k": "k",
+    "g": "g",
+    "f": "f",
+    "v": "v",
+    "s": "s",
+    "z": "z",
+    "sj": "sh",
+    "tq": "ch",
+    "dj": "j",
+    "tx": "th",
+    "dx": "dh",
+    "kx": "kh",
+    "gx": "gh",
+    "nj": "ny",
+    "nx": "ng'",
+    "h": "h",
+    "m": "m",
+    "n": "n",
+    "l": "l",
+    "r": "r",
+    "ix": "y",
+    "ux": "w",
+    "ac": "a",
+    "ej": "e",
+    "i": "i",
+    "oj": "o",
+    "u": "u"
+   },
+   "caps": {},
+   "sample": "hacbacri zac acsubuhi, kacribu sacnac"
+  },
+  "tr": {
+   "name": "Turkish spelling",
+   "state": "draft",
+   "letters": [
+    "a",
+    "â",
+    "b",
+    "c",
+    "ç",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "ı",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "ö",
+    "p",
+    "r",
+    "s",
+    "ş",
+    "t",
+    "u",
+    "ü",
+    "v",
+    "y",
+    "z"
+   ],
+   "long": "double",
+   "forms": {
+    "p": "p",
+    "b": "b",
+    "t": "t",
+    "d": "d",
+    "k": "k",
+    "g": "g",
+    "f": "f",
+    "v": "v",
+    "s": "s",
+    "z": "z",
+    "sj": "ş",
+    "zj": "j",
+    "tq": "ç",
+    "dq": "c",
+    "h": "h",
+    "m": "m",
+    "n": "n",
+    "l": "l",
+    "rc": "r",
+    "ix": "y",
+    "a": "a",
+    "aw": "â",
     "e": "e",
     "ec": "ö",
-    "ecw": "ő",
-    "ej": "ẹ",
-    "ejw": "ẹ́",
-    "ejy": "ẹ̀",
-    "eq": "ọ̈",
-    "ew": "é",
-    "ey": "è",
-    "f": "f",
-    "fxy": "f̤",
-    "g": "g",
-    "gj": "g̓",
-    "gx": "ġ",
-    "gxy": "g̈",
-    "h": "h",
-    "hx": "ḥ",
     "i": "i",
     "ic": "ü",
-    "icw": "ű",
-    "icx": "j̈",
-    "ij": "ị",
-    "iq": "ụ̈",
-    "iw": "í",
-    "ix": "j",
-    "iy": "ì",
-    "k": "k",
-    "kj": "k̦",
-    "kq": "q",
-    "kx": "ḳ",
-    "kxy": "k̤",
-    "l": "l",
-    "lx": "ḷ",
-    "lxy": "l̤",
-    "m": "m",
-    "mj": "m̦",
-    "n": "n",
-    "nj": "n̦",
-    "nx": "ṇ",
-    "nxy": "n̤",
-    "ny": "n̖",
     "o": "o",
-    "oc": "ë",
-    "ocw": "e̋",
-    "oj": "ọ",
-    "ojw": "ọ́",
-    "ojy": "ọ̀",
-    "ow": "ó",
-    "oy": "ò",
-    "p": "p",
-    "pj": "p̓",
-    "r": "r",
-    "rc": "ṛ",
-    "rxy": "r̤",
-    "s": "s",
-    "sj": "ș",
-    "sjy": "s̖",
-    "sxy": "s̤",
-    "t": "t",
-    "tc": "c",
-    "tcy": "c̤",
-    "tj": "ț",
-    "tq": "c̦",
-    "tqy": "c̖",
-    "tx": "ṭ",
-    "txy": "t̤",
-    "ty": "t̖",
     "u": "u",
-    "uc": "ï",
-    "ucw": "i̋",
-    "uj": "ụ",
-    "uw": "ú",
-    "ux": "w",
-    "uy": "ù",
-    "v": "v",
-    "vxy": "v̤",
-    "z": "z",
-    "zj": "z̦",
-    "zjy": "z̖",
-    "zxy": "z̤"
+    "uc": "ı"
    },
-   "caps": {
-    "gj": "G̦",
-    "gx": "G̣",
-    "gxy": "G̤",
-    "pj": "P̦"
-   }
+   "caps": {},
+   "sample": "gicnesjli birc gicn, iixi gicnlerc"
   }
  },
  "vectors": {
@@ -10560,15 +10789,15 @@
    ],
    [
     "pj",
-    "ṕ"
+    "p̓"
    ],
    [
     "Pj",
-    "Ṕ"
+    "P̦"
    ],
    [
     "PJ",
-    "Ṕ"
+    "P̦"
    ],
    [
     "tj",
@@ -10584,51 +10813,51 @@
    ],
    [
     "kj",
-    "ķ"
+    "k̦"
    ],
    [
     "Kj",
-    "Ķ"
+    "K̦"
    ],
    [
     "KJ",
-    "Ķ"
+    "K̦"
    ],
    [
     "bj",
-    "ḃ"
+    "b̦"
    ],
    [
     "Bj",
-    "Ḃ"
+    "B̦"
    ],
    [
     "BJ",
-    "Ḃ"
+    "B̦"
    ],
    [
     "dj",
-    "ḑ"
+    "d̦"
    ],
    [
     "Dj",
-    "Ḑ"
+    "D̦"
    ],
    [
     "DJ",
-    "Ḑ"
+    "D̦"
    ],
    [
     "gj",
-    "ģ"
+    "g̓"
    ],
    [
     "Gj",
-    "Ģ"
+    "G̦"
    ],
    [
     "GJ",
-    "Ģ"
+    "G̦"
    ],
    [
     "sj",
@@ -10644,99 +10873,99 @@
    ],
    [
     "zj",
-    "ȥ"
+    "z̦"
    ],
    [
     "Zj",
-    "Ȥ"
+    "Z̦"
    ],
    [
     "ZJ",
-    "Ȥ"
+    "Z̦"
    ],
    [
     "mj",
-    "ɱ"
+    "m̦"
    ],
    [
     "Mj",
-    "Ɱ"
+    "M̦"
    ],
    [
     "MJ",
-    "Ɱ"
+    "M̦"
    ],
    [
     "nj",
-    "ņ"
+    "n̦"
    ],
    [
     "Nj",
-    "Ņ"
+    "N̦"
    ],
    [
     "NJ",
-    "Ņ"
+    "N̦"
    ],
    [
     "aj",
-    "ą"
+    "ạ"
    ],
    [
     "Aj",
-    "Ą"
+    "Ạ"
    ],
    [
     "AJ",
-    "Ą"
+    "Ạ"
    ],
    [
     "ej",
-    "ę"
+    "ẹ"
    ],
    [
     "Ej",
-    "Ę"
+    "Ẹ"
    ],
    [
     "EJ",
-    "Ę"
+    "Ẹ"
    ],
    [
     "ij",
-    "į"
+    "ị"
    ],
    [
     "Ij",
-    "Į"
+    "Ị"
    ],
    [
     "IJ",
-    "Į"
+    "Ị"
    ],
    [
     "oj",
-    "ǫ"
+    "ọ"
    ],
    [
     "Oj",
-    "Ǫ"
+    "Ọ"
    ],
    [
     "OJ",
-    "Ǫ"
+    "Ọ"
    ],
    [
     "uj",
-    "ų"
+    "ụ"
    ],
    [
     "Uj",
-    "Ų"
+    "Ụ"
    ],
    [
     "UJ",
-    "Ų"
+    "Ụ"
    ],
    [
     "tc",
@@ -10836,15 +11065,15 @@
    ],
    [
     "tq",
-    "ç"
+    "c̦"
    ],
    [
     "Tq",
-    "Ç"
+    "C̦"
    ],
    [
     "TQ",
-    "Ç"
+    "C̦"
    ],
    [
     "kq",
@@ -10860,51 +11089,51 @@
    ],
    [
     "dq",
-    "ẋ"
+    "x̦"
    ],
    [
     "Dq",
-    "Ẋ"
+    "X̦"
    ],
    [
     "DQ",
-    "Ẋ"
+    "X̦"
    ],
    [
     "aq",
-    "ř"
+    "r̈"
    ],
    [
     "Aq",
-    "Ř"
+    "R̈"
    ],
    [
     "AQ",
-    "Ř"
+    "R̈"
    ],
    [
     "eq",
-    "õ"
+    "ọ̈"
    ],
    [
     "Eq",
-    "Õ"
+    "Ọ̈"
    ],
    [
     "EQ",
-    "Õ"
+    "Ọ̈"
    ],
    [
     "iq",
-    "ũ"
+    "ụ̈"
    ],
    [
     "Iq",
-    "Ũ"
+    "Ụ̈"
    ],
    [
     "IQ",
-    "Ũ"
+    "Ụ̈"
    ],
    [
     "tx",
@@ -10948,11 +11177,11 @@
    ],
    [
     "Gx",
-    "Ġ"
+    "G̣"
    ],
    [
     "GX",
-    "Ġ"
+    "G̣"
    ],
    [
     "nx",
@@ -11016,39 +11245,39 @@
    ],
    [
     "ty",
-    "ť"
+    "t̖"
    ],
    [
     "Ty",
-    "Ť"
+    "T̖"
    ],
    [
     "TY",
-    "Ť"
+    "T̖"
    ],
    [
     "dy",
-    "ď"
+    "d̖"
    ],
    [
     "Dy",
-    "Ď"
+    "D̖"
    ],
    [
     "DY",
-    "Ď"
+    "D̖"
    ],
    [
     "ny",
-    "ň"
+    "n̖"
    ],
    [
     "Ny",
-    "Ň"
+    "N̖"
    ],
    [
     "NY",
-    "Ň"
+    "N̖"
    ],
    [
     "ay",
@@ -11220,231 +11449,231 @@
    ],
    [
     "icx",
-    "ĵ"
+    "j̈"
    ],
    [
     "Icx",
-    "Ĵ"
+    "J̈"
    ],
    [
     "ICX",
-    "Ĵ"
+    "J̈"
    ],
    [
     "sjy",
-    "š"
+    "s̖"
    ],
    [
     "Sjy",
-    "Š"
+    "S̖"
    ],
    [
     "SJY",
-    "Š"
+    "S̖"
    ],
    [
     "zjy",
-    "ž"
+    "z̖"
    ],
    [
     "Zjy",
-    "Ž"
+    "Z̖"
    ],
    [
     "ZJY",
-    "Ž"
+    "Z̖"
    ],
    [
     "tcy",
-    "ƈ"
+    "c̤"
    ],
    [
     "Tcy",
-    "Ƈ"
+    "C̤"
    ],
    [
     "TCY",
-    "Ƈ"
+    "C̤"
    ],
    [
     "tqy",
-    "č"
+    "c̖"
    ],
    [
     "Tqy",
-    "Č"
+    "C̖"
    ],
    [
     "TQY",
-    "Č"
+    "C̖"
    ],
    [
     "dqy",
-    "ẍ"
+    "x̖"
    ],
    [
     "Dqy",
-    "Ẍ"
+    "X̖"
    ],
    [
     "DQY",
-    "Ẍ"
+    "X̖"
    ],
    [
     "txy",
-    "ṯ"
+    "t̤"
    ],
    [
     "Txy",
-    "Ṯ"
+    "T̤"
    ],
    [
     "TXY",
-    "Ṯ"
+    "T̤"
    ],
    [
     "kxy",
-    "ḵ"
+    "k̤"
    ],
    [
     "Kxy",
-    "Ḵ"
+    "K̤"
    ],
    [
     "KXY",
-    "Ḵ"
+    "K̤"
    ],
    [
     "dxy",
-    "ḏ"
+    "d̤"
    ],
    [
     "Dxy",
-    "Ḏ"
+    "D̤"
    ],
    [
     "DXY",
-    "Ḏ"
+    "D̤"
    ],
    [
     "gxy",
-    "ǧ"
+    "g̈"
    ],
    [
     "Gxy",
-    "Ǧ"
+    "G̤"
    ],
    [
     "GXY",
-    "Ǧ"
+    "G̤"
    ],
    [
     "fxy",
-    "ƒ"
+    "f̤"
    ],
    [
     "Fxy",
-    "Ƒ"
+    "F̤"
    ],
    [
     "FXY",
-    "Ƒ"
+    "F̤"
    ],
    [
     "vxy",
-    "ʋ"
+    "v̤"
    ],
    [
     "Vxy",
-    "Ʋ"
+    "V̤"
    ],
    [
     "VXY",
-    "Ʋ"
+    "V̤"
    ],
    [
     "sxy",
-    "ʂ"
+    "s̤"
    ],
    [
     "Sxy",
-    "Ʂ"
+    "S̤"
    ],
    [
     "SXY",
-    "Ʂ"
+    "S̤"
    ],
    [
     "zxy",
-    "ẕ"
+    "z̤"
    ],
    [
     "Zxy",
-    "Ẕ"
+    "Z̤"
    ],
    [
     "ZXY",
-    "Ẕ"
+    "Z̤"
    ],
    [
     "nxy",
-    "ṉ"
+    "n̤"
    ],
    [
     "Nxy",
-    "Ṉ"
+    "N̤"
    ],
    [
     "NXY",
-    "Ṉ"
+    "N̤"
    ],
    [
     "lxy",
-    "ḻ"
+    "l̤"
    ],
    [
     "Lxy",
-    "Ḻ"
+    "L̤"
    ],
    [
     "LXY",
-    "Ḻ"
+    "L̤"
    ],
    [
     "rxy",
-    "ṟ"
+    "r̤"
    ],
    [
     "Rxy",
-    "Ṟ"
+    "R̤"
    ],
    [
     "RXY",
-    "Ṟ"
+    "R̤"
    ],
    [
     "ejy",
-    "ĕ"
+    "ẹ̀"
    ],
    [
     "Ejy",
-    "Ĕ"
+    "Ẹ̀"
    ],
    [
     "EJY",
-    "Ĕ"
+    "Ẹ̀"
    ],
    [
     "ojy",
-    "ŏ"
+    "ọ̀"
    ],
    [
     "Ojy",
-    "Ŏ"
+    "Ọ̀"
    ],
    [
     "OJY",
-    "Ŏ"
+    "Ọ̀"
    ],
    [
     "sjw",
@@ -11460,99 +11689,99 @@
    ],
    [
     "tqw",
-    "çç"
+    "c̦c̦"
    ],
    [
     "Tqw",
-    "Çç"
+    "C̦c̦"
    ],
    [
     "TQW",
-    "Çç"
+    "C̦c̦"
    ],
    [
     "ejw",
-    "ê"
+    "ẹ́"
    ],
    [
     "Ejw",
-    "Ê"
+    "Ẹ́"
    ],
    [
     "EJW",
-    "Ê"
+    "Ẹ́"
    ],
    [
     "ojw",
-    "ô"
+    "ọ́"
    ],
    [
     "Ojw",
-    "Ô"
+    "Ọ́"
    ],
    [
     "OJW",
-    "Ô"
+    "Ọ́"
    ],
    [
     "acw",
-    "ȁ"
+    "a̋"
    ],
    [
     "Acw",
-    "Ȁ"
+    "A̋"
    ],
    [
     "ACW",
-    "Ȁ"
+    "A̋"
    ],
    [
     "ecw",
-    "ȍ"
+    "ő"
    ],
    [
     "Ecw",
-    "Ȍ"
+    "Ő"
    ],
    [
     "ECW",
-    "Ȍ"
+    "Ő"
    ],
    [
     "icw",
-    "ȕ"
+    "ű"
    ],
    [
     "Icw",
-    "Ȕ"
+    "Ű"
    ],
    [
     "ICW",
-    "Ȕ"
+    "Ű"
    ],
    [
     "ocw",
-    "ȅ"
+    "e̋"
    ],
    [
     "Ocw",
-    "Ȅ"
+    "E̋"
    ],
    [
     "OCW",
-    "Ȅ"
+    "E̋"
    ],
    [
     "ucw",
-    "ȉ"
+    "i̋"
    ],
    [
     "Ucw",
-    "Ȉ"
+    "I̋"
    ],
    [
     "UCW",
-    "Ȉ"
+    "I̋"
    ],
    [
     "ph",
@@ -11608,47 +11837,47 @@
    ],
    [
     "tqh",
-    "çh"
+    "c̦h"
    ],
    [
     "dqh",
-    "ẋh"
+    "x̦h"
    ],
    [
     "tyh",
-    "ťh"
+    "t̖h"
    ],
    [
     "dyh",
-    "ďh"
+    "d̖h"
    ],
    [
     "ajux",
-    "ąw"
+    "ạw"
    ],
    [
     "ejix",
-    "ęj"
+    "ẹj"
    ],
    [
     "ojix",
-    "ǫj"
+    "ọj"
    ],
    [
     "tqyh",
-    "čh"
+    "c̖h"
    ],
    [
     "eqicx",
-    "õĵ"
+    "ọ̈j̈"
    ],
    [
     "ojicx",
-    "ǫĵ"
+    "ọj̈"
    ],
    [
     "sjok sewp njawr",
-    "șok sép ņár"
+    "șok sép n̦ár"
    ],
    [
     "Sjan1, sjok!",
@@ -11660,7 +11889,7 @@
    ],
    [
     "Gj Pj Gxy Txy Ic Sjw Tqyh Aw",
-    "Ģ Ṕ Ǧ Ṯ Ü Șș Čh Á"
+    "G̦ P̦ G̤ T̤ Ü Șș C̖h Á"
    ],
    [
     "ma1 ma2 ma3 ma4",
@@ -11672,7 +11901,7 @@
    ],
    [
     "tqi3 sjuc3 tquc1",
-    "çi3 șï3 çï1"
+    "c̦i3 șï3 c̦ï1"
    ],
    [
     "Diafon: ix i ux.",
@@ -11680,27 +11909,27 @@
    ],
    [
     "kxy gxy txy dxy sxy zxy",
-    "ḵ ǧ ṯ ḏ ʂ ẕ"
+    "k̤ g̈ t̤ d̤ s̤ z̤"
    ],
    [
     "ty dy ny sjy zjy tqy dqy",
-    "ť ď ň š ž č ẍ"
+    "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
    ],
    [
     "tcy dcy tcx dcx",
-    "ƈ x̤ c̣ x̣"
+    "c̤ x̤ c̣ x̣"
    ],
    [
     "aq r ix ux icx ucx",
-    "ř r j w ĵ ẅ"
+    "r̈ r j w j̈ ẅ"
    ],
    [
     "aj ej ij oj uj ay ey iy oy uy",
-    "ą ę į ǫ ų à è ì ò ù"
+    "ạ ẹ ị ọ ụ à è ì ò ù"
    ],
    [
     "tyh dyh rch pf th kh",
-    "ťh ďh ṛh pf th kh"
+    "t̖h d̖h ṛh pf th kh"
    ]
   ],
   "lenient": [
@@ -11738,7 +11967,7 @@
    ],
    [
     "qwerty",
-    "qwerť"
+    "qwert̖"
    ],
    [
     "Hello, world!",
@@ -11835,7 +12064,7 @@
     ],
     [
      "nja",
-     "ņ",
+     "n̦",
      "a"
     ],
     [
@@ -11935,6 +12164,570 @@
    ]
   },
   "stages": {
+   "cs": [
+    [
+     "a",
+     "a"
+    ],
+    [
+     "aw",
+     "á"
+    ],
+    [
+     "b",
+     "b"
+    ],
+    [
+     "d",
+     "d"
+    ],
+    [
+     "dc",
+     "dz"
+    ],
+    [
+     "dj",
+     "ď"
+    ],
+    [
+     "dq",
+     "dž"
+    ],
+    [
+     "ej",
+     "e"
+    ],
+    [
+     "ejw",
+     "é"
+    ],
+    [
+     "f",
+     "f"
+    ],
+    [
+     "g",
+     "g"
+    ],
+    [
+     "h",
+     "h"
+    ],
+    [
+     "i",
+     "i"
+    ],
+    [
+     "iw",
+     "í"
+    ],
+    [
+     "ix",
+     "j"
+    ],
+    [
+     "k",
+     "k"
+    ],
+    [
+     "kx",
+     "ch"
+    ],
+    [
+     "l",
+     "l"
+    ],
+    [
+     "m",
+     "m"
+    ],
+    [
+     "n",
+     "n"
+    ],
+    [
+     "nj",
+     "ň"
+    ],
+    [
+     "o",
+     "o"
+    ],
+    [
+     "ow",
+     "ó"
+    ],
+    [
+     "p",
+     "p"
+    ],
+    [
+     "r",
+     "r"
+    ],
+    [
+     "rxy",
+     "ř"
+    ],
+    [
+     "s",
+     "s"
+    ],
+    [
+     "sj",
+     "š"
+    ],
+    [
+     "t",
+     "t"
+    ],
+    [
+     "tc",
+     "c"
+    ],
+    [
+     "tj",
+     "ť"
+    ],
+    [
+     "tq",
+     "č"
+    ],
+    [
+     "u",
+     "u"
+    ],
+    [
+     "uw",
+     "ú"
+    ],
+    [
+     "v",
+     "v"
+    ],
+    [
+     "z",
+     "z"
+    ],
+    [
+     "zj",
+     "ž"
+    ],
+    [
+     "bw",
+     "bb"
+    ],
+    [
+     "dw",
+     "dd"
+    ],
+    [
+     "dcw",
+     "dzdz"
+    ],
+    [
+     "djw",
+     "ďď"
+    ],
+    [
+     "dqw",
+     "dždž"
+    ],
+    [
+     "fw",
+     "ff"
+    ],
+    [
+     "gw",
+     "gg"
+    ],
+    [
+     "hw",
+     "hh"
+    ],
+    [
+     "kw",
+     "kk"
+    ],
+    [
+     "kxw",
+     "chch"
+    ],
+    [
+     "lw",
+     "ll"
+    ],
+    [
+     "mw",
+     "mm"
+    ],
+    [
+     "nw",
+     "nn"
+    ],
+    [
+     "njw",
+     "ňň"
+    ],
+    [
+     "pw",
+     "pp"
+    ],
+    [
+     "rw",
+     "rr"
+    ],
+    [
+     "rxyw",
+     "řř"
+    ],
+    [
+     "sw",
+     "ss"
+    ],
+    [
+     "sjw",
+     "šš"
+    ],
+    [
+     "tw",
+     "tt"
+    ],
+    [
+     "tcw",
+     "cc"
+    ],
+    [
+     "tjw",
+     "ťť"
+    ],
+    [
+     "tqw",
+     "čč"
+    ],
+    [
+     "vw",
+     "vv"
+    ],
+    [
+     "zw",
+     "zz"
+    ],
+    [
+     "zjw",
+     "žž"
+    ],
+    [
+     "sjok sewp njawr",
+     "šok sép ňár"
+    ],
+    [
+     "Sjan1, sjok!",
+     "Šan1, šok!"
+    ],
+    [
+     "SJAN",
+     "ŠAN"
+    ],
+    [
+     "Gj Pj Gxy Txy Ic Sjw Tqyh Aw",
+     "G̦ P̦ G̤ T̤ Ü Šš C̖h Á"
+    ],
+    [
+     "ma1 ma2 ma3 ma4",
+     "ma1 ma2 ma3 ma4"
+    ],
+    [
+     "hoswuw aclmac",
+     "hossú älmä"
+    ],
+    [
+     "tqi3 sjuc3 tquc1",
+     "či3 šï3 čï1"
+    ],
+    [
+     "Diafon: ix i ux.",
+     "Diafon: j i w."
+    ],
+    [
+     "kxy gxy txy dxy sxy zxy",
+     "k̤ g̈ t̤ d̤ s̤ z̤"
+    ],
+    [
+     "ty dy ny sjy zjy tqy dqy",
+     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+    ],
+    [
+     "tcy dcy tcx dcx",
+     "c̤ x̤ c̣ x̣"
+    ],
+    [
+     "aq r ix ux icx ucx",
+     "r̈ r j w j̈ ẅ"
+    ],
+    [
+     "aj ej ij oj uj ay ey iy oy uy",
+     "ạ e ị ọ ụ à è ì ò ù"
+    ],
+    [
+     "tyh dyh rch pf th kh",
+     "t̖h d̖h ṛh pf th kh"
+    ]
+   ],
+   "fi": [
+    [
+     "a",
+     "ä"
+    ],
+    [
+     "ac",
+     "a"
+    ],
+    [
+     "acw",
+     "aa"
+    ],
+    [
+     "aw",
+     "ää"
+    ],
+    [
+     "b",
+     "b"
+    ],
+    [
+     "d",
+     "d"
+    ],
+    [
+     "e",
+     "e"
+    ],
+    [
+     "ec",
+     "ö"
+    ],
+    [
+     "ecw",
+     "öö"
+    ],
+    [
+     "ew",
+     "ee"
+    ],
+    [
+     "f",
+     "f"
+    ],
+    [
+     "g",
+     "g"
+    ],
+    [
+     "h",
+     "h"
+    ],
+    [
+     "i",
+     "i"
+    ],
+    [
+     "ic",
+     "y"
+    ],
+    [
+     "icw",
+     "yy"
+    ],
+    [
+     "iw",
+     "ii"
+    ],
+    [
+     "ix",
+     "j"
+    ],
+    [
+     "k",
+     "k"
+    ],
+    [
+     "l",
+     "l"
+    ],
+    [
+     "m",
+     "m"
+    ],
+    [
+     "n",
+     "n"
+    ],
+    [
+     "nx",
+     "ng"
+    ],
+    [
+     "o",
+     "o"
+    ],
+    [
+     "ow",
+     "oo"
+    ],
+    [
+     "p",
+     "p"
+    ],
+    [
+     "r",
+     "r"
+    ],
+    [
+     "s",
+     "s"
+    ],
+    [
+     "sj",
+     "š"
+    ],
+    [
+     "t",
+     "t"
+    ],
+    [
+     "u",
+     "u"
+    ],
+    [
+     "uw",
+     "uu"
+    ],
+    [
+     "v",
+     "v"
+    ],
+    [
+     "bw",
+     "bb"
+    ],
+    [
+     "dw",
+     "dd"
+    ],
+    [
+     "fw",
+     "ff"
+    ],
+    [
+     "gw",
+     "gg"
+    ],
+    [
+     "hw",
+     "hh"
+    ],
+    [
+     "kw",
+     "kk"
+    ],
+    [
+     "lw",
+     "ll"
+    ],
+    [
+     "mw",
+     "mm"
+    ],
+    [
+     "nw",
+     "nn"
+    ],
+    [
+     "nxw",
+     "ngng"
+    ],
+    [
+     "pw",
+     "pp"
+    ],
+    [
+     "rw",
+     "rr"
+    ],
+    [
+     "sw",
+     "ss"
+    ],
+    [
+     "sjw",
+     "šš"
+    ],
+    [
+     "tw",
+     "tt"
+    ],
+    [
+     "vw",
+     "vv"
+    ],
+    [
+     "sjok sewp njawr",
+     "šok seep n̦äär"
+    ],
+    [
+     "Sjan1, sjok!",
+     "Šän1, šok!"
+    ],
+    [
+     "SJAN",
+     "ŠÄN"
+    ],
+    [
+     "Gj Pj Gxy Txy Ic Sjw Tqyh Aw",
+     "G̦ P̦ G̤ T̤ Y Šš C̖h Ää"
+    ],
+    [
+     "ma1 ma2 ma3 ma4",
+     "mä1 mä2 mä3 mä4"
+    ],
+    [
+     "hoswuw aclmac",
+     "hossuu alma"
+    ],
+    [
+     "tqi3 sjuc3 tquc1",
+     "c̦i3 šï3 c̦ï1"
+    ],
+    [
+     "Diafon: ix i ux.",
+     "Diäfon: j i w."
+    ],
+    [
+     "kxy gxy txy dxy sxy zxy",
+     "k̤ g̈ t̤ d̤ s̤ z̤"
+    ],
+    [
+     "ty dy ny sjy zjy tqy dqy",
+     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+    ],
+    [
+     "tcy dcy tcx dcx",
+     "c̤ x̤ c̣ x̣"
+    ],
+    [
+     "aq r ix ux icx ucx",
+     "r̈ r j w j̈ ẅ"
+    ],
+    [
+     "aj ej ij oj uj ay ey iy oy uy",
+     "ạ ẹ ị ọ ụ à è ì ò ù"
+    ],
+    [
+     "tyh dyh rch pf th kh",
+     "t̖h d̖h ṛh pf th kh"
+    ]
+   ],
    "hu": [
     [
      "ac",
@@ -12202,7 +12995,7 @@
     ],
     [
      "Gj Pj Gxy Txy Ic Sjw Tqyh Aw",
-     "Ģ Ṕ Ǧ Ṯ Ü Ss Čh Á"
+     "G̦ P̦ G̤ T̤ Ü Ss C̖h Á"
     ],
     [
      "ma1 ma2 ma3 ma4",
@@ -12215,680 +13008,6 @@
     [
      "tqi3 sjuc3 tquc1",
      "csi3 sï3 csï1"
-    ],
-    [
-     "Diafon: ix i ux.",
-     "Diafon: j i w."
-    ],
-    [
-     "kxy gxy txy dxy sxy zxy",
-     "ḵ ǧ ṯ ḏ ʂ ẕ"
-    ],
-    [
-     "ty dy ny sjy zjy tqy dqy",
-     "ť ď ň š ž č ẍ"
-    ],
-    [
-     "tcy dcy tcx dcx",
-     "ƈ x̤ c̣ x̣"
-    ],
-    [
-     "aq r ix ux icx ucx",
-     "ř r j w ĵ ẅ"
-    ],
-    [
-     "aj ej ij oj uj ay ey iy oy uy",
-     "ą e į ǫ ų à è ì ò ù"
-    ],
-    [
-     "tyh dyh rch pf th kh",
-     "ťh ďh ṛh pf th kh"
-    ]
-   ],
-   "marks": [
-    [
-     "a",
-     "a"
-    ],
-    [
-     "ac",
-     "ä"
-    ],
-    [
-     "acw",
-     "a̋"
-    ],
-    [
-     "aj",
-     "ạ"
-    ],
-    [
-     "aq",
-     "r̈"
-    ],
-    [
-     "aw",
-     "á"
-    ],
-    [
-     "ay",
-     "à"
-    ],
-    [
-     "b",
-     "b"
-    ],
-    [
-     "bj",
-     "b̦"
-    ],
-    [
-     "d",
-     "d"
-    ],
-    [
-     "dc",
-     "x"
-    ],
-    [
-     "dj",
-     "d̦"
-    ],
-    [
-     "dq",
-     "x̦"
-    ],
-    [
-     "dqy",
-     "x̖"
-    ],
-    [
-     "dx",
-     "ḍ"
-    ],
-    [
-     "dxy",
-     "d̤"
-    ],
-    [
-     "dy",
-     "d̖"
-    ],
-    [
-     "e",
-     "e"
-    ],
-    [
-     "ec",
-     "ö"
-    ],
-    [
-     "ecw",
-     "ő"
-    ],
-    [
-     "ej",
-     "ẹ"
-    ],
-    [
-     "ejw",
-     "ẹ́"
-    ],
-    [
-     "ejy",
-     "ẹ̀"
-    ],
-    [
-     "eq",
-     "ọ̈"
-    ],
-    [
-     "ew",
-     "é"
-    ],
-    [
-     "ey",
-     "è"
-    ],
-    [
-     "f",
-     "f"
-    ],
-    [
-     "fxy",
-     "f̤"
-    ],
-    [
-     "g",
-     "g"
-    ],
-    [
-     "gj",
-     "g̓"
-    ],
-    [
-     "gx",
-     "ġ"
-    ],
-    [
-     "gxy",
-     "g̈"
-    ],
-    [
-     "h",
-     "h"
-    ],
-    [
-     "hx",
-     "ḥ"
-    ],
-    [
-     "i",
-     "i"
-    ],
-    [
-     "ic",
-     "ü"
-    ],
-    [
-     "icw",
-     "ű"
-    ],
-    [
-     "icx",
-     "j̈"
-    ],
-    [
-     "ij",
-     "ị"
-    ],
-    [
-     "iq",
-     "ụ̈"
-    ],
-    [
-     "iw",
-     "í"
-    ],
-    [
-     "ix",
-     "j"
-    ],
-    [
-     "iy",
-     "ì"
-    ],
-    [
-     "k",
-     "k"
-    ],
-    [
-     "kj",
-     "k̦"
-    ],
-    [
-     "kq",
-     "q"
-    ],
-    [
-     "kx",
-     "ḳ"
-    ],
-    [
-     "kxy",
-     "k̤"
-    ],
-    [
-     "l",
-     "l"
-    ],
-    [
-     "lx",
-     "ḷ"
-    ],
-    [
-     "lxy",
-     "l̤"
-    ],
-    [
-     "m",
-     "m"
-    ],
-    [
-     "mj",
-     "m̦"
-    ],
-    [
-     "n",
-     "n"
-    ],
-    [
-     "nj",
-     "n̦"
-    ],
-    [
-     "nx",
-     "ṇ"
-    ],
-    [
-     "nxy",
-     "n̤"
-    ],
-    [
-     "ny",
-     "n̖"
-    ],
-    [
-     "o",
-     "o"
-    ],
-    [
-     "oc",
-     "ë"
-    ],
-    [
-     "ocw",
-     "e̋"
-    ],
-    [
-     "oj",
-     "ọ"
-    ],
-    [
-     "ojw",
-     "ọ́"
-    ],
-    [
-     "ojy",
-     "ọ̀"
-    ],
-    [
-     "ow",
-     "ó"
-    ],
-    [
-     "oy",
-     "ò"
-    ],
-    [
-     "p",
-     "p"
-    ],
-    [
-     "pj",
-     "p̓"
-    ],
-    [
-     "r",
-     "r"
-    ],
-    [
-     "rc",
-     "ṛ"
-    ],
-    [
-     "rxy",
-     "r̤"
-    ],
-    [
-     "s",
-     "s"
-    ],
-    [
-     "sj",
-     "ș"
-    ],
-    [
-     "sjy",
-     "s̖"
-    ],
-    [
-     "sxy",
-     "s̤"
-    ],
-    [
-     "t",
-     "t"
-    ],
-    [
-     "tc",
-     "c"
-    ],
-    [
-     "tcy",
-     "c̤"
-    ],
-    [
-     "tj",
-     "ț"
-    ],
-    [
-     "tq",
-     "c̦"
-    ],
-    [
-     "tqy",
-     "c̖"
-    ],
-    [
-     "tx",
-     "ṭ"
-    ],
-    [
-     "txy",
-     "t̤"
-    ],
-    [
-     "ty",
-     "t̖"
-    ],
-    [
-     "u",
-     "u"
-    ],
-    [
-     "uc",
-     "ï"
-    ],
-    [
-     "ucw",
-     "i̋"
-    ],
-    [
-     "uj",
-     "ụ"
-    ],
-    [
-     "uw",
-     "ú"
-    ],
-    [
-     "ux",
-     "w"
-    ],
-    [
-     "uy",
-     "ù"
-    ],
-    [
-     "v",
-     "v"
-    ],
-    [
-     "vxy",
-     "v̤"
-    ],
-    [
-     "z",
-     "z"
-    ],
-    [
-     "zj",
-     "z̦"
-    ],
-    [
-     "zjy",
-     "z̖"
-    ],
-    [
-     "zxy",
-     "z̤"
-    ],
-    [
-     "bw",
-     "bb"
-    ],
-    [
-     "bjw",
-     "b̦b̦"
-    ],
-    [
-     "dw",
-     "dd"
-    ],
-    [
-     "dcw",
-     "xx"
-    ],
-    [
-     "djw",
-     "d̦d̦"
-    ],
-    [
-     "dqw",
-     "x̦x̦"
-    ],
-    [
-     "dqyw",
-     "x̖x̖"
-    ],
-    [
-     "dxw",
-     "ḍḍ"
-    ],
-    [
-     "dxyw",
-     "d̤d̤"
-    ],
-    [
-     "dyw",
-     "d̖d̖"
-    ],
-    [
-     "fw",
-     "ff"
-    ],
-    [
-     "fxyw",
-     "f̤f̤"
-    ],
-    [
-     "gw",
-     "gg"
-    ],
-    [
-     "gjw",
-     "g̓g̓"
-    ],
-    [
-     "gxw",
-     "ġġ"
-    ],
-    [
-     "gxyw",
-     "g̈g̈"
-    ],
-    [
-     "hw",
-     "hh"
-    ],
-    [
-     "hxw",
-     "ḥḥ"
-    ],
-    [
-     "kw",
-     "kk"
-    ],
-    [
-     "kjw",
-     "k̦k̦"
-    ],
-    [
-     "kqw",
-     "qq"
-    ],
-    [
-     "kxw",
-     "ḳḳ"
-    ],
-    [
-     "kxyw",
-     "k̤k̤"
-    ],
-    [
-     "lw",
-     "ll"
-    ],
-    [
-     "lxw",
-     "ḷḷ"
-    ],
-    [
-     "lxyw",
-     "l̤l̤"
-    ],
-    [
-     "mw",
-     "mm"
-    ],
-    [
-     "mjw",
-     "m̦m̦"
-    ],
-    [
-     "nw",
-     "nn"
-    ],
-    [
-     "njw",
-     "n̦n̦"
-    ],
-    [
-     "nxw",
-     "ṇṇ"
-    ],
-    [
-     "nxyw",
-     "n̤n̤"
-    ],
-    [
-     "nyw",
-     "n̖n̖"
-    ],
-    [
-     "pw",
-     "pp"
-    ],
-    [
-     "pjw",
-     "p̓p̓"
-    ],
-    [
-     "rw",
-     "rr"
-    ],
-    [
-     "rcw",
-     "ṛṛ"
-    ],
-    [
-     "rxyw",
-     "r̤r̤"
-    ],
-    [
-     "sw",
-     "ss"
-    ],
-    [
-     "sjw",
-     "șș"
-    ],
-    [
-     "sjyw",
-     "s̖s̖"
-    ],
-    [
-     "sxyw",
-     "s̤s̤"
-    ],
-    [
-     "tw",
-     "tt"
-    ],
-    [
-     "tcw",
-     "cc"
-    ],
-    [
-     "tcyw",
-     "c̤c̤"
-    ],
-    [
-     "tjw",
-     "țț"
-    ],
-    [
-     "tqw",
-     "c̦c̦"
-    ],
-    [
-     "tqyw",
-     "c̖c̖"
-    ],
-    [
-     "txw",
-     "ṭṭ"
-    ],
-    [
-     "txyw",
-     "t̤t̤"
-    ],
-    [
-     "tyw",
-     "t̖t̖"
-    ],
-    [
-     "vw",
-     "vv"
-    ],
-    [
-     "vxyw",
-     "v̤v̤"
-    ],
-    [
-     "zw",
-     "zz"
-    ],
-    [
-     "zjw",
-     "z̦z̦"
-    ],
-    [
-     "zjyw",
-     "z̖z̖"
-    ],
-    [
-     "zxyw",
-     "z̤z̤"
-    ],
-    [
-     "sjok sewp njawr",
-     "șok sép n̦ár"
-    ],
-    [
-     "Sjan1, sjok!",
-     "Șan1, șok!"
-    ],
-    [
-     "SJAN",
-     "ȘAN"
-    ],
-    [
-     "Gj Pj Gxy Txy Ic Sjw Tqyh Aw",
-     "G̦ P̦ G̤ T̤ Ü Șș C̖h Á"
-    ],
-    [
-     "ma1 ma2 ma3 ma4",
-     "ma1 ma2 ma3 ma4"
-    ],
-    [
-     "hoswuw aclmac",
-     "hossú älmä"
-    ],
-    [
-     "tqi3 sjuc3 tquc1",
-     "c̦i3 șï3 c̦ï1"
     ],
     [
      "Diafon: ix i ux.",
@@ -12912,11 +13031,845 @@
     ],
     [
      "aj ej ij oj uj ay ey iy oy uy",
-     "ạ ẹ ị ọ ụ à è ì ò ù"
+     "ạ e ị ọ ụ à è ì ò ù"
     ],
     [
      "tyh dyh rch pf th kh",
      "t̖h d̖h ṛh pf th kh"
+    ]
+   ],
+   "pl": [
+    [
+     "a",
+     "a"
+    ],
+    [
+     "b",
+     "b"
+    ],
+    [
+     "d",
+     "d"
+    ],
+    [
+     "dc",
+     "dz"
+    ],
+    [
+     "dq",
+     "dź"
+    ],
+    [
+     "dqy",
+     "dż"
+    ],
+    [
+     "ej",
+     "e"
+    ],
+    [
+     "ejy",
+     "ę"
+    ],
+    [
+     "f",
+     "f"
+    ],
+    [
+     "g",
+     "g"
+    ],
+    [
+     "i",
+     "i"
+    ],
+    [
+     "ix",
+     "j"
+    ],
+    [
+     "k",
+     "k"
+    ],
+    [
+     "kx",
+     "ch"
+    ],
+    [
+     "l",
+     "l"
+    ],
+    [
+     "m",
+     "m"
+    ],
+    [
+     "n",
+     "n"
+    ],
+    [
+     "nj",
+     "ń"
+    ],
+    [
+     "oj",
+     "o"
+    ],
+    [
+     "ojy",
+     "ą"
+    ],
+    [
+     "p",
+     "p"
+    ],
+    [
+     "r",
+     "r"
+    ],
+    [
+     "s",
+     "s"
+    ],
+    [
+     "sj",
+     "ś"
+    ],
+    [
+     "sjy",
+     "sz"
+    ],
+    [
+     "t",
+     "t"
+    ],
+    [
+     "tc",
+     "c"
+    ],
+    [
+     "tq",
+     "ć"
+    ],
+    [
+     "tqy",
+     "cz"
+    ],
+    [
+     "u",
+     "u"
+    ],
+    [
+     "uc",
+     "y"
+    ],
+    [
+     "ux",
+     "ł"
+    ],
+    [
+     "v",
+     "w"
+    ],
+    [
+     "z",
+     "z"
+    ],
+    [
+     "zj",
+     "ź"
+    ],
+    [
+     "zjy",
+     "ż"
+    ],
+    [
+     "bw",
+     "bb"
+    ],
+    [
+     "dw",
+     "dd"
+    ],
+    [
+     "dcw",
+     "dzdz"
+    ],
+    [
+     "dqw",
+     "dźdź"
+    ],
+    [
+     "dqyw",
+     "dżdż"
+    ],
+    [
+     "fw",
+     "ff"
+    ],
+    [
+     "gw",
+     "gg"
+    ],
+    [
+     "kw",
+     "kk"
+    ],
+    [
+     "kxw",
+     "chch"
+    ],
+    [
+     "lw",
+     "ll"
+    ],
+    [
+     "mw",
+     "mm"
+    ],
+    [
+     "nw",
+     "nn"
+    ],
+    [
+     "njw",
+     "ńń"
+    ],
+    [
+     "pw",
+     "pp"
+    ],
+    [
+     "rw",
+     "rr"
+    ],
+    [
+     "sw",
+     "ss"
+    ],
+    [
+     "sjw",
+     "śś"
+    ],
+    [
+     "sjyw",
+     "szsz"
+    ],
+    [
+     "tw",
+     "tt"
+    ],
+    [
+     "tcw",
+     "cc"
+    ],
+    [
+     "tqw",
+     "ćć"
+    ],
+    [
+     "tqyw",
+     "czcz"
+    ],
+    [
+     "vw",
+     "ww"
+    ],
+    [
+     "zw",
+     "zz"
+    ],
+    [
+     "zjw",
+     "źź"
+    ],
+    [
+     "zjyw",
+     "żż"
+    ],
+    [
+     "sjok sewp njawr",
+     "śok sép ńár"
+    ],
+    [
+     "Sjan1, sjok!",
+     "Śan1, śok!"
+    ],
+    [
+     "SJAN",
+     "ŚAN"
+    ],
+    [
+     "Gj Pj Gxy Txy Ic Sjw Tqyh Aw",
+     "G̦ P̦ G̤ T̤ Ü Śś Czh Á"
+    ],
+    [
+     "ma1 ma2 ma3 ma4",
+     "ma1 ma2 ma3 ma4"
+    ],
+    [
+     "hoswuw aclmac",
+     "hossú älmä"
+    ],
+    [
+     "tqi3 sjuc3 tquc1",
+     "ći3 śy3 ćy1"
+    ],
+    [
+     "Diafon: ix i ux.",
+     "Diafon: j i ł."
+    ],
+    [
+     "kxy gxy txy dxy sxy zxy",
+     "k̤ g̈ t̤ d̤ s̤ z̤"
+    ],
+    [
+     "ty dy ny sjy zjy tqy dqy",
+     "t̖ d̖ n̖ sz ż cz dż"
+    ],
+    [
+     "tcy dcy tcx dcx",
+     "c̤ x̤ c̣ x̣"
+    ],
+    [
+     "aq r ix ux icx ucx",
+     "r̈ r j ł j̈ ẅ"
+    ],
+    [
+     "aj ej ij oj uj ay ey iy oy uy",
+     "ạ e ị o ụ à è ì ò ù"
+    ],
+    [
+     "tyh dyh rch pf th kh",
+     "t̖h d̖h ṛh pf th kh"
+    ]
+   ],
+   "sw": [
+    [
+     "ac",
+     "a"
+    ],
+    [
+     "b",
+     "b"
+    ],
+    [
+     "d",
+     "d"
+    ],
+    [
+     "dj",
+     "j"
+    ],
+    [
+     "dx",
+     "dh"
+    ],
+    [
+     "ej",
+     "e"
+    ],
+    [
+     "f",
+     "f"
+    ],
+    [
+     "g",
+     "g"
+    ],
+    [
+     "gx",
+     "gh"
+    ],
+    [
+     "h",
+     "h"
+    ],
+    [
+     "i",
+     "i"
+    ],
+    [
+     "ix",
+     "y"
+    ],
+    [
+     "k",
+     "k"
+    ],
+    [
+     "kx",
+     "kh"
+    ],
+    [
+     "l",
+     "l"
+    ],
+    [
+     "m",
+     "m"
+    ],
+    [
+     "n",
+     "n"
+    ],
+    [
+     "nj",
+     "ny"
+    ],
+    [
+     "nx",
+     "ng'"
+    ],
+    [
+     "oj",
+     "o"
+    ],
+    [
+     "p",
+     "p"
+    ],
+    [
+     "r",
+     "r"
+    ],
+    [
+     "s",
+     "s"
+    ],
+    [
+     "sj",
+     "sh"
+    ],
+    [
+     "t",
+     "t"
+    ],
+    [
+     "tq",
+     "ch"
+    ],
+    [
+     "tx",
+     "th"
+    ],
+    [
+     "u",
+     "u"
+    ],
+    [
+     "ux",
+     "w"
+    ],
+    [
+     "v",
+     "v"
+    ],
+    [
+     "z",
+     "z"
+    ],
+    [
+     "bw",
+     "bb"
+    ],
+    [
+     "dw",
+     "dd"
+    ],
+    [
+     "djw",
+     "jj"
+    ],
+    [
+     "dxw",
+     "dhdh"
+    ],
+    [
+     "fw",
+     "ff"
+    ],
+    [
+     "gw",
+     "gg"
+    ],
+    [
+     "gxw",
+     "ghgh"
+    ],
+    [
+     "hw",
+     "hh"
+    ],
+    [
+     "kw",
+     "kk"
+    ],
+    [
+     "kxw",
+     "khkh"
+    ],
+    [
+     "lw",
+     "ll"
+    ],
+    [
+     "mw",
+     "mm"
+    ],
+    [
+     "nw",
+     "nn"
+    ],
+    [
+     "njw",
+     "nyny"
+    ],
+    [
+     "nxw",
+     "ng'ng'"
+    ],
+    [
+     "pw",
+     "pp"
+    ],
+    [
+     "rw",
+     "rr"
+    ],
+    [
+     "sw",
+     "ss"
+    ],
+    [
+     "sjw",
+     "shsh"
+    ],
+    [
+     "tw",
+     "tt"
+    ],
+    [
+     "tqw",
+     "chch"
+    ],
+    [
+     "txw",
+     "thth"
+    ],
+    [
+     "vw",
+     "vv"
+    ],
+    [
+     "zw",
+     "zz"
+    ],
+    [
+     "sjok sewp njawr",
+     "shok sép nyár"
+    ],
+    [
+     "Sjan1, sjok!",
+     "Shan1, shok!"
+    ],
+    [
+     "SJAN",
+     "ShAN"
+    ],
+    [
+     "Gj Pj Gxy Txy Ic Sjw Tqyh Aw",
+     "G̦ P̦ G̤ T̤ Ü Shsh C̖h Á"
+    ],
+    [
+     "ma1 ma2 ma3 ma4",
+     "ma1 ma2 ma3 ma4"
+    ],
+    [
+     "hoswuw aclmac",
+     "hossú alma"
+    ],
+    [
+     "tqi3 sjuc3 tquc1",
+     "chi3 shï3 chï1"
+    ],
+    [
+     "Diafon: ix i ux.",
+     "Diafon: y i w."
+    ],
+    [
+     "kxy gxy txy dxy sxy zxy",
+     "k̤ g̈ t̤ d̤ s̤ z̤"
+    ],
+    [
+     "ty dy ny sjy zjy tqy dqy",
+     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+    ],
+    [
+     "tcy dcy tcx dcx",
+     "c̤ x̤ c̣ x̣"
+    ],
+    [
+     "aq r ix ux icx ucx",
+     "r̈ r y w j̈ ẅ"
+    ],
+    [
+     "aj ej ij oj uj ay ey iy oy uy",
+     "ạ e ị o ụ à è ì ò ù"
+    ],
+    [
+     "tyh dyh rch pf th kh",
+     "t̖h d̖h ṛh pf th kh"
+    ]
+   ],
+   "tr": [
+    [
+     "a",
+     "a"
+    ],
+    [
+     "aw",
+     "â"
+    ],
+    [
+     "b",
+     "b"
+    ],
+    [
+     "d",
+     "d"
+    ],
+    [
+     "dq",
+     "c"
+    ],
+    [
+     "e",
+     "e"
+    ],
+    [
+     "ec",
+     "ö"
+    ],
+    [
+     "f",
+     "f"
+    ],
+    [
+     "g",
+     "g"
+    ],
+    [
+     "h",
+     "h"
+    ],
+    [
+     "i",
+     "i"
+    ],
+    [
+     "ic",
+     "ü"
+    ],
+    [
+     "ix",
+     "y"
+    ],
+    [
+     "k",
+     "k"
+    ],
+    [
+     "l",
+     "l"
+    ],
+    [
+     "m",
+     "m"
+    ],
+    [
+     "n",
+     "n"
+    ],
+    [
+     "o",
+     "o"
+    ],
+    [
+     "p",
+     "p"
+    ],
+    [
+     "rc",
+     "r"
+    ],
+    [
+     "s",
+     "s"
+    ],
+    [
+     "sj",
+     "ş"
+    ],
+    [
+     "t",
+     "t"
+    ],
+    [
+     "tq",
+     "ç"
+    ],
+    [
+     "u",
+     "u"
+    ],
+    [
+     "uc",
+     "ı"
+    ],
+    [
+     "v",
+     "v"
+    ],
+    [
+     "z",
+     "z"
+    ],
+    [
+     "zj",
+     "j"
+    ],
+    [
+     "bw",
+     "bb"
+    ],
+    [
+     "dw",
+     "dd"
+    ],
+    [
+     "dqw",
+     "cc"
+    ],
+    [
+     "fw",
+     "ff"
+    ],
+    [
+     "gw",
+     "gg"
+    ],
+    [
+     "hw",
+     "hh"
+    ],
+    [
+     "kw",
+     "kk"
+    ],
+    [
+     "lw",
+     "ll"
+    ],
+    [
+     "mw",
+     "mm"
+    ],
+    [
+     "nw",
+     "nn"
+    ],
+    [
+     "pw",
+     "pp"
+    ],
+    [
+     "rcw",
+     "rr"
+    ],
+    [
+     "sw",
+     "ss"
+    ],
+    [
+     "sjw",
+     "şş"
+    ],
+    [
+     "tw",
+     "tt"
+    ],
+    [
+     "tqw",
+     "çç"
+    ],
+    [
+     "vw",
+     "vv"
+    ],
+    [
+     "zw",
+     "zz"
+    ],
+    [
+     "zjw",
+     "jj"
+    ],
+    [
+     "sjok sewp njawr",
+     "şok sép n̦âr"
+    ],
+    [
+     "Sjan1, sjok!",
+     "Şan1, şok!"
+    ],
+    [
+     "SJAN",
+     "ŞAN"
+    ],
+    [
+     "Gj Pj Gxy Txy Ic Sjw Tqyh Aw",
+     "G̦ P̦ G̤ T̤ Ü Şş C̖h Â"
+    ],
+    [
+     "ma1 ma2 ma3 ma4",
+     "ma1 ma2 ma3 ma4"
+    ],
+    [
+     "hoswuw aclmac",
+     "hossú älmä"
+    ],
+    [
+     "tqi3 sjuc3 tquc1",
+     "çi3 şı3 çı1"
+    ],
+    [
+     "Diafon: ix i ux.",
+     "Diafon: y i w."
+    ],
+    [
+     "kxy gxy txy dxy sxy zxy",
+     "k̤ g̈ t̤ d̤ s̤ z̤"
+    ],
+    [
+     "ty dy ny sjy zjy tqy dqy",
+     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+    ],
+    [
+     "tcy dcy tcx dcx",
+     "c̤ x̤ c̣ x̣"
+    ],
+    [
+     "aq r ix ux icx ucx",
+     "r̈ r y w j̈ ẅ"
+    ],
+    [
+     "aj ej ij oj uj ay ey iy oy uy",
+     "ạ ẹ ị ọ ụ à è ì ò ù"
+    ],
+    [
+     "tyh dyh rch pf th kh",
+     "t̖h d̖h rh pf th kh"
     ]
    ]
   }

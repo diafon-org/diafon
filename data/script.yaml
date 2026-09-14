@@ -1,5 +1,5 @@
 # The script layer: how a form draws its glyph.
-# Combining marks are approximations until the Diaphone font carries the true
+# Combining marks are approximations until the Diafon font carries the true
 # attached anchor. Rules (docs/index.html): a consonant's mark sits below,
 # floating above on descender letters (the float rule); a vowel wears at most
 # one mark above and one below; w doubles a consonant glyph and draws the

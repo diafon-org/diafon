@@ -10,6 +10,7 @@ name: Hungarian spelling
 state: draft            # draft · reviewed · native
 letters: a á b c cs d dz dzs e é f g gy h i í j k l ly m n ny o ó ö ő p r s sz t ty u ú ü ű v z zs
 long: first-letter      # a long consonant doubles the first letter of its spelling: tt, ssz, ccs, ggy
+sample: sjok sewp njawr, hoswuw aclmac      # sok szép nyár, hosszú alma
 forms:
   # consonants
   p: p

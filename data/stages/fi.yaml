@@ -1,0 +1,48 @@
+# Finnish spelling stage: the point stream rendered in today's Finnish
+# orthography. Render-only, like every stage.
+#
+# Finnish is written as it sounds: length doubles the letter, front a is ä.
+# Losses, one-way and stated: a single /ŋ/ before k is written n in Finnish
+# (kenkä), here always ng.
+code: fi
+name: Finnish spelling
+state: draft
+letters: a aa ä ää b d e ee f g h i ii j k l m n ng o oo ö öö p r s š t u uu v y yy
+long: double            # a long consonant doubles its letter: tt, kk, ss
+sample: hicvaw icecta ixac kacunistac kesaw      # hyvää yötä ja kaunista kesää
+forms:
+  # consonants
+  p: p
+  b: b
+  t: t
+  d: d
+  k: k
+  g: g
+  f: f
+  v: v
+  s: s
+  sj: š
+  h: h
+  m: m
+  n: n
+  nx: ng
+  l: l
+  r: r
+  ix: j
+  # vowels: the front a is ä, the back a is a; length doubles the letter
+  a: ä
+  aw: ää
+  ac: a
+  acw: aa
+  e: e
+  ew: ee
+  ec: ö
+  ecw: öö
+  i: i
+  iw: ii
+  ic: y
+  icw: yy
+  o: o
+  ow: oo
+  u: u
+  uw: uu

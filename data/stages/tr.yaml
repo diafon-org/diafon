@@ -1,0 +1,42 @@
+# Turkish spelling stage: the point stream rendered in today's Turkish
+# orthography. Render-only, like every stage.
+#
+# Losses, one-way and stated: the soft g (ğ), which lengthens or glides,
+# has no point of its own and is not written; long a in loanwords takes the
+# circumflex (kâr) so that it stays apart from plain a.
+code: tr
+name: Turkish spelling
+state: draft
+letters: a â b c ç d e f g h ı i j k l m n o ö p r s ş t u ü v y z
+long: double
+sample: gicnesjli birc gicn, iixi gicnlerc      # güneşli bir gün, iyi günler
+forms:
+  p: p
+  b: b
+  t: t
+  d: d
+  k: k
+  g: g
+  f: f
+  v: v
+  s: s
+  z: z
+  sj: ş
+  zj: j
+  tq: ç
+  dq: c
+  h: h
+  m: m
+  n: n
+  l: l
+  rc: r
+  ix: y
+  a: a
+  aw: â
+  e: e
+  ec: ö
+  i: i
+  ic: ü
+  o: o
+  u: u
+  uc: ı

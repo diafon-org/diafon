@@ -23,7 +23,7 @@
   --accent:#3ec8cf; --base-c:#3ec8cf; --c-c:#e0a44a; --j-c:#8b9ff0; --q-c:#c08ee0; --x-c:#4fc79a; --y-c:#e88ac0;
   --base-t:#3ec8cf1e; --c-t:#e0a44a22; --j-t:#8b9ff01e; --q-t:#c08ee01e; --x-t:#4fc79a22; --y-t:#e88ac022;
 }
-@font-face{font-family:"Diafon";src:url(diafon.woff2?v=1789150475) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon";src:url(diafon.woff2?v=1789346267) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1020px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -92,7 +92,7 @@ nav.sitenav a.brand{color:var(--ink);font-family:var(--serif);font-size:1rem;
   font-weight:600;text-transform:none;letter-spacing:0;margin-right:.4rem}
 nav.sitenav .here{color:var(--accent)}
 </style>
-<nav class="sitenav"><a class="brand" href="index.html">Diafon</a><span class="here">description</span><a href="master.html">master tables</a><a href="play.html">playground</a><a href="fonts.html">fonts</a></nav>
+<nav class="sitenav"><a class="brand" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1.05em" height="1.05em" style="vertical-align:-.16em;margin-right:.35em" aria-hidden="true"><g transform="translate(0.0 45.3)"><circle cx="368.64" cy="215.04" r="92.16" fill="var(--accent, #0e7c86)"/><circle cx="655.36" cy="215.04" r="92.16" fill="var(--accent, #0e7c86)"/><path fill="currentColor" d="M600.8 476.2 A51.2 51.2 0 0 1 689.5 527.4 C624.1 647.3 498.4 757.0 371.3 806.9 A61.44 61.44 0 0 1 329.3 691.4 C458.7 647.9 529.6 592.7 600.8 476.2 Z"/></g></svg>Diafon</a><span class="here">description</span><a href="master.html">master tables</a><a href="play.html">playground</a><a href="fonts.html">fonts</a><a href="inspect.html">review</a></nav>
 <!-- /sitenav -->
 
 <header>
@@ -208,7 +208,7 @@ base itself, but each meaning is fixed system-wide:</p>
           the uvular <code>kq</code> /q/, written as the bare letter q</td>
       <td><code>c</code>+<code>j</code> in one letter: <code>eq</code> /œ/, <code>iq</code> /ʏ/;
           on <code>a</code>, rhotic: <code>aq</code> /ɝ/, written
-          <span class="ug">ř</span>, the vocalic r</td></tr>
+          <span class="ug">r̈</span>, the vocalic r</td></tr>
   <tr><td class="op op-x">x</td>
       <td>the manner shift, six fixed points: to the fricative from a stop,
           <code>tx</code> /θ/, <code>dx</code> /ð/, <code>nx</code> /ŋ/,
@@ -299,7 +299,7 @@ not phonemic</b>. A point is capitalized by typing its base letter uppercase
 either case, so all-caps text works point by point (<code>SJAN</code>
 <span class="ug">ȘAN</span>); the float rule reads the rendered letter, and
 no capital in the system has a descender, so a capital always wears its mark
-below (<span class="ug">ṕ Ṕ</span>, <span class="ug">ġ Ġ</span>); and a
+below (<span class="ug">p̓ P̦</span>, <span class="ug">ġ G̣</span>); and a
 long consonant capitalizes only its first letter
 (<span class="ug">Șș</span>).</p>
 
@@ -317,30 +317,22 @@ the attached form is not in wide use anywhere, so it can become Diafon's
 visual signature, and the attachment gives handwriting an easy, distinctive
 gesture: one continuous stroke flowing off the letter. It never sits on
 l, r or f; those stems are too thin for it, and their modified forms ride
-the dot family instead (ḷ ṛ ṟ ř ḻ). Written with standard letters that
-the Diafon font draws as the true attached form:
-<span class="ug">ț ș ņ ķ ḑ ç</span>, and by the float rule,
-<span class="ug">ģ</span> wears its anchor on top.</p>
+the dot family instead (ḷ ṛ r̤ r̈ l̤). Written with the standard
+comma-below character, which the Diafon font draws as the true attached
+form: <span class="ug">ț ș n̦</span>, and by the float rule,
+<span class="ug">g</span> wears its anchor on top.</p>
 
-<p><span class="term">The Unicode representation.</span> Every form in use
-is written as <b>one precomposed letter</b> that lies inside the
-<b>latin</b> and <b>latin-ext</b> subsets web font services deliver, and
-the Diafon font draws that letter as the composition described here: the
-marks are the visual standard, the letter is the closest standard fallback,
-what a reader sees without the font. So the anchor is written with the
-cedilla letters (<span class="ug">ķ ḑ ņ ç</span>, ș ț with their own
-letters, <span class="ug">ȥ ɱ</span> where no cedilla exists,
-<span class="ug">ḃ ẋ</span> for b and x), the reverse anchor with the caron
-(<span class="ug">ť ď ň č š ž</span>, <span class="ug">ẍ</span> on x), the
-lowered vowels with the ogonek (<span class="ug">ą ę į ǫ ų</span>), the
-special with the macron below (<span class="ug">ṯ ḵ ḏ ẕ ṉ ḻ ṟ</span>) and
-the hooked letters where none exists (<span class="ug">ƒ ʋ ʂ ƈ</span>), the
-double acute with the double grave (<span class="ug">ȁ ȅ ȉ ȍ ȕ</span>), and
-the lowered vowel's tone marks with the circumflex, the breve and the tilde
-(<span class="ug">ê ĕ õ</span>). A capital is the letter's case pair
-(<span class="ug">Ģ Ṯ Ą</span>), drawn with its mark below as the float
-rule says. The full table is <code>data/script.yaml</code>; the served
-ranges, with the date they were measured, <code>data/web_subsets.yaml</code>.</p>
+<p><span class="term">The text is the marks.</span> A Diafon text is a base
+letter plus the system's own combining marks, normalised the standard way:
+where Unicode already has a letter for the pair (<span class="ug">ș ṭ ä
+á</span>) it appears as that letter, elsewhere the sequence stands
+(<span class="ug">t̤ k̦ a̋</span>), and Unicode treats both as the same text.
+Nothing is borrowed from any language's alphabet: each mark keeps one
+meaning on every letter, which is the point of the system. Fonts draw the
+marks; a reader without the Diafon font sees them drawn by their own font,
+roughly where they belong. The fonts are served by the site itself, because
+web font services that cut a family into fixed Unicode subsets deliver only
+some of the marks (measured in <code>data/web_subsets.yaml</code>).</p>
 
 <div class="opswrap"><table class="ops">
   <tr><th>Mark</th><th>Shape</th><th>Operator</th><th>Character</th></tr>
@@ -357,24 +349,24 @@ ranges, with the date they were measured, <code>data/web_subsets.yaml</code>.</p
       <td>two dots</td>
       <td class="op"><span class="op-x">x</span>+<span class="op-y">y</span></td>
       <td><b>the special</b>: the mark of a language's own series, read
-          per language: the pharyngeal series <span class="ug">ṯ ʂ ḵ ǧ</span>
-          /tˤ sˤ ħ ʕ/ (Arabic), the soft <span class="ug">ʂ ẕ ḻ ṟ</span> (Russian,
-          Ukrainian, Estonian; the palatal <span class="ug">ḻ</span> /ʎ/ in
+          per language: the pharyngeal series <span class="ug">t̤ s̤ k̤ g̈</span>
+          /tˤ sˤ ħ ʕ/ (Arabic), the soft <span class="ug">s̤ z̤ l̤ r̤</span> (Russian,
+          Ukrainian, Estonian; the palatal <span class="ug">l̤</span> /ʎ/ in
           Italian and Portuguese)</td></tr>
   <tr><td><span class="term">reverse anchor</span></td>
       <td>the anchor leaning the other way</td>
       <td class="op op-y">y</td>
       <td>leans back as the tongue does: the retroflex stops
           <span class="ug">ť ď ň</span> and the flipped hush
-          <span class="ug">š ž č ẍ</span> /ʂ ʐ tʂ dʐ/</td></tr>
+          <span class="ug">s̖ z̖ c̖ x̖</span> /ʂ ʐ tʂ dʐ/</td></tr>
 </table></div>
 
 <p style="margin-top:1rem">Not every point composes from marks; the operator
 letters themselves take script-form jobs. <span class="ug">c</span> is /t͡s/
 and <span class="ug">x</span> is /d͡z/; the anchor turns them into the hush
-affricates <span class="ug">ç</span> /t͡ʃ/ and <span class="ug">ẋ</span>
+affricates <span class="ug">c̦</span> /t͡ʃ/ and <span class="ug">x̦</span>
 /d͡ʒ/, so the anchor marks the whole hush family:
-<span class="ug">ș ȥ ç ẋ</span>. <span class="ug">q</span> is the
+<span class="ug">ș z̦ c̦ x̦</span>. <span class="ug">q</span> is the
 uvular /q/, wearing its own IPA form. The glottal stop is not a whole letter
 at all: it is the shift on h: <span class="ug">ḥ</span> /ʔ/, the dot bearing
 the stop meaning. The
@@ -391,7 +383,7 @@ consistent. The vowel marks:</p>
   <tr><td><span class="term">double dot</span></td><td>¨</td><td class="op op-c">c</td><td>rounding flip</td></tr>
   <tr><td><span class="term">double acute</span></td><td>˝</td><td class="op op-w"><span class="op-c">c</span> + w</td><td>long flip</td></tr>
   <tr><td><span class="term">grave</span></td><td>`</td><td class="op op-y">y</td><td>the special: default nasal: <span class="ug">à</span> /ã/</td></tr>
-  <tr><td><span class="term">underdot</span></td><td>◌̣ (below)</td><td class="op op-j">j</td><td>one step lower: <span class="ug">į ę ų ǫ</span>; on <i>a</i>, the reduced vowel <span class="ug">ą</span> /ə/</td></tr>
+  <tr><td><span class="term">underdot</span></td><td>◌̣ (below)</td><td class="op op-j">j</td><td>one step lower: <span class="ug">ị ẹ ụ ọ</span>; on <i>a</i>, the reduced vowel <span class="ug">ạ</span> /ə/</td></tr>
 </table></div>
 
 <p style="margin-top:1rem"><code>y</code> is deliberately the nasty letter.
@@ -417,7 +409,7 @@ romanize.</p>
   <g class="chip-g cat-j" transform="translate(300,222)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ț</text><text class="lab" y="14">tj</text><text class="ipa" y="26">soft</text></g>
   <g class="chip-g cat-x" transform="translate(540,222)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ṭ</text><text class="lab" y="14">tx</text><text class="ipa" y="26">/θ/</text></g>
   <g class="chip-g cat-y" transform="translate(218,380)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ť</text><text class="lab" y="14">ty</text><text class="ipa" y="26">retroflex</text></g>
-  <g class="chip-g cat-y" transform="translate(622,380)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ṯ</text><text class="lab" y="14">txy</text><text class="ipa" y="26">the special</text></g>
+  <g class="chip-g cat-y" transform="translate(622,380)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">t̤</text><text class="lab" y="14">txy</text><text class="ipa" y="26">the special</text></g>
   <line x1="262" y1="418" x2="578" y2="418" stroke="var(--muted)" stroke-width="1.5" marker-start="url(#a1)" marker-end="url(#a2)"/>
   <defs>
     <marker id="a1" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M10,0 L0,5 L10,10" fill="none" stroke="var(--muted)"/></marker>
@@ -444,9 +436,9 @@ the special, read per language.</p>
 
 <p style="margin-top:1rem">Lowering sits below, everything else above, so
 every attested combination keeps to one mark per side:
-<span class="ug">ê</span> /ɛː/, <span class="ug">ĕ</span> /ɛ̃/, and the
-flip-and-lowered pair <span class="ug">õ</span> /œ/,
-<span class="ug">ũ</span> /ʏ/.</p>
+<span class="ug">ẹ́</span> /ɛː/, <span class="ug">ẹ̀</span> /ɛ̃/, and the
+flip-and-lowered pair <span class="ug">ọ̈</span> /œ/,
+<span class="ug">ụ̈</span> /ʏ/.</p>
 
 <h2>The consonant table</h2>
 
@@ -470,7 +462,7 @@ its reading:</p>
   </div></td>
   <td><div class="cell">
     <div class="pt vl cmp"><span class="nat">ț</span><span class="lab">tj</span><span class="ipa">/c/</span></div>
-    <div class="pt vd cmp"><span class="nat">ḑ</span><span class="lab">dj</span><span class="ipa">/ɟ/</span></div>
+    <div class="pt vd cmp"><span class="nat">d̦</span><span class="lab">dj</span><span class="ipa">/ɟ/</span></div>
   </div></td>
   <td></td>
   <td><div class="cell">
@@ -493,8 +485,8 @@ its reading:</p>
   </div></td>
   <td></td>
   <td><div class="cell">
-    <div class="pt vl"><span class="nat">ç</span><span class="lab">tq</span><span class="ipa">/t͡ʃ/</span></div>
-    <div class="pt vd"><span class="nat">ẋ</span><span class="lab">dq</span><span class="ipa">/d͡ʒ/</span></div>
+    <div class="pt vl"><span class="nat">c̦</span><span class="lab">tq</span><span class="ipa">/t͡ʃ/</span></div>
+    <div class="pt vd"><span class="nat">x̦</span><span class="lab">dq</span><span class="ipa">/d͡ʒ/</span></div>
   </div></td>
   <td></td><td></td><td></td>
 </tr>
@@ -514,7 +506,7 @@ its reading:</p>
   <td></td>
   <td><div class="cell">
     <div class="pt vl"><span class="nat">ș</span><span class="lab">sj</span><span class="ipa">/ʃ/</span></div>
-    <div class="pt vd"><span class="nat">ȥ</span><span class="lab">zj</span><span class="ipa">/ʒ/</span></div>
+    <div class="pt vd"><span class="nat">z̦</span><span class="lab">zj</span><span class="ipa">/ʒ/</span></div>
   </div></td>
   <td><div class="cell">
     <div class="pt vl"><span class="nat">ḳ</span><span class="lab">kx</span><span class="ipa">/x/</span></div>
@@ -534,7 +526,7 @@ its reading:</p>
     <div class="pt vd"><span class="nat">n</span><span class="lab">n</span><span class="ipa">/n/</span></div>
   </div></td>
   <td><div class="cell">
-    <div class="pt vd cmp"><span class="nat">ņ</span><span class="lab">nj</span><span class="ipa">/ɲ/</span></div>
+    <div class="pt vd cmp"><span class="nat">n̦</span><span class="lab">nj</span><span class="ipa">/ɲ/</span></div>
   </div></td>
   <td></td>
   <td><div class="cell">
@@ -561,17 +553,17 @@ its reading:</p>
   <span><b>solid</b> = a point, one universal reading; the shifted fricatives
     <span class="ug">ṭ ḍ ṇ ḳ ġ ḥ</span> /θ ð ŋ x ɣ ʔ/ included ·
     <b>dashed</b> = a composition of the regular machinery, shown for
-    orientation (<span class="ug">ț ḑ ņ</span> = t d n + <code>j</code>).
+    orientation (<span class="ug">ț d̦ n̦</span> = t d n + <code>j</code>).
     The <b>double dot is the special</b>; a language's own series, read per
     language: emphatic, ejective, soft. Aspiration is never a mark: it is the
-    sequence with h (<span class="ug">th čh</span> /tʰ tʂʰ/). Retroflex rides the anti-anchor
-    (<span class="ug">ť ď ň š ž č ẍ</span>); like palatal and length, retroflexion
+    sequence with h (<span class="ug">th c̖h</span> /tʰ tʂʰ/). Retroflex rides the anti-anchor
+    (<span class="ug">ť ď ň s̖ z̖ c̖ x̖</span>); like palatal and length, retroflexion
     never enters this table beyond the dashed tiles.</span>
 </div>
 
 <p>Sharing in practice: Georgian's ejectives ride the bare letters; Korean fortis
 rides length (<span class="ug">tt</span>); English /ʌ/ is the stressed schwa,
-on <span class="ug">ą</span>; Hindi's nasal low vowel sits on
+on <span class="ug">ạ</span>; Hindi's nasal low vowel sits on
 <span class="ug">à</span>, since nasal on <span class="ug">ä</span> would
 stack two marks above.</p>
 
@@ -579,7 +571,7 @@ stack two marks above.</p>
 
 <p>All seventeen vowel points. Front on the left, back on the right, height
 falling toward the open apex; the flipped forms sit beside their partners,
-the lowered forms one step down, the reduced <span class="ug">ą</span> at the
+the lowered forms one step down, the reduced <span class="ug">ạ</span> at the
 centre.</p>
 
 <figure>
@@ -591,20 +583,20 @@ centre.</p>
   <g class="chip-g cat-c" transform="translate(664,60)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ï</text><text class="lab" y="14">uc</text><text class="ipa" y="26">/ɯ/</text></g>
   <g class="chip-g cat-base" transform="translate(750,60)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">u</text><text class="lab" y="14">u</text><text class="ipa" y="26">/u/</text></g>
   <!-- near-close -->
-  <g class="chip-g cat-j" transform="translate(164,190)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">į</text><text class="lab" y="14">ij</text><text class="ipa" y="26">/ɪ/</text></g>
-  <g class="chip-g cat-q" transform="translate(250,190)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ũ</text><text class="lab" y="14">iq</text><text class="ipa" y="26">/ʏ/</text></g>
-  <g class="chip-g cat-j" transform="translate(676,190)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ų</text><text class="lab" y="14">uj</text><text class="ipa" y="26">/ʊ/</text></g>
+  <g class="chip-g cat-j" transform="translate(164,190)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ị</text><text class="lab" y="14">ij</text><text class="ipa" y="26">/ɪ/</text></g>
+  <g class="chip-g cat-q" transform="translate(250,190)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ụ̈</text><text class="lab" y="14">iq</text><text class="ipa" y="26">/ʏ/</text></g>
+  <g class="chip-g cat-j" transform="translate(676,190)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ụ</text><text class="lab" y="14">uj</text><text class="ipa" y="26">/ʊ/</text></g>
   <!-- close-mid -->
   <g class="chip-g cat-base" transform="translate(238,320)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">e</text><text class="lab" y="14">e</text><text class="ipa" y="26">/e/</text></g>
   <g class="chip-g cat-c" transform="translate(324,320)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ö</text><text class="lab" y="14">ec</text><text class="ipa" y="26">/ø/</text></g>
   <g class="chip-g cat-c" transform="translate(516,320)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ë</text><text class="lab" y="14">oc</text><text class="ipa" y="26">/ɤ/</text></g>
   <g class="chip-g cat-base" transform="translate(602,320)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">o</text><text class="lab" y="14">o</text><text class="ipa" y="26">/o/</text></g>
   <!-- the reduced vowel floats at the centre -->
-  <g class="chip-g cat-j" transform="translate(420,380)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ą</text><text class="lab" y="14">aj</text><text class="ipa" y="26">/ə/</text></g>
+  <g class="chip-g cat-j" transform="translate(420,380)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ạ</text><text class="lab" y="14">aj</text><text class="ipa" y="26">/ə/</text></g>
   <!-- open-mid -->
-  <g class="chip-g cat-j" transform="translate(312,450)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ę</text><text class="lab" y="14">ej</text><text class="ipa" y="26">/ɛ/</text></g>
-  <g class="chip-g cat-q" transform="translate(398,450)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">õ</text><text class="lab" y="14">eq</text><text class="ipa" y="26">/œ/</text></g>
-  <g class="chip-g cat-j" transform="translate(528,450)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ǫ</text><text class="lab" y="14">oj</text><text class="ipa" y="26">/ɔ/</text></g>
+  <g class="chip-g cat-j" transform="translate(312,450)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ẹ</text><text class="lab" y="14">ej</text><text class="ipa" y="26">/ɛ/</text></g>
+  <g class="chip-g cat-q" transform="translate(398,450)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ọ̈</text><text class="lab" y="14">eq</text><text class="ipa" y="26">/œ/</text></g>
+  <g class="chip-g cat-j" transform="translate(528,450)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ọ</text><text class="lab" y="14">oj</text><text class="ipa" y="26">/ɔ/</text></g>
   <!-- open -->
   <g class="chip-g cat-base" transform="translate(382,580)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">a</text><text class="lab" y="14">a</text><text class="ipa" y="26">/a/</text></g>
   <g class="chip-g cat-c" transform="translate(458,580)"><rect x="-33" y="-28" width="66" height="58" rx="12"/><text class="nat" y="-2">ä</text><text class="lab" y="14">ac</text><text class="ipa" y="26">/ɒ/</text></g>

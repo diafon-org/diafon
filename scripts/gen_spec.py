@@ -95,6 +95,7 @@ def main():
         st = stages.load(code)
         stage_data[code] = {k: st[k] for k in ('name', 'state', 'letters', 'long', 'forms')}
         stage_data[code]['caps'] = st.get('caps') or {}
+        stage_data[code]['sample'] = st.get('sample') or ''
         vec = [[f, stages.render(f, st)] for f in sorted(stages.language_forms(code))]
         vec += [[f + 'w', stages.render(f + 'w', st)] for f in sorted(st['forms']) if f[0] in engine.C_BASES]
         vec += [[s, stages.render(s, st)] for s in SENTENCES]

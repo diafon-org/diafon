@@ -1,0 +1,50 @@
+# Polish spelling stage: the point stream rendered in today's Polish
+# orthography. Render-only, like every stage.
+#
+# Losses, one-way and stated: ż and rz spell the same sound (ż throughout);
+# u and ó the same vowel (u throughout); ch and h the same fricative (ch
+# throughout); the soft consonants are written with their own letters (ń ś ź
+# ć dź) even before a vowel, where Polish writes ni si zi ci dzi.
+code: pl
+name: Polish spelling
+state: draft
+letters: a ą b c ć ch cz d dz dź dż e ę f g h i j k l ł m n ń o ó p r s ś sz t u w y z ź ż
+long: double
+sample: dojbra nojtc, kojkxani      # dobra noc, kochani
+forms:
+  p: p
+  b: b
+  t: t
+  d: d
+  k: k
+  g: g
+  f: f
+  v: w
+  s: s
+  z: z
+  sj: ś
+  zj: ź
+  sjy: sz
+  zjy: ż
+  tc: c
+  dc: dz
+  tq: ć
+  dq: dź
+  tqy: cz
+  dqy: dż
+  nj: ń
+  kx: ch
+  m: m
+  n: n
+  l: l
+  ux: ł
+  r: r
+  ix: j
+  a: a
+  ej: e
+  ejy: ę
+  i: i
+  oj: o
+  ojy: ą
+  u: u
+  uc: y

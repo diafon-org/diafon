@@ -9,10 +9,10 @@ Implements the grammar of docs/index.html:
   the float rule (descenders take their mark above), secondary x flips the
   mark already there, the special (secondary y / the pair xy) is the double
   dot on the free side, w doubles a consonant glyph / draws the vowel acute.
-- The Unicode representation (script.yaml `web`): each composed glyph in use
-  is written as one precomposed letter served by web font subsets (ķ for k̦,
-  ṯ for t̤, ą for ạ ...); the Diafon font draws that letter as the composition,
-  so the marks remain the visual standard and the letter is the fallback look.
+- The text is the composition itself, normalized (NFC): a base letter plus
+  the system's own combining marks, one meaning per mark on every letter;
+  where Unicode has a precomposed letter for the pair (ș ṭ ä á) it appears,
+  elsewhere the sequence stands (t̤ k̦ ȁ).
 - Case is orthographic, not phonemic: an uppercase base letter capitalizes
   its point (Sjan -> Șan); operators read the same in either case, so
   all-caps text works point by point; the float rule reads the capital's own
@@ -44,14 +44,6 @@ DESC = set(_S['descenders'])
 WHOLE = _S['whole_letters']
 MARKS = _S['marks']
 PARTNER = _S['flip_partner']
-# the Unicode representation: composed glyph -> the single letter the text
-# carries (data/script.yaml `web`); the font draws that letter as the composition
-WEB = {ud.normalize('NFC', k): v for k, v in (_S.get('web') or {}).items()}
-
-
-def web(g):
-    """The letter a composed glyph is written with; itself when unlisted."""
-    return WEB.get(ud.normalize('NFC', g), g)
 
 
 class ParseError(ValueError):
@@ -129,7 +121,7 @@ def _mark(glyph, base, kind, caps=False):
 
 def glyph(form):
     """Script glyph for one segment form. An uppercase base letter
-    capitalizes the glyph; marks stay on the small form's side."""
+    capitalizes the glyph; the float rule reads the capital's own shape."""
     caps = form[0].isupper()
     if caps:
         form = form[0].lower() + form[1:]
@@ -146,11 +138,7 @@ def glyph(form):
                  else g + MARKS['acute']['above'])
         return ud.normalize('NFC', g)
 
-    g = compose(False)
-    if g in WEB:
-        g = WEB[g]              # the composition -> the letter the text carries
-    elif caps:
-        g = compose(True)       # unlisted (reserve): the float rule reads the capital
+    g = compose(caps)
     if w and not long_vowel:
         g += g                  # long consonant doubles its letter
     g = ud.normalize('NFC', g)  # one codepoint per visual representation

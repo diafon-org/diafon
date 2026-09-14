@@ -66,9 +66,10 @@ def test_glyph_injectivity():
 
 
 def test_case():
-    """Capitals: base case carries the point; marks keep the small side."""
+    """Capitals: base case carries the point; marks keep the small side,
+    except that no capital descends, so a capital's mark sits below."""
     cases = [('Sjan1', 'Șan1'), ('SJAN', 'ȘAN'), ('sjan', 'șan'),
-             ('Gj', 'G̦'), ('Pj', 'P̦'), ('Gxy', 'G̤'), ('Txy', 'T̤'),
+             ('Gj', 'G̦'), ('Pj', 'P̦'), ('Gxy', 'G̤'), ('Txy', 'T̤'), ('Hj', 'H̦'),
              ('Ic', 'Ü'), ('Sjw', 'Șș'), ('Tqyh', 'C̖h'), ('Aw', 'Á')]
     for inp, want in cases:
         got = engine.render(inp)

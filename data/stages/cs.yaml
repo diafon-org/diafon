@@ -1,0 +1,51 @@
+# Czech spelling stage: the point stream rendered in today's Czech
+# orthography. Render-only, like every stage.
+#
+# Losses, one-way and stated: i and y spell the same vowel (i is written
+# throughout, so byl comes out bil); ú and ů spell the same long vowel (ú
+# throughout); ě is a spelling of a soft consonant plus e and is not written
+# (ť ď ň plus e appear instead: těsto comes out ťesto).
+code: cs
+name: Czech spelling
+state: draft
+letters: a á b c č d ď dz dž e é f g h ch i í j k l m n ň o ó p r ř s š t ť u ú v z ž
+long: double
+sample: dobriw dejn, prxyawtejlejw      # dobrý den, přátelé
+forms:
+  p: p
+  b: b
+  t: t
+  d: d
+  k: k
+  g: g
+  f: f
+  v: v
+  s: s
+  z: z
+  sj: š
+  zj: ž
+  tc: c
+  dc: dz
+  tq: č
+  dq: dž
+  tj: ť
+  dj: ď
+  nj: ň
+  kx: ch
+  h: h
+  m: m
+  n: n
+  l: l
+  r: r
+  rxy: ř
+  ix: j
+  a: a
+  aw: á
+  ej: e
+  ejw: é
+  i: i
+  iw: í
+  o: o
+  ow: ó
+  u: u
+  uw: ú
