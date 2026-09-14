@@ -23,8 +23,6 @@ object Engine {
 
     private val WHOLE = SpecData.WHOLE
     private val MARKS = SpecData.MARKS
-    private val WEB = SpecData.WEB
-    private val WEB_UPPER = SpecData.WEB_UPPER
     private val DESC = SpecData.DESCENDERS
     private val PARTNER = SpecData.PARTNER
     private val BELOWS = MARKS.values.mapNotNull { it.below }
@@ -87,9 +85,8 @@ object Engine {
         return if ((caps || base !in DESC) && !hasBelow(g)) g + sp.below else g + sp.above
     }
 
-    /** Script glyph of one form; an uppercase base letter capitalizes it. A form
-     *  written as a web letter (SpecData.WEB) capitalizes to that letter's case pair;
-     *  an unlisted composition keeps the mark on the side the float rule gives the capital. */
+    /** Script glyph of one form; an uppercase base letter capitalizes it, and
+     *  the float rule reads the capital's own shape. */
     fun glyph(formIn: String): String {
         val caps = formIn[0].isUpperCase()
         val form = if (caps) formIn[0].lowercaseChar() + formIn.substring(1) else formIn
@@ -106,16 +103,10 @@ object Engine {
             }
             return nfc(g)
         }
-        var g = compose(false)
-        val web = WEB[g]
-        if (web != null) g = web                           // the composition -> the letter the text carries
-        else if (caps) g = compose(true)                   // unlisted (reserve): the float rule reads the capital
+        var g = compose(caps)
         if (w && !longVowel) g += g                        // long consonant doubles its letter
         g = nfc(g)
-        if (caps) {
-            val first = WEB_UPPER[g.substring(0, 1)] ?: g[0].uppercaseChar().toString()
-            g = nfc(first + g.substring(1))
-        }
+        if (caps) g = nfc(g[0].uppercaseChar() + g.substring(1))
         return g
     }
 

@@ -1,7 +1,8 @@
 // The input method service: keys in, converted text out, committed by the
 // streaming rule. The only state is `pending`, the typed tail whose reading
-// can still change; it is shown as composing text in the editor and in the
-// strip above the keys. See README.md for the walk-through.
+// can still change; it is shown as composing text in the editor and, in every
+// spelling, as candidates in the strip above the keys: tapping one commits
+// it. See README.md.
 package io.diafon.ime
 
 import android.content.Intent
@@ -11,12 +12,15 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
+import android.graphics.Typeface
+import android.view.Gravity
+import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.TextView
 
 class DiafonIme : InputMethodService() {
     private lateinit var prefs: Prefs
-    private lateinit var strip: TextView
+    private lateinit var strip: LinearLayout
     private lateinit var keyboard: KeyboardView
     private var pending = ""        // the transport tail still composing
     private var shifted = false
@@ -33,13 +37,15 @@ class DiafonIme : InputMethodService() {
             orientation = LinearLayout.VERTICAL
             setBackgroundColor(0xFFEEF0F4.toInt())
         }
-        strip = TextView(this).apply {
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
-            setPadding(dp(14), dp(8), dp(14), dp(8))
-            minHeight = dp(44)
+        strip = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+            setPadding(dp(6), dp(6), dp(6), dp(4))
+            minimumHeight = dp(52)
         }
         keyboard = KeyboardView(this) { onKey(it) }
-        root.addView(strip)
+        keyboard.layout = prefs.layout
+        root.addView(HorizontalScrollView(this).apply { isHorizontalScrollBarEnabled = false; addView(strip) })
         root.addView(keyboard)
         // keep the bottom row clear of the system's gesture bar and its keyboard buttons
         val navId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
@@ -63,6 +69,7 @@ class DiafonIme : InputMethodService() {
         if (::keyboard.isInitialized) {
             keyboard.shifted = false
             keyboard.enabledMode = prefs.enabled
+            keyboard.layout = prefs.layout
         }
         refreshStrip()
     }
@@ -84,7 +91,10 @@ class DiafonIme : InputMethodService() {
             expectedSel = newSelStart
             return
         }
-        val compLen = prefs.renderer()(pending).length
+        // the editor still holds our composing region: the tail is alive,
+        // whatever the cursor numbers say (they lag under fast typing)
+        if (candidatesStart >= 0 && candidatesEnd > candidatesStart) return
+        val compLen = render()(pending).length
         val ours = newSelStart == newSelEnd &&
             ((newSelStart >= expectedSel - compLen && newSelStart <= expectedSel) || newSelStart in recentSel)
         if (ours) return
@@ -131,7 +141,7 @@ class DiafonIme : InputMethodService() {
             moveExpected(1)
             return
         }
-        val render = prefs.renderer()
+        val render = render()
         val oldComp = if (pending.isEmpty()) 0 else render(pending).length
         val (committed, tail) = Engine.stream(pending + ch, render)
         val shown = if (tail.isEmpty()) "" else render(tail)
@@ -146,7 +156,7 @@ class DiafonIme : InputMethodService() {
 
     private fun backspace(ic: InputConnection) {
         if (pending.isNotEmpty()) {
-            val render = prefs.renderer()
+            val render = render()
             val oldComp = render(pending).length
             pending = pending.dropLast(1)
             val shown = if (pending.isEmpty()) "" else render(pending)
@@ -175,6 +185,21 @@ class DiafonIme : InputMethodService() {
         expectedSel += delta
         recentSel.addLast(expectedSel)
         while (recentSel.size > 32) recentSel.removeFirst()
+    }
+
+    private val output: String get() = prefs.output
+
+    private fun render(): (String) -> String = prefs.renderer(output)
+
+    /** A candidate tapped: the pending segment goes in as that spelling. */
+    private fun commitCandidate(text: String) {
+        val ic = currentInputConnection ?: return
+        if (pending.isEmpty()) return
+        val oldComp = render()(pending).length
+        ic.commitText(text, 1)                  // replaces the composing text
+        pending = ""
+        moveExpected(text.length - oldComp)
+        refreshStrip()
     }
 
     /** Make the composing tail final as it stands. */
@@ -207,26 +232,65 @@ class DiafonIme : InputMethodService() {
         return true
     }
 
-    // ---- the strip ----
+    // ---- the strip: the pending segment in every spelling ----
 
     private fun refreshStrip() {
         if (!::strip.isInitialized) return
+        strip.removeAllViews()
         val ink = 0xFF1A1D24.toInt()
+        val accent = 0xFF0E7C86.toInt()
         val warn = 0xFFB03F3F.toInt()
         val muted = 0xFF5B6472.toInt()
         if (!prefs.enabled) {
-            strip.text = "abc"
-            strip.setTextColor(muted)
+            strip.addView(note("abc · conversion off", muted))
             return
         }
         if (pending.isEmpty()) {
-            strip.text = prefs.outputLabel()
-            strip.setTextColor(muted)
+            strip.addView(note("${prefs.outputLabel(output)} · ${Layouts.label(prefs.layout)}", muted))
             return
         }
         val ill = prefs.strict && Engine.segments(pending, false).any { it is Seg.Err }
-        strip.text = "$pending  ·  ${prefs.renderer()(pending)}"
-        strip.setTextColor(if (ill) warn else ink)
+        val seen = HashSet<String>()
+        for ((value, label) in Prefs.OUTPUTS) {
+            val text = prefs.renderer(value)(pending)
+            if (!seen.add(text)) continue                     // one chip per distinct spelling
+            val current = value == output
+            strip.addView(chip(text, label, if (ill) warn else if (current) accent else ink, current) { commitCandidate(text) })
+        }
+    }
+
+    private fun note(s: String, color: Int) = TextView(this).apply {
+        text = s
+        setTextColor(color)
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+        setPadding(dp(10), dp(8), dp(10), dp(8))
+    }
+
+    private fun chip(big: String, small: String, color: Int, current: Boolean, onTap: () -> Unit) = LinearLayout(this).apply {
+        orientation = LinearLayout.VERTICAL
+        gravity = Gravity.CENTER
+        setPadding(dp(12), dp(4), dp(12), dp(4))
+        val bg = android.graphics.drawable.GradientDrawable().apply {
+            cornerRadius = dp(8).toFloat()
+            setColor(0xFFFFFFFF.toInt())
+            if (current) setStroke(dp(2), 0xFF0E7C86.toInt())
+        }
+        background = bg
+        val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        lp.setMargins(dp(3), 0, dp(3), 0)
+        layoutParams = lp
+        addView(TextView(context).apply {
+            text = big
+            setTextColor(color)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+            typeface = Typeface.SERIF
+        })
+        addView(TextView(context).apply {
+            text = small.lowercase()
+            setTextColor(0xFF5B6472.toInt())
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 9f)
+        })
+        setOnClickListener { onTap() }
     }
 
     private fun dp(v: Int) = (v * resources.displayMetrics.density).toInt()

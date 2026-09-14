@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Diafon</string>
     <string name="ime_name">Diafon</string>
+    <string name="convert_name">Diafon</string>
 </resources>

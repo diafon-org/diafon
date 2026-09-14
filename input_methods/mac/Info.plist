@@ -5,34 +5,53 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
-	<string>DiaphoneIM</string>
+	<string>DiafonIM</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.diaphone.inputmethod.Diaphone</string>
+	<string>org.diafon.inputmethod.Diafon</string>
 	<key>CFBundleName</key>
-	<string>Diaphone</string>
+	<string>Diafon</string>
 	<key>CFBundleDisplayName</key>
-	<string>Diaphone</string>
+	<string>Diafon</string>
+	<key>CFBundleIconFile</key>
+	<string>Diafon</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.1</string>
+	<string>0.2</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
-	<key>LSBackgroundOnly</key>
+	<string>2</string>
+	<key>LSUIElement</key>
 	<true/>
 	<key>LSMinimumSystemVersion</key>
 	<string>13.0</string>
 	<key>InputMethodConnectionName</key>
-	<string>Diaphone_1_Connection</string>
+	<string>Diafon_1_Connection</string>
 	<key>InputMethodServerControllerClass</key>
-	<string>DiaphoneInputController</string>
+	<string>DiafonInputController</string>
 	<key>TISInputSourceID</key>
-	<string>org.diaphone.inputmethod.Diaphone</string>
+	<string>org.diafon.inputmethod.Diafon</string>
 	<key>TISIntendedLanguage</key>
 	<string>en</string>
 	<key>tsInputMethodCharacterRepertoireKey</key>
 	<array>
 		<string>Latn</string>
+	</array>
+	<key>NSServices</key>
+	<array>
+		<dict>
+			<key>NSMenuItem</key>
+			<dict><key>default</key><string>Convert with Diafon</string></dict>
+			<key>NSMessage</key>
+			<string>convertSelection</string>
+			<key>NSPortName</key>
+			<string>Diafon</string>
+			<key>NSSendTypes</key>
+			<array><string>NSStringPboardType</string></array>
+			<key>NSReturnTypes</key>
+			<array><string>NSStringPboardType</string></array>
+			<key>NSKeyEquivalent</key>
+			<dict><key>default</key><string>D</string></dict>
+		</dict>
 	</array>
 </dict>
 </plist>
