@@ -9,23 +9,46 @@
 #            middle, reaches the depth of the deepest descender, and ends in
 #            a serif foot: a big long serif with some tilt. Baked per letter
 #            pair via ccmp ligatures; the above-anchor of the float rule is
-#            the vowels' long acute, mirrored for the reverse.
+#            the vowels' long acute, a little longer, its foot standing at
+#            the letter's middle and rising outward (mirrored for the reverse).
 #   comma  — the typeface's own comma (ball + curved tail), raised to attach
 #            to the letter and stretched to the tip depth
 #   wedge  — a drawn tapered stroke (straight, minimal), centred; also the
 #            fallback shape of the bare mark glyphs in stroke mode
 mode: stroke
 stroke:
-  head_w: 88        # stroke width at the joint where it leaves the letter
-  tip_w: 40         # stroke width just above the tip serif
+  head_w: 44        # stroke width at the joint where it leaves the letter (thin: the reverse of a comma)
+  tip_w: 104        # stroke width just above the foot (thick: the weight sits at the bottom)
   lean_frac: 0.38   # how far the tip pulls toward the letter's middle (0..1)
   bite: 34          # how far the head climbs into the letter, absorbing the serif
-  depth: -330       # tip depth: a number, or j = the deepest descender (-240)
-  above_scale: 1.0  # the above-anchor is the vowels' long acute (mirrored for
-                    #   the reverse), scaled by this, centred on the letter
+  depth: -330       # tip depth: a number, or a letter = that letter's descender (j, p: -240)
+  # hook: {leave: 10, cap: round, reach: 190}   # set per family (families.yaml: sans, mono):
+                    #   the tail is the logo's curved hook instead of the straight
+                    #   stroke — it leaves the letter's bottom outer corner `leave`
+                    #   degrees off vertical, flush with the corner, and bends one
+                    #   way toward the middle to land lean_frac of the way there (at
+                    #   most `reach` across) at depth, in a round (or flat) cap; a
+                    #   `letters` map beside it overrides per letter (families.yaml)
+  above_scale: 1.25 # the above-anchor is the vowels' long acute (mirrored for
+                    #   the reverse), stretched by this along its own stroke:
+                    #   longer, its weight unchanged
+  above_start: 0.5  # where its foot stands: this far across the letter, from
+                    #   the left for the anchor and the right for the reverse
+                    #   (0.5 = the middle), rising outward; omit to centre it
+double_acute:       # the vowels' long flip mark (a̋ ő ű), baked per letter
+  gap_at: 0.5       # the gap between its two strokes, where they start (at their
+                    #   feet), stands this far across the letter (0.5 = the middle;
+                    #   on i, the dotless body's); omit to centre the pair's box
+acute_grave:        # the vowels' acute and grave (á à, also on ạ ẹ …), baked per letter
+  foot_at: 0.5      # the stroke's foot (its base on the letter) stands this far
+                    #   across the letter's upper part (0.5 = the middle); omit to
+                    #   keep Noto's own precomposed forms and mark positioning
+double_dot_below:   # U+0324, the two dots below (t̤ k̤ s̤): the diaeresis's own dots
+  gap: 1.0          #   their distance: the diaeresis's, times this
+  top: -105         #   their top this far below the baseline (the single dot below: -59)
 attach: 30          # comma/wedge: how deep the head reaches INTO the letter
 tip: -160           # comma/wedge: tail tip depth below the baseline
 width: 1.0          # comma/wedge: horizontal scale of the mark
-serif: {w: 84, t: 26}     # foot at the tail tip; w: 0 removes it
+serif: {w: 124, t: 22}    # foot at the tail tip, a little wider than the stroke; w: 0 removes it
 wedge: {top_w: 54, tip_w: 30, lean: -42}    # wedge mode and the stroke fallback mark
 above: {embed: 30}  # comma/wedge: the rotated above-anchor's depth into the letter top

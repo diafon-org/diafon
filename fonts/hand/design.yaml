@@ -1,0 +1,62 @@
+# Glyph designs in text. Font units (1000 to the em), y up, baseline 0; x is
+# where the glyph sits. Named heights: base xh cap asc desc (from the Diafon
+# font: 0 536 714 760 -330); arithmetic without spaces: 600,asc-40.
+#
+#   strokes:  points, space = straight, ~ = smooth curve through; w=… cap=…
+#             override the pen; close / ~close closes the stroke
+#   fills:    filled shapes (always closed); a hole is a fill drawn the other
+#             way round
+#   dots:     x,y radius
+#   use:      compose from other glyphs: a name, or {glyph, at: [dx, dy],
+#             flip: x|y|xy, scale}
+#
+#   python3 fonts/tools/hand_design.py            -> design.svg (the proof)
+#   python3 fonts/tools/hand_design.py --build    -> glyphs/<name>.svg as well
+#
+# The entries below are examples of every feature; replace them with yours.
+
+pen: {width: 72, cap: round}
+
+glyphs:
+  t:
+    strokes:
+      - 300,asc-60 300,90 ~ 360,10 ~ 470,40
+      - w=60 180,xh 440,xh
+  i:
+    strokes:
+      - 200,xh 200,0
+    dots:
+      - 200,690 44
+  o:
+    pen: {width: 80}
+    strokes:
+      - ~ 300,xh ~ 500,268 ~ 300,0 ~ 100,268 ~close
+  a:
+    fills:
+      - 100,0 ~ 90,300 ~ 300,xh ~ 500,300 ~ 480,0 ~close
+      - 170,60 ~ 320,80 ~ 420,290 ~ 300,470 ~ 160,300 ~close   # the hole, the other way round
+  uni0326:            # the anchor: a bare mark, drawn around x = 0
+    strokes:
+      - w=60 0,30 ~ -20,-140 ~ -70,-260
+      - w=30 -140,-280 0,-280
+  uni0324:            # the double dot below
+    dots:
+      - -80,-150 42
+      - 80,-150 42
+  t_uni0326:          # ț: the letter with the anchor moved under its right edge
+    use:
+      - t
+      - {glyph: uni0326, at: [420, 0]}
+  t_uni0316:          # t̖: the reverse anchor is the anchor flipped
+    use:
+      - t
+      - {glyph: uni0326, flip: x, at: [180, 0]}
+  t_uni0324:
+    use:
+      - t
+      - {glyph: uni0324, at: [320, 0]}
+  A:
+    advance: 640
+    strokes:
+      - 60,0 320,cap 580,0
+      - w=60 170,240 470,240

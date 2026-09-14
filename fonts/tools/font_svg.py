@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The SVG round-trip for the Diaphone font: export glyphs to editable SVGs, edit them in any
+"""The SVG round-trip for the Diafon font: export glyphs to editable SVGs, edit them in any
 vector editor, and `build_font.py` imports the edits into the final font.
 
 Export:  python scripts/font_svg.py export 0329 0348 030D 030E   # or letters: export s t j
@@ -23,7 +23,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SVG_DIR = os.path.join(ROOT, "fonts", "svg")
-FONT = os.path.join(ROOT, "fonts", "Diaphone-Regular.ttf")
+FONT = os.path.join(ROOT, "fonts", "Diafon-Regular.ttf")
 
 
 def _metrics(font):
@@ -71,7 +71,7 @@ def export(args):
             for y, label in ((0, "baseline"), (xh, "x-height"), (desc, "descender"))
         )
         svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="{-upm // 2} 0 {2 * upm} {H}" width="512">
-  <!-- Diaphone glyph "{gname}" — edit ONLY inside g#glyph; g#guides is ignored on import.
+  <!-- Diafon glyph "{gname}" — edit ONLY inside g#glyph; g#guides is ignored on import.
        Font baseline is the dashed line at SVG y={asc}; the em is {upm} units. -->
   <g id="guides" opacity="0.5">
 {guides}

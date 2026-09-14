@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Subset fonts/Diaphone-Regular.ttf -> docs/diaphone.woff2 for the pages.
+"""Subset the Diafon families -> docs/diafon.woff2 (serif), diafon-sans.woff2, diafon-mono.woff2.
 
 Keeps basic Latin plus every codepoint any potential glyph of the system uses
 (collected from docs/fonts-data.js, so regenerate that first), and reports the
@@ -39,25 +39,37 @@ def needed_codepoints():
     return {c for c in cps if c >= 0x20}
 
 
+WEB = {'serif': 'diafon.woff2', 'sans': 'diafon-sans.woff2', 'mono': 'diafon-mono.woff2'}
+
+
 def main():
+    import sys
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import build_font as BF
     cps = needed_codepoints()
-    src = os.path.join(ROOT, 'fonts', 'Diaphone-Regular.ttf')
-    out = os.path.join(ROOT, 'docs', 'diaphone.woff2')
-    have = set(TTFont(src).getBestCmap())
-    missing = sorted(cps - have - set(range(0x20, 0x7F)))
-    unis = ','.join(f'U+{c:04X}' for c in sorted(cps & have))
-    subset.main([src, f'--unicodes={unis}', '--layout-features=*',
-                 '--flavor=woff2', f'--output-file={out}'])
-    print(f'{out}: {os.path.getsize(out)} bytes, {len(cps & have)} codepoints kept')
-    ver = os.path.getmtime(out).__int__()
-    for page in ('index.html', 'description.html', 'play.html', 'fonts.html', 'master.html'):
-        p = os.path.join(ROOT, 'docs', page)
-        if not os.path.exists(p):
+    missing = set()
+    for key, name in WEB.items():
+        src = BF.family(key)['ttf']
+        if not os.path.exists(src):
+            print(f'{name}: no {os.path.relpath(src, ROOT)} yet, skipped')
             continue
-        html = open(p).read()
-        html = re.sub(r'diaphone\.woff2(\?v=\d+)?', f'diaphone.woff2?v={ver}', html)
-        open(p, 'w').write(html)
-    print(f'cache-bust: pages now reference diaphone.woff2?v={ver}')
+        out = os.path.join(ROOT, 'docs', name)
+        have = set(TTFont(src).getBestCmap())
+        missing |= cps - have - set(range(0x20, 0x7F))
+        unis = ','.join(f'U+{c:04X}' for c in sorted(cps & have))
+        subset.main([src, f'--unicodes={unis}', '--layout-features=*',
+                     '--flavor=woff2', f'--output-file={out}'])
+        print(f'{out}: {os.path.getsize(out)} bytes, {len(cps & have)} codepoints kept')
+        ver = os.path.getmtime(out).__int__()
+        for page in ('index.html', 'description.html', 'play.html', 'fonts.html', 'master.html'):
+            p = os.path.join(ROOT, 'docs', page)
+            if not os.path.exists(p):
+                continue
+            html = open(p).read()
+            html = re.sub(re.escape(name) + r'(\?v=\d+)?', f'{name}?v={ver}', html)
+            open(p, 'w').write(html)
+    missing = sorted(missing)
+    print('cache-bust: pages reference the fresh woff2 files')
     if missing:
         print('codepoints the source font still needs drawn:',
               ' '.join(f'U+{c:04X}({chr(c)})' for c in missing))

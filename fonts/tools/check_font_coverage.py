@@ -26,9 +26,9 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from fontTools.ttLib import TTFont                    # noqa: E402
 
-from diaphone.loader import load                      # noqa: E402
-from diaphone.uni import uni_labels                   # noqa: E402
-from diaphone.render import ipa_labels                # noqa: E402
+from diafon.loader import load                      # noqa: E402
+from diafon.uni import uni_labels                   # noqa: E402
+from diafon.render import ipa_labels                # noqa: E402
 
 DATA = os.path.join(os.path.dirname(__file__), "..", "data")
 

@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diafon · Review</title>
+<style>
+:root{
+  --paper:#f5f6f8; --card:#ffffff; --sunken:#eef0f4; --ink:#1a1d24; --muted:#5b6472; --line:#dde1e8;
+  --accent:#0e7c86; --bad:#c04646; --warn:#b06f14; --guide:#9aa8c4; --box:#c04646; --pt:#0e7c86;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+  --mono:"SF Mono","JetBrains Mono","Menlo","Consolas",monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#14161b; --card:#1b1e25; --sunken:#101216; --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37;
+  --accent:#3ec8cf; --bad:#e07a7a; --warn:#e0a44a; --guide:#4a5670; --box:#e07a7a; --pt:#3ec8cf;
+}}
+:root[data-theme="dark"]{
+  --paper:#14161b; --card:#1b1e25; --sunken:#101216; --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37;
+  --accent:#3ec8cf; --bad:#e07a7a; --warn:#e0a44a; --guide:#4a5670; --box:#e07a7a; --pt:#3ec8cf;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
+h1{font-family:Georgia,serif;font-weight:600;font-size:clamp(1.7rem,4.5vw,2.3rem);margin:0 0 .2rem}
+h2{font-family:Georgia,serif;font-weight:600;font-size:1.25rem;margin:2rem 0 .4rem}
+.lede{color:var(--muted);margin:.2rem 0 0;max-width:74ch}
+a{color:var(--accent)}
+code{font:600 .78em/1.4 var(--mono);color:var(--accent);background:var(--sunken);padding:.1em .32em;border-radius:.32em}
+.bar{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:1.2rem 0 .6rem}
+.tab{font:600 .8rem var(--sans);color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:.5rem;padding:.4rem .8rem;cursor:pointer}
+.tab.on{color:var(--accent);border-color:var(--accent)}
+.tab.tog{margin-left:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:.4rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.35rem .2rem .3rem;text-align:center;cursor:pointer}
+.card:hover{border-color:var(--accent)}
+.card.on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.card.reserve{opacity:.35}
+.card .g{display:block;font-size:2.1rem;line-height:1.25;min-height:2.6rem}
+.card .f{font:500 .62rem var(--mono);color:var(--muted)}
+.detail{position:sticky;top:0;z-index:2;background:var(--paper);padding:.6rem 0 .9rem;margin:0 0 .6rem;border-bottom:1px solid var(--line)}
+.detail:empty{display:none}
+.panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:.8rem;max-width:calc(3 * 380px + 1.6rem)}
+.panels.one{max-width:520px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.6rem}
+.panel h3{margin:0 0 .3rem;font:600 .72rem/1.2 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between}
+canvas{width:100%;height:auto;display:block;background:var(--sunken);border-radius:8px;cursor:crosshair}
+.measures{font:.72rem/1.5 var(--mono);color:var(--muted);margin:.4rem 0 0;display:grid;grid-template-columns:1fr 1fr;gap:0 .6rem}
+.measures b{color:var(--ink);font-weight:600}
+.readout{font:.72rem var(--mono);color:var(--accent);min-height:1.2em;margin-top:.25rem}
+.head{display:flex;gap:.8rem;align-items:baseline;flex-wrap:wrap;margin-bottom:.5rem}
+.head .big{font-size:1.4rem}
+.head .nav{font:600 .8rem var(--sans);color:var(--accent);cursor:pointer;background:none;border:1px solid var(--line);border-radius:.4rem;padding:.15rem .5rem}
+.head .close{margin-left:auto}
+.knobs{font:.72rem/1.5 var(--mono);color:var(--muted);white-space:pre-wrap;margin:.6rem 0 0}
+.knobs b{color:var(--ink)}
+footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<!-- sitenav -->
+<style>
+nav.sitenav{display:flex;gap:1.1rem;align-items:baseline;flex-wrap:wrap;
+  font:600 .72rem/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;
+  margin:0 0 1.7rem;padding-bottom:.85rem;border-bottom:1px solid var(--line)}
+nav.sitenav a{color:var(--muted);text-decoration:none}
+nav.sitenav a:hover{color:var(--accent)}
+nav.sitenav a.brand{color:var(--ink);font-family:var(--serif);font-size:1rem;
+  font-weight:600;text-transform:none;letter-spacing:0;margin-right:.4rem}
+nav.sitenav .here{color:var(--accent)}
+</style>
+<nav class="sitenav"><a class="brand" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1.05em" height="1.05em" style="vertical-align:-.16em;margin-right:.35em" aria-hidden="true"><g transform="translate(0.0 45.3)"><circle cx="368.64" cy="215.04" r="92.16" fill="var(--accent, #0e7c86)"/><circle cx="655.36" cy="215.04" r="92.16" fill="var(--accent, #0e7c86)"/><path fill="currentColor" d="M600.8 476.2 A51.2 51.2 0 0 1 689.5 527.4 C624.1 647.3 498.4 757.0 371.3 806.9 A61.44 61.44 0 0 1 329.3 691.4 C458.7 647.9 529.6 592.7 600.8 476.2 Z"/></g></svg>Diafon</a><a href="description.html">description</a><a href="master.html">master tables</a><a href="play.html">playground</a><a href="fonts.html">fonts</a><span class="here">review</span></nav>
+<!-- /sitenav -->
+
+<header>
+  <h1>Review</h1>
+  <p class="lede">The font, letter by letter. The overview shows every glyph in the chosen
+  family; click one for the detail: big, on its guides, with its measures in font
+  units (1000 to the em) and every on-curve point marked, so a correction can be
+  said as numbers. Part of <a href="description.html">Diafon</a>.</p>
+</header>
+
+<div class="bar" id="fams"></div>
+<div class="detail" id="detail"></div>
+<div class="grid" id="grid"></div>
+
+<footer>Diafon · review · <a href="fonts.html">fonts</a> · <a href="description.html">description</a></footer>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/opentype.js/1.3.4/opentype.min.js"></script>
+<script src="fonts-data.js?v=1789338114"></script>
+<script src="fonts-embed.js?v=1789346206"></script>
+<script>
+'use strict';
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const CELLS = [];
+for (const sec of Object.values(MATRIX)) for (const row of sec.rows) for (const c of row.cells) if (c) CELLS.push({...c, label: row.label});
+const fonts = {};
+for (const [key, b64] of Object.entries(FONT_DATA)){
+  const bin = atob(b64), buf = new ArrayBuffer(bin.length), view = new Uint8Array(buf);
+  for (let i = 0; i < bin.length; i++) view[i] = bin.charCodeAt(i);
+  fonts[key] = opentype.parse(buf);
+  const ff = new FontFace(FONTS.families.find(f => f.key === key).name, buf);
+  ff.load().then(f => document.fonts.add(f));
+}
+const state = {fam: 'serif', showReserve: false, pick: null, pts: 'on'};
+
+function famName(key){ return FONTS.families.find(f => f.key === key).name; }
+
+function bar(){
+  const $b = document.getElementById('fams');
+  $b.innerHTML = FONTS.families.map(f => `<button class="tab${state.fam === f.key ? ' on' : ''}" data-fam="${f.key}">${esc(f.name)}</button>`).join('') +
+    `<button class="tab${state.fam === 'all' ? ' on' : ''}" data-fam="all">all three</button>` +
+    `<button class="tab tog${state.showReserve ? ' on' : ''}" data-tog="1">${state.showReserve ? 'hide' : 'show'} the reserve</button>`;
+}
+document.getElementById('fams').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.tog) state.showReserve = !state.showReserve; else state.fam = b.dataset.fam;
+  render();
+});
+
+function grid(){
+  const famCss = state.fam === 'all' ? famName('serif') : famName(state.fam);
+  const cells = CELLS.filter(c => state.showReserve || c.langs);
+  document.getElementById('grid').innerHTML = cells.map(c =>
+    `<div class="card${c.langs ? '' : ' reserve'}${state.pick === c.f ? ' on' : ''}" data-f="${esc(c.f)}" title="${esc(c.label)} · ${c.cps}">` +
+    `<span class="g" style="font-family:'${famCss}',serif">${esc(c.g)}</span><span class="f">${esc(c.f)}</span></div>`).join('');
+}
+document.getElementById('grid').addEventListener('click', e => {
+  const d = e.target.closest('.card'); if (!d) return;
+  state.pick = d.dataset.f; render(); window.scrollTo({top: 0, behavior: 'smooth'});
+});
+
+function metrics(font){
+  const os2 = font.tables.os2 || {}, hhea = font.tables.hhea || {};
+  return {xh: os2.sxHeight || 536, cap: os2.sCapHeight || 714, asc: hhea.ascender, desc: hhea.descender};
+}
+function contourBoxes(cmds){
+  const boxes = []; let cur = null;
+  for (const c of cmds){
+    if (c.type === 'M'){ cur = {x0: c.x, y0: c.y, x1: c.x, y1: c.y}; boxes.push(cur); }
+    if (c.type === 'Z' || !cur) continue;
+    for (const [x, y] of [[c.x, c.y], [c.x1, c.y1], [c.x2, c.y2]]){
+      if (x === undefined) continue;
+      cur.x0 = Math.min(cur.x0, x); cur.x1 = Math.max(cur.x1, x); cur.y0 = Math.min(cur.y0, y); cur.y1 = Math.max(cur.y1, y);
+    }
+  }
+  return boxes;
+}
+
+function glyphFor(font, text){
+  // the glyph drawing a cell's text: the precomposed letter when the font has
+  // one, else the baked composition <base>_uniXXXX reached mark by mark
+  const nfc = text.normalize('NFC');
+  if ([...nfc].length === 1 && font.charToGlyphIndex(nfc)) return font.charToGlyph(nfc);
+  const nfd = [...text.normalize('NFD')];
+  let g = font.charToGlyph(nfd[0]);
+  for (const m of nfd.slice(1)){
+    const name = `${g.name}_uni${m.codePointAt(0).toString(16).toUpperCase().padStart(4, '0')}`;
+    const idx = font.nameToGlyphIndex ? font.nameToGlyphIndex(name) : 0;
+    if (idx) g = font.glyphs.get(idx);
+  }
+  return g;
+}
+
+function panel(key, cell){
+  const font = fonts[key], M = metrics(font);
+  const glyph = glyphFor(font, cell.g);
+  const cmds = glyph.path.commands, bb = glyph.path.getBoundingBox(), adv = glyph.advanceWidth;
+  const W = 640, H = 600, pad = 36, top = 820, bottom = -420;
+  const sy = (H - 2 * pad) / (top - bottom), sx = sy;
+  const ox = (W - adv * sx) / 2, oy = pad + top * sy;
+  const X = x => ox + x * sx, Y = y => oy - y * sy;
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const ctx = cv.getContext('2d');
+  const css = getComputedStyle(document.documentElement), col = n => css.getPropertyValue(n).trim();
+  const A = FONTS.anchor, S = A.stroke || {};
+  const guides = [['ascender', 760], ['cap', M.cap], ['x-height', M.xh], ['baseline', 0], ['descender', M.desc]];
+  if (typeof S.depth === 'number') guides.push(['anchor depth', S.depth]);
+  ctx.lineWidth = 1; ctx.font = '13px ' + col('--mono');
+  for (const [name, y] of guides){
+    ctx.strokeStyle = name === 'baseline' ? col('--muted') : col('--guide');
+    ctx.setLineDash(name === 'baseline' ? [] : [4, 4]);
+    ctx.beginPath(); ctx.moveTo(0, Y(y)); ctx.lineTo(W, Y(y)); ctx.stroke();
+    ctx.fillStyle = col('--muted'); ctx.fillText(`${name} ${y}`, 6, Y(y) - 3);
+  }
+  ctx.strokeStyle = col('--guide'); ctx.setLineDash([4, 4]);   // the sidebearings: origin and advance
+  ctx.beginPath(); ctx.moveTo(X(0), 0); ctx.lineTo(X(0), H); ctx.moveTo(X(adv), 0); ctx.lineTo(X(adv), H); ctx.stroke();
+  ctx.fillStyle = col('--muted'); ctx.fillText('origin', X(0) + 4, H - 6); ctx.fillText(`advance ${adv}`, X(adv) + 4, H - 6);
+  ctx.setLineDash([]);
+  ctx.fillStyle = col('--ink'); ctx.globalAlpha = .92; ctx.beginPath();
+  for (const c of cmds){
+    if (c.type === 'M') ctx.moveTo(X(c.x), Y(c.y));
+    else if (c.type === 'L') ctx.lineTo(X(c.x), Y(c.y));
+    else if (c.type === 'Q') ctx.quadraticCurveTo(X(c.x1), Y(c.y1), X(c.x), Y(c.y));
+    else if (c.type === 'C') ctx.bezierCurveTo(X(c.x1), Y(c.y1), X(c.x2), Y(c.y2), X(c.x), Y(c.y));
+    else if (c.type === 'Z') ctx.closePath();
+  }
+  ctx.fill('nonzero'); ctx.globalAlpha = 1;
+  // the outline's bounds: corner ticks only (a full box lies tangent to any
+  // bulge of the outline and reads as a cut)
+  ctx.strokeStyle = col('--box'); ctx.globalAlpha = .7; ctx.beginPath();
+  const t = 10, bx1 = X(bb.x1), bx2 = X(bb.x2), by1 = Y(bb.y2), by2 = Y(bb.y1);
+  for (const [cx, cy, dx, dy] of [[bx1, by1, t, t], [bx2, by1, -t, t], [bx1, by2, t, -t], [bx2, by2, -t, -t]]){
+    ctx.moveTo(cx + dx, cy); ctx.lineTo(cx, cy); ctx.lineTo(cx, cy + dy);
+  }
+  ctx.stroke();
+  ctx.fillStyle = col('--box'); ctx.fillText(`bounds ${Math.round(bb.x1)}..${Math.round(bb.x2)}`, bx1 + 4, by1 - 4); ctx.globalAlpha = 1;
+  if (state.pts !== 'off') for (const c of cmds){
+    if (c.type === 'Z') continue;
+    if (state.pts === 'all'){ ctx.fillStyle = col('--warn'); for (const [x, y] of [[c.x1, c.y1], [c.x2, c.y2]]) if (x !== undefined){ ctx.beginPath(); ctx.arc(X(x), Y(y), 2.2, 0, 7); ctx.fill(); } }
+    ctx.fillStyle = col('--pt'); ctx.beginPath(); ctx.arc(X(c.x), Y(c.y), 3, 0, 7); ctx.fill();
+  }
+  const parts = contourBoxes(cmds).map(b => ({...b, zone: b.y1 < 0 ? 'below' : b.y0 > M.xh ? 'above' : 'body'})).filter(p => p.zone !== 'body');
+  const r = Math.round;
+  let m = `<span><b>advance</b> ${adv}</span><span><b>lsb / rsb</b> ${r(bb.x1)} / ${r(adv - bb.x2)}</span>` +
+          `<span><b>x</b> ${r(bb.x1)}..${r(bb.x2)} (w ${r(bb.x2 - bb.x1)})</span><span><b>y</b> ${r(bb.y1)}..${r(bb.y2)} (h ${r(bb.y2 - bb.y1)})</span>`;
+  for (const p of parts) m += `<span style="grid-column:1/-1"><b>${p.zone} part</b> x ${r(p.x0)}..${r(p.x1)} (w ${r(p.x1 - p.x0)}, centre ${r((p.x0 + p.x1) / 2)}) · y ${r(p.y0)}..${r(p.y1)} (h ${r(p.y1 - p.y0)})</span>`;
+  const el = document.createElement('div'); el.className = 'panel';
+  el.innerHTML = `<h3><span>${esc(famName(key))}</span><span>${esc(glyph.name)}</span></h3>`;
+  el.appendChild(cv);
+  const ro = document.createElement('div'); ro.className = 'readout'; ro.textContent = 'point at the drawing for coordinates'; el.appendChild(ro);
+  const me = document.createElement('div'); me.className = 'measures'; me.innerHTML = m; el.appendChild(me);
+  cv.addEventListener('mousemove', e => { const rc = cv.getBoundingClientRect(); const px = (e.clientX - rc.left) * W / rc.width, py = (e.clientY - rc.top) * H / rc.height; ro.textContent = `x ${Math.round((px - ox) / sx)}   y ${Math.round((oy - py) / sy)}`; });
+  return el;
+}
+
+function detail(){
+  const $d = document.getElementById('detail');
+  $d.innerHTML = '';
+  const cell = CELLS.find(c => c.f === state.pick);
+  if (!cell) return;
+  const list = CELLS.filter(c => state.showReserve || c.langs), i = list.findIndex(c => c.f === cell.f);
+  const head = document.createElement('div'); head.className = 'head';
+  head.innerHTML = `<span class="big">${esc(cell.g)}</span><code>${esc(cell.f)}</code><span style="color:var(--muted);font-size:.85rem">${esc(cell.label)} · U+${cell.cps.replace(/ /g, ' U+')} · ${cell.langs ? cell.langs + ' language' + (cell.langs > 1 ? 's' : '') : 'reserve'}</span>` +
+    `<button class="nav" data-go="${i > 0 ? list[i - 1].f : ''}">‹ prev</button><button class="nav" data-go="${i < list.length - 1 ? list[i + 1].f : ''}">next ›</button>` +
+    `<button class="nav" data-pts="1">points: ${state.pts}</button><button class="nav close" data-close="1">close ×</button>`;
+  head.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.close){ state.pick = null; } else if (b.dataset.pts){ state.pts = {on: 'all', all: 'off', off: 'on'}[state.pts]; } else if (b.dataset.go){ state.pick = b.dataset.go; }
+    render(); });
+  $d.appendChild(head);
+  const panels = document.createElement('div'); panels.className = 'panels' + (state.fam === 'all' ? '' : ' one');
+  for (const key of (state.fam === 'all' ? FONTS.families.map(f => f.key) : [state.fam])) panels.appendChild(panel(key, cell));
+  $d.appendChild(panels);
+  const A = FONTS.anchor, fam = FONTS.families.find(f => f.key === (state.fam === 'all' ? 'serif' : state.fam));
+  const k = document.createElement('div'); k.className = 'knobs';
+  k.innerHTML = `<b>knobs</b> anchor.yaml ${A.mode}: ${esc(JSON.stringify(A.stroke || {}))} serif ${esc(JSON.stringify(A.serif))}` + (Object.keys(fam.anchor).length ? ` · ${fam.key} overrides ${esc(JSON.stringify(fam.anchor))}` : '');
+  $d.appendChild(k);
+}
+
+function render(){
+  bar(); detail(); grid();
+  const hash = `#${state.fam}${state.pick ? '/' + encodeURIComponent(state.pick) : ''}`;
+  if (location.hash !== hash) history.replaceState(null, '', hash);
+}
+(function fromHash(){
+  const [fam, pick] = location.hash.slice(1).split('/');
+  if (fam && (fam === 'all' || FONTS.families.some(f => f.key === fam))) state.fam = fam;
+  if (pick) state.pick = decodeURIComponent(pick);
+})();
+document.fonts.ready.then(render); render();
+</script>
+</body>
+</html>
