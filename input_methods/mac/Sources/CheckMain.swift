@@ -1,27 +1,42 @@
-// Validation entry point (built WITHOUT the IMK app sources): reads tab-separated cases on stdin —
-//   <mode batch|stream> \t <target> \t <level 0|1> \t <text>
-// level: languages = loose input on/off · universal targets = tone signs on/off (uni only).
-// Prints one conversion per line; scripts/check_swift.py drives it against the Python CLI.
+// The vector check, driven by tests/test_swift.py: one request per stdin
+// line, "mode<TAB>input", one result per stdout line (the protocol of the
+// Kotlin check, so one test shape holds every port).
+//   render        strict script form, or "!ERR" when the input is rejected
+//   lenient       lenient script form
+//   stream        the keystroke trace: buffer, committed, pending joined by
+//                 U+001E, steps joined by U+001F
+//   stage:<code>  the stage's spelling
 import Foundation
+
+let FIELD = "\u{1E}"
+let STEP = "\u{1F}"
 
 @main
 struct Check {
-    static func main() throws {
-        let eng = try Engine.load(url: URL(fileURLWithPath: CommandLine.arguments[1]))
+    static func main() {
+        var out = ""
         while let line = readLine() {
-            let p = line.components(separatedBy: "\t")
-            guard p.count == 4 else { print(""); continue }
-            let level = Int(p[2]) ?? 0
-            let (mode, target, text) = (p[0], p[1], p[3])
-            let isUniversal = eng.maps[target] != nil
-            let (loose, tones) = (level >= 1, level >= 1 && isUniversal)
-            if mode == "batch" {
-                print(isUniversal ? renderUniversal(text, target: target, eng: eng, tones: tones)
-                                  : decodeText(text, lang: target, loose: loose, eng: eng))
-            } else {
-                let s = makeStreamer(target: target, loose: loose, tones: tones, eng: eng)
-                print(text.reduce("") { $0 + s.feed($1) } + s.flush())
+            guard let tab = line.firstIndex(of: "\t") else { out += "!MODE\n"; continue }
+            let mode = String(line[..<tab])
+            let input = String(line[line.index(after: tab)...])
+            var result: String
+            if mode == "render" { result = (try? Engine.render(input)) ?? "!ERR" }
+            else if mode == "lenient" { result = Engine.lenient(input) }
+            else if mode == "stream" {
+                var buf = ""
+                var steps: [String] = []
+                for ch in input.unicodeScalars {
+                    buf += String(ch)
+                    let (c, p) = Engine.stream(buf)
+                    steps.append(buf + FIELD + c + FIELD + p)
+                    buf = p
+                }
+                result = steps.joined(separator: STEP)
             }
+            else if mode.hasPrefix("stage:"), let st = SpecData.stages[String(mode.dropFirst(6))] { result = Stages.render(input, st) }
+            else { result = "!MODE" }
+            out += result + "\n"
         }
+        print(out, terminator: "")
     }
 }

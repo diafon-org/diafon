@@ -32,14 +32,14 @@ Reference: `engine.segments`, `engine.render`, `engine.stream` in
 scripts/engine.py. Every port replays the vectors in docs/spec.json
 (render, invalid, lenient, stream traces, stages) byte for byte before it
 ships: tests/test_spec.py holds the Python and JS engines, tests/test_kotlin.py
-the Kotlin one.
+the Kotlin one, tests/test_swift.py the Swift one.
 
 ## Where the machine sits, per platform
 
 | Platform | Hook | Status |
 |---|---|---|
-| Android | `InputMethodService`: the IME owns the keys and an `InputConnection` into the editor; composing text is native (`setComposingText`, `commitText`) | source in android/, verified engine, APK to build |
-| macOS | Input Method Kit: `IMKInputController` receives keystrokes from any app, `setMarkedText` shows the tail, `insertText` commits | mac/, earlier engine, to be rebuilt on spec.json |
+| Android | `InputMethodService`: the IME owns the keys and an `InputConnection` into the editor; composing text is native (`setComposingText`, `commitText`); a `PROCESS_TEXT` activity converts selections typed with any keyboard | android/: base layouts, candidate strip, convert-selection; APK builds |
+| macOS | Input Method Kit: `IMKInputController` receives keystrokes from any app, `setMarkedText` shows the tail, `insertText` commits; two text Services convert selections typed with any keyboard | mac/: rebuilt on spec.json (Swift engine holds the vectors, tests/test_swift.py), status menu, setup window, service |
 | Linux | IBus, and fcitx5: an m17n `.mim` table (declarative transducer) generated from spec.json; no native code | planned |
 | Windows | Text Services Framework text service, Rust, the one native build | planned |
 | Web | browser extension: content script on editable fields and contenteditable, the playground's JS engine | planned |

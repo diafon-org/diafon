@@ -1,34 +1,29 @@
-# Diaphone input method — build/install without Xcode (Command Line Tools are enough).
-#   make check     validate the Swift engine port against the Python CLI (480 cases)
-#   make app       build build/DiaphoneIM.app (ad-hoc signed)
+# Diafon input method for macOS — build/install without Xcode (Command Line Tools are enough).
+#   make data      regenerate Sources/SpecData.swift from docs/spec.json
+#   make check     replay the spec vectors through the Swift engine (tests/test_swift.py)
+#   make app       build build/DiafonIM.app (ad-hoc signed)
 #   make install   copy to ~/Library/Input Methods and restart it
-ROOT  := ..
+ROOT  := ../..
 BUILD := build
-APP   := DiaphoneIM
+APP   := DiafonIM
 SWIFTC := xcrun swiftc -swift-version 5 -O
-CORE  := Sources/Engine.swift Sources/Decoder.swift Sources/Streamer.swift
-APPSRC := Sources/main.swift Sources/Config.swift Sources/DiaphoneInputController.swift
+CORE  := Sources/SpecData.swift Sources/Engine.swift Sources/Stages.swift
+APPSRC := Sources/main.swift Sources/Prefs.swift Sources/Services.swift Sources/SetupWindow.swift Sources/DiafonInputController.swift
 
-.PHONY: engine check app install clean
+.PHONY: data check app install clean
 
-engine:
-	@mkdir -p $(BUILD)
-	cd $(ROOT) && PYTHONPATH=src python3 -m diaphone.cli export-json --out mac/$(BUILD)/engine.json
+data:
+	cd $(ROOT) && python3 scripts/gen_mac.py
 
-$(BUILD)/diaphone-check: $(CORE) Sources/CheckMain.swift
-	@mkdir -p $(BUILD)
-	$(SWIFTC) $(CORE) Sources/CheckMain.swift -o $@
+check:
+	cd $(ROOT) && python3 tests/test_swift.py
 
-check: engine $(BUILD)/diaphone-check
-	cd $(ROOT) && PYTHONPATH=src python3 scripts/check_swift.py mac/$(BUILD)/diaphone-check mac/$(BUILD)/engine.json
-
-app: engine check
-	@mkdir -p $(BUILD)/$(APP).app/Contents/MacOS
-	@mkdir -p $(BUILD)/$(APP).app/Contents/Resources
+app: check
+	@mkdir -p $(BUILD)/$(APP).app/Contents/MacOS $(BUILD)/$(APP).app/Contents/Resources
 	$(SWIFTC) $(CORE) $(APPSRC) -framework Cocoa -framework InputMethodKit \
 		-o $(BUILD)/$(APP).app/Contents/MacOS/$(APP)
 	cp Info.plist $(BUILD)/$(APP).app/Contents/Info.plist
-	cp $(BUILD)/engine.json $(BUILD)/$(APP).app/Contents/Resources/engine.json
+	cp $(ROOT)/docs/logo/Diafon.icns $(BUILD)/$(APP).app/Contents/Resources/Diafon.icns
 	codesign --force --sign - $(BUILD)/$(APP).app
 
 install: app
@@ -36,8 +31,8 @@ install: app
 	cp -R $(BUILD)/$(APP).app "$$HOME/Library/Input Methods/"
 	-pkill -x $(APP) 2>/dev/null || true
 	@echo ""
-	@echo "Installed. Enable it: System Settings → Keyboard → Input Sources → Edit… → + →"
-	@echo "search “Diaphone” (under English). Then pick it from the input menu and type."
+	@echo "Installed. Enable it once: System Settings → Keyboard → Input Sources → Edit… → + →"
+	@echo "search “Diafon” (under English). Pick it from the input menu and type: sjok sewp njawr → șok sép ņár."
 
 clean:
 	rm -rf $(BUILD)

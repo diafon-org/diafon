@@ -23,6 +23,7 @@ adb shell settings put global window_animation_scale 0
 adb shell settings put global transition_animation_scale 0
 adb shell settings put global animator_duration_scale 0
 adb install -r "$1"
+adb shell pm clear io.diafon.ime >/dev/null      # defaults: a fresh install
 adb shell ime enable io.diafon.ime/.DiafonIme
 adb shell ime set io.diafon.ime/.DiafonIme
 adb shell am force-stop com.google.android.contacts
@@ -35,4 +36,14 @@ sleep 0.5
 adb exec-out screencap -p > "$OUT/script.png"
 adb shell uiautomator dump /sdcard/ui.xml >/dev/null
 adb shell cat /sdcard/ui.xml | grep -o 'text="[^"]*" [^>]*EditText' | head -1
-echo "expected: șok sép n̦ár · screenshot: $OUT/script.png"
+echo "expected: șok sép ņár (web letters) · screenshot: $OUT/script.png"
+# the candidate strip mid-word, then the setup screen
+adb shell input text "%stxy"
+sleep 1
+adb exec-out screencap -p > "$OUT/strip.png"
+adb shell input text "%s"
+adb shell am start -W -n io.diafon.ime/.SettingsActivity >/dev/null
+sleep 2
+adb exec-out screencap -p > "$OUT/settings.png"
+echo "strip: $OUT/strip.png · settings: $OUT/settings.png"
+
