@@ -96,16 +96,16 @@ def main():
                 strips += (f'<div class="freeline"><span class="lab">{line}'
                            '</span><div class="g xh"></div>'
                            '<div class="g base"></div></div>')
-        head = (f'<h1>Diaphone handwriting capture · sheet {title}</h1>'
+        head = (f'<h1>Diafon handwriting capture · sheet {title}</h1>'
                 + (f'<p class="help">{HELP}</p>' if pi == 1 else ''))
         body += (f'<div class="page">'
                  '<div class="fid tl"></div><div class="fid tr"></div>'
                  '<div class="fid bl"></div><div class="fid br"></div>'
                  f'{head}{strips}'
-                 f'<div class="pageno">diaphone hand · page {pi} of {len(PAGES)}'
+                 f'<div class="pageno">diafon hand · page {pi} of {len(PAGES)}'
                  '</div></div>')
     html = (f'<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
-            f'<title>Diaphone handwriting capture</title>\n<style>{CSS}</style>\n'
+            f'<title>Diafon handwriting capture</title>\n<style>{CSS}</style>\n'
             f'</head>\n<body>\n{body}\n</body>\n</html>\n')
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     open(OUT, 'w').write(html)

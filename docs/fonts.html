@@ -19,7 +19,9 @@
   --paper:#14161b; --card:#1b1e25; --sunken:#101216; --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37;
   --accent:#3ec8cf; --bad:#e07a7a; --warn:#e0a44a;
 }
-@font-face{font-family:"Diafon";src:url(diafon.woff2?v=1789150475) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon";src:url(diafon.woff2?v=1789346267) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon Sans";src:url(diafon-sans.woff2?v=1789346267) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon Mono";src:url(diafon-mono.woff2?v=1789346267) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:15px}
 .wrap{max-width:1100px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -42,6 +44,11 @@ tbody th{text-align:left;white-space:nowrap;padding:.45rem .7rem}
 td{border:1px solid var(--line);padding:2px;text-align:center;min-width:56px}
 .t{display:flex;flex-direction:column;align-items:center;gap:0;padding:.3rem .1rem .25rem;border-radius:6px}
 .t .g{font-size:1.7rem;line-height:1.3;min-height:2.2rem;font-family:var(--glyphfont, serif), serif}
+.t .row3{display:flex;gap:.35rem;align-items:baseline}
+.t .row3 .g{min-width:1.4rem}
+.t .g.serif{font-family:"Diafon",serif} .t .g.sans{font-family:"Diafon Sans",sans-serif} .t .g.mono{font-family:"Diafon Mono",monospace}
+.t .g.marks{color:var(--muted)}
+.t .spl{font:500 .5rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:.15rem}
 .t .c{font:500 .56rem/1.2 var(--mono);color:var(--muted)}
 .t .n{font:600 .6rem/1.2 var(--mono);color:var(--accent)}
 .t.unused{opacity:.15}
@@ -69,24 +76,38 @@ nav.sitenav a.brand{color:var(--ink);font-family:var(--serif);font-size:1rem;
   font-weight:600;text-transform:none;letter-spacing:0;margin-right:.4rem}
 nav.sitenav .here{color:var(--accent)}
 </style>
-<nav class="sitenav"><a class="brand" href="index.html">Diafon</a><a href="description.html">description</a><a href="master.html">master tables</a><a href="play.html">playground</a><span class="here">fonts</span></nav>
+<nav class="sitenav"><a class="brand" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1.05em" height="1.05em" style="vertical-align:-.16em;margin-right:.35em" aria-hidden="true"><g transform="translate(0.0 45.3)"><circle cx="368.64" cy="215.04" r="92.16" fill="var(--accent, #0e7c86)"/><circle cx="655.36" cy="215.04" r="92.16" fill="var(--accent, #0e7c86)"/><path fill="currentColor" d="M600.8 476.2 A51.2 51.2 0 0 1 689.5 527.4 C624.1 647.3 498.4 757.0 371.3 806.9 A61.44 61.44 0 0 1 329.3 691.4 C458.7 647.9 529.6 592.7 600.8 476.2 Z"/></g></svg>Diafon</a><a href="description.html">description</a><a href="master.html">master tables</a><a href="play.html">playground</a><span class="here">fonts</span><a href="inspect.html">review</a></nav>
 <!-- /sitenav -->
 
 <header>
   <h1>Fonts</h1>
   <p class="lede">Every glyph the system can draw, as one matrix: bases across,
-  derivations down. Study it in the custom <b>Diafon</b> font (the default)
-  or any other face, and see the support gaps. Each tile carries its
-  language count; faded tiles are the grammar's reserve,
-  drawn by the rules but used by no current language. Part of
-  <a href="description.html">Diafon</a>.</p>
+  derivations down, in the three <b>Diafon</b> families or any other face.</p>
+  <p class="lede"><b>The text is the marks.</b> Every glyph is a base letter plus
+  the system's own combining marks, normalised: where Unicode has a letter for
+  the pair (ș ṭ ä á) it appears as that letter, elsewhere the sequence stands
+  (t̤ k̦ ȁ), and both are the same text to Unicode. The Diafon fonts draw the
+  marks as designed; any other face draws them its own way, which is what a
+  reader without the font sees. The fonts are served by the site: web font
+  services that cut a family into fixed subsets drop five of the marks.</p>
+  <p class="lede"><b>Where this goes.</b> Latin Extended is a thicket: every
+  language grew its own marks for the same sounds, cedilla here, caron there,
+  ogonek, dot, hook. Diafon writes all of them with one small set of marks on
+  one small set of letters, so the same sound looks the same in every language.
+  The web letters are the bridge through today's repertoire; in the longer run
+  the aim is to let that mess fall away and keep only the unified glyphs.
+  Faded tiles are the grammar's reserve, drawn by the rules but used by no
+  current language. Part of <a href="description.html">Diafon</a>.</p>
 </header>
 
 <div class="row">
   <label for="font">font</label>
   <select id="font" autocomplete="off">
     <optgroup label="custom">
-      <option value="Diafon" selected>Diafon (the system font)</option>
+      <option value="Diafon" selected>Diafon Serif (the system font)</option>
+      <option value="Diafon Sans">Diafon Sans</option>
+      <option value="Diafon Mono">Diafon Mono</option>
+      <option value="diafon-all">the three Diafon families side by side</option>
     </optgroup>
     <optgroup label="popular">
       <option>Arial</option>
@@ -118,6 +139,7 @@ nav.sitenav .here{color:var(--accent)}
   <span><span class="sw" style="border-color:var(--bad)"></span><b>mark missing</b>: renders no differently from the bare base</span>
   <span><span class="sw" style="border-color:var(--warn)"></span><b>fallback</b>: another font stepped in</span>
   <span><b>faded</b>: the reserve, grammatical but not yet used · hover a tile for its input form and codepoints</span>
+  <span id="legend-all" hidden><b>three columns</b>: Serif · Sans · Mono</span>
 </div>
 
 <h2>Consonants</h2>
@@ -130,7 +152,7 @@ nav.sitenav .here{color:var(--accent)}
   <a href="master.html">master tables</a> · <a href="play.html">playground</a></footer>
 
 </main>
-<script src="fonts-data.js"></script>
+<script src="fonts-data.js?v=1789338114"></script>
 <script>
 'use strict';
 const $font = document.getElementById('font'), $custom = document.getElementById('custom'),
@@ -160,20 +182,34 @@ function probe(g, fam){
 
 function esc(s){ return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 
-function section(sec, fam, famCss, counts){
+const DIAFON = {serif: 'Diafon', sans: 'Diafon Sans', mono: 'Diafon Mono'};
+
+function glyphSpan(text, family, cls){
+  const q = /^(serif|sans-serif|monospace|system-ui)$/.test(family) ? family : JSON.stringify(family);
+  return `<span class="g ${cls}" style="font-family:${q.replace(/"/g, '&quot;')}, serif">${esc(text)}</span>`;
+}
+
+function tile(cell, fam, counts){
+  const fams = fam === 'diafon-all' ? Object.values(DIAFON) : [fam];
+  const p = fams.map(f => probe(cell.g, f));
+  const missing = p.some(x => x.missing), fell = p.some(x => x.fell);
+  if (missing) counts.miss++; else if (fell) counts.fall++;
+  const cls = (cell.langs ? '' : ' unused') + (missing ? ' miss' : fell ? ' fall' : '');
+  const inner = fam === 'diafon-all'
+    ? '<span class="row3">' + Object.entries(DIAFON).map(([k, f]) => glyphSpan(cell.g, f, k)).join('') + '</span>'
+    : glyphSpan(cell.g, fam, '');
+  return `<td><div class="t${cls}" title="${esc(cell.f + ' · ' + cell.cps)}">${inner}` +
+         `<span class="n">${cell.langs ? cell.langs + ' lang' + (cell.langs > 1 ? 's' : '') : 'reserve'}</span></div></td>`;
+}
+
+function section(sec, fam, counts){
   let h = '<table><thead><tr><th></th>' +
     sec.bases.map(b => `<th>${b}</th>`).join('') + '</tr></thead><tbody>';
   for (const row of sec.rows){
     h += `<tr><th>${row.ops ? '<code>+' + row.ops + '</code> ' : ''}${esc(row.label)}</th>`;
     for (const cell of row.cells){
       if (!cell){ h += '<td></td>'; continue; }
-      const p = probe(cell.g, fam);
-      if (p.missing) counts.miss++; else if (p.fell) counts.fall++;
-      const cls = (cell.langs ? '' : ' unused') + (p.missing ? ' miss' : p.fell ? ' fall' : '');
-      h += `<td><div class="t${cls}" title="${esc(cell.f)} · ${cell.cps}">` +
-           `<span class="g">${esc(cell.g)}</span>` +
-           `<span class="n">${cell.langs ? cell.langs + ' lang' + (cell.langs > 1 ? 's' : '') : 'reserve'}</span>` +
-           `</div></td>`;
+      h += tile(cell, fam, counts);
       counts.n++;
     }
     h += '</tr>';
@@ -183,18 +219,29 @@ function section(sec, fam, famCss, counts){
 
 function render(){
   const fam = $custom.value.trim() || $font.value;
-  const famCss = /^(serif|sans-serif|monospace|system-ui)$/.test(fam) ? fam : JSON.stringify(fam);
-  document.documentElement.style.setProperty('--glyphfont', famCss);
+  document.getElementById('legend-all').hidden = fam !== 'diafon-all';
   const counts = {n: 0, miss: 0, fall: 0};
-  document.getElementById('cons').innerHTML = section(MATRIX.cons, fam, famCss, counts);
-  document.getElementById('vows').innerHTML = section(MATRIX.vows, fam, famCss, counts);
-  $summary.innerHTML = `<b>${esc(fam)}</b>; ${counts.n} glyphs · ` +
+  document.getElementById('cons').innerHTML = section(MATRIX.cons, fam, counts);
+  document.getElementById('vows').innerHTML = section(MATRIX.vows, fam, counts);
+  const label = fam === 'diafon-all' ? 'Diafon Serif · Sans · Mono' : fam;
+  $summary.innerHTML = `<b>${esc(label)}</b>; ${counts.n} glyphs · ` +
     `<span style="color:var(--bad)">${counts.miss} marks missing</span> · ` +
     `<span style="color:var(--warn)">${counts.fall} falling back</span>`;
+  const hash = `#font=${encodeURIComponent(fam)}`;
+  if (location.hash !== hash) history.replaceState(null, '', hash);
 }
 
-$font.value = 'Diafon';                 // the custom font is the default, always
-$custom.value = '';
+// #font=Arial preselects, so a view can be linked
+(function fromHash(){
+  const q = new URLSearchParams(location.hash.slice(1));
+  const f = q.get('font');
+  if (f){
+    if ([...$font.options].some(o => o.value === f)) $font.value = f;
+    else $custom.value = f;
+  }
+})();
+
+if (!location.hash){ $font.value = 'Diafon'; $custom.value = ''; }   // the custom font is the default
 $font.addEventListener('change', () => { $custom.value = ''; render(); });
 $custom.addEventListener('change', render);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);

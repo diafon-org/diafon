@@ -14,12 +14,14 @@ import yaml
 from PIL import Image, ImageDraw
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-FONT = os.path.join(ROOT, 'fonts', 'Diaphone-Regular.ttf')
+FONT = os.path.join(ROOT, 'fonts', 'DiafonSerif-Regular.ttf')
 OUT = os.path.join(ROOT, 'fonts', 'proof.png')
 SIZE = 300
 TEXT = 'ș z̦ c̦ x̦ ț d̦ n̦ s̖ t̖ p̓ g̓ t̤ s̤ l̤ a̋ i̋ ő Ș Z̦ C̦ Ț N̦ T̖ P̓ G̓ T̤ Á A̋ Ő'
 
-def main():
+def main(font=FONT, out=OUT):
+    global FONT, OUT
+    FONT, OUT = font, out
     P = yaml.safe_load(open(os.path.join(ROOT, 'fonts', 'anchor.yaml')))
     blob = hb.Blob.from_file_path(FONT)
     face = hb.Face(blob)
@@ -45,7 +47,7 @@ def main():
         if isinstance(depth, str):
             from fontTools.ttLib import TTFont
             tt = TTFont(FONT)
-            depth = tt['glyf'][tt.getBestCmap()[ord('j')]].yMin
+            depth = tt['glyf'][tt.getBestCmap()[ord(depth)]].yMin
         guides += [(S['bite'], f"bite {S['bite']}", (70, 140, 200)),
                    (depth, f"depth {depth}", (200, 90, 90))]
     else:
@@ -77,4 +79,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    import sys
+    main(*sys.argv[1:3])

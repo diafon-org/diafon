@@ -1,0 +1,4570 @@
+{
+"version": 1,
+"font": "fonts/DiafonSerif-Regular.ttf",
+"units_per_em": 1000,
+"scale": 0.1,
+"size": [
+2386,
+6518
+],
+"fiducial_size": 16,
+"fiducials": {
+"tl": [
+24.0,
+24.0
+],
+"tr": [
+2346.0,
+24.0
+],
+"bl": [
+24.0,
+6478.0
+],
+"br": [
+2346.0,
+6478.0
+]
+},
+"guides": {
+"ascender": 760,
+"cap": 714,
+"xheight": 536,
+"baseline": 0,
+"descender": -330
+},
+"cell": {
+"top": 1000,
+"bottom": -520,
+"width": 140,
+"label_h": 36
+},
+"ghost": false,
+"cells": [
+{
+"id": "cell-p",
+"kind": "matrix",
+"form": "p",
+"text": "p",
+"cps": "0070",
+"langs": 30,
+"name": "p",
+"box": [
+238,
+154,
+378,
+306.0
+],
+"baseline": 254.0,
+"ref": {
+"advance": 614,
+"bbox": [
+13,
+-240,
+559,
+546
+]
+}
+},
+{
+"id": "cell-t",
+"kind": "matrix",
+"form": "t",
+"text": "t",
+"cps": "0074",
+"langs": 32,
+"name": "t",
+"box": [
+378,
+154,
+518,
+306.0
+],
+"baseline": 254.0,
+"ref": {
+"advance": 352,
+"bbox": [
+19,
+-10,
+329,
+659
+]
+}
+},
+{
+"id": "cell-k",
+"kind": "matrix",
+"form": "k",
+"text": "k",
+"cps": "006B",
+"langs": 32,
+"name": "k",
+"box": [
+518,
+154,
+658,
+306.0
+],
+"baseline": 254.0,
+"ref": {
+"advance": 585,
+"bbox": [
+18,
+0,
+586,
+760
+]
+}
+},
+{
+"id": "cell-b",
+"kind": "matrix",
+"form": "b",
+"text": "b",
+"cps": "0062",
+"langs": 26,
+"name": "b",
+"box": [
+658,
+154,
+798,
+306.0
+],
+"baseline": 254.0,
+"ref": {
+"advance": 614,
+"bbox": [
+18,
+-10,
+559,
+760
+]
+}
+},
+{
+"id": "cell-d",
+"kind": "matrix",
+"form": "d",
+"text": "d",
+"cps": "0064",
+"langs": 27,
+"name": "d",
+"box": [
+798,
+154,
+938,
+306.0
+],
+"baseline": 254.0,
+"ref": {
+"advance": 614,
+"bbox": [
+55,
+-10,
+596,
+760
+]
+}
+},
+{
+"id": "cell-g",
+"kind": "matrix",
+"form": "g",
+"text": "g",
+"cps": "0067",
+"langs": 20,
+"name": "g",
+"box": [
+938,
+154,
+1078,
+306.0
+],
+"baseline": 254.0,
+"ref": {
+"advance": 538,
+"bbox": [
+23,
+-240,
+526,
+567
+]
+}
+},
+{
+"id": "cell-f",
+"kind": "matrix",
+"form": "f",
+"text": "f",
+"cps": "0066",
+"langs": 22,
+"name": "f",
+"box": [
+1078,
+154,
+1218,
+306.0
+],
+"baseline": 254.0,
+"ref": {
+"advance": 369,
+"bbox": [
+27,
+0,
+439,
+770
+]
+}
+},
+{
+"id": "cell-v",
+"kind": "matrix",
+"form": "v",
+"text": "v",
+"cps": "0076",
+"langs": 23,
+"name": "v",
+"box": [
+1218,
+154,
+1358,
+306.0
+],
+"baseline": 254.0,
+"ref": {
+"advance": 579,
+"bbox": [
+4,
+0,
+576,
+536
+]
+}
+},
+{
+"id": "cell-s",
+"kind": "matrix",
+"form": "s",
+"text": "s",
+"cps": "0073",
+"langs": 30,
+"name": "s",
+"box": [
+1358,
+154,
+1498,
+306.0
+],
+"baseline": 254.0,
+"ref": {
+"advance": 451,
+"bbox": [
+45,
+-10,
+407,
+545
+]
+}
+},
+{
+"id": "cell-z",
+"kind": "matrix",
+"form": "z",
+"text": "z",
+"cps": "007A",
+"langs": 21,
+"name": "z",
+"box": [
+1498,
+154,
+1638,
+306.0
+],
+"baseline": 254.0,
+"ref": {
+"advance": 511,
+"bbox": [
+42,
+0,
+455,
+536
+]
+}
+},
+{
+"id": "cell-m",
+"kind": "matrix",
+"form": "m",
+"text": "m",
+"cps": "006D",
+"langs": 32,
+"name": "m",
+"box": [
+1638,
+154,
+1778,
+306.0
+],
+"baseline": 254.0,
+"ref": {
+"advance": 945,
+"bbox": [
+28,
+0,
+917,
+546
+]
+}
+},
+{
+"id": "cell-n",
+"kind": "matrix",
+"form": "n",
+"text": "n",
+"cps": "006E",
+"langs": 32,
+"name": "n",
+"box": [
+1778,
+154,
+1918,
+306.0
+],
+"baseline": 254.0,
+"ref": {
+"advance": 645,
+"bbox": [
+28,
+0,
+617,
+546
+]
+}
+},
+{
+"id": "cell-l",
+"kind": "matrix",
+"form": "l",
+"text": "l",
+"cps": "006C",
+"langs": 31,
+"name": "l",
+"box": [
+1918,
+154,
+2058,
+306.0
+],
+"baseline": 254.0,
+"ref": {
+"advance": 310,
+"bbox": [
+13,
+0,
+297,
+760
+]
+}
+},
+{
+"id": "cell-r",
+"kind": "matrix",
+"form": "r",
+"text": "r",
+"cps": "0072",
+"langs": 24,
+"name": "r",
+"box": [
+2058,
+154,
+2198,
+306.0
+],
+"baseline": 254.0,
+"ref": {
+"advance": 471,
+"bbox": [
+33,
+0,
+456,
+546
+]
+}
+},
+{
+"id": "cell-h",
+"kind": "matrix",
+"form": "h",
+"text": "h",
+"cps": "0068",
+"langs": 23,
+"name": "h",
+"box": [
+2198,
+154,
+2338,
+306.0
+],
+"baseline": 254.0,
+"ref": {
+"advance": 635,
+"bbox": [
+18,
+0,
+607,
+760
+]
+}
+},
+{
+"id": "cell-pj",
+"kind": "matrix",
+"form": "pj",
+"text": "p̓",
+"cps": "0070 0313",
+"langs": 1,
+"name": "p_uni0313",
+"box": [
+238,
+356.0,
+378,
+508.0
+],
+"baseline": 456.0,
+"ref": {
+"advance": 614,
+"bbox": [
+13,
+-240,
+559,
+826
+]
+}
+},
+{
+"id": "cell-tj",
+"kind": "matrix",
+"form": "tj",
+"text": "ț",
+"cps": "021B",
+"langs": 5,
+"name": "t_uni0326",
+"box": [
+378,
+356.0,
+518,
+508.0
+],
+"baseline": 456.0,
+"ref": {
+"advance": 352,
+"bbox": [
+19,
+-330,
+332,
+659
+]
+}
+},
+{
+"id": "cell-kj",
+"kind": "matrix",
+"form": "kj",
+"text": "k̦",
+"cps": "006B 0326",
+"langs": 1,
+"name": "k_uni0326",
+"box": [
+518,
+356.0,
+658,
+508.0
+],
+"baseline": 456.0,
+"ref": {
+"advance": 585,
+"bbox": [
+18,
+-330,
+586,
+760
+]
+}
+},
+{
+"id": "cell-bj",
+"kind": "matrix",
+"form": "bj",
+"text": "b̦",
+"cps": "0062 0326",
+"langs": 1,
+"name": "b_uni0326",
+"box": [
+658,
+356.0,
+798,
+508.0
+],
+"baseline": 456.0,
+"ref": {
+"advance": 614,
+"bbox": [
+18,
+-330,
+559,
+760
+]
+}
+},
+{
+"id": "cell-dj",
+"kind": "matrix",
+"form": "dj",
+"text": "d̦",
+"cps": "0064 0326",
+"langs": 6,
+"name": "d_uni0326",
+"box": [
+798,
+356.0,
+938,
+508.0
+],
+"baseline": 456.0,
+"ref": {
+"advance": 614,
+"bbox": [
+55,
+-330,
+596,
+760
+]
+}
+},
+{
+"id": "cell-gj",
+"kind": "matrix",
+"form": "gj",
+"text": "g̓",
+"cps": "0067 0313",
+"langs": 1,
+"name": "g_uni0313",
+"box": [
+938,
+356.0,
+1078,
+508.0
+],
+"baseline": 456.0,
+"ref": {
+"advance": 538,
+"bbox": [
+23,
+-240,
+526,
+847
+]
+}
+},
+{
+"id": "cell-vj",
+"kind": "matrix",
+"form": "vj",
+"text": "v̦",
+"cps": "0076 0326",
+"langs": 0,
+"name": "v_uni0326",
+"box": [
+1218,
+356.0,
+1358,
+508.0
+],
+"baseline": 456.0,
+"ref": {
+"advance": 579,
+"bbox": [
+4,
+-330,
+576,
+536
+]
+}
+},
+{
+"id": "cell-sj",
+"kind": "matrix",
+"form": "sj",
+"text": "ș",
+"cps": "0219",
+"langs": 19,
+"name": "s_uni0326",
+"box": [
+1358,
+356.0,
+1498,
+508.0
+],
+"baseline": 456.0,
+"ref": {
+"advance": 451,
+"bbox": [
+45,
+-330,
+407,
+545
+]
+}
+},
+{
+"id": "cell-zj",
+"kind": "matrix",
+"form": "zj",
+"text": "z̦",
+"cps": "007A 0326",
+"langs": 11,
+"name": "z_uni0326",
+"box": [
+1498,
+356.0,
+1638,
+508.0
+],
+"baseline": 456.0,
+"ref": {
+"advance": 511,
+"bbox": [
+42,
+-330,
+455,
+536
+]
+}
+},
+{
+"id": "cell-mj",
+"kind": "matrix",
+"form": "mj",
+"text": "m̦",
+"cps": "006D 0326",
+"langs": 1,
+"name": "m_uni0326",
+"box": [
+1638,
+356.0,
+1778,
+508.0
+],
+"baseline": 456.0,
+"ref": {
+"advance": 945,
+"bbox": [
+28,
+-330,
+917,
+546
+]
+}
+},
+{
+"id": "cell-nj",
+"kind": "matrix",
+"form": "nj",
+"text": "n̦",
+"cps": "006E 0326",
+"langs": 14,
+"name": "n_uni0326",
+"box": [
+1778,
+356.0,
+1918,
+508.0
+],
+"baseline": 456.0,
+"ref": {
+"advance": 645,
+"bbox": [
+28,
+-330,
+617,
+546
+]
+}
+},
+{
+"id": "cell-hj",
+"kind": "matrix",
+"form": "hj",
+"text": "h̦",
+"cps": "0068 0326",
+"langs": 0,
+"name": "h_uni0326",
+"box": [
+2198,
+356.0,
+2338,
+508.0
+],
+"baseline": 456.0,
+"ref": {
+"advance": 635,
+"bbox": [
+18,
+-330,
+607,
+760
+]
+}
+},
+{
+"id": "cell-tc",
+"kind": "matrix",
+"form": "tc",
+"text": "c",
+"cps": "0063",
+"langs": 13,
+"name": "c",
+"box": [
+378,
+558.0,
+518,
+710.0
+],
+"baseline": 658.0,
+"ref": {
+"advance": 492,
+"bbox": [
+55,
+-10,
+453,
+546
+]
+}
+},
+{
+"id": "cell-dc",
+"kind": "matrix",
+"form": "dc",
+"text": "x",
+"cps": "0078",
+"langs": 6,
+"name": "x",
+"box": [
+798,
+558.0,
+938,
+710.0
+],
+"baseline": 658.0,
+"ref": {
+"advance": 578,
+"bbox": [
+5,
+0,
+573,
+536
+]
+}
+},
+{
+"id": "cell-rc",
+"kind": "matrix",
+"form": "rc",
+"text": "ṛ",
+"cps": "1E5B",
+"langs": 6,
+"name": "uni1E5B",
+"box": [
+2058,
+558.0,
+2198,
+710.0
+],
+"baseline": 658.0,
+"ref": {
+"advance": 471,
+"bbox": [
+33,
+-183,
+456,
+546
+]
+}
+},
+{
+"id": "cell-tq",
+"kind": "matrix",
+"form": "tq",
+"text": "c̦",
+"cps": "0063 0326",
+"langs": 22,
+"name": "c_uni0326",
+"box": [
+378,
+760.0,
+518,
+912.0
+],
+"baseline": 860.0,
+"ref": {
+"advance": 492,
+"bbox": [
+55,
+-330,
+453,
+546
+]
+}
+},
+{
+"id": "cell-kq",
+"kind": "matrix",
+"form": "kq",
+"text": "q",
+"cps": "0071",
+"langs": 3,
+"name": "q",
+"box": [
+518,
+760.0,
+658,
+912.0
+],
+"baseline": 860.0,
+"ref": {
+"advance": 614,
+"bbox": [
+55,
+-240,
+596,
+546
+]
+}
+},
+{
+"id": "cell-dq",
+"kind": "matrix",
+"form": "dq",
+"text": "x̦",
+"cps": "0078 0326",
+"langs": 13,
+"name": "x_uni0326",
+"box": [
+798,
+760.0,
+938,
+912.0
+],
+"baseline": 860.0,
+"ref": {
+"advance": 578,
+"bbox": [
+5,
+-330,
+573,
+536
+]
+}
+},
+{
+"id": "cell-px",
+"kind": "matrix",
+"form": "px",
+"text": "ṗ",
+"cps": "1E57",
+"langs": 0,
+"name": "uni1E57",
+"box": [
+238,
+962.0,
+378,
+1114.0
+],
+"baseline": 1062.0,
+"ref": {
+"advance": 614,
+"bbox": [
+13,
+-240,
+559,
+760
+]
+}
+},
+{
+"id": "cell-tx",
+"kind": "matrix",
+"form": "tx",
+"text": "ṭ",
+"cps": "1E6D",
+"langs": 4,
+"name": "uni1E6D",
+"box": [
+378,
+962.0,
+518,
+1114.0
+],
+"baseline": 1062.0,
+"ref": {
+"advance": 352,
+"bbox": [
+19,
+-183,
+329,
+659
+]
+}
+},
+{
+"id": "cell-kx",
+"kind": "matrix",
+"form": "kx",
+"text": "ḳ",
+"cps": "1E33",
+"langs": 14,
+"name": "uni1E33",
+"box": [
+518,
+962.0,
+658,
+1114.0
+],
+"baseline": 1062.0,
+"ref": {
+"advance": 585,
+"bbox": [
+18,
+-183,
+586,
+760
+]
+}
+},
+{
+"id": "cell-bx",
+"kind": "matrix",
+"form": "bx",
+"text": "ḅ",
+"cps": "1E05",
+"langs": 0,
+"name": "uni1E05",
+"box": [
+658,
+962.0,
+798,
+1114.0
+],
+"baseline": 1062.0,
+"ref": {
+"advance": 614,
+"bbox": [
+18,
+-183,
+559,
+760
+]
+}
+},
+{
+"id": "cell-dx",
+"kind": "matrix",
+"form": "dx",
+"text": "ḍ",
+"cps": "1E0D",
+"langs": 3,
+"name": "uni1E0D",
+"box": [
+798,
+962.0,
+938,
+1114.0
+],
+"baseline": 1062.0,
+"ref": {
+"advance": 614,
+"bbox": [
+55,
+-183,
+596,
+760
+]
+}
+},
+{
+"id": "cell-gx",
+"kind": "matrix",
+"form": "gx",
+"text": "ġ",
+"cps": "0121",
+"langs": 8,
+"name": "gdotaccent",
+"box": [
+938,
+962.0,
+1078,
+1114.0
+],
+"baseline": 1062.0,
+"ref": {
+"advance": 538,
+"bbox": [
+23,
+-240,
+526,
+760
+]
+}
+},
+{
+"id": "cell-fx",
+"kind": "matrix",
+"form": "fx",
+"text": "f̣",
+"cps": "0066 0323",
+"langs": 0,
+"name": "f_uni0323",
+"box": [
+1078,
+962.0,
+1218,
+1114.0
+],
+"baseline": 1062.0,
+"ref": {
+"advance": 369,
+"bbox": [
+27,
+-183,
+439,
+770
+]
+}
+},
+{
+"id": "cell-vx",
+"kind": "matrix",
+"form": "vx",
+"text": "ṿ",
+"cps": "1E7F",
+"langs": 0,
+"name": "uni1E7F",
+"box": [
+1218,
+962.0,
+1358,
+1114.0
+],
+"baseline": 1062.0,
+"ref": {
+"advance": 579,
+"bbox": [
+4,
+-183,
+576,
+536
+]
+}
+},
+{
+"id": "cell-sx",
+"kind": "matrix",
+"form": "sx",
+"text": "ṣ",
+"cps": "1E63",
+"langs": 0,
+"name": "uni1E63",
+"box": [
+1358,
+962.0,
+1498,
+1114.0
+],
+"baseline": 1062.0,
+"ref": {
+"advance": 451,
+"bbox": [
+45,
+-183,
+407,
+545
+]
+}
+},
+{
+"id": "cell-zx",
+"kind": "matrix",
+"form": "zx",
+"text": "ẓ",
+"cps": "1E93",
+"langs": 0,
+"name": "uni1E93",
+"box": [
+1498,
+962.0,
+1638,
+1114.0
+],
+"baseline": 1062.0,
+"ref": {
+"advance": 511,
+"bbox": [
+42,
+-183,
+455,
+536
+]
+}
+},
+{
+"id": "cell-mx",
+"kind": "matrix",
+"form": "mx",
+"text": "ṃ",
+"cps": "1E43",
+"langs": 0,
+"name": "uni1E43",
+"box": [
+1638,
+962.0,
+1778,
+1114.0
+],
+"baseline": 1062.0,
+"ref": {
+"advance": 945,
+"bbox": [
+28,
+-183,
+917,
+546
+]
+}
+},
+{
+"id": "cell-nx",
+"kind": "matrix",
+"form": "nx",
+"text": "ṇ",
+"cps": "1E47",
+"langs": 11,
+"name": "uni1E47",
+"box": [
+1778,
+962.0,
+1918,
+1114.0
+],
+"baseline": 1062.0,
+"ref": {
+"advance": 645,
+"bbox": [
+28,
+-183,
+617,
+546
+]
+}
+},
+{
+"id": "cell-lx",
+"kind": "matrix",
+"form": "lx",
+"text": "ḷ",
+"cps": "1E37",
+"langs": 1,
+"name": "uni1E37",
+"box": [
+1918,
+962.0,
+2058,
+1114.0
+],
+"baseline": 1062.0,
+"ref": {
+"advance": 310,
+"bbox": [
+13,
+-183,
+297,
+760
+]
+}
+},
+{
+"id": "cell-rx",
+"kind": "matrix",
+"form": "rx",
+"text": "ṛ",
+"cps": "1E5B",
+"langs": 0,
+"name": "uni1E5B",
+"box": [
+2058,
+962.0,
+2198,
+1114.0
+],
+"baseline": 1062.0,
+"ref": {
+"advance": 471,
+"bbox": [
+33,
+-183,
+456,
+546
+]
+}
+},
+{
+"id": "cell-hx",
+"kind": "matrix",
+"form": "hx",
+"text": "ḥ",
+"cps": "1E25",
+"langs": 5,
+"name": "uni1E25",
+"box": [
+2198,
+962.0,
+2338,
+1114.0
+],
+"baseline": 1062.0,
+"ref": {
+"advance": 635,
+"bbox": [
+18,
+-183,
+607,
+760
+]
+}
+},
+{
+"id": "cell-ty",
+"kind": "matrix",
+"form": "ty",
+"text": "t̖",
+"cps": "0074 0316",
+"langs": 3,
+"name": "t_uni0316",
+"box": [
+378,
+1164.0,
+518,
+1316.0
+],
+"baseline": 1264.0,
+"ref": {
+"advance": 352,
+"bbox": [
+19,
+-330,
+329,
+659
+]
+}
+},
+{
+"id": "cell-dy",
+"kind": "matrix",
+"form": "dy",
+"text": "d̖",
+"cps": "0064 0316",
+"langs": 2,
+"name": "d_uni0316",
+"box": [
+798,
+1164.0,
+938,
+1316.0
+],
+"baseline": 1264.0,
+"ref": {
+"advance": 614,
+"bbox": [
+55,
+-330,
+596,
+760
+]
+}
+},
+{
+"id": "cell-ny",
+"kind": "matrix",
+"form": "ny",
+"text": "n̖",
+"cps": "006E 0316",
+"langs": 2,
+"name": "n_uni0316",
+"box": [
+1778,
+1164.0,
+1918,
+1316.0
+],
+"baseline": 1264.0,
+"ref": {
+"advance": 645,
+"bbox": [
+28,
+-330,
+617,
+546
+]
+}
+},
+{
+"id": "cell-sjy",
+"kind": "matrix",
+"form": "sjy",
+"text": "s̖",
+"cps": "0073 0316",
+"langs": 3,
+"name": "s_uni0316",
+"box": [
+1358,
+1366.0,
+1498,
+1518.0
+],
+"baseline": 1466.0,
+"ref": {
+"advance": 451,
+"bbox": [
+45,
+-330,
+407,
+545
+]
+}
+},
+{
+"id": "cell-zjy",
+"kind": "matrix",
+"form": "zjy",
+"text": "z̖",
+"cps": "007A 0316",
+"langs": 3,
+"name": "z_uni0316",
+"box": [
+1498,
+1366.0,
+1638,
+1518.0
+],
+"baseline": 1466.0,
+"ref": {
+"advance": 511,
+"bbox": [
+42,
+-330,
+455,
+536
+]
+}
+},
+{
+"id": "cell-pxy",
+"kind": "matrix",
+"form": "pxy",
+"text": "p̈",
+"cps": "0070 0308",
+"langs": 0,
+"name": "p_uni0308",
+"box": [
+238,
+1568.0,
+378,
+1720.0
+],
+"baseline": 1668.0,
+"ref": {
+"advance": 614,
+"bbox": [
+13,
+-240,
+559,
+754
+]
+}
+},
+{
+"id": "cell-txy",
+"kind": "matrix",
+"form": "txy",
+"text": "t̤",
+"cps": "0074 0324",
+"langs": 1,
+"name": "t_uni0324",
+"box": [
+378,
+1568.0,
+518,
+1720.0
+],
+"baseline": 1668.0,
+"ref": {
+"advance": 352,
+"bbox": [
+19,
+-217,
+358,
+659
+]
+}
+},
+{
+"id": "cell-kxy",
+"kind": "matrix",
+"form": "kxy",
+"text": "k̤",
+"cps": "006B 0324",
+"langs": 1,
+"name": "k_uni0324",
+"box": [
+518,
+1568.0,
+658,
+1720.0
+],
+"baseline": 1668.0,
+"ref": {
+"advance": 585,
+"bbox": [
+18,
+-217,
+586,
+760
+]
+}
+},
+{
+"id": "cell-bxy",
+"kind": "matrix",
+"form": "bxy",
+"text": "b̤",
+"cps": "0062 0324",
+"langs": 0,
+"name": "b_uni0324",
+"box": [
+658,
+1568.0,
+798,
+1720.0
+],
+"baseline": 1668.0,
+"ref": {
+"advance": 614,
+"bbox": [
+18,
+-217,
+559,
+760
+]
+}
+},
+{
+"id": "cell-dxy",
+"kind": "matrix",
+"form": "dxy",
+"text": "d̤",
+"cps": "0064 0324",
+"langs": 1,
+"name": "d_uni0324",
+"box": [
+798,
+1568.0,
+938,
+1720.0
+],
+"baseline": 1668.0,
+"ref": {
+"advance": 614,
+"bbox": [
+55,
+-217,
+596,
+760
+]
+}
+},
+{
+"id": "cell-gxy",
+"kind": "matrix",
+"form": "gxy",
+"text": "g̈",
+"cps": "0067 0308",
+"langs": 1,
+"name": "g_uni0308",
+"box": [
+938,
+1568.0,
+1078,
+1720.0
+],
+"baseline": 1668.0,
+"ref": {
+"advance": 538,
+"bbox": [
+23,
+-240,
+526,
+775
+]
+}
+},
+{
+"id": "cell-fxy",
+"kind": "matrix",
+"form": "fxy",
+"text": "f̤",
+"cps": "0066 0324",
+"langs": 1,
+"name": "f_uni0324",
+"box": [
+1078,
+1568.0,
+1218,
+1720.0
+],
+"baseline": 1668.0,
+"ref": {
+"advance": 369,
+"bbox": [
+27,
+-217,
+439,
+770
+]
+}
+},
+{
+"id": "cell-vxy",
+"kind": "matrix",
+"form": "vxy",
+"text": "v̤",
+"cps": "0076 0324",
+"langs": 1,
+"name": "v_uni0324",
+"box": [
+1218,
+1568.0,
+1358,
+1720.0
+],
+"baseline": 1668.0,
+"ref": {
+"advance": 579,
+"bbox": [
+4,
+-217,
+576,
+536
+]
+}
+},
+{
+"id": "cell-sxy",
+"kind": "matrix",
+"form": "sxy",
+"text": "s̤",
+"cps": "0073 0324",
+"langs": 4,
+"name": "s_uni0324",
+"box": [
+1358,
+1568.0,
+1498,
+1720.0
+],
+"baseline": 1668.0,
+"ref": {
+"advance": 451,
+"bbox": [
+45,
+-217,
+407,
+545
+]
+}
+},
+{
+"id": "cell-zxy",
+"kind": "matrix",
+"form": "zxy",
+"text": "z̤",
+"cps": "007A 0324",
+"langs": 3,
+"name": "z_uni0324",
+"box": [
+1498,
+1568.0,
+1638,
+1720.0
+],
+"baseline": 1668.0,
+"ref": {
+"advance": 511,
+"bbox": [
+42,
+-217,
+455,
+536
+]
+}
+},
+{
+"id": "cell-mxy",
+"kind": "matrix",
+"form": "mxy",
+"text": "m̤",
+"cps": "006D 0324",
+"langs": 0,
+"name": "m_uni0324",
+"box": [
+1638,
+1568.0,
+1778,
+1720.0
+],
+"baseline": 1668.0,
+"ref": {
+"advance": 945,
+"bbox": [
+28,
+-217,
+917,
+546
+]
+}
+},
+{
+"id": "cell-nxy",
+"kind": "matrix",
+"form": "nxy",
+"text": "n̤",
+"cps": "006E 0324",
+"langs": 1,
+"name": "n_uni0324",
+"box": [
+1778,
+1568.0,
+1918,
+1720.0
+],
+"baseline": 1668.0,
+"ref": {
+"advance": 645,
+"bbox": [
+28,
+-217,
+617,
+546
+]
+}
+},
+{
+"id": "cell-lxy",
+"kind": "matrix",
+"form": "lxy",
+"text": "l̤",
+"cps": "006C 0324",
+"langs": 5,
+"name": "l_uni0324",
+"box": [
+1918,
+1568.0,
+2058,
+1720.0
+],
+"baseline": 1668.0,
+"ref": {
+"advance": 310,
+"bbox": [
+9,
+-217,
+301,
+760
+]
+}
+},
+{
+"id": "cell-rxy",
+"kind": "matrix",
+"form": "rxy",
+"text": "r̤",
+"cps": "0072 0324",
+"langs": 3,
+"name": "r_uni0324",
+"box": [
+2058,
+1568.0,
+2198,
+1720.0
+],
+"baseline": 1668.0,
+"ref": {
+"advance": 471,
+"bbox": [
+32,
+-217,
+456,
+546
+]
+}
+},
+{
+"id": "cell-hxy",
+"kind": "matrix",
+"form": "hxy",
+"text": "h̤",
+"cps": "0068 0324",
+"langs": 0,
+"name": "h_uni0324",
+"box": [
+2198,
+1568.0,
+2338,
+1720.0
+],
+"baseline": 1668.0,
+"ref": {
+"advance": 635,
+"bbox": [
+18,
+-217,
+607,
+760
+]
+}
+},
+{
+"id": "cell-tcx",
+"kind": "matrix",
+"form": "tcx",
+"text": "c̣",
+"cps": "0063 0323",
+"langs": 0,
+"name": "c_uni0323",
+"box": [
+378,
+1770.0,
+518,
+1922.0
+],
+"baseline": 1870.0,
+"ref": {
+"advance": 492,
+"bbox": [
+55,
+-183,
+453,
+546
+]
+}
+},
+{
+"id": "cell-dcx",
+"kind": "matrix",
+"form": "dcx",
+"text": "x̣",
+"cps": "0078 0323",
+"langs": 0,
+"name": "x_uni0323",
+"box": [
+798,
+1770.0,
+938,
+1922.0
+],
+"baseline": 1870.0,
+"ref": {
+"advance": 578,
+"bbox": [
+5,
+-183,
+573,
+536
+]
+}
+},
+{
+"id": "cell-tcy",
+"kind": "matrix",
+"form": "tcy",
+"text": "c̤",
+"cps": "0063 0324",
+"langs": 1,
+"name": "c_uni0324",
+"box": [
+378,
+1972.0,
+518,
+2124.0
+],
+"baseline": 2072.0,
+"ref": {
+"advance": 492,
+"bbox": [
+55,
+-217,
+453,
+546
+]
+}
+},
+{
+"id": "cell-dcy",
+"kind": "matrix",
+"form": "dcy",
+"text": "x̤",
+"cps": "0078 0324",
+"langs": 0,
+"name": "x_uni0324",
+"box": [
+798,
+1972.0,
+938,
+2124.0
+],
+"baseline": 2072.0,
+"ref": {
+"advance": 578,
+"bbox": [
+5,
+-217,
+573,
+536
+]
+}
+},
+{
+"id": "cell-tqy",
+"kind": "matrix",
+"form": "tqy",
+"text": "c̖",
+"cps": "0063 0316",
+"langs": 2,
+"name": "c_uni0316",
+"box": [
+378,
+2174.0,
+518,
+2326.0
+],
+"baseline": 2274.0,
+"ref": {
+"advance": 492,
+"bbox": [
+55,
+-330,
+453,
+546
+]
+}
+},
+{
+"id": "cell-dqy",
+"kind": "matrix",
+"form": "dqy",
+"text": "x̖",
+"cps": "0078 0316",
+"langs": 1,
+"name": "x_uni0316",
+"box": [
+798,
+2174.0,
+938,
+2326.0
+],
+"baseline": 2274.0,
+"ref": {
+"advance": 578,
+"bbox": [
+5,
+-330,
+573,
+536
+]
+}
+},
+{
+"id": "cell-a",
+"kind": "matrix",
+"form": "a",
+"text": "a",
+"cps": "0061",
+"langs": 28,
+"name": "a",
+"box": [
+238,
+2494.0,
+378,
+2646.0
+],
+"baseline": 2594.0,
+"ref": {
+"advance": 563,
+"bbox": [
+50,
+-10,
+520,
+546
+]
+}
+},
+{
+"id": "cell-e",
+"kind": "matrix",
+"form": "e",
+"text": "e",
+"cps": "0065",
+"langs": 23,
+"name": "e",
+"box": [
+378,
+2494.0,
+518,
+2646.0
+],
+"baseline": 2594.0,
+"ref": {
+"advance": 535,
+"bbox": [
+55,
+-10,
+485,
+546
+]
+}
+},
+{
+"id": "cell-i",
+"kind": "matrix",
+"form": "i",
+"text": "i",
+"cps": "0069",
+"langs": 32,
+"name": "i",
+"box": [
+518,
+2494.0,
+658,
+2646.0
+],
+"baseline": 2594.0,
+"ref": {
+"advance": 320,
+"bbox": [
+23,
+0,
+307,
+760
+]
+}
+},
+{
+"id": "cell-o",
+"kind": "matrix",
+"form": "o",
+"text": "o",
+"cps": "006F",
+"langs": 25,
+"name": "o",
+"box": [
+658,
+2494.0,
+798,
+2646.0
+],
+"baseline": 2594.0,
+"ref": {
+"advance": 577,
+"bbox": [
+55,
+-10,
+522,
+546
+]
+}
+},
+{
+"id": "cell-u",
+"kind": "matrix",
+"form": "u",
+"text": "u",
+"cps": "0075",
+"langs": 31,
+"name": "u",
+"box": [
+798,
+2494.0,
+938,
+2646.0
+],
+"baseline": 2594.0,
+"ref": {
+"advance": 635,
+"bbox": [
+23,
+-10,
+612,
+536
+]
+}
+},
+{
+"id": "cell-ac",
+"kind": "matrix",
+"form": "ac",
+"text": "ä",
+"cps": "00E4",
+"langs": 8,
+"name": "adieresis",
+"box": [
+238,
+2696.0,
+378,
+2848.0
+],
+"baseline": 2796.0,
+"ref": {
+"advance": 563,
+"bbox": [
+50,
+-10,
+520,
+744
+]
+}
+},
+{
+"id": "cell-ec",
+"kind": "matrix",
+"form": "ec",
+"text": "ö",
+"cps": "00F6",
+"langs": 6,
+"name": "odieresis",
+"box": [
+378,
+2696.0,
+518,
+2848.0
+],
+"baseline": 2796.0,
+"ref": {
+"advance": 577,
+"bbox": [
+55,
+-10,
+522,
+744
+]
+}
+},
+{
+"id": "cell-ic",
+"kind": "matrix",
+"form": "ic",
+"text": "ü",
+"cps": "00FC",
+"langs": 8,
+"name": "udieresis",
+"box": [
+518,
+2696.0,
+658,
+2848.0
+],
+"baseline": 2796.0,
+"ref": {
+"advance": 635,
+"bbox": [
+23,
+-10,
+612,
+744
+]
+}
+},
+{
+"id": "cell-oc",
+"kind": "matrix",
+"form": "oc",
+"text": "ë",
+"cps": "00EB",
+"langs": 4,
+"name": "edieresis",
+"box": [
+658,
+2696.0,
+798,
+2848.0
+],
+"baseline": 2796.0,
+"ref": {
+"advance": 535,
+"bbox": [
+55,
+-10,
+485,
+744
+]
+}
+},
+{
+"id": "cell-uc",
+"kind": "matrix",
+"form": "uc",
+"text": "ï",
+"cps": "00EF",
+"langs": 8,
+"name": "idieresis",
+"box": [
+798,
+2696.0,
+938,
+2848.0
+],
+"baseline": 2796.0,
+"ref": {
+"advance": 320,
+"bbox": [
+8,
+0,
+307,
+744
+]
+}
+},
+{
+"id": "cell-aj",
+"kind": "matrix",
+"form": "aj",
+"text": "ạ",
+"cps": "1EA1",
+"langs": 12,
+"name": "uni1EA1",
+"box": [
+238,
+2898.0,
+378,
+3050.0
+],
+"baseline": 2998.0,
+"ref": {
+"advance": 563,
+"bbox": [
+50,
+-183,
+520,
+546
+]
+}
+},
+{
+"id": "cell-ej",
+"kind": "matrix",
+"form": "ej",
+"text": "ẹ",
+"cps": "1EB9",
+"langs": 16,
+"name": "uni1EB9",
+"box": [
+378,
+2898.0,
+518,
+3050.0
+],
+"baseline": 2998.0,
+"ref": {
+"advance": 535,
+"bbox": [
+55,
+-183,
+485,
+546
+]
+}
+},
+{
+"id": "cell-ij",
+"kind": "matrix",
+"form": "ij",
+"text": "ị",
+"cps": "1ECB",
+"langs": 5,
+"name": "uni1ECB",
+"box": [
+518,
+2898.0,
+658,
+3050.0
+],
+"baseline": 2998.0,
+"ref": {
+"advance": 320,
+"bbox": [
+23,
+-183,
+307,
+760
+]
+}
+},
+{
+"id": "cell-oj",
+"kind": "matrix",
+"form": "oj",
+"text": "ọ",
+"cps": "1ECD",
+"langs": 13,
+"name": "uni1ECD",
+"box": [
+658,
+2898.0,
+798,
+3050.0
+],
+"baseline": 2998.0,
+"ref": {
+"advance": 577,
+"bbox": [
+55,
+-183,
+522,
+546
+]
+}
+},
+{
+"id": "cell-uj",
+"kind": "matrix",
+"form": "uj",
+"text": "ụ",
+"cps": "1EE5",
+"langs": 3,
+"name": "uni1EE5",
+"box": [
+798,
+2898.0,
+938,
+3050.0
+],
+"baseline": 2998.0,
+"ref": {
+"advance": 635,
+"bbox": [
+23,
+-183,
+612,
+536
+]
+}
+},
+{
+"id": "cell-eq",
+"kind": "matrix",
+"form": "eq",
+"text": "ọ̈",
+"cps": "1ECD 0308",
+"langs": 2,
+"name": "uni1ECD_uni0308",
+"box": [
+378,
+3100.0,
+518,
+3252.0
+],
+"baseline": 3200.0,
+"ref": {
+"advance": 577,
+"bbox": [
+55,
+-183,
+522,
+744
+]
+}
+},
+{
+"id": "cell-iq",
+"kind": "matrix",
+"form": "iq",
+"text": "ụ̈",
+"cps": "1EE5 0308",
+"langs": 2,
+"name": "uni1EE5_uni0308",
+"box": [
+518,
+3100.0,
+658,
+3252.0
+],
+"baseline": 3200.0,
+"ref": {
+"advance": 635,
+"bbox": [
+23,
+-183,
+612,
+744
+]
+}
+},
+{
+"id": "cell-oq",
+"kind": "matrix",
+"form": "oq",
+"text": "ẹ̈",
+"cps": "1EB9 0308",
+"langs": 0,
+"name": "uni1EB9_uni0308",
+"box": [
+658,
+3100.0,
+798,
+3252.0
+],
+"baseline": 3200.0,
+"ref": {
+"advance": 535,
+"bbox": [
+55,
+-183,
+485,
+744
+]
+}
+},
+{
+"id": "cell-uq",
+"kind": "matrix",
+"form": "uq",
+"text": "ị̈",
+"cps": "1ECB 0308",
+"langs": 0,
+"name": "uni1ECB_uni0308",
+"box": [
+798,
+3100.0,
+938,
+3252.0
+],
+"baseline": 3200.0,
+"ref": {
+"advance": 320,
+"bbox": [
+14,
+-183,
+307,
+968
+]
+}
+},
+{
+"id": "cell-aq",
+"kind": "matrix",
+"form": "aq",
+"text": "r̈",
+"cps": "0072 0308",
+"langs": 3,
+"name": "r_uni0308",
+"box": [
+238,
+3302.0,
+378,
+3454.0
+],
+"baseline": 3402.0,
+"ref": {
+"advance": 471,
+"bbox": [
+33,
+0,
+456,
+754
+]
+}
+},
+{
+"id": "cell-ay",
+"kind": "matrix",
+"form": "ay",
+"text": "à",
+"cps": "00E0",
+"langs": 4,
+"name": "a_uni0300",
+"box": [
+238,
+3504.0,
+378,
+3656.0
+],
+"baseline": 3604.0,
+"ref": {
+"advance": 563,
+"bbox": [
+50,
+-10,
+520,
+776
+]
+}
+},
+{
+"id": "cell-ey",
+"kind": "matrix",
+"form": "ey",
+"text": "è",
+"cps": "00E8",
+"langs": 3,
+"name": "e_uni0300",
+"box": [
+378,
+3504.0,
+518,
+3656.0
+],
+"baseline": 3604.0,
+"ref": {
+"advance": 535,
+"bbox": [
+55,
+-10,
+485,
+776
+]
+}
+},
+{
+"id": "cell-iy",
+"kind": "matrix",
+"form": "iy",
+"text": "ì",
+"cps": "00EC",
+"langs": 3,
+"name": "i_uni0300",
+"box": [
+518,
+3504.0,
+658,
+3656.0
+],
+"baseline": 3604.0,
+"ref": {
+"advance": 320,
+"bbox": [
+4,
+0,
+307,
+766
+]
+}
+},
+{
+"id": "cell-oy",
+"kind": "matrix",
+"form": "oy",
+"text": "ò",
+"cps": "00F2",
+"langs": 3,
+"name": "o_uni0300",
+"box": [
+658,
+3504.0,
+798,
+3656.0
+],
+"baseline": 3604.0,
+"ref": {
+"advance": 577,
+"bbox": [
+55,
+-10,
+522,
+776
+]
+}
+},
+{
+"id": "cell-uy",
+"kind": "matrix",
+"form": "uy",
+"text": "ù",
+"cps": "00F9",
+"langs": 3,
+"name": "u_uni0300",
+"box": [
+798,
+3504.0,
+938,
+3656.0
+],
+"baseline": 3604.0,
+"ref": {
+"advance": 635,
+"bbox": [
+23,
+-10,
+612,
+766
+]
+}
+},
+{
+"id": "cell-aw",
+"kind": "matrix",
+"form": "aw",
+"text": "á",
+"cps": "00E1",
+"langs": 12,
+"name": "a_uni0301",
+"box": [
+238,
+3706.0,
+378,
+3858.0
+],
+"baseline": 3806.0,
+"ref": {
+"advance": 563,
+"bbox": [
+50,
+-10,
+520,
+776
+]
+}
+},
+{
+"id": "cell-ew",
+"kind": "matrix",
+"form": "ew",
+"text": "é",
+"cps": "00E9",
+"langs": 9,
+"name": "e_uni0301",
+"box": [
+378,
+3706.0,
+518,
+3858.0
+],
+"baseline": 3806.0,
+"ref": {
+"advance": 535,
+"bbox": [
+55,
+-10,
+485,
+776
+]
+}
+},
+{
+"id": "cell-iw",
+"kind": "matrix",
+"form": "iw",
+"text": "í",
+"cps": "00ED",
+"langs": 10,
+"name": "i_uni0301",
+"box": [
+518,
+3706.0,
+658,
+3858.0
+],
+"baseline": 3806.0,
+"ref": {
+"advance": 320,
+"bbox": [
+23,
+0,
+326,
+766
+]
+}
+},
+{
+"id": "cell-ow",
+"kind": "matrix",
+"form": "ow",
+"text": "ó",
+"cps": "00F3",
+"langs": 10,
+"name": "o_uni0301",
+"box": [
+658,
+3706.0,
+798,
+3858.0
+],
+"baseline": 3806.0,
+"ref": {
+"advance": 577,
+"bbox": [
+55,
+-10,
+522,
+776
+]
+}
+},
+{
+"id": "cell-uw",
+"kind": "matrix",
+"form": "uw",
+"text": "ú",
+"cps": "00FA",
+"langs": 9,
+"name": "u_uni0301",
+"box": [
+798,
+3706.0,
+938,
+3858.0
+],
+"baseline": 3806.0,
+"ref": {
+"advance": 635,
+"bbox": [
+23,
+-10,
+612,
+766
+]
+}
+},
+{
+"id": "cell-acw",
+"kind": "matrix",
+"form": "acw",
+"text": "a̋",
+"cps": "0061 030B",
+"langs": 2,
+"name": "a_uni030B",
+"box": [
+238,
+3908.0,
+378,
+4060.0
+],
+"baseline": 4008.0,
+"ref": {
+"advance": 563,
+"bbox": [
+50,
+-10,
+520,
+776
+]
+}
+},
+{
+"id": "cell-ecw",
+"kind": "matrix",
+"form": "ecw",
+"text": "ő",
+"cps": "0151",
+"langs": 5,
+"name": "o_uni030B",
+"box": [
+378,
+3908.0,
+518,
+4060.0
+],
+"baseline": 4008.0,
+"ref": {
+"advance": 577,
+"bbox": [
+55,
+-10,
+534,
+776
+]
+}
+},
+{
+"id": "cell-icw",
+"kind": "matrix",
+"form": "icw",
+"text": "ű",
+"cps": "0171",
+"langs": 4,
+"name": "u_uni030B",
+"box": [
+518,
+3908.0,
+658,
+4060.0
+],
+"baseline": 4008.0,
+"ref": {
+"advance": 635,
+"bbox": [
+23,
+-10,
+612,
+766
+]
+}
+},
+{
+"id": "cell-ocw",
+"kind": "matrix",
+"form": "ocw",
+"text": "e̋",
+"cps": "0065 030B",
+"langs": 2,
+"name": "e_uni030B",
+"box": [
+658,
+3908.0,
+798,
+4060.0
+],
+"baseline": 4008.0,
+"ref": {
+"advance": 535,
+"bbox": [
+55,
+-10,
+515,
+776
+]
+}
+},
+{
+"id": "cell-ucw",
+"kind": "matrix",
+"form": "ucw",
+"text": "i̋",
+"cps": "0069 030B",
+"langs": 2,
+"name": "i_uni030B",
+"box": [
+798,
+3908.0,
+938,
+4060.0
+],
+"baseline": 4008.0,
+"ref": {
+"advance": 320,
+"bbox": [
+23,
+0,
+410,
+766
+]
+}
+},
+{
+"id": "cell-ajw",
+"kind": "matrix",
+"form": "ajw",
+"text": "ạ́",
+"cps": "1EA1 0301",
+"langs": 0,
+"name": "uni1EA1_uni0301",
+"box": [
+238,
+4110.0,
+378,
+4262.0
+],
+"baseline": 4210.0,
+"ref": {
+"advance": 563,
+"bbox": [
+50,
+-183,
+520,
+776
+]
+}
+},
+{
+"id": "cell-ejw",
+"kind": "matrix",
+"form": "ejw",
+"text": "ẹ́",
+"cps": "1EB9 0301",
+"langs": 3,
+"name": "uni1EB9_uni0301",
+"box": [
+378,
+4110.0,
+518,
+4262.0
+],
+"baseline": 4210.0,
+"ref": {
+"advance": 535,
+"bbox": [
+55,
+-183,
+485,
+776
+]
+}
+},
+{
+"id": "cell-ijw",
+"kind": "matrix",
+"form": "ijw",
+"text": "ị́",
+"cps": "1ECB 0301",
+"langs": 0,
+"name": "uni1ECB_uni0301",
+"box": [
+518,
+4110.0,
+658,
+4262.0
+],
+"baseline": 4210.0,
+"ref": {
+"advance": 320,
+"bbox": [
+23,
+-183,
+326,
+766
+]
+}
+},
+{
+"id": "cell-ojw",
+"kind": "matrix",
+"form": "ojw",
+"text": "ọ́",
+"cps": "1ECD 0301",
+"langs": 1,
+"name": "uni1ECD_uni0301",
+"box": [
+658,
+4110.0,
+798,
+4262.0
+],
+"baseline": 4210.0,
+"ref": {
+"advance": 577,
+"bbox": [
+55,
+-183,
+522,
+776
+]
+}
+},
+{
+"id": "cell-ujw",
+"kind": "matrix",
+"form": "ujw",
+"text": "ụ́",
+"cps": "1EE5 0301",
+"langs": 0,
+"name": "uni1EE5_uni0301",
+"box": [
+798,
+4110.0,
+938,
+4262.0
+],
+"baseline": 4210.0,
+"ref": {
+"advance": 635,
+"bbox": [
+23,
+-183,
+612,
+766
+]
+}
+},
+{
+"id": "cell-ajy",
+"kind": "matrix",
+"form": "ajy",
+"text": "ạ̀",
+"cps": "1EA1 0300",
+"langs": 0,
+"name": "uni1EA1_uni0300",
+"box": [
+238,
+4312.0,
+378,
+4464.0
+],
+"baseline": 4412.0,
+"ref": {
+"advance": 563,
+"bbox": [
+50,
+-183,
+520,
+776
+]
+}
+},
+{
+"id": "cell-ejy",
+"kind": "matrix",
+"form": "ejy",
+"text": "ẹ̀",
+"cps": "1EB9 0300",
+"langs": 3,
+"name": "uni1EB9_uni0300",
+"box": [
+378,
+4312.0,
+518,
+4464.0
+],
+"baseline": 4412.0,
+"ref": {
+"advance": 535,
+"bbox": [
+55,
+-183,
+485,
+776
+]
+}
+},
+{
+"id": "cell-ijy",
+"kind": "matrix",
+"form": "ijy",
+"text": "ị̀",
+"cps": "1ECB 0300",
+"langs": 0,
+"name": "uni1ECB_uni0300",
+"box": [
+518,
+4312.0,
+658,
+4464.0
+],
+"baseline": 4412.0,
+"ref": {
+"advance": 320,
+"bbox": [
+4,
+-183,
+307,
+766
+]
+}
+},
+{
+"id": "cell-ojy",
+"kind": "matrix",
+"form": "ojy",
+"text": "ọ̀",
+"cps": "1ECD 0300",
+"langs": 3,
+"name": "uni1ECD_uni0300",
+"box": [
+658,
+4312.0,
+798,
+4464.0
+],
+"baseline": 4412.0,
+"ref": {
+"advance": 577,
+"bbox": [
+55,
+-183,
+522,
+776
+]
+}
+},
+{
+"id": "cell-ujy",
+"kind": "matrix",
+"form": "ujy",
+"text": "ụ̀",
+"cps": "1EE5 0300",
+"langs": 0,
+"name": "uni1EE5_uni0300",
+"box": [
+798,
+4312.0,
+938,
+4464.0
+],
+"baseline": 4412.0,
+"ref": {
+"advance": 635,
+"bbox": [
+23,
+-183,
+612,
+766
+]
+}
+},
+{
+"id": "cell-eqw",
+"kind": "matrix",
+"form": "eqw",
+"text": "ọ̋",
+"cps": "1ECD 030B",
+"langs": 0,
+"name": "uni1ECD_uni030B",
+"box": [
+378,
+4514.0,
+518,
+4666.0
+],
+"baseline": 4614.0,
+"ref": {
+"advance": 577,
+"bbox": [
+55,
+-183,
+522,
+766
+]
+}
+},
+{
+"id": "cell-iqw",
+"kind": "matrix",
+"form": "iqw",
+"text": "ụ̋",
+"cps": "1EE5 030B",
+"langs": 0,
+"name": "uni1EE5_uni030B",
+"box": [
+518,
+4514.0,
+658,
+4666.0
+],
+"baseline": 4614.0,
+"ref": {
+"advance": 635,
+"bbox": [
+23,
+-183,
+612,
+766
+]
+}
+},
+{
+"id": "cell-oqw",
+"kind": "matrix",
+"form": "oqw",
+"text": "ẹ̋",
+"cps": "1EB9 030B",
+"langs": 0,
+"name": "uni1EB9_uni030B",
+"box": [
+658,
+4514.0,
+798,
+4666.0
+],
+"baseline": 4614.0,
+"ref": {
+"advance": 535,
+"bbox": [
+55,
+-183,
+485,
+766
+]
+}
+},
+{
+"id": "cell-uqw",
+"kind": "matrix",
+"form": "uqw",
+"text": "ị̋",
+"cps": "1ECB 030B",
+"langs": 0,
+"name": "uni1ECB_uni030B",
+"box": [
+798,
+4514.0,
+938,
+4666.0
+],
+"baseline": 4614.0,
+"ref": {
+"advance": 320,
+"bbox": [
+-26,
+-183,
+346,
+990
+]
+}
+},
+{
+"id": "cell-ix",
+"kind": "matrix",
+"form": "ix",
+"text": "j",
+"cps": "006A",
+"langs": 27,
+"name": "j",
+"box": [
+518,
+4716.0,
+658,
+4868.0
+],
+"baseline": 4816.0,
+"ref": {
+"advance": 300,
+"bbox": [
+-12,
+-240,
+208,
+760
+]
+}
+},
+{
+"id": "cell-ux",
+"kind": "matrix",
+"form": "ux",
+"text": "w",
+"cps": "0077",
+"langs": 14,
+"name": "w",
+"box": [
+798,
+4716.0,
+938,
+4868.0
+],
+"baseline": 4816.0,
+"ref": {
+"advance": 862,
+"bbox": [
+1,
+0,
+861,
+536
+]
+}
+},
+{
+"id": "cell-icx",
+"kind": "matrix",
+"form": "icx",
+"text": "j̈",
+"cps": "006A 0308",
+"langs": 1,
+"name": "j_uni0308",
+"box": [
+518,
+4918.0,
+658,
+5070.0
+],
+"baseline": 5018.0,
+"ref": {
+"advance": 300,
+"bbox": [
+-33,
+-240,
+259,
+744
+]
+}
+},
+{
+"id": "cell-ucx",
+"kind": "matrix",
+"form": "ucx",
+"text": "ẅ",
+"cps": "1E85",
+"langs": 0,
+"name": "wdieresis",
+"box": [
+798,
+4918.0,
+938,
+5070.0
+],
+"baseline": 5018.0,
+"ref": {
+"advance": 862,
+"bbox": [
+1,
+0,
+861,
+744
+]
+}
+},
+{
+"id": "cell-x-0079",
+"kind": "extra",
+"form": "y",
+"text": "y",
+"cps": "0079",
+"langs": null,
+"name": "y",
+"box": [
+238,
+5238.0,
+378,
+5390.0
+],
+"baseline": 5338.0,
+"ref": {
+"advance": 565,
+"bbox": [
+4,
+-240,
+565,
+536
+]
+}
+},
+{
+"id": "cell-x-0041",
+"kind": "extra",
+"form": "A",
+"text": "A",
+"cps": "0041",
+"langs": null,
+"name": "A",
+"box": [
+238,
+5440.0,
+378,
+5592.0
+],
+"baseline": 5540.0,
+"ref": {
+"advance": 705,
+"bbox": [
+0,
+0,
+705,
+714
+]
+}
+},
+{
+"id": "cell-x-0042",
+"kind": "extra",
+"form": "B",
+"text": "B",
+"cps": "0042",
+"langs": null,
+"name": "B",
+"box": [
+378,
+5440.0,
+518,
+5592.0
+],
+"baseline": 5540.0,
+"ref": {
+"advance": 654,
+"bbox": [
+38,
+0,
+593,
+714
+]
+}
+},
+{
+"id": "cell-x-0043",
+"kind": "extra",
+"form": "C",
+"text": "C",
+"cps": "0043",
+"langs": null,
+"name": "C",
+"box": [
+518,
+5440.0,
+658,
+5592.0
+],
+"baseline": 5540.0,
+"ref": {
+"advance": 614,
+"bbox": [
+57,
+-10,
+580,
+724
+]
+}
+},
+{
+"id": "cell-x-0044",
+"kind": "extra",
+"form": "D",
+"text": "D",
+"cps": "0044",
+"langs": null,
+"name": "D",
+"box": [
+658,
+5440.0,
+798,
+5592.0
+],
+"baseline": 5540.0,
+"ref": {
+"advance": 727,
+"bbox": [
+38,
+0,
+670,
+714
+]
+}
+},
+{
+"id": "cell-x-0045",
+"kind": "extra",
+"form": "E",
+"text": "E",
+"cps": "0045",
+"langs": null,
+"name": "E",
+"box": [
+798,
+5440.0,
+938,
+5592.0
+],
+"baseline": 5540.0,
+"ref": {
+"advance": 623,
+"bbox": [
+38,
+0,
+581,
+714
+]
+}
+},
+{
+"id": "cell-x-0046",
+"kind": "extra",
+"form": "F",
+"text": "F",
+"cps": "0046",
+"langs": null,
+"name": "F",
+"box": [
+938,
+5440.0,
+1078,
+5592.0
+],
+"baseline": 5540.0,
+"ref": {
+"advance": 590,
+"bbox": [
+38,
+0,
+547,
+714
+]
+}
+},
+{
+"id": "cell-x-0047",
+"kind": "extra",
+"form": "G",
+"text": "G",
+"cps": "0047",
+"langs": null,
+"name": "G",
+"box": [
+1078,
+5440.0,
+1218,
+5592.0
+],
+"baseline": 5540.0,
+"ref": {
+"advance": 714,
+"bbox": [
+57,
+-10,
+695,
+724
+]
+}
+},
+{
+"id": "cell-x-0048",
+"kind": "extra",
+"form": "H",
+"text": "H",
+"cps": "0048",
+"langs": null,
+"name": "H",
+"box": [
+1218,
+5440.0,
+1358,
+5592.0
+],
+"baseline": 5540.0,
+"ref": {
+"advance": 793,
+"bbox": [
+38,
+0,
+755,
+714
+]
+}
+},
+{
+"id": "cell-x-0049",
+"kind": "extra",
+"form": "I",
+"text": "I",
+"cps": "0049",
+"langs": null,
+"name": "I",
+"box": [
+1358,
+5440.0,
+1498,
+5592.0
+],
+"baseline": 5540.0,
+"ref": {
+"advance": 367,
+"bbox": [
+38,
+0,
+329,
+714
+]
+}
+},
+{
+"id": "cell-x-004A",
+"kind": "extra",
+"form": "J",
+"text": "J",
+"cps": "004A",
+"langs": null,
+"name": "J",
+"box": [
+1498,
+5440.0,
+1638,
+5592.0
+],
+"baseline": 5540.0,
+"ref": {
+"advance": 357,
+"bbox": [
+-11,
+-240,
+329,
+714
+]
+}
+},
+{
+"id": "cell-x-004B",
+"kind": "extra",
+"form": "K",
+"text": "K",
+"cps": "004B",
+"langs": null,
+"name": "K",
+"box": [
+1638,
+5440.0,
+1778,
+5592.0
+],
+"baseline": 5540.0,
+"ref": {
+"advance": 700,
+"bbox": [
+38,
+0,
+712,
+714
+]
+}
+},
+{
+"id": "cell-x-004C",
+"kind": "extra",
+"form": "L",
+"text": "L",
+"cps": "004C",
+"langs": null,
+"name": "L",
+"box": [
+1778,
+5440.0,
+1918,
+5592.0
+],
+"baseline": 5540.0,
+"ref": {
+"advance": 623,
+"bbox": [
+38,
+0,
+581,
+714
+]
+}
+},
+{
+"id": "cell-x-004D",
+"kind": "extra",
+"form": "M",
+"text": "M",
+"cps": "004D",
+"langs": null,
+"name": "M",
+"box": [
+1918,
+5440.0,
+2058,
+5592.0
+],
+"baseline": 5540.0,
+"ref": {
+"advance": 938,
+"bbox": [
+38,
+0,
+900,
+714
+]
+}
+},
+{
+"id": "cell-x-004E",
+"kind": "extra",
+"form": "N",
+"text": "N",
+"cps": "004E",
+"langs": null,
+"name": "N",
+"box": [
+2058,
+5440.0,
+2198,
+5592.0
+],
+"baseline": 5540.0,
+"ref": {
+"advance": 763,
+"bbox": [
+38,
+0,
+735,
+714
+]
+}
+},
+{
+"id": "cell-x-004F",
+"kind": "extra",
+"form": "O",
+"text": "O",
+"cps": "004F",
+"langs": null,
+"name": "O",
+"box": [
+2198,
+5440.0,
+2338,
+5592.0
+],
+"baseline": 5540.0,
+"ref": {
+"advance": 742,
+"bbox": [
+56,
+-10,
+685,
+725
+]
+}
+},
+{
+"id": "cell-x-0050",
+"kind": "extra",
+"form": "P",
+"text": "P",
+"cps": "0050",
+"langs": null,
+"name": "P",
+"box": [
+238,
+5642.0,
+378,
+5794.0
+],
+"baseline": 5742.0,
+"ref": {
+"advance": 604,
+"bbox": [
+38,
+0,
+565,
+714
+]
+}
+},
+{
+"id": "cell-x-0051",
+"kind": "extra",
+"form": "Q",
+"text": "Q",
+"cps": "0051",
+"langs": null,
+"name": "Q",
+"box": [
+378,
+5642.0,
+518,
+5794.0
+],
+"baseline": 5742.0,
+"ref": {
+"advance": 742,
+"bbox": [
+56,
+-230,
+685,
+725
+]
+}
+},
+{
+"id": "cell-x-0052",
+"kind": "extra",
+"form": "R",
+"text": "R",
+"cps": "0052",
+"langs": null,
+"name": "R",
+"box": [
+518,
+5642.0,
+658,
+5794.0
+],
+"baseline": 5742.0,
+"ref": {
+"advance": 656,
+"bbox": [
+38,
+0,
+662,
+714
+]
+}
+},
+{
+"id": "cell-x-0053",
+"kind": "extra",
+"form": "S",
+"text": "S",
+"cps": "0053",
+"langs": null,
+"name": "S",
+"box": [
+658,
+5642.0,
+798,
+5794.0
+],
+"baseline": 5742.0,
+"ref": {
+"advance": 544,
+"bbox": [
+48,
+-10,
+493,
+724
+]
+}
+},
+{
+"id": "cell-x-0054",
+"kind": "extra",
+"form": "T",
+"text": "T",
+"cps": "0054",
+"langs": null,
+"name": "T",
+"box": [
+798,
+5642.0,
+938,
+5794.0
+],
+"baseline": 5742.0,
+"ref": {
+"advance": 613,
+"bbox": [
+20,
+0,
+593,
+714
+]
+}
+},
+{
+"id": "cell-x-0055",
+"kind": "extra",
+"form": "U",
+"text": "U",
+"cps": "0055",
+"langs": null,
+"name": "U",
+"box": [
+938,
+5642.0,
+1078,
+5794.0
+],
+"baseline": 5742.0,
+"ref": {
+"advance": 717,
+"bbox": [
+15,
+-10,
+702,
+714
+]
+}
+},
+{
+"id": "cell-x-0056",
+"kind": "extra",
+"form": "V",
+"text": "V",
+"cps": "0056",
+"langs": null,
+"name": "V",
+"box": [
+1078,
+5642.0,
+1218,
+5794.0
+],
+"baseline": 5742.0,
+"ref": {
+"advance": 675,
+"bbox": [
+0,
+0,
+675,
+714
+]
+}
+},
+{
+"id": "cell-x-0057",
+"kind": "extra",
+"form": "W",
+"text": "W",
+"cps": "0057",
+"langs": null,
+"name": "W",
+"box": [
+1218,
+5642.0,
+1358,
+5794.0
+],
+"baseline": 5742.0,
+"ref": {
+"advance": 1047,
+"bbox": [
+9,
+0,
+1038,
+714
+]
+}
+},
+{
+"id": "cell-x-0058",
+"kind": "extra",
+"form": "X",
+"text": "X",
+"cps": "0058",
+"langs": null,
+"name": "X",
+"box": [
+1358,
+5642.0,
+1498,
+5794.0
+],
+"baseline": 5742.0,
+"ref": {
+"advance": 660,
+"bbox": [
+8,
+0,
+652,
+714
+]
+}
+},
+{
+"id": "cell-x-0059",
+"kind": "extra",
+"form": "Y",
+"text": "Y",
+"cps": "0059",
+"langs": null,
+"name": "Y",
+"box": [
+1498,
+5642.0,
+1638,
+5794.0
+],
+"baseline": 5742.0,
+"ref": {
+"advance": 625,
+"bbox": [
+-5,
+0,
+628,
+714
+]
+}
+},
+{
+"id": "cell-x-005A",
+"kind": "extra",
+"form": "Z",
+"text": "Z",
+"cps": "005A",
+"langs": null,
+"name": "Z",
+"box": [
+1638,
+5642.0,
+1778,
+5794.0
+],
+"baseline": 5742.0,
+"ref": {
+"advance": 592,
+"bbox": [
+36,
+0,
+550,
+714
+]
+}
+},
+{
+"id": "cell-x-0030",
+"kind": "extra",
+"form": "0",
+"text": "0",
+"cps": "0030",
+"langs": null,
+"name": "zero",
+"box": [
+238,
+5844.0,
+378,
+5996.0
+],
+"baseline": 5944.0,
+"ref": {
+"advance": 559,
+"bbox": [
+45,
+-10,
+514,
+724
+]
+}
+},
+{
+"id": "cell-x-0031",
+"kind": "extra",
+"form": "1",
+"text": "1",
+"cps": "0031",
+"langs": null,
+"name": "one",
+"box": [
+378,
+5844.0,
+518,
+5996.0
+],
+"baseline": 5944.0,
+"ref": {
+"advance": 559,
+"bbox": [
+66,
+0,
+477,
+718
+]
+}
+},
+{
+"id": "cell-x-0032",
+"kind": "extra",
+"form": "2",
+"text": "2",
+"cps": "0032",
+"langs": null,
+"name": "two",
+"box": [
+518,
+5844.0,
+658,
+5996.0
+],
+"baseline": 5944.0,
+"ref": {
+"advance": 559,
+"bbox": [
+61,
+0,
+496,
+724
+]
+}
+},
+{
+"id": "cell-x-0033",
+"kind": "extra",
+"form": "3",
+"text": "3",
+"cps": "0033",
+"langs": null,
+"name": "three",
+"box": [
+658,
+5844.0,
+798,
+5996.0
+],
+"baseline": 5944.0,
+"ref": {
+"advance": 559,
+"bbox": [
+58,
+-10,
+501,
+724
+]
+}
+},
+{
+"id": "cell-x-0034",
+"kind": "extra",
+"form": "4",
+"text": "4",
+"cps": "0034",
+"langs": null,
+"name": "four",
+"box": [
+798,
+5844.0,
+938,
+5996.0
+],
+"baseline": 5944.0,
+"ref": {
+"advance": 559,
+"bbox": [
+17,
+0,
+545,
+714
+]
+}
+},
+{
+"id": "cell-x-0035",
+"kind": "extra",
+"form": "5",
+"text": "5",
+"cps": "0035",
+"langs": null,
+"name": "five",
+"box": [
+938,
+5844.0,
+1078,
+5996.0
+],
+"baseline": 5944.0,
+"ref": {
+"advance": 559,
+"bbox": [
+55,
+-10,
+486,
+714
+]
+}
+},
+{
+"id": "cell-x-0036",
+"kind": "extra",
+"form": "6",
+"text": "6",
+"cps": "0036",
+"langs": null,
+"name": "six",
+"box": [
+1078,
+5844.0,
+1218,
+5996.0
+],
+"baseline": 5944.0,
+"ref": {
+"advance": 559,
+"bbox": [
+61,
+-10,
+508,
+724
+]
+}
+},
+{
+"id": "cell-x-0037",
+"kind": "extra",
+"form": "7",
+"text": "7",
+"cps": "0037",
+"langs": null,
+"name": "seven",
+"box": [
+1218,
+5844.0,
+1358,
+5996.0
+],
+"baseline": 5944.0,
+"ref": {
+"advance": 559,
+"bbox": [
+59,
+0,
+511,
+714
+]
+}
+},
+{
+"id": "cell-x-0038",
+"kind": "extra",
+"form": "8",
+"text": "8",
+"cps": "0038",
+"langs": null,
+"name": "eight",
+"box": [
+1358,
+5844.0,
+1498,
+5996.0
+],
+"baseline": 5944.0,
+"ref": {
+"advance": 559,
+"bbox": [
+46,
+-10,
+513,
+724
+]
+}
+},
+{
+"id": "cell-x-0039",
+"kind": "extra",
+"form": "9",
+"text": "9",
+"cps": "0039",
+"langs": null,
+"name": "nine",
+"box": [
+1498,
+5844.0,
+1638,
+5996.0
+],
+"baseline": 5944.0,
+"ref": {
+"advance": 559,
+"bbox": [
+51,
+-11,
+498,
+724
+]
+}
+},
+{
+"id": "cell-x-002E",
+"kind": "extra",
+"form": ".",
+"text": ".",
+"cps": "002E",
+"langs": null,
+"name": "period",
+"box": [
+238,
+6046.0,
+378,
+6198.0
+],
+"baseline": 6146.0,
+"ref": {
+"advance": 250,
+"bbox": [
+62,
+-7,
+188,
+129
+]
+}
+},
+{
+"id": "cell-x-002C",
+"kind": "extra",
+"form": ",",
+"text": ",",
+"cps": "002C",
+"langs": null,
+"name": "comma",
+"box": [
+378,
+6046.0,
+518,
+6198.0
+],
+"baseline": 6146.0,
+"ref": {
+"advance": 250,
+"bbox": [
+30,
+-154,
+194,
+129
+]
+}
+},
+{
+"id": "cell-x-003B",
+"kind": "extra",
+"form": ";",
+"text": ";",
+"cps": "003B",
+"langs": null,
+"name": "semicolon",
+"box": [
+518,
+6046.0,
+658,
+6198.0
+],
+"baseline": 6146.0,
+"ref": {
+"advance": 286,
+"bbox": [
+48,
+-154,
+212,
+541
+]
+}
+},
+{
+"id": "cell-x-003A",
+"kind": "extra",
+"form": ":",
+"text": ":",
+"cps": "003A",
+"langs": null,
+"name": "colon",
+"box": [
+658,
+6046.0,
+798,
+6198.0
+],
+"baseline": 6146.0,
+"ref": {
+"advance": 286,
+"bbox": [
+81,
+-7,
+207,
+541
+]
+}
+},
+{
+"id": "cell-x-0021",
+"kind": "extra",
+"form": "!",
+"text": "!",
+"cps": "0021",
+"langs": null,
+"name": "exclam",
+"box": [
+798,
+6046.0,
+938,
+6198.0
+],
+"baseline": 6146.0,
+"ref": {
+"advance": 332,
+"bbox": [
+103,
+-7,
+229,
+714
+]
+}
+},
+{
+"id": "cell-x-003F",
+"kind": "extra",
+"form": "?",
+"text": "?",
+"cps": "003F",
+"langs": null,
+"name": "question",
+"box": [
+938,
+6046.0,
+1078,
+6198.0
+],
+"baseline": 6146.0,
+"ref": {
+"advance": 474,
+"bbox": [
+33,
+-7,
+436,
+724
+]
+}
+},
+{
+"id": "cell-x-0027",
+"kind": "extra",
+"form": "'",
+"text": "'",
+"cps": "0027",
+"langs": null,
+"name": "quotesingle",
+"box": [
+1078,
+6046.0,
+1218,
+6198.0
+],
+"baseline": 6146.0,
+"ref": {
+"advance": 220,
+"bbox": [
+57,
+479,
+163,
+714
+]
+}
+},
+{
+"id": "cell-x-0022",
+"kind": "extra",
+"form": "\"",
+"text": "\"",
+"cps": "0022",
+"langs": null,
+"name": "quotedbl",
+"box": [
+1218,
+6046.0,
+1358,
+6198.0
+],
+"baseline": 6146.0,
+"ref": {
+"advance": 408,
+"bbox": [
+57,
+479,
+351,
+714
+]
+}
+},
+{
+"id": "cell-x-0028",
+"kind": "extra",
+"form": "(",
+"text": "(",
+"cps": "0028",
+"langs": null,
+"name": "parenleft",
+"box": [
+1358,
+6046.0,
+1498,
+6198.0
+],
+"baseline": 6146.0,
+"ref": {
+"advance": 346,
+"bbox": [
+57,
+-128,
+314,
+760
+]
+}
+},
+{
+"id": "cell-x-0029",
+"kind": "extra",
+"form": ")",
+"text": ")",
+"cps": "0029",
+"langs": null,
+"name": "parenright",
+"box": [
+1498,
+6046.0,
+1638,
+6198.0
+],
+"baseline": 6146.0,
+"ref": {
+"advance": 346,
+"bbox": [
+32,
+-128,
+289,
+760
+]
+}
+},
+{
+"id": "cell-x-005B",
+"kind": "extra",
+"form": "[",
+"text": "[",
+"cps": "005B",
+"langs": null,
+"name": "bracketleft",
+"box": [
+1638,
+6046.0,
+1778,
+6198.0
+],
+"baseline": 6146.0,
+"ref": {
+"advance": 360,
+"bbox": [
+100,
+-128,
+323,
+760
+]
+}
+},
+{
+"id": "cell-x-005D",
+"kind": "extra",
+"form": "]",
+"text": "]",
+"cps": "005D",
+"langs": null,
+"name": "bracketright",
+"box": [
+1778,
+6046.0,
+1918,
+6198.0
+],
+"baseline": 6146.0,
+"ref": {
+"advance": 360,
+"bbox": [
+37,
+-128,
+260,
+760
+]
+}
+},
+{
+"id": "cell-x-002F",
+"kind": "extra",
+"form": "/",
+"text": "/",
+"cps": "002F",
+"langs": null,
+"name": "slash",
+"box": [
+1918,
+6046.0,
+2058,
+6198.0
+],
+"baseline": 6146.0,
+"ref": {
+"advance": 288,
+"bbox": [
+0,
+-121,
+288,
+760
+]
+}
+},
+{
+"id": "cell-x-002D",
+"kind": "extra",
+"form": "-",
+"text": "-",
+"cps": "002D",
+"langs": null,
+"name": "hyphen",
+"box": [
+2058,
+6046.0,
+2198,
+6198.0
+],
+"baseline": 6146.0,
+"ref": {
+"advance": 310,
+"bbox": [
+25,
+235,
+285,
+310
+]
+}
+},
+{
+"id": "cell-x-2013",
+"kind": "extra",
+"form": "–",
+"text": "–",
+"cps": "2013",
+"langs": null,
+"name": "endash",
+"box": [
+2198,
+6046.0,
+2338,
+6198.0
+],
+"baseline": 6146.0,
+"ref": {
+"advance": 500,
+"bbox": [
+-5,
+239,
+505,
+298
+]
+}
+},
+{
+"id": "cell-x-2014",
+"kind": "extra",
+"form": "—",
+"text": "—",
+"cps": "2014",
+"langs": null,
+"name": "emdash",
+"box": [
+238,
+6248.0,
+378,
+6400.0
+],
+"baseline": 6348.0,
+"ref": {
+"advance": 1000,
+"bbox": [
+-5,
+239,
+1005,
+298
+]
+}
+},
+{
+"id": "cell-x-00B7",
+"kind": "extra",
+"form": "·",
+"text": "·",
+"cps": "00B7",
+"langs": null,
+"name": "periodcentered",
+"box": [
+378,
+6248.0,
+518,
+6400.0
+],
+"baseline": 6348.0,
+"ref": {
+"advance": 250,
+"bbox": [
+62,
+288,
+188,
+424
+]
+}
+}
+]
+}

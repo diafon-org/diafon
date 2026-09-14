@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-500 0 2000 1362" width="512">
-  <!-- Diaphone glyph "uni030E" — edit ONLY inside g#glyph; g#guides is ignored on import.
+  <!-- Diafon glyph "uni030E" — edit ONLY inside g#glyph; g#guides is ignored on import.
        Font baseline is the dashed line at SVG y=1069; the em is 1000 units. -->
   <g id="guides" opacity="0.5">
     <line x1="-500" x2="1500" y1="1069" y2="1069" stroke="#8bf" stroke-width="2" stroke-dasharray="11 11"/><!-- baseline (font y=0) -->

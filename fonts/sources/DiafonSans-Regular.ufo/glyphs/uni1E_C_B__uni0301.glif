@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni1ECB_uni0301" format="2">
+  <advance width="258"/>
+  <outline>
+    <contour>
+      <point x="173" y="536" type="line"/>
+      <point x="173" y="0" type="line"/>
+      <point x="85" y="0" type="line"/>
+      <point x="85" y="536" type="line"/>
+    </contour>
+    <contour>
+      <point x="130" y="-176" type="qcurve"/>
+      <point x="109" y="-176"/>
+      <point x="78" y="-148"/>
+      <point x="78" y="-120" type="qcurve"/>
+      <point x="78" y="-91"/>
+      <point x="109" y="-64"/>
+      <point x="130" y="-64" type="qcurve"/>
+      <point x="151" y="-64"/>
+      <point x="182" y="-91"/>
+      <point x="182" y="-120" type="qcurve"/>
+      <point x="182" y="-148"/>
+      <point x="151" y="-176"/>
+    </contour>
+    <contour>
+      <point x="289" y="756" type="line"/>
+      <point x="277" y="738"/>
+      <point x="227" y="681"/>
+      <point x="170" y="624"/>
+      <point x="146" y="606" type="qcurve"/>
+      <point x="88" y="606" type="line"/>
+      <point x="88" y="618" type="line"/>
+      <point x="103" y="637"/>
+      <point x="138" y="689"/>
+      <point x="172" y="744"/>
+      <point x="183" y="766" type="qcurve"/>
+      <point x="289" y="766" type="line"/>
+    </contour>
+  </outline>
+</glyph>
