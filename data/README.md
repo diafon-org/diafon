@@ -77,5 +77,5 @@ mainstream analysis (allophones excluded); long vowels are listed as
 segments, contrastive consonant length is the `geminates` flag; glides j/w
 appear under consonants as is conventional. Where mainstream analyses
 disagree (e.g. English diphthongs, Polish nasal vowels), the file follows
-the majority description, and the Diaphone mapping layer, not this data,
+the majority description, and the Diafon mapping layer, not this data,
 is where system-specific analysis happens.

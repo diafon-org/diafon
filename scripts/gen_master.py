@@ -123,13 +123,13 @@ HEAD = '''<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Diaphone · Master Tables</title>
+<title>Diafon · Master Tables</title>
 <style>
 :root{
   --paper:#f5f6f8; --card:#ffffff; --sunken:#eef0f4; --ink:#1a1d24; --muted:#5b6472; --line:#dde1e8;
   --accent:#0e7c86; --good:#2f8f66; --warn:#b06f14;
   --c-c:#b06f14; --j-c:#3f5bc0; --q-c:#8a4bb0; --x-c:#2f8f66; --y-c:#c0468a;
-  --serif:"Diaphone","Charis SIL","Gentium Plus","Noto Serif","Times New Roman",Georgia,serif;
+  --serif:"Diafon","Charis SIL","Gentium Plus","Noto Serif","Times New Roman",Georgia,serif;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
   --mono:"SF Mono","JetBrains Mono","Menlo","Consolas",monospace;
 }
@@ -143,7 +143,7 @@ HEAD = '''<!doctype html>
   --accent:#3ec8cf; --good:#4fc79a; --warn:#e0a44a;
   --c-c:#e0a44a; --j-c:#8b9ff0; --q-c:#c08ee0; --x-c:#4fc79a; --y-c:#e88ac0;
 }
-@font-face{font-family:"Diaphone";src:url(diaphone.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon";src:url(diafon.woff2) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:15px}
 .wrap{max-width:1020px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -195,7 +195,7 @@ footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color
   glyph and readings; each language's own table follows, stamped with the
   review state of its mapping. A language reaches full confidence only with a native or
   expert reviewer. Notation: <code>input forms</code> in type style, script
-  forms in the Diaphone serif, and IPA always between slashes, /ʃ/.</p>
+  forms in the Diafon serif, and IPA always between slashes, /ʃ/.</p>
 </header>
 <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin:1.4rem 0 0">
   <label for="table" style="font:600 .72rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">table</label>
@@ -362,7 +362,7 @@ apply();
     head = HEAD.replace('<main class="wrap">',
                         '<main class="wrap">\n\n' + pages.nav_block('master.html'), 1)
     html = (head + universal_table(agg, shares) + '\n' + secs +
-            '\n<footer>Diaphone · master tables · <a href="description.html">description</a> · '
+            '\n<footer>Diafon · master tables · <a href="description.html">description</a> · '
             '<a href="play.html">playground</a> · <a href="fonts.html">fonts</a></footer>\n</main>'
             + js + '\n</body>\n</html>\n')
     out = os.path.join(ROOT, 'docs', 'master.html')

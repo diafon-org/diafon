@@ -1,0 +1,44 @@
+# Swahili spelling stage: the point stream rendered in today's Swahili
+# orthography. Render-only, like every stage.
+#
+# Swahili is written as it sounds; the digraphs are its own. Losses, one-way
+# and stated: the velar nasal before g is written n in Swahili (ngoma), here
+# always ng'.
+code: sw
+name: Swahili spelling
+state: draft
+letters: a b ch d dh e f g gh h i j k kh l m n ng' ny o p r s sh t th u v w y z
+long: double
+sample: hacbacri zac acsubuhi, kacribu sacnac      # habari za asubuhi, karibu sana
+forms:
+  p: p
+  b: b
+  t: t
+  d: d
+  k: k
+  g: g
+  f: f
+  v: v
+  s: s
+  z: z
+  sj: sh
+  tq: ch
+  dj: j
+  tx: th
+  dx: dh
+  kx: kh
+  gx: gh
+  nj: ny
+  nx: ng'
+  h: h
+  m: m
+  n: n
+  l: l
+  r: r
+  ix: y
+  ux: w
+  ac: a
+  ej: e
+  i: i
+  oj: o
+  u: u

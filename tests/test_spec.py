@@ -89,7 +89,7 @@ def test_stages():
         for inp, want in VEC['stages'][code]:
             assert stages.render(inp, st) == want, (code, inp, want)
     assert stages.render('sjok sewp njawr, hoswuw Aclmac', 'hu') == 'sok szép nyár, hosszú Alma'
-    assert stages.render('sjok Kxy', 'hu') == 'sok Ḵ'      # unspelled forms fall back to the script
+    assert stages.render('sjok Kxy', 'hu') == 'sok K̤'      # unspelled forms fall back to the script
 
 
 def test_js_parity():
