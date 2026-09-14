@@ -17,11 +17,29 @@ PAGES = [
     ('play.html', 'playground',
      'Type the input form, read the script form, live, per language.'),
     ('fonts.html', 'fonts',
-     'Every glyph the system can draw, in the Diaphone font or any other, '
+     'Every glyph the system can draw, in the Diafon font or any other, '
      'with the support gaps.'),
+    ('inspect.html', 'review',
+     'The font letter by letter: an overview of every glyph, and any one of them '
+     'big, on its guides, with its measures.'),
 ]
 
 MARK0, MARK1 = '<!-- sitenav -->', '<!-- /sitenav -->'
+
+# the mark, inline: the double dot in the accent, the anchor in the text colour
+# (docs/logo/finals/mark-inline.svg, from fonts/tools/logo.py)
+import os as _os
+
+
+def _mark(size, valign, gap):
+    path = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))),
+                         'docs', 'logo', 'mark-inline.svg')
+    svg = open(path, encoding='utf-8').read().strip()
+    return svg.replace('width="1em" height="1em"',
+                       f'width="{size}" height="{size}" style="vertical-align:{valign};margin-right:{gap}"')
+
+
+MARK_SVG = _mark('1.05em', '-.16em', '.35em')
 
 NAV_CSS = '''<style>
 nav.sitenav{display:flex;gap:1.1rem;align-items:baseline;flex-wrap:wrap;
@@ -41,4 +59,4 @@ def nav_block(current):
         else f'<a href="{fn}">{label}</a>'
         for fn, label, _ in PAGES)
     return (f'{MARK0}\n{NAV_CSS}\n<nav class="sitenav">'
-            f'<a class="brand" href="index.html">Diaphone</a>{items}</nav>\n{MARK1}')
+            f'<a class="brand" href="index.html">{MARK_SVG}Diafon</a>{items}</nav>\n{MARK1}')
