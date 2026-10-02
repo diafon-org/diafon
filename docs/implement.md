@@ -65,9 +65,9 @@ one loader, in every port. See `data/lexicon/README.md`.
 - `data/script.yaml`: how a form draws its glyph.
 - `data/stages/`, `data/lexicon/`: the spellings above the script.
 
-`scripts/build.sh` runs the whole chain: the master tables, the playground,
-the fonts page, the lexicon, the spec, the input-method tables, this site,
-and the tests.
+`scripts/build.sh` runs the whole chain: the master tables, the engine's
+data, the glyph inventory, the lexicon, the spec, the input-method tables,
+the home page figures, this site, and the tests.
 
 ## The fonts
 

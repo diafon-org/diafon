@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Generate docs/master.html, the master tables.
+"""Generate the master tables: docs/.include/master-tables.html, the body of
+the Master tables page (docs/master.md, where the try-out and the font switch
+live; docs/assets/master.js drives them).
 
 The universal table: every input form in use, grouped by keystroke count,
 with its glyph and its readings from the most to the least used (languages ·
@@ -21,7 +23,6 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import engine
 import ipa_names
-import pages
 
 C_POINTS = {'sj','zj','tq','dq','tc','dc','kx','gx','kq','hx','rc','tx','dx','nx','py','ky','gy'}
 RETRO = {'ty','dy','ny','sjy','zjy','tqy','dqy'}  # the stops and the flipped hush
@@ -118,92 +119,6 @@ def fmt(m):
     return f'{m/1000:.1f}B' if m >= 1000 else f'{m:.0f}M'
 
 
-HEAD = '''<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Diafon · Master Tables</title>
-<style>
-:root{
-  --paper:#f5f6f8; --card:#ffffff; --sunken:#eef0f4; --ink:#1a1d24; --muted:#5b6472; --line:#dde1e8;
-  --accent:#0e7c86; --good:#2f8f66; --warn:#b06f14;
-  --c-c:#b06f14; --j-c:#3f5bc0; --q-c:#8a4bb0; --x-c:#2f8f66; --y-c:#c0468a;
-  --serif:"Diafon","Charis SIL","Gentium Plus","Noto Serif","Times New Roman",Georgia,serif;
-  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
-  --mono:"SF Mono","JetBrains Mono","Menlo","Consolas",monospace;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --paper:#14161b; --card:#1b1e25; --sunken:#101216; --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37;
-  --accent:#3ec8cf; --good:#4fc79a; --warn:#e0a44a;
-  --c-c:#e0a44a; --j-c:#8b9ff0; --q-c:#c08ee0; --x-c:#4fc79a; --y-c:#e88ac0;
-}}
-:root[data-theme="dark"]{
-  --paper:#14161b; --card:#1b1e25; --sunken:#101216; --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37;
-  --accent:#3ec8cf; --good:#4fc79a; --warn:#e0a44a;
-  --c-c:#e0a44a; --j-c:#8b9ff0; --q-c:#c08ee0; --x-c:#4fc79a; --y-c:#e88ac0;
-}
-@font-face{font-family:"Diafon";src:url(diafon.woff2) format("woff2");font-display:swap}
-*{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:15px}
-.wrap{max-width:1020px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
-h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,4.5vw,2.3rem);margin:0 0 .2rem}
-h2{font-family:var(--serif);font-weight:600;font-size:1.3rem;margin:2.4rem 0 .4rem}
-.lede{color:var(--muted);margin:.2rem 0 0;max-width:74ch}
-a{color:var(--accent)}
-a.wref{color:inherit;text-decoration:none;border-bottom:1px dotted var(--line)}
-a.wref:hover{border-bottom-color:var(--accent)}
-code{font:600 .78em/1.4 var(--mono);color:var(--accent);background:var(--sunken);padding:.1em .32em;border-radius:.32em}
-.ug{font-family:var(--serif)}
-.opswrap{overflow-x:auto;margin:.8rem 0 0;border:1px solid var(--line);border-radius:14px;background:var(--card)}
-table{border-collapse:collapse;width:100%;min-width:640px}
-th{font:600 .66rem/1.1 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:.5rem .8rem;background:var(--sunken);text-align:left}
-td{padding:.42rem .8rem;border-top:1px solid var(--line);vertical-align:top}
-td.g{font-family:var(--serif);font-size:1.15rem}
-.st{font:600 .68rem/1.3 var(--mono);color:var(--muted);white-space:nowrap}
-.rname{display:block;font:500 .64rem/1.3 var(--mono);color:var(--muted);margin-top:1px}
-a.rname{text-decoration:none}
-a.rname:hover{color:var(--accent);text-decoration:underline}
-.just{display:block;font-size:.74rem;line-height:1.35;color:var(--muted);margin-top:2px;max-width:26ch}
-.just b{color:var(--ink);font:600 .68rem var(--mono)}
-.rgroup{margin-bottom:.55rem}
-.rgroup:last-child{margin-bottom:0}
-.just{max-width:none}
-.tt{font:600 .68rem/1.4 var(--mono);color:var(--muted)}
-tr.grp th{background:var(--sunken);color:var(--accent)}
-.badge{display:inline-block;font:600 .66rem/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;
-  border-radius:999px;padding:.28rem .6rem;vertical-align:2px;margin-left:.5rem;border:1px solid var(--line)}
-.st-nat{color:var(--good);border-color:var(--good)}
-.st-rev{color:var(--warn);border-color:var(--warn)}
-.st-non{color:var(--muted)}
-.toc{display:flex;flex-wrap:wrap;gap:.4rem;margin:1rem 0 0}
-.toc a{font:600 .72rem/1 var(--mono);text-decoration:none;border:1px solid var(--line);border-radius:.5rem;
-  padding:.34rem .55rem;background:var(--card);color:var(--muted)}
-.toc a b{color:var(--ink)}
-.toc a.st-nat{border-color:var(--good)} .toc a.st-rev{border-color:var(--warn)}
-.plus{font:600 .82rem var(--mono);margin-left:.2rem}
-.prev{display:block;font-size:.72rem;color:var(--muted);margin-top:2px;white-space:nowrap}
-.op-c{color:var(--c-c)} .op-j{color:var(--j-c)} .op-q{color:var(--q-c)} .op-x{color:var(--x-c)} .op-y{color:var(--y-c)}
-footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
-</style>
-</head>
-<body>
-<main class="wrap">
-<header>
-  <h1>Master tables</h1>
-  <p class="lede">The universal table lists every input form in use, with its
-  glyph and readings; each language's own table follows, stamped with the
-  review state of its mapping. A language reaches full confidence only with a native or
-  expert reviewer. Notation: <code>input forms</code> in type style, script
-  forms in the Diafon serif, and IPA always between slashes, /ʃ/.</p>
-</header>
-<div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin:1.4rem 0 0">
-  <label for="table" style="font:600 .72rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">table</label>
-  <select id="table" autocomplete="off" style="font:600 .85rem var(--sans);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:.5rem;padding:.4rem .6rem"></select>
-</div>
-'''
-
-
 _C_BASES = 'ptkbdgfvszmnlrh'
 _V_BASES = 'aeiou'
 _OPS_ORDER = ['', 'j', 'c', 'q', 'x', 'y', 'jx', 'cx', 'qx', 'cy', 'jy', 'qy', 'yy', 'xy']
@@ -236,6 +151,11 @@ def form_cell(form):
     return s
 
 
+def glyph_cell(form):
+    return (f'<td class="g"><span>{engine.render(form)}</span> '
+            f'<span>{engine.render(form[0].upper() + form[1:])}</span></td>')
+
+
 def universal_table(agg, shares):
     rows = []
     for form, reads in agg.items():
@@ -247,11 +167,11 @@ def universal_table(agg, shares):
                     key=lambda kv: (0 if nfd(kv[0]) == prim else 1, -kv[1][1]))
         rows.append((_order_key(form), form, form_type(form), rd))
     rows.sort()
-    out = ['<section id="sec-universal">', '<h2>The universal table</h2>',
+    out = ['<section id="sec-universal" data-name="universal">', '<h2 id="universal">The universal table</h2>',
            '<p class="lede">The form inventory: base + up to two operators. '
            'Length (<code>w</code>) rides free on any of these, and diphthongs are '
            'two forms in a row; neither is a form of its own.</p>',
-           '<div class="opswrap"><table>',
+           '<div class="mt-wrap"><table class="mt">',
            '<tr><th>input</th><th>glyph</th><th>type</th>'
            '<th>primary reading</th><th>other readings</th></tr>']
     grp = 0
@@ -278,9 +198,7 @@ def universal_table(agg, shares):
                        f'<a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank">/{ipa}/</a>'
                        f'<a class="rname" href="{ipa_names.url(ipa)}" target="_blank">{ipa_names.name(ipa)}</a>{lines}</div>')
         shown = form_cell(form)
-        out.append(f'<tr><td>{shown}</td>'
-                   f'<td class="g">{engine.render(form)} '
-                   f'{engine.render(form[0].upper() + form[1:])}</td>'
+        out.append(f'<tr data-form="{form}"><td>{shown}</td>{glyph_cell(form)}'
                    f'<td class="tt">{t}</td><td>{primary}</td><td>{groups}</td></tr>')
     out.append('</table></div></section>')
     return '\n'.join(out)
@@ -317,18 +235,16 @@ def language_tables():
                         f' target="_blank">{ipa_names.name(pairs[0][0])}</a>')
             if len(pairs) > 1:
                 reading += '<span class="rname">one phoneme, merged</span>'
-            rows.append(f'<tr><td>{form_cell(form)}</td>'
-                        f'<td class="g">{engine.render(form)} '
-                        f'{engine.render(form[0].upper() + form[1:])}</td>'
+            rows.append(f'<tr data-form="{form}"><td>{form_cell(form)}</td>{glyph_cell(form)}'
                         f'<td class="tt">{form_type(form)}</td>'
                         f'<td>{reading}</td>'
                         f'<td class="tt">{pairs[0][1]}</td></tr>')
         secs.append(
             f'<section id="sec-{code}" hidden data-name="{d["name"]}" data-state="{label}" data-cls="{cls}">'
-            f'<h2>{d["name"]} <span class="tt">{code} · '
+            f'<h2 id="{code}">{d["name"]} <span class="tt">{code} · '
             f'{fmt(d["speakers"]["native"])} native</span>'
             f'<span class="badge {cls}">{label}</span></h2>\n'
-            '<div class="opswrap"><table>'
+            '<div class="mt-wrap"><table class="mt">'
             '<tr><th>input</th><th>glyph</th><th>type</th><th>reading</th><th>freq</th></tr>'
             + ''.join(rows) + '</table></div></section>')
     return ('', '\n'.join(secs))
@@ -338,34 +254,8 @@ def main():
     agg = aggregate()  # validates
     shares = load_mapping()[5]
     _, secs = language_tables()
-    js = """
-<script>
-'use strict';
-const sel=document.getElementById('table');
-const secs=[...document.querySelectorAll('section[id^=sec-]')];
-sel.innerHTML='<option value="universal" selected>universal</option>'+
-  secs.filter(x=>x.id!=='sec-universal').map(x=>{
-    const c=x.id.slice(4);
-    return `<option value="${c}">${x.dataset.name}</option>`;}).join('');
-function show(){
-  for(const x of secs) x.hidden = (x.id!=='sec-'+sel.value);
-}
-function apply(){
-  const h=location.hash.slice(1);
-  sel.value = (h && document.getElementById('sec-'+h)) ? h : 'universal';
-  show();
-}
-sel.addEventListener('change', ()=>{ history.replaceState(null,'','#'+sel.value); show(); });
-window.addEventListener('hashchange', apply);
-apply();
-</script>"""
-    head = HEAD.replace('<main class="wrap">',
-                        '<main class="wrap">\n\n' + pages.nav_block('master.html'), 1)
-    html = (head + universal_table(agg, shares) + '\n' + secs +
-            '\n<footer>Diafon · master tables · <a href="description.html">description</a> · '
-            '<a href="play.html">playground</a> · <a href="fonts.html">fonts</a></footer>\n</main>'
-            + js + '\n</body>\n</html>\n')
-    out = os.path.join(ROOT, 'docs', 'master.html')
+    html = universal_table(agg, shares) + '\n' + secs + '\n'
+    out = os.path.join(ROOT, 'docs', '.include', 'master-tables.html')
     open(out, 'w').write(html)
     print(f'mapping valid · {out}: {len(agg)} forms, {len(load_languages())} languages')
 

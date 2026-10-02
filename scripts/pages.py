@@ -1,25 +1,15 @@
-"""The site layer: the page registry and the shared navigation block.
-
-The minimal build framework for the static pages. scripts/gen_site.py builds
-docs/index.html (the landing tiles) and refreshes the navigation on every
-static page; scripts/gen_master.py imports nav_block() when it renders
-master.html. The block is self-contained (style + markup) between sitenav
-markers, so a refresh is a single replace and pages need no other support.
+"""The navigation block of the standalone app pages (today the font review),
+which sit outside the MkDocs theme. scripts/gen_site.py refreshes it. The
+block is self-contained (style + markup) between sitenav markers, so a
+refresh is a single replace and pages need no other support.
 """
 
 PAGES = [
-    ('index.html', 'about',
-     'What the system is: typing, the script, the tables.'),
+    ('index.html', 'home', 'What the system is, at a glance.'),
     ('master.html', 'master tables',
      "Every input form in use, its glyph and readings; each language's own "
-     'table, stamped with its review state.'),
-    ('play.html', 'playground',
-     'Type the input form, or paste a text in any spelling, and read the script '
-     'form, live; word by word, with what writes back.'),
-    ('fonts.html', 'fonts',
-     'Every glyph the system can draw, in the Diafon font or any other, '
-     'with the support gaps.'),
-    ('inspect.html', 'review',
+     'table, stamped with its review state; the try-out and the font switch.'),
+    ('inspect.html', 'font review',
      'The font letter by letter: an overview of every glyph, and any one of them '
      'big, on its guides, with its measures.'),
 ]
