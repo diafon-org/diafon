@@ -2,7 +2,7 @@
 """Generate fonts/hand/frame.svg and frame.json: the digital drawing frame.
 
 The frame has the structure of the fonts page: bases across, derivations
-down, one cell per potential glyph (read from docs/fonts-data.js, so the two
+down, one cell per potential glyph (read from fonts/glyphs.js, so the two
 never drift apart), followed by the extras a font needs anyway (the other
 letters, capitals, digits, punctuation). Every cell carries the writing
 guides (ascender, cap height, x-height, baseline, descender), a small pale
@@ -37,7 +37,7 @@ from fontTools.ttLib import TTFont
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 FONT = os.path.join(ROOT, 'fonts', 'DiafonSerif-Regular.ttf')
-DATA = os.path.join(ROOT, 'docs', 'fonts-data.js')
+DATA = os.path.join(ROOT, 'fonts', 'glyphs.js')
 OUT_SVG = os.path.join(ROOT, 'fonts', 'hand', 'frame.svg')
 OUT_JSON = os.path.join(ROOT, 'fonts', 'hand', 'frame.json')
 

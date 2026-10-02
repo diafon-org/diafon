@@ -6,7 +6,7 @@
 The first step of fonts/build.sh: make_ufo.py turns the result into the UFO
 sources and fontmake compiles those into the shipping fonts/<Family>-Regular.ttf.
 
-Subset Noto Serif to the system's character set (from docs/fonts-data.js —
+Subset Noto Serif to the system's character set (from fonts/glyphs.js —
 regenerate that first), then apply the glyph surgery:
 
 - the ANCHOR (U+0326) and the reverse anchor (U+0316): a rotated copy of the
@@ -77,7 +77,7 @@ NEW_PRECOMPOSED = {         # cp: (base, mark, above?)
 
 
 def charset():
-    src = open(os.path.join(ROOT, 'docs', 'fonts-data.js')).read()
+    src = open(os.path.join(ROOT, 'fonts', 'glyphs.js')).read()
     data = json.loads(re.search(r'const MATRIX = (.*);', src).group(1))
     chars = set(BASIC)
     for sec in data.values():
@@ -235,7 +235,7 @@ ANCHOR_MARKS = {0x0326, 0x0316, 0x0313, 0x0314}
 
 def _anchor_pairs():
     """(base letter, anchor mark cp) pairs the system's glyph matrix uses."""
-    src = open(os.path.join(ROOT, 'docs', 'fonts-data.js')).read()
+    src = open(os.path.join(ROOT, 'fonts', 'glyphs.js')).read()
     data = json.loads(re.search(r'const MATRIX = (.*);', src).group(1))
     pairs = set()
     for sec in data.values():

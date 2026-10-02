@@ -26,22 +26,14 @@ theme:
   features:
     - navigation.footer
     - navigation.tabs
-    - navigation.sections
     - navigation.top
     - toc.follow
     - search.suggest
     - content.code.copy
 
 nav:
-  - Home: index.md
+  - The system: index.md
   - Master tables: master.md
-  - The system:
-      - Typing: typing.md
-      - The script: script.md
-      - The points: points.md
-  - Status: status.md
-  - For implementers: implement.md
-  - Font review: inspect.html
 
 markdown_extensions:
   - attr_list

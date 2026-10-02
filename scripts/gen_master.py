@@ -13,6 +13,7 @@ Validation as before: every non-X phoneme mapped; no within-language form
 collision outside `merges`.
 """
 import glob
+import json
 import os
 import sys
 import unicodedata as ud
@@ -204,15 +205,62 @@ def universal_table(agg, shares):
     return '\n'.join(out)
 
 
+def extras():
+    """Per language: its spelling stage's state and its lexicon, if any."""
+    stage = {}
+    for fn in glob.glob(os.path.join(ROOT, 'data', 'stages', '*.yaml')):
+        d = yaml.safe_load(open(fn))
+        stage[d['code']] = d.get('state', 'draft')
+    lexica = {}
+    for fn in glob.glob(os.path.join(ROOT, 'data', 'lexicon', '*.json')):
+        d = json.load(open(fn))
+        n = max(len(d.get('read') or {}), len(d.get('write') or {}))
+        lexica[d['code']] = f'{d.get("kind", "")} lexicon, {n:,} entries'
+    return stage, lexica
+
+
+def overview():
+    """The languages at a glance: what each has and how far it is reviewed."""
+    review = load_mapping()[4]
+    langs = load_languages()
+    stage, lexica = extras()
+    n_rev = sum(1 for c in langs if review.get(c))
+    n_nat = sum(1 for c in langs if review.get(c) == 'native')
+    rows = []
+    for code in sorted(langs, key=lambda c: -langs[c]['speakers']['native']):
+        d = langs[code]
+        label, cls = STATES.get(review.get(code), STATES[None])
+        n_c = sum(1 for v in d['consonants'].values() if v != 'X')
+        n_v = sum(1 for v in d['vowels'].values() if v != 'X')
+        rows.append(f'<tr data-goto="{code}"><td><b>{d["name"]}</b> <span class="tt">{code}</span></td>'
+                    f'<td class="tt">{fmt(d["speakers"]["native"])}</td><td class="tt">{n_c} + {n_v}</td>'
+                    f'<td><span class="badge {cls}">{label}</span></td>'
+                    f'<td class="tt">{stage.get(code, "")}</td><td class="tt">{lexica.get(code, "")}</td></tr>')
+    return ('<section id="sec-languages" hidden data-name="all languages: status">\n'
+            '<h2 id="languages">The languages</h2>\n'
+            f'<p class="lede">{len(langs)} languages carry a phoneme inventory and a mapping; '
+            f'{n_rev} mappings are reviewed, {n_nat} of them by a native speaker; {len(stage)} '
+            f'have a draft spelling stage; {len(lexica)} have a lexicon. A mapping is '
+            '<b>non-reviewed</b> as drafted, <b>reviewed</b> against the literature, and '
+            '<b>native-reviewed</b> once a native or expert reviewer has checked it; every '
+            'language needs the last. Click a language for its table.</p>\n'
+            '<div class="mt-wrap"><table class="mt">'
+            '<tr><th>language</th><th>native speakers</th><th>phonemes (C + V)</th><th>mapping</th>'
+            '<th>spelling stage</th><th>lexicon</th></tr>' + ''.join(rows) + '</table></div></section>')
+
+
 def language_tables():
     cons, vows, over, merges, review, _ = load_mapping()
     langs = load_languages()
+    stage, lexica = extras()
     order = sorted(langs, key=lambda c: -langs[c]['speakers']['native'])
-    toc, secs = [], []
+    secs = []
     for code in order:
         d = langs[code]
         label, cls = STATES.get(review.get(code), STATES[None])
-        toc.append(f'<a href="#{code}" class="{cls}"><b>{code}</b> {d["name"]}</a>')
+        has = [f'spelling stage: {stage[code]}' if code in stage else 'no spelling stage yet']
+        if code in lexica:
+            has.append(lexica[code])
         byform = {}
         for sec, table in (('consonants', cons), ('vowels', vows)):
             for ipa, freq in d[sec].items():
@@ -244,17 +292,17 @@ def language_tables():
             f'<h2 id="{code}">{d["name"]} <span class="tt">{code} · '
             f'{fmt(d["speakers"]["native"])} native</span>'
             f'<span class="badge {cls}">{label}</span></h2>\n'
+            f'<p class="lede">{" · ".join(has)}</p>\n'
             '<div class="mt-wrap"><table class="mt">'
             '<tr><th>input</th><th>glyph</th><th>type</th><th>reading</th><th>freq</th></tr>'
             + ''.join(rows) + '</table></div></section>')
-    return ('', '\n'.join(secs))
+    return '\n'.join(secs)
 
 
 def main():
     agg = aggregate()  # validates
     shares = load_mapping()[5]
-    _, secs = language_tables()
-    html = universal_table(agg, shares) + '\n' + secs + '\n'
+    html = universal_table(agg, shares) + '\n' + overview() + '\n' + language_tables() + '\n'
     out = os.path.join(ROOT, 'docs', '.include', 'master-tables.html')
     open(out, 'w').write(html)
     print(f'mapping valid · {out}: {len(agg)} forms, {len(load_languages())} languages')

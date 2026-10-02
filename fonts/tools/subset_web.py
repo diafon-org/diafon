@@ -2,7 +2,7 @@
 """Subset the Diafon families -> docs/diafon.woff2 (serif), diafon-sans.woff2, diafon-mono.woff2.
 
 Keeps basic Latin plus every codepoint any potential glyph of the system uses
-(collected from docs/fonts-data.js, so regenerate that first), and reports the
+(collected from fonts/glyphs.js, so regenerate that first), and reports the
 codepoints the source font cannot yet serve — the drawing to-do list.
 """
 import json
@@ -17,7 +17,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 
 
 def needed_codepoints():
-    src = open(os.path.join(ROOT, 'docs', 'fonts-data.js')).read()
+    src = open(os.path.join(ROOT, 'fonts', 'glyphs.js')).read()
     data = json.loads(re.search(r'const MATRIX = (.*);', src).group(1))
     cps = set(range(0x20, 0x7F))
     import unicodedata as ud
