@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """The site layer around MkDocs (mkdocs.yml builds docs/ into site/).
 
-Writes the home page's figures into docs/.include/home-*.html, every glyph
-and reading computed by the engine and the stages, never typed by hand; and
-refreshes the navigation block on the one standalone app page, the font
-review (the master tables are a MkDocs page, docs/master.md).
+Writes the home page's figures into docs/.include (home-*.html and the point
+tables, points.html), every glyph computed by the engine and the stages,
+never typed by hand.
 """
 import html
 import json
@@ -16,27 +15,10 @@ import unicodedata as ud
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import engine
-import pages
 import stages
 
-STATIC_PAGES = ['inspect.html']
 INC = os.path.join(ROOT, 'docs', '.include')
 esc = html.escape
-
-
-def refresh_nav():
-    for fn in STATIC_PAGES:
-        path = os.path.join(ROOT, 'docs', fn)
-        page = open(path).read()
-        block = pages.nav_block(fn)
-        if pages.MARK0 in page:
-            page = re.sub(re.escape(pages.MARK0) + '.*?' + re.escape(pages.MARK1),
-                          lambda m: block, page, count=1, flags=re.S)
-        else:
-            anchor = '<main class="wrap">'
-            assert anchor in page, f'{fn}: no wrap to hang the nav on'
-            page = page.replace(anchor, anchor + '\n\n' + block, 1)
-        open(path, 'w').write(page)
 
 
 def readings():
@@ -58,13 +40,15 @@ def write(name, body):
 
 
 # ---- the hero: one line of text in its three forms
-HERO = ('stage:en', 'ship chip thin think')
+HERO = ('stage:en', 'she sells sea shells')
 
 
 def hero():
     src, text = HERO
     typed = stages.parse(text, src)
-    assert stages.convert(typed, 'transport', src) == text, 'hero example must round-trip'
+    st = stages.load(src[6:])
+    for word in text.split():     # every word read by the dictionary, none by fallback
+        assert stages.read_word(word, st)[1] == 'lexicon', f'hero: {word} not in the lexicon'
     mark = open(os.path.join(ROOT, 'docs', 'logo', 'mark-inline.svg'), encoding='utf-8').read().strip()
     mark = mark.replace('width="1em" height="1em"', 'class="hero-mark"')
     name = stages.load(src[6:])['name']
@@ -83,7 +67,7 @@ def hero():
   </div>
   <div class="hero-go">
     <a class="md-button md-button--primary" href="master.html">Open the master tables</a>
-    <a class="md-button" href="typing.html">Learn to type it</a>
+    <a class="md-button" href="#typing-a-sound">Learn to type it</a>
   </div>
 </div>'''
 
@@ -176,14 +160,74 @@ def operators(read):
     return f'<div class="opgrid" markdown="0">{"".join(cards)}</div>'
 
 
+# ---- the points: consonants and vowels as one kind of table. A tile is
+# glyph · input · /reading/, coloured by the operator that makes it; a cell
+# holding a pair puts voiceless (unrounded) left, voiced (rounded) right
+IPA = {'p': 'p', 'b': 'b', 't': 't', 'd': 'd', 'tj': 'c', 'dj': 'ɟ', 'k': 'k', 'g': 'g', 'kq': 'q',
+       'hx': 'ʔ', 'tc': 't͡s', 'dc': 'd͡z', 'tq': 't͡ʃ', 'dq': 'd͡ʒ', 'f': 'f', 'v': 'v', 'tx': 'θ',
+       'dx': 'ð', 's': 's', 'z': 'z', 'sj': 'ʃ', 'zj': 'ʒ', 'kx': 'x', 'gx': 'ɣ', 'h': 'h', 'm': 'm',
+       'n': 'n', 'nj': 'ɲ', 'nx': 'ŋ', 'r': 'r', 'rc': 'ɾ', 'l': 'l',
+       'i': 'i', 'ic': 'y', 'uc': 'ɯ', 'u': 'u', 'ij': 'ɪ', 'iq': 'ʏ', 'uj': 'ʊ', 'e': 'e', 'ec': 'ø',
+       'oc': 'ɤ', 'o': 'o', 'aj': 'ə', 'ej': 'ɛ', 'eq': 'œ', 'oj': 'ɔ', 'a': 'a', 'ac': 'ɒ'}
+COMPOSED = {'tj', 'dj', 'nj'}     # compositions, shown for orientation
+CONSONANTS = (['labial', 'dental', 'alveolar', 'palatal', 'hush', 'velar', 'uvular', 'glottal'], [
+    ('stop', {'labial': 'p b', 'alveolar': 't d', 'palatal': 'tj dj', 'velar': 'k g',
+              'uvular': 'kq', 'glottal': 'hx'}),
+    ('affricate', {'alveolar': 'tc dc', 'hush': 'tq dq'}),
+    ('fricative', {'labial': 'f v', 'dental': 'tx dx', 'alveolar': 's z', 'hush': 'sj zj',
+                   'velar': 'kx gx', 'glottal': 'h'}),
+    ('nasal', {'labial': 'm', 'alveolar': 'n', 'palatal': 'nj', 'velar': 'nx'}),
+    ('trill · tap', {'alveolar': 'r rc'}),
+    ('lateral', {'alveolar': 'l'}),
+])
+VOWELS = (['front', 'central', 'back'], [
+    ('close', {'front': 'i ic', 'back': 'uc u'}),
+    ('near-close', {'front': 'ij iq', 'back': 'uj'}),
+    ('close-mid', {'front': 'e ec', 'back': 'oc o'}),
+    ('mid', {'central': 'aj'}),
+    ('open-mid', {'front': 'ej eq', 'back': 'oj'}),
+    ('open', {'central': 'a ac'}),
+])
+
+
+def tile(form):
+    kind = form[-1] if len(form) > 1 else 'base'
+    return (f'<div class="pt k-{kind}{" cmp" if form in COMPOSED else ""}">'
+            f'<span class="nat">{esc(nfc(engine.render(form)))}</span>'
+            f'<span class="lab">{form}</span><span class="ipa">/{IPA[form]}/</span></div>')
+
+
+def point_table(spec, caption):
+    cols, rows = spec
+    out = [f'<div class="scroll" markdown="0"><table class="grid pts"><caption>{caption}</caption>'
+           '<thead><tr><th></th>' + ''.join(f'<th>{c}</th>' for c in cols) + '</tr></thead><tbody>']
+    for name, cells in rows:
+        out.append(f'<tr><th>{name}</th>' + ''.join(
+            f'<td><div class="cell">{"".join(tile(f) for f in cells[c].split())}</div></td>'
+            if c in cells else '<td></td>' for c in cols) + '</tr>')
+    out.append('</tbody></table></div>')
+    return ''.join(out)
+
+
+def points():
+    legend = (
+        '<div class="klegend" markdown="0">'
+        '<span>each tile: <b class="ug">glyph</b> · <code>input</code> · /reading/</span>'
+        '<span>colour: the operator that makes it, as on the keyboard</span>'
+        '<span>a pair in one cell: voiceless | voiced, unrounded | rounded</span>'
+        f'<span>dashed: a composition shown for orientation ({ug(" ".join(engine.render(f) for f in ["tj", "dj", "nj"]))})</span>'
+        '</div>')
+    return (point_table(CONSONANTS, 'consonants') + point_table(VOWELS, 'vowels') + legend)
+
+
 def main():
     read = readings()
+    write('points.html', points())
     write('home-hero.html', hero())
     write('home-sounds.html', sound_grid())
     write('home-keys.html', keyboard())
     write('home-ops.html', operators(read))
-    refresh_nav()
-    print(f'home figures in docs/.include/home-*.html; nav refreshed on {", ".join(STATIC_PAGES)}')
+    print('home figures in docs/.include: home-*.html, points.html')
 
 
 if __name__ == '__main__':

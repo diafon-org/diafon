@@ -20,6 +20,4 @@ for key in $FAMILIES; do
   grep -E "^ *(FAIL|WARN|PASS): [0-9]" fonts/build/fontbakery-$key.txt | tr -s ' \n' ' '; echo " <- $PS"
 done
 python3 fonts/tools/subset_web.py
-mkdir -p docs/fonts && cp fonts/Diafon*-Regular.ttf docs/fonts/
-python3 fonts/tools/embed_fonts.py
 python3 fonts/tools/proof.py

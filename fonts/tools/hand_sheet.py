@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate fonts/hand/sheet.html (and sheet.pdf where Chrome is present): a
 printable sheet of the system's glyphs to draw under. Every glyph in use
-(docs/fonts-data.js; --reserve adds the grammar's reserve) is set in a thin
+(fonts/glyphs.js; --reserve adds the grammar's reserve) is set in a thin
 top row of each strip, in one family (default the serif; --family sans|mono),
 with its input form beneath in small type; the rest of the strip is blank
 for drawing, with hairline cell borders and a faint baseline. Everything
@@ -25,7 +25,7 @@ CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 
 
 def cells(reserve=False):
-    src = open(os.path.join(ROOT, 'docs', 'fonts-data.js')).read()
+    src = open(os.path.join(ROOT, 'fonts', 'glyphs.js')).read()
     data = json.loads(re.search(r'const MATRIX = (.*);', src).group(1))
     out = []
     for sec in data.values():

@@ -1,8 +1,8 @@
 /* The Diafon docs on Material: the font, the palette the description's
    tables and diagrams use, and the blocks themselves. */
-@font-face{font-family:"Diafon";src:url(../diafon.woff2) format("woff2");font-display:swap}
-@font-face{font-family:"Diafon Sans";src:url(../diafon-sans.woff2) format("woff2");font-display:swap}
-@font-face{font-family:"Diafon Mono";src:url(../diafon-mono.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon";src:url(../diafon.woff2?v=1790970045) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon Sans";src:url(../diafon-sans.woff2?v=1790970045) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon Mono";src:url(../diafon-mono.woff2?v=1790970045) format("woff2");font-display:swap}
 
 :root{
   --md-primary-fg-color:#0e7c86; --md-primary-fg-color--light:#3ec8cf; --md-primary-fg-color--dark:#0a5c64;
@@ -35,7 +35,7 @@
 .md-typeset .specimen .ug{font-family:var(--serif)}
 .md-typeset .specimen code{font-size:.8rem}
 
-/* the description's tables and diagrams (docs/.include) */
+/* the tables of The system page (docs/.include) */
 .md-typeset .scroll{overflow-x:auto;margin:.8rem 0 0;border:1px solid var(--line);border-radius:14px;background:var(--card)}
 .md-typeset table.grid{border-collapse:collapse;width:100%;min-width:760px;display:table;font-size:inherit}
 .md-typeset .grid th,.md-typeset .grid td{border:1px solid var(--line);padding:0;text-align:center;vertical-align:top}
@@ -46,8 +46,6 @@
 .md-typeset .pt .nat{font-family:var(--serif);font-size:1.35rem;line-height:1.15;color:var(--ink)}
 .md-typeset .pt .lab{font:600 .72rem/1 var(--mono);color:var(--accent)}
 .md-typeset .pt .ipa{font-family:var(--serif);font-size:.82rem;line-height:1.1;color:var(--muted)}
-.md-typeset .pt.vl{background:var(--base-t)}
-.md-typeset .pt.vd{background:var(--c-t)}
 .md-typeset .pt.cmp{outline:1.5px dashed var(--muted);outline-offset:-3px;border-radius:8px;opacity:.92}
 .md-typeset .klegend{display:flex;flex-wrap:wrap;gap:.5rem 1.3rem;margin:.8rem 0 0;font-size:.85rem;color:var(--muted);max-width:none}
 .md-typeset .klegend .sw{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:.3rem}
@@ -58,27 +56,6 @@
 .md-typeset .ops td{padding:.55rem .8rem;border-top:1px solid var(--line);vertical-align:top}
 .md-typeset .ops td.op{font:600 1rem/1 var(--mono);width:2.2rem}
 .op-c{color:var(--c-c)} .op-j{color:var(--j-c)} .op-q{color:var(--q-c)} .op-x{color:var(--x-c)} .op-w{color:var(--accent)} .op-y{color:var(--y-c)}
-.md-typeset figure.diagram{display:block;width:100%;max-width:840px;margin:.9rem 0 0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:.6rem}
-.md-typeset figure.diagram svg{width:100%;height:auto;display:block}
-.edge{stroke:var(--line);stroke-width:2;fill:none;opacity:.75}
-.chip-g rect{stroke-width:1.6;rx:12}
-.chip-g .nat{font-family:var(--serif);font-size:21px;text-anchor:middle;fill:var(--ink)}
-.chip-g .lab{font-family:var(--mono);font-size:11px;font-weight:600;text-anchor:middle}
-.chip-g .ipa{font-family:var(--serif);font-size:12px;text-anchor:middle;fill:var(--muted)}
-.chip-g .st{font-family:var(--mono);font-size:9.5px;text-anchor:middle;fill:var(--muted)}
-.cat-base rect{fill:var(--base-t);stroke:var(--base-c)} .cat-base .lab{fill:var(--base-c)}
-.cat-c rect{fill:var(--c-t);stroke:var(--c-c)} .cat-c .lab{fill:var(--c-c)}
-.cat-j rect{fill:var(--j-t);stroke:var(--j-c)} .cat-j .lab{fill:var(--j-c)}
-.cat-q rect{fill:var(--q-t);stroke:var(--q-c)} .cat-q .lab{fill:var(--q-c)}
-.cat-x rect{fill:var(--x-t);stroke:var(--x-c)} .cat-x .lab{fill:var(--x-c)}
-.cat-y rect{fill:var(--y-t);stroke:var(--y-c)} .cat-y .lab{fill:var(--y-c)}
-.tlab{font-family:var(--mono);font-size:12px;letter-spacing:.05em;fill:var(--muted)}
-
-/* the status page */
-.md-typeset .state{font:600 .7rem/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;padding:.2em .5em;border-radius:.4em;white-space:nowrap}
-.md-typeset .state.done,.md-typeset .state.native{background:var(--x-t);color:var(--x-c)}
-.md-typeset .state.reviewed,.md-typeset .state.draft{background:var(--c-t);color:var(--c-c)}
-.md-typeset .state.open,.md-typeset .state.none{background:var(--sunken);color:var(--muted)}
 
 /* ---- the home page */
 :root{--good:#2f8f66; --warn:#b06f14; --bad:#c04646}
@@ -246,3 +223,22 @@
   .md-typeset .sg tbody th{width:auto}
 }
 @media (max-width:44em){.md-typeset .mt-bar{position:static}}
+.md-typeset #sec-languages tr[data-goto]{cursor:pointer}
+.md-typeset #sec-languages tr[data-goto]:hover td{background:var(--base-t)}
+.md-typeset #sec-languages td{vertical-align:middle}
+.md-typeset #sec-languages .badge{margin-left:0;vertical-align:0}
+
+/* the point tables: one tile for consonants and vowels, coloured by operator */
+.md-typeset table.grid.pts{margin:0}
+.md-typeset table.pts caption{caption-side:top;text-align:left;padding:.55rem .8rem;font:600 .66rem/1.1 var(--mono);
+  letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--sunken);border-bottom:1px solid var(--line)}
+.md-typeset .scroll + .scroll{margin-top:1rem}
+.md-typeset .pt{border-radius:8px;margin:2px}
+.md-typeset .pt.k-base{background:var(--base-t)} .md-typeset .pt.k-base .lab{color:var(--base-c)}
+.md-typeset .pt.k-c{background:var(--c-t)} .md-typeset .pt.k-c .lab{color:var(--c-c)}
+.md-typeset .pt.k-j{background:var(--j-t)} .md-typeset .pt.k-j .lab{color:var(--j-c)}
+.md-typeset .pt.k-q{background:var(--q-t)} .md-typeset .pt.k-q .lab{color:var(--q-c)}
+.md-typeset .pt.k-x{background:var(--x-t)} .md-typeset .pt.k-x .lab{color:var(--x-c)}
+.md-typeset .pt.k-y{background:var(--y-t)} .md-typeset .pt.k-y .lab{color:var(--y-c)}
+.md-typeset table.grid.pts td{vertical-align:middle}
+.md-typeset .pt .nat{line-height:1.45}

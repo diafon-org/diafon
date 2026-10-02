@@ -68,6 +68,7 @@ function probeAll(){
   const spans = [...current().querySelectorAll('td.g span')];
   const go = () => {
     if (run !== probeRun) return;
+    if (!spans.length){ $summary.textContent = ''; return; }
     let miss = 0, fall = 0;
     const cache = {};
     for (const s of spans){
@@ -96,7 +97,7 @@ const stageCodes = Object.keys(DIA.stages).sort((a, b) => DIA.stages[a].name.loc
 $from.innerHTML = '<option value="transport">input form</option><option value="script">universal script</option>' +
   stageCodes.map(c => `<option value="stage:${c}">${esc(DIA.stages[c].name)}</option>`).join('');
 const SAMPLES = {
-  transport: 'sjijp tqijp txijn txijnxk', script: 'șịp c̦ịp ṭịn ṭịṇk',
+  transport: 'sji sejlz si sjejlz', script: 'și sẹlz si șẹlz',
   'stage:hu': 'Sok szép nyár, hosszú alma. Folyó, gally, hely, helyes, lyuk. Meeting, like, house, taxi, team, tagja, Facebook, show, think; ad hoc, de facto. Só, sok.',
   'stage:en': 'The quick brown fox jumps over the lazy dog. Read, lead, live; Shakespeare wrote Hamlet. Diafon reads it.',
   'stage:zh': 'Ni3 hao3, shi4 jie4! Zhong1 guo2, nihao ma.',
@@ -118,7 +119,7 @@ function ensure(code){
 
 let typed = new Set();
 function update(){
-  const lang = $table.value === 'universal' ? '' : $table.value, source = $from.value;
+  const lang = DIA.langs[$table.value] ? $table.value : '', source = $from.value;
   const stage = source.startsWith('stage:') ? DIA.stages[source.slice(6)] : null;
   const text = source === 'transport' ? $in.value : parse($in.value, source);
   let outHtml = '', chipsHtml = '';
@@ -182,6 +183,15 @@ $chips.addEventListener('click', e => {
   if (!row) return;
   row.scrollIntoView({behavior: 'smooth', block: 'center'});
   row.classList.remove('flash'); void row.offsetWidth; row.classList.add('flash');
+});
+
+// the languages overview: a row opens that language's table
+document.getElementById('sec-languages').addEventListener('click', e => {
+  const tr = e.target.closest('tr[data-goto]');
+  if (!tr) return;
+  $table.value = tr.dataset.goto;
+  showTable(); update(); saveState();
+  $table.scrollIntoView({block: 'nearest'});
 });
 
 // ---- wiring

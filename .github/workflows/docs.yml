@@ -19,7 +19,6 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install mkdocs-material pyyaml
-      - run: python3 scripts/gen_status.py
       - run: mkdocs build --strict
       - uses: actions/upload-pages-artifact@v3
         with:

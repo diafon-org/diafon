@@ -52,7 +52,7 @@ the Diafon serif, IPA always between slashes, /ʃ/.</p>
     <button id="try-sample" type="button">sample</button>
     <span id="try-status" class="tryout-status"></span>
   </div>
-  <textarea id="try-in" spellcheck="false" rows="2">sjijp tqijp txijn txijnxk</textarea>
+  <textarea id="try-in" spellcheck="false" rows="2">sji sejlz si sjejlz</textarea>
   <div class="tryout-out g" id="try-out"></div>
   <div class="tryout-out back g" id="try-back" hidden></div>
   <div class="chips" id="try-chips"></div>
