@@ -1,0 +1,61 @@
+site_name: Diafon
+site_description: One keyboard, one script, every language. A universal phonemic writing and input system.
+site_url: https://diafon.io/
+repo_url: https://github.com/blagasz/diaphone
+edit_uri: ""
+docs_dir: docs
+site_dir: site
+use_directory_urls: false
+
+theme:
+  name: material
+  logo: logo/icon-light.svg
+  favicon: logo/icon-rounded.svg
+  font: false
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: dark
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: light
+  features:
+    - navigation.footer
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - content.code.copy
+
+nav:
+  - What Diafon is: index.md
+  - Typing: typing.md
+  - The script: script.md
+  - Tables: tables.md
+  - Status: status.md
+  - For implementers: implement.md
+  - Live:
+      - Playground: play.html
+      - Master tables: master.html
+      - Fonts: fonts.html
+      - Font review: inspect.html
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - tables
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.snippets:
+      base_path:
+        - docs/.include
+      check_paths: true
+
+extra_css:
+  - assets/diafon.css
+
+copyright: Diafon · working draft

@@ -79,3 +79,6 @@ appear under consonants as is conventional. Where mainstream analyses
 disagree (e.g. English diphthongs, Polish nasal vowels), the file follows
 the majority description, and the Diafon mapping layer, not this data,
 is where system-specific analysis happens.
+
+The lexicon layer, word-level tables above the stages, is described in
+data/lexicon/README.md.

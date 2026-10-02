@@ -12,7 +12,9 @@ compose step, no candidate window, no dictionary, no network.
     make install   # build, ad-hoc sign, copy to ~/Library/Input Methods
 
 Then, once: **System Settings → Keyboard → Input Sources → Edit… → +** →
-search **Diafon** (listed under English) → Add. Pick it from the input menu
+search **Diafon** (listed under English) → Add; or `make enable`, which
+enables and selects it from the command line (and disables the old
+Diaphone input source if that is still installed). Pick it from the input menu
 in the menu bar and type `sjok sewp njawr`: it streams out as `șok sép ņár`.
 
 ## What it does
@@ -22,30 +24,86 @@ in the menu bar and type `sjok sewp njawr`: it streams out as `șok sép ņár`.
   text, the last segment stays underlined until a key settles it. Backspace
   edits the underlined tail first; Escape drops the tail in as typed; Return,
   Tab, arrows and any shortcut make the tail final and pass through.
-- **A bare Shift tap** flips conversion on and off (settable), so a plain
-  English word costs one tap, not a switch of input source.
-- **The output**: universal (one letter per sound, the same in every
-  language) or a language's spelling.
-- **The status menu**, under the input source in the menu bar: what is being
-  typed and what comes out, the output switch, Setup.
-- **Setup…** opens a window: the outputs with a sample in each, a live pane
-  that shows a typed line in every spelling, the toggles.
-- **Convert selection.** Text typed with any keyboard, in any app: select it,
-  then **Services → Convert with Diafon** (⇧⌘D). Works without switching
-  input sources at all.
+- **Two keys.** A bare Shift tap switches conversion off, and back on to
+  the spelling you had; taps in quick succession (within 1.5 s) walk the
+  cycle instead, passthrough (a plain keyboard) → Universal → each language
+  on the quick list (settable). A small label near the caret names the
+  mode for a moment. ⇧Space opens the language chooser, in every mode. A
+  plain English word costs a tap, not a switch of input source.
+- **Mandarin.** In the Mandarin spelling, letters build a syllable shown as
+  pinyin; the tone digit (or a space, for the neutral tone) completes it and
+  the candidate window lists its characters, most frequent first, the pinyin
+  last. Return or space takes the selection, the next letter takes the first
+  choice and starts the next syllable, Escape keeps the pinyin. The
+  characters come from data/lexicon/zh.json (Unihan).
+- **The candidate window.** While a segment is still underlined, Tab (or ↓)
+  opens the system's candidate window, the one the CJK input methods use,
+  with that segment in every spelling: the current output first, then
+  Universal, each language, and as typed. Arrows pick one, Return takes
+  it, Escape closes it; any other key, digits included (they are tones),
+  closes it and typing goes on.
+- **The output**: Universal (one letter per sound, the same in every
+  language; the default) or one language's spelling.
+- **The status menu**, under the input source in the menu bar: Passthrough
+  (conversion off), Universal, then the quick list of language-specific
+  spellings (by their own names and codes: magyar (hu), suomi (fi)…), the
+  current choice ticked, and **Other language…** (⇧Space), the chooser
+  with every language, filtered as you type by native name, English name or
+  code, and on its right the quick list itself: the box beside a language
+  puts it there, and Up, Down and Remove order and prune it; that order is
+  the menu's and the Shift cycle's. No cap, but past three the chooser warns
+  that every Shift tap then has further to go. The language in use is
+  always listed, on the quick list or not. Then Setup. Flat by necessity: the menu is shown by a system
+  process that returns only top-level clicks, so a submenu cannot be picked
+  from.
+- **Setup…** opens a window: Universal or Language spelling with the language
+  in a popup and its sample beside it, a live pane that shows a typed line
+  both ways, the toggles.
+- **Convert selection.** Text in any app, any spelling: select it, then in
+  the Diafon menu **Convert selection to …** converts it in place, from the
+  source detected in the text (your own languages preferred when the text
+  reads in several) to the mode in use; **Convert selection…** opens a
+  window first: the source, detected and changeable, the target, a
+  preview. The same two are text Services, **Convert with Diafon** and
+  **Convert with Diafon…**, in the selection's right-click menu under
+  Services and in the app menu's Services submenu, which work with any
+  input source selected; no key combination, those are taken or shadowed
+  app by app (assign one under System Settings → Keyboard → Keyboard
+  Shortcuts → Services if you want one).
+
+## How to (also in Setup…)
+
+1. Pick Diafon in the input menu (or ⌃Space). Your keyboard stays as it is.
+2. Type sounds as letters, a consonant or vowel plus a mark: `sj` → ș,
+   `tq` → c̦, `aw` → á; a segment stays underlined until the next key
+   settles it.
+3. A bare Shift tap switches conversion off and back on; quick taps in a
+   row walk the cycle: passthrough → Universal → each language on your
+   quick list. ⇧Space opens the language chooser.
+4. Tab (or ↓) on an underlined segment opens the candidate window with
+   every spelling.
+5. Text in any spelling: select it, then Diafon menu → Convert selection
+   (or right-click → Services → Convert with Diafon); the … variants let
+   you set the source and the target first.
 
 ## Layout of this project
 
-    Sources/SpecData.swift             generated from docs/spec.json by scripts/gen_mac.py: script rules, web letters, stages
+    Sources/SpecData.swift             generated from docs/spec.json by scripts/gen_mac.py: script rules, marks, stages
     Sources/Engine.swift               the engine, rule for rule from scripts/engine.py: segments, glyph, render, stream
     Sources/Stages.swift               spelling stages, from scripts/stages.py
     Sources/CheckMain.swift            stdin/stdout driver used by tests/test_swift.py
-    Sources/Prefs.swift                the settings (output, tones, strict, enabled, shift toggle) and the renderer
+    Sources/Prefs.swift                the settings (output, language, tones, strict, enabled, shift toggle) and the renderer
     Sources/DiafonInputController.swift  IMKInputController: keystrokes in, streaming rule, insertText / setMarkedText out; the status menu
+    Sources/Reading.swift              reading back, from scripts/engine.py and stages.py: inventory, tables, parse, convert, detect
+    Sources/ConvertWindow.swift        the From / To window of Convert with Diafon…
+    Sources/Hud.swift                  the mode label shown for a moment after a switch
+    Sources/LanguageChooser.swift      the searchable language list (Other language…)
     Sources/SetupWindow.swift          the setup window
     Sources/Services.swift             the text service
     Sources/main.swift                 IMKServer bootstrap, services registration
-    Info.plist                         the input source, the services, the icon (docs/logo/Diafon.icns)
+    Info.plist                         the input source, the services, the app icon (docs/logo/Diafon.icns) and the
+                                       input-menu icon (docs/logo/DiafonMenu.tiff, a template the system tints)
+    tools/enable.swift                 enable + select the input source (make enable)
 
 The first three files are pure Swift with no AppKit dependency; that is
 deliberate: they compile on their own, so the engine is verified against the

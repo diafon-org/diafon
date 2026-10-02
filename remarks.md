@@ -240,3 +240,232 @@ the current system. A superseded decision is deleted, not kept.
   from the detour: data/web_subsets.yaml as the measured reason, and the
   closest-shape study as guidance for drawing the shared precomposed letters.
 
+- **Two choices, not seven (2026-09-14).** The Mac status menu listed
+  Universal and every language's spelling as one flat row of radio items; Sz:
+  too many options. The choice a person makes is binary, Universal or my
+  language's spelling, and the language is a second, rarer choice. So every
+  screen now offers Universal (the default) and Language spelling, the
+  language in a submenu or popup, and remembers the language apart from the
+  choice, so switching back and forth keeps it. The default language is the
+  first system language that has a spelling. The macOS icon follows the
+  system's grid (a rounded tile inset on the canvas) at the large sizes and
+  the full tile at the menu-bar sizes, so the mark still reads at 16 px.
+  Android keeps its flat list for now and follows in its own round.
+
+- **One key for the mode; the CJK candidate window for the spellings
+  (2026-09-14).** Sz asked for a good shortcut between passthrough, Universal
+  and the language's spelling: the bare Shift tap now cycles the three in
+  that order, with a label near the caret naming the mode, so a three-state
+  cycle stays legible. And the Pinyin-style chooser: InputMethodKit's own
+  candidate window (IMKCandidates) shows the underlined segment in every
+  spelling, opened with Tab or the down arrow so the digits keep their tone
+  meaning while typing; it takes arrows, digits, Return, Escape. It is the
+  Android strip in the Mac's native form, and one more argument for the
+  IME as the place where the spellings meet.
+
+- **The h-sequence is a reading, not a segment (2026-09-25).** Sz: lighthouse
+  is not tʰ, so th already has a problem. The engine agrees: th is two
+  segments, t and h, and the text is the two letters; the aspirated reading
+  is a convention of the languages that have aspirates (zh ko th vi ka: tʰ,
+  bn hi: t̪ʰ), the way sh is a convention of English. It holds because none
+  of those languages has a t + h cluster to contrast with it (Korean even
+  merges the cluster into tʰ by rule), and English, which has the cluster,
+  has no aspirate. A language with both would need the aspirate on a mark,
+  not on h; none of the 32 does, and the table records the sequence as the
+  licence it is. The same goes for θ: no language of the 32 contrasts θ (tx)
+  with tʰ (th); Burmese does, and writes both apart in Diafon anyway.
+
+- **The engine reads back (2026-09-26).** Two asks, a context-menu
+  conversion of a selection between modes and a browser extension that
+  turns pages between canonical spelling and Universal, needed one thing
+  the engine lacked: reading a spelling back into forms. It is the same
+  machine reversed, longest match over a table, and it holds without a
+  dictionary because the stages are validated injective and the script is
+  one to one over the forms in use (the grammar as a whole is not: kx and
+  kc both dot the k, so the forms in use decide). What a language keeps for
+  etymology and never writes (Hungarian ly, Czech y ý ů ě) enters as read
+  aliases, read but never rendered, so the stage's one-way losses stay
+  stated. Detection is coverage, the share of letters a source reads with
+  its own spellings, the mode in use breaking ties; the Mac's plain
+  service trusts it, the window shows it and lets it be overruled. Limits
+  named: all-caps re-renders as capitalized, and compounds can fool a
+  digraph (házszám). The browser extension is the first surface that is
+  not an input method at all: it reads a page as written and shows it in
+  the script, which is the argument for the script made on every page of
+  the web.
+
+- **The lexicon: the fourth layer (2026-09-26).** Sz asked for English (its
+  own spelling, and as loans), Hungarian ly, and a pinyin chooser by tone,
+  in one structure. They are one thing: knowledge the letters cannot carry,
+  kept per word. So the system now has four layers: the points, the marks
+  (the script), the letter stages, and the lexicon. A lexicon reads
+  (spelling to transport) and writes (transport to spelling), by word or by
+  stem, and may offer choices (a toned syllable's characters). The sources
+  are open dictionaries, never hand lists where a dictionary exists:
+  CMUdict, Magyar Ispell, Unihan, a subtitle frequency list to rank
+  homophones. Two decisions worth recording. Loans belong to the source
+  language, not the host: one English lexicon serves every host, and the
+  host says only how the sounds fold into its own (θ → t, æ → e), a small
+  table a native speaker can review, drafted for Hungarian. And the loan
+  decision stays lexical, never phonotactic alone: the host's own
+  dictionary decides what is native (tag, team), the loan lexicon what is
+  foreign, the longest stem wins, and only a foreign letter shape (ee, sh,
+  w) tips a word the host's dictionary also lists. The round trip of a
+  loan is lossy by design: hausz, lájk, míting are how Hungarian ends up
+  writing them anyway.
+
+- **The extension is a switch (2026-09-27).** Sz: the icon should turn the
+  conversion on and off; and the reverse mode, a Universal page shown in a
+  language's spelling, is a very rare feature, maybe useless; keep the
+  language by hand only where auto does not work. So the extension has one
+  setting and no menu: a click on the icon toggles Universal for every
+  page (the badge says on), the language comes from the page, its lang
+  attribute or its text, and the reverse mode is gone. The popup survives
+  only as the picker on a page whose language neither says, set per tab by
+  the background when the page reports none, with the switch inside since
+  the click opens it there; the language picked is kept for that host. The
+  test drives the switch from the extension's own service worker (found
+  among Chrome's built-in extensions' workers by its manifest name) and
+  holds on and off both. The state is the icon itself, not a badge: round,
+  inset to 70% of the canvas as toolbar icons are, light grey while off,
+  the two-tone mark on ink while on (logo.py draws both, the extension's
+  icons/ folder holds them). Sz: no settings is fine only if auto is
+  reliable. The engine's detect scores a stage by the letters it reads
+  without its aliases, so Czech text with y or ě never reached the 0.98
+  bar, and plain ASCII ties every Latin stage. The extension reads a page
+  its own way: English first, by its function words (its letters say
+  nothing without the lexicon); then the stages that read the text in
+  full with aliases; among several, those that read it without them
+  (Hungarian reads nyár by its own letters, Czech by y = i); then the
+  browser's languages; else nobody, and the picker. The tab's tooltip
+  names the language found and where it came from. Left open in the
+  engine: the Turkish stage does not read the capital dotted İ (the caps
+  come from toUpperCase), and detect's alias rule is worth revisiting.
+  Firefox takes a background script where Chrome takes a worker and
+  neither tolerates the other's key, so build.sh writes an extensions/
+  firefox copy with manifest.firefox.json.
+
+- **A stem looked up short (2026-09-27).** Sz, reading a page: traumái came
+  out as tromái, jamaicai as dzsöméköi. Two holes in the loan rule. The
+  native stem is matched as a prefix of the word, and a Hungarian suffix
+  lengthens the stem's final a or e (trauma, traumái), so trauma was never
+  found, while English had traum with a short suffix. The lexicon now
+  names the lengthened vowels (`lengthen`, á → a, é → e) and every stem,
+  native or loan, is looked up short as well, in the three ports. And ai
+  and oa were on the foreign-shape list, though ai is the commonest
+  adjective ending after a (hazai, jamaicai); both are off it, ay and ey
+  with them as the y rule already had them. Then akinek read as akin + ek,
+  English being one letter longer than the stem aki the dictionary holds
+  (the inflected forms are not in it): the longest stem cannot be trusted
+  against a suffix, so a suffixed word with no foreign shape is now never
+  a loan; a loan is a whole word (like, team) or carries its shape
+  (meetingen). Left as they were, for a
+  native review: tea reads as the loan ti, because ea is the shape that
+  makes team a loan and the two cannot be told apart by shape; and
+  igazságtalanságok reads zs across the morpheme boundary, the stated
+  limit of longest match, which only a dictionary split would lift.
+
+- **Spoken: the spellings a host keeps (2026-09-27).** Sz, still reading:
+  jamaicai came out by the letters (jämäicäi, c as ts) once it was no
+  loan, and franchise-ba by the letters too, the dictionary listing the
+  word and ch being no shape on the list. Two answers. ch joins the
+  foreign shapes: franchise, chat, Michael go to English; but Bach, pech,
+  cech would too, and Jamaica is nobody's: not the English sounds, not
+  the Hungarian letters, but the name as a Hungarian says it. So the
+  Hungarian lexicon has a `spoken` section, a hand list for native
+  review: spelling -> how it is said, in Hungarian letters, read by the
+  letters alone (bah is an English word too), matched as a stem with the
+  lengthening, and consulted before everything else, in the three ports.
+  The reader's order for a host with letters is now: its own entries,
+  then the loan check, then the letters. The vectors carry the sentence.
+
+- **The stems compete (2026-09-27).** Sz: streamingajánlójában read by
+  the letters, felkerült as fẹlkőült (a stale copy: Felker is a CMUdict
+  surname), and asked for the systemic view. Three rules changed, in the
+  three ports. A loan stem is one of the source's common words (the
+  frequency list rides in en.json as `common`): CMUdict's names and
+  rarities (Felker, traum) no longer reach a Hungarian word. The foreign
+  shape is judged on the stem, and a shaped stem may be followed by
+  anything, read by the host's letters: a compound with a loan head
+  (streaming + ajánlójában, meeting + jén). And the three stems compete
+  by length, spoken, native and loan, the longest winning, spoken on
+  ties: tea is spoken, team is the loan (a letter longer), teaház is tea.
+  The reader's order for a host with letters is: the loan check, the
+  spoken entries, the letters. Seven spoken entries seed the list: tea,
+  and loans the dictionary lists in English spelling that no shape
+  betrays (online, offline, startup, email, update, live). Measured, for
+  the review: 1628 words of the Hungarian dictionary are also common
+  English words with no foreign shape (had, has, sir, must, mind, film,
+  hotel, video, internet, online…); the dictionary lists what Hungarian
+  writes, not how it is said, so the ones read the English way need a
+  spoken entry each, and no source decides it. Sz, on Cudjoe East read
+  as Cudjoẹ Ist: the names could have an entry. So `names`, beside
+  spoken, the proper names no dictionary reads, as a Hungarian says them
+  (cudjoe: kadzsó, ocho: ocso), the same table kept apart for review.
+
+- **The commons free, the closed ecosystems pay (2026-09-27).** Sz, on the
+  reader's own entries: they need syncing across the extension and the
+  input methods, which needs an account, which is the monetization. So
+  three layers, in order. One: the entries live in the extension (the
+  selection menu makes them, the options page keeps them, yaml in and
+  out), following the browser profile for free; built. Two: the commons,
+  the repo's names and spoken sections, fed by a "propose" that hands the
+  yaml to a prefilled issue once the repo is public; built, the address
+  left to set at publish. Three: an account (sign in with Apple or
+  Google, one record per user, merged on change), the paid tier: the
+  personal dictionary that follows a person across every keyboard and
+  browser; later, when users ask. The principle, Sz's: a closed-source
+  ecosystem that charges its developers should carry a paying service,
+  so the iOS keyboard is about one dollar, and macOS may follow; the
+  price low, covering the developer fees plus a small donation on top;
+  the commons and the free surfaces stay whole, per the donation note
+  above. Open: the legal structure behind the money. Sales through a
+  store are the store's, taxed as business income wherever the seller
+  is, with the store as merchant of record for VAT; donations are gifts
+  in name only for a company and become income, and are tax-favoured
+  only when the recipient is a registered nonprofit; a fiscal host (Open
+  Collective's foundation, a Software Freedom Conservancy-style body)
+  takes donations for an open project without an entity of its own, for
+  a share. The one named owner of publish.md stage A is the same
+  question; an accountant answers it for the country of residence, once,
+  before the first store listing.
+
+- **Names kept (2026-09-27).** Sz: an option not to convert names; and
+  the icon's disc too tight around the mark. A reader can keep names as
+  written (the icon's menu, the options page): a capitalised word inside
+  a sentence stays in its spelling, the first word of a sentence reads,
+  since nothing tells a name from a sentence start there; quotes and
+  brackets before a word do not open a sentence. The disc, at any inset,
+  was either too tight or too small at 16 px, so the toolbar icon is the
+  app icon's rounded tile, full bleed (the toolbar pads it), the mark at
+  78% of it, grey while off; the same tile everywhere. The menus are made
+  on every start of the background worker, not only on install, since
+  the worker restarts often and a reload is not always an install; the
+  headless test proves the selection item exists by refusing a duplicate.
+
+- **Detection follows the content (2026-09-27).** Sz: a page reloaded with
+  the conversion on did not convert. The headless reload did, so the
+  page differed: the language was detected once, at load, from the text
+  present then, and a page filled by script had none yet; a later toggle
+  re-ran detection over the text that had arrived meanwhile, which is
+  why the toggle worked and the reload did not. Now, while a page has no
+  language, the content that arrives is sampled and detection runs again;
+  and the observer queues batches instead of dropping all but the last
+  under its debounce. A headless case holds a script-filled page on
+  switch-on and on reload.
+
+- **The page as it changes, and the languages inside it (2026-09-27).**
+  Sz: text loaded dynamically stays unconverted, and mixed-language text
+  needs work. The observer watched added nodes only: a script that
+  rewrites a text node in place (a framework's update) changed nothing
+  it saw, and the old original would have come back on the next pass. It
+  now watches characterData too, telling its own writes apart by the
+  value it wrote last, and takes the page's rewrite as a new original.
+  For mixed text, the part that is certain: an element's own lang
+  attribute overrides the page's for its text, a quote or a name marked
+  by the site; a language with no stage leaves it as written; the
+  lexicon of a second language is fetched as needed. And every frame
+  converts its own document. Not done, and the harder half: text in a
+  second language that the site does not mark, which only per-block
+  detection could find, at the risk of flipping a paragraph over its
+  loans; and shadow roots, which the walker does not enter.

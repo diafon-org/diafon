@@ -1,0 +1,84 @@
+# Mandarin: the spelling is the syllable. Pinyin syllables (without tone)
+# read to transport by rule (initials and finals below, the pinyin
+# abbreviations iu ui un and the y/w onsets undone); the tone, a mark or a
+# digit 1-4 in pinyin, is the trailing digit of the syllable's last segment;
+# the neutral tone carries none. `choices`, generated from Unihan
+# (sources/Unihan_Readings.txt, Unicode licence), lists the characters of
+# each toned syllable, most frequent first (kHanyuPinlu counts, then the
+# 2013 standard list's order), for the input method's chooser.
+#
+# The phonemic analysis follows the zh table: j q x are z c s before the
+# high front vowels (the vowel tells them apart), pinyin o after b p m f is
+# uo, e is ɤ (oc), the i of zi ci si zhi chi shi ri is ɨ (uc), ü is y (ic).
+code: zh
+name: Mandarin
+kind: syllable
+match: word
+sources:
+  - sources/Unihan_Readings.txt    # https://www.unicode.org/Public/UCD/latest/ucd/Unihan.zip
+initials:
+  b: p
+  p: ph
+  m: m
+  f: f
+  d: t
+  t: th
+  n: n
+  l: l
+  g: k
+  k: kh
+  h: kx
+  j: tc
+  q: tch
+  x: s
+  zh: tqy
+  ch: tqyh
+  sh: sjy
+  r: zjy
+  z: tc
+  c: tch
+  s: s
+finals:                 # pinyin final -> transport; i after z c s zh ch sh r becomes uc
+  a: a
+  o: uoc
+  e: oc
+  i: i
+  u: u
+  ü: ic
+  ai: aix
+  ei: ajix
+  ao: aux
+  ou: ajux
+  an: an
+  en: ajn
+  ang: anx
+  eng: ajnx
+  ong: unx
+  er: aq
+  ia: ia
+  ie: ie
+  iao: iaux
+  iu: iajux
+  iou: iajux
+  io: iuoc
+  ian: ien
+  in: in
+  iang: ianx
+  ing: inx
+  iong: iunx
+  ua: ua
+  uo: uoc
+  uai: uaix
+  ui: uajix
+  uei: uajix
+  uan: uan
+  un: uajn
+  uen: uajn
+  uang: uanx
+  ueng: uajnx
+  üe: ice
+  üan: icen
+  ün: icn
+sample_text: ni3 hao3, shi4 jie4       # 你好，世界
+apical: [z, c, s, zh, ch, sh, r]     # their i is ɨ (uc)
+palatal: [j, q, x]                   # their u is ü

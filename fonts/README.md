@@ -33,16 +33,45 @@ a little below p) instead of the serifed straight stroke. `fonts/build.sh [serif
 Tools: `pip3 install --user fontmake 'fontbakery[googlefonts]' ufo-extractor skia-pathops`
 (they land in `~/Library/Python/3.9/bin`).
 
-## SVG overrides
+## SVG overrides (fonts/tools/font_svg.py)
 
-Any `fonts/svg/<glyphname>.svg` replaces that glyph's outline at build time.
-`tools/font_svg.py export 0329 s t` writes editable SVGs with the em box and
-guide lines; edit only the paths inside `<g id="glyph">`; deleting a file
-returns the glyph to its procedural or Noto shape. Some marks exist twice, a
-combining glyph and a positioned variant referenced by precomposed letters
-(uni0307 and dotaccent, uni0308 and dieresis, acutecomb and acute, tildecomb
-and tilde, uni0304 and uni02C9, uni030D and uni030E): edit both of a pair
-identically or the two renderings drift apart. The anchors and dots are
+Any `fonts/svg/<family>/<glyphname>.svg` replaces that glyph's outline in that
+family at build time (`serif`, `sans`, `mono`); deleting the file returns the
+glyph to its procedural or Noto shape. The round trip:
+
+    python3 fonts/tools/font_svg.py export serif dieresis uni0324 t A   # names, letters, codepoints
+    python3 fonts/tools/font_svg.py export sans uni0324 --on t k        # ghost base letters, set by anchor
+    # edit fonts/svg/serif/dieresis.svg in Inkscape (or any vector editor)
+    python3 fonts/tools/font_svg.py check serif        # dry run: contours, warnings, fonts/build/svg-check-serif.svg
+    fonts/build.sh serif
+
+The export is a canvas at font scale: the em box, ascender, cap height,
+x-height, baseline, descender, origin and advance as lines (and as Inkscape
+guides, with a 10-unit grid), rulers in font units along the top and left, a
+pale ghost of the exported shape, and the outline in the `glyph` layer as one
+path per shape (a diaeresis is two, to move apart); the `guides` layer is
+locked and ignored on import. Draw with fills only, in any nesting of groups,
+transforms and clones; holes work by either fill rule and overlaps are
+merged; strokes and text must become paths first (the check says so).
+`data-advance` on the root sets the advance width. Only a file named exactly
+for a glyph is imported: a variant saved beside it (`n_uni0326-try.svg`) or a
+file starting with `_` is kept but inert, so variants are swapped in by
+renaming. Capitals are filed by
+codepoint (`uni0041.svg` for A: a and A cannot share a folder on a
+case-insensitive disk). A curated mark seeds every baked letter+mark
+composition; a composition (`t_uni0324.svg`) can be curated as a whole too.
+Some marks exist twice, a combining glyph and a positioned variant referenced
+by precomposed letters (uni0307 and dotaccent, uni0308 and dieresis,
+acutecomb and acute, tildecomb and tilde, uni0304 and uni02C9): edit both of
+a pair identically or the two renderings drift apart.
+
+**The serif's anchor compositions** (n̦ n̖ and the rest) are written into this
+folder by `python3 fonts/tools/serif_tail.py` from a few numbers: the tail
+continues the letter's right stem (n m h d H M N), or is appended at the
+right side of a letter without one (t k b s, per-letter in the script), and
+lands on a one-sided plate, inward for the anchor and outward for the
+anti-anchor. Edit a written file by hand like any override, or change a
+number and regenerate. The anchors and dots of the other families stay
 procedural (`anchor.yaml`, `families.yaml`); an SVG override wins over them.
 
 ## The handwriting capture

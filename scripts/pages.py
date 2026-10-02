@@ -8,14 +8,14 @@ markers, so a refresh is a single replace and pages need no other support.
 """
 
 PAGES = [
-    ('description.html', 'description',
-     'What the system is: the cornerstones, bases and operators, the marks, '
-     'and the two triangles.'),
+    ('index.html', 'about',
+     'What the system is: typing, the script, the tables.'),
     ('master.html', 'master tables',
      "Every input form in use, its glyph and readings; each language's own "
      'table, stamped with its review state.'),
     ('play.html', 'playground',
-     'Type the input form, read the script form, live, per language.'),
+     'Type the input form, or paste a text in any spelling, and read the script '
+     'form, live; word by word, with what writes back.'),
     ('fonts.html', 'fonts',
      'Every glyph the system can draw, in the Diafon font or any other, '
      'with the support gaps.'),

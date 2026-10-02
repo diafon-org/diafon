@@ -20,7 +20,7 @@
   --paper:#14161b; --card:#1b1e25; --sunken:#101216; --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37;
   --accent:#3ec8cf; --bad:#e07a7a;
 }
-@font-face{font-family:"Diafon";src:url(diafon.woff2?v=1789346267) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon";src:url(diafon.woff2?v=1790505842) format("woff2");font-display:swap}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:15px}
 .wrap{max-width:880px;margin:0 auto;padding:clamp(1.4rem,4vw,3rem) clamp(1rem,4vw,2rem) 4rem}
@@ -48,6 +48,19 @@ textarea:focus{border-color:var(--accent)}
 .chip.err .g{color:var(--bad)}
 .hint{color:var(--muted);font-size:.85rem;margin:1.2rem 0 0;max-width:70ch}
 footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+button{font:600 .85rem var(--sans);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:.5rem;padding:.4rem .6rem;cursor:pointer}
+.status{color:var(--muted);font-size:.85rem}
+.out.back{font-size:1.4rem;margin-top:.6rem}
+.out small{display:block;font:600 .65rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem}
+table{border-collapse:collapse;width:100%;margin:1rem 0 0;font-size:.92rem}
+th{font:600 .68rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:.4rem .5rem;border-bottom:1px solid var(--line)}
+td{padding:.35rem .5rem;border-bottom:1px solid var(--line);vertical-align:top}
+td.ug{font-family:var(--serif);font-size:1.15rem}
+td.t{font-family:var(--mono);font-size:.85rem}
+.how{font:600 .68rem/1.6 var(--mono);padding:.1em .45em;border-radius:.3em;background:var(--sunken);color:var(--muted);white-space:nowrap}
+.how.lexicon{color:var(--accent)} .how.loan{color:var(--warn)} .how.fallback{color:var(--bad)} .how.letters{color:#2f8f66}
+tr.diff td.back{color:var(--bad);font-weight:600}
+.chip .c{font-family:var(--serif);font-size:1.45rem;line-height:1.2}
 </style>
 </head>
 <body>
@@ -64,166 +77,97 @@ nav.sitenav a.brand{color:var(--ink);font-family:var(--serif);font-size:1rem;
   font-weight:600;text-transform:none;letter-spacing:0;margin-right:.4rem}
 nav.sitenav .here{color:var(--accent)}
 </style>
-<nav class="sitenav"><a class="brand" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1.05em" height="1.05em" style="vertical-align:-.16em;margin-right:.35em" aria-hidden="true"><g transform="translate(0.0 45.3)"><circle cx="368.64" cy="215.04" r="92.16" fill="var(--accent, #0e7c86)"/><circle cx="655.36" cy="215.04" r="92.16" fill="var(--accent, #0e7c86)"/><path fill="currentColor" d="M600.8 476.2 A51.2 51.2 0 0 1 689.5 527.4 C624.1 647.3 498.4 757.0 371.3 806.9 A61.44 61.44 0 0 1 329.3 691.4 C458.7 647.9 529.6 592.7 600.8 476.2 Z"/></g></svg>Diafon</a><a href="description.html">description</a><a href="master.html">master tables</a><span class="here">playground</span><a href="fonts.html">fonts</a><a href="inspect.html">review</a></nav>
+<nav class="sitenav"><a class="brand" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1.05em" height="1.05em" style="vertical-align:-.16em;margin-right:.35em" aria-hidden="true"><g transform="translate(0.0 45.3)"><circle cx="368.64" cy="215.04" r="92.16" fill="var(--accent, #0e7c86)"/><circle cx="655.36" cy="215.04" r="92.16" fill="var(--accent, #0e7c86)"/><path fill="currentColor" d="M600.8 476.2 A51.2 51.2 0 0 1 689.5 527.4 C624.1 647.3 498.4 757.0 371.3 806.9 A61.44 61.44 0 0 1 329.3 691.4 C458.7 647.9 529.6 592.7 600.8 476.2 Z"/></g></svg>Diafon</a><a href="index.html">about</a><a href="master.html">master tables</a><span class="here">playground</span><a href="fonts.html">fonts</a><a href="inspect.html">review</a></nav>
 <!-- /sitenav -->
 
 <header>
   <h1>Diafon playground</h1>
-  <p class="lede">Type the input form, read the script form, live.
+  <p class="lede">Type the input form, or paste a text in a language's spelling, and read the script form, live.
     The system is defined in <a href="description.html">the description</a>.</p>
 </header>
 
 <div class="row">
+  <label for="from">from</label>
+  <select id="from"></select>
   <label for="lang">language</label>
   <select id="lang"></select>
+  <button id="sample" type="button">sample</button>
+  <span id="status" class="status"></span>
 </div>
 
 <textarea id="in" spellcheck="false" autofocus>sjok sewp njawr</textarea>
 
 <div class="out" id="out"></div>
+<div class="out back" id="back" hidden></div>
 <div class="chips" id="chips"></div>
+
+<table id="words" hidden>
+  <thead><tr><th>word</th><th>read by</th><th>transport</th><th>universal</th><th>written back</th></tr></thead>
+  <tbody></tbody>
+</table>
 
 <p class="hint">Each chip: glyph · <code>input</code> · the selected language's
 reading of that form (universal shows the most common reading). Faded = the
 language does not use the form; red = not a well-formed segment (an operator
 or digit cannot start one, and a form carries at most two operators plus
 <code>w</code>). Tones are trailing digits.</p>
+<p class="hint">With a spelling as the source, the text is read back word by
+word: by the letters, by the language's own lexicon, by a loan lexicon folded
+into its sounds (<span class="how loan">loan:en</span>), or by the letters with
+the script as fallback. The second line is the same text written back in the
+language's spelling, a loan going out as it came in (like stays like; from a
+Universal text alone it could not, sjow being só as much as show); the table
+marks in red every word the round trip changed: a loss the spelling states, or
+a reading to fix. For Mandarin the chips carry
+the characters of each toned syllable, most frequent first. The lexicons load
+from docs/lexicon/, so serve this directory over http.</p>
 
-<footer>Diafon · playground · <a href="description.html">system description</a> · <a href="fonts.html">fonts</a></footer>
+<footer>Diafon · playground · <a href="description.html">system description</a> · <a href="fonts.html">fonts</a> · the lexicons: data/lexicon (CMUdict, Magyar Ispell, Unihan)</footer>
 
 </main>
 <script src="play-data.js"></script>
+<script src="engine.js"></script>
 <script>
 'use strict';
-const CB = new Set('bdfghklmnprstvz'), VB = new Set('aeiou'), OPS = new Set('cjqxwy');
-const S = DIA.script, WHOLE = S.whole_letters, MARKS = S.marks,
-      DESC = new Set(S.descenders), PARTNER = S.flip_partner;
-const BELOWS = Object.values(MARKS).map(m => m.below).filter(Boolean);
-
-function tokenize(text){
-  const out = []; let i = 0;
-  while (i < text.length){
-    const raw = text[i], ch = text[i].toLowerCase();
-    if (!CB.has(ch) && !VB.has(ch)){
-      out.push({t: (OPS.has(ch) || /\d/.test(ch)) ? 'err' : 'raw', ch: text[i]});
-      i++; continue;
-    }
-    let j = i + 1, ops = '';
-    while (j < text.length && OPS.has(text[j].toLowerCase())){ ops += text[j].toLowerCase(); j++; }
-    const w = ops.includes('w'), core = ops.replace(/w/g, '');
-    let bad = core.length > 2 || (ops.match(/w/g) || []).length > 1 || (w && !ops.endsWith('w'));
-    let tones = '';
-    while (j < text.length && /\d/.test(text[j])){ tones += text[j]; j++; }
-    const form = ch + core + (w ? 'w' : '');
-    out.push(bad ? {t: 'err', ch: text.slice(i, j)}
-                 : {t: 'form', form, tones, caps: raw !== ch});
-    i = j;
-  }
-  return out;
-}
-
-function hasBelow(g){ return BELOWS.some(b => g.includes(b)); }
-
-function mark(g, base, kind, caps){
-  const m = MARKS[kind];
-  if (m.below && (caps || !DESC.has(base)) && !hasBelow(g)) return g + m.below;
-  if (m.above) return g + m.above;
-  return g + (m.below || '');
-}
-
-function special(g, base, caps){
-  const sp = MARKS.special;
-  return ((caps || !DESC.has(base)) && !hasBelow(g)) ? g + sp.below : g + sp.above;
-}
-
-function glyph(form, caps){
-  const w = form.endsWith('w'), core = w ? form.slice(0, -1) : form;
-  const base = core[0];
-  const longVowel = w && VB.has(base) && WHOLE[core] === undefined;
-  const compose = cap => {
-    let g = composeCore(core, cap);
-    if (g === null) return null;
-    if (longVowel){
-      g = g.includes(MARKS.flip.above)
-        ? g.replace(MARKS.flip.above, MARKS.double_acute.above)
-        : g + MARKS.acute.above;
-    }
-    return g.normalize('NFC');
-  };
-  let g = compose(caps);
-  if (g === null) return null;
-  if (w && !longVowel) g = g + g;         // long consonant doubles its letter
-  return g.normalize('NFC');  // one codepoint per visual representation
-}
-
-function composeCore(core, caps){
-  const base = core[0], ops = core.slice(1);
-  if (WHOLE[core] !== undefined) return WHOLE[core];
-  if (core.length === 3 && WHOLE[core.slice(0, 2)] !== undefined){
-    let g = WHOLE[core.slice(0, 2)];
-    const op2 = core[2];
-    if (op2 === 'x'){
-      if (hasBelow(g)) return null;                      // the dot never stacks
-      return mark(g, g[0], 'dot', caps);
-    }
-    if (op2 === 'y'){
-      if (g.includes(MARKS.anchor.below))                // y flips the anchored affricate
-        return g.replace(MARKS.anchor.below, MARKS.reverse.below);
-      if (hasBelow(g)) return null;                      // the special never stacks
-      return special(g, g[0], caps);
-    }
-    return null;
-  }
-  if (VB.has(base)) return vowel(base, ops);
-  return consonant(base, ops, caps);
-}
-
-function consonant(base, ops, caps){
-  let g = base;
-  if (!ops) return g;
-  const op1 = ops[0];
-  if ((op1 === 'j' || op1 === 'y') && 'lrf'.includes(base)) return null;
-  if (op1 === 'j') g = mark(g, base, 'anchor', caps);
-  else if (op1 === 'x') g = mark(g, base, 'dot', caps);
-  else if (op1 === 'y') g = mark(g, base, 'reverse', caps);
-  else if (op1 === 'c') g = mark(g, base, 'dot', caps); // the tap rc
-  else return null;                                      // bare q-forms are whole letters
-  if (ops.length === 1) return g;
-  const op2 = ops[1];
-  if (op2 === 'x') return null;
-  if (op2 === 'y'){
-    if (op1 === 'x') return special(base, base, caps);   // the pair xy: y doubles the dot
-    if (op1 === 'j' && 'sz'.includes(base))              // y flips the anchored hush
-      return g.replace(MARKS.anchor.below, MARKS.reverse.below);
-    return null;                                         // the special never stacks
-  }
-  return null;
-}
-
-function vowel(base, ops){
-  let g = base;
-  for (const op of ops){
-    if (op === 'c') g = PARTNER[base] + MARKS.flip.above;
-    else if (op === 'j') g += MARKS.underdot.below;
-    else if (op === 'q') g = PARTNER[base] + MARKS.flip.above + MARKS.underdot.below;
-    else if (op === 'y') g += MARKS.grave.above;
-    else return null;                                    // vowel x only in the glide whole letters
-  }
-  return g;
-}
-
 // ---- UI ----
-const $in = document.getElementById('in'), $out = document.getElementById('out'),
-      $chips = document.getElementById('chips'), $lang = document.getElementById('lang');
+const $in = document.getElementById('in'), $out = document.getElementById('out'), $back = document.getElementById('back'),
+      $chips = document.getElementById('chips'), $lang = document.getElementById('lang'), $from = document.getElementById('from'),
+      $words = document.getElementById('words'), $status = document.getElementById('status');
 
 const codes = Object.keys(DIA.langs).sort((a, b) => DIA.langs[b].native - DIA.langs[a].native);
 $lang.innerHTML = '<option value="">universal</option>' +
   codes.map(c => `<option value="${c}">${DIA.langs[c].name}</option>`).join('');
+const stageCodes = Object.keys(DIA.stages).sort((a, b) => DIA.stages[a].name.localeCompare(DIA.stages[b].name));
+$from.innerHTML = '<option value="transport">input form</option><option value="script">universal</option>' +
+  stageCodes.map(c => `<option value="stage:${c}">${DIA.stages[c].name.replace(' spelling', '')} (${c})</option>`).join('');
+
+const SAMPLES = {
+  transport: 'sjok sewp njawr', script: 'șok sép n̦ár, hossú älmä',
+  'stage:hu': 'Sok szép nyár, hosszú alma. Folyó, gally, hely, helyes, lyuk. Meeting, like, house, taxi, team, tagja, Facebook, show, think; ad hoc, de facto. Só, sok.',
+  'stage:en': 'The quick brown fox jumps over the lazy dog. Read, lead, live; Shakespeare wrote Hamlet. Diafon reads it.',
+  'stage:zh': 'Ni3 hao3, shi4 jie4! Zhong1 guo2, nihao ma.',
+  'stage:cs': 'Dobrý den, přátelé. Děkuji, měsíc, tělo.', 'stage:fi': 'Hyvää yötä kaikille.', 'stage:pl': 'Dobra noc, kochani; rzeka, morze.',
+  'stage:sw': 'Habari za asubuhi.', 'stage:tr': 'Günaydın, iyi günler.'
+};
+
+// the lexicons a spelling needs (its own and its loans'), fetched once from docs/lexicon/
+const loading = {};
+function ensure(code){
+  const st = DIA.stages[code];
+  if (!st || !st.lexicon) return Promise.resolve();
+  const one = c => lex(c) ? Promise.resolve() : (loading[c] = loading[c] || fetch('lexicon/' + c + '.json').then(r => r.json())
+    .then(d => { setLexicon(c, d); return Promise.all((d.loans || []).map(one)); })
+    .catch(() => { $status.textContent = 'lexicon ' + c + ' did not load: serve the docs directory over http'; }));
+  return one(code);
+}
 
 function esc(s){ return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 
 function update(){
-  const lang = $lang.value, toks = tokenize($in.value);
+  const lang = $lang.value, source = $from.value;
+  const stage = source.startsWith('stage:') ? DIA.stages[source.slice(6)] : null;
+  const text = source === 'transport' ? $in.value : parse($in.value, source);
+  const toks = tokenize(text);
   let outHtml = '', chipsHtml = '';
   for (const tok of toks){
     if (tok.t === 'raw'){ outHtml += esc(tok.ch); continue; }
@@ -248,14 +192,43 @@ function update(){
       reading = DIA.default[tok.form] || '·';
     }
     chipsHtml += `<div class="chip${absent ? ' absent' : ''}"><span class="g">${esc(shown)}</span>` +
-      `<span class="f">${esc(tok.form + tok.tones)}</span><span class="r">${reading === '\u00b7' ? '\u00b7' : '/' + esc(reading) + '/'}</span></div>`;
+      `<span class="f">${esc(tok.form + tok.tones)}</span><span class="r">${reading === '·' ? '·' : '/' + esc(reading) + '/'}</span></div>`;
+  }
+  // Mandarin: the characters of each toned syllable, as the input method offers them
+  if (stage && stage.code === 'zh' && lex('zh')){
+    for (const m of text.matchAll(/[A-Za-z]+\d*/g))
+      chipsHtml += choices(m[0]).slice(0, 6).map(c => `<div class="chip"><span class="c">${c}</span><span class="f">${esc(m[0])}</span></div>`).join('');
   }
   $out.innerHTML = outHtml || '<span style="color:var(--muted)">·</span>';
   $chips.innerHTML = chipsHtml;
+  // a spelling as the source: written back, and the word table
+  $back.hidden = $words.hidden = !stage;
+  if (stage){
+    $back.innerHTML = '<small>written back in ' + esc(stage.name.replace(' spelling', '')) + '</small>' + esc(convert($in.value, source, source));
+    let rows = '';
+    for (const m of $in.value.normalize('NFC').matchAll(/[\p{L}\p{M}]+(?:['’][\p{L}\p{M}]+)*\d*/gu)){
+      const [tt, how] = stageReadWord(m[0], stage);
+      const written = how.startsWith('loan:') ? m[0] : renderStage(tt, stage), cls = how.split(':')[0];
+      const diff = written.normalize('NFC') !== m[0].normalize('NFC');
+      rows += `<tr class="${diff ? 'diff' : ''}"><td>${esc(m[0])}</td><td><span class="how ${cls}">${how}</span></td><td class="t">${esc(tt)}</td><td class="ug">${esc(render(tt))}</td><td class="back">${esc(written)}</td></tr>`;
+    }
+    $words.querySelector('tbody').innerHTML = rows;
+  }
+}
+function go(){
+  $status.textContent = '';
+  const source = $from.value;
+  if (source.startsWith('stage:')) ensure(source.slice(6)).then(() => { if (!$status.textContent) $status.textContent = ''; update(); });
+  update();
 }
 $in.addEventListener('input', update);
 $lang.addEventListener('change', update);
-update();
+$from.addEventListener('change', () => { $in.value = SAMPLES[$from.value] || $in.value; location.hash = $from.value === 'transport' ? '' : 'from=' + $from.value; go(); });
+document.getElementById('sample').addEventListener('click', () => { $in.value = SAMPLES[$from.value] || ''; go(); });
+// a deep link: play.html#from=stage:hu opens with that spelling as the source and its sample
+const hashFrom = /from=([\w:]+)/.exec(location.hash);
+if (hashFrom && [...$from.options].some(o => o.value === hashFrom[1])){ $from.value = hashFrom[1]; $in.value = SAMPLES[hashFrom[1]] || $in.value; }
+go();
 </script>
 </body>
 </html>

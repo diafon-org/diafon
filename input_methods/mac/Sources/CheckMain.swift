@@ -6,6 +6,9 @@
 //   stream        the keystroke trace: buffer, committed, pending joined by
 //                 U+001E, steps joined by U+001F
 //   stage:<code>  the stage's spelling
+//   parse:<src>   the text in that source read back as transport
+//   convert:<src>|<target>   converted between sources
+//   detect        the source detected
 import Foundation
 
 let FIELD = "\u{1E}"
@@ -34,6 +37,22 @@ struct Check {
                 result = steps.joined(separator: STEP)
             }
             else if mode.hasPrefix("stage:"), let st = SpecData.stages[String(mode.dropFirst(6))] { result = Stages.render(input, st) }
+            else if mode.hasPrefix("parse:") { result = Stages.parse(input, String(mode.dropFirst(6))) }
+            else if mode.hasPrefix("convert:") {
+                let parts = mode.dropFirst(8).split(separator: "|").map(String.init)
+                result = parts.count == 2 ? Stages.convert(input, parts[0], parts[1]) : "!MODE"
+            }
+            else if mode == "detect" { result = Stages.detect(input).first?.0 ?? "" }
+            else if mode.hasPrefix("lexread:") { result = Lexicon.get(String(mode.dropFirst(8)))?.readWord(input) ?? "!NONE" }
+            else if mode.hasPrefix("lexwrite:") {
+                switch Lexicon.get(String(mode.dropFirst(9)))?.writeWord(input) {
+                case .none: result = "!NONE"
+                case .some(.word(let w)): result = w
+                case .some(.stem(let a, let b)): result = a + FIELD + b
+                }
+            }
+            else if mode.hasPrefix("loan:") { result = Lexicon.get(String(mode.dropFirst(5)))?.loan(input)?.0 ?? "!NONE" }
+            else if mode == "choices" { result = (Lexicon.get("zh")?.choose(input) ?? []).prefix(6).joined(separator: FIELD) }
             else { result = "!MODE" }
             out += result + "\n"
         }

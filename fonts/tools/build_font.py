@@ -20,9 +20,9 @@ The text is the composition (base letter + the system's combining marks,
 NFC), so the font carries the marks with their attachment and the baked
 letter+mark pairs behind ccmp; no letter is remapped to another codepoint.
 
-Any fonts/svg/<glyph>.svg present still replaces a seed at build time
-(fonts/tools/font_svg.py). After building run fonts/tools/subset_web.py to
-refresh docs/diafon.woff2.
+Any fonts/svg/<family>/<glyph>.svg present replaces that glyph at build time
+(fonts/tools/font_svg.py): the marks before the procedural glyphs they seed,
+the compositions after. fonts/build.sh carries on to the shipping fonts.
 """
 import json
 import os
@@ -911,6 +911,22 @@ def _anchor_glyphs(font, skip_0324=False):
         _bake_strokes(font, gs, cmap, P, xh)
 
 
+def _font_svg():
+    """fonts/tools/font_svg.py as a module, or None (the overrides are then skipped)."""
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'font_svg.py')
+    if not os.path.exists(path):
+        return None
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('font_svg', path)
+    mod = importlib.util.module_from_spec(spec)
+    try:
+        spec.loader.exec_module(mod)
+    except Exception as e:
+        print(f'  (svg overrides skipped: {e})')
+        return None
+    return mod
+
+
 def _precomposed(font):
     """Compose the missing precomposed letters as composites."""
     from fontTools.ttLib.tables._g_l_y_f import Glyph, GlyphComponent
@@ -968,21 +984,14 @@ def build(key='serif'):
     ss.populate(unicodes=sorted((needed - creatable) | {0x0301}))
     ss.subset(font)
 
-    # svg overrides FIRST, so every baked composition copies the curated shapes
-    svg_done = []
-    svg_mod = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'font_svg.py')
-    if os.path.exists(svg_mod):
-        import importlib.util
-        spec = importlib.util.spec_from_file_location('font_svg', svg_mod)
-        font_svg = importlib.util.module_from_spec(spec)
-        try:
-            spec.loader.exec_module(font_svg)
-            svg_done = font_svg.import_overrides(font)
-        except Exception as e:
-            print(f'  (svg overrides skipped: {e})')
-
+    # svg overrides FIRST, so every baked composition copies the curated marks;
+    # again after the procedural glyphs, for the compositions curated as a whole
+    font_svg = _font_svg()
+    svg_done = font_svg.import_overrides(font, fam['key'], final=False) if font_svg else []
     _anchor_glyphs(font, skip_0324='uni0324' in svg_done)
     _precomposed(font)
+    if font_svg:
+        svg_done += font_svg.import_overrides(font, fam['key'], skip=set(svg_done))
 
     # the name table, to Google Fonts' rules: a single-style family carries no
     # typographic family name; the copyright is the first line of OFL.txt

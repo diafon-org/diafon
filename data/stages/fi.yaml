@@ -10,6 +10,11 @@ state: draft
 letters: a aa ä ää b d e ee f g h i ii j k l m n ng o oo ö öö p r s š t u uu v y yy
 long: double            # a long consonant doubles its letter: tt, kk, ss
 sample: hicvaw icecta ixac kacunistac kesaw      # hyvää yötä ja kaunista kesää
+read:                   # read back but never written: the loan letters
+  x: ks
+  w: v
+  q: kv
+  z: tc
 forms:
   # consonants
   p: p

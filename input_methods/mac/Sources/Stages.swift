@@ -28,7 +28,26 @@ enum Stages {
         return Engine.nfc(String(u[0]).uppercased() + String(v))
     }
 
+    /// A text in the stage's spelling: the lexicon word by word, then the letters.
     static func render(_ text: String, _ st: Stage, strict: Bool = false, tones: Bool = true) -> String {
+        guard st.lexicon, let L = Lexicon.get(st.code) else { return renderLetters(text, st, strict: strict, tones: tones) }
+        let u = text.unicodeScalars
+        var out = "", i = u.startIndex
+        for (r, w) in Lexicon.words(text, transport: true) {
+            out += renderLetters(String(String.UnicodeScalarView(u[i..<r.lowerBound])), st, strict: strict, tones: tones)
+            switch L.writeWord(w) {
+            case .none:
+                let sp = renderLetters(w, st, strict: strict, tones: tones)
+                out += L.writeLoan(w, lettersSpelling: sp) ?? sp
+            case .some(.word(let sp)): out += sp
+            case .some(.stem(let sp, let rest)): out += sp + renderLetters(rest, st, strict: strict, tones: tones)
+            }
+            i = r.upperBound
+        }
+        return out + renderLetters(String(String.UnicodeScalarView(u[i...])), st, strict: strict, tones: tones)
+    }
+
+    static func renderLetters(_ text: String, _ st: Stage, strict: Bool = false, tones: Bool = true) -> String {
         var out = ""
         let segs = (try? Engine.segments(text, strict: strict)) ?? []
         for seg in segs {

@@ -11,6 +11,13 @@ state: draft
 letters: a ą b c ć ch cz d dz dź dż e ę f g h i j k l ł m n ń o ó p r s ś sz t u w y z ź ż
 long: double
 sample: dojbra nojtc, kojkxani      # dobra noc, kochani
+read:                   # spellings read back but never written: ó and u, rz and ż, h and ch
+  x: ks
+  q: kv
+  v: v
+  ó: u
+  rz: zjy
+  h: kx
 forms:
   p: p
   b: b
