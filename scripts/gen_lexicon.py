@@ -70,6 +70,11 @@ def write(code, data):
 
 def gen_en(cfg):
     arpa = cfg['arpabet']
+    rules = cfg.get('assimilated') or {}
+
+    def assimilated(p, nxt):
+        r = rules.get(p)
+        return r['as'] if r and nxt in r['before'] else None
     freq = {}
     if len(cfg['sources']) > 1:
         for line in open(os.path.join(LEX, cfg['sources'][1]), encoding='utf-8'):
@@ -85,8 +90,10 @@ def gen_en(cfg):
         variant = 0
         if m:
             word, variant = m.group(1), int(m.group(2))
+        phones = [re.sub(r'\d', '', p) for p in phones]
         try:
-            t = ''.join(arpa[re.sub(r'\d', '', p)] for p in phones)
+            t = ''.join(assimilated(p, phones[i + 1] if i + 1 < len(phones) else None) or arpa[p]
+                        for i, p in enumerate(phones))
         except KeyError as e:
             continue
         engine.segments(t)                      # every entry must re-segment strictly

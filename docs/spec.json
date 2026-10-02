@@ -1,7 +1,7 @@
 {
  "name": "Diafon",
- "generated": "2026-09-27",
- "source": "429fa37",
+ "generated": "2026-10-02",
+ "source": "85eb7f8",
  "alphabet": {
   "consonant_bases": [
    "b",
@@ -10181,7 +10181,7 @@
    "long": "double",
    "forms": {},
    "caps": {},
-   "sample": "uxajn kibojrd, uxajn skrijpt, ejvaqi lanxguxajdq",
+   "sample": "uxajn kibojrd, uxajn skrijpt, ejvaqi languxajdq",
    "read": {},
    "lexical": true,
    "lexicon": true
@@ -15575,7 +15575,7 @@
      ],
      [
       "one keyboard, one script, every language",
-      "uxajn kibojrd, uxajn skrijpt, ejvaqi lanxguxajdq"
+      "uxajn kibojrd, uxajn skrijpt, ejvaqi languxajdq"
      ]
     ],
     "fi": [
@@ -16927,55 +16927,55 @@
     "one keyboard, one script, every language",
     "stage:en",
     "script",
-    "wạn kibọrd, wạn skrịpt, ẹvr̈i laṇgwạx̦"
+    "wạn kibọrd, wạn skrịpt, ẹvr̈i langwạx̦"
    ],
    [
     "one keyboard, one script, every language",
     "stage:en",
     "transport",
-    "uxajn kibojrd, uxajn skrijpt, ejvaqi lanxguxajdq"
+    "uxajn kibojrd, uxajn skrijpt, ejvaqi languxajdq"
    ],
    [
     "one keyboard, one script, every language",
     "stage:en",
     "stage:cs",
-    "wạn kibọrd, wạn skrịpt, evr̈i laṇgwạdž"
+    "wạn kibọrd, wạn skrịpt, evr̈i langwạdž"
    ],
    [
     "one keyboard, one script, every language",
     "stage:en",
     "stage:fi",
-    "wạn kibọrd, wạn skrịpt, ẹvr̈i länggwạx̦"
+    "wạn kibọrd, wạn skrịpt, ẹvr̈i längwạx̦"
    ],
    [
     "one keyboard, one script, every language",
     "stage:en",
     "stage:hu",
-    "wạn kibọrd, wạn szkrịpt, evr̈i laṇgwạdzs"
+    "wạn kibọrd, wạn szkrịpt, evr̈i langwạdzs"
    ],
    [
     "one keyboard, one script, every language",
     "stage:en",
     "stage:pl",
-    "łạn kibord, łạn skrịpt, ewr̈i laṇgłạdź"
+    "łạn kibord, łạn skrịpt, ewr̈i langłạdź"
    ],
    [
     "one keyboard, one script, every language",
     "stage:en",
     "stage:sw",
-    "wạn kibord, wạn skrịpt, evr̈i lang'gwạx̦"
+    "wạn kibord, wạn skrịpt, evr̈i langwạx̦"
    ],
    [
     "one keyboard, one script, every language",
     "stage:en",
     "stage:tr",
-    "wạn kibọrd, wạn skrịpt, ẹvr̈i laṇgwạc"
+    "wạn kibọrd, wạn skrịpt, ẹvr̈i langwạc"
    ],
    [
     "one keyboard, one script, every language",
     "stage:en",
     "stage:zh",
-    "wạn kibọrd, wạn skrịpt, ẹvr̈i laṇgwạx̦"
+    "wạn kibọrd, wạn skrịpt, ẹvr̈i langwạx̦"
    ],
    [
     "hyvää yötä ja kaunista kesää",
@@ -17629,7 +17629,7 @@
     [
      "hu",
      "think",
-     "tinxk"
+     "tink"
     ],
     [
      "hu",
@@ -17994,11 +17994,11 @@
    "fold": {},
    "foreign": null,
    "lengthen": {},
-   "sample": "uxajn kibojrd, uxajn skrijpt, ejvaqi lanxguxajdq",
+   "sample": "uxajn kibojrd, uxajn skrijpt, ejvaqi languxajdq",
    "output": true,
    "sizes": {
     "read": 126052,
-    "write": 114903
+    "write": 114877
    }
   },
   "hu": {

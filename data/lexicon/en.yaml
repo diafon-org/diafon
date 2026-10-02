@@ -52,3 +52,7 @@ arpabet:                     # ARPAbet -> transport form (stress digits stripped
   Y: ix
   Z: z
   ZH: zj
+assimilated:                 # predictable sounds the dictionary marks, written as the phoneme
+  NG:                        # ŋ before k and g: English contrasts n and ŋ nowhere there
+    before: [K, G]           # (think, finger), so it is the n; sing, singer keep ŋ
+    as: n
