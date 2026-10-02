@@ -270,6 +270,73 @@ def render(text, strict=True):
     return ''.join(out)
 
 
+def inventory():
+    """Every valid single-segment form of the grammar, lowercase: a base, up
+    to two operators, w or not; whatever glyph() accepts."""
+    out = []
+    core_ops = sorted(OPS - {'w'})
+    combos = [''] + core_ops + [a + b for a in core_ops for b in core_ops]
+    for base in sorted(BASES):
+        for ops in combos:
+            for w in ('', 'w'):
+                form = base + ops + w
+                try:
+                    glyph(form)
+                except ParseError:
+                    continue
+                out.append(form)
+    return out
+
+
+_SCRIPT_TABLE = {}
+
+
+def script_table(used=()):
+    """The script read back: {glyph text: form} over the whole inventory,
+    small and capitalized (Șș -> Sjw). Where two forms compose the same
+    glyph (the dot of kx and kc; a vowel operator repeated, acc = ac) the
+    reading is a form in `used` (the forms the languages use, from the
+    master table) before any other, and the shorter form after that; the
+    inventory lists shorter forms first."""
+    key = frozenset(used)
+    if key not in _SCRIPT_TABLE:
+        table = {}
+        inv = inventory()
+        for form in [f for f in inv if f in key] + [f for f in inv if f not in key]:
+            for f in (form, form[0].upper() + form[1:]):
+                table.setdefault(glyph(f), f)
+        _SCRIPT_TABLE[key] = table
+    return _SCRIPT_TABLE[key]
+
+
+def read(text, table):
+    """Read a text back through a {spelling: form} table, longest match
+    first, tone digits attached to the form before them; anything the table
+    does not cover is raw. -> list of ('form', form, tones, matched) and
+    ('raw', ch). The text is NFC-normalized first, as the table is."""
+    text = ud.normalize('NFC', text)
+    maxlen = max((len(k) for k in table), default=1)
+    out, i, n = [], 0, len(text)
+    while i < n:
+        hit = None
+        for L in range(min(maxlen, n - i), 0, -1):
+            s = text[i:i + L]
+            if s in table:
+                hit = (s, table[s])
+                break
+        if hit is None:
+            out.append(('raw', text[i]))
+            i += 1
+            continue
+        i += len(hit[0])
+        tones = ''
+        while i < n and text[i].isdigit():
+            tones += text[i]
+            i += 1
+        out.append(('form', hit[1], tones, hit[0]))
+    return out
+
+
 def stream(buffer):
     """The streaming commit rule, for input methods: -> (committed, pending).
 

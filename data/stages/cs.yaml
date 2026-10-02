@@ -11,6 +11,18 @@ state: draft
 letters: a á b c č d ď dz dž e é f g h ch i í j k l m n ň o ó p r ř s š t ť u ú v z ž
 long: double
 sample: dobriw dejn, prxyawtejlejw      # dobrý den, přátelé
+read:                   # spellings read back but never written: etymological y, ů, and ě after d t n m
+  x: ks
+  w: v
+  q: kv
+  y: i
+  ý: iw
+  ů: uw
+  dě: djej
+  tě: tjej
+  ně: njej
+  mě: mnjej
+  ě: ixej
 forms:
   p: p
   b: b

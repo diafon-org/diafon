@@ -1,0 +1,58 @@
+# Hungarian: the lexical part of the spelling. ly is etymological (folyó,
+# lyuk, hely): the letters write j for every /j/, so the stems that take ly
+# come from the dictionary (Magyar Ispell, sources/hu_HU.dic, LGPL/GPL/MPL)
+# as `write` entries matched by prefix: folyó + k -> folyók. Reading needs no
+# list (ly reads as j through the stage's read aliases).
+#
+# Loans: a word the Hungarian letters cannot read in full (x, w, sh, th, ee,
+# oo…) is looked up in the loan lexicons, English then Latin, and its sounds
+# fold into Hungarian ones the way a Hungarian says them: meeting -> mítinq,
+# like -> lájk. The fold is a rewrite over the transport segments, longest
+# rule first; draft, for native review.
+code: hu
+name: Hungarian
+kind: word
+match: prefix
+sources:
+  - sources/hu_HU.dic        # https://github.com/LibreOffice/dictionaries/tree/master/hu_HU
+loans: [la, en]
+native: sources/hu_HU.dic   # the stems: a word the dictionary knows is Hungarian, whatever English also has
+foreign: "ee|oo|ea|ou|w|x|q|sh|ch|th|ck|ph|(?<![gltn])y"   # letter shapes Hungarian never has: a word the
+                             #   dictionary lists with one of these is a loan it keeps in foreign spelling (meeting, team);
+                             #   not ai, oa (hazai, jamaicai), nor ay, ey (y after a vowel is already there)
+lengthen: {á: a, é: e}       # a stem's final a, e lengthens before a suffix (trauma, traumái): a stem is looked up short too
+spoken:                      # spellings Hungarian keeps and reads its own way, neither by the letters nor as an
+                             #   English loan: the word as a Hungarian says it, matched as a stem (jamaicai, Jamaicában);
+                             #   read before everything else; a hand list, for native review
+  jamaica: jamaika
+  bach: bah
+  pech: peh
+  cech: céh
+  tea: tea                   # team is the loan, tea is not: the shape ea cannot tell them apart
+  online: onlájn             # loans the dictionary lists in English spelling and no shape betrays
+  offline: oflájn
+  startup: sztartap
+  email: ímél
+  update: apdét
+  live: lájv
+names:                       # proper names no dictionary reads (not CMUdict, not the frequency list), as a
+                             #   Hungarian says them; the same reading as spoken, kept apart for review
+  cudjoe: kadzsó
+  ocho: ocso
+fold:
+  aix: awix       # like -> lájk
+  aux: acu        # house -> hausz
+  eix: ew         # mail -> mél
+  oux: ow         # show -> só
+  ojix: oix       # boy -> boj
+  aq: ecw         # bird -> bőrd
+  a: ac           # taxi -> täksi (short a, the ä of the script)
+  ac: aw          # car -> kár
+  aj: ec          # but -> böt
+  ij: i           # bit -> bit
+  oj: o           # dog -> dog
+  uj: u           # book -> buk
+  tx: t           # think -> tink
+  dx: d           # that -> det
+  ux: v           # web -> veb
+  r: r

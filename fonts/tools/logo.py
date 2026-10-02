@@ -3,7 +3,7 @@
 dot above and the anchor below; the letter between them is implied. One
 geometry (VARIANTS['mark']), the finals only: the two-tone mark light and
 dark, the inline mark for the pages, the app icon square and rounded, the
-Android adaptive layers, PNGs at every icon size and the macOS icns.
+Android adaptive layers, the browser extension's tile in its two states, PNGs at every icon size and the macOS icns.
 """
 import os
 
@@ -111,6 +111,34 @@ def finals(v):
     open(os.path.join(fin, 'icon.svg'), 'w').write(tile_svg(mark_two(v, TEAL_BRIGHT, PAPER), INK, 0))     # square: platforms round it
     open(os.path.join(fin, 'icon-rounded.svg'), 'w').write(tile_svg(mark_two(v, TEAL_BRIGHT, PAPER), INK, f'{S * 0.22:.0f}'))
     open(os.path.join(fin, 'icon-light.svg'), 'w').write(tile_svg(mark_two(v, ACCENT, INK), PAPER, 0))
+    # macOS: the system's icon grid, a rounded tile of 824 on the 1024 canvas
+    # (the mark scaled with it); the small sizes of the icns take the bare
+    # menu-bar mark above instead
+    # the menu-bar sizes of the icns: the bare mark, large, no tile; teal dots
+    # and a mid-grey anchor so it reads on a light and on a dark menu bar
+    mk = 0.92
+    open(os.path.join(fin, 'icon-menubar.svg'), 'w').write(
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {S} {S}" width="{S}" height="{S}">'
+        f'<g transform="translate({S * (1 - mk) / 2:.0f} {S * (1 - mk) / 2:.0f})">{mark_two(v, TEAL_BRIGHT, "#8a93a3", S / 1000 * mk)}</g></svg>')
+    # the input-source icon macOS shows in the input menu and in Input Sources,
+    # in the system's own style: the wide rounded tile of the keyboard-layout
+    # icons (22 x 15 pt), black, with a bold mark cut out of it (only alpha
+    # counts: the system tints it for light and dark menus); a 15 px + 30 px
+    # TIFF (DiafonMenu.tiff, in rasterise)
+    TW, TH = 1466, 1000                                            # 22 : 15
+    bold = dict(v, r=108, apart=300, head=128, foot=148)           # the weight of the tile's letters
+    tk = 0.92                                                      # the mark's box against the tile's height
+    open(os.path.join(fin, 'icon-template.svg'), 'w').write(
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {TW} {TH}" width="{TW}" height="{TH}">'
+        f'<mask id="cut"><rect width="{TW}" height="{TH}" fill="#fff"/>'
+        f'<g transform="translate({(TW - TH * tk) / 2:.0f} {TH * (1 - tk) / 2:.0f})">{mark_two(bold, "#000", "#000", TH / 1000 * tk)}</g></mask>'
+        f'<rect width="{TW}" height="{TH}" rx="{TH * 0.2:.0f}" fill="#000" mask="url(#cut)"/></svg>')
+    mac = S * 824 / 1024
+    off = (S - mac) / 2
+    open(os.path.join(fin, 'icon-mac.svg'), 'w').write(
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {S} {S}" width="{S}" height="{S}">'
+        f'<rect x="{off:.0f}" y="{off:.0f}" width="{mac:.0f}" height="{mac:.0f}" rx="{mac * 0.225:.0f}" fill="{INK}"/>'
+        f'<g transform="translate({off:.0f} {off:.0f})">{mark_two(v, TEAL_BRIGHT, PAPER, S / 1000 * mac / S)}</g></svg>')
     k = S / 1000 * 0.58                                            # the adaptive icon's safe zone
     sh = S * (1 - 0.58) / 2
     open(os.path.join(fin, 'android-foreground.svg'), 'w').write(
@@ -118,6 +146,17 @@ def finals(v):
         f'<g transform="translate({sh:.0f} {sh:.0f})">{mark_two(v, TEAL_BRIGHT, PAPER, k)}</g></svg>')
     open(os.path.join(fin, 'android-background.svg'), 'w').write(
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {S} {S}" width="{S}" height="{S}"><rect width="{S}" height="{S}" fill="{INK}"/></svg>')
+    # the browser extension's toolbar icon: the app icon's rounded tile, full
+    # bleed (the toolbar pads it), the mark at 78% of it; two states, the
+    # two-tone mark on ink when the conversion is on, all grey when it is off
+    mk = 0.78
+    mo = S * (1 - mk) / 2
+    tile_state = lambda dots, anchor, bg: (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {S} {S}" width="{S}" height="{S}">'
+        f'<rect width="{S}" height="{S}" rx="{S * 0.22:.0f}" fill="{bg}"/>'
+        f'<g transform="translate({mo:.0f} {mo:.0f})">{mark_two(v, dots, anchor, S / 1000 * mk)}</g></svg>')
+    open(os.path.join(fin, 'icon-tile-on.svg'), 'w').write(tile_state(TEAL_BRIGHT, PAPER, INK))
+    open(os.path.join(fin, 'icon-tile-off.svg'), 'w').write(tile_state('#e9ecf1', PAPER, '#b9bfc9'))
 
 
 def android_resources(v):
@@ -178,22 +217,39 @@ def rasterise():
     png = os.path.join(fin, 'png')
     os.makedirs(png, exist_ok=True)
     tmp = tempfile.mkdtemp()
-    jobs = [('icon', sz) for sz in (1024, 512, 256, 128, 64, 32, 16)] + [('mark', 1024), ('android-foreground', 1024), ('icon-rounded', 1024), ('icon-light', 1024)]
+    jobs = ([('icon', sz) for sz in (1024, 512, 256, 128, 64, 32, 16)]
+            + [('icon-mac', sz) for sz in (1024, 512, 256, 128)] + [('icon-rounded', 1024)] + [('icon-menubar', sz) for sz in (64, 32, 16)] + [('icon-template', sz) for sz in (30, 15)]
+            + [('mark', 1024), ('android-foreground', 1024), ('icon-light', 1024)]
+            + [(f'icon-tile-{st}', sz) for st in ('on', 'off') for sz in (128, 48, 32, 16)])
     for name, sz in jobs:
         src = open(os.path.join(fin, name + '.svg')).read()
+        vw, vh = map(float, re.search(r'viewBox="0 0 ([\d.]+) ([\d.]+)"', src).groups())
+        w = round(sz * vw / vh)                                    # sz is the height
         sized = os.path.join(tmp, f'{name}-{sz}.svg')
-        open(sized, 'w').write(re.sub(r'width="1024" height="1024"', f'width="{sz}" height="{sz}"', src, count=1))
+        open(sized, 'w').write(re.sub(r'width="[\d.]+" height="[\d.]+"', f'width="{w}" height="{sz}"', src, count=1))
         subprocess.run([chrome, '--headless=new', '--disable-gpu', '--hide-scrollbars', '--default-background-color=00000000',
-                        f'--window-size={sz},{sz}', f'--screenshot={os.path.join(png, f"{name}-{sz}.png")}', 'file://' + sized],
+                        f'--window-size={w},{sz}', f'--screenshot={os.path.join(png, f"{name}-{sz}.png")}', 'file://' + sized],
                        capture_output=True)
     if shutil.which('iconutil'):
         iconset = os.path.join(tmp, 'Diafon.iconset')
         os.makedirs(iconset)
         for s_ in (16, 32, 128, 256, 512):
-            shutil.copy(os.path.join(png, f'icon-{s_}.png'), os.path.join(iconset, f'icon_{s_}x{s_}.png'))
-            shutil.copy(os.path.join(png, f'icon-{s_ * 2}.png'), os.path.join(iconset, f'icon_{s_}x{s_}@2x.png'))
+            src = 'icon-menubar' if s_ <= 32 else 'icon-mac'       # menu-bar sizes: the bare mark
+            shutil.copy(os.path.join(png, f'{src}-{s_}.png'), os.path.join(iconset, f'icon_{s_}x{s_}.png'))
+            shutil.copy(os.path.join(png, f'{src}-{s_ * 2}.png'), os.path.join(iconset, f'icon_{s_}x{s_}@2x.png'))
         subprocess.run(['iconutil', '-c', 'icns', iconset, '-o', os.path.join(fin, 'Diafon.icns')], capture_output=True)
+    if shutil.which('tiffutil'):       # the input-source icon: 16 px and its @2x in one TIFF
+        subprocess.run(['tiffutil', '-cathidpicheck', os.path.join(png, 'icon-template-15.png'),
+                        os.path.join(png, 'icon-template-30.png'), '-out', os.path.join(fin, 'DiafonMenu.tiff')],
+                       capture_output=True)
     shutil.rmtree(tmp)
+    ext = os.path.join(ROOT, 'extensions', 'browser', 'icons')       # the extension's two states
+    if os.path.isdir(os.path.dirname(ext)):
+        os.makedirs(ext, exist_ok=True)
+        for st in ('on', 'off'):
+            for sz in (128, 48, 32, 16):
+                shutil.copy(os.path.join(png, f'icon-tile-{st}-{sz}.png'), os.path.join(ext, f'{st}-{sz}.png'))
+        print('  extension icons written')
 
 
 def mark_two(v, dot_fill, anchor_fill, k=S / 1000):

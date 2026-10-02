@@ -84,6 +84,7 @@ and format; bare marks get zero advance.
    corner squares, cuts the cells, and traces each glyph to
    `svg/<name>.svg` for review before any font is built.
 
-The traced glyphs never go to `fonts/svg/`, which overrides the Diafon
-serif at build time; the hand fonts are assembled from `glyphs/` by their
-own builder, still to come.
+The traced glyphs never go to `fonts/svg/<family>/`, which overrides the
+Diafon fonts at build time (though their format is the same, and copying one
+there is a way to put a drawn shape into the Diafon serif); the hand fonts
+are assembled from `glyphs/` by their own builder, still to come.

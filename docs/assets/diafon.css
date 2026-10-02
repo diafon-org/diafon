@@ -1,0 +1,80 @@
+/* The Diafon docs on Material: the font, the palette the description's
+   tables and diagrams use, and the blocks themselves. */
+@font-face{font-family:"Diafon";src:url(../diafon.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon Sans";src:url(../diafon-sans.woff2) format("woff2");font-display:swap}
+
+:root{
+  --md-primary-fg-color:#0e7c86; --md-primary-fg-color--light:#3ec8cf; --md-primary-fg-color--dark:#0a5c64;
+  --md-accent-fg-color:#0e7c86;
+  --serif:"Diafon","Charis SIL","Gentium Plus","Noto Serif","Times New Roman",Georgia,serif;
+  --mono:"SF Mono","JetBrains Mono","Menlo","Consolas",monospace;
+  --accent:#0e7c86; --base-c:#0e7c86; --c-c:#b06f14; --j-c:#3f5bc0; --q-c:#8a4bb0; --x-c:#2f8f66; --y-c:#c0468a;
+  --base-t:#0e7c8615; --c-t:#b06f1418; --j-t:#3f5bc016; --q-t:#8a4bb016; --x-t:#2f8f6618; --y-t:#c0468a1a;
+  --ink:#1a1d24; --muted:#5b6472; --line:#dde1e8; --card:#ffffff; --sunken:#eef0f4;
+}
+[data-md-color-scheme="default"]{
+  --md-primary-fg-color:#0e7c86; --md-primary-fg-color--light:#3ec8cf; --md-primary-fg-color--dark:#0a5c64;
+  --md-accent-fg-color:#0e7c86; --md-typeset-a-color:#0e7c86;
+}
+[data-md-color-scheme="slate"]{
+  --md-primary-fg-color:#0e7c86; --md-primary-fg-color--light:#3ec8cf; --md-primary-fg-color--dark:#0a5c64;
+  --md-accent-fg-color:#3ec8cf; --md-typeset-a-color:#3ec8cf;
+  --accent:#3ec8cf; --base-c:#3ec8cf; --c-c:#e0a44a; --j-c:#8b9ff0; --q-c:#c08ee0; --x-c:#4fc79a; --y-c:#e88ac0;
+  --base-t:#3ec8cf1e; --c-t:#e0a44a22; --j-t:#8b9ff01e; --q-t:#c08ee01e; --x-t:#4fc79a22; --y-t:#e88ac022;
+  --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37; --card:#1b1e25; --sunken:#101216;
+}
+
+.md-typeset h1,.md-typeset h2{font-family:var(--serif);font-weight:600}
+.md-typeset .ug{font-family:var(--serif)}
+.md-typeset .term{color:var(--accent);font-weight:600}
+.md-typeset code{font-weight:600}
+
+/* the specimen line under a page title */
+.md-typeset .specimen{font-size:1.9rem;line-height:1.3;margin:.2rem 0 1.4rem;display:flex;align-items:baseline;gap:.9rem;flex-wrap:wrap}
+.md-typeset .specimen .ug{font-family:var(--serif)}
+.md-typeset .specimen code{font-size:.8rem}
+
+/* the description's tables and diagrams (docs/.include) */
+.md-typeset .scroll{overflow-x:auto;margin:.8rem 0 0;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.md-typeset table.grid{border-collapse:collapse;width:100%;min-width:760px;display:table;font-size:inherit}
+.md-typeset .grid th,.md-typeset .grid td{border:1px solid var(--line);padding:0;text-align:center;vertical-align:top}
+.md-typeset .grid thead th{font:600 .66rem/1.1 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:.5rem .3rem;background:var(--sunken)}
+.md-typeset .grid tbody th{font:600 .68rem/1.1 var(--mono);color:var(--muted);text-align:left;padding:.5rem .6rem;background:var(--sunken);white-space:nowrap}
+.md-typeset .cell{display:flex;gap:2px;justify-content:center}
+.md-typeset .pt{flex:1;padding:.45rem .2rem .4rem;display:flex;flex-direction:column;align-items:center;gap:1px;min-width:52px}
+.md-typeset .pt .nat{font-family:var(--serif);font-size:1.35rem;line-height:1.15;color:var(--ink)}
+.md-typeset .pt .lab{font:600 .72rem/1 var(--mono);color:var(--accent)}
+.md-typeset .pt .ipa{font-family:var(--serif);font-size:.82rem;line-height:1.1;color:var(--muted)}
+.md-typeset .pt.vl{background:var(--base-t)}
+.md-typeset .pt.vd{background:var(--c-t)}
+.md-typeset .pt.cmp{outline:1.5px dashed var(--muted);outline-offset:-3px;border-radius:8px;opacity:.92}
+.md-typeset .klegend{display:flex;flex-wrap:wrap;gap:.5rem 1.3rem;margin:.8rem 0 0;font-size:.85rem;color:var(--muted);max-width:none}
+.md-typeset .klegend .sw{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:.3rem}
+.md-typeset .klegend b{color:var(--ink)}
+.md-typeset .opswrap{overflow-x:auto;margin:.8rem 0 0;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.md-typeset .opswrap table.ops{margin:0;border:none;min-width:600px;border-collapse:collapse;width:100%;display:table;font-size:inherit}
+.md-typeset .ops th{font:600 .66rem/1.1 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:.55rem .8rem;background:var(--sunken);text-align:left}
+.md-typeset .ops td{padding:.55rem .8rem;border-top:1px solid var(--line);vertical-align:top}
+.md-typeset .ops td.op{font:600 1rem/1 var(--mono);width:2.2rem}
+.op-c{color:var(--c-c)} .op-j{color:var(--j-c)} .op-q{color:var(--q-c)} .op-x{color:var(--x-c)} .op-w{color:var(--accent)} .op-y{color:var(--y-c)}
+.md-typeset figure.diagram{display:block;width:100%;max-width:840px;margin:.9rem 0 0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:.6rem}
+.md-typeset figure.diagram svg{width:100%;height:auto;display:block}
+.edge{stroke:var(--line);stroke-width:2;fill:none;opacity:.75}
+.chip-g rect{stroke-width:1.6;rx:12}
+.chip-g .nat{font-family:var(--serif);font-size:21px;text-anchor:middle;fill:var(--ink)}
+.chip-g .lab{font-family:var(--mono);font-size:11px;font-weight:600;text-anchor:middle}
+.chip-g .ipa{font-family:var(--serif);font-size:12px;text-anchor:middle;fill:var(--muted)}
+.chip-g .st{font-family:var(--mono);font-size:9.5px;text-anchor:middle;fill:var(--muted)}
+.cat-base rect{fill:var(--base-t);stroke:var(--base-c)} .cat-base .lab{fill:var(--base-c)}
+.cat-c rect{fill:var(--c-t);stroke:var(--c-c)} .cat-c .lab{fill:var(--c-c)}
+.cat-j rect{fill:var(--j-t);stroke:var(--j-c)} .cat-j .lab{fill:var(--j-c)}
+.cat-q rect{fill:var(--q-t);stroke:var(--q-c)} .cat-q .lab{fill:var(--q-c)}
+.cat-x rect{fill:var(--x-t);stroke:var(--x-c)} .cat-x .lab{fill:var(--x-c)}
+.cat-y rect{fill:var(--y-t);stroke:var(--y-c)} .cat-y .lab{fill:var(--y-c)}
+.tlab{font-family:var(--mono);font-size:12px;letter-spacing:.05em;fill:var(--muted)}
+
+/* the status page */
+.md-typeset .state{font:600 .7rem/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;padding:.2em .5em;border-radius:.4em;white-space:nowrap}
+.md-typeset .state.done,.md-typeset .state.native{background:var(--x-t);color:var(--x-c)}
+.md-typeset .state.reviewed,.md-typeset .state.draft{background:var(--c-t);color:var(--c-c)}
+.md-typeset .state.open,.md-typeset .state.none{background:var(--sunken);color:var(--muted)}

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Diafon · my entries</title>
+<style>
+:root{--ink:#1a1d24;--muted:#5b6472;--line:#dde1e8;--accent:#0e7c86;--paper:#fff;--field:#f5f6f8}
+@media (prefers-color-scheme:dark){:root{--ink:#e9ecf1;--muted:#98a1b0;--line:#2a2e37;--accent:#3ec8cf;--paper:#1b1e25;--field:#23262e}}
+body{margin:0;padding:28px 20px 40px;background:var(--paper);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;max-width:720px;margin:0 auto}
+h1{font:600 20px Georgia,serif;margin:0 0 6px;display:flex;align-items:center;gap:10px}
+h1 img{width:24px;height:24px}
+h2{font:600 15px Georgia,serif;margin:28px 0 8px}
+p.lede{color:var(--muted);margin:0 0 20px}
+table{border-collapse:collapse;width:100%}
+td,th{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font:600 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+input[type=text]{width:100%;box-sizing:border-box;padding:5px 7px;border:1px solid var(--line);border-radius:5px;background:var(--field);color:var(--ink);font:inherit}
+button{font:inherit;padding:5px 10px;border:1px solid var(--line);border-radius:6px;background:var(--field);color:var(--ink);cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.row{display:flex;gap:8px;align-items:center;margin:10px 0}
+textarea{width:100%;box-sizing:border-box;min-height:120px;padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--field);color:var(--ink);font:13px/1.4 ui-monospace,Menlo,monospace}
+.note{color:var(--muted);font-size:13px}
+.empty{color:var(--muted);padding:10px 8px}
+.lang{font-family:Georgia,serif}
+</style>
+</head>
+<body>
+<h1><img src="icons/on-48.png" alt="">My entries</h1>
+<p class="lede">Words read your way, as you said them: a name no dictionary knows, a loan the letters misread. Made from a page (select a word, right-click, “Diafon: read as…”) or here. They follow your browser profile.</p>
+<h2>Reading</h2>
+<label class="row"><input type="checkbox" id="keepNames"> Keep names as written: a capitalised word inside a sentence stays in its own spelling.</label>
+<h2>Entries</h2>
+<div id="langs"></div>
+<h2>Add</h2>
+<div class="row">
+  <select id="addLang"></select>
+  <input type="text" id="addWord" placeholder="spelling on the page (cudjoe)">
+  <input type="text" id="addSaid" placeholder="as it is said, in the language's letters (kadzsó)">
+  <button class="primary" id="addBtn">Add</button>
+</div>
+<h2>Share and keep</h2>
+<p class="note">The entries as the Diafon lexicon writes them (data/lexicon/&lt;code&gt;.yaml, the <code>names</code> section). Copy them into a proposal for the commons so every reader gets them, or keep them as a backup; paste the same shape below to import.</p>
+<div class="row"><button id="exportBtn">Show as yaml</button><button id="proposeBtn">Propose to the commons</button><button id="importBtn">Import from the box</button></div>
+<textarea id="yaml" spellcheck="false" placeholder="hu:&#10;  names:&#10;    cudjoe: kadzsó"></textarea>
+<p class="note" id="status"></p>
+<script src="data.js"></script>
+<script src="options.js"></script>
+</body>
+</html>

@@ -10,6 +10,10 @@ state: draft
 letters: a â b c ç d e f g h ı i j k l m n o ö p r s ş t u ü v y z
 long: double
 sample: gicnesjli birc gicn, iixi gicnlerc      # güneşli bir gün, iyi günler
+read:                   # read back but never written: the loan letters
+  x: ks
+  w: v
+  q: kv
 forms:
   p: p
   b: b
