@@ -1,6 +1,6 @@
 # Typing
 
-<p class="specimen"><code>t</code> <span class="ug">t</span> · <code>tj</code> <span class="ug">ț</span> · <code>tx</code> <span class="ug">ṭ</span> · <code>ty</code> <span class="ug">ť</span> · <code>txy</code> <span class="ug">t̤</span></p>
+<p class="specimen"><code>t</code> <span class="ug">t</span> · <code>tj</code> <span class="ug">ț</span> · <code>tx</code> <span class="ug">ṭ</span> · <code>ty</code> <span class="ug">t̖</span> · <code>txy</code> <span class="ug">t̤</span></p>
 
 Every sound is typed as one base letter followed by zero, one or two
 operator letters, then w for length, then tone digits if the language has

@@ -24,8 +24,7 @@ def main():
     # cache-bust: the pages reference the fresh data files (a browser otherwise
     # keeps showing an older build of the fonts on the review page)
     import re
-    for page, names in (('inspect.html', ('fonts-embed.js', 'fonts-data.js')),
-                        ('fonts.html', ('fonts-data.js',))):
+    for page, names in (('inspect.html', ('fonts-embed.js', 'fonts-data.js')),):
         path = os.path.join(ROOT, 'docs', page)
         if not os.path.exists(path):
             continue

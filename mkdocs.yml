@@ -25,23 +25,23 @@ theme:
         name: light
   features:
     - navigation.footer
+    - navigation.tabs
+    - navigation.sections
     - navigation.top
     - toc.follow
     - search.suggest
     - content.code.copy
 
 nav:
-  - What Diafon is: index.md
-  - Typing: typing.md
-  - The script: script.md
-  - Tables: tables.md
+  - Home: index.md
+  - Master tables: master.md
+  - The system:
+      - Typing: typing.md
+      - The script: script.md
+      - The points: points.md
   - Status: status.md
   - For implementers: implement.md
-  - Live:
-      - Playground: play.html
-      - Master tables: master.html
-      - Fonts: fonts.html
-      - Font review: inspect.html
+  - Font review: inspect.html
 
 markdown_extensions:
   - attr_list

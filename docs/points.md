@@ -1,9 +1,9 @@
-# Tables
+# The points
 
 Every point of the system, in the Diafon font, with its input label and its
 reading. The per-language tables, each stamped with its review state, are in
-the [master tables](master.html); the [fonts page](fonts.html) shows every
-glyph in any font, with the support gaps.
+the [master tables](master.md), where any text can be tried and any font
+checked for the marks it draws.
 
 ## The consonant table
 
