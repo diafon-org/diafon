@@ -6,8 +6,8 @@ data class Stage(val code: String, val name: String, val long: String, val forms
                  val caps: Map<String, String> = emptyMap(), val sample: String = "")
 
 object SpecData {
-    const val GENERATED = "2026-09-14"
-    const val SOURCE = "dd7dd27"
+    const val GENERATED = "2026-09-27"
+    const val SOURCE = "429fa37"
     val DESCENDERS: Set<Char> = setOf('g', 'j', 'p', 'q', 'y')
     val WHOLE: Map<String, String> = mapOf("tc" to "c", "dc" to "x", "tq" to "c̦", "dq" to "x̦", "kq" to "q", "ix" to "j", "ux" to "w", "icx" to "j̈", "ucx" to "ẅ", "aq" to "r̈")
     val MARKS: Map<String, Mark> = mapOf(
@@ -23,9 +23,11 @@ object SpecData {
     val PARTNER: Map<Char, Char> = mapOf('i' to 'u', 'u' to 'i', 'e' to 'o', 'o' to 'e', 'a' to 'a')
     val STAGES: Map<String, Stage> = mapOf(
         "cs" to Stage("cs", "Czech spelling", "double", mapOf("p" to "p", "b" to "b", "t" to "t", "d" to "d", "k" to "k", "g" to "g", "f" to "f", "v" to "v", "s" to "s", "z" to "z", "sj" to "š", "zj" to "ž", "tc" to "c", "dc" to "dz", "tq" to "č", "dq" to "dž", "tj" to "ť", "dj" to "ď", "nj" to "ň", "kx" to "ch", "h" to "h", "m" to "m", "n" to "n", "l" to "l", "r" to "r", "rxy" to "ř", "ix" to "j", "a" to "a", "aw" to "á", "ej" to "e", "ejw" to "é", "i" to "i", "iw" to "í", "o" to "o", "ow" to "ó", "u" to "u", "uw" to "ú"), mapOf(), "dobriw dejn, prxyawtejlejw"),
+        "en" to Stage("en", "English", "double", mapOf(), mapOf(), "uxajn kibojrd, uxajn skrijpt, ejvaqi lanxguxajdq"),
         "fi" to Stage("fi", "Finnish spelling", "double", mapOf("p" to "p", "b" to "b", "t" to "t", "d" to "d", "k" to "k", "g" to "g", "f" to "f", "v" to "v", "s" to "s", "sj" to "š", "h" to "h", "m" to "m", "n" to "n", "nx" to "ng", "l" to "l", "r" to "r", "ix" to "j", "a" to "ä", "aw" to "ää", "ac" to "a", "acw" to "aa", "e" to "e", "ew" to "ee", "ec" to "ö", "ecw" to "öö", "i" to "i", "iw" to "ii", "ic" to "y", "icw" to "yy", "o" to "o", "ow" to "oo", "u" to "u", "uw" to "uu"), mapOf(), "hicvaw icecta ixac kacunistac kesaw"),
         "hu" to Stage("hu", "Hungarian spelling", "first-letter", mapOf("p" to "p", "b" to "b", "t" to "t", "d" to "d", "k" to "k", "g" to "g", "tj" to "ty", "dj" to "gy", "tc" to "c", "dc" to "dz", "tq" to "cs", "dq" to "dzs", "f" to "f", "v" to "v", "s" to "sz", "z" to "z", "sj" to "s", "zj" to "zs", "h" to "h", "m" to "m", "n" to "n", "nj" to "ny", "l" to "l", "r" to "r", "ix" to "j", "ac" to "a", "aw" to "á", "ej" to "e", "ew" to "é", "i" to "i", "iw" to "í", "o" to "o", "ow" to "ó", "ec" to "ö", "ecw" to "ő", "u" to "u", "uw" to "ú", "ic" to "ü", "icw" to "ű"), mapOf(), "sjok sewp njawr, hoswuw aclmac"),
         "pl" to Stage("pl", "Polish spelling", "double", mapOf("p" to "p", "b" to "b", "t" to "t", "d" to "d", "k" to "k", "g" to "g", "f" to "f", "v" to "w", "s" to "s", "z" to "z", "sj" to "ś", "zj" to "ź", "sjy" to "sz", "zjy" to "ż", "tc" to "c", "dc" to "dz", "tq" to "ć", "dq" to "dź", "tqy" to "cz", "dqy" to "dż", "nj" to "ń", "kx" to "ch", "m" to "m", "n" to "n", "l" to "l", "ux" to "ł", "r" to "r", "ix" to "j", "a" to "a", "ej" to "e", "ejy" to "ę", "i" to "i", "oj" to "o", "ojy" to "ą", "u" to "u", "uc" to "y"), mapOf(), "dojbra nojtc, kojkxani"),
         "sw" to Stage("sw", "Swahili spelling", "double", mapOf("p" to "p", "b" to "b", "t" to "t", "d" to "d", "k" to "k", "g" to "g", "f" to "f", "v" to "v", "s" to "s", "z" to "z", "sj" to "sh", "tq" to "ch", "dj" to "j", "tx" to "th", "dx" to "dh", "kx" to "kh", "gx" to "gh", "nj" to "ny", "nx" to "ng'", "h" to "h", "m" to "m", "n" to "n", "l" to "l", "r" to "r", "ix" to "y", "ux" to "w", "ac" to "a", "ej" to "e", "i" to "i", "oj" to "o", "u" to "u"), mapOf(), "hacbacri zac acsubuhi, kacribu sacnac"),
-        "tr" to Stage("tr", "Turkish spelling", "double", mapOf("p" to "p", "b" to "b", "t" to "t", "d" to "d", "k" to "k", "g" to "g", "f" to "f", "v" to "v", "s" to "s", "z" to "z", "sj" to "ş", "zj" to "j", "tq" to "ç", "dq" to "c", "h" to "h", "m" to "m", "n" to "n", "l" to "l", "rc" to "r", "ix" to "y", "a" to "a", "aw" to "â", "e" to "e", "ec" to "ö", "i" to "i", "ic" to "ü", "o" to "o", "u" to "u", "uc" to "ı"), mapOf(), "gicnesjli birc gicn, iixi gicnlerc"))
+        "tr" to Stage("tr", "Turkish spelling", "double", mapOf("p" to "p", "b" to "b", "t" to "t", "d" to "d", "k" to "k", "g" to "g", "f" to "f", "v" to "v", "s" to "s", "z" to "z", "sj" to "ş", "zj" to "j", "tq" to "ç", "dq" to "c", "h" to "h", "m" to "m", "n" to "n", "l" to "l", "rc" to "r", "ix" to "y", "a" to "a", "aw" to "â", "e" to "e", "ec" to "ö", "i" to "i", "ic" to "ü", "o" to "o", "u" to "u", "uc" to "ı"), mapOf(), "gicnesjli birc gicn, iixi gicnlerc"),
+        "zh" to Stage("zh", "Mandarin", "double", mapOf(), mapOf(), "ni3 kxaux3, sjyuc4 tcie4"))
 }

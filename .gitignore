@@ -1,3 +1,6 @@
 fonts/build/
 input_methods/mac/build/
 .DS_Store
+data/lexicon/sources/
+extensions/firefox/
+site/

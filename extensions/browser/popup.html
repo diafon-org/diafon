@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Diafon</title>
+<style>
+:root{--ink:#1a1d24;--muted:#5b6472;--line:#dde1e8;--accent:#0e7c86;--paper:#fff}
+@media (prefers-color-scheme:dark){:root{--ink:#e9ecf1;--muted:#98a1b0;--line:#2a2e37;--accent:#3ec8cf;--paper:#1b1e25}}
+body{margin:0;width:280px;padding:14px 16px 16px;background:var(--paper);color:var(--ink);font:13px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+h1{margin:0 0 10px;font:600 15px Georgia,serif;display:flex;align-items:center;gap:8px}
+h1 img{width:18px;height:18px;border-radius:4px}
+fieldset{border:0;margin:0 0 10px;padding:0}
+legend{font:600 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+label.opt{display:flex;gap:8px;align-items:baseline;padding:4px 0}
+select{width:100%;margin-top:2px}
+.note{color:var(--muted);font-size:12px;margin:8px 0 0}
+</style>
+</head>
+<body>
+<h1><img src="icons/on-32.png" alt="">Diafon</h1>
+<fieldset>
+  <label class="opt"><input type="checkbox" id="on"> Read pages in Universal</label>
+</fieldset>
+<fieldset>
+  <legend>This page's language</legend>
+  <select id="lang"></select>
+</fieldset>
+<p class="note" id="status"></p>
+<script src="data.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

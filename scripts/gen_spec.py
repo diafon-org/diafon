@@ -23,6 +23,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import engine
 import gen_master
+import lexicon
 import stages
 
 SENTENCES = [
@@ -33,6 +34,24 @@ SENTENCES = [
 ]
 LENIENT = ['Sjan1, jok!', 'jok', '1ma', 'tqyx', 'tww', 'twx', 'lj rj fj', 'bq ax txx', 'qwerty',
            'Hello, world!', 'x-ray', 'sj+ok']
+DETECT = ['sjok sewp njawr', 'Șok sép n̦ár, hossú älmä', 'sok szép nyár, hosszú alma', 'dobrý den, přátelé',
+          'hyvää yötä kaikille', 'Dobra noc, kochani', 'günaydın', 'habari za asubuhi', 'ma1 ma2 ma3', 'K̤ Ẹ̀']
+LEX_READ = {'en': ['the', 'quick', 'Shakespeare', 'meeting', 'facebook', 'nosuchword'],
+            'zh': ['ni', 'hao3', 'Ni3hao3', 'nihao', 'you', 'lü4', 'zhong1', 'xi1', 'shi4', 'si1'],
+            'la': ['hoc', 'vitae', 'quo'],
+            'hu': ['jamaica', 'Bach', 'tea', 'Cudjoe', 'nosuchword']}
+LEX_WRITE = {'en': ['dxaj', 'kuxijk', 'rid', 'rejd', 'Sjeixkspir', 'zzz'],
+             'hu': ['foixowk', 'gacixw', 'hejixejsj', 'fojt', 'Hejixejs'],
+             'zh': ['ni', 'kxaux', 'tqyunx', 'sjyuc']}
+LEX_LOAN = {'hu': ['meeting', 'like', 'house', 'taxi', 'team', 'tagja', 'meetingen', 'Facebook', 'show', 'think', 'alma', 'hoc', 'sok',
+                   'traumái', 'traumát', 'jamaicai', 'hazai', 'pizzát', 'Jamaicában', 'akinek', 'amiket', 'meetingen', 'franchise', 'chat', 'technika',
+                   'streamingajánlójában', 'meetingjén', 'Bela', 'felkerült', 'vele', 'teamek', 'teaház', 'onlinera']}
+LEX_CHOICES = ['ni3', 'kxaux3', 'tqyunx1', 'kuoc2', 'sjyuc4', 'zzz1']
+LEX_TEXTS = {'stage:hu': ['Sok szép nyár. Folyó, gally, hely; helyes.', 'Meeting, like, house, taxi, ad hoc, team, tagja, Facebook.',
+                          'Jamaicai franchise-ba, akinek traumái; Bach, pech, technika, chat.',
+                          'Streamingajánlójában online teaház, felkerült; tea, team.', 'Cudjoe East, Ocho Rios.'],
+             'stage:en': ['The quick brown fox jumps over the lazy dog.', 'Shakespeare wrote Hamlet; Diafon reads it.'],
+             'stage:zh': ['Ni3 hao3, shi4 jie4!', 'nihao ma']}
 INVALID = ['jok', '1', 'tqyx', 'tww', 'twx', 'lj', 'rj', 'fj', 'bq', 'ax', 'txx',
            'tcq', 'yx', 'wa', 'ejx', 'txyx']
 
@@ -96,6 +115,9 @@ def main():
         stage_data[code] = {k: st[k] for k in ('name', 'state', 'letters', 'long', 'forms')}
         stage_data[code]['caps'] = st.get('caps') or {}
         stage_data[code]['sample'] = st.get('sample') or ''
+        stage_data[code]['read'] = st.get('read') or {}
+        stage_data[code]['lexical'] = st['lexical']
+        stage_data[code]['lexicon'] = bool(st.get('lexicon'))
         vec = [[f, stages.render(f, st)] for f in sorted(stages.language_forms(code))]
         vec += [[f + 'w', stages.render(f + 'w', st)] for f in sorted(st['forms']) if f[0] in engine.C_BASES]
         vec += [[s, stages.render(s, st)] for s in SENTENCES]
@@ -116,6 +138,54 @@ def main():
             continue
         sys.exit(f'{s!r} should be invalid but renders')
 
+    # reading back: the script and each stage parsed to transport, and
+    # conversions between sources; every implementation reproduces these
+    parse_script = []
+    for f in single:
+        for form in (f, f[0].upper() + f[1:]):
+            parse_script.append([engine.render(form), form])
+    parse_script += [[engine.render(s), stages.parse(engine.render(s), 'script')] for s in SENTENCES]
+    parse_stages = {}
+    for code in stages.codes():
+        st = stages.load(code)
+        vec = [[stages.render(f, st), stages.parse(stages.render(f, st), f'stage:{code}')]
+               for f in sorted(st['forms'])]
+        vec += [[stages.render(s, st), stages.parse(stages.render(s, st), f'stage:{code}')]
+                for s in SENTENCES + [st['sample']]]
+        vec += [[sp, stages.parse(sp, f'stage:{code}')] for sp in st['read']]
+        vec += [[sp.upper(), stages.parse(sp.upper(), f'stage:{code}')] for sp in list(st['forms'].values())[:8]]
+        parse_stages[code] = vec
+    convert_vec = []
+    for code in stages.codes():
+        st = stages.load(code)
+        spelled = stages.render(st['sample'], st)
+        for target in ['script', 'transport'] + [f'stage:{c}' for c in stages.codes() if c != code]:
+            convert_vec.append([spelled, f'stage:{code}', target, stages.convert(spelled, f'stage:{code}', target)])
+    for s in SENTENCES[:4]:
+        convert_vec.append([engine.render(s), 'script', 'stage:hu', stages.convert(engine.render(s), 'script', 'stage:hu')])
+    detect_vec = [[t, stages.detect(t)[0][0]] for t in DETECT]
+
+    # the lexicon layer: its shape per code (the tables live in
+    # data/lexicon/<code>.json, copied to docs/lexicon/ for the web) and
+    # vectors: words read and written, loans folded, characters chosen
+    lexicon_meta = {}
+    for code in lexicon.codes():
+        L = lexicon.lex(code)
+        lexicon_meta[code] = {k: L.get(k) for k in ('name', 'kind', 'match', 'loans', 'fold', 'foreign', 'lengthen', 'sample')}
+        lexicon_meta[code]['output'] = L.get('output', True)
+        lexicon_meta[code]['sizes'] = {k: len(L[k]) for k in ('read', 'write', 'choices', 'native') if L.get(k)}
+    lex_vec = {
+        'read': [[c, w, lexicon.read_word(w, c)] for c, ws in LEX_READ.items() for w in ws],
+        'write': [[c, t, lexicon.write_word(t, c)] for c, ts in LEX_WRITE.items() for t in ts],
+        'loan': [[c, w, (lexicon.loan(w, c) or [None])[0]] for c, ws in LEX_LOAN.items() for w in ws],
+        'choices': [[k, lexicon.choices(k)[:6]] for k in LEX_CHOICES],
+        'parse': [[src, t, stages.parse(t, src)] for src, ts in LEX_TEXTS.items() for t in ts],
+        'render': [[src, stages.parse(t, src), stages.render(stages.parse(t, src), src[6:])]
+                   for src, ts in LEX_TEXTS.items() for t in ts],
+        'detect': [[t, stages.detect(t)[0][0]] for ts in LEX_TEXTS.values() for t in ts],
+        'roundtrip': [[src, t, stages.convert(t, src, src)] for src, ts in LEX_TEXTS.items() for t in ts],
+    }
+
     spec = {
         'name': 'Diafon',
         'generated': dt.date.today().isoformat(),
@@ -125,6 +195,15 @@ def main():
             'operators': sorted(engine.OPS - {'w'}), 'length': 'w',
             'tones': 'trailing digits after a segment',
         },
+        'reading': [
+            'Reading back inverts the rendering: longest match over a table of spellings, tone digits attached to the form before them, anything unmatched raw.',
+            'The script table is the whole inventory of the grammar, small and capitalized; a repeated vowel operator (acc) reads as the shorter form (ac).',
+            'A stage table is its spellings, long forms, capitalized and all-caps spellings and its read aliases (etymological spellings the stage never writes), over the script table as fallback.',
+            'All-caps reads as capitalized: SZÉP -> SEwP -> SzÉP; the transport form carries no case beyond the first letter.',
+            'Digraph boundaries inside compounds (házszám) read by longest match and can mislead; no dictionary is consulted.',
+            'detect ranks the sources by coverage: the share of letters and marks a source reads with its own spellings; ties go to the script when its marks are present, to a syllable lexicon that read every word with a tone digit, to a word lexicon that read every word, then the preferred sources, then transport.',
+            'The lexicon (data/lexicon) reads and writes word by word above the letters: a host with letters reads a word as a loan (the longest stem a loan lexicon reads among its common words, against the host dictionary stem and its own entries: the longest wins, the host on ties unless the stem has a foreign shape, the rest by the letters), else by its own entries (spoken stems), else by its letters when they read it in full, else by the letters with aliases and the script; a lexical stage reads by its lexicon; a word is written by the lexicon (the word, or a stem by prefix), else by the letters.',
+        ],
         'grammar': [
             'A segment is one base letter followed by at most two operators (c j q x y), then w at most once and last, then tone digits.',
             'An operator or a digit never starts a segment; strictly, such input is an error; leniently, it passes through as typed.',
@@ -143,7 +222,12 @@ def main():
             'invalid': INVALID,
             'stream': {s: trace(s) for s in SENTENCES[:3]},
             'stages': stage_vectors,
+            'parse': {'script': parse_script, 'stages': parse_stages},
+            'convert': convert_vec,
+            'detect': detect_vec,
+            'lexicon': lex_vec,
         },
+        'lexicon': lexicon_meta,
     }
     out = os.path.join(ROOT, 'docs', 'spec.json')
     with open(out, 'w') as fh:

@@ -1,7 +1,7 @@
 {
  "name": "Diafon",
- "generated": "2026-09-14",
- "source": "dd7dd27",
+ "generated": "2026-09-27",
+ "source": "429fa37",
  "alphabet": {
   "consonant_bases": [
    "b",
@@ -37,6 +37,15 @@
   "length": "w",
   "tones": "trailing digits after a segment"
  },
+ "reading": [
+  "Reading back inverts the rendering: longest match over a table of spellings, tone digits attached to the form before them, anything unmatched raw.",
+  "The script table is the whole inventory of the grammar, small and capitalized; a repeated vowel operator (acc) reads as the shorter form (ac).",
+  "A stage table is its spellings, long forms, capitalized and all-caps spellings and its read aliases (etymological spellings the stage never writes), over the script table as fallback.",
+  "All-caps reads as capitalized: SZÉP -> SEwP -> SzÉP; the transport form carries no case beyond the first letter.",
+  "Digraph boundaries inside compounds (házszám) read by longest match and can mislead; no dictionary is consulted.",
+  "detect ranks the sources by coverage: the share of letters and marks a source reads with its own spellings; ties go to the script when its marks are present, to a syllable lexicon that read every word with a tone digit, to a word lexicon that read every word, then the preferred sources, then transport.",
+  "The lexicon (data/lexicon) reads and writes word by word above the letters: a host with letters reads a word as a loan (the longest stem a loan lexicon reads among its common words, against the host dictionary stem and its own entries: the longest wins, the host on ties unless the stem has a foreign shape, the rest by the letters), else by its own entries (spoken stems), else by its letters when they read it in full, else by the letters with aliases and the script; a lexical stage reads by its lexicon; a word is written by the lexicon (the word, or a stem by prefix), else by the letters."
+ ],
  "grammar": [
   "A segment is one base letter followed by at most two operators (c j q x y), then w at most once and last, then tone digits.",
   "An operator or a digit never starts a segment; strictly, such input is an error; leniently, it passes through as typed.",
@@ -10148,7 +10157,34 @@
     "uw": "ú"
    },
    "caps": {},
-   "sample": "dobriw dejn, prxyawtejlejw"
+   "sample": "dobriw dejn, prxyawtejlejw",
+   "read": {
+    "x": "ks",
+    "w": "v",
+    "q": "kv",
+    "y": "i",
+    "ý": "iw",
+    "ů": "uw",
+    "dě": "djej",
+    "tě": "tjej",
+    "ně": "njej",
+    "mě": "mnjej",
+    "ě": "ixej"
+   },
+   "lexical": false,
+   "lexicon": false
+  },
+  "en": {
+   "name": "English",
+   "state": "lexical",
+   "letters": [],
+   "long": "double",
+   "forms": {},
+   "caps": {},
+   "sample": "uxajn kibojrd, uxajn skrijpt, ejvaqi lanxguxajdq",
+   "read": {},
+   "lexical": true,
+   "lexicon": true
   },
   "fi": {
    "name": "Finnish spelling",
@@ -10225,7 +10261,15 @@
     "uw": "uu"
    },
    "caps": {},
-   "sample": "hicvaw icecta ixac kacunistac kesaw"
+   "sample": "hicvaw icecta ixac kacunistac kesaw",
+   "read": {
+    "x": "ks",
+    "w": "v",
+    "q": "kv",
+    "z": "tc"
+   },
+   "lexical": false,
+   "lexicon": false
   },
   "hu": {
    "name": "Hungarian spelling",
@@ -10315,7 +10359,17 @@
     "icw": "ű"
    },
    "caps": {},
-   "sample": "sjok sewp njawr, hoswuw aclmac"
+   "sample": "sjok sewp njawr, hoswuw aclmac",
+   "read": {
+    "x": "ks",
+    "w": "v",
+    "q": "kv",
+    "y": "i",
+    "ly": "ix",
+    "lly": "ixw"
+   },
+   "lexical": false,
+   "lexicon": true
   },
   "pl": {
    "name": "Polish spelling",
@@ -10400,7 +10454,17 @@
     "uc": "y"
    },
    "caps": {},
-   "sample": "dojbra nojtc, kojkxani"
+   "sample": "dojbra nojtc, kojkxani",
+   "read": {
+    "x": "ks",
+    "q": "kv",
+    "v": "v",
+    "ó": "u",
+    "rz": "zjy",
+    "h": "kx"
+   },
+   "lexical": false,
+   "lexicon": false
   },
   "sw": {
    "name": "Swahili spelling",
@@ -10473,7 +10537,13 @@
     "u": "u"
    },
    "caps": {},
-   "sample": "hacbacri zac acsubuhi, kacribu sacnac"
+   "sample": "hacbacri zac acsubuhi, kacribu sacnac",
+   "read": {
+    "x": "ks",
+    "q": "kv"
+   },
+   "lexical": false,
+   "lexicon": false
   },
   "tr": {
    "name": "Turkish spelling",
@@ -10542,7 +10612,26 @@
     "uc": "ı"
    },
    "caps": {},
-   "sample": "gicnesjli birc gicn, iixi gicnlerc"
+   "sample": "gicnesjli birc gicn, iixi gicnlerc",
+   "read": {
+    "x": "ks",
+    "w": "v",
+    "q": "kv"
+   },
+   "lexical": false,
+   "lexicon": false
+  },
+  "zh": {
+   "name": "Mandarin",
+   "state": "lexical",
+   "letters": [],
+   "long": "double",
+   "forms": {},
+   "caps": {},
+   "sample": "ni3 kxaux3, sjyuc4 tcie4",
+   "read": {},
+   "lexical": true,
+   "lexicon": true
   }
  },
  "vectors": {
@@ -12474,6 +12563,224 @@
      "t̖h d̖h ṛh pf th kh"
     ]
    ],
+   "en": [
+    [
+     "a",
+     "a"
+    ],
+    [
+     "ac",
+     "ah"
+    ],
+    [
+     "aix",
+     "i"
+    ],
+    [
+     "aj",
+     "a"
+    ],
+    [
+     "aq",
+     "are"
+    ],
+    [
+     "aux",
+     "ow"
+    ],
+    [
+     "b",
+     "b"
+    ],
+    [
+     "d",
+     "d"
+    ],
+    [
+     "dq",
+     "x̦"
+    ],
+    [
+     "dx",
+     "ḍ"
+    ],
+    [
+     "eix",
+     "a"
+    ],
+    [
+     "ej",
+     "eh"
+    ],
+    [
+     "f",
+     "f"
+    ],
+    [
+     "g",
+     "g"
+    ],
+    [
+     "h",
+     "h"
+    ],
+    [
+     "i",
+     "e"
+    ],
+    [
+     "ij",
+     "ị"
+    ],
+    [
+     "ix",
+     "j"
+    ],
+    [
+     "k",
+     "k"
+    ],
+    [
+     "kx",
+     "ḳ"
+    ],
+    [
+     "l",
+     "l"
+    ],
+    [
+     "m",
+     "mm"
+    ],
+    [
+     "n",
+     "n"
+    ],
+    [
+     "nx",
+     "ṇ"
+    ],
+    [
+     "oj",
+     "aw"
+    ],
+    [
+     "ojix",
+     "oi"
+    ],
+    [
+     "oux",
+     "oh"
+    ],
+    [
+     "p",
+     "p"
+    ],
+    [
+     "r",
+     "r"
+    ],
+    [
+     "s",
+     "s"
+    ],
+    [
+     "sj",
+     "shh"
+    ],
+    [
+     "t",
+     "t"
+    ],
+    [
+     "tq",
+     "c̦"
+    ],
+    [
+     "tx",
+     "ṭ"
+    ],
+    [
+     "u",
+     "ooh"
+    ],
+    [
+     "uj",
+     "ụ"
+    ],
+    [
+     "ux",
+     "w"
+    ],
+    [
+     "v",
+     "v"
+    ],
+    [
+     "z",
+     "z"
+    ],
+    [
+     "zj",
+     "z̦"
+    ],
+    [
+     "sjok sewp njawr",
+     "șok sép n̦ár"
+    ],
+    [
+     "Sjan1, sjok!",
+     "Shan1, șok!"
+    ],
+    [
+     "SJAN",
+     "ȘAN"
+    ],
+    [
+     "Gj Pj Gxy Txy Ic Sjw Tqyh Aw",
+     "G̦ P̦ G̤ T̤ Ü Șș C̖h Á"
+    ],
+    [
+     "ma1 ma2 ma3 ma4",
+     "ma1 ma2 ma3 ma4"
+    ],
+    [
+     "hoswuw aclmac",
+     "hossú älmä"
+    ],
+    [
+     "tqi3 sjuc3 tquc1",
+     "chee3 șï3 c̦ï1"
+    ],
+    [
+     "Diafon: ix i ux.",
+     "Diafon: j e w."
+    ],
+    [
+     "kxy gxy txy dxy sxy zxy",
+     "k̤ g̈ t̤ d̤ s̤ z̤"
+    ],
+    [
+     "ty dy ny sjy zjy tqy dqy",
+     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+    ],
+    [
+     "tcy dcy tcx dcx",
+     "c̤ x̤ c̣ x̣"
+    ],
+    [
+     "aq r ix ux icx ucx",
+     "are r j w j̈ ẅ"
+    ],
+    [
+     "aj ej ij oj uj ay ey iy oy uy",
+     "a eh ị aw ụ à è ì ò ù"
+    ],
+    [
+     "tyh dyh rch pf th kh",
+     "t̖h d̖h ṛh pf th kh"
+    ]
+   ],
    "fi": [
     [
      "a",
@@ -12735,7 +13042,7 @@
     ],
     [
      "aw",
-     "á"
+     "ah"
     ],
     [
      "b",
@@ -12759,19 +13066,19 @@
     ],
     [
      "ec",
-     "ö"
+     "a"
     ],
     [
      "ecw",
-     "ő"
+     "are"
     ],
     [
      "ej",
-     "e"
+     "eh"
     ],
     [
      "ew",
-     "é"
+     "a"
     ],
     [
      "f",
@@ -12787,7 +13094,7 @@
     ],
     [
      "i",
-     "i"
+     "e"
     ],
     [
      "ic",
@@ -12803,7 +13110,7 @@
     ],
     [
      "ix",
-     "j"
+     "ly"
     ],
     [
      "k",
@@ -12815,7 +13122,7 @@
     ],
     [
      "m",
-     "m"
+     "mm"
     ],
     [
      "n",
@@ -12827,11 +13134,11 @@
     ],
     [
      "o",
-     "o"
+     "aw"
     ],
     [
      "ow",
-     "ó"
+     "oh"
     ],
     [
      "p",
@@ -12847,7 +13154,7 @@
     ],
     [
      "sj",
-     "s"
+     "shh"
     ],
     [
      "t",
@@ -12867,7 +13174,7 @@
     ],
     [
      "u",
-     "u"
+     "ooh"
     ],
     [
      "uw",
@@ -12995,7 +13302,7 @@
     ],
     [
      "Gj Pj Gxy Txy Ic Sjw Tqyh Aw",
-     "G̦ P̦ G̤ T̤ Ü Ss C̖h Á"
+     "G̦ P̦ G̤ T̤ Ü Ss C̖h Ah"
     ],
     [
      "ma1 ma2 ma3 ma4",
@@ -13007,11 +13314,11 @@
     ],
     [
      "tqi3 sjuc3 tquc1",
-     "csi3 sï3 csï1"
+     "chee3 sï3 csï1"
     ],
     [
      "Diafon: ix i ux.",
-     "Diafon: j i w."
+     "Diafon: ly e w."
     ],
     [
      "kxy gxy txy dxy sxy zxy",
@@ -13027,11 +13334,11 @@
     ],
     [
      "aq r ix ux icx ucx",
-     "r̈ r j w j̈ ẅ"
+     "r̈ r ly w j̈ ẅ"
     ],
     [
      "aj ej ij oj uj ay ey iy oy uy",
-     "ạ e ị ọ ụ à è ì ò ù"
+     "ạ eh ị ọ ụ à è ì ò ù"
     ],
     [
      "tyh dyh rch pf th kh",
@@ -13871,7 +14178,3898 @@
      "tyh dyh rch pf th kh",
      "t̖h d̖h rh pf th kh"
     ]
+   ],
+   "zh": [
+    [
+     "a",
+     "a"
+    ],
+    [
+     "aj",
+     "ạ"
+    ],
+    [
+     "aq",
+     "er"
+    ],
+    [
+     "f",
+     "f"
+    ],
+    [
+     "i",
+     "yi"
+    ],
+    [
+     "ic",
+     "yu"
+    ],
+    [
+     "k",
+     "k"
+    ],
+    [
+     "kh",
+     "kh"
+    ],
+    [
+     "kx",
+     "ḳ"
+    ],
+    [
+     "l",
+     "l"
+    ],
+    [
+     "m",
+     "m"
+    ],
+    [
+     "n",
+     "n"
+    ],
+    [
+     "nx",
+     "ṇ"
+    ],
+    [
+     "oc",
+     "e"
+    ],
+    [
+     "p",
+     "p"
+    ],
+    [
+     "ph",
+     "ph"
+    ],
+    [
+     "s",
+     "s"
+    ],
+    [
+     "sjy",
+     "s̖"
+    ],
+    [
+     "t",
+     "t"
+    ],
+    [
+     "tc",
+     "c"
+    ],
+    [
+     "tch",
+     "ch"
+    ],
+    [
+     "th",
+     "th"
+    ],
+    [
+     "tqy",
+     "c̖"
+    ],
+    [
+     "tqyh",
+     "c̖h"
+    ],
+    [
+     "u",
+     "wu"
+    ],
+    [
+     "uc",
+     "ï"
+    ],
+    [
+     "zjy",
+     "z̖"
+    ],
+    [
+     "sjok sewp njawr",
+     "șok sép n̦ár"
+    ],
+    [
+     "Sjan1, sjok!",
+     "Șan1, șok!"
+    ],
+    [
+     "SJAN",
+     "ȘAN"
+    ],
+    [
+     "Gj Pj Gxy Txy Ic Sjw Tqyh Aw",
+     "G̦ P̦ G̤ T̤ Yu Șș C̖h Á"
+    ],
+    [
+     "ma1 ma2 ma3 ma4",
+     "ma1 ma2 ma3 ma4"
+    ],
+    [
+     "hoswuw aclmac",
+     "hossú älmä"
+    ],
+    [
+     "tqi3 sjuc3 tquc1",
+     "c̦i3 șï3 c̦ï1"
+    ],
+    [
+     "Diafon: ix i ux.",
+     "Diafon: j yi w."
+    ],
+    [
+     "kxy gxy txy dxy sxy zxy",
+     "k̤ g̈ t̤ d̤ s̤ z̤"
+    ],
+    [
+     "ty dy ny sjy zjy tqy dqy",
+     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+    ],
+    [
+     "tcy dcy tcx dcx",
+     "c̤ x̤ c̣ x̣"
+    ],
+    [
+     "aq r ix ux icx ucx",
+     "er r j w j̈ ẅ"
+    ],
+    [
+     "aj ej ij oj uj ay ey iy oy uy",
+     "ạ ẹ ị ọ ụ à è ì ò ù"
+    ],
+    [
+     "tyh dyh rch pf th kh",
+     "t̖h d̖h ṛh pf th kh"
+    ]
    ]
+  },
+  "parse": {
+   "script": [
+    [
+     "p",
+     "p"
+    ],
+    [
+     "P",
+     "P"
+    ],
+    [
+     "t",
+     "t"
+    ],
+    [
+     "T",
+     "T"
+    ],
+    [
+     "k",
+     "k"
+    ],
+    [
+     "K",
+     "K"
+    ],
+    [
+     "b",
+     "b"
+    ],
+    [
+     "B",
+     "B"
+    ],
+    [
+     "d",
+     "d"
+    ],
+    [
+     "D",
+     "D"
+    ],
+    [
+     "g",
+     "g"
+    ],
+    [
+     "G",
+     "G"
+    ],
+    [
+     "f",
+     "f"
+    ],
+    [
+     "F",
+     "F"
+    ],
+    [
+     "v",
+     "v"
+    ],
+    [
+     "V",
+     "V"
+    ],
+    [
+     "s",
+     "s"
+    ],
+    [
+     "S",
+     "S"
+    ],
+    [
+     "z",
+     "z"
+    ],
+    [
+     "Z",
+     "Z"
+    ],
+    [
+     "m",
+     "m"
+    ],
+    [
+     "M",
+     "M"
+    ],
+    [
+     "n",
+     "n"
+    ],
+    [
+     "N",
+     "N"
+    ],
+    [
+     "l",
+     "l"
+    ],
+    [
+     "L",
+     "L"
+    ],
+    [
+     "r",
+     "r"
+    ],
+    [
+     "R",
+     "R"
+    ],
+    [
+     "h",
+     "h"
+    ],
+    [
+     "H",
+     "H"
+    ],
+    [
+     "a",
+     "a"
+    ],
+    [
+     "A",
+     "A"
+    ],
+    [
+     "e",
+     "e"
+    ],
+    [
+     "E",
+     "E"
+    ],
+    [
+     "i",
+     "i"
+    ],
+    [
+     "I",
+     "I"
+    ],
+    [
+     "o",
+     "o"
+    ],
+    [
+     "O",
+     "O"
+    ],
+    [
+     "u",
+     "u"
+    ],
+    [
+     "U",
+     "U"
+    ],
+    [
+     "p̓",
+     "pj"
+    ],
+    [
+     "P̦",
+     "Pj"
+    ],
+    [
+     "ț",
+     "tj"
+    ],
+    [
+     "Ț",
+     "Tj"
+    ],
+    [
+     "k̦",
+     "kj"
+    ],
+    [
+     "K̦",
+     "Kj"
+    ],
+    [
+     "b̦",
+     "bj"
+    ],
+    [
+     "B̦",
+     "Bj"
+    ],
+    [
+     "d̦",
+     "dj"
+    ],
+    [
+     "D̦",
+     "Dj"
+    ],
+    [
+     "g̓",
+     "gj"
+    ],
+    [
+     "G̦",
+     "Gj"
+    ],
+    [
+     "ș",
+     "sj"
+    ],
+    [
+     "Ș",
+     "Sj"
+    ],
+    [
+     "z̦",
+     "zj"
+    ],
+    [
+     "Z̦",
+     "Zj"
+    ],
+    [
+     "m̦",
+     "mj"
+    ],
+    [
+     "M̦",
+     "Mj"
+    ],
+    [
+     "n̦",
+     "nj"
+    ],
+    [
+     "N̦",
+     "Nj"
+    ],
+    [
+     "ạ",
+     "aj"
+    ],
+    [
+     "Ạ",
+     "Aj"
+    ],
+    [
+     "ẹ",
+     "ej"
+    ],
+    [
+     "Ẹ",
+     "Ej"
+    ],
+    [
+     "ị",
+     "ij"
+    ],
+    [
+     "Ị",
+     "Ij"
+    ],
+    [
+     "ọ",
+     "oj"
+    ],
+    [
+     "Ọ",
+     "Oj"
+    ],
+    [
+     "ụ",
+     "uj"
+    ],
+    [
+     "Ụ",
+     "Uj"
+    ],
+    [
+     "c",
+     "tc"
+    ],
+    [
+     "C",
+     "Tc"
+    ],
+    [
+     "x",
+     "dc"
+    ],
+    [
+     "X",
+     "Dc"
+    ],
+    [
+     "ṛ",
+     "rc"
+    ],
+    [
+     "Ṛ",
+     "Rc"
+    ],
+    [
+     "ä",
+     "ac"
+    ],
+    [
+     "Ä",
+     "Ac"
+    ],
+    [
+     "ö",
+     "ec"
+    ],
+    [
+     "Ö",
+     "Ec"
+    ],
+    [
+     "ü",
+     "ic"
+    ],
+    [
+     "Ü",
+     "Ic"
+    ],
+    [
+     "ë",
+     "oc"
+    ],
+    [
+     "Ë",
+     "Oc"
+    ],
+    [
+     "ï",
+     "uc"
+    ],
+    [
+     "Ï",
+     "Uc"
+    ],
+    [
+     "c̦",
+     "tq"
+    ],
+    [
+     "C̦",
+     "Tq"
+    ],
+    [
+     "q",
+     "kq"
+    ],
+    [
+     "Q",
+     "Kq"
+    ],
+    [
+     "x̦",
+     "dq"
+    ],
+    [
+     "X̦",
+     "Dq"
+    ],
+    [
+     "r̈",
+     "aq"
+    ],
+    [
+     "R̈",
+     "Aq"
+    ],
+    [
+     "ọ̈",
+     "eq"
+    ],
+    [
+     "Ọ̈",
+     "Eq"
+    ],
+    [
+     "ụ̈",
+     "iq"
+    ],
+    [
+     "Ụ̈",
+     "Iq"
+    ],
+    [
+     "ṭ",
+     "tx"
+    ],
+    [
+     "Ṭ",
+     "Tx"
+    ],
+    [
+     "ḳ",
+     "kx"
+    ],
+    [
+     "Ḳ",
+     "Kx"
+    ],
+    [
+     "ḍ",
+     "dx"
+    ],
+    [
+     "Ḍ",
+     "Dx"
+    ],
+    [
+     "ġ",
+     "gx"
+    ],
+    [
+     "G̣",
+     "Gx"
+    ],
+    [
+     "ṇ",
+     "nx"
+    ],
+    [
+     "Ṇ",
+     "Nx"
+    ],
+    [
+     "ḷ",
+     "lx"
+    ],
+    [
+     "Ḷ",
+     "Lx"
+    ],
+    [
+     "ḥ",
+     "hx"
+    ],
+    [
+     "Ḥ",
+     "Hx"
+    ],
+    [
+     "j",
+     "ix"
+    ],
+    [
+     "J",
+     "Ix"
+    ],
+    [
+     "w",
+     "ux"
+    ],
+    [
+     "W",
+     "Ux"
+    ],
+    [
+     "t̖",
+     "ty"
+    ],
+    [
+     "T̖",
+     "Ty"
+    ],
+    [
+     "d̖",
+     "dy"
+    ],
+    [
+     "D̖",
+     "Dy"
+    ],
+    [
+     "n̖",
+     "ny"
+    ],
+    [
+     "N̖",
+     "Ny"
+    ],
+    [
+     "à",
+     "ay"
+    ],
+    [
+     "À",
+     "Ay"
+    ],
+    [
+     "è",
+     "ey"
+    ],
+    [
+     "È",
+     "Ey"
+    ],
+    [
+     "ì",
+     "iy"
+    ],
+    [
+     "Ì",
+     "Iy"
+    ],
+    [
+     "ò",
+     "oy"
+    ],
+    [
+     "Ò",
+     "Oy"
+    ],
+    [
+     "ù",
+     "uy"
+    ],
+    [
+     "Ù",
+     "Uy"
+    ],
+    [
+     "pp",
+     "pw"
+    ],
+    [
+     "Pp",
+     "Pw"
+    ],
+    [
+     "tt",
+     "tw"
+    ],
+    [
+     "Tt",
+     "Tw"
+    ],
+    [
+     "kk",
+     "kw"
+    ],
+    [
+     "Kk",
+     "Kw"
+    ],
+    [
+     "ss",
+     "sw"
+    ],
+    [
+     "Ss",
+     "Sw"
+    ],
+    [
+     "á",
+     "aw"
+    ],
+    [
+     "Á",
+     "Aw"
+    ],
+    [
+     "é",
+     "ew"
+    ],
+    [
+     "É",
+     "Ew"
+    ],
+    [
+     "í",
+     "iw"
+    ],
+    [
+     "Í",
+     "Iw"
+    ],
+    [
+     "ó",
+     "ow"
+    ],
+    [
+     "Ó",
+     "Ow"
+    ],
+    [
+     "ú",
+     "uw"
+    ],
+    [
+     "Ú",
+     "Uw"
+    ],
+    [
+     "j̈",
+     "icx"
+    ],
+    [
+     "J̈",
+     "Icx"
+    ],
+    [
+     "s̖",
+     "sjy"
+    ],
+    [
+     "S̖",
+     "Sjy"
+    ],
+    [
+     "z̖",
+     "zjy"
+    ],
+    [
+     "Z̖",
+     "Zjy"
+    ],
+    [
+     "c̤",
+     "tcy"
+    ],
+    [
+     "C̤",
+     "Tcy"
+    ],
+    [
+     "c̖",
+     "tqy"
+    ],
+    [
+     "C̖",
+     "Tqy"
+    ],
+    [
+     "x̖",
+     "dqy"
+    ],
+    [
+     "X̖",
+     "Dqy"
+    ],
+    [
+     "t̤",
+     "txy"
+    ],
+    [
+     "T̤",
+     "Txy"
+    ],
+    [
+     "k̤",
+     "kxy"
+    ],
+    [
+     "K̤",
+     "Kxy"
+    ],
+    [
+     "d̤",
+     "dxy"
+    ],
+    [
+     "D̤",
+     "Dxy"
+    ],
+    [
+     "g̈",
+     "gxy"
+    ],
+    [
+     "G̤",
+     "Gxy"
+    ],
+    [
+     "f̤",
+     "fxy"
+    ],
+    [
+     "F̤",
+     "Fxy"
+    ],
+    [
+     "v̤",
+     "vxy"
+    ],
+    [
+     "V̤",
+     "Vxy"
+    ],
+    [
+     "s̤",
+     "sxy"
+    ],
+    [
+     "S̤",
+     "Sxy"
+    ],
+    [
+     "z̤",
+     "zxy"
+    ],
+    [
+     "Z̤",
+     "Zxy"
+    ],
+    [
+     "n̤",
+     "nxy"
+    ],
+    [
+     "N̤",
+     "Nxy"
+    ],
+    [
+     "l̤",
+     "lxy"
+    ],
+    [
+     "L̤",
+     "Lxy"
+    ],
+    [
+     "r̤",
+     "rxy"
+    ],
+    [
+     "R̤",
+     "Rxy"
+    ],
+    [
+     "ẹ̀",
+     "ejy"
+    ],
+    [
+     "Ẹ̀",
+     "Ejy"
+    ],
+    [
+     "ọ̀",
+     "ojy"
+    ],
+    [
+     "Ọ̀",
+     "Ojy"
+    ],
+    [
+     "șș",
+     "sjw"
+    ],
+    [
+     "Șș",
+     "Sjw"
+    ],
+    [
+     "c̦c̦",
+     "tqw"
+    ],
+    [
+     "C̦c̦",
+     "Tqw"
+    ],
+    [
+     "ẹ́",
+     "ejw"
+    ],
+    [
+     "Ẹ́",
+     "Ejw"
+    ],
+    [
+     "ọ́",
+     "ojw"
+    ],
+    [
+     "Ọ́",
+     "Ojw"
+    ],
+    [
+     "a̋",
+     "acw"
+    ],
+    [
+     "A̋",
+     "Acw"
+    ],
+    [
+     "ő",
+     "ecw"
+    ],
+    [
+     "Ő",
+     "Ecw"
+    ],
+    [
+     "ű",
+     "icw"
+    ],
+    [
+     "Ű",
+     "Icw"
+    ],
+    [
+     "e̋",
+     "ocw"
+    ],
+    [
+     "E̋",
+     "Ocw"
+    ],
+    [
+     "i̋",
+     "ucw"
+    ],
+    [
+     "I̋",
+     "Ucw"
+    ],
+    [
+     "șok sép n̦ár",
+     "sjok sewp njawr"
+    ],
+    [
+     "Șan1, șok!",
+     "Sjan1, sjok!"
+    ],
+    [
+     "ȘAN",
+     "SjAN"
+    ],
+    [
+     "G̦ P̦ G̤ T̤ Ü Șș C̖h Á",
+     "Gj Pj Gxy Txy Ic Sjw Tqyh Aw"
+    ],
+    [
+     "ma1 ma2 ma3 ma4",
+     "ma1 ma2 ma3 ma4"
+    ],
+    [
+     "hossú älmä",
+     "hoswuw aclmac"
+    ],
+    [
+     "c̦i3 șï3 c̦ï1",
+     "tqi3 sjuc3 tquc1"
+    ],
+    [
+     "Diafon: j i w.",
+     "Diafon: ix i ux."
+    ],
+    [
+     "k̤ g̈ t̤ d̤ s̤ z̤",
+     "kxy gxy txy dxy sxy zxy"
+    ],
+    [
+     "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+     "ty dy ny sjy zjy tqy dqy"
+    ],
+    [
+     "c̤ x̤ c̣ x̣",
+     "tcy dcy tcx dcx"
+    ],
+    [
+     "r̈ r j w j̈ ẅ",
+     "aq r ix ux icx ucx"
+    ],
+    [
+     "ạ ẹ ị ọ ụ à è ì ò ù",
+     "aj ej ij oj uj ay ey iy oy uy"
+    ],
+    [
+     "t̖h d̖h ṛh pf th kh",
+     "tyh dyh rch pf th kh"
+    ]
+   ],
+   "stages": {
+    "cs": [
+     [
+      "a",
+      "a"
+     ],
+     [
+      "á",
+      "aw"
+     ],
+     [
+      "b",
+      "b"
+     ],
+     [
+      "d",
+      "d"
+     ],
+     [
+      "dz",
+      "dc"
+     ],
+     [
+      "ď",
+      "dj"
+     ],
+     [
+      "dž",
+      "dq"
+     ],
+     [
+      "e",
+      "ej"
+     ],
+     [
+      "é",
+      "ejw"
+     ],
+     [
+      "f",
+      "f"
+     ],
+     [
+      "g",
+      "g"
+     ],
+     [
+      "h",
+      "h"
+     ],
+     [
+      "i",
+      "i"
+     ],
+     [
+      "í",
+      "iw"
+     ],
+     [
+      "j",
+      "ix"
+     ],
+     [
+      "k",
+      "k"
+     ],
+     [
+      "ch",
+      "kx"
+     ],
+     [
+      "l",
+      "l"
+     ],
+     [
+      "m",
+      "m"
+     ],
+     [
+      "n",
+      "n"
+     ],
+     [
+      "ň",
+      "nj"
+     ],
+     [
+      "o",
+      "o"
+     ],
+     [
+      "ó",
+      "ow"
+     ],
+     [
+      "p",
+      "p"
+     ],
+     [
+      "r",
+      "r"
+     ],
+     [
+      "ř",
+      "rxy"
+     ],
+     [
+      "s",
+      "s"
+     ],
+     [
+      "š",
+      "sj"
+     ],
+     [
+      "t",
+      "t"
+     ],
+     [
+      "c",
+      "tc"
+     ],
+     [
+      "ť",
+      "tj"
+     ],
+     [
+      "č",
+      "tq"
+     ],
+     [
+      "u",
+      "u"
+     ],
+     [
+      "ú",
+      "uw"
+     ],
+     [
+      "v",
+      "v"
+     ],
+     [
+      "z",
+      "z"
+     ],
+     [
+      "ž",
+      "zj"
+     ],
+     [
+      "šok sép ňár",
+      "sjok sejwp njawr"
+     ],
+     [
+      "Šan1, šok!",
+      "Sjan1, sjok!"
+     ],
+     [
+      "ŠAN",
+      "SjAN"
+     ],
+     [
+      "G̦ P̦ G̤ T̤ Ü Šš C̖h Á",
+      "Gj Pj Gxy Txy Ic Sjw Tqyh Aw"
+     ],
+     [
+      "ma1 ma2 ma3 ma4",
+      "ma1 ma2 ma3 ma4"
+     ],
+     [
+      "hossú älmä",
+      "hoswuw aclmac"
+     ],
+     [
+      "či3 šï3 čï1",
+      "tqi3 sjuc3 tquc1"
+     ],
+     [
+      "Diafon: j i w.",
+      "Diafon: ix i v."
+     ],
+     [
+      "k̤ g̈ t̤ d̤ s̤ z̤",
+      "kxy gxy txy dxy sxy zxy"
+     ],
+     [
+      "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+      "ty dy ny sjy zjy tqy dqy"
+     ],
+     [
+      "c̤ x̤ c̣ x̣",
+      "tcy dcy tcx dcx"
+     ],
+     [
+      "r̈ r j w j̈ ẅ",
+      "aq r ix v icx ucx"
+     ],
+     [
+      "ạ e ị ọ ụ à è ì ò ù",
+      "aj ej ij oj uj ay ey iy oy uy"
+     ],
+     [
+      "t̖h d̖h ṛh pf th kh",
+      "tyh dyh rch pf th kh"
+     ],
+     [
+      "dobrí den, přátelé",
+      "dobriw dejn, prxyawtejlejw"
+     ],
+     [
+      "x",
+      "ks"
+     ],
+     [
+      "w",
+      "v"
+     ],
+     [
+      "q",
+      "kv"
+     ],
+     [
+      "y",
+      "i"
+     ],
+     [
+      "ý",
+      "iw"
+     ],
+     [
+      "ů",
+      "uw"
+     ],
+     [
+      "dě",
+      "djej"
+     ],
+     [
+      "tě",
+      "tjej"
+     ],
+     [
+      "ně",
+      "njej"
+     ],
+     [
+      "mě",
+      "mnjej"
+     ],
+     [
+      "ě",
+      "ixej"
+     ],
+     [
+      "P",
+      "P"
+     ],
+     [
+      "B",
+      "B"
+     ],
+     [
+      "T",
+      "T"
+     ],
+     [
+      "D",
+      "D"
+     ],
+     [
+      "K",
+      "K"
+     ],
+     [
+      "G",
+      "G"
+     ],
+     [
+      "F",
+      "F"
+     ],
+     [
+      "V",
+      "V"
+     ]
+    ],
+    "en": [
+     [
+      "șok sép n̦ár",
+      "sjok sewp njawr"
+     ],
+     [
+      "Shan1, șok!",
+      "Sjan1, sjok!"
+     ],
+     [
+      "ȘAN",
+      "SjAN"
+     ],
+     [
+      "G̦ P̦ G̤ T̤ Ü Șș C̖h Á",
+      "Gj Pj Gxy Txy Ic Sjw Tqyh Aw"
+     ],
+     [
+      "ma1 ma2 ma3 ma4",
+      "mac1 mac2 mac3 mac4"
+     ],
+     [
+      "hossú älmä",
+      "hoswuw aclmac"
+     ],
+     [
+      "chee3 șï3 c̦ï1",
+      "tqi3 sjuc3 tquc1"
+     ],
+     [
+      "Diafon: j e w.",
+      "Diafon: dqeix i dajbajlixu."
+     ],
+     [
+      "k̤ g̈ t̤ d̤ s̤ z̤",
+      "kxy gxy txy dxy sxy zxy"
+     ],
+     [
+      "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+      "ty dy ny sjy zjy tqy dqy"
+     ],
+     [
+      "c̤ x̤ c̣ x̣",
+      "tcy dcy tcx dcx"
+     ],
+     [
+      "are r j w j̈ ẅ",
+      "acr acr dqeix dajbajlixu icx ucx"
+     ],
+     [
+      "a eh ị aw ụ à è ì ò ù",
+      "aj ej ij oj uj ay ey iy oy uy"
+     ],
+     [
+      "t̖h d̖h ṛh pf th kh",
+      "tyh dyh rch pf tieixtq kh"
+     ],
+     [
+      "one keyboard, one script, every language",
+      "uxajn kibojrd, uxajn skrijpt, ejvaqi lanxguxajdq"
+     ]
+    ],
+    "fi": [
+     [
+      "ä",
+      "a"
+     ],
+     [
+      "a",
+      "ac"
+     ],
+     [
+      "aa",
+      "acw"
+     ],
+     [
+      "ää",
+      "aw"
+     ],
+     [
+      "b",
+      "b"
+     ],
+     [
+      "d",
+      "d"
+     ],
+     [
+      "e",
+      "e"
+     ],
+     [
+      "ö",
+      "ec"
+     ],
+     [
+      "öö",
+      "ecw"
+     ],
+     [
+      "ee",
+      "ew"
+     ],
+     [
+      "f",
+      "f"
+     ],
+     [
+      "g",
+      "g"
+     ],
+     [
+      "h",
+      "h"
+     ],
+     [
+      "i",
+      "i"
+     ],
+     [
+      "y",
+      "ic"
+     ],
+     [
+      "yy",
+      "icw"
+     ],
+     [
+      "ii",
+      "iw"
+     ],
+     [
+      "j",
+      "ix"
+     ],
+     [
+      "k",
+      "k"
+     ],
+     [
+      "l",
+      "l"
+     ],
+     [
+      "m",
+      "m"
+     ],
+     [
+      "n",
+      "n"
+     ],
+     [
+      "ng",
+      "nx"
+     ],
+     [
+      "o",
+      "o"
+     ],
+     [
+      "oo",
+      "ow"
+     ],
+     [
+      "p",
+      "p"
+     ],
+     [
+      "r",
+      "r"
+     ],
+     [
+      "s",
+      "s"
+     ],
+     [
+      "š",
+      "sj"
+     ],
+     [
+      "t",
+      "t"
+     ],
+     [
+      "u",
+      "u"
+     ],
+     [
+      "uu",
+      "uw"
+     ],
+     [
+      "v",
+      "v"
+     ],
+     [
+      "šok seep n̦äär",
+      "sjok sewp njawr"
+     ],
+     [
+      "Šän1, šok!",
+      "Sjan1, sjok!"
+     ],
+     [
+      "ŠÄN",
+      "SjAN"
+     ],
+     [
+      "G̦ P̦ G̤ T̤ Y Šš C̖h Ää",
+      "Gj Pj Gxy Txy Ic Sjw Tqyh Aw"
+     ],
+     [
+      "mä1 mä2 mä3 mä4",
+      "ma1 ma2 ma3 ma4"
+     ],
+     [
+      "hossuu alma",
+      "hoswuw aclmac"
+     ],
+     [
+      "c̦i3 šï3 c̦ï1",
+      "tqi3 sjuc3 tquc1"
+     ],
+     [
+      "Diäfon: j i w.",
+      "Diafon: ix i v."
+     ],
+     [
+      "k̤ g̈ t̤ d̤ s̤ z̤",
+      "kxy gxy txy dxy sxy zxy"
+     ],
+     [
+      "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+      "ty dy ny sjy zjy tqy dqy"
+     ],
+     [
+      "c̤ x̤ c̣ x̣",
+      "tcy dcy tcx dcx"
+     ],
+     [
+      "r̈ r j w j̈ ẅ",
+      "aq r ix v icx ucx"
+     ],
+     [
+      "ạ ẹ ị ọ ụ à è ì ò ù",
+      "aj ej ij oj uj ay ey iy oy uy"
+     ],
+     [
+      "t̖h d̖h ṛh pf th kh",
+      "tyh dyh rch pf th kh"
+     ],
+     [
+      "hyvää yötä ja kaunista kesää",
+      "hicvaw icecta ixac kacunistac kesaw"
+     ],
+     [
+      "x",
+      "ks"
+     ],
+     [
+      "w",
+      "v"
+     ],
+     [
+      "q",
+      "kv"
+     ],
+     [
+      "z",
+      "tc"
+     ],
+     [
+      "P",
+      "P"
+     ],
+     [
+      "B",
+      "B"
+     ],
+     [
+      "T",
+      "T"
+     ],
+     [
+      "D",
+      "D"
+     ],
+     [
+      "K",
+      "K"
+     ],
+     [
+      "G",
+      "G"
+     ],
+     [
+      "F",
+      "F"
+     ],
+     [
+      "V",
+      "V"
+     ]
+    ],
+    "hu": [
+     [
+      "a",
+      "ac"
+     ],
+     [
+      "ah",
+      "ach"
+     ],
+     [
+      "b",
+      "b"
+     ],
+     [
+      "d",
+      "d"
+     ],
+     [
+      "dz",
+      "dc"
+     ],
+     [
+      "gy",
+      "dj"
+     ],
+     [
+      "dzs",
+      "dq"
+     ],
+     [
+      "a",
+      "ac"
+     ],
+     [
+      "are",
+      "awr"
+     ],
+     [
+      "eh",
+      "ejh"
+     ],
+     [
+      "a",
+      "ac"
+     ],
+     [
+      "f",
+      "f"
+     ],
+     [
+      "g",
+      "g"
+     ],
+     [
+      "h",
+      "h"
+     ],
+     [
+      "e",
+      "ej"
+     ],
+     [
+      "ü",
+      "ic"
+     ],
+     [
+      "ű",
+      "icw"
+     ],
+     [
+      "í",
+      "iw"
+     ],
+     [
+      "ly",
+      "ix"
+     ],
+     [
+      "k",
+      "k"
+     ],
+     [
+      "l",
+      "l"
+     ],
+     [
+      "mm",
+      "mw"
+     ],
+     [
+      "n",
+      "n"
+     ],
+     [
+      "ny",
+      "nj"
+     ],
+     [
+      "aw",
+      "acv"
+     ],
+     [
+      "oh",
+      "oh"
+     ],
+     [
+      "p",
+      "p"
+     ],
+     [
+      "r",
+      "r"
+     ],
+     [
+      "sz",
+      "s"
+     ],
+     [
+      "shh",
+      "sj"
+     ],
+     [
+      "t",
+      "t"
+     ],
+     [
+      "c",
+      "tc"
+     ],
+     [
+      "ty",
+      "tj"
+     ],
+     [
+      "cs",
+      "tq"
+     ],
+     [
+      "ooh",
+      "u"
+     ],
+     [
+      "ú",
+      "uw"
+     ],
+     [
+      "v",
+      "v"
+     ],
+     [
+      "z",
+      "z"
+     ],
+     [
+      "zs",
+      "zj"
+     ],
+     [
+      "sok szép nyár",
+      "sjok sewp njawr"
+     ],
+     [
+      "San1, sok!",
+      "Sjacn1, sjok!"
+     ],
+     [
+      "SAN",
+      "SjAcN"
+     ],
+     [
+      "G̦ P̦ G̤ T̤ Ü Ss C̖h Ah",
+      "Gj Pj Gxy Txy Ic Sjw Tqyh Ach"
+     ],
+     [
+      "ma1 ma2 ma3 ma4",
+      "mac1 mac2 mac3 mac4"
+     ],
+     [
+      "hosszú alma",
+      "hoswuw aclmac"
+     ],
+     [
+      "chee3 sï3 csï1",
+      "tqi3 sjuc3 tquc1"
+     ],
+     [
+      "Diafon: ly e w.",
+      "Diacfon: ix ej v."
+     ],
+     [
+      "k̤ g̈ t̤ d̤ s̤ z̤",
+      "kxy gxy txy dxy sxy zxy"
+     ],
+     [
+      "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+      "ty dy ny sjy zjy tqy dqy"
+     ],
+     [
+      "c̤ x̤ c̣ x̣",
+      "tcy dcy tcx dcx"
+     ],
+     [
+      "r̈ r ly w j̈ ẅ",
+      "aq r ix v icx ucx"
+     ],
+     [
+      "ạ eh ị ọ ụ à è ì ò ù",
+      "aj ejh ij oj uj ay ey iy oy uy"
+     ],
+     [
+      "t̖h d̖h ṛh pf th kh",
+      "tyh dyh rch pf th kh"
+     ],
+     [
+      "sok szép nyár, hosszú alma",
+      "sjok sewp njawr, hoswuw aclmac"
+     ],
+     [
+      "x",
+      "ks"
+     ],
+     [
+      "w",
+      "v"
+     ],
+     [
+      "q",
+      "kv"
+     ],
+     [
+      "y",
+      "i"
+     ],
+     [
+      "ly",
+      "ix"
+     ],
+     [
+      "lly",
+      "ixw"
+     ],
+     [
+      "P",
+      "P"
+     ],
+     [
+      "B",
+      "B"
+     ],
+     [
+      "T",
+      "T"
+     ],
+     [
+      "D",
+      "D"
+     ],
+     [
+      "K",
+      "K"
+     ],
+     [
+      "G",
+      "G"
+     ],
+     [
+      "TY",
+      "Tj"
+     ],
+     [
+      "GY",
+      "Dj"
+     ]
+    ],
+    "pl": [
+     [
+      "a",
+      "a"
+     ],
+     [
+      "b",
+      "b"
+     ],
+     [
+      "d",
+      "d"
+     ],
+     [
+      "dz",
+      "dc"
+     ],
+     [
+      "dź",
+      "dq"
+     ],
+     [
+      "dż",
+      "dqy"
+     ],
+     [
+      "e",
+      "ej"
+     ],
+     [
+      "ę",
+      "ejy"
+     ],
+     [
+      "f",
+      "f"
+     ],
+     [
+      "g",
+      "g"
+     ],
+     [
+      "i",
+      "i"
+     ],
+     [
+      "j",
+      "ix"
+     ],
+     [
+      "k",
+      "k"
+     ],
+     [
+      "ch",
+      "kx"
+     ],
+     [
+      "l",
+      "l"
+     ],
+     [
+      "m",
+      "m"
+     ],
+     [
+      "n",
+      "n"
+     ],
+     [
+      "ń",
+      "nj"
+     ],
+     [
+      "o",
+      "oj"
+     ],
+     [
+      "ą",
+      "ojy"
+     ],
+     [
+      "p",
+      "p"
+     ],
+     [
+      "r",
+      "r"
+     ],
+     [
+      "s",
+      "s"
+     ],
+     [
+      "ś",
+      "sj"
+     ],
+     [
+      "sz",
+      "sjy"
+     ],
+     [
+      "t",
+      "t"
+     ],
+     [
+      "c",
+      "tc"
+     ],
+     [
+      "ć",
+      "tq"
+     ],
+     [
+      "cz",
+      "tqy"
+     ],
+     [
+      "u",
+      "u"
+     ],
+     [
+      "y",
+      "uc"
+     ],
+     [
+      "ł",
+      "ux"
+     ],
+     [
+      "w",
+      "v"
+     ],
+     [
+      "z",
+      "z"
+     ],
+     [
+      "ź",
+      "zj"
+     ],
+     [
+      "ż",
+      "zjy"
+     ],
+     [
+      "śok sép ńár",
+      "sjojk sewp njawr"
+     ],
+     [
+      "Śan1, śok!",
+      "Sjan1, sjojk!"
+     ],
+     [
+      "ŚAN",
+      "SjAN"
+     ],
+     [
+      "G̦ P̦ G̤ T̤ Ü Śś Czh Á",
+      "Gj Pj Gxy Txy Ic Sjw Tqykx Aw"
+     ],
+     [
+      "ma1 ma2 ma3 ma4",
+      "ma1 ma2 ma3 ma4"
+     ],
+     [
+      "hossú älmä",
+      "kxojswuw aclmac"
+     ],
+     [
+      "ći3 śy3 ćy1",
+      "tqi3 sjuc3 tquc1"
+     ],
+     [
+      "Diafon: j i ł.",
+      "Diafojn: ix i ux."
+     ],
+     [
+      "k̤ g̈ t̤ d̤ s̤ z̤",
+      "kxy gxy txy dxy sxy zxy"
+     ],
+     [
+      "t̖ d̖ n̖ sz ż cz dż",
+      "ty dy ny sjy zjy tqy dqy"
+     ],
+     [
+      "c̤ x̤ c̣ x̣",
+      "tcy dcy tcx dcx"
+     ],
+     [
+      "r̈ r j ł j̈ ẅ",
+      "aq r ix ux icx ucx"
+     ],
+     [
+      "ạ e ị o ụ à è ì ò ù",
+      "aj ej ij oj uj ay ey iy oy uy"
+     ],
+     [
+      "t̖h d̖h ṛh pf th kh",
+      "tykx dykx rckx pf tkx kkx"
+     ],
+     [
+      "dobra noc, kochani",
+      "dojbra nojtc, kojkxani"
+     ],
+     [
+      "x",
+      "ks"
+     ],
+     [
+      "q",
+      "kv"
+     ],
+     [
+      "v",
+      "v"
+     ],
+     [
+      "ó",
+      "u"
+     ],
+     [
+      "rz",
+      "rz"
+     ],
+     [
+      "h",
+      "kx"
+     ],
+     [
+      "P",
+      "P"
+     ],
+     [
+      "B",
+      "B"
+     ],
+     [
+      "T",
+      "T"
+     ],
+     [
+      "D",
+      "D"
+     ],
+     [
+      "K",
+      "K"
+     ],
+     [
+      "G",
+      "G"
+     ],
+     [
+      "F",
+      "F"
+     ],
+     [
+      "W",
+      "V"
+     ]
+    ],
+    "sw": [
+     [
+      "a",
+      "ac"
+     ],
+     [
+      "b",
+      "b"
+     ],
+     [
+      "d",
+      "d"
+     ],
+     [
+      "j",
+      "dj"
+     ],
+     [
+      "dh",
+      "dx"
+     ],
+     [
+      "e",
+      "ej"
+     ],
+     [
+      "f",
+      "f"
+     ],
+     [
+      "g",
+      "g"
+     ],
+     [
+      "gh",
+      "gx"
+     ],
+     [
+      "h",
+      "h"
+     ],
+     [
+      "i",
+      "i"
+     ],
+     [
+      "y",
+      "ix"
+     ],
+     [
+      "k",
+      "k"
+     ],
+     [
+      "kh",
+      "kx"
+     ],
+     [
+      "l",
+      "l"
+     ],
+     [
+      "m",
+      "m"
+     ],
+     [
+      "n",
+      "n"
+     ],
+     [
+      "ny",
+      "nj"
+     ],
+     [
+      "ng'",
+      "ng'"
+     ],
+     [
+      "o",
+      "oj"
+     ],
+     [
+      "p",
+      "p"
+     ],
+     [
+      "r",
+      "r"
+     ],
+     [
+      "s",
+      "s"
+     ],
+     [
+      "sh",
+      "sj"
+     ],
+     [
+      "t",
+      "t"
+     ],
+     [
+      "ch",
+      "tq"
+     ],
+     [
+      "th",
+      "tx"
+     ],
+     [
+      "u",
+      "u"
+     ],
+     [
+      "w",
+      "ux"
+     ],
+     [
+      "v",
+      "v"
+     ],
+     [
+      "z",
+      "z"
+     ],
+     [
+      "shok sép nyár",
+      "sjojk sewp njawr"
+     ],
+     [
+      "Shan1, shok!",
+      "Sjacn1, sjojk!"
+     ],
+     [
+      "ShAN",
+      "SjAcN"
+     ],
+     [
+      "G̦ P̦ G̤ T̤ Ü Shsh C̖h Á",
+      "Gj Pj Gxy Txy Ic Sjw Tqyh Aw"
+     ],
+     [
+      "ma1 ma2 ma3 ma4",
+      "mac1 mac2 mac3 mac4"
+     ],
+     [
+      "hossú alma",
+      "hojswuw aclmac"
+     ],
+     [
+      "chi3 shï3 chï1",
+      "tqi3 sjuc3 tquc1"
+     ],
+     [
+      "Diafon: y i w.",
+      "Diacfojn: ix i ux."
+     ],
+     [
+      "k̤ g̈ t̤ d̤ s̤ z̤",
+      "kxy gxy txy dxy sxy zxy"
+     ],
+     [
+      "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+      "ty dy ny sjy zjy tqy dqy"
+     ],
+     [
+      "c̤ x̤ c̣ x̣",
+      "tcy dcy tcx dcx"
+     ],
+     [
+      "r̈ r y w j̈ ẅ",
+      "aq r ix ux icx ucx"
+     ],
+     [
+      "ạ e ị o ụ à è ì ò ù",
+      "aj ej ij oj uj ay ey iy oy uy"
+     ],
+     [
+      "t̖h d̖h ṛh pf th kh",
+      "tyh dyh rch pf tx kx"
+     ],
+     [
+      "habari za asubuhi, karibu sana",
+      "hacbacri zac acsubuhi, kacribu sacnac"
+     ],
+     [
+      "x",
+      "ks"
+     ],
+     [
+      "q",
+      "kv"
+     ],
+     [
+      "P",
+      "P"
+     ],
+     [
+      "B",
+      "B"
+     ],
+     [
+      "T",
+      "T"
+     ],
+     [
+      "D",
+      "D"
+     ],
+     [
+      "K",
+      "K"
+     ],
+     [
+      "G",
+      "G"
+     ],
+     [
+      "F",
+      "F"
+     ],
+     [
+      "V",
+      "V"
+     ]
+    ],
+    "tr": [
+     [
+      "a",
+      "a"
+     ],
+     [
+      "â",
+      "aw"
+     ],
+     [
+      "b",
+      "b"
+     ],
+     [
+      "d",
+      "d"
+     ],
+     [
+      "c",
+      "dq"
+     ],
+     [
+      "e",
+      "e"
+     ],
+     [
+      "ö",
+      "ec"
+     ],
+     [
+      "f",
+      "f"
+     ],
+     [
+      "g",
+      "g"
+     ],
+     [
+      "h",
+      "h"
+     ],
+     [
+      "i",
+      "i"
+     ],
+     [
+      "ü",
+      "ic"
+     ],
+     [
+      "y",
+      "ix"
+     ],
+     [
+      "k",
+      "k"
+     ],
+     [
+      "l",
+      "l"
+     ],
+     [
+      "m",
+      "m"
+     ],
+     [
+      "n",
+      "n"
+     ],
+     [
+      "o",
+      "o"
+     ],
+     [
+      "p",
+      "p"
+     ],
+     [
+      "r",
+      "rc"
+     ],
+     [
+      "s",
+      "s"
+     ],
+     [
+      "ş",
+      "sj"
+     ],
+     [
+      "t",
+      "t"
+     ],
+     [
+      "ç",
+      "tq"
+     ],
+     [
+      "u",
+      "u"
+     ],
+     [
+      "ı",
+      "uc"
+     ],
+     [
+      "v",
+      "v"
+     ],
+     [
+      "z",
+      "z"
+     ],
+     [
+      "j",
+      "zj"
+     ],
+     [
+      "şok sép n̦âr",
+      "sjok sewp njawrc"
+     ],
+     [
+      "Şan1, şok!",
+      "Sjan1, sjok!"
+     ],
+     [
+      "ŞAN",
+      "SjAN"
+     ],
+     [
+      "G̦ P̦ G̤ T̤ Ü Şş C̖h Â",
+      "Gj Pj Gxy Txy Ic Sjw Tqyh Aw"
+     ],
+     [
+      "ma1 ma2 ma3 ma4",
+      "ma1 ma2 ma3 ma4"
+     ],
+     [
+      "hossú älmä",
+      "hoswuw aclmac"
+     ],
+     [
+      "çi3 şı3 çı1",
+      "tqi3 sjuc3 tquc1"
+     ],
+     [
+      "Diafon: y i w.",
+      "Diafon: ix i v."
+     ],
+     [
+      "k̤ g̈ t̤ d̤ s̤ z̤",
+      "kxy gxy txy dxy sxy zxy"
+     ],
+     [
+      "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+      "ty dy ny sjy zjy tqy dqy"
+     ],
+     [
+      "c̤ x̤ c̣ x̣",
+      "tcy dcy tcx dcx"
+     ],
+     [
+      "r̈ r y w j̈ ẅ",
+      "aq rc ix v icx ucx"
+     ],
+     [
+      "ạ ẹ ị ọ ụ à è ì ò ù",
+      "aj ej ij oj uj ay ey iy oy uy"
+     ],
+     [
+      "t̖h d̖h rh pf th kh",
+      "tyh dyh rch pf th kh"
+     ],
+     [
+      "güneşli bir gün, iyi günler",
+      "gicnesjli birc gicn, iixi gicnlerc"
+     ],
+     [
+      "x",
+      "ks"
+     ],
+     [
+      "w",
+      "v"
+     ],
+     [
+      "q",
+      "kv"
+     ],
+     [
+      "P",
+      "P"
+     ],
+     [
+      "B",
+      "B"
+     ],
+     [
+      "T",
+      "T"
+     ],
+     [
+      "D",
+      "D"
+     ],
+     [
+      "K",
+      "K"
+     ],
+     [
+      "G",
+      "G"
+     ],
+     [
+      "F",
+      "F"
+     ],
+     [
+      "V",
+      "V"
+     ]
+    ],
+    "zh": [
+     [
+      "șok sép n̦ár",
+      "sjok sewp njawr"
+     ],
+     [
+      "Șan1, șok!",
+      "Sjan1, sjok!"
+     ],
+     [
+      "ȘAN",
+      "SjAN"
+     ],
+     [
+      "G̦ P̦ G̤ T̤ Yu Șș C̖h Á",
+      "Gj Pj Gxy Txy Ic Sjw Tqyh Aw"
+     ],
+     [
+      "ma1 ma2 ma3 ma4",
+      "ma1 ma2 ma3 ma4"
+     ],
+     [
+      "hossú älmä",
+      "hoswuw aclmac"
+     ],
+     [
+      "c̦i3 șï3 c̦ï1",
+      "tqi3 sjuc3 tquc1"
+     ],
+     [
+      "Diafon: j yi w.",
+      "Diafon: ix i ux."
+     ],
+     [
+      "k̤ g̈ t̤ d̤ s̤ z̤",
+      "kxy gxy txy dxy sxy zxy"
+     ],
+     [
+      "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+      "ty dy ny sjy zjy tqy dqy"
+     ],
+     [
+      "c̤ x̤ c̣ x̣",
+      "tcy dcy tcx dcx"
+     ],
+     [
+      "er r j w j̈ ẅ",
+      "aq r ix ux icx ucx"
+     ],
+     [
+      "ạ ẹ ị ọ ụ à è ì ò ù",
+      "aj ej ij oj uj ay ey iy oy uy"
+     ],
+     [
+      "t̖h d̖h ṛh pf th kh",
+      "tyh dyh rch pf th kh"
+     ],
+     [
+      "ni3 hao3, shi4 jie4",
+      "ni3 kxaux3, sjyuc4 tcie4"
+     ]
+    ]
+   }
+  },
+  "convert": [
+   [
+    "dobrí den, přátelé",
+    "stage:cs",
+    "script",
+    "dobrí dẹn, pr̤átẹlẹ́"
+   ],
+   [
+    "dobrí den, přátelé",
+    "stage:cs",
+    "transport",
+    "dobriw dejn, prxyawtejlejw"
+   ],
+   [
+    "dobrí den, přátelé",
+    "stage:cs",
+    "stage:en",
+    "dobrí den, pr̤átẹlẹ́"
+   ],
+   [
+    "dobrí den, přátelé",
+    "stage:cs",
+    "stage:fi",
+    "dobrii dẹn, pr̤äätẹlẹ́"
+   ],
+   [
+    "dobrí den, přátelé",
+    "stage:cs",
+    "stage:hu",
+    "dobrí then, pr̤átelẹ́"
+   ],
+   [
+    "dobrí den, přátelé",
+    "stage:cs",
+    "stage:pl",
+    "dobrí den, pr̤átelẹ́"
+   ],
+   [
+    "dobrí den, přátelé",
+    "stage:cs",
+    "stage:sw",
+    "dobrí den, pr̤átelẹ́"
+   ],
+   [
+    "dobrí den, přátelé",
+    "stage:cs",
+    "stage:tr",
+    "dobrí dẹn, pr̤âtẹlẹ́"
+   ],
+   [
+    "dobrí den, přátelé",
+    "stage:cs",
+    "stage:zh",
+    "dobrí dẹn, pr̤átẹlẹ́"
+   ],
+   [
+    "one keyboard, one script, every language",
+    "stage:en",
+    "script",
+    "wạn kibọrd, wạn skrịpt, ẹvr̈i laṇgwạx̦"
+   ],
+   [
+    "one keyboard, one script, every language",
+    "stage:en",
+    "transport",
+    "uxajn kibojrd, uxajn skrijpt, ejvaqi lanxguxajdq"
+   ],
+   [
+    "one keyboard, one script, every language",
+    "stage:en",
+    "stage:cs",
+    "wạn kibọrd, wạn skrịpt, evr̈i laṇgwạdž"
+   ],
+   [
+    "one keyboard, one script, every language",
+    "stage:en",
+    "stage:fi",
+    "wạn kibọrd, wạn skrịpt, ẹvr̈i länggwạx̦"
+   ],
+   [
+    "one keyboard, one script, every language",
+    "stage:en",
+    "stage:hu",
+    "wạn kibọrd, wạn szkrịpt, evr̈i laṇgwạdzs"
+   ],
+   [
+    "one keyboard, one script, every language",
+    "stage:en",
+    "stage:pl",
+    "łạn kibord, łạn skrịpt, ewr̈i laṇgłạdź"
+   ],
+   [
+    "one keyboard, one script, every language",
+    "stage:en",
+    "stage:sw",
+    "wạn kibord, wạn skrịpt, evr̈i lang'gwạx̦"
+   ],
+   [
+    "one keyboard, one script, every language",
+    "stage:en",
+    "stage:tr",
+    "wạn kibọrd, wạn skrịpt, ẹvr̈i laṇgwạc"
+   ],
+   [
+    "one keyboard, one script, every language",
+    "stage:en",
+    "stage:zh",
+    "wạn kibọrd, wạn skrịpt, ẹvr̈i laṇgwạx̦"
+   ],
+   [
+    "hyvää yötä ja kaunista kesää",
+    "stage:fi",
+    "script",
+    "hüvá üöta jä käunistä kesá"
+   ],
+   [
+    "hyvää yötä ja kaunista kesää",
+    "stage:fi",
+    "transport",
+    "hicvaw icecta ixac kacunistac kesaw"
+   ],
+   [
+    "hyvää yötä ja kaunista kesää",
+    "stage:fi",
+    "stage:cs",
+    "hüvá üöta jä käunistä kesá"
+   ],
+   [
+    "hyvää yötä ja kaunista kesää",
+    "stage:fi",
+    "stage:en",
+    "hüvá üöta ya käunistä kesá"
+   ],
+   [
+    "hyvää yötä ja kaunista kesää",
+    "stage:fi",
+    "stage:hu",
+    "hüvá üöta lya kauniszta keszá"
+   ],
+   [
+    "hyvää yötä ja kaunista kesää",
+    "stage:fi",
+    "stage:pl",
+    "hüwá üöta jä käunistä kesá"
+   ],
+   [
+    "hyvää yötä ja kaunista kesää",
+    "stage:fi",
+    "stage:sw",
+    "hüvá üöta ya kaunista kesá"
+   ],
+   [
+    "hyvää yötä ja kaunista kesää",
+    "stage:fi",
+    "stage:tr",
+    "hüvâ üöta yä käunistä kesâ"
+   ],
+   [
+    "hyvää yötä ja kaunista kesää",
+    "stage:fi",
+    "stage:zh",
+    "hüvá üöta jä käunistä kesá"
+   ],
+   [
+    "sok szép nyár, hosszú alma",
+    "stage:hu",
+    "script",
+    "șok sép n̦ár, hossú älmä"
+   ],
+   [
+    "sok szép nyár, hosszú alma",
+    "stage:hu",
+    "transport",
+    "sjok sewp njawr, hoswuw aclmac"
+   ],
+   [
+    "sok szép nyár, hosszú alma",
+    "stage:hu",
+    "stage:cs",
+    "šok sép ňár, hossú älmä"
+   ],
+   [
+    "sok szép nyár, hosszú alma",
+    "stage:hu",
+    "stage:en",
+    "șok sép n̦ár, hossú älmä"
+   ],
+   [
+    "sok szép nyár, hosszú alma",
+    "stage:hu",
+    "stage:fi",
+    "šok seep n̦äär, hossuu alma"
+   ],
+   [
+    "sok szép nyár, hosszú alma",
+    "stage:hu",
+    "stage:pl",
+    "śok sép ńár, hossú älmä"
+   ],
+   [
+    "sok szép nyár, hosszú alma",
+    "stage:hu",
+    "stage:sw",
+    "shok sép nyár, hossú alma"
+   ],
+   [
+    "sok szép nyár, hosszú alma",
+    "stage:hu",
+    "stage:tr",
+    "şok sép n̦âr, hossú älmä"
+   ],
+   [
+    "sok szép nyár, hosszú alma",
+    "stage:hu",
+    "stage:zh",
+    "șok sép n̦ár, hossú älmä"
+   ],
+   [
+    "dobra noc, kochani",
+    "stage:pl",
+    "script",
+    "dọbra nọc, kọḳani"
+   ],
+   [
+    "dobra noc, kochani",
+    "stage:pl",
+    "transport",
+    "dojbra nojtc, kojkxani"
+   ],
+   [
+    "dobra noc, kochani",
+    "stage:pl",
+    "stage:cs",
+    "dọbra nọc, kọchani"
+   ],
+   [
+    "dobra noc, kochani",
+    "stage:pl",
+    "stage:en",
+    "dọbra nọc, kọḳani"
+   ],
+   [
+    "dobra noc, kochani",
+    "stage:pl",
+    "stage:fi",
+    "dọbrä nọc, kọḳäni"
+   ],
+   [
+    "dobra noc, kochani",
+    "stage:pl",
+    "stage:hu",
+    "dọbra nọc, kọḳani"
+   ],
+   [
+    "dobra noc, kochani",
+    "stage:pl",
+    "stage:sw",
+    "dobra noc, kokhani"
+   ],
+   [
+    "dobra noc, kochani",
+    "stage:pl",
+    "stage:tr",
+    "dọbra nọc, kọḳani"
+   ],
+   [
+    "dobra noc, kochani",
+    "stage:pl",
+    "stage:zh",
+    "dọbra nọc, kọḳani"
+   ],
+   [
+    "habari za asubuhi, karibu sana",
+    "stage:sw",
+    "script",
+    "häbäri zä äsubuhi, käribu sänä"
+   ],
+   [
+    "habari za asubuhi, karibu sana",
+    "stage:sw",
+    "transport",
+    "hacbacri zac acsubuhi, kacribu sacnac"
+   ],
+   [
+    "habari za asubuhi, karibu sana",
+    "stage:sw",
+    "stage:cs",
+    "häbäri zä äsubuhi, käribu sänä"
+   ],
+   [
+    "habari za asubuhi, karibu sana",
+    "stage:sw",
+    "stage:en",
+    "häbäri zä äsubuhi, käribu sänä"
+   ],
+   [
+    "habari za asubuhi, karibu sana",
+    "stage:sw",
+    "stage:fi",
+    "habari za asubuhi, karibu sana"
+   ],
+   [
+    "habari za asubuhi, karibu sana",
+    "stage:sw",
+    "stage:hu",
+    "habari za aszubuhi, karibu szana"
+   ],
+   [
+    "habari za asubuhi, karibu sana",
+    "stage:sw",
+    "stage:pl",
+    "häbäri zä äsubuhi, käribu sänä"
+   ],
+   [
+    "habari za asubuhi, karibu sana",
+    "stage:sw",
+    "stage:tr",
+    "häbäri zä äsubuhi, käribu sänä"
+   ],
+   [
+    "habari za asubuhi, karibu sana",
+    "stage:sw",
+    "stage:zh",
+    "häbäri zä äsubuhi, käribu sänä"
+   ],
+   [
+    "güneşli bir gün, iyi günler",
+    "stage:tr",
+    "script",
+    "güneșli biṛ gün, iji günleṛ"
+   ],
+   [
+    "güneşli bir gün, iyi günler",
+    "stage:tr",
+    "transport",
+    "gicnesjli birc gicn, iixi gicnlerc"
+   ],
+   [
+    "güneşli bir gün, iyi günler",
+    "stage:tr",
+    "stage:cs",
+    "günešli biṛ gün, iji günleṛ"
+   ],
+   [
+    "güneşli bir gün, iyi günler",
+    "stage:tr",
+    "stage:en",
+    "güneșli biṛ gün, iji günleṛ"
+   ],
+   [
+    "güneşli bir gün, iyi günler",
+    "stage:tr",
+    "stage:fi",
+    "gynešli biṛ gyn, iji gynleṛ"
+   ],
+   [
+    "güneşli bir gün, iyi günler",
+    "stage:tr",
+    "stage:hu",
+    "günesli biṛ gün, ilyi günleṛ"
+   ],
+   [
+    "güneşli bir gün, iyi günler",
+    "stage:tr",
+    "stage:pl",
+    "güneśli biṛ gün, iji günleṛ"
+   ],
+   [
+    "güneşli bir gün, iyi günler",
+    "stage:tr",
+    "stage:sw",
+    "güneshli biṛ gün, iyi günleṛ"
+   ],
+   [
+    "güneşli bir gün, iyi günler",
+    "stage:tr",
+    "stage:zh",
+    "güneșli biṛ gün, iji günleṛ"
+   ],
+   [
+    "ni3 hao3, shi4 jie4",
+    "stage:zh",
+    "script",
+    "ni3 ḳaw3, s̖ï4 cie4"
+   ],
+   [
+    "ni3 hao3, shi4 jie4",
+    "stage:zh",
+    "transport",
+    "ni3 kxaux3, sjyuc4 tcie4"
+   ],
+   [
+    "ni3 hao3, shi4 jie4",
+    "stage:zh",
+    "stage:cs",
+    "ni3 chaw3, s̖ï4 cie4"
+   ],
+   [
+    "ni3 hao3, shi4 jie4",
+    "stage:zh",
+    "stage:en",
+    "knee3 ḳaw3, s̖ï4 cie4"
+   ],
+   [
+    "ni3 hao3, shi4 jie4",
+    "stage:zh",
+    "stage:fi",
+    "ni3 ḳäw3, s̖ï4 cie4"
+   ],
+   [
+    "ni3 hao3, shi4 jie4",
+    "stage:zh",
+    "stage:hu",
+    "knee3 ḳaw3, s̖ï4 cie4"
+   ],
+   [
+    "ni3 hao3, shi4 jie4",
+    "stage:zh",
+    "stage:pl",
+    "ni3 chał3, szy4 cie4"
+   ],
+   [
+    "ni3 hao3, shi4 jie4",
+    "stage:zh",
+    "stage:sw",
+    "ni3 khaw3, s̖ï4 cie4"
+   ],
+   [
+    "ni3 hao3, shi4 jie4",
+    "stage:zh",
+    "stage:tr",
+    "ni3 ḳaw3, s̖ı4 cie4"
+   ],
+   [
+    "șok sép n̦ár",
+    "script",
+    "stage:hu",
+    "sok szép nyár"
+   ],
+   [
+    "Șan1, șok!",
+    "script",
+    "stage:hu",
+    "San1, sok!"
+   ],
+   [
+    "ȘAN",
+    "script",
+    "stage:hu",
+    "SAN"
+   ],
+   [
+    "G̦ P̦ G̤ T̤ Ü Șș C̖h Á",
+    "script",
+    "stage:hu",
+    "G̦ P̦ G̤ T̤ Ü Ss C̖h Ah"
+   ]
+  ],
+  "detect": [
+   [
+    "sjok sewp njawr",
+    "transport"
+   ],
+   [
+    "Șok sép n̦ár, hossú älmä",
+    "script"
+   ],
+   [
+    "sok szép nyár, hosszú alma",
+    "stage:hu"
+   ],
+   [
+    "dobrý den, přátelé",
+    "script"
+   ],
+   [
+    "hyvää yötä kaikille",
+    "stage:fi"
+   ],
+   [
+    "Dobra noc, kochani",
+    "transport"
+   ],
+   [
+    "günaydın",
+    "stage:tr"
+   ],
+   [
+    "habari za asubuhi",
+    "transport"
+   ],
+   [
+    "ma1 ma2 ma3",
+    "stage:zh"
+   ],
+   [
+    "K̤ Ẹ̀",
+    "script"
+   ]
+  ],
+  "lexicon": {
+   "read": [
+    [
+     "en",
+     "the",
+     "dxaj"
+    ],
+    [
+     "en",
+     "quick",
+     "kuxijk"
+    ],
+    [
+     "en",
+     "Shakespeare",
+     "Sjeixkspir"
+    ],
+    [
+     "en",
+     "meeting",
+     "mitijnx"
+    ],
+    [
+     "en",
+     "facebook",
+     "feixsbujk"
+    ],
+    [
+     "en",
+     "nosuchword",
+     null
+    ],
+    [
+     "zh",
+     "ni",
+     "ni"
+    ],
+    [
+     "zh",
+     "hao3",
+     "kxaux3"
+    ],
+    [
+     "zh",
+     "Ni3hao3",
+     "Ni3kxaux3"
+    ],
+    [
+     "zh",
+     "nihao",
+     "nikxaux"
+    ],
+    [
+     "zh",
+     "you",
+     "iajux"
+    ],
+    [
+     "zh",
+     "lü4",
+     "lic4"
+    ],
+    [
+     "zh",
+     "zhong1",
+     "tqyunx1"
+    ],
+    [
+     "zh",
+     "xi1",
+     "si1"
+    ],
+    [
+     "zh",
+     "shi4",
+     "sjyuc4"
+    ],
+    [
+     "zh",
+     "si1",
+     "suc1"
+    ],
+    [
+     "la",
+     "hoc",
+     "hok"
+    ],
+    [
+     "la",
+     "vitae",
+     "viwtew"
+    ],
+    [
+     "la",
+     "quo",
+     "kvow"
+    ],
+    [
+     "hu",
+     "jamaica",
+     "ixacmacikac"
+    ],
+    [
+     "hu",
+     "Bach",
+     "Bach"
+    ],
+    [
+     "hu",
+     "tea",
+     "tejac"
+    ],
+    [
+     "hu",
+     "Cudjoe",
+     "Kacdqow"
+    ],
+    [
+     "hu",
+     "nosuchword",
+     null
+    ]
+   ],
+   "write": [
+    [
+     "en",
+     "dxaj",
+     "the"
+    ],
+    [
+     "en",
+     "kuxijk",
+     "quick"
+    ],
+    [
+     "en",
+     "rid",
+     "read"
+    ],
+    [
+     "en",
+     "rejd",
+     "read"
+    ],
+    [
+     "en",
+     "Sjeixkspir",
+     "Shakespeare"
+    ],
+    [
+     "en",
+     "zzz",
+     null
+    ],
+    [
+     "hu",
+     "foixowk",
+     [
+      "folyó",
+      "k"
+     ]
+    ],
+    [
+     "hu",
+     "gacixw",
+     [
+      "gally",
+      ""
+     ]
+    ],
+    [
+     "hu",
+     "hejixejsj",
+     [
+      "helyes",
+      ""
+     ]
+    ],
+    [
+     "hu",
+     "fojt",
+     null
+    ],
+    [
+     "hu",
+     "Hejixejs",
+     [
+      "Hely",
+      "ejs"
+     ]
+    ],
+    [
+     "zh",
+     "ni",
+     "ni"
+    ],
+    [
+     "zh",
+     "kxaux",
+     "hao"
+    ],
+    [
+     "zh",
+     "tqyunx",
+     "zhong"
+    ],
+    [
+     "zh",
+     "sjyuc",
+     "shi"
+    ]
+   ],
+   "loan": [
+    [
+     "hu",
+     "meeting",
+     "mitinx"
+    ],
+    [
+     "hu",
+     "like",
+     "lawixk"
+    ],
+    [
+     "hu",
+     "house",
+     "hacus"
+    ],
+    [
+     "hu",
+     "taxi",
+     "tacksi"
+    ],
+    [
+     "hu",
+     "team",
+     "tim"
+    ],
+    [
+     "hu",
+     "tagja",
+     null
+    ],
+    [
+     "hu",
+     "meetingen",
+     "mitinxejn"
+    ],
+    [
+     "hu",
+     "Facebook",
+     "Fewsbuk"
+    ],
+    [
+     "hu",
+     "show",
+     "sjow"
+    ],
+    [
+     "hu",
+     "think",
+     "tinxk"
+    ],
+    [
+     "hu",
+     "alma",
+     null
+    ],
+    [
+     "hu",
+     "hoc",
+     "hok"
+    ],
+    [
+     "hu",
+     "sok",
+     null
+    ],
+    [
+     "hu",
+     "traumái",
+     null
+    ],
+    [
+     "hu",
+     "traumát",
+     null
+    ],
+    [
+     "hu",
+     "jamaicai",
+     null
+    ],
+    [
+     "hu",
+     "hazai",
+     null
+    ],
+    [
+     "hu",
+     "pizzát",
+     null
+    ],
+    [
+     "hu",
+     "Jamaicában",
+     null
+    ],
+    [
+     "hu",
+     "akinek",
+     null
+    ],
+    [
+     "hu",
+     "amiket",
+     null
+    ],
+    [
+     "hu",
+     "meetingen",
+     "mitinxejn"
+    ],
+    [
+     "hu",
+     "franchise",
+     "fracntqawixz"
+    ],
+    [
+     "hu",
+     "chat",
+     "tqact"
+    ],
+    [
+     "hu",
+     "technika",
+     null
+    ],
+    [
+     "hu",
+     "streamingajánlójában",
+     "striminxacixawnlowixawbacn"
+    ],
+    [
+     "hu",
+     "meetingjén",
+     "mitinxixewn"
+    ],
+    [
+     "hu",
+     "Bela",
+     "Bejlec"
+    ],
+    [
+     "hu",
+     "felkerült",
+     null
+    ],
+    [
+     "hu",
+     "vele",
+     null
+    ],
+    [
+     "hu",
+     "teamek",
+     "timejk"
+    ],
+    [
+     "hu",
+     "teaház",
+     null
+    ],
+    [
+     "hu",
+     "onlinera",
+     null
+    ]
+   ],
+   "choices": [
+    [
+     "ni3",
+     [
+      "你",
+      "拟",
+      "擬",
+      "伲",
+      "旎",
+      "薿"
+     ]
+    ],
+    [
+     "kxaux3",
+     [
+      "好",
+      "郝"
+     ]
+    ],
+    [
+     "tqyunx1",
+     [
+      "中",
+      "钟",
+      "鐘",
+      "终",
+      "終",
+      "忠"
+     ]
+    ],
+    [
+     "kuoc2",
+     [
+      "国",
+      "國",
+      "帼",
+      "𬇹",
+      "腘",
+      "虢"
+     ]
+    ],
+    [
+     "sjyuc4",
+     [
+      "是",
+      "事",
+      "世",
+      "市",
+      "似",
+      "式"
+     ]
+    ],
+    [
+     "zzz1",
+     []
+    ]
+   ],
+   "parse": [
+    [
+     "stage:hu",
+     "Sok szép nyár. Folyó, gally, hely; helyes.",
+     "Sjok sewp njawr. Foixow, gacixw, hejix; hejixejsj."
+    ],
+    [
+     "stage:hu",
+     "Meeting, like, house, taxi, ad hoc, team, tagja, Facebook.",
+     "Mitinx, lawixk, hacus, tacksi, acd hok, tim, tacgixac, Fewsbuk."
+    ],
+    [
+     "stage:hu",
+     "Jamaicai franchise-ba, akinek traumái; Bach, pech, technika, chat.",
+     "Ixacmacikaci fracntqawixz-bac, ackinejk tracumawi; Bach, pejh, tejtchnikac, tqact."
+    ],
+    [
+     "stage:hu",
+     "Streamingajánlójában online teaház, felkerült; tea, team.",
+     "Striminxacixawnlowixawbacn onlawixn tejachawz, fejlkejriclt; tejac, tim."
+    ],
+    [
+     "stage:hu",
+     "Cudjoe East, Ocho Rios.",
+     "Kacdqow Ist, Otqo Riows."
+    ],
+    [
+     "stage:en",
+     "The quick brown fox jumps over the lazy dog.",
+     "Dxaj kuxijk brauxn facks dqajmps ouxvaq dxaj leixzi dojg."
+    ],
+    [
+     "stage:en",
+     "Shakespeare wrote Hamlet; Diafon reads it.",
+     "Sjeixkspir rouxt Hamlajt; Diafon ridz ijt."
+    ],
+    [
+     "stage:zh",
+     "Ni3 hao3, shi4 jie4!",
+     "Ni3 kxaux3, sjyuc4 tcie4!"
+    ],
+    [
+     "stage:zh",
+     "nihao ma",
+     "nikxaux ma"
+    ]
+   ],
+   "render": [
+    [
+     "stage:hu",
+     "Sjok sewp njawr. Foixow, gacixw, hejix; hejixejsj.",
+     "Sok szép nyár. Folyó, gally, hely; helyes."
+    ],
+    [
+     "stage:hu",
+     "Mitinx, lawixk, hacus, tacksi, acd hok, tim, tacgixac, Fewsbuk.",
+     "Meeting, lájk, house, taxi, ad hoc, team, tagja, Facebook."
+    ],
+    [
+     "stage:hu",
+     "Ixacmacikaci fracntqawixz-bac, ackinejk tracumawi; Bach, pejh, tejtchnikac, tqact.",
+     "Jamaicai franchise-ba, akinek traumái; Bach, pech, technika, csat."
+    ],
+    [
+     "stage:hu",
+     "Striminxacixawnlowixawbacn onlawixn tejachawz, fejlkejriclt; tejac, tim.",
+     "Sztrimiṇajánlójában online teaház, felkerült; tea, team."
+    ],
+    [
+     "stage:hu",
+     "Kacdqow Ist, Otqo Riows.",
+     "Cudjoe East, Ocho Rios."
+    ],
+    [
+     "stage:en",
+     "Dxaj kuxijk brauxn facks dqajmps ouxvaq dxaj leixzi dojg.",
+     "The quick brown fox jumps over the lazy dog."
+    ],
+    [
+     "stage:en",
+     "Sjeixkspir rouxt Hamlajt; Diafon ridz ijt.",
+     "Shakespeare wrote Hamlet; Diafon reads it."
+    ],
+    [
+     "stage:zh",
+     "Ni3 kxaux3, sjyuc4 tcie4!",
+     "Ni3 hao3, shi4 jie4!"
+    ],
+    [
+     "stage:zh",
+     "nikxaux ma",
+     "niḳaw ma"
+    ]
+   ],
+   "detect": [
+    [
+     "Sok szép nyár. Folyó, gally, hely; helyes.",
+     "transport"
+    ],
+    [
+     "Meeting, like, house, taxi, ad hoc, team, tagja, Facebook.",
+     "transport"
+    ],
+    [
+     "Jamaicai franchise-ba, akinek traumái; Bach, pech, technika, chat.",
+     "script"
+    ],
+    [
+     "Streamingajánlójában online teaház, felkerült; tea, team.",
+     "script"
+    ],
+    [
+     "Cudjoe East, Ocho Rios.",
+     "script"
+    ],
+    [
+     "The quick brown fox jumps over the lazy dog.",
+     "stage:en"
+    ],
+    [
+     "Shakespeare wrote Hamlet; Diafon reads it.",
+     "script"
+    ],
+    [
+     "Ni3 hao3, shi4 jie4!",
+     "stage:zh"
+    ],
+    [
+     "nihao ma",
+     "transport"
+    ]
+   ],
+   "roundtrip": [
+    [
+     "stage:hu",
+     "Sok szép nyár. Folyó, gally, hely; helyes.",
+     "Sok szép nyár. Folyó, gally, hely; helyes."
+    ],
+    [
+     "stage:hu",
+     "Meeting, like, house, taxi, ad hoc, team, tagja, Facebook.",
+     "Meeting, like, house, taxi, ad hoc, team, tagja, Facebook."
+    ],
+    [
+     "stage:hu",
+     "Jamaicai franchise-ba, akinek traumái; Bach, pech, technika, chat.",
+     "Jamaicai franchise-ba, akinek traumái; Bach, pech, technika, chat."
+    ],
+    [
+     "stage:hu",
+     "Streamingajánlójában online teaház, felkerült; tea, team.",
+     "Streamingajánlójában online teaház, felkerült; tea, team."
+    ],
+    [
+     "stage:hu",
+     "Cudjoe East, Ocho Rios.",
+     "Cudjoe East, Ocho Rios."
+    ],
+    [
+     "stage:en",
+     "The quick brown fox jumps over the lazy dog.",
+     "The quick brown fox jumps over the lazy dog."
+    ],
+    [
+     "stage:en",
+     "Shakespeare wrote Hamlet; Diafon reads it.",
+     "Shakespeare wrote Hamlet; Diafon reads it."
+    ],
+    [
+     "stage:zh",
+     "Ni3 hao3, shi4 jie4!",
+     "Ni3 hao3, shi4 jie4!"
+    ],
+    [
+     "stage:zh",
+     "nihao ma",
+     "niḳaw ma"
+    ]
+   ]
+  }
+ },
+ "lexicon": {
+  "en": {
+   "name": "English",
+   "kind": "word",
+   "match": "word",
+   "loans": [],
+   "fold": {},
+   "foreign": null,
+   "lengthen": {},
+   "sample": "uxajn kibojrd, uxajn skrijpt, ejvaqi lanxguxajdq",
+   "output": true,
+   "sizes": {
+    "read": 126052,
+    "write": 114903
+   }
+  },
+  "hu": {
+   "name": "Hungarian",
+   "kind": "word",
+   "match": "prefix",
+   "loans": [
+    "la",
+    "en"
+   ],
+   "fold": {
+    "aix": "awix",
+    "aux": "acu",
+    "eix": "ew",
+    "oux": "ow",
+    "ojix": "oix",
+    "aq": "ecw",
+    "a": "ac",
+    "ac": "aw",
+    "aj": "ec",
+    "ij": "i",
+    "oj": "o",
+    "uj": "u",
+    "tx": "t",
+    "dx": "d",
+    "ux": "v",
+    "r": "r"
+   },
+   "foreign": "ee|oo|ea|ou|w|x|q|sh|ch|th|ck|ph|(?<![gltn])y",
+   "lengthen": {
+    "á": "a",
+    "é": "e"
+   },
+   "sample": null,
+   "output": true,
+   "sizes": {
+    "read": 13,
+    "write": 1896,
+    "native": 84840
+   }
+  },
+  "la": {
+   "name": "Latin",
+   "kind": "word",
+   "match": "word",
+   "loans": [],
+   "fold": {},
+   "foreign": null,
+   "lengthen": {},
+   "sample": null,
+   "output": false,
+   "sizes": {
+    "read": 27,
+    "write": 27
+   }
+  },
+  "zh": {
+   "name": "Mandarin",
+   "kind": "syllable",
+   "match": "word",
+   "loans": [],
+   "fold": {},
+   "foreign": null,
+   "lengthen": {},
+   "sample": "ni3 kxaux3, sjyuc4 tcie4",
+   "output": true,
+   "sizes": {
+    "read": 404,
+    "write": 403,
+    "choices": 1384
+   }
   }
  }
 }

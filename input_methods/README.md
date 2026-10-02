@@ -23,10 +23,14 @@ machine is specified once, in docs/spec.json, and proven by its vectors.
    final too, so the buffer empties on every word boundary. The pending
    tail is never longer than one segment, at most a base, two operators, w
    and the tone digits.
-4. **Settings**, the same on every platform: `output` (script · transport ·
-   stage:<code>), `tones` (keep the digits), `strict` (flag ill-formed
-   segments), `enabled` (conversion on; off is a plain keyboard, flipped by
-   a toggle key).
+4. **Settings**, the same on every platform: `output` (script, the default
+   Universal · stage:<code>, one language's spelling · transport, the escape
+   path only), `language` (the spelling's code, kept when the output goes
+   back to Universal, defaulting to the first system language that has a
+   spelling), `tones` (keep the digits), `strict` (flag ill-formed segments),
+   `enabled` (conversion on; off is a plain keyboard, flipped by a toggle
+   key). A screen offers two choices, Universal or a language's spelling,
+   the language from one list; never every spelling as a flat row.
 
 Reference: `engine.segments`, `engine.render`, `engine.stream` in
 scripts/engine.py. Every port replays the vectors in docs/spec.json
@@ -34,21 +38,56 @@ scripts/engine.py. Every port replays the vectors in docs/spec.json
 ships: tests/test_spec.py holds the Python and JS engines, tests/test_kotlin.py
 the Kotlin one, tests/test_swift.py the Swift one.
 
+## Reading back
+
+The machine runs the other way too (scripts/stages.py `parse`, `convert`,
+`detect`; docs/engine.js; input_methods/mac/Sources/Reading.swift): a text
+in any source, the input form, the script, or a language's spelling, is
+read back into transport form and re-rendered in any target. Reading is
+longest match over a table of spellings: the script's table is the grammar's
+whole inventory (a glyph two forms share, kx and kc, reads as the form the
+languages use); a stage's table is its spellings, long forms, capitals, and
+its `read` aliases, the spellings a language keeps for etymology and never
+writes (Hungarian ly → ix, Czech y ý ů ě…), over the script's table as
+fallback. `detect` ranks the sources by the share of letters each reads with
+its own spellings; the mode in use breaks ties. Stated limits: all-caps
+reads as capitalized (SZÉP → SzÉP), and digraphs across a compound boundary
+(házszám) read by longest match, no dictionary being consulted. The spec's
+parse, convert and detect vectors hold every port to the same readings.
+
+## The lexicon layer
+
+Above the letters, word by word (data/lexicon, scripts/lexicon.py;
+docs/engine.js; Lexicon.swift): English, whose spelling carries no reading
+of its own, reads and writes through the pronunciation dictionary
+(CMUdict); Hungarian writes ly on the stems that take it (folyók) and
+reads English and Latin loans by their own dictionaries, folded into
+Hungarian sounds (meeting → mítiŋg, like → lájk); Mandarin reads and
+writes pinyin by the syllable, and its `choices` table gives the input
+method the characters of a toned syllable, most frequent first. A word is
+read by the stage's own letters when they read it in full (a host with a
+dictionary checks for a loan first: the longest matching stem wins, native
+on ties unless the word has a foreign letter shape), else by its lexicon,
+else by a loan lexicon, else by the letters and the script. Kotlin has
+none of it yet: Android renders English and Mandarin in the script.
+
 ## Where the machine sits, per platform
 
 | Platform | Hook | Status |
 |---|---|---|
 | Android | `InputMethodService`: the IME owns the keys and an `InputConnection` into the editor; composing text is native (`setComposingText`, `commitText`); a `PROCESS_TEXT` activity converts selections typed with any keyboard | android/: base layouts, candidate strip, convert-selection; APK builds |
-| macOS | Input Method Kit: `IMKInputController` receives keystrokes from any app, `setMarkedText` shows the tail, `insertText` commits; two text Services convert selections typed with any keyboard | mac/: rebuilt on spec.json (Swift engine holds the vectors, tests/test_swift.py), status menu, setup window, service |
+| macOS | Input Method Kit: `IMKInputController` receives keystrokes from any app, `setMarkedText` shows the tail, `insertText` commits; two text Services convert a selection in any spelling, from the source detected or chosen in a window, to the mode in use or any other | mac/: on spec.json (Swift engine holds every vector, reading back included, tests/test_swift.py), status menu, quick list and chooser, candidate window, setup window, services |
 | Linux | IBus, and fcitx5: an m17n `.mim` table (declarative transducer) generated from spec.json; no native code | planned |
 | Windows | Text Services Framework text service, Rust, the one native build | planned |
-| Web | browser extension: content script on editable fields and contenteditable, the playground's JS engine | planned |
+| Web | browser extension on docs/engine.js: a content script reads a page in Universal, toggled from the icon, the language from the page itself (extensions/browser, tests/test_extension.py); input into editable fields and contenteditable | pages done; editable fields planned |
 | iOS | no input-method layer exists apart from keyboard extensions; not pursued. Text reaches iOS as transport form, or through the web extension in Safari, Shortcuts, and messenger bots | not pursued |
 
 ## Porting checklist
 
 1. Generate the data file from docs/spec.json (never hand-copy a table).
-2. Port `segments`, `glyph`, `render`, `stream` and the stage renderer.
+2. Port `segments`, `glyph`, `render`, `stream` and the stage renderer;
+   then reading back: `inventory`, the script and stage tables, `read`,
+   `parse`, `convert`, `detect` (the Kotlin port has the first half only).
 3. Replay the vectors; fail the build on any difference.
 4. Wire the platform: key in, `stream` out; commit the head, compose the
    tail; flush the tail on focus loss, cursor movement, enter and
