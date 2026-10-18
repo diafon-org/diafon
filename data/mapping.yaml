@@ -211,6 +211,8 @@ overrides:
     zʲ: zxy
     fʲ: fxy
     vʲ: vxy
+    ʂ: sj        # ш ж: the hush; щ, the only ɕ, is long (sjw)
+    ʐ: zj
   uk:
     sʲ: sxy
     zʲ: zxy
@@ -219,6 +221,11 @@ overrides:
     sʲ: sxy
   ja:            # the moraic nasal ん contrasts with n (kani ~ kan'i); it is
     ɴ: nxy       #   Japanese's special; its yx is otherwise unspent
+  zh:            # the retroflexes are the hush: no plain hush to contrast
+    ʂ: sj        #   (j q x are z c s before i ü), so the back-lean is unsigned
+    ʐ: zj
+    tʂ: tq
+    tʂʰ: tqh
 
   pl:            # three-way sibilants: plain / anchored / flipped
     ʂ: sjy
@@ -272,6 +279,8 @@ shares:
     tʃ: primary
     tʃʼ:
       ka: the ejective; the bare letter is the licensed approximation
+    tʂ:
+      zh: zh; the sole hush affricate, retroflex (j q are z c before i ü)
     tɕ:
       ja: the sole hush affricate, alveolo-palatal
       ko: the sole hush affricate, alveolo-palatal
@@ -289,10 +298,16 @@ shares:
     ɕ:
       ja: the sole hush, alveolo-palatal
       pl: ś; its second hush sz takes the flip (sjy)
+    ʂ:
+      ru: ш; the sole short hush (щ is long, sjw)
+      zh: sh; the sole hush, retroflex (x is s before i ü)
   zj:
     ʒ: primary
     ʑ:
       pl: ź; its second hush ż takes the flip (zjy)
+    ʐ:
+      ru: ж; the sole voiced hush
+      zh: r; the sole voiced hush, retroflex
   kx:
     x: primary
     χ:
