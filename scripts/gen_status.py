@@ -3,8 +3,8 @@
 exists and in what state, read from the data so it cannot drift from the
 repo.
 
-- the languages in one sentence (the per-language table is on the master
-  tables page, scripts/gen_master.py);
+- the languages in one sentence (the per-language table is on the
+  Reference page, scripts/gen_master.py);
 - the tools: the workstream table of plan.md, state column verbatim.
 """
 import glob
@@ -28,7 +28,7 @@ def languages():
     n_nat = sum(1 for v in review.values() if v == 'native')
     return (f'{len(langs)} languages carry a phoneme inventory and a mapping; {n_rev} mappings '
             f'are reviewed, {n_nat} of them by a native speaker; {len(stages)} have a draft '
-            f'spelling stage; {len(lexica)} have a lexicon. The master tables page lists every '
+            f'spelling stage; {len(lexica)} have a lexicon. The Reference page lists every '
             'language with its state.')
 
 
