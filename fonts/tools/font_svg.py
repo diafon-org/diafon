@@ -31,13 +31,14 @@ not rendered (Path > Stroke to Path first), nor text (Path > Object to Path).
 data-advance on the root sets the advance width.
 """
 import argparse
+import math
 import os
 import re
 import sys
 import xml.etree.ElementTree as ET
 
 from fontTools.misc.transform import Transform
-from fontTools.pens.recordingPen import RecordingPen
+from fontTools.pens.recordingPen import RecordingPen, replayRecording
 from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 from fontTools.svgLib.path.parser import parse_path
@@ -52,6 +53,9 @@ SVG_ROOT = os.path.join(ROOT, 'fonts', 'svg')
 LEFT, RIGHT = 500, 1500          # the canvas spans font x -LEFT .. RIGHT
 RULER = 120                      # the rulers' strip
 INK = '#111'
+CUT = '#2a7de1'                  # the cut layer's colour
+SPARE_CUT = (1200, 0)            # a spare cut square, 100 wide, set clear of the glyph at this
+                                 #   font point: drag it onto the ink to use it
 
 
 # ------------------------------------------------------------------- the font
@@ -303,7 +307,9 @@ def glyph_svg(font, gname, key, M, on=(), anchors=None):
      viewBox="0 0 {W} {H}" data-glyph="{gname}" data-family="{key}" data-origin="{ox} {oy}"
      data-upm="{M['upm']}" data-advance="{adv}">
   <title>Diafon {key} {gname}</title>
-  <!-- Draw in the "glyph" layer only; "guides" is locked and ignored on import.
+  <!-- Draw in the "glyph" layer; whatever is in the "cut" layer is cut out of it
+       (shown half see-through; a spare square waits there, clear of the glyph);
+       "guides" is locked and ignored on import.
        Font (0, 0) is at SVG ({ox}, {oy}); one unit is one font unit, {M['upm']} to the em,
        y up in the font. Fills only: holes by either fill rule, overlaps merged;
        strokes and text must become paths first. data-advance sets the advance
@@ -319,6 +325,9 @@ def glyph_svg(font, gname, key, M, on=(), anchors=None):
   </g>
   <g id="glyph" inkscape:groupmode="layer" inkscape:label="glyph">
 {paths}
+  </g>
+  <g id="cut" inkscape:groupmode="layer" inkscape:label="cut" style="opacity:0.5">
+    <path id="spare-cut" inkscape:label="spare cut" fill="{CUT}" d="M{ox + SPARE_CUT[0]} {oy}h100v-100h-100z"/>
   </g>
 </svg>
 '''
@@ -364,9 +373,9 @@ def stems(svg_dir):
     return sorted(f[:-4] for f in os.listdir(svg_dir) if f.endswith('.svg') and not f.startswith('_'))
 
 
-def glyph_layer(root):
+def glyph_layer(root, name='glyph'):
     for el in root:
-        if local(el.tag) == 'g' and (el.get('id') == 'glyph' or el.get(INKSCAPE + 'label') == 'glyph'):
+        if local(el.tag) == 'g' and (el.get('id') == name or el.get(INKSCAPE + 'label') == name):
             return el
     return None
 
@@ -384,9 +393,11 @@ def origin_of(root, default):
 
 
 def read_glyph(path, default_origin):
-    """The glyph layer of an SVG in font space: ([(RecordingPen, fill_rule)],
-    warnings, advance or None). Clones resolve within the file; a file with no
-    data-origin is the hand tools' canvas (viewBox at the ascent)."""
+    """The glyph and cut layers of an SVG in font space: ([(RecordingPen,
+    fill_rule, cut)], warnings, advance or None), cut true for the shapes of
+    the cut layer, which are taken away from the merged ink. Clones resolve
+    within the file; a file with no data-origin is the hand tools' canvas
+    (viewBox at the ascent)."""
     root = ET.parse(path).getroot()
     ids = {el.get('id'): el for el in root.iter() if el.get('id')}
     origin = origin_of(root, default_origin)
@@ -394,7 +405,7 @@ def read_glyph(path, default_origin):
     warnings, pieces = [], []
     layer = glyph_layer(root)
 
-    def walk(el, ctm, st, doc, stack):
+    def walk(el, ctm, st, doc, stack, cut=False):
         """doc: (ids, origin) of the document el belongs to — a master's
         clones resolve in the master's own space."""
         tag = local(el.tag)
@@ -411,7 +422,7 @@ def read_glyph(path, default_origin):
             t = t.transform(nested_svg_transform(el))
         if tag in ('g', 'svg', 'a', 'switch'):
             for ch in el:
-                walk(ch, t, st, doc, stack)
+                walk(ch, t, st, doc, stack, cut)
             return
         if tag == 'use':
             href = (el.get(XLINK + 'href') or el.get('href') or '').lstrip('#')
@@ -425,9 +436,9 @@ def read_glyph(path, default_origin):
                 return
             if local(target.tag) in ('symbol', 'svg'):
                 for ch in target:
-                    walk(ch, t, st, mdoc, stack + (href,))
+                    walk(ch, t, st, mdoc, stack + (href,), cut)
             else:
-                walk(target, t, st, mdoc, stack + (href,))
+                walk(target, t, st, mdoc, stack + (href,), cut)
             return
         d = shape_d(el)
         if not d:
@@ -444,20 +455,40 @@ def read_glyph(path, default_origin):
         except Exception as e:
             warnings.append(f'unreadable {tag}#{el.get("id", "")}: {e}')
             return
-        pieces.append((rec, st.get('fill-rule', 'nonzero')))
+        pieces.append((rec, st.get('fill-rule', 'nonzero'), cut))
 
     if layer is None:
         warnings.append('no "glyph" layer')
     else:
         to_font = Transform(1, 0, 0, -1, -origin[0], origin[1])
         walk(layer, to_font, {}, (ids, origin), ())
+        cut_layer = glyph_layer(root, 'cut')
+        if cut_layer is not None:
+            walk(cut_layer, to_font, {}, (ids, origin), (), cut=True)
     adv = root.get('data-advance')
     return pieces, warnings, (int(round(float(adv))) if adv not in (None, '') else None)
 
 
+def without_stubs(ops, reach=1.5):
+    """The recording without segments that end, controls and all, within
+    reach of where they start: the stubs two outlines touching along a curve
+    leave where the merge splits them, a unit long and turning sharply once
+    rounded."""
+    out, here = [], None
+    for op, pts in ops:
+        if op in ('lineTo', 'curveTo', 'qCurveTo') and here is not None and \
+                all(math.dist(p, here) < reach for p in pts):
+            continue
+        out.append((op, pts))
+        if pts:
+            here = pts[-1]
+    return out
+
+
 def outline(pieces, upm):
-    """A TrueType glyph from the pieces: overlaps merged, either fill rule
-    honoured, outer contours clockwise as TrueType wants, cubics to quadratics."""
+    """A TrueType glyph from the pieces: overlaps merged, the cut pieces taken
+    away, either fill rule honoured, outer contours clockwise as TrueType
+    wants, cubics to quadratics."""
     from fontTools.pens.ttGlyphPen import TTGlyphPen
     from fontTools.pens.cu2quPen import Cu2QuPen
     tt = TTGlyphPen(None)
@@ -468,7 +499,7 @@ def outline(pieces, upm):
         pathops = None
     if pathops and pieces:
         builder = pathops.OpBuilder(fix_winding=True, keep_starting_points=False)
-        for rec, rule in pieces:
+        for rec, rule, cut in sorted(pieces, key=lambda p: p[2]):    # the ink, then the cuts
             p = pathops.Path()
             rec.replay(p.getPen())
             if rule == 'evenodd':
@@ -479,18 +510,37 @@ def outline(pieces, upm):
             cs = contours(probe)
             if cs and area(max(cs, key=lambda c: abs(area(c[1])))[1]) > 0:
                 p.reverse()             # the builder keeps holes only under a clockwise outer
-            builder.add(p, pathops.PathOp.UNION)
+            builder.add(p, pathops.PathOp.DIFFERENCE if cut else pathops.PathOp.UNION)
         merged = builder.resolve()
         rec = RecordingPen()
         merged.draw(rec)
         cs = contours(rec)
+        if any(abs(area(pts)) < 1 for _, pts in cs):    # crumbs of no area a join can leave
+            merged = pathops.Path()
+            for ops, pts in cs:
+                if abs(area(pts)) >= 1:
+                    replayRecording(ops, merged.getPen())
+            cs = [c for c in cs if abs(area(c[1])) >= 1]
         if cs and area(max(cs, key=lambda c: abs(area(c[1])))[1]) > 0:
             merged.reverse()
-        merged.draw(dst)
+        rec = RecordingPen()
+        merged.draw(rec)
+        replayRecording(without_stubs(rec.value), dst)
     else:
-        for rec, _ in pieces:
-            rec.replay(dst)
-    return tt.glyph()
+        for rec, _, cut in pieces:
+            if not cut:
+                rec.replay(dst)
+    glyph = tt.glyph()
+    rec = RecordingPen()
+    glyph.draw(rec, None)
+    cs = contours(rec)
+    if any(abs(area(pts)) < 1 for _, pts in cs):        # crumbs that flatten to nothing as quadratics
+        tt = TTGlyphPen(None)
+        for ops, pts in cs:
+            if abs(area(pts)) >= 1:
+                replayRecording(ops, tt)
+        glyph = tt.glyph()
+    return glyph
 
 
 def import_overrides(font, key='serif', svg_dir=None, skip=(), final=True, verbose=True):

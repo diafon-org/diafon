@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     viewBox="0 0 2350 1550" data-glyph="c_uni0316" data-family="serif" data-origin="620 1190"
+     data-upm="1000" data-advance="492">
+  <title>Diafon serif c_uni0316</title>
+  <!-- Draw in the "glyph" layer; whatever is in the "cut" layer is cut out of it
+       (shown half see-through; a spare square waits there, clear of the glyph);
+       "guides" is locked and ignored on import.
+       Font (0, 0) is at SVG (620, 1190); one unit is one font unit, 1000 to the em,
+       y up in the font. Fills only: holes by either fill rule, overlaps merged;
+       strokes and text must become paths first. data-advance sets the advance
+       width. Clones (<use>) of the symbols in <defs> resolve to their masters
+       (_parts.svg, the other glyph files) at build time. -->
+  <sodipodi:namedview id="namedview" inkscape:document-units="px" inkscape:current-layer="glyph"
+     showguides="true" showgrid="false" inkscape:pagecheckerboard="0">
+    <inkscape:grid type="xygrid" id="grid" spacingx="10" spacingy="10" originx="620" originy="1190" empspacing="10"/>
+    <sodipodi:guide position="0,360" orientation="0,1" inkscape:label="baseline" inkscape:locked="true"/>
+    <sodipodi:guide position="0,896" orientation="0,1" inkscape:label="x-height" inkscape:locked="true"/>
+    <sodipodi:guide position="0,1074" orientation="0,1" inkscape:label="cap height" inkscape:locked="true"/>
+    <sodipodi:guide position="0,1120" orientation="0,1" inkscape:label="ascender" inkscape:locked="true"/>
+    <sodipodi:guide position="0,120" orientation="0,1" inkscape:label="descender" inkscape:locked="true"/>
+    <sodipodi:guide position="620,0" orientation="1,0" inkscape:label="origin" inkscape:locked="true"/>
+    <sodipodi:guide position="1112,0" orientation="1,0" inkscape:label="advance" inkscape:locked="true"/>
+  </sodipodi:namedview>
+  <g id="guides" inkscape:groupmode="layer" inkscape:label="guides" sodipodi:insensitive="true">
+    <rect x="120" y="121" width="2000" height="1362" fill="none" stroke="#ccd" stroke-width="1.5"/><!-- the em box -->
+    <line x1="120" x2="2120" y1="1430" y2="1430" stroke="#8bf" stroke-width="1.5" stroke-dasharray="12 8"/><text x="2130" y="1437" fill="#789" font-family="sans-serif" font-size="20">descender -240</text>
+    <line x1="120" x2="2120" y1="1190" y2="1190" stroke="#48f" stroke-width="2"/><text x="2130" y="1197" fill="#789" font-family="sans-serif" font-size="20">baseline 0</text>
+    <line x1="120" x2="2120" y1="654" y2="654" stroke="#8bf" stroke-width="1.5" stroke-dasharray="12 8"/><text x="2130" y="661" fill="#789" font-family="sans-serif" font-size="20">x-height 536</text>
+    <line x1="120" x2="2120" y1="476" y2="476" stroke="#8bf" stroke-width="1.5" stroke-dasharray="12 8"/><text x="2130" y="483" fill="#789" font-family="sans-serif" font-size="20">cap height 714</text>
+    <line x1="120" x2="2120" y1="430" y2="430" stroke="#8bf" stroke-width="1.5" stroke-dasharray="12 8"/><text x="2130" y="437" fill="#789" font-family="sans-serif" font-size="20">ascender 760</text>
+    <line x1="620" x2="620" y1="121" y2="1483" stroke="#f80" stroke-width="2"/><text x="626" y="143" fill="#c60" font-family="sans-serif" font-size="20">origin</text>
+    <line x1="1112" x2="1112" y1="121" y2="1483" stroke="#f80" stroke-width="1.5" stroke-dasharray="12 8"/><text x="1118" y="143" fill="#c60" font-family="sans-serif" font-size="20">advance 492</text>
+    <line x1="120" x2="2120" y1="80" y2="80" stroke="#889" stroke-width="1.5"/>
+    <line x1="120" x2="120" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="120" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">-500</text>
+    <line x1="170" x2="170" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="220" x2="220" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="220" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">-400</text>
+    <line x1="270" x2="270" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="320" x2="320" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="320" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">-300</text>
+    <line x1="370" x2="370" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="420" x2="420" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="420" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">-200</text>
+    <line x1="470" x2="470" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="520" x2="520" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="520" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">-100</text>
+    <line x1="570" x2="570" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="620" x2="620" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="620" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">0</text>
+    <line x1="670" x2="670" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="720" x2="720" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="720" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">100</text>
+    <line x1="770" x2="770" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="820" x2="820" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="820" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">200</text>
+    <line x1="870" x2="870" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="920" x2="920" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="920" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">300</text>
+    <line x1="970" x2="970" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="1020" x2="1020" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="1020" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">400</text>
+    <line x1="1070" x2="1070" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="1120" x2="1120" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="1120" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">500</text>
+    <line x1="1170" x2="1170" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="1220" x2="1220" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="1220" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">600</text>
+    <line x1="1270" x2="1270" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="1320" x2="1320" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="1320" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">700</text>
+    <line x1="1370" x2="1370" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="1420" x2="1420" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="1420" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">800</text>
+    <line x1="1470" x2="1470" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="1520" x2="1520" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="1520" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">900</text>
+    <line x1="1570" x2="1570" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="1620" x2="1620" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="1620" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">1000</text>
+    <line x1="1670" x2="1670" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="1720" x2="1720" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="1720" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">1100</text>
+    <line x1="1770" x2="1770" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="1820" x2="1820" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="1820" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">1200</text>
+    <line x1="1870" x2="1870" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="1920" x2="1920" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="1920" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">1300</text>
+    <line x1="1970" x2="1970" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="2020" x2="2020" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="2020" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">1400</text>
+    <line x1="2070" x2="2070" y1="80" y2="72" stroke="#889" stroke-width="1.5"/>
+    <line x1="2120" x2="2120" y1="80" y2="64" stroke="#889" stroke-width="1.5"/>
+    <text x="2120" y="58" fill="#667" font-family="sans-serif" font-size="18" text-anchor="middle">1500</text>
+    <line x1="80" x2="80" y1="90" y2="1490" stroke="#889" stroke-width="1.5"/>
+    <line x1="80" x2="64" y1="1490" y2="1490" stroke="#889" stroke-width="1.5"/>
+    <text x="58" y="1496" fill="#667" font-family="sans-serif" font-size="18" text-anchor="end">-300</text>
+    <line x1="80" x2="72" y1="1440" y2="1440" stroke="#889" stroke-width="1.5"/>
+    <line x1="80" x2="64" y1="1390" y2="1390" stroke="#889" stroke-width="1.5"/>
+    <text x="58" y="1396" fill="#667" font-family="sans-serif" font-size="18" text-anchor="end">-200</text>
+    <line x1="80" x2="72" y1="1340" y2="1340" stroke="#889" stroke-width="1.5"/>
+    <line x1="80" x2="64" y1="1290" y2="1290" stroke="#889" stroke-width="1.5"/>
+    <text x="58" y="1296" fill="#667" font-family="sans-serif" font-size="18" text-anchor="end">-100</text>
+    <line x1="80" x2="72" y1="1240" y2="1240" stroke="#889" stroke-width="1.5"/>
+    <line x1="80" x2="64" y1="1190" y2="1190" stroke="#889" stroke-width="1.5"/>
+    <text x="58" y="1196" fill="#667" font-family="sans-serif" font-size="18" text-anchor="end">0</text>
+    <line x1="80" x2="72" y1="1140" y2="1140" stroke="#889" stroke-width="1.5"/>
+    <line x1="80" x2="64" y1="1090" y2="1090" stroke="#889" stroke-width="1.5"/>
+    <text x="58" y="1096" fill="#667" font-family="sans-serif" font-size="18" text-anchor="end">100</text>
+    <line x1="80" x2="72" y1="1040" y2="1040" stroke="#889" stroke-width="1.5"/>
+    <line x1="80" x2="64" y1="990" y2="990" stroke="#889" stroke-width="1.5"/>
+    <text x="58" y="996" fill="#667" font-family="sans-serif" font-size="18" text-anchor="end">200</text>
+    <line x1="80" x2="72" y1="940" y2="940" stroke="#889" stroke-width="1.5"/>
+    <line x1="80" x2="64" y1="890" y2="890" stroke="#889" stroke-width="1.5"/>
+    <text x="58" y="896" fill="#667" font-family="sans-serif" font-size="18" text-anchor="end">300</text>
+    <line x1="80" x2="72" y1="840" y2="840" stroke="#889" stroke-width="1.5"/>
+    <line x1="80" x2="64" y1="790" y2="790" stroke="#889" stroke-width="1.5"/>
+    <text x="58" y="796" fill="#667" font-family="sans-serif" font-size="18" text-anchor="end">400</text>
+    <line x1="80" x2="72" y1="740" y2="740" stroke="#889" stroke-width="1.5"/>
+    <line x1="80" x2="64" y1="690" y2="690" stroke="#889" stroke-width="1.5"/>
+    <text x="58" y="696" fill="#667" font-family="sans-serif" font-size="18" text-anchor="end">500</text>
+    <line x1="80" x2="72" y1="640" y2="640" stroke="#889" stroke-width="1.5"/>
+    <line x1="80" x2="64" y1="590" y2="590" stroke="#889" stroke-width="1.5"/>
+    <text x="58" y="596" fill="#667" font-family="sans-serif" font-size="18" text-anchor="end">600</text>
+    <line x1="80" x2="72" y1="540" y2="540" stroke="#889" stroke-width="1.5"/>
+    <line x1="80" x2="64" y1="490" y2="490" stroke="#889" stroke-width="1.5"/>
+    <text x="58" y="496" fill="#667" font-family="sans-serif" font-size="18" text-anchor="end">700</text>
+    <line x1="80" x2="72" y1="440" y2="440" stroke="#889" stroke-width="1.5"/>
+    <line x1="80" x2="64" y1="390" y2="390" stroke="#889" stroke-width="1.5"/>
+    <text x="58" y="396" fill="#667" font-family="sans-serif" font-size="18" text-anchor="end">800</text>
+    <line x1="80" x2="72" y1="340" y2="340" stroke="#889" stroke-width="1.5"/>
+    <line x1="80" x2="64" y1="290" y2="290" stroke="#889" stroke-width="1.5"/>
+    <text x="58" y="296" fill="#667" font-family="sans-serif" font-size="18" text-anchor="end">900</text>
+    <line x1="80" x2="72" y1="240" y2="240" stroke="#889" stroke-width="1.5"/>
+    <line x1="80" x2="64" y1="190" y2="190" stroke="#889" stroke-width="1.5"/>
+    <text x="58" y="196" fill="#667" font-family="sans-serif" font-size="18" text-anchor="end">1000</text>
+    <line x1="80" x2="72" y1="140" y2="140" stroke="#889" stroke-width="1.5"/>
+    <line x1="80" x2="64" y1="90" y2="90" stroke="#889" stroke-width="1.5"/>
+    <text x="58" y="96" fill="#667" font-family="sans-serif" font-size="18" text-anchor="end">1100</text>
+    <path id="ghost" fill="#000" opacity="0.14" d="M886 1273Q892 1264 896.5 1258.5Q901 1253 906 1246Q907 1245 908.0 1244.0Q909 1243 909 1242Q915 1234 918.0 1227.5Q921 1221 919 1211Q917 1201 910 1200Q908 1200 908 1200Q888 1199 868.0 1196.5Q848 1194 835 1191Q831 1191 828 1190Q822 1189 818.5 1187.0Q815 1185 810 1183Q804 1181 800 1179Q792 1176 786 1172Q734 1144 704 1083Q686 1045 679 993Q675 962 675 925Q675 818 704.5 756.5Q734 695 784.5 669.5Q835 644 898 644Q940 644 980.0 655.0Q1020 666 1046.0 688.5Q1072 711 1072 746Q1072 780 1049.5 794.5Q1027 809 983 809Q983 762 965.5 728.0Q948 694 898 694Q860 694 831.5 714.0Q803 734 787.5 784.0Q772 834 772 924Q772 974 780 1012Q787 1044 799 1068Q803 1076 808 1082Q843 1135 923 1135Q970 1135 1004.5 1115.5Q1039 1096 1056 1065Q1073 1079 1073 1104Q1073 1127 1054 1149Q1052 1151 1050 1153Q1039 1164 1031.5 1170.5Q1024 1177 1015 1190Q1012 1195 1007.0 1200.5Q1002 1206 994 1215Q986 1224 981.0 1230.0Q976 1236 968 1245Q955 1259 945 1269Q936 1277 930.5 1282.5Q925 1288 922 1299Q918 1311 922 1322Q930 1347 952 1369Q931 1390 914 1394Q896 1398 880 1382Q863 1365 865 1342Q866 1317 868.0 1310.0Q870 1303 877 1291Q880 1285 882.0 1281.0Q884 1277 886 1273Z"/>
+  </g>
+  <g id="glyph" inkscape:groupmode="layer" inkscape:label="glyph">
+    <path id="tail" fill="#c8324e" d="M906.3 1245.7C898.8 1256.1 894.0 1260.8 886.2 1273.2C882.8 1278.7 880.7 1283.3 876.7 1290.6C867.8 1307.1 866.3 1308.4 864.5 1341.8C863.6 1357.3 868.3 1370.6 879.5 1381.8C890.3 1392.6 901.7 1396.8 913.5 1394.3C925.3 1391.7 938.3 1383.5 952.4 1369.5C937.4 1354.5 927.3 1338.8 922.0 1322.4C919.6 1314.7 919.5 1307.0 921.7 1299.4C926.2 1283.9 933.5 1280.1 945.0 1268.8C952.5 1261.5 960.1 1253.5 968.0 1244.9C979.3 1232.6 983.3 1227.6 994.3 1215.0C1004.5 1203.5 1010.4 1197.1 1015.2 1190.0C1026.8 1172.9 1035.9 1167.9 1050.2 1153.1Q1031.5 1172.4 997.5 1185.5Q962.2 1199.1 909.7 1199.9C914.8 1201.0 917.9 1205.3 919.1 1210.7C922.1 1224.3 916.9 1231.3 909.2 1241.7C908.3 1243.0 907.3 1244.3 906.3 1245.7ZM799.5 1179.0Q803.8 1180.9 808.2 1182.7C816.1 1185.9 819.2 1188.1 827.5 1190.0C829.6 1190.5 831.9 1191.0 834.5 1191.5Q816.3 1186.6 799.5 1179.0Z"/>
+    <path id="letter" fill="#111" d="M834.5 1191.5C852.1 1194.9 881.4 1199.0 907.5 1199.7C908.3 1199.7 909.0 1199.8 909.7 1199.9Q962.2 1199.1 997.5 1185.5Q1031.5 1172.4 1050.2 1153.1Q1052.3 1151.0 1054.0 1149.0Q1073.0 1127.0 1073.0 1104.0Q1073.0 1079.0 1056.0 1065.0Q1039.0 1096.0 1004.5 1115.5Q970.0 1135.0 923.0 1135.0Q843.0 1135.0 807.5 1082.5Q803.1 1075.9 799.2 1068.5Q786.6 1044.5 779.8 1011.7Q772.0 973.8 772.0 924.0Q772.0 834.0 787.5 784.0Q803.0 734.0 831.5 714.0Q860.0 694.0 898.0 694.0Q948.0 694.0 965.5 728.0Q983.0 762.0 983.0 809.0Q1027.0 809.0 1049.5 794.5Q1072.0 780.0 1072.0 746.0Q1072.0 711.0 1046.0 688.5Q1020.0 666.0 980.0 655.0Q940.0 644.0 898.0 644.0Q835.0 644.0 784.5 669.5Q734.0 695.0 704.5 756.5Q675.0 818.0 675.0 925.0Q675.0 961.8 679.1 993.2Q686.0 1045.2 704.2 1082.8Q734.0 1144.0 785.5 1172.0Q792.4 1175.7 799.5 1179.0Q816.3 1186.6 834.5 1191.5Z"/>
+  </g>
+  <g id="cut" inkscape:groupmode="layer" inkscape:label="cut" style="opacity:0.5">
+    <path id="spare-cut" inkscape:label="spare cut" fill="#2a7de1" d="M1820 1190h100v-100h-100z"/>
+  </g>
+</svg>

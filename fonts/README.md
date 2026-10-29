@@ -53,6 +53,9 @@ path per shape (a diaeresis is two, to move apart); the `guides` layer is
 locked and ignored on import. Draw with fills only, in any nesting of groups,
 transforms and clones; holes work by either fill rule and overlaps are
 merged; strokes and text must become paths first (the check says so).
+Whatever is drawn in the `cut` layer (above `glyph`, half see-through) is
+taken away from the merged ink, so a letter can stay whole and visible while
+an edit trims it; any fill colour is ink, so additions can be coloured apart.
 `data-advance` on the root sets the advance width. Only a file named exactly
 for a glyph is imported: a variant saved beside it (`n_uni0326-try.svg`) or a
 file starting with `_` is kept but inert, so variants are swapped in by
@@ -66,13 +69,16 @@ acutecomb and acute, tildecomb and tilde, uni0304 and uni02C9): edit both of
 a pair identically or the two renderings drift apart.
 
 **The serif's anchor compositions** (n̦ n̖ and the rest) are written into this
-folder by `python3 fonts/tools/serif_tail.py` from a few numbers: the tail
-continues the letter's right stem (n m h d H M N), or is appended at the
-right side of a letter without one (t k b s, per-letter in the script), and
-lands on a one-sided plate, inward for the anchor and outward for the
-anti-anchor. Edit a written file by hand like any override, or change a
-number and regenerate. The anchors and dots of the other families stay
-procedural (`anchor.yaml`, `families.yaml`); an SVG override wins over them.
+folder by `python3 fonts/tools/serif_tail.py`: the tail continues the right
+stem of n m h d H M N J, or is drawn by hand (t s k b, read off Inkscape
+edits) and borrowed by the letters with a like bottom, every stroke brought to
+one weight; it lands on a one-sided plate, inward for the anchor and outward
+for the anti-anchor. Edit a written file by hand like any override, or change
+a number and regenerate. `hand/tails.pdf` (`tools/tail_sheet.py`) is a sheet
+to draw the tails on by hand; `svg-archive-tails-scan/` keeps a set built from
+a scanned sheet (and the study prototype), `svg-archive-tails-auto/` the
+current set. The anchors and dots of the other families stay procedural
+(`anchor.yaml`, `families.yaml`); an SVG override wins over them.
 
 ## The handwriting capture
 

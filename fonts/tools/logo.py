@@ -220,7 +220,7 @@ def rasterise():
     jobs = ([('icon', sz) for sz in (1024, 512, 256, 128, 64, 32, 16)]
             + [('icon-mac', sz) for sz in (1024, 512, 256, 128)] + [('icon-rounded', 1024)] + [('icon-menubar', sz) for sz in (64, 32, 16)] + [('icon-template', sz) for sz in (30, 15)]
             + [('mark', 1024), ('android-foreground', 1024), ('icon-light', 1024)]
-            + [(f'icon-tile-{st}', sz) for st in ('on', 'off') for sz in (128, 48, 32, 16)])
+            + [(f'icon-tile-{st}', sz) for st in ('on', 'off') for sz in (128, 64, 48, 32, 16)])
     for name, sz in jobs:
         src = open(os.path.join(fin, name + '.svg')).read()
         vw, vh = map(float, re.search(r'viewBox="0 0 ([\d.]+) ([\d.]+)"', src).groups())
@@ -234,7 +234,7 @@ def rasterise():
         iconset = os.path.join(tmp, 'Diafon.iconset')
         os.makedirs(iconset)
         for s_ in (16, 32, 128, 256, 512):
-            src = 'icon-menubar' if s_ <= 32 else 'icon-mac'       # menu-bar sizes: the bare mark
+            src = 'icon-tile-on' if s_ <= 32 else 'icon-mac'       # menu-bar sizes: the full-bleed tile, as the extension's
             shutil.copy(os.path.join(png, f'{src}-{s_}.png'), os.path.join(iconset, f'icon_{s_}x{s_}.png'))
             shutil.copy(os.path.join(png, f'{src}-{s_ * 2}.png'), os.path.join(iconset, f'icon_{s_}x{s_}@2x.png'))
         subprocess.run(['iconutil', '-c', 'icns', iconset, '-o', os.path.join(fin, 'Diafon.icns')], capture_output=True)

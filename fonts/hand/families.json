@@ -1,0 +1,392 @@
+{
+ "page_mm": [
+  210,
+  297
+ ],
+ "squares_mm": {
+  "size": 5,
+  "margin": 8
+ },
+ "cells": [
+  {
+   "page": 1,
+   "family": "stems",
+   "glyph": "n_uni0326",
+   "letter": "n",
+   "mark": "U+0326",
+   "origin_mm": [
+    53.43,
+    51.655
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 645,
+   "box_mm": [
+    37.31,
+    36.155,
+    61.69,
+    38.44
+   ]
+  },
+  {
+   "page": 1,
+   "family": "stems",
+   "glyph": "n_uni0316",
+   "letter": "n",
+   "mark": "U+0316",
+   "origin_mm": [
+    116.58,
+    51.655
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 645,
+   "box_mm": [
+    111.0,
+    36.155,
+    61.69,
+    38.44
+   ]
+  },
+  {
+   "page": 1,
+   "family": "stems",
+   "glyph": "T_uni0326",
+   "letter": "T",
+   "mark": "U+0326",
+   "origin_mm": [
+    55.414,
+    116.405
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 613,
+   "box_mm": [
+    39.294,
+    100.905,
+    59.706,
+    38.44
+   ]
+  },
+  {
+   "page": 1,
+   "family": "stems",
+   "glyph": "T_uni0316",
+   "letter": "T",
+   "mark": "U+0316",
+   "origin_mm": [
+    116.58,
+    116.405
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 613,
+   "box_mm": [
+    111.0,
+    100.905,
+    59.706,
+    38.44
+   ]
+  },
+  {
+   "page": 1,
+   "family": "legs",
+   "glyph": "x_uni0326",
+   "letter": "x",
+   "mark": "U+0326",
+   "origin_mm": [
+    57.584,
+    181.155
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 578,
+   "box_mm": [
+    41.464,
+    165.655,
+    57.536,
+    38.44
+   ]
+  },
+  {
+   "page": 1,
+   "family": "legs",
+   "glyph": "x_uni0316",
+   "letter": "x",
+   "mark": "U+0316",
+   "origin_mm": [
+    116.58,
+    181.155
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 578,
+   "box_mm": [
+    111.0,
+    165.655,
+    57.536,
+    38.44
+   ]
+  },
+  {
+   "page": 1,
+   "family": "legs",
+   "glyph": "X_uni0326",
+   "letter": "X",
+   "mark": "U+0326",
+   "origin_mm": [
+    52.5,
+    245.905
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 660,
+   "box_mm": [
+    36.38,
+    230.405,
+    62.62,
+    38.44
+   ]
+  },
+  {
+   "page": 1,
+   "family": "legs",
+   "glyph": "X_uni0316",
+   "letter": "X",
+   "mark": "U+0316",
+   "origin_mm": [
+    116.58,
+    245.905
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 660,
+   "box_mm": [
+    111.0,
+    230.405,
+    62.62,
+    38.44
+   ]
+  },
+  {
+   "page": 2,
+   "family": "bars",
+   "glyph": "z_uni0326",
+   "letter": "z",
+   "mark": "U+0326",
+   "origin_mm": [
+    61.738,
+    51.655
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 511,
+   "box_mm": [
+    45.618,
+    36.155,
+    53.382,
+    38.44
+   ]
+  },
+  {
+   "page": 2,
+   "family": "bars",
+   "glyph": "z_uni0316",
+   "letter": "z",
+   "mark": "U+0316",
+   "origin_mm": [
+    116.58,
+    51.655
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 511,
+   "box_mm": [
+    111.0,
+    36.155,
+    53.382,
+    38.44
+   ]
+  },
+  {
+   "page": 2,
+   "family": "bars",
+   "glyph": "Z_uni0326",
+   "letter": "Z",
+   "mark": "U+0326",
+   "origin_mm": [
+    56.716,
+    116.405
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 592,
+   "box_mm": [
+    40.596,
+    100.905,
+    58.404,
+    38.44
+   ]
+  },
+  {
+   "page": 2,
+   "family": "bars",
+   "glyph": "Z_uni0316",
+   "letter": "Z",
+   "mark": "U+0316",
+   "origin_mm": [
+    116.58,
+    116.405
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 592,
+   "box_mm": [
+    111.0,
+    100.905,
+    58.404,
+    38.44
+   ]
+  },
+  {
+   "page": 2,
+   "family": "bowls",
+   "glyph": "d_uni0326",
+   "letter": "d",
+   "mark": "U+0326",
+   "origin_mm": [
+    55.352,
+    181.155
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 614,
+   "box_mm": [
+    39.232,
+    165.655,
+    59.768,
+    38.44
+   ]
+  },
+  {
+   "page": 2,
+   "family": "bowls",
+   "glyph": "d_uni0316",
+   "letter": "d",
+   "mark": "U+0316",
+   "origin_mm": [
+    116.58,
+    181.155
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 614,
+   "box_mm": [
+    111.0,
+    165.655,
+    59.768,
+    38.44
+   ]
+  },
+  {
+   "page": 2,
+   "family": "bowls",
+   "glyph": "D_uni0326",
+   "letter": "D",
+   "mark": "U+0326",
+   "origin_mm": [
+    48.346,
+    245.905
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 727,
+   "box_mm": [
+    32.226,
+    230.405,
+    66.774,
+    38.44
+   ]
+  },
+  {
+   "page": 2,
+   "family": "bowls",
+   "glyph": "D_uni0316",
+   "letter": "D",
+   "mark": "U+0316",
+   "origin_mm": [
+    116.58,
+    245.905
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 727,
+   "box_mm": [
+    111.0,
+    230.405,
+    66.774,
+    38.44
+   ]
+  },
+  {
+   "page": 3,
+   "family": "curves",
+   "glyph": "c_uni0326",
+   "letter": "c",
+   "mark": "U+0326",
+   "origin_mm": [
+    62.916,
+    51.655
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 492,
+   "box_mm": [
+    46.796,
+    36.155,
+    52.204,
+    38.44
+   ]
+  },
+  {
+   "page": 3,
+   "family": "curves",
+   "glyph": "c_uni0316",
+   "letter": "c",
+   "mark": "U+0316",
+   "origin_mm": [
+    116.58,
+    51.655
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 492,
+   "box_mm": [
+    111.0,
+    36.155,
+    52.204,
+    38.44
+   ]
+  },
+  {
+   "page": 3,
+   "family": "curves",
+   "glyph": "S_uni0326",
+   "letter": "S",
+   "mark": "U+0326",
+   "origin_mm": [
+    59.692,
+    116.405
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 544,
+   "box_mm": [
+    43.572,
+    100.905,
+    55.428,
+    38.44
+   ]
+  },
+  {
+   "page": 3,
+   "family": "curves",
+   "glyph": "S_uni0316",
+   "letter": "S",
+   "mark": "U+0316",
+   "origin_mm": [
+    116.58,
+    116.405
+   ],
+   "mm_per_unit": 0.062,
+   "advance": 544,
+   "box_mm": [
+    111.0,
+    100.905,
+    55.428,
+    38.44
+   ]
+  }
+ ]
+}

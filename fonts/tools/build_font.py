@@ -105,7 +105,9 @@ def charset():
                 walk(v)
         elif isinstance(node, str):
             chars.update(node)
-    walk(_yaml.safe_load(open(os.path.join(ROOT, 'data', 'script.yaml')))['marks'])
+    _sc = _yaml.safe_load(open(os.path.join(ROOT, 'data', 'script.yaml')))
+    walk(_sc['marks'])
+    walk({d: t['sign'] for d, t in (_sc.get('tones') or {}).items()})   # the tone signs after a syllable
     return {c for c in chars if not unicodedata.category(c).startswith('C')}
 
 
@@ -249,12 +251,14 @@ def _anchor_pairs():
                     if ord(ch) in ANCHOR_MARKS and 'a' <= prev <= 'z':
                         pairs.add((prev, ord(ch)))
     # the full principled set: below marks on every anchorable letter, above
-    # marks on the descenders and g (the float rule); l r f never anchor.
-    # Capitals inherit their small form's side.
+    # marks on the descenders and g (the float rule); the thin stems l r f
+    # take the anchor, never the reverse. Capitals inherit their small form's side.
     for ch in 'bcdghjkmnpqstvxyz':
         marks = (0x0313, 0x0314) if ch in 'gjpqy' else (0x0326, 0x0316)
         pairs.update((ch, m) for m in marks)
         pairs.update((ch.upper(), m) for m in (0x0326, 0x0316))  # caps never float
+    for ch in 'lrf':
+        pairs.update(((ch, 0x0326), (ch.upper(), 0x0326)))
     return sorted(pairs)
 
 
@@ -607,6 +611,11 @@ def _bake_strokes(font, gs, cmap, P, xh):
     a_rec, a_cx, a_ymin, _ = _outline(gs, cmap[0x0301])
     ascale = S.get('above_scale', 1.0)
     astart = S.get('above_start')
+    ag_at = (P.get('acute_grave') or {}).get('foot_at') or 0.5
+    low = [p for poly in _flatten(a_rec) for p in poly]          # the acute's foot: the middle of its lowest part
+    a_y0, a_y1 = min(p[1] for p in low), max(p[1] for p in low)
+    a_low = [p[0] for p in low if p[1] <= a_y0 + 0.15 * (a_y1 - a_y0)]
+    a_foot = (min(a_low) + max(a_low)) / 2
     glyf, hmtx = font['glyf'], font['hmtx']
     liga = {}
     for base, mark in _anchor_pairs():
@@ -621,7 +630,16 @@ def _bake_strokes(font, gs, cmap, P, xh):
         left = mark in (0x0316, 0x0314)
         pen = TTGlyphPen(None)
         rec.replay(pen)
-        if above and S.get('hook') and S.get('above_hook'):
+        if above and S.get('above_acute'):
+            # the standard acute, as on the vowels (á): its foot at
+            # acute_grave.foot_at across the letter's upper part, lifted over
+            # letters taller than the x-height; mirrored for the reverse
+            part = [p for p in pts if p[1] >= xh * 0.6] or pts
+            pxmin, pxmax = min(p[0] for p in part), max(p[0] for p in part)
+            fx = pxmin + ag_at * (pxmax - pxmin)
+            sx = -1 if left else 1
+            a_rec.replay(TransformPen(pen, Transform(sx, 0, 0, 1, fx - sx * a_foot, max(0, bymax - xh))))
+        elif above and S.get('hook') and S.get('above_hook'):
             # the hook families: the acute with a little bend, floating `gap`
             # above the letter, its foot at the upper-part middle
             part = [p for p in pts if p[1] >= xh * 0.6] or pts
@@ -696,8 +714,6 @@ def _bake_strokes(font, gs, cmap, P, xh):
     DOTTED = 'ạẹịọụ' + 'ẠẸỊỌỤ'         # the lowered vowels take the same marks
     CONS = 'bcdfghjklmnpqrstvxz'
     for seed_name, mark, letters in (
-            (cmap.get(0x0324, 'uni0324'), 0x0324,
-             'bcdfhklmnrstvxz' + 'bcdfhklmnrstvxz'.upper() + 'GP'),
             (cmap.get(0x0308), 0x0308, CONS + CONS.upper()),   # r̈ p̈ j̈ … centred on
             #   the upper part (j: the stem, not the tail); i j lose their tittle
             ('hungarumlaut', 0x030B, VOWELS),
@@ -783,8 +799,9 @@ def _bake_strokes(font, gs, cmap, P, xh):
                     table.cmap[cp] = name
     print(f'  baked: {len(liga)} pairs (anchors, double dots, double acutes'
           + (f' gap at {da_at} of the letter' if da_at is not None else '') + ') · '
-          f'depth {depth:.0f}{" · hook" if S.get("hook") else ""} · above = acute x{ascale}'
-          + (f' from {astart} of the letter' if astart is not None else ' centred'))
+          f'depth {depth:.0f}{" · hook" if S.get("hook") else ""} · above = '
+          + (f'the acute, foot at {ag_at}' if S.get('above_acute') else f'acute x{ascale}'
+             + (f' from {astart} of the letter' if astart is not None else ' centred')))
 
 
 def _anchor_glyphs(font, skip_0324=False):
@@ -873,7 +890,8 @@ def _anchor_glyphs(font, skip_0324=False):
         shift = Transform(1, 0, 0, 1, m_a[0] - a_a[0], m_a[1] - a_a[1])
         def acute_mark(mirror=False):
             pen = TTGlyphPen(None)
-            t = _above_transform(P['stroke'], a_rec, a_cx, a_ymin, mirror,
+            t = _above_transform(dict(P['stroke'], above_scale=1.0, above_start=None) if P['stroke'].get('above_acute')
+                                 else P['stroke'], a_rec, a_cx, a_ymin, mirror,
                                  a_a[0], a_a[0])   # on the acute's own anchor
             a_rec.replay(TransformPen(pen, shift.transform(t)))
             return pen.glyph()

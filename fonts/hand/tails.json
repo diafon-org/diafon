@@ -1,0 +1,732 @@
+{
+ "page_mm": [
+  210,
+  297
+ ],
+ "squares_mm": {
+  "size": 5,
+  "margin": 8
+ },
+ "cells": [
+  {
+   "page": 1,
+   "glyph": "t_uni0326",
+   "letter": "t",
+   "mark": "U+0326",
+   "origin_mm": [
+    25.24,
+    49.1
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 352,
+   "box_mm": [
+    15,
+    23.5,
+    23.744,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "t_uni0316",
+   "letter": "t",
+   "mark": "U+0316",
+   "origin_mm": [
+    43.484,
+    49.1
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 352,
+   "box_mm": [
+    41.244,
+    23.5,
+    23.744,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "T_uni0326",
+   "letter": "T",
+   "mark": "U+0326",
+   "origin_mm": [
+    77.728,
+    49.1
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 613,
+   "box_mm": [
+    67.488,
+    23.5,
+    32.096,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "T_uni0316",
+   "letter": "T",
+   "mark": "U+0316",
+   "origin_mm": [
+    104.324,
+    49.1
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 613,
+   "box_mm": [
+    102.084,
+    23.5,
+    32.096,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "s_uni0326",
+   "letter": "s",
+   "mark": "U+0326",
+   "origin_mm": [
+    25.24,
+    93.54
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 451,
+   "box_mm": [
+    15,
+    67.94,
+    26.912,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "s_uni0316",
+   "letter": "s",
+   "mark": "U+0316",
+   "origin_mm": [
+    46.652,
+    93.54
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 451,
+   "box_mm": [
+    44.412,
+    67.94,
+    26.912,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "S_uni0326",
+   "letter": "S",
+   "mark": "U+0326",
+   "origin_mm": [
+    84.064,
+    93.54
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 544,
+   "box_mm": [
+    73.824,
+    67.94,
+    29.888,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "S_uni0316",
+   "letter": "S",
+   "mark": "U+0316",
+   "origin_mm": [
+    108.452,
+    93.54
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 544,
+   "box_mm": [
+    106.212,
+    67.94,
+    29.888,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "k_uni0326",
+   "letter": "k",
+   "mark": "U+0326",
+   "origin_mm": [
+    25.24,
+    137.98
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 585,
+   "box_mm": [
+    15,
+    112.38,
+    31.2,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "k_uni0316",
+   "letter": "k",
+   "mark": "U+0316",
+   "origin_mm": [
+    50.94,
+    137.98
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 585,
+   "box_mm": [
+    48.7,
+    112.38,
+    31.2,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "K_uni0326",
+   "letter": "K",
+   "mark": "U+0326",
+   "origin_mm": [
+    92.64,
+    137.98
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 700,
+   "box_mm": [
+    82.4,
+    112.38,
+    34.88,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "K_uni0316",
+   "letter": "K",
+   "mark": "U+0316",
+   "origin_mm": [
+    122.02,
+    137.98
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 700,
+   "box_mm": [
+    119.78,
+    112.38,
+    34.88,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "b_uni0326",
+   "letter": "b",
+   "mark": "U+0326",
+   "origin_mm": [
+    25.24,
+    182.42
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 614,
+   "box_mm": [
+    15,
+    156.82,
+    32.128,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "b_uni0316",
+   "letter": "b",
+   "mark": "U+0316",
+   "origin_mm": [
+    51.868,
+    182.42
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 614,
+   "box_mm": [
+    49.628,
+    156.82,
+    32.128,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "B_uni0326",
+   "letter": "B",
+   "mark": "U+0326",
+   "origin_mm": [
+    94.496,
+    182.42
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 654,
+   "box_mm": [
+    84.256,
+    156.82,
+    33.408,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "B_uni0316",
+   "letter": "B",
+   "mark": "U+0316",
+   "origin_mm": [
+    122.404,
+    182.42
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 654,
+   "box_mm": [
+    120.164,
+    156.82,
+    33.408,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "n_uni0326",
+   "letter": "n",
+   "mark": "U+0326",
+   "origin_mm": [
+    25.24,
+    226.86
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 645,
+   "box_mm": [
+    15,
+    201.26,
+    33.12,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "n_uni0316",
+   "letter": "n",
+   "mark": "U+0316",
+   "origin_mm": [
+    52.86,
+    226.86
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 645,
+   "box_mm": [
+    50.62,
+    201.26,
+    33.12,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "N_uni0326",
+   "letter": "N",
+   "mark": "U+0326",
+   "origin_mm": [
+    96.48,
+    226.86
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 763,
+   "box_mm": [
+    86.24,
+    201.26,
+    36.896,
+    37.44
+   ]
+  },
+  {
+   "page": 1,
+   "glyph": "N_uni0316",
+   "letter": "N",
+   "mark": "U+0316",
+   "origin_mm": [
+    127.876,
+    226.86
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 763,
+   "box_mm": [
+    125.636,
+    201.26,
+    36.896,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "m_uni0326",
+   "letter": "m",
+   "mark": "U+0326",
+   "origin_mm": [
+    25.24,
+    49.1
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 945,
+   "box_mm": [
+    15,
+    23.5,
+    42.72,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "m_uni0316",
+   "letter": "m",
+   "mark": "U+0316",
+   "origin_mm": [
+    62.46,
+    49.1
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 945,
+   "box_mm": [
+    60.22,
+    23.5,
+    42.72,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "M_uni0326",
+   "letter": "M",
+   "mark": "U+0326",
+   "origin_mm": [
+    115.68,
+    49.1
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 938,
+   "box_mm": [
+    105.44,
+    23.5,
+    42.496,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "M_uni0316",
+   "letter": "M",
+   "mark": "U+0316",
+   "origin_mm": [
+    152.676,
+    49.1
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 938,
+   "box_mm": [
+    150.436,
+    23.5,
+    42.496,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "d_uni0326",
+   "letter": "d",
+   "mark": "U+0326",
+   "origin_mm": [
+    25.24,
+    93.54
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 614,
+   "box_mm": [
+    15,
+    67.94,
+    32.128,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "d_uni0316",
+   "letter": "d",
+   "mark": "U+0316",
+   "origin_mm": [
+    51.868,
+    93.54
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 614,
+   "box_mm": [
+    49.628,
+    67.94,
+    32.128,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "D_uni0326",
+   "letter": "D",
+   "mark": "U+0326",
+   "origin_mm": [
+    94.496,
+    93.54
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 727,
+   "box_mm": [
+    84.256,
+    67.94,
+    35.744,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "D_uni0316",
+   "letter": "D",
+   "mark": "U+0316",
+   "origin_mm": [
+    124.74,
+    93.54
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 727,
+   "box_mm": [
+    122.5,
+    67.94,
+    35.744,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "c_uni0326",
+   "letter": "c",
+   "mark": "U+0326",
+   "origin_mm": [
+    25.24,
+    137.98
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 492,
+   "box_mm": [
+    15,
+    112.38,
+    28.224,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "c_uni0316",
+   "letter": "c",
+   "mark": "U+0316",
+   "origin_mm": [
+    47.964,
+    137.98
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 492,
+   "box_mm": [
+    45.724,
+    112.38,
+    28.224,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "C_uni0326",
+   "letter": "C",
+   "mark": "U+0326",
+   "origin_mm": [
+    86.688,
+    137.98
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 614,
+   "box_mm": [
+    76.448,
+    112.38,
+    32.128,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "C_uni0316",
+   "letter": "C",
+   "mark": "U+0316",
+   "origin_mm": [
+    113.316,
+    137.98
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 614,
+   "box_mm": [
+    111.076,
+    112.38,
+    32.128,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "x_uni0326",
+   "letter": "x",
+   "mark": "U+0326",
+   "origin_mm": [
+    25.24,
+    182.42
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 578,
+   "box_mm": [
+    15,
+    156.82,
+    30.976,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "x_uni0316",
+   "letter": "x",
+   "mark": "U+0316",
+   "origin_mm": [
+    50.716,
+    182.42
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 578,
+   "box_mm": [
+    48.476,
+    156.82,
+    30.976,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "X_uni0326",
+   "letter": "X",
+   "mark": "U+0326",
+   "origin_mm": [
+    92.192,
+    182.42
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 660,
+   "box_mm": [
+    81.952,
+    156.82,
+    33.6,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "X_uni0316",
+   "letter": "X",
+   "mark": "U+0316",
+   "origin_mm": [
+    120.292,
+    182.42
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 660,
+   "box_mm": [
+    118.052,
+    156.82,
+    33.6,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "z_uni0326",
+   "letter": "z",
+   "mark": "U+0326",
+   "origin_mm": [
+    25.24,
+    226.86
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 511,
+   "box_mm": [
+    15,
+    201.26,
+    28.832,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "z_uni0316",
+   "letter": "z",
+   "mark": "U+0316",
+   "origin_mm": [
+    48.572,
+    226.86
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 511,
+   "box_mm": [
+    46.332,
+    201.26,
+    28.832,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "Z_uni0326",
+   "letter": "Z",
+   "mark": "U+0326",
+   "origin_mm": [
+    87.904,
+    226.86
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 592,
+   "box_mm": [
+    77.664,
+    201.26,
+    31.424,
+    37.44
+   ]
+  },
+  {
+   "page": 2,
+   "glyph": "Z_uni0316",
+   "letter": "Z",
+   "mark": "U+0316",
+   "origin_mm": [
+    113.828,
+    226.86
+   ],
+   "mm_per_unit": 0.032,
+   "advance": 592,
+   "box_mm": [
+    111.588,
+    201.26,
+    31.424,
+    37.44
+   ]
+  }
+ ]
+}

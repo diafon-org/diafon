@@ -20,12 +20,10 @@
       <string>B</string>
       <string>B_uni0308</string>
       <string>B_uni0316</string>
-      <string>B_uni0324</string>
       <string>B_uni0326</string>
       <string>C</string>
       <string>C_uni0308</string>
       <string>C_uni0316</string>
-      <string>C_uni0324</string>
       <string>C_uni0326</string>
       <string>Cacute</string>
       <string>Ccaron</string>
@@ -34,7 +32,6 @@
       <string>D</string>
       <string>D_uni0308</string>
       <string>D_uni0316</string>
-      <string>D_uni0324</string>
       <string>D_uni0326</string>
       <string>Dcaron</string>
       <string>Dcroat</string>
@@ -52,18 +49,16 @@
       <string>Euro</string>
       <string>F</string>
       <string>F_uni0308</string>
-      <string>F_uni0324</string>
+      <string>F_uni0326</string>
       <string>G</string>
       <string>G_uni0308</string>
       <string>G_uni0316</string>
-      <string>G_uni0324</string>
       <string>G_uni0326</string>
       <string>Gbreve</string>
       <string>Gdotaccent</string>
       <string>H</string>
       <string>H_uni0308</string>
       <string>H_uni0316</string>
-      <string>H_uni0324</string>
       <string>H_uni0326</string>
       <string>Hbar</string>
       <string>I</string>
@@ -82,23 +77,20 @@
       <string>K</string>
       <string>K_uni0308</string>
       <string>K_uni0316</string>
-      <string>K_uni0324</string>
       <string>K_uni0326</string>
       <string>L</string>
       <string>L_uni0308</string>
-      <string>L_uni0324</string>
+      <string>L_uni0326</string>
       <string>Lacute</string>
       <string>Lcaron</string>
       <string>Lslash</string>
       <string>M</string>
       <string>M_uni0308</string>
       <string>M_uni0316</string>
-      <string>M_uni0324</string>
       <string>M_uni0326</string>
       <string>N</string>
       <string>N_uni0308</string>
       <string>N_uni0316</string>
-      <string>N_uni0324</string>
       <string>N_uni0326</string>
       <string>Nacute</string>
       <string>Ncaron</string>
@@ -115,7 +107,6 @@
       <string>P</string>
       <string>P_uni0308</string>
       <string>P_uni0316</string>
-      <string>P_uni0324</string>
       <string>P_uni0326</string>
       <string>Q</string>
       <string>Q_uni0308</string>
@@ -123,13 +114,12 @@
       <string>Q_uni0326</string>
       <string>R</string>
       <string>R_uni0308</string>
-      <string>R_uni0324</string>
+      <string>R_uni0326</string>
       <string>Racute</string>
       <string>Rcaron</string>
       <string>S</string>
       <string>S_uni0308</string>
       <string>S_uni0316</string>
-      <string>S_uni0324</string>
       <string>S_uni0326</string>
       <string>Sacute</string>
       <string>Scaron</string>
@@ -137,7 +127,6 @@
       <string>T</string>
       <string>T_uni0308</string>
       <string>T_uni0316</string>
-      <string>T_uni0324</string>
       <string>T_uni0326</string>
       <string>Tcaron</string>
       <string>Thorn</string>
@@ -153,7 +142,6 @@
       <string>V</string>
       <string>V_uni0308</string>
       <string>V_uni0316</string>
-      <string>V_uni0324</string>
       <string>V_uni0326</string>
       <string>W</string>
       <string>Wacute</string>
@@ -163,7 +151,6 @@
       <string>X</string>
       <string>X_uni0308</string>
       <string>X_uni0316</string>
-      <string>X_uni0324</string>
       <string>X_uni0326</string>
       <string>Y</string>
       <string>Y_uni0316</string>
@@ -175,7 +162,6 @@
       <string>Z</string>
       <string>Z_uni0308</string>
       <string>Z_uni0316</string>
-      <string>Z_uni0324</string>
       <string>Z_uni0326</string>
       <string>Zacute</string>
       <string>Zcaron</string>
@@ -202,7 +188,6 @@
       <string>b</string>
       <string>b_uni0308</string>
       <string>b_uni0316</string>
-      <string>b_uni0324</string>
       <string>b_uni0326</string>
       <string>backslash</string>
       <string>bar</string>
@@ -215,7 +200,6 @@
       <string>c</string>
       <string>c_uni0308</string>
       <string>c_uni0316</string>
-      <string>c_uni0324</string>
       <string>c_uni0326</string>
       <string>cacute</string>
       <string>caron</string>
@@ -231,7 +215,6 @@
       <string>d</string>
       <string>d_uni0308</string>
       <string>d_uni0316</string>
-      <string>d_uni0324</string>
       <string>d_uni0326</string>
       <string>dcaron</string>
       <string>dcroat</string>
@@ -265,7 +248,7 @@
       <string>f_f_i</string>
       <string>f_f_l</string>
       <string>f_uni0308</string>
-      <string>f_uni0324</string>
+      <string>f_uni0326</string>
       <string>fi</string>
       <string>five</string>
       <string>fl</string>
@@ -287,7 +270,6 @@
       <string>h</string>
       <string>h_uni0308</string>
       <string>h_uni0316</string>
-      <string>h_uni0324</string>
       <string>h_uni0326</string>
       <string>hbar</string>
       <string>hungarumlaut</string>
@@ -307,11 +289,10 @@
       <string>k</string>
       <string>k_uni0308</string>
       <string>k_uni0316</string>
-      <string>k_uni0324</string>
       <string>k_uni0326</string>
       <string>l</string>
       <string>l_uni0308</string>
-      <string>l_uni0324</string>
+      <string>l_uni0326</string>
       <string>lacute</string>
       <string>lcaron</string>
       <string>less</string>
@@ -319,14 +300,12 @@
       <string>m</string>
       <string>m_uni0308</string>
       <string>m_uni0316</string>
-      <string>m_uni0324</string>
       <string>m_uni0326</string>
       <string>minus</string>
       <string>multiply</string>
       <string>n</string>
       <string>n_uni0308</string>
       <string>n_uni0316</string>
-      <string>n_uni0324</string>
       <string>n_uni0326</string>
       <string>nacute</string>
       <string>ncaron</string>
@@ -374,7 +353,7 @@
       <string>quotesingle</string>
       <string>r</string>
       <string>r_uni0308</string>
-      <string>r_uni0324</string>
+      <string>r_uni0326</string>
       <string>racute</string>
       <string>rcaron</string>
       <string>registered</string>
@@ -382,7 +361,6 @@
       <string>s</string>
       <string>s_uni0308</string>
       <string>s_uni0316</string>
-      <string>s_uni0324</string>
       <string>s_uni0326</string>
       <string>sacute</string>
       <string>scaron</string>
@@ -397,7 +375,6 @@
       <string>t</string>
       <string>t_uni0308</string>
       <string>t_uni0316</string>
-      <string>t_uni0324</string>
       <string>t_uni0326</string>
       <string>tcaron</string>
       <string>thorn</string>
@@ -424,7 +401,11 @@
       <string>uni0145</string>
       <string>uni0146</string>
       <string>uni0237</string>
+      <string>uni02C0</string>
       <string>uni02C9</string>
+      <string>uni02CA</string>
+      <string>uni02CB</string>
+      <string>uni02CD</string>
       <string>uni0302</string>
       <string>uni0304</string>
       <string>uni0306</string>
@@ -503,7 +484,6 @@
       <string>v</string>
       <string>v_uni0308</string>
       <string>v_uni0316</string>
-      <string>v_uni0324</string>
       <string>v_uni0326</string>
       <string>w</string>
       <string>wacute</string>
@@ -513,7 +493,6 @@
       <string>x</string>
       <string>x_uni0308</string>
       <string>x_uni0316</string>
-      <string>x_uni0324</string>
       <string>x_uni0326</string>
       <string>y</string>
       <string>y_uni0313</string>
@@ -526,7 +505,6 @@
       <string>z</string>
       <string>z_uni0308</string>
       <string>z_uni0316</string>
-      <string>z_uni0324</string>
       <string>z_uni0326</string>
       <string>zacute</string>
       <string>zcaron</string>
@@ -567,8 +545,6 @@
       <string>base</string>
       <key>B_uni0316</key>
       <string>base</string>
-      <key>B_uni0324</key>
-      <string>base</string>
       <key>B_uni0326</key>
       <string>base</string>
       <key>C</key>
@@ -576,8 +552,6 @@
       <key>C_uni0308</key>
       <string>base</string>
       <key>C_uni0316</key>
-      <string>base</string>
-      <key>C_uni0324</key>
       <string>base</string>
       <key>C_uni0326</key>
       <string>base</string>
@@ -594,8 +568,6 @@
       <key>D_uni0308</key>
       <string>base</string>
       <key>D_uni0316</key>
-      <string>base</string>
-      <key>D_uni0324</key>
       <string>base</string>
       <key>D_uni0326</key>
       <string>base</string>
@@ -631,15 +603,13 @@
       <string>base</string>
       <key>F_uni0308</key>
       <string>base</string>
-      <key>F_uni0324</key>
+      <key>F_uni0326</key>
       <string>base</string>
       <key>G</key>
       <string>base</string>
       <key>G_uni0308</key>
       <string>base</string>
       <key>G_uni0316</key>
-      <string>base</string>
-      <key>G_uni0324</key>
       <string>base</string>
       <key>G_uni0326</key>
       <string>base</string>
@@ -652,8 +622,6 @@
       <key>H_uni0308</key>
       <string>base</string>
       <key>H_uni0316</key>
-      <string>base</string>
-      <key>H_uni0324</key>
       <string>base</string>
       <key>H_uni0326</key>
       <string>base</string>
@@ -691,15 +659,13 @@
       <string>base</string>
       <key>K_uni0316</key>
       <string>base</string>
-      <key>K_uni0324</key>
-      <string>base</string>
       <key>K_uni0326</key>
       <string>base</string>
       <key>L</key>
       <string>base</string>
       <key>L_uni0308</key>
       <string>base</string>
-      <key>L_uni0324</key>
+      <key>L_uni0326</key>
       <string>base</string>
       <key>Lacute</key>
       <string>base</string>
@@ -713,8 +679,6 @@
       <string>base</string>
       <key>M_uni0316</key>
       <string>base</string>
-      <key>M_uni0324</key>
-      <string>base</string>
       <key>M_uni0326</key>
       <string>base</string>
       <key>N</key>
@@ -722,8 +686,6 @@
       <key>N_uni0308</key>
       <string>base</string>
       <key>N_uni0316</key>
-      <string>base</string>
-      <key>N_uni0324</key>
       <string>base</string>
       <key>N_uni0326</key>
       <string>base</string>
@@ -757,8 +719,6 @@
       <string>base</string>
       <key>P_uni0316</key>
       <string>base</string>
-      <key>P_uni0324</key>
-      <string>base</string>
       <key>P_uni0326</key>
       <string>base</string>
       <key>Q</key>
@@ -773,7 +733,7 @@
       <string>base</string>
       <key>R_uni0308</key>
       <string>base</string>
-      <key>R_uni0324</key>
+      <key>R_uni0326</key>
       <string>base</string>
       <key>Racute</key>
       <string>base</string>
@@ -784,8 +744,6 @@
       <key>S_uni0308</key>
       <string>base</string>
       <key>S_uni0316</key>
-      <string>base</string>
-      <key>S_uni0324</key>
       <string>base</string>
       <key>S_uni0326</key>
       <string>base</string>
@@ -800,8 +758,6 @@
       <key>T_uni0308</key>
       <string>base</string>
       <key>T_uni0316</key>
-      <string>base</string>
-      <key>T_uni0324</key>
       <string>base</string>
       <key>T_uni0326</key>
       <string>base</string>
@@ -833,8 +789,6 @@
       <string>base</string>
       <key>V_uni0316</key>
       <string>base</string>
-      <key>V_uni0324</key>
-      <string>base</string>
       <key>V_uni0326</key>
       <string>base</string>
       <key>W</key>
@@ -852,8 +806,6 @@
       <key>X_uni0308</key>
       <string>base</string>
       <key>X_uni0316</key>
-      <string>base</string>
-      <key>X_uni0324</key>
       <string>base</string>
       <key>X_uni0326</key>
       <string>base</string>
@@ -876,8 +828,6 @@
       <key>Z_uni0308</key>
       <string>base</string>
       <key>Z_uni0316</key>
-      <string>base</string>
-      <key>Z_uni0324</key>
       <string>base</string>
       <key>Z_uni0326</key>
       <string>base</string>
@@ -931,8 +881,6 @@
       <string>base</string>
       <key>b_uni0316</key>
       <string>base</string>
-      <key>b_uni0324</key>
-      <string>base</string>
       <key>b_uni0326</key>
       <string>base</string>
       <key>backslash</key>
@@ -956,8 +904,6 @@
       <key>c_uni0308</key>
       <string>base</string>
       <key>c_uni0316</key>
-      <string>base</string>
-      <key>c_uni0324</key>
       <string>base</string>
       <key>c_uni0326</key>
       <string>base</string>
@@ -988,8 +934,6 @@
       <key>d_uni0308</key>
       <string>base</string>
       <key>d_uni0316</key>
-      <string>base</string>
-      <key>d_uni0324</key>
       <string>base</string>
       <key>d_uni0326</key>
       <string>base</string>
@@ -1057,7 +1001,7 @@
       <string>base</string>
       <key>f_uni0308</key>
       <string>base</string>
-      <key>f_uni0324</key>
+      <key>f_uni0326</key>
       <string>base</string>
       <key>fi</key>
       <string>base</string>
@@ -1101,8 +1045,6 @@
       <string>base</string>
       <key>h_uni0316</key>
       <string>base</string>
-      <key>h_uni0324</key>
-      <string>base</string>
       <key>h_uni0326</key>
       <string>base</string>
       <key>hbar</key>
@@ -1141,15 +1083,13 @@
       <string>base</string>
       <key>k_uni0316</key>
       <string>base</string>
-      <key>k_uni0324</key>
-      <string>base</string>
       <key>k_uni0326</key>
       <string>base</string>
       <key>l</key>
       <string>base</string>
       <key>l_uni0308</key>
       <string>base</string>
-      <key>l_uni0324</key>
+      <key>l_uni0326</key>
       <string>base</string>
       <key>lacute</key>
       <string>base</string>
@@ -1165,8 +1105,6 @@
       <string>base</string>
       <key>m_uni0316</key>
       <string>base</string>
-      <key>m_uni0324</key>
-      <string>base</string>
       <key>m_uni0326</key>
       <string>base</string>
       <key>minus</key>
@@ -1178,8 +1116,6 @@
       <key>n_uni0308</key>
       <string>base</string>
       <key>n_uni0316</key>
-      <string>base</string>
-      <key>n_uni0324</key>
       <string>base</string>
       <key>n_uni0326</key>
       <string>base</string>
@@ -1275,7 +1211,7 @@
       <string>base</string>
       <key>r_uni0308</key>
       <string>base</string>
-      <key>r_uni0324</key>
+      <key>r_uni0326</key>
       <string>base</string>
       <key>racute</key>
       <string>base</string>
@@ -1290,8 +1226,6 @@
       <key>s_uni0308</key>
       <string>base</string>
       <key>s_uni0316</key>
-      <string>base</string>
-      <key>s_uni0324</key>
       <string>base</string>
       <key>s_uni0326</key>
       <string>base</string>
@@ -1320,8 +1254,6 @@
       <key>t_uni0308</key>
       <string>base</string>
       <key>t_uni0316</key>
-      <string>base</string>
-      <key>t_uni0324</key>
       <string>base</string>
       <key>t_uni0326</key>
       <string>base</string>
@@ -1375,7 +1307,15 @@
       <string>base</string>
       <key>uni0237</key>
       <string>base</string>
+      <key>uni02C0</key>
+      <string>base</string>
       <key>uni02C9</key>
+      <string>base</string>
+      <key>uni02CA</key>
+      <string>base</string>
+      <key>uni02CB</key>
+      <string>base</string>
+      <key>uni02CD</key>
       <string>base</string>
       <key>uni0302</key>
       <string>mark</string>
@@ -1533,8 +1473,6 @@
       <string>base</string>
       <key>v_uni0316</key>
       <string>base</string>
-      <key>v_uni0324</key>
-      <string>base</string>
       <key>v_uni0326</key>
       <string>base</string>
       <key>w</key>
@@ -1552,8 +1490,6 @@
       <key>x_uni0308</key>
       <string>base</string>
       <key>x_uni0316</key>
-      <string>base</string>
-      <key>x_uni0324</key>
       <string>base</string>
       <key>x_uni0326</key>
       <string>base</string>
@@ -1579,8 +1515,6 @@
       <string>base</string>
       <key>z_uni0316</key>
       <string>base</string>
-      <key>z_uni0324</key>
-      <string>base</string>
       <key>z_uni0326</key>
       <string>base</string>
       <key>zacute</key>
@@ -1593,7 +1527,7 @@
       <string>base</string>
     </dict>
     <key>public.openTypeHeadModified</key>
-    <string>2026/09/27 10:43:56</string>
+    <string>2026/10/26 21:19:13</string>
     <key>public.openTypeMeta</key>
     <dict>
       <key>dlng</key>
