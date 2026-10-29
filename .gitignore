@@ -4,3 +4,8 @@ input_methods/mac/build/
 data/lexicon/sources/
 extensions/firefox/
 site/
+input_methods/ios/Diafon.xcodeproj/
+input_methods/ios/build/
+input_methods/ios/App/Info.plist
+input_methods/ios/Keyboard/Info.plist
+input_methods/ios/App/Assets.xcassets/AppIcon.appiconset/icon-1024.png

@@ -1,6 +1,6 @@
 # Diafon
 
-**One keyboard, one script, every language.**
+**One keyboard, one script, many languages.**
 
 Diafon is a phonemic writing system with a matching input system. You type
 the sounds of any language on the plain 26-letter keyboard you already
@@ -26,10 +26,12 @@ Hungarian *s*, Czech *š* and Turkish *ş* are all `sj`, read ș.
 - The text is ordinary Unicode (Latin letters with combining marks), so any
   app, file or message carries it.
 
-The documentation site has two pages. **The system** explains it in full:
-the letters, the marks, every point. **Master tables** lists every form,
-its glyph and its readings, each language's own table and review state, a
-try-out box, and a font switch that shows which typefaces draw the marks.
+The documentation site has three pages. **The system** explains it in
+full: the letters, the marks, every point. **Master tables** lists every
+form, its glyph and its readings, each language's own table and review
+state, a try-out box, and a font switch that shows which typefaces draw the
+marks. **Learning** teaches it one idea at a time in a chosen language,
+with example words, a typing drill per lesson and a printable card.
 
 ## What is in this repository
 
@@ -52,7 +54,9 @@ The Python engine in `scripts/` is the reference; the JavaScript
 (`docs/engine.js`), Swift and Kotlin ports hold the same vectors.
 
 - **Input form**: the 26 letters and digits. A segment is one base, at
-  most two operators (c j q x y), then `w` at most once, then tone digits.
+  most two operators (c j q x y), then `w` at most once, then tone digits
+  (one tone shape per digit in every language; the script draws a sign after
+  the syllable, data/script.yaml `tones`).
   An operator or digit never starts a segment; anything else passes
   through raw.
 - **Script form**: the input rendered as base letters plus combining
@@ -79,6 +83,7 @@ To work on the documentation alone:
 ```sh
 python3 scripts/gen_master.py   # the master tables, after a mapping change
 python3 scripts/gen_site.py     # the figures of The system page
+python3 scripts/gen_learn.py    # the lessons of the Learning page
 python3 -m mkdocs serve         # http://127.0.0.1:8000
 ```
 
@@ -102,14 +107,14 @@ every push to `main`.
 | Browser extension (Chrome, Firefox, Safari) on docs/engine.js: any page read in Universal, on and off from the icon; then input into editable fields | pages done, fields open |
 | Android input method, input_methods/android | done |
 | Windows Text Services Framework service, Rust | open |
-| Learn page (the 26-key idea, the marks, one drill per operator, a printable per-language card), IPA to Diafon converter for dictionary and Wiktionary use, names page | open |
+| Learning page (docs/learn.md, scripts/gen_learn.py): per language, the concepts one at a time: the plain letters, each operator in the order the language uses it most, length, the special, sequences, tones, capitals; each lesson with the language's own sounds, example words that use only what is already taught, and a typing drill; a printable card of every sound. Then an IPA to Diafon converter for dictionary and Wiktionary use, and a names page | Learning page done (example words for en hu zh cs fi pl tr, native review open); converter and names page open |
 | Telegram inline bot; Slack and Discord commands | open |
 | Licences, trademark policy, contributor CLA | open |
 | /support line on every surface | open |
 | Spike: Keyman (one package for Windows, macOS, Linux, Android, iOS and web) or RIME as a single schema; adopted only if it auto-commits per the streaming rule | open |
 | Reading back: parse, convert, detect in the engine, every source to every target, in every port | done for Python, JS, Swift; Kotlin open |
 | The lexicon layer: English both ways (CMUdict), Hungarian ly stems and loans (Magyar Ispell, folding), Mandarin pinyin syllables and the character chooser (Unihan); one format, one loader, in Python, JS and Swift; the Mac input method's Mandarin mode | done (draft folding, native review open); Kotlin open |
-| iOS keyboard extension, input_methods/ios, on the shared Swift core (apple/Core) | keyboard and app written; Xcode build and device pass open |
+| iOS keyboard extension, input_methods/ios, on the shared Swift core (apple/Core) | keyboard and app build; simulator UI test passes in both tail modes; device pass open |
 <!-- /status -->
 
 **Native reviewers wanted.** A language's mapping is final only when a

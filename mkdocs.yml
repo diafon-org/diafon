@@ -1,7 +1,7 @@
 site_name: Diafon
-site_description: One keyboard, one script, every language. A universal phonemic writing and input system.
+site_description: One keyboard, one script, many languages. A universal phonemic writing and input system.
 site_url: https://diafon.io/
-repo_url: https://github.com/blagasz/diaphone
+repo_url: https://github.com/diafon-org/diafon
 edit_uri: ""
 docs_dir: docs
 site_dir: site
@@ -32,8 +32,9 @@ theme:
     - content.code.copy
 
 nav:
-  - The system: index.md
-  - Master tables: master.md
+  - Diafon: index.md
+  - Learning: learn.md
+  - Reference: master.md
 
 markdown_extensions:
   - attr_list
@@ -49,5 +50,8 @@ markdown_extensions:
 
 extra_css:
   - assets/diafon.css
+
+extra_javascript:
+  - assets/site.js
 
 copyright: Diafon · working draft
