@@ -54,4 +54,4 @@ extra_css:
 extra_javascript:
   - assets/site.js
 
-copyright: Diafon · working draft
+copyright: "Diafon · working draft · code MIT, fonts OFL 1.1, text CC BY 4.0"
