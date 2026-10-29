@@ -35,6 +35,7 @@ nav:
   - Diafon: index.md
   - Learning: learn.md
   - Reference: master.md
+  - Tools: tools.md
 
 markdown_extensions:
   - attr_list
