@@ -1,0 +1,19 @@
+# The base layouts of the soft keyboards (Android, iOS): where the 26 letters
+# sit. Only placement changes; the typing is the same on every layout, since
+# the engine only ever sees letters. scripts/gen_layouts.py writes the
+# Kotlin and Swift tables from this file; the first layout is the default.
+qwerty:
+  label: QWERTY
+  rows: [qwertyuiop, asdfghjkl, zxcvbnm]
+qwertz:
+  label: QWERTZ
+  rows: [qwertzuiop, asdfghjkl, yxcvbnm]
+azerty:
+  label: AZERTY
+  rows: [azertyuiop, qsdfghjklm, wxcvbn]
+dvorak:
+  label: Dvorak
+  rows: [pyfgcrl, aoeuidhtns, qjkxbmwvz]
+colemak:
+  label: Colemak
+  rows: [qwfpgjluy, arstdhneio, zxcvbkm]

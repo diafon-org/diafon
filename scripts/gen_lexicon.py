@@ -80,12 +80,17 @@ def gen_en(cfg):
         for line in open(os.path.join(LEX, cfg['sources'][1]), encoding='utf-8'):
             w, n = line.split()
             freq.setdefault(w, int(n))
+    own = cfg.get('pron') or {}                 # en.yaml's own readings replace CMUdict's for these words
+    lines = [f'{w} {ph}' for w, ph in own.items()]
+    lines += open(os.path.join(LEX, cfg['sources'][0]), encoding='utf-8').read().splitlines()
     read, write_cands = {}, {}
-    for n, line in enumerate(open(os.path.join(LEX, cfg['sources'][0]), encoding='utf-8')):
+    for n, line in enumerate(lines):
         line = line.split('#')[0].strip()
         if not line:
             continue
         word, *phones = line.split()
+        if n >= len(own) and re.sub(r'\(\d+\)$', '', word) in own:
+            continue
         m = re.match(r'^(.*)\((\d+)\)$', word)
         variant = 0
         if m:
@@ -97,8 +102,9 @@ def gen_en(cfg):
         except KeyError as e:
             continue
         engine.segments(t)                      # every entry must re-segment strictly
-        if variant == 0:
-            read[word] = t
+        prefer = (cfg.get('prefer') or {}).get(word, 0)
+        if variant == prefer or (variant == 0 and word not in read):
+            read[word] = t                      # the first reading, or the one en.yaml prefers
         # the commonest spelling of a transport: no digits or apostrophes, shortest, first
         key = (bool(re.search(r"[\d']", word)), -freq.get(word, 0), len(word), n)
         if t not in write_cands or key < write_cands[t][0]:
@@ -117,7 +123,7 @@ def gen_hu(cfg):
     stems = {}
     for line in open(os.path.join(LEX, cfg['sources'][0]), encoding='utf-8'):
         word = line.split('/')[0].split('\t')[0].strip()
-        if not word or not re.fullmatch(r'[a-záéíóöőúüű]+', word) or 'ly' not in word:
+        if not word or not re.fullmatch(r'[a-záéíóöőúüű]+', word) or 'ly' not in word or len(word) < 4:   # a short stem (ly, oly) would prefix every j word: joga -> lyoga
             continue
         t = stages.parse(word, 'stage:hu')            # ly -> ix, lly -> ixw
         if 'ix' not in t:

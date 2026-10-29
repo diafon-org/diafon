@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: ta
 name: Tamil
+native_name: தமிழ்
 speakers: {native: 79, total: 86}   # millions, rough 2025
 geminates: true
 consonants:

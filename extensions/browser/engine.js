@@ -8,6 +8,9 @@ const CB = new Set('bdfghklmnprstvz'), VB = new Set('aeiou'), OPS = new Set('cjq
 const S = DIA.script, WHOLE = S.whole_letters, MARKS = S.marks,
       DESC = new Set(S.descenders), PARTNER = S.flip_partner;
 const BELOWS = Object.values(MARKS).map(m => m.below).filter(Boolean);
+const TONES = Object.fromEntries(Object.entries(S.tones).map(([d, t]) => [d, t.sign]));   // digit -> its sign after the syllable
+const TONE_OF = Object.fromEntries(Object.entries(TONES).filter(([d, s]) => s).map(([d, s]) => [s, d]));   // and back
+const toneSigns = digits => [...digits].map(d => d in TONES ? TONES[d] : d).join('');
 
 function tokenize(text){
   const out = []; let i = 0;
@@ -40,11 +43,6 @@ function mark(g, base, kind, caps){
   return g + (m.below || '');
 }
 
-function special(g, base, caps){
-  const sp = MARKS.special;
-  return ((caps || !DESC.has(base)) && !hasBelow(g)) ? g + sp.below : g + sp.above;
-}
-
 function glyph(form, caps){
   const w = form.endsWith('w'), core = w ? form.slice(0, -1) : form;
   const base = core[0];
@@ -75,12 +73,8 @@ function composeCore(core, caps){
       if (hasBelow(g)) return null;                      // the dot never stacks
       return mark(g, g[0], 'dot', caps);
     }
-    if (op2 === 'y'){
-      if (g.includes(MARKS.anchor.below))                // y flips the anchored affricate
-        return g.replace(MARKS.anchor.below, MARKS.reverse.below);
-      if (hasBelow(g)) return null;                      // the special never stacks
-      return special(g, g[0], caps);
-    }
+    if (op2 === 'y' && g.includes(MARKS.anchor.below))   // y flips the anchored affricate
+      return g.replace(MARKS.anchor.below, MARKS.reverse.below);
     return null;
   }
   if (VB.has(base)) return vowel(base, ops);
@@ -91,7 +85,7 @@ function consonant(base, ops, caps){
   let g = base;
   if (!ops) return g;
   const op1 = ops[0];
-  if ((op1 === 'j' || op1 === 'y') && 'lrf'.includes(base)) return null;
+  if (op1 === 'y' && 'lrf'.includes(base)) return null;
   if (op1 === 'j') g = mark(g, base, 'anchor', caps);
   else if (op1 === 'x') g = mark(g, base, 'dot', caps);
   else if (op1 === 'y') g = mark(g, base, 'reverse', caps);
@@ -100,12 +94,8 @@ function consonant(base, ops, caps){
   if (ops.length === 1) return g;
   const op2 = ops[1];
   if (op2 === 'x') return null;
-  if (op2 === 'y'){
-    if (op1 === 'x') return special(base, base, caps);   // the pair xy: y doubles the dot
-    if (op1 === 'j' && 'sz'.includes(base))              // y flips the anchored hush
-      return g.replace(MARKS.anchor.below, MARKS.reverse.below);
-    return null;                                         // the special never stacks
-  }
+  if (op2 === 'y' && op1 === 'j' && 'sz'.includes(base))  // y flips the anchored hush
+    return g.replace(MARKS.anchor.below, MARKS.reverse.below);
   return null;
 }
 
@@ -139,7 +129,7 @@ function render(text){
     if (tok.t !== 'form'){ out += tok.ch; continue; }
     const g = glyph(tok.form, tok.caps);
     if (g === null){ out += tok.form + tok.tones; continue; }
-    out += (tok.caps ? (g[0].toUpperCase() + g.slice(1)).normalize('NFC') : g) + tok.tones;
+    out += (tok.caps ? (g[0].toUpperCase() + g.slice(1)).normalize('NFC') : g) + toneSigns(tok.tones);
   }
   return out;
 }
@@ -419,7 +409,7 @@ function read(text, table){
     if (hit === null){ out.push({t: 'raw', ch: text[i]}); i++; continue; }
     i += hit[0].length;
     let tones = '';
-    while (i < text.length && /[0-9]/.test(text[i])){ tones += text[i]; i++; }
+    while (i < text.length && (/[0-9]/.test(text[i]) || text[i] in TONE_OF)){ tones += TONE_OF[text[i]] || text[i]; i++; }   // digits, or the script's tone signs
     out.push({t: 'form', form: hit[1], tones, src: hit[0]});
   }
   return out;

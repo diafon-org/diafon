@@ -3,8 +3,9 @@
 # attached anchor. Rules (docs/index.html): a consonant's mark sits below,
 # floating above on descender letters (the float rule); a vowel wears at most
 # one mark above and one below; w doubles a consonant glyph and draws the
-# acute on a vowel; a secondary x flips the mark already there; the special
-# (secondary y / the yx pair) draws the double dot on the free side.
+# acute on a vowel; a secondary x flips the mark already there; a secondary y
+# flips an anchor to the reverse (sjy tqy). Consonants have three marks:
+# anchor, dot, reverse; no double dot below.
 
 descenders: [g, j, p, q, y]
 
@@ -23,12 +24,24 @@ whole_letters:            # forms that are whole script letters, not composition
 marks:
   anchor:        {below: "̦", above: "̓"}   # j; the anchor
   dot:           {below: "̣", above: "̇"}   # x; the fricative shift
-  reverse:       {below: "̖", above: "̔"}   # y; the back-lean
-  special:       {below: "̤", above: "̈"}   # secondary y / yx; the double dot
-  underdot:      {below: "̣"}                    # vowel j; lowered
+  reverse:       {below: "̖", above: "̔"}   # y; the back-lean: retroflex, emphatic, the weird
+  underdot:      {below: "̣"}                    # vowel j; the lax split (ɪ ʊ ɛ ɔ), and the schwa area ə
   grave:         {above: "̀"}                    # vowel y; the special, default nasal
   acute:         {above: "́"}                    # vowel w; long
   double_acute:  {above: "̋"}                    # flip + long fused
-  flip:          {above: "̈"}                    # vowel c; on the partner letter
+  flip:          {above: "̈"}                    # vowel c; on the partner letter; on a, the open back split
 
 flip_partner: {i: u, u: i, e: o, o: e, a: a}
+
+# Tones: a digit in input is one contour in every language (data/README.md, the
+# standard tone vocabulary); the script draws it as a sign after the syllable,
+# the marks Bopomofo uses (mid unmarked, as in Thai and Vietnamese spelling).
+tones:
+  "1": {contour: high, sign: "ˉ"}
+  "2": {contour: rising, sign: "ˊ"}
+  "3": {contour: dipping, sign: "ˇ"}
+  "4": {contour: falling, sign: "ˋ"}
+  "5": {contour: mid, sign: ""}
+  "6": {contour: low, sign: "ˍ"}
+  "7": {contour: glottal-rising, sign: "˜"}
+  "8": {contour: glottal-low, sign: "ˀ"}

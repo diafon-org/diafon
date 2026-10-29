@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(
 import engine
 from gen_master import aggregate
 
-SEQS = {'aix', 'aux', 'ojix', 'eix', 'oux', 'ojicx', 'ejix', 'eqicx', 'ajux', 'tyh', 'dyh', 'rch', 'pf', 'ph', 'th', 'kh', 'bh', 'dh', 'gh', 'tch', 'tqh', 'dqh', 'tqyh'}
+SEQS = {'aix', 'aux', 'ojix', 'oix', 'oicx', 'ecicx', 'ocux', 'eix', 'oux', 'ojicx', 'ejix', 'eqicx', 'ajux', 'tyh', 'dyh', 'rch', 'pf', 'ph', 'th', 'kh', 'bh', 'dh', 'gh', 'tch', 'tqh', 'dqh', 'tqyh'}
 
 
 def in_use_forms():
@@ -68,8 +68,8 @@ def test_glyph_injectivity():
 def test_case():
     """Capitals: base case carries the point; marks keep the small side,
     except that no capital descends, so a capital's mark sits below."""
-    cases = [('Sjan1', 'Șan1'), ('SJAN', 'ȘAN'), ('sjan', 'șan'),
-             ('Gj', 'G̦'), ('Pj', 'P̦'), ('Gxy', 'G̤'), ('Txy', 'T̤'), ('Hj', 'H̦'),
+    cases = [('Sjan1', 'Șanˉ'), ('SJAN', 'ȘAN'), ('sjan', 'șan'), ('ma2 ma5 ma8', 'maˊ ma maˀ'),
+             ('Gj', 'G̦'), ('Pj', 'P̦'), ('Gy', 'G̖'), ('Ty', 'T̖'), ('Lj', 'L̦'), ('Hj', 'H̦'),
              ('Ic', 'Ü'), ('Sjw', 'Șș'), ('Tqyh', 'C̖h'), ('Aw', 'Á')]
     for inp, want in cases:
         got = engine.render(inp)

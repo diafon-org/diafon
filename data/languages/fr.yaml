@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: fr
 name: French
+native_name: Français
 speakers: {native: 80, total: 310}   # millions, rough 2025
 consonants:
   ŋ: X

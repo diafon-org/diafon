@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: sw
 name: Swahili
+native_name: Kiswahili
 speakers: {native: 16, total: 80}   # millions, rough 2025
 consonants:
   p: M

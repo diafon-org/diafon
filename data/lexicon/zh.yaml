@@ -7,8 +7,8 @@
 # each toned syllable, most frequent first (kHanyuPinlu counts, then the
 # 2013 standard list's order), for the input method's chooser.
 #
-# The phonemic analysis follows the zh table: j q x are z c s before the
-# high front vowels (the vowel tells them apart), pinyin o after b p m f is
+# The phonemic analysis follows the zh table: j q x share the hush with zh
+# ch sh before the high front vowels (the vowel tells them apart), pinyin o after b p m f is
 # uo, e is ɤ (oc), the i of zi ci si zhi chi shi ri is ɨ (uc), ü is y (ic).
 code: zh
 name: Mandarin
@@ -28,9 +28,9 @@ initials:
   g: k
   k: kh
   h: kx
-  j: tc
-  q: tch
-  x: s
+  j: tq                 # the alveolo-palatals take the anchor, as the mapping writes tɕ tɕʰ ɕ everywhere
+  q: tqh                #   (Polish ć ś): j q x before i ü, zh ch sh before the rest, so neither needs its own mark
+  x: sj
   zh: tq
   ch: tqh
   sh: sj
@@ -38,7 +38,8 @@ initials:
   z: tc
   c: tch
   s: s
-finals:                 # pinyin final -> transport; i after z c s zh ch sh r becomes uc
+finals:                 # pinyin final -> transport; i after z c s zh ch sh r becomes uc; the mid vowel /ə/
+                        #   is ë (oc) before n ŋ as alone, e o in the diphthongs ei ou (as eɪ oʊ everywhere)
   a: a
   o: uoc
   e: oc
@@ -46,20 +47,20 @@ finals:                 # pinyin final -> transport; i after z c s zh ch sh r be
   u: u
   ü: ic
   ai: aix
-  ei: ajix
+  ei: eix
   ao: aux
-  ou: ajux
+  ou: oux
   an: an
-  en: ajn
+  en: ocn
   ang: anx
-  eng: ajnx
+  eng: ocnx
   ong: unx
   er: aq
   ia: ia
   ie: ie
   iao: iaux
-  iu: iajux
-  iou: iajux
+  iu: ioux
+  iou: ioux
   io: iuoc
   ian: ien
   in: in
@@ -69,13 +70,13 @@ finals:                 # pinyin final -> transport; i after z c s zh ch sh r be
   ua: ua
   uo: uoc
   uai: uaix
-  ui: uajix
-  uei: uajix
+  ui: ueix
+  uei: ueix
   uan: uan
-  un: uajn
-  uen: uajn
+  un: uocn
+  uen: uocn
   uang: uanx
-  ueng: uajnx
+  ueng: uocnx
   üe: ice
   üan: icen
   ün: icn

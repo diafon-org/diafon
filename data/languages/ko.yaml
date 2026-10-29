@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: ko
 name: Korean
+native_name: 한국어
 speakers: {native: 81, total: 82}   # millions, rough 2025
 consonants:
   p: M

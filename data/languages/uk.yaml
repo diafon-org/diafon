@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: uk
 name: Ukrainian
+native_name: Українська
 speakers: {native: 33, total: 39}   # millions, rough 2025
 consonants:
   p: M

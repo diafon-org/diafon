@@ -3,13 +3,14 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: th
 name: Thai
+native_name: ไทย
 speakers: {native: 21, total: 61}   # millions, rough 2025
 tones:   # input digit -> standard contour (defined in data/README.md)
-  1: mid
-  2: low
-  3: falling
-  4: high
-  5: rising
+  1: high
+  2: rising
+  4: falling
+  5: mid
+  6: low
 consonants:
   p: M
   b: M

@@ -41,7 +41,7 @@ app/src/main/java/io/diafon/ime/
   Engine.kt            the engine, rule for rule from scripts/engine.py: segments, glyph, render, stream
   Stages.kt            spelling stages, from scripts/stages.py
   Prefs.kt             the settings (output, layout, tones, strict, enabled) and the renderer they select
-  Layouts.kt           the base layouts: where the 26 letters sit
+  Layouts.kt           the base layouts, generated from data/layouts.yaml by scripts/gen_layouts.py (shared with iOS)
   DiafonIme.kt         the InputMethodService: keys in, streaming rule, InputConnection out; the candidate strip
   KeyboardView.kt      the keys, drawn on a canvas; operators tinted; shift, backspace, toggle, settings
   SettingsActivity.kt  setup (enable, switch), base layout, outputs, a live preview; the launcher entry

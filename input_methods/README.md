@@ -36,12 +36,13 @@ Reference: `engine.segments`, `engine.render`, `engine.stream` in
 scripts/engine.py. Every port replays the vectors in docs/spec.json
 (render, invalid, lenient, stream traces, stages) byte for byte before it
 ships: tests/test_spec.py holds the Python and JS engines, tests/test_kotlin.py
-the Kotlin one, tests/test_swift.py the Swift one.
+the Kotlin one, tests/test_swift.py the Swift one (input_methods/apple/Core,
+shared by the macOS and iOS input methods).
 
 ## Reading back
 
 The machine runs the other way too (scripts/stages.py `parse`, `convert`,
-`detect`; docs/engine.js; input_methods/mac/Sources/Reading.swift): a text
+`detect`; docs/engine.js; input_methods/apple/Core/Reading.swift): a text
 in any source, the input form, the script, or a language's spelling, is
 read back into transport form and re-rendered in any target. Reading is
 longest match over a table of spellings: the script's table is the grammar's
@@ -80,7 +81,7 @@ none of it yet: Android renders English and Mandarin in the script.
 | Linux | IBus, and fcitx5: an m17n `.mim` table (declarative transducer) generated from spec.json; no native code | planned |
 | Windows | Text Services Framework text service, Rust, the one native build | planned |
 | Web | browser extension on docs/engine.js: a content script reads a page in Universal, toggled from the icon, the language from the page itself (extensions/browser, tests/test_extension.py); input into editable fields and contenteditable | pages done; editable fields planned |
-| iOS | no input-method layer exists apart from keyboard extensions; not pursued. Text reaches iOS as transport form, or through the web extension in Safari, Shortcuts, and messenger bots | not pursued |
+| iOS | a keyboard extension (`UIInputViewController`): the keyboard owns the keys and a `textDocumentProxy` into the field, the tail kept as marked text or as plain text it rewrites; the selection converted from the strip; no full access, so the settings live in the keyboard | ios/: on the shared Swift core (apple/Core); the keystroke logic checked on a Mac (tests/test_ios_session.py), UIKit typechecked; device pass open |
 
 ## Porting checklist
 

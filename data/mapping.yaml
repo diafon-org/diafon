@@ -59,8 +59,8 @@ consonants:
   ð: dx
   ŋ: nx
   pf: pf         # a sequence: German never contrasts pf with p+f
-  ħ: kxy         # the pharyngeals join the emphatics: Arabic's special is
-  ʕ: gxy         #   pharyngeal quality across the board; k̤ approximates ḳ /x/
+  ħ: ky          # the pharyngeals join the emphatics on the back-lean:
+  ʕ: gy          #   Arabic's back quality across the board; k̖ approximates ḳ /x/
   # shares on marked points
   χ: kx
   ʁ: gx
@@ -80,14 +80,19 @@ consonants:
   gʲ: gj
   mʲ: mj
   nʲ: nj
-  lʲ: lxy
-  rʲ: rxy
+  lʲ: lj         # the thin stems take the anchor too (Latvian ļ ŗ)
+  rʲ: rj
+  fʲ: fj
+  vʲ: vj
+  sʲ: sj         # soft s z on the anchor, beside the hush, where the language has
+  zʲ: zj         #   no plain hush to contrast (ru uk: ш ж ride the back-lean)
+  tsʲ: tq
   ɲ: nj
-  ʎ: lxy
+  ʎ: lj
   c: tj
   ɟ: dj
   ʝ: dj
-  r̝: rxy       # Czech ř, its special r
+  r̝: rj        # Czech ř, its soft r
   # retroflex (y); the back-lean
   ʈ: ty
   ɖ: dy
@@ -95,7 +100,7 @@ consonants:
   ɭ: lx        # the dot; ḷ is the Indological form, and lx was free
   ɻ: aq        # the vocalic r; the most vowel-like rhotic
   ɽ: rc        # tap and flap contrast nowhere; Indic writes ṛ
-  # the special: secondary y on a marked form, the pair yx on a bare letter
+  # aspiration
   pʰ: ph        # aspiration is always the sequence with h
   tʰ: th
   kʰ: kh
@@ -124,66 +129,87 @@ consonants:
   ɥ: icx
 
 vowels:
-  # bases and points
+  # Each vowel maps to the form of its AREA (see `areas` below): a form
+  # covers a phonetic area and reads the same in every language.
   i: i
+  ɪ: i
   u: u
-  a: a
-  o: o
+  ʊ: u
   e: e
-  ɛ: ej
-  ɔ: oj
-  ɪ: ij
-  ʊ: uj
-  ə: aj
-  ɑ: ac
-  ɒ: ac
+  ɛ: e
+  o: o
+  ɔ: o
+  a: a
+  æ: a
+  ɑ: a
+  ɒ: a
   y: ic
+  ʏ: ic
   ø: ec
+  œ: ec
   ɯ: uc
+  ɨ: uc
   ɤ: oc
-  œ: eq
-  ʏ: iq
+  ʌ: oc
+  ə: aj
+  ɐ: aj
   ɚ: aq
   ɝ: aq
-  # shares
-  ʌ: aj          # stressed schwa (EN, KO)
-  ɐ: aj
-  æ: a
-  ɨ: uc
   # long (w)
-  aː: aw
   iː: iw
   uː: uw
   eː: ew
+  ɛː: ew
   oː: ow
-  ɛː: ejw
-  ɔː: ojw
-  øː: ecw
+  ɔː: ow
+  aː: aw
+  æː: aw
+  ɑː: aw
   yː: icw
+  øː: ecw
   ɯː: ucw
   ɤː: ocw
-  æː: aw
-  ɑː: acw
   # nasal (y)
   ĩ: iy
   ẽ: ey
+  ɛ̃: ey
+  œ̃: ey          # recessive, merged into ɛ̃ for modern speakers
   ã: ay
+  ɑ̃: ay
   õ: oy
+  ɔ̃: oy
   ũ: uy
-  ɑ̃: ay          # FR, HI; the a slot; nasal on ä would stack two above
-  ɛ̃: ejy
-  œ̃: ejy         # recessive, merged into ɛ̃ for modern speakers
-  ɔ̃: ojy
   # sequences: nucleus + glide
   aɪ: aix
   aʊ: aux
-  ɔɪ: ojix
   eɪ: eix
+  ɛi: eix
   oʊ: oux
-  ɔʏ: ojicx
-  ɛi: ejix
-  œy: eqicx
-  ʌu: ajux
+  ɔɪ: oix
+  ɔʏ: oicx
+  œy: ecicx
+  ʌu: ocux
+
+# The vowel areas. A form covers an area of the vowel space and means the
+# same in every language: e is the front mid vowel, close or open. Where a
+# language contrasts two vowels inside one area, the one listed under
+# `split` takes the split form, which also means the same everywhere: ẹ is
+# the open-mid ɛ. Only those languages write it, and once a language makes
+# the split it writes that vowel split everywhere: long, nasal and in
+# diphthongs (German ɔ is ọ in Gott and in Leute, ọj̈). No form is ever read
+# two ways. `core` is the area's reference value.
+areas:
+  i:  {core: i, split: {ij: [ɪ]}}
+  u:  {core: u, split: {uj: [ʊ]}}
+  e:  {core: e, split: {ej: [ɛ]}}
+  o:  {core: o, split: {oj: [ɔ]}}
+  a:  {core: a, split: {ac: [ɑ, ɒ]}}      # the open back vowel; æ keeps the area
+  ic: {core: y, split: {iq: [ʏ]}}
+  ec: {core: ø, split: {eq: [œ]}}
+  uc: {core: ɯ}
+  oc: {core: ɤ}
+  aj: {core: ə}
+  aq: {core: ɝ}
 
 # Review state of each language's mapping. Full confidence requires a native
 # or expert reviewer per language; absent entries are non-reviewed.
@@ -194,6 +220,8 @@ review:
   zh: reviewed
 
 overrides:
+  en:            # STRUT is the stressed schwa (merges below), not the ɤ area
+    ʌ: aj
   ka:            # the ejectives are the bare letters: aspirates are Ch,
     pʼ: p        #   and an outsider's plain reading is the licensed approximation
     tʼ: t
@@ -201,28 +229,30 @@ overrides:
     qʼ: kq
     tsʼ: tc
     tʃʼ: tq
-  ar:            # the emphatics = the special
-    tˤ: txy
-    dˤ: dxy
-    sˤ: sxy
-    ðˤ: zxy
-  ru:            # soft s z: the anchor is taken by the hush points
-    sʲ: sxy      #   f v follow them, the anchor sitting badly on their stems
-    zʲ: zxy
-    fʲ: fxy
-    vʲ: vxy
-    ʂ: sj        # ш ж: the hush; щ, the only ɕ, is long (sjw)
-    ʐ: zj
-  uk:
-    sʲ: sxy
-    zʲ: zxy
-    tsʲ: tcy    # the anchor on c would collide with c̦ /tʃ/
-  et:
-    sʲ: sxy
-  ja:            # the moraic nasal ん contrasts with n (kani ~ kan'i); it is
-    ɴ: nxy       #   Japanese's special; its yx is otherwise unspent
-  zh:            # the retroflexes are the hush: no plain hush to contrast
-    ʂ: sj        #   (j q x are z c s before i ü), so the back-lean is unsigned
+  ar:            # the emphatics: the back-lean, the tongue root drawn back
+    tˤ: ty
+    dˤ: dy
+    sˤ: sjy
+    ðˤ: zjy
+  # ru: none. ш ж are retroflex, on the back-lean (the global ʂ ʐ) as Polish sz ż;
+  #   the anchor is the soft s z, as on every other soft consonant; щ is long (sjw)
+  uk:            # ш ж ч дж on the back-lean, as Russian; the anchor is soft s z ts
+    ʃ: sjy
+    ʒ: zjy
+    tʃ: tqy
+    dʒ: dqy
+  pt:            # ɐ: the a area (its contrast with a is marginal, European only)
+    ɐ: a
+  ko:            # ㅐ ㅔ have merged for most speakers: one e (merges below)
+    ɛ: e
+  hi:            # the inherent vowel: a, Hindi having no short /a/ (á is /aː/)
+    ə: a
+  ja:            # the moraic nasal ん contrasts with n (kani ~ kan'i): the velar
+    ɴ: nx        #   nasal's slot, ŋ being no phoneme of Japanese
+  zh:            # one mid vowel (pinyin e): ë throughout, [ə] before n ŋ as [ɤ] elsewhere
+    ə: oc
+                 # the retroflexes are the hush: no plain hush to contrast
+    ʂ: sj        #   (j q x share it before i ü), so the back-lean is unsigned
     ʐ: zj
     tʂ: tq
     tʂʰ: tqh
@@ -236,9 +266,12 @@ overrides:
 merges:
   # reviewed within-language identifications: two symbols, one phoneme
   en: [[ʌ, ə]]   # STRUT is the stressed schwa
+  de: [[ɛː, eː]] # Ähre ~ Ehre: merged by most speakers; length marks the tense vowel
+  ko: [[ɛ, e]]   # ㅐ ~ ㅔ: merged in today's speech
+  pt: [[ɐ, a]]   # unstressed or nasal a; the falámos ~ falamos contrast is marginal
+  zh: [[ɤ, ə]]   # one phoneme: [ɤ] open, [ə] before nasals
 
-# Multiple readings belong to the back-lean (y) and the special (xy / secondary
-# y) families, and to the vowel grave. A REGULAR form carries one reading; every
+# Multiple readings belong to the back-lean (y) family and to the vowel grave. A REGULAR form carries one reading; every
 # other reading of any form is justified below, language by language. The
 # reading marked `primary` is the form's canonical value (shown aggregated);
 # the special has no canonical value, so its first reading is simply its
@@ -280,12 +313,15 @@ shares:
     tʃʼ:
       ka: the ejective; the bare letter is the licensed approximation
     tʂ:
-      zh: zh; the sole hush affricate, retroflex (j q are z c before i ü)
+      zh: zh; retroflex, before all but i ü
     tɕ:
+      zh: j; alveolo-palatal, before i ü only
       ja: the sole hush affricate, alveolo-palatal
       ko: the sole hush affricate, alveolo-palatal
       pl: ć; its second hush cz takes the flip (tqy)
-      ru: ч; the sole hush affricate
+      ru: ч; the sole hush affricate, soft
+    tsʲ:
+      uk: ць; the soft ts on the anchor, ч riding the back-lean (tqy)
       th: the sole hush affricate
       vi: ch; the sole hush affricate
   dq:
@@ -297,17 +333,23 @@ shares:
     ʃ: primary
     ɕ:
       ja: the sole hush, alveolo-palatal
+      zh: x; before i ü only
       pl: ś; its second hush sz takes the flip (sjy)
     ʂ:
-      ru: ш; the sole short hush (щ is long, sjw)
-      zh: sh; the sole hush, retroflex (x is s before i ü)
+      zh: sh; retroflex, before all but i ü
+    sʲ:
+      et: the soft s; ʃ is marginal
+      ru: сь; the soft s, ш riding the back-lean (sjy)
+      uk: сь; the soft s, ш riding the back-lean (sjy)
   zj:
     ʒ: primary
     ʑ:
       pl: ź; its second hush ż takes the flip (zjy)
     ʐ:
-      ru: ж; the sole voiced hush
       zh: r; the sole voiced hush, retroflex
+    zʲ:
+      ru: зь; the soft z, ж riding the back-lean (zjy)
+      uk: зь; the soft z, ж riding the back-lean (zjy)
   kx:
     x: primary
     χ:
@@ -362,70 +404,27 @@ shares:
     ɽ:
       bn: flap and tap contrast nowhere; Indic writes ṛ for the flap
       hi: flap and tap contrast nowhere; Indic writes ṛ for the flap
-  rxy:
+  rj:
     rʲ: primary
     r̝:
-      cs: ř, its special r
-  lxy:
+      cs: ř, its soft r
+  lj:
     ʎ: primary
     lʲ:
-      et: the soft l, its special
+      et: the soft l
       ru: ль, the soft l
       uk: ль, the soft l
-  a:
-    a: primary
-    æ:
-      en: its open front vowel; ɑ sits on ä
-      et: the ä~a pair carries back ɑ against front æ
-      fa: æ is the open front; the rounded back sits on ä
-      fi: as Estonian; ɑ on ä, æ on the open slot
-  ac:
-    ɒ: primary          # c is the rounding flip: the flipped a is the ROUNDED open vowel
-    ɑ:
-      en: unrounded open back; no ɒ to contrast; one step from a, which æ holds
-      et: unrounded open back; the flip slot carries its ɑ against æ on a
-      fi: as Estonian; ɑ on the flip, æ on a
-      hi: the unrounded ā; no ɒ to contrast
-      nl: unrounded open back; no ɒ to contrast
+  nx:
+    ŋ: primary
+    ɴ:
+      ja: ん, the moraic nasal; ŋ is no phoneme of Japanese
   aj:
-    ə: primary
     ʌ:
-      en: stressed schwa (merged in the mapping)
-      ko: ㅓ; mid back unrounded, no schwa to contrast
-    ɐ:
-      pt: the reduced a; its only central vowel
-  uc:
-    ɯ: primary
-    ɨ:
-      pl: y; central and back unrounded are interchangeable
-      ro: î/â; the same interchangeable close unrounded
-      vi: ư; the same
-      zh: the apical vowel of zhi/shi/si; closest unrounded slot
-  aw:
-    aː: primary
-    æː:
-      et: the long æ; the a-share carried through length
-      fi: the long æ; the a-share carried through length
+      en: STRUT is the stressed schwa (merged in the mapping)
   aq:
     ɝ: primary
     ɚ:
       zh: er (儿/二); the same rhotacized schwa
     ɻ:
       ta: ழ; the vocalic r, the most vowel-like rhotic
-  ay:
-    ã: primary
-    ɑ̃:
-      fr: the nasal low vowel, back-realised; nasal on ä would stack two marks above
-      hi: the nasal low vowel on the plain a slot
-  # the special and the back-lean: per-language readings by design
-  sxy:
-    sˤ: primary
-    sʲ:
-      et: the soft s; the anchor is taken by the hush point
-      ru: сь; the soft s
-      uk: сь; the soft s
-  zxy:
-    ðˤ: primary
-    zʲ:
-      ru: зь; the soft z
-      uk: зь; the soft z
+  # the back-lean: per-language readings by design (none listed)

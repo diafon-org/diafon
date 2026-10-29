@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: id
 name: Indonesian
+native_name: Bahasa Indonesia
 speakers: {native: 44, total: 270}   # millions, rough 2025
 consonants:
   x: X

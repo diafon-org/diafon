@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """The macOS engine port against the spec vectors. Run: python3 tests/test_swift.py
 
-Compiles the pure-Swift part of input_methods/mac (Engine, Stages, SpecData)
-with the vector check, then replays docs/spec.json: renders, rejected
+Compiles the pure-Swift core in input_methods/apple/Core (Engine, Stages,
+SpecData; shared by the macOS and iOS input methods) with the vector check,
+then replays docs/spec.json: renders, rejected
 inputs, lenient renders, streaming traces, stage renders, parses,
 conversions and detections must come back byte for byte. Needs the Xcode Command Line Tools (swiftc).
 """
@@ -13,7 +14,7 @@ import subprocess
 import tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC = os.path.join(ROOT, 'input_methods', 'mac', 'Sources')
+SRC = os.path.join(ROOT, 'input_methods', 'apple', 'Core')
 FIELD, STEP = '\x1e', '\x1f'
 
 

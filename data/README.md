@@ -43,8 +43,23 @@ Per-phoneme T-shirt sizing of how often the phoneme occurs in running text:
 
 ## Standard tone vocabulary
 
-Every tonal language maps its input digits onto one canonical contour set,
-never onto ad-hoc accent characters:
+Every tonal language writes its tones with one canonical contour set, and a
+digit means the same contour in every language (data/script.yaml `tones`;
+Mandarin's own numbers kept); the script draws each as a sign after the
+syllable:
+
+| Digit | Contour | Sign |
+|---|---|---|
+| 1 | high | ˉ |
+| 2 | rising | ˊ |
+| 3 | dipping | ˇ |
+| 4 | falling | ˋ |
+| 5 | mid | (unmarked) |
+| 6 | low | ˍ |
+| 7 | glottal-rising | ˜ |
+| 8 | glottal-low | ˀ |
+
+The contours:
 
 | Contour | Chao letters | Shape |
 |---|---|---|

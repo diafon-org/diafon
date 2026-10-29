@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: la
 name: Latin
+native_name: Latina
 speakers: {native: 0, total: 0}   # millions, rough 2025
 consonants:
   z: X

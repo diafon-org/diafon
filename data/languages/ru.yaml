@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: ru
 name: Russian
+native_name: Русский
 speakers: {native: 145, total: 255}   # millions, rough 2025
 consonants:
   p: M

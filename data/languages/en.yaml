@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: en
 name: English
+native_name: English
 speakers: {native: 380, total: 1500}   # millions, rough 2025
 consonants:
   p: M
@@ -31,14 +32,16 @@ consonants:
   j: M
   w: M
 vowels:
-  i: L
+  # length as in the RP tradition (Gimson): FLEECE GOOSE PALM/LOT THOUGHT are
+  # the long vowels, so bit ~ beat is i ~ iː, as German Mitte ~ Miete
+  iː: L
   ɪ: L
   ɛ: M
   æ: M
-  ɑ: M
-  ɔ: M
+  ɑː: M
+  ɔː: M
   ʊ: S
-  u: M
+  uː: M
   ə: L
   ɝ: M
   eɪ: M

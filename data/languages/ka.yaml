@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: ka
 name: Georgian
+native_name: ქართული
 speakers: {native: 3.8, total: 4}   # millions, rough 2025
 consonants:
   pʰ: M

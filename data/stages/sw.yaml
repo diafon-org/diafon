@@ -9,7 +9,7 @@ name: Swahili spelling
 state: draft
 letters: a b ch d dh e f g gh h i j k kh l m n ng' ny o p r s sh t th u v w y z
 long: double
-sample: hacbacri zac acsubuhi, kacribu sacnac      # habari za asubuhi, karibu sana
+sample: habari za asubuhi, karibu sana      # habari za asubuhi, karibu sana
 read:                   # read back but never written: the loan letters
   x: ks
   q: kv
@@ -40,8 +40,8 @@ forms:
   r: r
   ix: y
   ux: w
-  ac: a
-  ej: e
+  a: a
+  e: e
   i: i
-  oj: o
+  o: o
   u: u

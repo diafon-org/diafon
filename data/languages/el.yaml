@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: el
 name: Modern Greek
+native_name: Ελληνικά
 speakers: {native: 13, total: 13.5}   # millions, rough 2025
 consonants:
   p: L

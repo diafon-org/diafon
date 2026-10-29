@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: pl
 name: Polish
+native_name: Polski
 speakers: {native: 40, total: 45}   # millions, rough 2025
 consonants:
   p: M

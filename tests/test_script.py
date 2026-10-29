@@ -24,7 +24,7 @@ from gen_master import aggregate
 
 SCRIPT = yaml.safe_load(open(os.path.join(ROOT, 'data', 'script.yaml')))
 MARKS = {ch for m in SCRIPT['marks'].values() for v in m.values() for ch in v}
-SEQS = {'aix', 'aux', 'ojix', 'eix', 'oux', 'ojicx', 'ejix', 'eqicx', 'ajux', 'tyh', 'dyh',
+SEQS = {'aix', 'aux', 'ojix', 'oix', 'oicx', 'ecicx', 'ocux', 'eix', 'oux', 'ojicx', 'ejix', 'eqicx', 'ajux', 'tyh', 'dyh',
         'rch', 'pf', 'ph', 'th', 'kh', 'bh', 'dh', 'gh', 'tch', 'tqh', 'dqh', 'tqyh'}
 
 

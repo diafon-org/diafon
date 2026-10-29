@@ -26,12 +26,10 @@ C_ROWS = [
     ('c',  'affricate · tap',    'tdr'),
     ('q',  'hush · uvular',      'tdk'),
     ('x',  'fricative shift',    None),
-    ('y',  'retroflex',          'tdn'),
-    ('jy', 'retroflex hush',     'sz'),
-    ('xy', 'the special',        None),
+    ('y',  'back-lean',          'tdnkg'),
+    ('jy', 'back-lean hush',     'sz'),
     ('cx', 'dotted affricate',   'td'),
-    ('cy', 'special affricate',  'td'),
-    ('qy', 'special hush',       'td'),
+    ('qy', 'back-lean affricate', 'td'),
 ]
 V_ROWS = [
     ('',   'base',            None),
