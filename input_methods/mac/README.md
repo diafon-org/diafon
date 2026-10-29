@@ -88,27 +88,46 @@ in the menu bar and type `sjok sewp njawr`: it streams out as `șok sép ņár`.
 
 ## Layout of this project
 
-    Sources/SpecData.swift             generated from docs/spec.json by scripts/gen_mac.py: script rules, marks, stages
-    Sources/Engine.swift               the engine, rule for rule from scripts/engine.py: segments, glyph, render, stream
-    Sources/Stages.swift               spelling stages, from scripts/stages.py
-    Sources/CheckMain.swift            stdin/stdout driver used by tests/test_swift.py
-    Sources/Prefs.swift                the settings (output, language, tones, strict, enabled, shift toggle) and the renderer
+    ../apple/Core/SpecData.swift       generated from docs/spec.json by scripts/gen_mac.py: script rules, marks, stages
+    ../apple/Core/Engine.swift         the engine, rule for rule from scripts/engine.py: segments, glyph, render, stream
+    ../apple/Core/Stages.swift         spelling stages, from scripts/stages.py
+    ../apple/Core/Reading.swift        reading back, from scripts/engine.py and stages.py: inventory, tables, parse, convert, detect
+    ../apple/Core/Lexicon.swift        the lexicon layer: English, Hungarian loans, Mandarin syllables
+    ../apple/Core/Prefs.swift          the settings (output, language, tones, strict, enabled, shift toggle) and the renderer
+    ../apple/Core/CheckMain.swift      stdin/stdout driver used by tests/test_swift.py
     Sources/DiafonInputController.swift  IMKInputController: keystrokes in, streaming rule, insertText / setMarkedText out; the status menu
-    Sources/Reading.swift              reading back, from scripts/engine.py and stages.py: inventory, tables, parse, convert, detect
     Sources/ConvertWindow.swift        the From / To window of Convert with Diafon…
     Sources/Hud.swift                  the mode label shown for a moment after a switch
     Sources/LanguageChooser.swift      the searchable language list (Other language…)
     Sources/SetupWindow.swift          the setup window
     Sources/Services.swift             the text service
     Sources/main.swift                 IMKServer bootstrap, services registration
-    Info.plist                         the input source, the services, the app icon (docs/logo/Diafon.icns) and the
-                                       input-menu icon (docs/logo/DiafonMenu.tiff, a template the system tints)
+    Info.plist                         the input source, the services, the app icon (docs/logo/Diafon.icns) and
+                                       the input-menu icon (docs/logo/DiafonMenu.tiff, a template the system tints)
+                                       and the cursor badge shown on a switch (TISIconLabels → docs/logo/DiafonBadge.pdf,
+                                       vector, from docs/logo/icon-badge.svg)
     tools/enable.swift                 enable + select the input source (make enable)
 
-The first three files are pure Swift with no AppKit dependency; that is
+The files in ../apple/Core are pure Swift with no AppKit dependency; that is
 deliberate: they compile on their own, so the engine is verified against the
-spec vectors before the app is built (`make app` runs the check first).
+spec vectors before the app is built (`make app` runs the check first), and
+the iOS keyboard (../ios) compiles the same files.
 
 ## Known limits
 
 - Ad-hoc signed: fine on this machine; distribution needs a Developer ID.
+- A second entry in Input Sources (an old Diaphone, or Diafon twice) is a
+  stale LaunchServices registration of a bundle built elsewhere. List them
+  with `lsregister -dump | grep -E '^path:.*Dia[a-z]*IM'` and drop the
+  extras with `lsregister -u <path>` (`lsregister` lives in
+  /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/).
+  `make install` already unregisters its own build copy.
+- Microsoft Teams sometimes quits (exit code 5, no crash report) while input
+  sources are being cycled in a chat box. In every case seen so far, Teams
+  had just connected to Apple's Pinyin (SCIM), and Diafon was not shown to
+  be involved. That is not yet confirmed: Diafon writes nothing to the system
+  log. To tell, cycle without Pinyin enabled, or with Diafon off. To read the
+  evidence, use `/usr/bin/log` (in zsh a bare `log` is a builtin). runningboardd's
+  `termination reported by launchd` gives the exit, and distnoted's
+  `inputmethodkit.abnormaldeath ... pid:` lines show which input method the
+  app connected to just before.

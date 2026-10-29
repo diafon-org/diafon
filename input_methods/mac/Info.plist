@@ -28,12 +28,17 @@
 	<string>Diafon_1_Connection</string>
 	<key>InputMethodServerControllerClass</key>
 	<string>DiafonInputController</string>
-	<key>TISInputSourceID</key>
-	<string>org.diafon.inputmethod.Diafon</string>
 	<key>tsInputMethodIconFileKey</key>
 	<string>DiafonMenu.tiff</string>
+	<key>TISIconLabels</key>
+	<dict>
+		<key>CustomIcon</key>
+		<string>DiafonBadge.pdf</string>
+	</dict>
 	<key>TISIconIsTemplate</key>
 	<true/>
+	<key>TISInputSourceID</key>
+	<string>org.diafon.inputmethod.Diafon</string>
 	<key>TISIntendedLanguage</key>
 	<string>en</string>
 	<key>tsInputMethodCharacterRepertoireKey</key>

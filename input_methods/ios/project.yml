@@ -1,0 +1,94 @@
+# The Xcode project, as text: `make project` (XcodeGen) writes Diafon.xcodeproj,
+# which is not committed. Two targets: the app (setup, try, convert, how-to)
+# and the keyboard extension it carries. Both compile the shared core
+# (../apple/Core) and Shared/; neither asks for full access.
+name: Diafon
+options:
+  bundleIdPrefix: io.diafon
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "0.1"
+    CURRENT_PROJECT_VERSION: "1"
+    DEVELOPMENT_TEAM: ""                 # your team id; `make project TEAM=XXXXXXXXXX` sets it
+    CODE_SIGN_STYLE: Automatic
+    TARGETED_DEVICE_FAMILY: "1,2"
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+schemes:
+  Diafon:
+    build:
+      targets: {Diafon: all, DiafonKeyboard: all}
+    test:
+      targets: [DiafonUITests]
+targets:
+  Diafon:
+    type: application
+    platform: iOS
+    sources:
+      - App
+      - Shared
+      - path: ../apple/Core
+        excludes: [CheckMain.swift]
+      - path: ../../fonts/DiafonSerif-Regular.ttf
+        buildPhase: resources
+    dependencies:
+      - target: DiafonKeyboard
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.diafon.app
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDisplayName: Diafon
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        UILaunchScreen: {}
+        UIAppFonts: [DiafonSerif-Regular.ttf]
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        UISupportedInterfaceOrientations~ipad: [UIInterfaceOrientationPortrait, UIInterfaceOrientationPortraitUpsideDown, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        ITSAppUsesNonExemptEncryption: false
+  DiafonUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [UITests]
+    dependencies:
+      - target: Diafon
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.diafon.app.uitests
+        TEST_TARGET_NAME: Diafon
+        GENERATE_INFOPLIST_FILE: YES
+  DiafonKeyboard:
+    type: app-extension
+    platform: iOS
+    sources:
+      - Keyboard
+      - Shared
+      - path: ../apple/Core
+        excludes: [CheckMain.swift]
+      - path: ../../fonts/DiafonSerif-Regular.ttf
+        buildPhase: resources
+      - path: ../../data/emoji.json              # the word -> emoji choices, 86 KB; no lexicon
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.diafon.app.keyboard
+    info:
+      path: Keyboard/Info.plist
+      properties:
+        CFBundleDisplayName: Diafon
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.keyboard-service
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).KeyboardViewController
+          NSExtensionAttributes:
+            IsASCIICapable: false
+            PrefersRightToLeft: false
+            PrimaryLanguage: mul
+            RequestsOpenAccess: false

@@ -4,11 +4,12 @@
 Implements the grammar of docs/index.html:
 - 20 bases, 6 operators; an operator never starts a segment, a base always does.
 - The two-operator law: a form carries at most two of c j q x y; w (length)
-  rides free after them; trailing digits are tones.
+  rides free after them; trailing digits are tones, drawn in the script as
+  the sign of their contour after the syllable (data/script.yaml tones).
 - Glyphs compose from data/script.yaml: whole letters, per-operator marks,
   the float rule (descenders take their mark above), secondary x flips the
-  mark already there, the special (secondary y / the pair xy) is the double
-  dot on the free side, w doubles a consonant glyph / draws the vowel acute.
+  mark already there, secondary y flips an anchor to the reverse (sjy tqy),
+  w doubles a consonant glyph / draws the vowel acute.
 - The text is the composition itself, normalized (NFC): a base letter plus
   the system's own combining marks, one meaning per mark on every letter;
   where Unicode has a precomposed letter for the pair (ș ṭ ä á) it appears,
@@ -44,6 +45,13 @@ DESC = set(_S['descenders'])
 WHOLE = _S['whole_letters']
 MARKS = _S['marks']
 PARTNER = _S['flip_partner']
+TONES = {d: t['sign'] for d, t in _S['tones'].items()}      # digit -> its sign after the syllable
+TONE_OF = {sign: d for d, sign in TONES.items() if sign}     # and back (mid is unmarked: it reads back as none)
+
+
+def tone_signs(digits):
+    """The script's tone signs for a run of tone digits (a digit outside the table stays a digit)."""
+    return ''.join(TONES.get(d, d) for d in digits)
 
 
 class ParseError(ValueError):
@@ -181,13 +189,8 @@ def _compose(core, caps):
                    for v in MARKS.values() if isinstance(v, dict)):
                 raise ParseError(f'{core}: the dot cannot stack on a marked form')
             return _mark(g, g[0], 'dot', caps)
-        if op2 == 'y':
-            if MARKS['anchor']['below'] in g:   # y flips the anchored affricate
-                return g.replace(MARKS['anchor']['below'], MARKS['reverse']['below'])
-            if any(v.get('below') and v['below'] in g
-                   for v in MARKS.values() if isinstance(v, dict)):
-                raise ParseError(f'{core}: the special cannot stack on a marked form')
-            return _special(g, g[0], caps)      # the special on a bare whole letter
+        if op2 == 'y' and MARKS['anchor']['below'] in g:   # y flips the anchored affricate
+            return g.replace(MARKS['anchor']['below'], MARKS['reverse']['below'])
         raise ParseError(f'{core}: {op2} cannot be secondary')
     if base in V_BASES:
         return _vowel(base, ops)
@@ -199,8 +202,8 @@ def _consonant(base, ops, caps=False):
     if not ops:
         return g
     op1 = ops[0]
-    if op1 in 'jy' and base in 'lrf':
-        raise ParseError(f'{base}{ops}: no anchor on the thin stems l r f')
+    if op1 == 'y' and base in 'lrf':
+        raise ParseError(f'{base}{ops}: no reverse anchor on the thin stems l r f')
     if op1 == 'j':
         g = _mark(g, base, 'anchor', caps)
     elif op1 == 'x':
@@ -216,23 +219,10 @@ def _consonant(base, ops, caps=False):
     op2 = ops[1]
     if op2 == 'x':
         raise ParseError(f'{base}{ops}: x cannot follow {op1}')
-    if op2 == 'y':
-        if op1 == 'x':                      # the pair xy: y doubles the dot
-            return _special(base, base, caps)
-        if op1 == 'j' and base in 'sz':     # y flips the anchored hush
-            a, r = MARKS['anchor'], MARKS['reverse']
-            return g.replace(a['below'], r['below'])
-        raise ParseError(f'{base}{ops}: the special cannot stack on a marked form')
+    if op2 == 'y' and op1 == 'j' and base in 'sz':      # y flips the anchored hush
+        a, r = MARKS['anchor'], MARKS['reverse']
+        return g.replace(a['below'], r['below'])
     raise ParseError(f'{base}{ops}: {op2} cannot be secondary')
-
-
-def _special(g, base, caps=False):
-    sp = MARKS['special']
-    has_below = any(v.get('below') and v['below'] in g
-                    for v in MARKS.values() if isinstance(v, dict))
-    if (caps or base not in DESC) and not has_below:
-        return g + sp['below']
-    return g + sp['above']
 
 
 def _vowel(base, ops):
@@ -262,7 +252,7 @@ def render(text, strict=True):
             out.append(seg['src'])
             continue
         try:
-            out.append(glyph(seg['form']) + seg['tones'])
+            out.append(glyph(seg['form']) + tone_signs(seg['tones']))
         except ParseError:
             if strict:
                 raise
@@ -311,7 +301,7 @@ def script_table(used=()):
 
 def read(text, table):
     """Read a text back through a {spelling: form} table, longest match
-    first, tone digits attached to the form before them; anything the table
+    first, tone digits (or the script's tone signs, read as their digits) attached to the form before them; anything the table
     does not cover is raw. -> list of ('form', form, tones, matched) and
     ('raw', ch). The text is NFC-normalized first, as the table is."""
     text = ud.normalize('NFC', text)
@@ -330,8 +320,8 @@ def read(text, table):
             continue
         i += len(hit[0])
         tones = ''
-        while i < n and text[i].isdigit():
-            tones += text[i]
+        while i < n and (text[i].isdigit() or text[i] in TONE_OF):   # digits, or the script's tone signs
+            tones += TONE_OF.get(text[i], text[i])
             i += 1
         out.append(('form', hit[1], tones, hit[0]))
     return out

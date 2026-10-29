@@ -53,6 +53,8 @@ enum Engine {
     }
     private static func lower(_ c: Character) -> Character { Character(String(c).lowercased()) }
     private static func isDigit(_ c: Character) -> Bool { c.isASCII && c.isNumber }
+    /// the script's tone signs for a run of tone digits (a digit outside the table stays a digit)
+    static func toneSigns(_ digits: String) -> String { digits.map { SpecData.tones[$0] ?? String($0) }.joined() }
 
     /// Segmentation: greedy, left to right. strict throws on ill-formed input
     /// (the reference reading); lenient marks it .err and goes on (the
@@ -108,11 +110,6 @@ enum Engine {
         return g + (m.below ?? "")
     }
 
-    private static func special(_ g: String, _ base: Character, _ caps: Bool) -> String {
-        let sp = marks["special"]!
-        return ((caps || !desc.contains(base)) && !hasBelow(g)) ? g + sp.below! : g + sp.above!
-    }
-
     /// Script glyph of one form; an uppercase base letter capitalizes it, and
     /// the float rule reads the capital's own shape.
     static func glyph(_ formIn: String) throws -> String {
@@ -156,8 +153,7 @@ enum Engine {
             case "y":
                 let a = marks["anchor"]!.below!
                 if has(g, a) { g = replace(g, a, marks["reverse"]!.below!) }   // y flips the anchored affricate
-                else if hasBelow(g) { throw ParseError(message: "\(core): the special cannot stack on a marked form") }
-                else { g = special(g, gBase, caps) }         // the special on a bare whole letter
+                else { throw ParseError(message: "\(core): y flips only an anchor") }
             default:
                 throw ParseError(message: "\(core): \(Array(core)[2]) cannot be secondary")
             }
@@ -172,7 +168,7 @@ enum Engine {
         if opsS.isEmpty { return g }
         let o = Array(opsS)
         let op1 = o[0]
-        if (op1 == "j" || op1 == "y") && "lrf".contains(base) { throw ParseError(message: "\(base)\(opsS): no anchor on the thin stems l r f") }
+        if op1 == "y" && "lrf".contains(base) { throw ParseError(message: "\(base)\(opsS): no reverse anchor on the thin stems l r f") }
         switch op1 {
         case "j": g = mark(g, base, "anchor", caps)
         case "x": g = mark(g, base, "dot", caps)
@@ -185,11 +181,10 @@ enum Engine {
         let op2 = o[1]
         if op2 == "x" { throw ParseError(message: "\(base)\(opsS): x cannot follow \(op1)") }
         if op2 == "y" {
-            if op1 == "x" { return special(String(base), base, caps) }   // the pair xy: y doubles the dot
             if op1 == "j" && "sz".contains(base) {                        // y flips the anchored hush
                 return replace(g, marks["anchor"]!.below!, marks["reverse"]!.below!)
             }
-            throw ParseError(message: "\(base)\(opsS): the special cannot stack on a marked form")
+            throw ParseError(message: "\(base)\(opsS): y flips only the anchor on s z")
         }
         throw ParseError(message: "\(base)\(opsS): \(op2) cannot be secondary")
     }
@@ -215,7 +210,7 @@ enum Engine {
         var out = ""
         for seg in try segments(text, strict: strict) {
             guard case .form(let src, let form, let t) = seg else { out += seg.src; continue }
-            do { out += try glyph(form) + (tones ? t : "") }
+            do { out += try glyph(form) + (tones ? toneSigns(t) : "") }
             catch { if strict { throw error }; out += src }
         }
         return out

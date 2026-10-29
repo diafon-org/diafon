@@ -80,11 +80,6 @@ object Engine {
         return g + (m.below ?: "")
     }
 
-    private fun special(g: String, base: Char, caps: Boolean): String {
-        val sp = MARKS.getValue("special")
-        return if ((caps || base !in DESC) && !hasBelow(g)) g + sp.below else g + sp.above
-    }
-
     /** Script glyph of one form; an uppercase base letter capitalizes it, and
      *  the float rule reads the capital's own shape. */
     fun glyph(formIn: String): String {
@@ -126,8 +121,7 @@ object Engine {
                 'y' -> {
                     val a = MARKS.getValue("anchor").below!!
                     if (a in g) g = g.replace(a, MARKS.getValue("reverse").below!!)   // y flips the anchored affricate
-                    else if (hasBelow(g)) throw ParseError("$core: the special cannot stack on a marked form")
-                    else g = special(g, g[0], caps)        // the special on a bare whole letter
+                    else throw ParseError("$core: y flips only an anchor")
                 }
                 else -> throw ParseError("$core: ${core[2]} cannot be secondary")
             }
@@ -140,7 +134,7 @@ object Engine {
         var g = base.toString()
         if (ops.isEmpty()) return g
         val op1 = ops[0]
-        if ((op1 == 'j' || op1 == 'y') && base in "lrf") throw ParseError("$base$ops: no anchor on the thin stems l r f")
+        if (op1 == 'y' && base in "lrf") throw ParseError("$base$ops: no reverse anchor on the thin stems l r f")
         when (op1) {
             'j' -> g = mark(g, base, "anchor", caps)
             'x' -> g = mark(g, base, "dot", caps)
@@ -152,10 +146,9 @@ object Engine {
         val op2 = ops[1]
         if (op2 == 'x') throw ParseError("$base$ops: x cannot follow $op1")
         if (op2 == 'y') {
-            if (op1 == 'x') return special(base.toString(), base, caps)   // the pair xy: y doubles the dot
             if (op1 == 'j' && base in "sz")                              // y flips the anchored hush
                 return g.replace(MARKS.getValue("anchor").below!!, MARKS.getValue("reverse").below!!)
-            throw ParseError("$base$ops: the special cannot stack on a marked form")
+            throw ParseError("$base$ops: y flips only the anchor on s z")
         }
         throw ParseError("$base$ops: $op2 cannot be secondary")
     }
@@ -177,12 +170,15 @@ object Engine {
 
     /** Script form of a text. strict=false passes ill-formed characters and
      *  formless segments through as typed; tones=false drops tone digits. */
+    /** the script's tone signs for a run of tone digits (a digit outside the table stays a digit) */
+    fun toneSigns(digits: String): String = digits.map { SpecData.TONES[it] ?: it.toString() }.joinToString("")
+
     fun render(text: String, strict: Boolean = true, tones: Boolean = true): String {
         val out = StringBuilder()
         for (seg in segments(text, strict)) {
             if (seg !is Seg.Form) { out.append(seg.src); continue }
             try {
-                out.append(glyph(seg.form)).append(if (tones) seg.tones else "")
+                out.append(glyph(seg.form)).append(if (tones) toneSigns(seg.tones) else "")
             } catch (e: ParseError) {
                 if (strict) throw e
                 out.append(seg.src)
