@@ -56,10 +56,11 @@ def main():
         out = os.path.join(ROOT, 'docs', name)
         have = set(TTFont(src).getBestCmap())
         missing |= cps - have - set(range(0x20, 0x7F))
-        unis = ','.join(f'U+{c:04X}' for c in sorted(cps & have))
+        keep = cps | {c for c in have if c >= 0x20}         # every letter the font has: the languages' own spellings
+        unis = ','.join(f'U+{c:04X}' for c in sorted(keep & have))   #   (č ç ł ñ …) set in the same face as the script
         subset.main([src, f'--unicodes={unis}', '--layout-features=*',
                      '--flavor=woff2', f'--output-file={out}'])
-        print(f'{out}: {os.path.getsize(out)} bytes, {len(cps & have)} codepoints kept')
+        print(f'{out}: {os.path.getsize(out)} bytes, {len(keep & have)} codepoints kept')
         ver = os.path.getmtime(out).__int__()
         for page in ('assets/diafon.css',):      # the site's stylesheet declares the faces
             p = os.path.join(ROOT, 'docs', page)

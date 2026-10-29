@@ -6,18 +6,18 @@
   <anchor x="0" y="400" name="_Anchor-3"/>
   <outline>
     <contour>
-      <point x="156" y="669" type="line"/>
-      <point x="142" y="647"/>
-      <point x="82" y="574"/>
-      <point x="14" y="500"/>
-      <point x="-14" y="477" type="qcurve"/>
+      <point x="125" y="620" type="line"/>
+      <point x="113" y="602"/>
+      <point x="63" y="545"/>
+      <point x="6" y="488"/>
+      <point x="-18" y="470" type="qcurve"/>
       <point x="-76" y="470" type="line"/>
-      <point x="-75" y="484" type="line"/>
-      <point x="-56" y="508"/>
-      <point x="-13" y="573"/>
-      <point x="30" y="642"/>
-      <point x="44" y="669" type="qcurve"/>
-      <point x="158" y="681" type="line"/>
+      <point x="-76" y="482" type="line"/>
+      <point x="-61" y="501"/>
+      <point x="-26" y="553"/>
+      <point x="8" y="608"/>
+      <point x="19" y="630" type="qcurve"/>
+      <point x="125" y="630" type="line"/>
     </contour>
   </outline>
 </glyph>

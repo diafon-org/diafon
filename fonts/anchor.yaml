@@ -29,6 +29,10 @@ stroke:
                     #   way toward the middle to land lean_frac of the way there (at
                     #   most `reach` across) at depth, in a round (or flat) cap; a
                     #   `letters` map beside it overrides per letter (families.yaml)
+  above_acute: true # the above-anchor (g̓ p̓) is the standard acute, as the vowels wear it (á):
+                    #   its foot at acute_grave.foot_at across the letter's upper part,
+                    #   mirrored for the reverse; above_scale, above_start and the
+                    #   families' above_hook then do nothing
   above_scale: 1.25 # the above-anchor is the vowels' long acute (mirrored for
                     #   the reverse), stretched by this along its own stroke:
                     #   longer, its weight unchanged
