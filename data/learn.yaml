@@ -1,0 +1,24 @@
+# The Learning page (scripts/gen_learn.py -> docs/learn-data.js): where each
+# language's example words come from. A source is a word frequency list
+# ("word count" per line) under data/lexicon/, read through the language's
+# spelling stage; a word is used only if it reads back to its own spelling
+# and every sound in it is one the language uses. Languages without a
+# source learn the sounds alone. Mandarin's examples are its pinyin
+# syllables (data/lexicon/zh.json), ranked by Unihan kFrequency.
+#
+# Sources (gitignored, fetched like the lexicon sources):
+#   https://github.com/hermitdave/FrequencyWords (CC BY-SA 4.0), content/2018/<code>/<code>_50k.txt
+words:
+  en: sources/en_50k.txt
+  hu: sources/hu_50k.txt
+  cs: sources/cs_50k.txt
+  fi: sources/fi_50k.txt
+  pl: sources/pl_50k.txt
+  tr: sources/tr_50k.txt
+
+# Words never used as examples (slurs, profanity, names that slip through).
+avoid:
+  en: [don]                  # a fragment of don't
+  hu: [ty]
+  pl: [zabić, śmierć, broń]   # subtitle vocabulary: kill, death, weapon
+  tr: [john]
