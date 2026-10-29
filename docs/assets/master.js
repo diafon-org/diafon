@@ -4,12 +4,11 @@
 'use strict';
 const $ = id => document.getElementById(id);
 const $table = $('mt-table'), $font = $('mt-font'), $custom = $('mt-custom'), $summary = $('mt-summary'),
-      $from = $('try-from'), $in = $('try-in'), $out = $('try-out'), $back = $('try-back'),
-      $chips = $('try-chips'), $words = $('try-words'), $wordsWrap = $('try-words-wrap'), $status = $('try-status');
+      $in = $('try-in'), $out = $('try-out');
 const secs = [...document.querySelectorAll('section[id^=sec-]')];
 const esc = s => s.replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 
-// ---- state in the hash: #table=hu&font=Arial&from=stage:hu (a bare #hu still works)
+// ---- state in the hash: #table=hu&font=Arial (a bare #hu still works)
 function hashState(){
   const h = location.hash.slice(1);
   if (h && !h.includes('=')) return {table: h};
@@ -20,7 +19,6 @@ function saveState(){
   if ($table.value !== 'universal') q.set('table', $table.value);
   const fam = family();
   if (fam !== 'Diafon') q.set('font', fam);
-  if ($from.value !== 'transport') q.set('from', $from.value);
   const h = q.toString();
   history.replaceState(null, '', h ? '#' + h : location.pathname);
 }
@@ -30,7 +28,6 @@ $table.innerHTML = secs.map(x => `<option value="${x.id.slice(4)}">${esc(x.datas
 function current(){ return document.getElementById('sec-' + $table.value); }
 function showTable(){
   for (const x of secs) x.hidden = x !== current();
-  markHits();
   probeAll();
 }
 
@@ -92,131 +89,81 @@ function applyFont(){
   saveState();
 }
 
-// ---- the try-out
-const stageCodes = Object.keys(DIA.stages).sort((a, b) => DIA.stages[a].name.localeCompare(DIA.stages[b].name));
-$from.innerHTML = '<option value="transport">input form</option><option value="script">universal script</option>' +
-  stageCodes.map(c => `<option value="stage:${c}">${esc(DIA.stages[c].name)}</option>`).join('');
-const SAMPLES = {
-  transport: 'sji sejlz si sjejlz', script: 'și sẹlz si șẹlz',
-  'stage:hu': 'Sok szép nyár, hosszú alma. Folyó, gally, hely, helyes, lyuk. Meeting, like, house, taxi, team, tagja, Facebook, show, think; ad hoc, de facto. Só, sok.',
-  'stage:en': 'The quick brown fox jumps over the lazy dog. Read, lead, live; Shakespeare wrote Hamlet. Diafon reads it.',
-  'stage:zh': 'Ni3 hao3, shi4 jie4! Zhong1 guo2, nihao ma.',
-  'stage:cs': 'Dobrý den, přátelé. Děkuji, měsíc, tělo.', 'stage:fi': 'Hyvää yötä kaikille.', 'stage:pl': 'Dobra noc, kochani; rzeka, morze.',
-  'stage:sw': 'Habari za asubuhi.', 'stage:tr': 'Günaydın, iyi günler.'
+// ---- the try-out, below the tables: Diafon typed (or Diafon pasted) shown word by word, each word in
+// the script with what was typed under it
+const OWN_MARKS = /[̦̖̓̔]|[a-z]̣/;     // Diafon's own marks: the text is already script
+const articles = [...document.querySelectorAll('.samples .sample')];
+// the one example at the top: the first sentence of the picked language's text in Diafon, built with the page,
+// its usual spelling small under it (Pinyin for Mandarin)
+const firstSentence = el => {
+  const t = el.innerHTML.replace(/<br\s*\/?>/g, ' ').replace(/<[^>]+>/g, '');
+  const box = document.createElement('div'); box.innerHTML = (t.match(/^.*?[.!?。](?=\s|$)/) || [t])[0];
+  return box.textContent.trim();
 };
-
-// the lexicons a spelling needs (its own and its loans'), fetched once from lexicon/
-const loading = {};
-function ensure(code){
-  const st = DIA.stages[code];
-  if (!st || !st.lexicon) return Promise.resolve();
-  $status.textContent = 'loading the lexicon…';
-  const one = c => lex(c) ? Promise.resolve() : (loading[c] = loading[c] || fetch('lexicon/' + c + '.json').then(r => r.json())
-    .then(d => { setLexicon(c, d); return Promise.all((d.loans || []).map(one)); }));
-  return one(code).then(() => { $status.textContent = ''; },
-    () => { $status.textContent = 'the lexicon did not load: serve the site over http'; });
+function showSample(){
+  const tops = articles.filter(x => x.hasAttribute('data-top'));
+  const lang = $table.value === 'universal' ? 'en' : $table.value;
+  const a = tops.find(x => x.dataset.lang === lang);
+  $('mt-sample').innerHTML = a ? `<p class="g">${esc(firstSentence(a.querySelector('.sample-text')))}</p>` +
+    `<p class="orig">${esc(firstSentence(a.querySelector('.sample-orig')))}</p>` : '';
+}
+// the sample texts: only the picked language's own (English for the Diafon table, as the site's language);
+// a language without texts hides the section
+function showSamples(){
+  const lang = $table.value === 'universal' ? 'en' : $table.value;
+  let any = false;
+  for (const a of articles){ a.hidden = a.dataset.lang !== lang; any = any || !a.hidden; }
+  $('mt-samples').hidden = !any;
 }
 
-let typed = new Set();
 function update(){
-  const lang = DIA.langs[$table.value] ? $table.value : '', source = $from.value;
-  const stage = source.startsWith('stage:') ? DIA.stages[source.slice(6)] : null;
-  const text = source === 'transport' ? $in.value : parse($in.value, source);
-  let outHtml = '', chipsHtml = '';
-  typed = new Set();
-  for (const tok of tokenize(text)){
-    if (tok.t === 'raw'){ outHtml += esc(tok.ch); continue; }
-    if (tok.t === 'err'){
-      outHtml += `<span class="err">${esc(tok.ch)}</span>`;
-      chipsHtml += `<div class="chip err"><span class="g">${esc(tok.ch)}</span><span class="f">?</span><span class="r">not a segment</span></div>`;
-      continue;
-    }
-    const g = glyph(tok.form, tok.caps);
-    if (g === null){
-      outHtml += `<span class="err">${esc(tok.form + tok.tones)}</span>`;
-      chipsHtml += `<div class="chip err"><span class="g">${esc(tok.form)}</span><span class="f">${esc(tok.form)}</span><span class="r">no such form</span></div>`;
-      continue;
-    }
-    const shown = tok.caps ? capFirst(g) : g;
-    outHtml += esc(shown) + tok.tones;
-    const core = tok.form.replace(/w$/, '');
-    typed.add(core);
-    let reading = lang ? DIA.langs[lang].readings[tok.form] : DIA.default[tok.form], absent = false;
-    if (reading === undefined){ reading = DIA.default[tok.form]; absent = !!lang; }
-    chipsHtml += `<button type="button" class="chip${absent ? ' absent' : ''}" data-form="${esc(core)}">` +
-      `<span class="g">${esc(shown)}</span><span class="f">${esc(tok.form + tok.tones)}</span>` +
-      `<span class="r">${reading ? '/' + esc(reading) + '/' : '·'}</span></button>`;
+  const typed = OWN_MARKS.test($in.value.normalize('NFD')) ? parse($in.value, 'script') : $in.value;
+  let html = '', g = '', t = '';
+  const flush = () => { if (g) html += `<span class="w"><span class="wg">${g}</span><code>${esc(t)}</code></span>`; g = t = ''; };
+  for (const tok of tokenize(typed)){
+    if (tok.t === 'raw'){ flush(); html += esc(tok.ch); continue; }
+    const gl = tok.t === 'err' ? null : glyph(tok.form, tok.caps);
+    if (gl === null){ g += `<span class="err">${esc(tok.t === 'err' ? tok.ch : tok.form)}</span>`; t += tok.t === 'err' ? tok.ch : tok.form; continue; }
+    g += esc(tok.caps ? capFirst(gl) : gl) + tok.tones;
+    t += (tok.caps ? tok.form[0].toUpperCase() + tok.form.slice(1) : tok.form) + tok.tones;
   }
-  // Mandarin: the characters of each toned syllable, as the input method offers them
-  if (stage && stage.code === 'zh' && lex('zh')){
-    for (const m of text.matchAll(/[A-Za-z]+\d*/g))
-      chipsHtml += choices(m[0]).slice(0, 6).map(c => `<div class="chip"><span class="c">${c}</span><span class="f">${esc(m[0])}</span></div>`).join('');
-  }
-  $out.innerHTML = outHtml || '<span class="muted">·</span>';
-  $chips.innerHTML = chipsHtml;
-  $back.hidden = $wordsWrap.hidden = !stage;
-  if (stage){
-    $back.innerHTML = '<small>written back in ' + esc(stage.name) + '</small>' + esc(convert($in.value, source, source));
-    let rows = '';
-    for (const m of $in.value.normalize('NFC').matchAll(/[\p{L}\p{M}]+(?:['’][\p{L}\p{M}]+)*\d*/gu)){
-      const [tt, how] = stageReadWord(m[0], stage);
-      const written = how.startsWith('loan:') ? m[0] : renderStage(tt, stage), cls = how.split(':')[0];
-      const diff = written.normalize('NFC') !== m[0].normalize('NFC');
-      rows += `<tr class="${diff ? 'diff' : ''}"><td>${esc(m[0])}</td><td><span class="how ${cls}">${how}</span></td>` +
-        `<td><code>${esc(tt)}</code></td><td class="g">${esc(render(tt))}</td><td class="back">${esc(written)}</td></tr>`;
-    }
-    $words.querySelector('tbody').innerHTML = rows;
-  }
-  markHits();
+  flush();
+  $out.innerHTML = html;
 }
-function markHits(){
-  for (const tr of current().querySelectorAll('tr[data-form]')) tr.classList.toggle('hit', typed.has(tr.dataset.form));
-}
-function go(){
-  const source = $from.value;
-  if (source.startsWith('stage:')) ensure(source.slice(6)).then(update);
-  update();
-}
-$chips.addEventListener('click', e => {
-  const chip = e.target.closest('.chip[data-form]');
-  const row = chip && current().querySelector(`tr[data-form="${CSS.escape(chip.dataset.form)}"]`);
-  if (!row) return;
-  row.scrollIntoView({behavior: 'smooth', block: 'center'});
-  row.classList.remove('flash'); void row.offsetWidth; row.classList.add('flash');
-});
 
 // the languages overview: a row opens that language's table
-document.getElementById('sec-languages').addEventListener('click', e => {
+document.getElementById('sec-universal').addEventListener('click', e => {
   const tr = e.target.closest('tr[data-goto]');
   if (!tr) return;
   $table.value = tr.dataset.goto;
-  showTable(); update(); saveState();
+  showTable(); showSample(); showSamples(); saveState();
   $table.scrollIntoView({block: 'nearest'});
 });
 
 // ---- wiring
 $in.addEventListener('input', update);
-$table.addEventListener('change', () => { showTable(); update(); saveState(); });
+$table.addEventListener('change', () => {
+  showTable(); showSample(); showSamples(); saveState();
+  if ($table.value !== 'universal') try { localStorage.setItem('diafon-lang', $table.value); } catch (e) {}  // shared with Learning
+});
 $font.addEventListener('change', () => { $custom.value = ''; applyFont(); });
 $custom.addEventListener('change', applyFont);
-$from.addEventListener('change', () => { $in.value = SAMPLES[$from.value] || $in.value; saveState(); go(); });
-$('try-sample').addEventListener('click', () => { $in.value = SAMPLES[$from.value] || ''; go(); });
 
 function fromHash(){
   const st = hashState();
-  $table.value = st.table && $('sec-' + st.table) ? st.table : 'universal';
+  let picked = null;
+  try { picked = localStorage.getItem('diafon-lang'); } catch (e) {}
+  const want = st.table || picked;
+  $table.value = want && $('sec-' + want) ? want : 'universal';
   if (st.font){
     if ([...$font.options].some(o => o.value === st.font)) { $font.value = st.font; $custom.value = ''; }
     else $custom.value = st.font;
   }
-  if (st.from && [...$from.options].some(o => o.value === st.from) && st.from !== $from.value){
-    $from.value = st.from;
-    $in.value = SAMPLES[st.from] || $in.value;
-  }
 }
 fromHash();
 showTable();
+showSample();
+showSamples();
 applyFont();
-go();
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(probeAll);
 })();

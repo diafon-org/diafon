@@ -19,6 +19,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install mkdocs-material pyyaml
+      - run: python3 tests/test_engine.py   # the spec vectors: Python, streaming, stages and JS
+      - run: python3 tests/test_spec.py
       - run: mkdocs build --strict
       - uses: actions/upload-pages-artifact@v3
         with:

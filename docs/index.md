@@ -1,5 +1,5 @@
 ---
-title: The system
+title: Diafon
 hide:
   - navigation
 ---
@@ -8,170 +8,196 @@ hide:
 
 ## One sound, one letter
 
-Every language spells its sounds its own way: the same /ʃ/ is *sh* in
-English, *s* in Hungarian, *š* in Czech and *ş* in Turkish. Diafon writes
-each sound one way in every language, so a reader from anywhere can say a
-word they have never seen.
+On its own, c is /t͡s/, as in Czech, Polish and Hungarian. The comma below
+it, called the anchor, makes it /t͡ʃ/: <span class="ug">c̦</span>. The anchor
+changes the other letters of the same family in the same way:
 
---8<-- "home-sounds.html"
+| Letter | <span class="ug">s</span> /s/ | <span class="ug">z</span> /z/ | <span class="ug">c</span> /t͡s/ | <span class="ug">x</span> /d͡z/ |
+|---|---|---|---|---|
+| **With the anchor** | <span class="ug">ș</span> /ʃ/ | <span class="ug">z̦</span> /ʒ/ | <span class="ug">c̦</span> /t͡ʃ/ | <span class="ug">x̦</span> /d͡ʒ/ |
 
 ## The letters
 
-The letters of the keyboard split into two groups that never overlap.
-Twenty are **bases**: each stands for a sound on its own. Six are
-**operators**: they never stand alone, they only change the base before
-them.
+Twenty letters each stand for a sound: 5 vowels and 15 consonants. These
+are the **bases**. The other six, c j q w x y, are **operators**. You type an
+operator after a base to change its sound. It never stands alone.
+
+Some operators also appear as letters in the script: c is /t͡s/, x is /d͡z/,
+q is /q/, j is /j/ and w is /w/. You type them with a base: `tc` gives
+<span class="ug">c</span>, `dc` <span class="ug">x</span>, `kq`
+<span class="ug">q</span>, `ix` <span class="ug">j</span> and `ux`
+<span class="ug">w</span>.
 
 --8<-- "home-keys.html"
 
-The split is forced, not chosen. Each base carries a widespread sound no
-other letter covers. The operators are the letters the Latin alphabet
-wastes: c and q duplicate k or s, x spells k plus s, and j, w and y name
-glides, the close vowels i and u in another role. Six is also the number
-needed: every pair of operator meanings is kept apart by some language that
-contrasts what fewer operators would merge.
+The bases are the letters with a sound no other letter covers. The
+operators are the letters Latin spelling wastes: c and q repeat k or s, x is
+only k plus s, and j, w and y are i and u in another role.
 
 ## Typing a sound
 
-A sound is typed as one base, then at most two operators, then `w` for
-length, then tone digits where the language has tones. That is the whole
-grammar of the input. An operator never starts a sound, so the input
-converts to the script without ambiguity: no dead keys, no menus, no
-keyboard to switch, and every typed line reads one way only.
+Type a sound as a base, then up to two operators, then `w` if it is long.
+Tone languages add a digit after the syllable. An operator never starts a
+sound, so everything you type turns into script one way only.
 
-An operator means the same thing on every letter of its class, and on
-screen it becomes a small mark. Each example shows the glyph, what you type
-and its most common reading.
+The six operators are always typed in this order. Each has one job after a
+consonant and one after a vowel, and shows as a small mark. The
+examples give the letter, what you type and its usual sound.
 
 --8<-- "home-ops.html"
 
-- A second operator is read by the first, as the first is read by the
-  base: `sj` is <span class="ug">ș</span>, `sjy` the retroflex
-  <span class="ug">s̖</span>.
-- Length is `w`, after the operators: `aw` <span class="ug">á</span>; a
-  long consonant doubles its letter in the script, `sjw`
-  <span class="ug">șș</span>.
-- Aspiration and breathiness are not operators. They are sequences with h,
-  as they sound: `th` /tʰ/, `bh` /bʱ/.
-- Tones are plain trailing digits in input and script alike: `sjan1`
-  <span class="ug">șan1</span>. A language's own spelling may render them
-  natively, as Pinyin does with diacritics.
+- A second operator works on the first, as the first works on the base:
+  `sj` is <span class="ug">ș</span>, `sjy` is <span class="ug">s̖</span>.
+- A long vowel takes an acute, `aw` <span class="ug">á</span>. A long
+  consonant is written double, `sjw` <span class="ug">șș</span>.
+- Aspiration and breathy voice are not operators. Type them with h, as they
+  sound: `th` /tʰ/, `bh` /bʱ/.
 
 ## The marks
 
-The script is built from small letters and a small set of marks. Each mark
-keeps one meaning on every letter; none is borrowed from any language's
-alphabet.
+Each mark means one thing on every letter, and none is taken from a national
+alphabet. A consonant takes one mark. A vowel takes at most one above and
+one below.
 
 ### On consonants
 
-A consonant wears its mark below, unless the letter has a descender: then
-the mark floats above, on g and p (the **float rule**). No capital has a
-descender, so a capital always wears its mark below:
-<span class="ug">p̓ P̦</span>, <span class="ug">ġ G̣</span>.
-
 --8<-- "marks.html"
 
-The signature mark is the **anchor**: a comma-like stroke, elongated and
-attached to its letter. The attached form is in wide use nowhere else, so
-it can be Diafon's own, and in handwriting it is one continuous stroke off
-the letter. It is the standard comma-below character, which the Diafon font
-draws attached: <span class="ug">ț ș n̦</span>. It never sits on l, r or
-f, whose stems are too thin; their modified forms use the dots instead
-(<span class="ug">ḷ ṛ r̤ r̈ l̤</span>).
+The anchor is Diafon's own mark: a comma-like stroke joined to its letter,
+written in one movement by hand. It sits on the thin letters too:
+<span class="ug">ț ș n̦ l̦ r̦ f̦</span>.
 
-A single mark, anchor or dot, makes a point of its own, whose value drifts
-only slightly between languages. A double dot or a reversed anchor flags a
-variant the reader should notice, with the bare letter as the good-enough
-approximation. Marks never stack.
-
-Some sounds are whole letters: the operators take script jobs of their
-own. c is /t͡s/ and x is /d͡z/; the anchor turns them into
-<span class="ug">c̦</span> /t͡ʃ/ and <span class="ug">x̦</span> /d͡ʒ/, so the
-anchor marks the whole hush family, <span class="ug">ș z̦ c̦ x̦</span>. q is
-the uvular /q/, j and w are the glides /j/ and /w/, and the glottal stop is
-the dot on h, <span class="ug">ḥ</span>.
+On g and p the mark goes above, because the tail below is already taken:
+<span class="ug">p̓ ġ</span>. Capitals have no tail below, so they keep the
+mark below: <span class="ug">P̦ G̣</span>. This is the **float rule**.
 
 ### On vowels
 
-A vowel wears at most one mark above and one below; two marks never stack
-above. The double acute exists because flip and long together would
-otherwise need two.
-
 --8<-- "vowelmarks.html"
 
-Lowering sits below and everything else above, so every combination in use
-keeps to one mark per side: <span class="ug">ẹ́</span> /ɛː/,
-<span class="ug">ẹ̀</span> /ɛ̃/, and the flipped and lowered
-<span class="ug">ọ̈</span> /œ/, <span class="ug">ụ̈</span> /ʏ/.
+The double acute is rounding swap and length in one mark. The dot below
+combines with one mark above:
+<span class="ug">ẹ́</span> /ɛː/, <span class="ug">ẹ̀</span> /ɛ̃/,
+<span class="ug">ọ̈</span> /œ/.
 
-## The points
+## Each letter covers an area
 
-Every point of the system: 29 consonants and 17 vowels, each with its
-script glyph, its input and its reading. The colours are the operators of
-the keyboard above. Every form in use, and each language's own reading of
-it, is in the [master tables](master.md).
+Diafon aims to be phonemic, not phonetic. A phonetic spelling records exactly how a
+sound is said. A phonemic spelling records only which sound it is, among the
+sounds a language tells apart. The p in English *pin* has a puff of air and
+the p in *spin* does not, but no English word depends on it, so both are p.
 
---8<-- "points.html"
+So each letter covers a small area of sounds, and reads a little differently
+from one language to the next, always close. [Each language's table](master.md)
+shows how its letters are read.
 
-## Points and the special
+### Consonants
 
-Diafon writes what a language distinguishes, not the fine detail of how a
-sound is pronounced. Every written form is one of two things.
+Consonant areas are narrow, about one step of place or manner. For example, t is
+made at the teeth in Hungarian and a little further back in English. r covers the trilled /r/ and the
+English /ɹ/. <span class="ug">ṛ</span> covers both the tap and the flap,
+/ɾ ɽ/, as languages hardly ever tell them apart.
 
-A **point** has one reading. Its value in a given language drifts at most
-into a neighbouring column: an adjacent place for a consonant, one quality
-step for a vowel. A t is dental in one language and alveolar in another;
-both write t, and a reader from any other language lands close.
+The reverse anchor marks a language's own variant of a consonant, such as
+the retroflex <span class="ug">t̖ d̖</span> of Hindi or the emphatics of
+Arabic. The plain letter is a fair approximation of it.
 
-**The special** is a language's own series over a stated default: emphatic
-in Arabic, soft in Russian, ejective in Georgian, nasal on vowels. It is
-read per language, always in the neighbourhood of its base, never as an
-arbitrary sound: one thing to learn per language, not a new letter each. On
-a consonant it is typed `xy` and drawn as a double dot,
-<span class="ug">t̤</span>; on a vowel it is typed `y` and drawn as a
-grave, <span class="ug">à</span>.
+### Vowels
 
-A language may write a sound on a form it does not otherwise use in two
-cases only. Sounds most outside speakers cannot produce anyway (implosives,
-ejectives, emphatics) may share their base form, because an outsider's
-approximation is exactly what is written. Elsewhere the drift must be
-minor, so a reader from another language still says it close: one height
-step, dental for alveolar, aspiration on a voiceless stop, rounding among
-the open vowels. Neither case allows a difference a listener would notice:
-no u for /y/, no voicing or manner swaps.
+Vowel areas are wide. e is any front mid vowel, close or open. a is any open
+vowel, front or back. ü covers /y/ and /ʏ/. Most languages have one vowel in
+each area and write it bare.
 
-Dialect and speech impediments are never recorded. Very fine phonetic
-detail stays outside the notation, as it does in every practical spelling.
+A few languages have two vowels inside one area. Only they write the second
+one, with a mark that means the same in all of them:
+<span class="ug">ẹ ọ</span> /ɛ ɔ/ in French, Italian, Portuguese, Hindi,
+Thai and Vietnamese; <span class="ug">ị</span> /ɪ/ in Dutch and Ukrainian;
+<span class="ug">ä</span> /ɑ/ in Finnish, Estonian and Persian. A language
+that makes the split writes it everywhere, in long, nasal and diphthong
+vowels too: French /ɔ/ is <span class="ug">ọ</span> in *porte* and
+<span class="ug">ọ̀</span> in *bon*.
+
+When long and short vowels also differ in quality, length is enough. German
+*Ofen* is <span class="ug">ó</span> /oː/ and *offen* is o /ɔ/, so German
+needs no split. English is the same: *bit* i, *beat* í.
+
+The schwa has its own area, <span class="ug">ạ</span> /ə/. It sits next to
+both a and e in too many languages to belong to either.
+
+### The limit
+
+An area is kept small enough that its sounds are not easily told apart: no u for /y/, no
+voiced for voiceless. Dialects and fine detail are not written, as in any
+everyday spelling.
 
 ## Capitals
 
-Case is spelling, not sound. A sound is capitalized by typing its base
-uppercase: `Sjip` <span class="ug">Șip</span>. Operators read the same in
-either case, so all-caps text works sound by sound: `SJIP`
-<span class="ug">ȘIP</span>. A long consonant capitalizes only its first
-letter.
+Case is spelling, not sound. Type the base in uppercase: `Sjip`
+<span class="ug">Șip</span>. Operators read the same in either case, so
+`SJIP` is <span class="ug">ȘIP</span>. A long consonant capitalises only its
+first letter.
 
-## Ordinary text, any app
+## Tones
 
-A Diafon text is ordinary Unicode: base letters plus the system's own
-combining marks, normalised the standard way. Where Unicode already has a
-letter for the pair (<span class="ug">ș ṭ ä á</span>) that letter is used;
-elsewhere the sequence stands (<span class="ug">t̤ k̦ a̋</span>), and Unicode
-treats both as the same text. Any app, file or message carries it.
+A tone is typed as a digit after the syllable, and each digit is the same
+tone in each language. The script shows it as a sign after the syllable,
+using the Bopomofo tone marks: `ma1 ma2 ma3 ma4`
+<span class="ug">maˉ maˊ maˇ maˋ</span>.
 
-The Diafon fonts (Serif, Sans and Mono) draw the marks as designed. Without
-them a reader's own font draws the marks, roughly in place; the font switch
-on the [master tables](master.md) shows how any typeface does. The engine
-converts every way: from the script, the input form or a language's
-spelling to any of the others, and it can tell which one it was given.
+| Digit | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---|---|---|---|---|---|---|---|---|
+| Tone | high | rising | dipping | falling | mid | low | glottal rising | glottal low |
+| Sign | <span class="ug">ˉ</span> | <span class="ug">ˊ</span> | <span class="ug">ˇ</span> | <span class="ug">ˋ</span> | none | <span class="ug">ˍ</span> | <span class="ug">˜</span> | <span class="ug">ˀ</span> |
 
-## Names
+Mid tone has no sign, as in Thai and Vietnamese spelling. The sign never
+sits on the vowel, so the vowel keeps its own marks. A language's own
+spelling can still show tones its usual way, like the accents of Pinyin.
 
-One name per concept, used everywhere: documents, code, interfaces.
+## Text and fonts
 
---8<-- "names.html"
+Diafon text is ordinary Unicode, so any app, file or message can carry it.
+Each letter is a plain Latin letter plus standard combining marks:
 
-A point is what linguistics calls a diaphoneme: one abstract unit uniting
-corresponding sounds across languages, realised a little differently by
-each. The name Diafon comes from it.
+| Mark | Character | On g and p |
+|---|---|---|
+| anchor | U+0326 comma below | U+0313 comma above |
+| dot | U+0323 dot below | U+0307 dot above |
+| reverse anchor | U+0316 grave accent below | U+0314 reversed comma above |
+| acute, grave, double acute | U+0301, U+0300, U+030B | |
+| double dot | U+0308 | |
+| dot below a vowel | U+0323 | |
+| tone signs | U+02C9 ˉ, U+02CA ˊ, U+02C7 ˇ, U+02CB ˋ, U+02CD ˍ, U+02DC ˜, U+02C0 ˀ | |
+
+Text is stored in the standard composed form (NFC). Where Unicode has a
+ready-made letter (<span class="ug">ș ṭ ä á</span>) that letter is used.
+Elsewhere the letter and its mark stay a pair (<span class="ug">t̖ k̦ a̋</span>).
+Both count as the same text.
+
+The Diafon fonts (Serif, Sans and Mono) draw the marks as designed, with the
+anchor joined to its letter. Other fonts draw the same characters roughly in
+place, and the font picker on the [Reference](master.md) page shows how any
+font does.
+
+## All the sounds
+
+Every sound of the system in one chart. Consonants run from the lips to the
+throat. Vowels sit as areas in the vowel triangle, with their splits. Each
+tile shows the letter, what you type and the sound, coloured by the operator
+key that makes it.
+
+--8<-- "points.html"
+
+## Glossary
+
+| Term | Meaning |
+|---|---|
+| base | a letter that stands for a sound: 5 vowels and 15 consonants |
+| operator | c j q w x y, typed after a base to change its sound |
+| anchor | the comma-like mark joined below a consonant, typed `j` |
+| reverse anchor | the anchor turned the other way, typed `y`: a language's own variant |
+| float rule | on g and p the mark goes above |
+| area | the range of sounds one letter covers |
+| split | a second vowel inside an area, written only by languages that have both |
+
+Diafon is named after the diaphoneme: one unit for matching sounds across
+languages, said a little differently in each.
