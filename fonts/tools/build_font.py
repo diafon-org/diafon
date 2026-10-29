@@ -57,7 +57,7 @@ def family_keys():
     import yaml as _yaml
     return list(_yaml.safe_load(open(FAMILIES)))
 
-REPO = 'https://github.com/blagasz/diaphone'
+REPO = 'https://github.com/diafon-org/diafon'
 COPYRIGHT = ('Copyright 2026 The Diafon Project Authors (' + REPO + '), portions Copyright 2022 '
              'The Noto Project Authors (https://github.com/notofonts/latin-greek-cyrillic) '
              'with Reserved Font Name "Noto"')   # = the first line of fonts/OFL.txt

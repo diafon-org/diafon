@@ -123,4 +123,9 @@ master tables page shows what there is to check.
 
 ## Licence
 
-The fonts are under the SIL Open Font License (`fonts/OFL.txt`).
+Diafon is a writing system: anyone may use, write, teach and implement it.
+
+- Code: MIT (`LICENSE`).
+- Fonts: SIL Open Font License 1.1 (`fonts/OFL.txt`).
+- Docs and hand-written data: CC BY 4.0 (`LICENSE-docs`).
+- Generated lexicons: the terms of their sources (`NOTICE.md`).

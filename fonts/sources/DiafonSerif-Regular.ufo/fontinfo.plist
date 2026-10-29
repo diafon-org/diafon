@@ -7,7 +7,7 @@
     <key>capHeight</key>
     <integer>714</integer>
     <key>copyright</key>
-    <string>Copyright 2026 The Diafon Project Authors (https://github.com/blagasz/diaphone), portions Copyright 2022 The Noto Project Authors (https://github.com/notofonts/latin-greek-cyrillic) with Reserved Font Name "Noto"</string>
+    <string>Copyright 2026 The Diafon Project Authors (https://github.com/diafon-org/diafon), portions Copyright 2022 The Noto Project Authors (https://github.com/notofonts/latin-greek-cyrillic) with Reserved Font Name "Noto"</string>
     <key>descender</key>
     <integer>-293</integer>
     <key>familyName</key>
@@ -59,7 +59,7 @@
     <key>openTypeNameManufacturer</key>
     <string>The Diafon Project</string>
     <key>openTypeNameManufacturerURL</key>
-    <string>https://github.com/blagasz/diaphone</string>
+    <string>https://github.com/diafon-org/diafon</string>
     <key>openTypeOS2CodePageRanges</key>
     <array>
       <integer>0</integer>

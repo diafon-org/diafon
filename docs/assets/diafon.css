@@ -1,8 +1,8 @@
 /* The Diafon docs on Material: the font, the palette the description's
    tables and diagrams use, and the blocks themselves. */
-@font-face{font-family:"Diafon";src:url(../diafon.woff2?v=1793274559) format("woff2");font-display:swap}
-@font-face{font-family:"Diafon Sans";src:url(../diafon-sans.woff2?v=1793274559) format("woff2");font-display:swap}
-@font-face{font-family:"Diafon Mono";src:url(../diafon-mono.woff2?v=1793274560) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon";src:url(../diafon.woff2?v=1793275220) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon Sans";src:url(../diafon-sans.woff2?v=1793275220) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon Mono";src:url(../diafon-mono.woff2?v=1793275220) format("woff2");font-display:swap}
 
 :root{
   --md-primary-fg-color:#0e7c86; --md-primary-fg-color--light:#3ec8cf; --md-primary-fg-color--dark:#0a5c64;

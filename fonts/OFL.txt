@@ -1,4 +1,4 @@
-Copyright 2026 The Diafon Project Authors (https://github.com/blagasz/diaphone), portions Copyright 2022 The Noto Project Authors (https://github.com/notofonts/latin-greek-cyrillic) with Reserved Font Name "Noto"
+Copyright 2026 The Diafon Project Authors (https://github.com/diafon-org/diafon), portions Copyright 2022 The Noto Project Authors (https://github.com/notofonts/latin-greek-cyrillic) with Reserved Font Name "Noto"
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:
