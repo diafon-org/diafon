@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: zh
 name: Mandarin Chinese
+native_name: 普通话
 speakers: {native: 940, total: 1120}   # millions, rough 2025
 tones:   # input digit -> standard contour (defined in data/README.md)
   1: high

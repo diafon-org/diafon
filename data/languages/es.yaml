@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: es
 name: Spanish
+native_name: Español
 speakers: {native: 485, total: 560}   # millions, rough 2025
 consonants:
   p: M

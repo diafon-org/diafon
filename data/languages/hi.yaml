@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: hi
 name: Hindi-Urdu
+native_name: हिन्दी / اردو
 speakers: {native: 500, total: 850}   # millions, rough 2025
 consonants:
   p: M
@@ -43,16 +44,17 @@ consonants:
   gʱ: M
   ɽʱ: M
 vowels:
+  # the short vowels are अ इ उ; आ ई ऊ ए ऐ ओ औ are long
   ə: L
-  ɑ: L
+  ɑː: L
   ɪ: M
-  i: L
+  iː: L
   ʊ: M
-  u: M
-  e: M
-  ɛ: M
-  o: M
-  ɔ: M
+  uː: M
+  eː: M
+  ɛː: M
+  oː: M
+  ɔː: M
   ɑ̃: M
   ĩ: M
   ũ: M

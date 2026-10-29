@@ -14,6 +14,8 @@ import unicodedata as ud
 import yaml
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+import gen_master
 
 
 def nfd(s):
@@ -22,10 +24,7 @@ def nfd(s):
 
 def main():
     script = yaml.safe_load(open(os.path.join(ROOT, 'data', 'script.yaml')))
-    m = yaml.safe_load(open(os.path.join(ROOT, 'data', 'mapping.yaml')))
-    cons = {nfd(k): v for k, v in m['consonants'].items()}
-    vows = {nfd(k): v for k, v in m['vowels'].items()}
-    over = {c: {nfd(k): v for k, v in d.items()} for c, d in m['overrides'].items()}
+    cons, vows, over, _, _, _ = gen_master.load_mapping()     # the lax rule applied
 
     langs, default = {}, {}
     for path in sorted(glob.glob(os.path.join(ROOT, 'data', 'languages', '*.yaml'))):

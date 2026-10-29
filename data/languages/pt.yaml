@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: pt
 name: Portuguese
+native_name: Português
 speakers: {native: 240, total: 265}   # millions, rough 2025
 consonants:
   p: M

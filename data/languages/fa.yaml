@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: fa
 name: Persian
+native_name: فارسی
 speakers: {native: 80, total: 130}   # millions, rough 2025
 consonants:
   p: M

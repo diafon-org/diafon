@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: bn
 name: Bengali
+native_name: বাংলা
 speakers: {native: 240, total: 280}   # millions, rough 2025
 consonants:
   z: X

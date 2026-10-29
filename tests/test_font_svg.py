@@ -139,6 +139,24 @@ def test_editor_file():
         assert any(near(c[0], (700, 400, 800, 500), 1) for c in info)  # the scaled local clone
 
 
+def test_cut_layer():
+    with Tmp() as tmp:
+        write(tmp, 'x.svg', f'''<svg {NS} data-origin="0 1000">
+  <g id="glyph" inkscape:groupmode="layer" inkscape:label="glyph"><rect x="0" y="0" width="400" height="1000"/><rect x="300" y="500" width="300" height="500" fill="#c8324e"/></g>
+  <g id="layer2" inkscape:groupmode="layer" inkscape:label="cut" style="opacity:0.5"><rect x="100" y="400" width="100" height="100" fill="#2a7de1"/><rect x="500" y="900" width="200" height="200"/></g>
+</svg>
+''')
+        pieces, warnings, _ = FS.read_glyph(os.path.join(tmp, 'x.svg'), (0, 1069))
+        assert not warnings and [cut for _, _, cut in pieces] == [False, False, True, True]
+        font = TTFont(FONT)
+        assert FS.import_overrides(font, 'serif', svg_dir=tmp, verbose=False) == ['x']
+        info = contour_info(font, 'x')
+        assert len(info) == 2, info                                     # the coloured addition merged, a hole cut
+        assert near(bounds(font, 'x'), (0, 0, 600, 1000), 1)
+        assert any(near(c[0], (100, 500, 200, 600), 1) for c in info)   # the hole
+        assert any(near(c[0], (0, 0, 600, 1000), 1) for c in info)      # the notch at the corner leaves the bounds
+
+
 def test_cycle_and_variants():
     with Tmp() as tmp:
         write(tmp, 'c.svg', f'<svg {NS} data-origin="0 0"><defs><g id="a"><use href="#b"/></g><g id="b"><use href="#a"/></g></defs><g id="glyph"><use href="#a"/><rect x="0" y="-50" width="50" height="50"/></g></svg>')

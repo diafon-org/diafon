@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: ro
 name: Romanian
+native_name: Română
 speakers: {native: 24, total: 28}   # millions, rough 2025
 consonants:
   p: M

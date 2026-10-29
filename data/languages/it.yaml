@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: it
 name: Italian
+native_name: Italiano
 speakers: {native: 64, total: 68}   # millions, rough 2025
 geminates: true
 consonants:

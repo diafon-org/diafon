@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: de
 name: German
+native_name: Deutsch
 speakers: {native: 76, total: 135}   # millions, rough 2025
 consonants:
   p: M
@@ -30,18 +31,20 @@ consonants:
   l: L
   j: M
 vowels:
-  i: M
+  # short tense i y e ø o u: only unstressed (Vitamin, Methode), the long
+  # vowels shortened; in stressed syllables length and quality go together
+  i: X
   ɪ: M
-  y: M
+  y: X
   ʏ: S
-  e: M
+  e: X
   ɛ: M
-  ø: M
+  ø: X
   œ: S
   a: M
-  o: M
+  o: X
   ɔ: M
-  u: M
+  u: X
   ʊ: M
   ə: L
   iː: M

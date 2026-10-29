@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: cs
 name: Czech
+native_name: Čeština
 speakers: {native: 10.7, total: 13}   # millions, rough 2025
 consonants:
   p: M

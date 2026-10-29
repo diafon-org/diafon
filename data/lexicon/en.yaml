@@ -8,29 +8,38 @@ code: en
 name: English
 kind: word
 match: word
-sample_text: one keyboard, one script, every language
+sample_text: one keyboard, one script, many languages
 sources:
   - sources/cmudict.dict     # https://github.com/cmusphinx/cmudict (BSD)
   - sources/en_50k.txt       # https://github.com/hermitdave/FrequencyWords (CC BY-SA 4.0): ranks a homophone's spellings
+prefer:                      # homographs whose commoner reading is not CMUdict's first: word -> its (n) variant
+  wind: 2                    #   the noun /wɪnd/, not to wind /waɪnd/
+  live: 2                    #   /lɪv/
+  lead: 2                    #   to lead /liːd/
+  read: 2                    #   /riːd/ (the present)
+  wound: 2                   #   the injury /wuːnd/
+pron:                        # words whose CMUdict readings are all off: word -> ARPAbet
+  towards: T UH W AO R D Z   #   tu-, not the schwa tạwórdz or the clipped tórdz
+  toward: T UH W AO R D
 arpabet:                     # ARPAbet -> transport form (stress digits stripped)
-  AA: ac
+  AA: aw
   AE: a
   AH: aj        # ə and ʌ, merged (mapping.yaml: STRUT is the stressed schwa)
-  AO: oj
+  AO: ow
   AW: aux
   AY: aix
   B: b
   CH: tq
   D: d
   DH: dx
-  EH: ej
+  EH: e
   ER: aq
   EY: eix
   F: f
   G: g
   HH: h
-  IH: ij
-  IY: i
+  IH: i
+  IY: iw
   JH: dq
   K: k
   L: l
@@ -38,15 +47,15 @@ arpabet:                     # ARPAbet -> transport form (stress digits stripped
   N: n
   NG: nx
   OW: oux
-  OY: ojix
+  OY: oix
   P: p
   R: r
   S: s
   SH: sj
   T: t
   TH: tx
-  UH: uj
-  UW: u
+  UH: u
+  UW: uw
   V: v
   W: ux
   Y: ix

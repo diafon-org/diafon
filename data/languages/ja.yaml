@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: ja
 name: Japanese
+native_name: 日本語
 speakers: {native: 123, total: 126}   # millions, rough 2025
 geminates: true
 consonants:

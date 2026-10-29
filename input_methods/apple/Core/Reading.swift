@@ -49,6 +49,9 @@ extension Engine {
     }
 
     /// Longest match over a table, tone digits attached to the form before them.
+    /// a tone sign -> its digit (mid is unmarked: it reads back as none)
+    static let toneOf: [Character: Character] = Dictionary(uniqueKeysWithValues:
+        SpecData.tones.compactMap { d, s in s.isEmpty ? nil : (Character(s), d) })
     static func read(_ text: String, _ table: [String: String]) -> [Read] {
         let u = Array(nfc(text).unicodeScalars)
         let maxlen = table.keys.map { $0.unicodeScalars.count }.max() ?? 1
@@ -66,7 +69,12 @@ extension Engine {
             guard let (s, f) = hit else { out.append(.raw(String(u[i]))); i += 1; continue }
             i += s.unicodeScalars.count
             var tones = ""
-            while i < u.count, u[i].isASCII, u[i].properties.numericType == .decimal { tones += String(u[i]); i += 1 }
+            while i < u.count {                                   // digits, or the script's tone signs (read as their digits)
+                if u[i].isASCII, u[i].properties.numericType == .decimal { tones += String(u[i]) }
+                else if let d = toneOf[Character(u[i])] { tones += String(d) }
+                else { break }
+                i += 1
+            }
             out.append(.form(form: f, tones: tones, src: s))
         }
         return out

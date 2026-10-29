@@ -3,14 +3,15 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: vi
 name: Vietnamese
+native_name: Tiếng Việt
 speakers: {native: 85, total: 86}   # millions, rough 2025
 tones:   # input digit -> standard contour (defined in data/README.md)
-  1: mid
-  2: low
-  3: rising
-  4: dipping
-  5: glottal-rising
-  6: glottal-low
+  2: rising
+  3: dipping
+  5: mid
+  6: low
+  7: glottal-rising
+  8: glottal-low
 consonants:
   p: X
   ɓ: M

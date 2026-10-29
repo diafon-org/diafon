@@ -6,10 +6,13 @@ python3 scripts/gen_master.py
 python3 scripts/gen_play.py
 python3 scripts/gen_fonts.py
 python3 scripts/gen_lexicon.py 2>/dev/null || echo "lexicon sources missing: data/lexicon/*.json kept as committed"
+python3 scripts/gen_emoji.py
+python3 scripts/gen_learn.py
 python3 scripts/gen_spec.py
 python3 scripts/gen_android.py
 python3 scripts/gen_mac.py
 python3 scripts/gen_site.py
+python3 scripts/gen_samples.py
 python3 scripts/gen_status.py
 mkdir -p docs/lexicon extensions/browser/lexicon && cp data/lexicon/*.json docs/lexicon/ && cp data/lexicon/*.json extensions/browser/lexicon/
 cp docs/engine.js extensions/browser/engine.js && cp docs/play-data.js extensions/browser/data.js   # the extension's copy
@@ -21,3 +24,4 @@ python3 tests/test_extension.py
 python3 tests/test_kotlin.py
 python3 tests/test_swift.py
 python3 -m mkdocs build --strict      # docs/ (Markdown + the app pages) -> site/, what GitHub Pages serves
+python3 scripts/gen_site_words.py     # the site's words in Diafon, for the script switch (reads site/)

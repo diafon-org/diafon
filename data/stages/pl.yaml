@@ -10,7 +10,7 @@ name: Polish spelling
 state: draft
 letters: a ą b c ć ch cz d dz dź dż e ę f g h i j k l ł m n ń o ó p r s ś sz t u w y z ź ż
 long: double
-sample: dojbra nojtc, kojkxani      # dobra noc, kochani
+sample: dobra notc, kokxani      # dobra noc, kochani
 read:                   # spellings read back but never written: ó and u, rz and ż, h and ch
   x: ks
   q: kv
@@ -48,10 +48,10 @@ forms:
   r: r
   ix: j
   a: a
-  ej: e
-  ejy: ę
+  e: e
+  ey: ę
   i: i
-  oj: o
-  ojy: ą
+  o: o
+  oy: ą
   u: u
   uc: y

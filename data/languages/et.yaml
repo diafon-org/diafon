@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: et
 name: Estonian
+native_name: Eesti
 speakers: {native: 1.1, total: 1.2}   # millions, rough 2025
 geminates: true
 consonants:

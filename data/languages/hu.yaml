@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: hu
 name: Hungarian
+native_name: Magyar
 speakers: {native: 13, total: 13}   # millions, rough 2025
 geminates: true
 consonants:

@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: nl
 name: Dutch
+native_name: Nederlands
 speakers: {native: 25, total: 30}   # millions, rough 2025
 consonants:
   ʒ: X

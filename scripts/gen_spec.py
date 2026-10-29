@@ -27,15 +27,15 @@ import lexicon
 import stages
 
 SENTENCES = [
-    'sjok sewp njawr', 'Sjan1, sjok!', 'SJAN', 'Gj Pj Gxy Txy Ic Sjw Tqyh Aw',
+    'sjok sewp njawr', 'Sjan1, sjok!', 'SJAN', 'Gj Pj Gy Ty Ic Sjw Tqyh Aw',
     'ma1 ma2 ma3 ma4', 'hoswuw aclmac', 'tqi3 sjuc3 tquc1', 'Diafon: ix i ux.',
-    'kxy gxy txy dxy sxy zxy', 'ty dy ny sjy zjy tqy dqy', 'tcy dcy tcx dcx',
+    'ky gy lj rj fj vj Lj Rj', 'ty dy ny sjy zjy tqy dqy', 'tcx dcx',
     'aq r ix ux icx ucx', 'aj ej ij oj uj ay ey iy oy uy', 'tyh dyh rch pf th kh',
 ]
-LENIENT = ['Sjan1, jok!', 'jok', '1ma', 'tqyx', 'tww', 'twx', 'lj rj fj', 'bq ax txx', 'qwerty',
+LENIENT = ['Sjan1, jok!', 'jok', '1ma', 'tqyx', 'tww', 'twx', 'ly ry fy txy', 'bq ax txx', 'qwerty',
            'Hello, world!', 'x-ray', 'sj+ok']
 DETECT = ['sjok sewp njawr', 'Șok sép n̦ár, hossú älmä', 'sok szép nyár, hosszú alma', 'dobrý den, přátelé',
-          'hyvää yötä kaikille', 'Dobra noc, kochani', 'günaydın', 'habari za asubuhi', 'ma1 ma2 ma3', 'K̤ Ẹ̀']
+          'hyvää yötä kaikille', 'Dobra noc, kochani', 'günaydın', 'habari za asubuhi', 'ma1 ma2 ma3', 'K̖ Ẹ̀']
 LEX_READ = {'en': ['the', 'quick', 'Shakespeare', 'meeting', 'facebook', 'nosuchword'],
             'zh': ['ni', 'hao3', 'Ni3hao3', 'nihao', 'you', 'lü4', 'zhong1', 'xi1', 'shi4', 'si1'],
             'la': ['hoc', 'vitae', 'quo'],
@@ -52,8 +52,8 @@ LEX_TEXTS = {'stage:hu': ['Sok szép nyár. Folyó, gally, hely; helyes.', 'Meet
                           'Streamingajánlójában online teaház, felkerült; tea, team.', 'Cudjoe East, Ocho Rios.'],
              'stage:en': ['The quick brown fox jumps over the lazy dog.', 'Shakespeare wrote Hamlet; Diafon reads it.'],
              'stage:zh': ['Ni3 hao3, shi4 jie4!', 'nihao ma']}
-INVALID = ['jok', '1', 'tqyx', 'tww', 'twx', 'lj', 'rj', 'fj', 'bq', 'ax', 'txx',
-           'tcq', 'yx', 'wa', 'ejx', 'txyx']
+INVALID = ['jok', '1', 'tqyx', 'tww', 'twx', 'ly', 'ry', 'fy', 'bq', 'ax', 'txx',
+           'tcq', 'yx', 'wa', 'ejx', 'txyx', 'txy', 'sxy', 'lxy', 'tcy', 'dcy', 'kqy']
 
 
 def trace(text):

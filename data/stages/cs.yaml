@@ -10,7 +10,7 @@ name: Czech spelling
 state: draft
 letters: a á b c č d ď dz dž e é f g h ch i í j k l m n ň o ó p r ř s š t ť u ú v z ž
 long: double
-sample: dobriw dejn, prxyawtejlejw      # dobrý den, přátelé
+sample: dobriw den, prjawtelew      # dobrý den, přátelé
 read:                   # spellings read back but never written: etymological y, ů, and ě after d t n m
   x: ks
   w: v
@@ -18,11 +18,11 @@ read:                   # spellings read back but never written: etymological y,
   y: i
   ý: iw
   ů: uw
-  dě: djej
-  tě: tjej
-  ně: njej
-  mě: mnjej
-  ě: ixej
+  dě: dje
+  tě: tje
+  ně: nje
+  mě: mnje
+  ě: ixe
 forms:
   p: p
   b: b
@@ -49,12 +49,12 @@ forms:
   n: n
   l: l
   r: r
-  rxy: ř
+  rj: ř
   ix: j
   a: a
   aw: á
-  ej: e
-  ejw: é
+  e: e
+  ew: é
   i: i
   iw: í
   o: o

@@ -6,7 +6,7 @@
 #
 # Loans: a word the Hungarian letters cannot read in full (x, w, sh, th, ee,
 # oo…) is looked up in the loan lexicons, English then Latin, and its sounds
-# fold into Hungarian ones the way a Hungarian says them: meeting -> mítinq,
+# fold into Hungarian ones the way a Hungarian says them: meeting -> mítiṇ,
 # like -> lájk. The fold is a rewrite over the transport segments, longest
 # rule first; draft, for native review.
 code: hu
@@ -41,17 +41,12 @@ names:                       # proper names no dictionary reads (not CMUdict, no
   ocho: ocso
 fold:
   aix: awix       # like -> lájk
-  aux: acu        # house -> hausz
+  aux: au         # house -> hausz
   eix: ew         # mail -> mél
   oux: ow         # show -> só
-  ojix: oix       # boy -> boj
+  ow: o           # dog -> dog
   aq: ecw         # bird -> bőrd
-  a: ac           # taxi -> täksi (short a, the ä of the script)
-  ac: aw          # car -> kár
   aj: ec          # but -> böt
-  ij: i           # bit -> bit
-  oj: o           # dog -> dog
-  uj: u           # book -> buk
   tx: t           # think -> tink
   dx: d           # that -> det
   ux: v           # web -> veb

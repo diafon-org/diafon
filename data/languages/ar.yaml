@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: ar
 name: Arabic (MSA)
+native_name: العربية
 speakers: {native: 380, total: 460}   # millions, rough 2025
 geminates: true
 consonants:

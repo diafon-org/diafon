@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: fi
 name: Finnish
+native_name: Suomi
 speakers: {native: 5.4, total: 5.8}   # millions, rough 2025
 geminates: true
 consonants:

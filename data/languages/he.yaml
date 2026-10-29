@@ -3,6 +3,7 @@
 # S infrequent · X marginal/loan. See data/README.md.
 code: he
 name: Hebrew
+native_name: עברית
 speakers: {native: 5, total: 9}   # millions, rough 2025
 consonants:
   p: M

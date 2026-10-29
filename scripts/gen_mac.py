@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Generate the macOS input method's data file from docs/spec.json:
-input_methods/mac/Sources/SpecData.swift.
+input_methods/apple/Core/SpecData.swift.
 
 The Swift engine mirrors scripts/engine.py rule for rule and takes its
 tables (script rules, stages, the forms in use) from here, so the input method
@@ -11,7 +11,7 @@ import json
 import os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(ROOT, 'input_methods', 'mac', 'Sources', 'SpecData.swift')
+OUT = os.path.join(ROOT, 'input_methods', 'apple', 'Core', 'SpecData.swift')
 
 
 def sstr(s):
@@ -58,6 +58,8 @@ enum SpecData {{
     static let marks: [String: Mark] = [
         {marks}]
     static let partner: [Character: Character] = [{', '.join(f'{sstr(k)}: {sstr(v)}' for k, v in sc['flip_partner'].items())}]
+    /// a tone digit -> its sign after the syllable (mid: none)
+    static let tones: [Character: String] = [{', '.join(f'{sstr(k)}: {sstr(v["sign"])}' for k, v in sc['tones'].items())}]
     /// the forms the languages use, which decide the reading of a glyph two forms share
     static let used: [String] = [{used}]
     static let stages: [String: Stage] = [

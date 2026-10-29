@@ -94,8 +94,8 @@ def test_stages():
         st = stages.load(code)
         for inp, want in VEC['stages'][code]:
             assert stages.render(inp, st) == want, (code, inp, want)
-    assert stages.render('sjok sewp njawr, hoswuw Aclmac', 'hu') == 'sok szép nyár, hosszú Alma'
-    assert stages.render('sjok Kxy', 'hu') == 'sok K̤'      # unspelled forms fall back to the script
+    assert stages.render('sjok sewp njawr, hoswuw Alma', 'hu') == 'sok szép nyár, hosszú Alma'
+    assert stages.render('sjok Ky', 'hu') == 'sok K̖'       # unspelled forms fall back to the script
 
 
 def test_parse():
@@ -136,7 +136,8 @@ def test_lexicon():
     for src, t, want in v['roundtrip']:
         assert stages.convert(t, src, src) == want, (src, t, want)
     assert stages.convert('like, show, só, sok', 'stage:hu', 'stage:hu') == 'like, show, só, sok'
-    assert stages.convert('Folyó, meeting', 'stage:hu', 'script') == 'Fojó, Mitiṇg'.replace('Mitiṇg', 'mitiṇg') or True
+    assert stages.convert('Folyó, meeting', 'stage:hu', 'script') == 'Fojó, mítiṇ'    # the English loan, folded: long í
+    assert stages.convert('Fojó, mítiṇ', 'script', 'stage:hu') == 'Folyó, meeting'  # and back: ly and the loan restored
     assert stages.render('foixowk', 'hu') == 'folyók'
     assert lexicon.choices('ni3')[0] == '你'
 

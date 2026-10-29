@@ -47,6 +47,8 @@ object SpecData {{
     val MARKS: Map<String, Mark> = mapOf(
         {marks})
     val PARTNER: Map<Char, Char> = mapOf({', '.join(f"'{k}' to '{v}'" for k, v in sc['flip_partner'].items())})
+    /** a tone digit -> its sign after the syllable (mid: none) */
+    val TONES: Map<Char, String> = mapOf({', '.join(f"'{k}' to {kstr(v['sign'])}" for k, v in sc['tones'].items())})
     val STAGES: Map<String, Stage> = mapOf(
         {stages})
 }}
