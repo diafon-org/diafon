@@ -75,6 +75,6 @@ translation.
 
 </div>
 
-<script src="play-data.js"></script>
-<script src="engine.js"></script>
-<script src="assets/master.js"></script>
+<script src="../play-data.js"></script>
+<script src="../engine.js"></script>
+<script src="../assets/master.js"></script>
