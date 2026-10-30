@@ -8,7 +8,7 @@ hide:
 
 # Learning
 
-<link rel="stylesheet" href="assets/learn.css">
+<link rel="stylesheet" href="../assets/learn.css">
 
 <div class="learn-bar" markdown="0">
   <label>language <select id="ln-lang" autocomplete="off"></select></label>
@@ -31,7 +31,7 @@ print and keep by the keyboard.</p>
   </div>
 </div>
 
-<script src="play-data.js"></script>
-<script src="engine.js"></script>
-<script src="learn-data.js"></script>
-<script src="assets/learn.js"></script>
+<script src="../play-data.js"></script>
+<script src="../engine.js"></script>
+<script src="../learn-data.js"></script>
+<script src="../assets/learn.js"></script>

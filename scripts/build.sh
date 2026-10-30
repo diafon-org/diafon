@@ -13,7 +13,6 @@ python3 scripts/gen_android.py
 python3 scripts/gen_mac.py
 python3 scripts/gen_site.py
 python3 scripts/gen_samples.py
-python3 scripts/gen_status.py
 mkdir -p docs/lexicon extensions/browser/lexicon && cp data/lexicon/*.json docs/lexicon/ && cp data/lexicon/*.json extensions/browser/lexicon/
 cp docs/engine.js extensions/browser/engine.js && cp docs/play-data.js extensions/browser/data.js   # the extension's copy
 rm -rf extensions/firefox && cp -r extensions/browser extensions/firefox && mv extensions/firefox/manifest.firefox.json extensions/firefox/manifest.json   # Firefox: a background script, not a worker

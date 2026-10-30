@@ -2,143 +2,17 @@
 
 **One keyboard, one script, many languages.**
 
-Diafon is a phonemic writing system with a matching input system. You type
-the sounds of many languages on the plain 26-letter keyboard you already
-have, and read them as one script, or as a language's own spelling.
+Diafon is a phonemic alphabet with a matching way to type it. Twenty Latin
+letters stand for sounds; the other six change the sound before them and
+show as small marks. A sound is written the same way in each language that
+has it, so one script and one keyboard layout serve many languages. The
+text is ordinary Unicode.
 
-| You type | Diafon | English spelling |
-|---|---|---|
-| `sji sejlz si sjejlz` | și sẹlz si șẹlz | she sells sea shells |
-
-A sound is written the same way in each language: English *sh*, Hungarian
-*s*, Czech *š* and Turkish *ş* are all typed `sj` and written ș.
-
-Site: **[diafon.io](https://diafon.io)**
-
-## How it works
-
-- Twenty letters are sounds: the vowels `a e i o u` and the consonants
-  `b d f g h k l m n p r s t v z`.
-- Six letters never stand alone; they change the sound before them:
-  `c j q x w y`. They are the letters the Latin alphabet wastes.
-- A sound is one letter plus at most two operators, then `w` for length.
-  Every typed line reads one way only.
-- On screen each operator becomes a small mark. The signature mark is the
-  **anchor**, a comma-like stroke attached to the letter: ș ț z̦.
-- The text is ordinary Unicode (Latin letters with combining marks), so any
-  app, file or message carries it.
-
-The site has four pages:
-
-- **[Diafon](https://diafon.io/)** explains the system: the letters, the
-  marks, how each letter covers an area of sounds, capitals, tones, text and
-  fonts, and a chart of every sound.
-- **[Learning](https://diafon.io/learn.html)** teaches it one idea at a time
-  in a chosen language, with example words, a typing drill per lesson and a
-  printable card.
-- **[Reference](https://diafon.io/master.html)** has the master table of
-  every letter and its readings, each language's own table, a try-out box,
-  a font check and sample texts.
-- **[Tools](https://diafon.io/tools.html)** lists the keyboards, the browser
-  extension and the fonts, with their state.
-
-A switch in the site's header shows its text in Diafon or in another
-language's spelling.
-
-## What is in this repository
-
-| Path | What it holds |
-|---|---|
-| `data/` | The source of truth: each language's phonemes (`languages/`), the phoneme to input form mapping (`mapping.yaml`), how forms draw (`script.yaml`), spelling stages (`stages/`) and lexicons (`lexicon/`). See `data/README.md`. |
-| `scripts/` | The reference engine (`engine.py`, `stages.py`, `lexicon.py`) and the generators for everything derived from the data. |
-| `docs/` | The documentation site (MkDocs Material), the JavaScript engine and the generated `spec.json`. |
-| `fonts/` | Diafon Serif, Sans and Mono, derived from Noto, with their build chain. See `fonts/README.md`. |
-| `input_methods/` | The keyboards: macOS, Android, iOS, on a shared Swift core for Apple. See `input_methods/README.md`. |
-| `extensions/` | The browser extension (Chrome, Edge, Brave, Firefox). |
-| `tests/` | The engine, spec, script, font and port tests. |
-
-## Implementing Diafon
-
-Everything that renders, reads or types Diafon consumes one file,
-`docs/spec.json`, generated from the data by `scripts/gen_spec.py`, and
-must reproduce its vectors: rendering, streaming, stages and reading back.
-The Python engine in `scripts/` is the reference; the JavaScript
-(`docs/engine.js`), Swift and Kotlin ports hold the same vectors.
-
-- **Input form**: the 26 letters and digits. A segment is one base, at
-  most two operators (c j q x y), then `w` at most once, then tone digits
-  (one tone shape per digit in every language; the script draws a sign after
-  the syllable, data/script.yaml `tones`).
-  An operator or digit never starts a segment; anything else passes
-  through raw.
-- **Script form**: the input rendered as base letters plus combining
-  marks, NFC-normalised. This is the text.
-- **Stages**: the script rendered in a language's current orthography
-  (`data/stages/`). Render-only: a stage never changes what a key means.
-- **Streaming**: everything before the last segment is final; a last
-  segment that may still grow stays pending until a character arrives that
-  cannot extend it.
-- **Reading back**: longest match over a table of spellings, with the
-  lexicons (`data/lexicon/`) for the spellings letters alone cannot decide.
-
-## Building
-
-The data drives everything. After changing anything in `data/`:
-
-```sh
-pip install mkdocs-material pyyaml
-scripts/build.sh          # every generator, the tests, and the site into site/
-```
-
-To work on the documentation alone:
-
-```sh
-python3 scripts/gen_master.py   # the master tables, after a mapping change
-python3 scripts/gen_site.py     # the figures of the main page
-python3 scripts/gen_learn.py    # the lessons of the Learning page
-python3 scripts/gen_samples.py  # the sample texts of the Reference page
-python3 -m mkdocs serve         # http://127.0.0.1:8000
-```
-
-The site is published to GitHub Pages by `.github/workflows/docs.yml` on
-every push to `main`.
-
-## Status
-
-<!-- status: generated by scripts/gen_status.py -->
-32 languages carry a phoneme inventory and a mapping; 3 mappings are reviewed, 1 of them by a native speaker; 6 have a draft spelling stage; 4 have a lexicon. The Reference page lists every language with its state.
-
-| Deliverable | State |
-|---|---|
-| docs/spec.json, versioned | vectors done, version field open |
-| Streaming commit rule in the engine | done |
-| Stages: hu fi tr cs pl sw (the orthographies writable per form without context); a stage format with context for es it ro de et id | six drafted, native review open; context format open |
-| Transport font: a liga variant that composes typed transport text into the script in any app with a font menu; ligature sets from the form list in spec.json, longest first, mirroring the greedy tokenizer | open |
-| Span marker and settings schema in the description | open |
-| macOS input method, Input Method Kit, on spec.json | done |
-| m17n table for IBus and fcitx5, generated from spec.json, no native code | open |
-| Browser extension (Chrome, Firefox, Safari) on docs/engine.js: any page read in Universal, on and off from the icon; then input into editable fields | pages done, fields open |
-| Android input method, input_methods/android | done |
-| Windows Text Services Framework service, Rust | open |
-| Learning page (docs/learn.md, scripts/gen_learn.py): per language, the concepts one at a time: the plain letters, each operator in the order the language uses it most, length, the y forms, sequences, tones, capitals; each lesson with the language's own sounds, example words that use only what is already taught, and a typing drill; a printable card of every sound. Then an IPA to Diafon converter for dictionary and Wiktionary use, and a names page | Learning page done (example words for en hu zh cs fi pl tr, native review open); converter and names page open |
-| Telegram inline bot; Slack and Discord commands | open |
-| Licences, trademark policy, contributor CLA | licences done (LICENSE, LICENSE-docs, fonts/OFL.txt, NOTICE.md); trademark policy and CLA open |
-| /support line on every surface | open |
-| Spike: Keyman (one package for Windows, macOS, Linux, Android, iOS and web) or RIME as a single schema; adopted only if it auto-commits per the streaming rule | open |
-| Reading back: parse, convert, detect in the engine, every source to every target, in every port | done for Python, JS, Swift; Kotlin open |
-| The lexicon layer: English both ways (CMUdict), Hungarian ly stems and loans (Magyar Ispell, folding), Mandarin pinyin syllables and the character chooser (Unihan); one format, one loader, in Python, JS and Swift; the Mac input method's Mandarin mode | done (draft folding, native review open); Kotlin open |
-| iOS keyboard extension, input_methods/ios, on the shared Swift core (apple/Core) | keyboard and app build; simulator UI test passes in both tail modes; device pass open |
-<!-- /status -->
-
-**Native reviewers wanted.** A language's mapping is final only when a
-native or expert reviewer has checked it. Each language's table on the
-Reference page shows what there is to check.
+Documentation, lessons and tools: **[diafon.io](https://diafon.io)**
 
 ## Licence
 
-Diafon is a writing system: anyone may use, write, teach and implement it.
-
-- Code: MIT (`LICENSE`).
-- Fonts: SIL Open Font License 1.1 (`fonts/OFL.txt`).
-- Docs and hand-written data: CC BY 4.0 (`LICENSE-docs`).
-- Generated lexicons: the terms of their sources (`NOTICE.md`).
+Anyone may use, write, teach and implement Diafon. Code is MIT (`LICENSE`),
+the fonts are SIL OFL 1.1 (`fonts/OFL.txt`), docs and data are CC BY 4.0
+(`LICENSE-docs`), and the generated lexicons keep their sources' terms
+(`NOTICE.md`).

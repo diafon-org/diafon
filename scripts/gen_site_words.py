@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The site's own words, read once (site/*.html after the build, and the page
+"""The site's own words, read once (site/**/*.html after the build, and the page
 scripts that write text) -> docs/assets/site-words.js and site/assets/: the
 English lexicon's reading of every word the site uses, so the script switch in
 the header (assets/site.js) can show the site in Diafon without loading the
@@ -13,7 +13,7 @@ WORD = re.compile(r"[A-Za-z][A-Za-z']*[A-Za-z]")       # one letter is a letter 
 
 
 def site_text():
-    for path in glob.glob(os.path.join(ROOT, 'site', '*.html')):
+    for path in glob.glob(os.path.join(ROOT, 'site', '**', '*.html'), recursive=True):
         s = open(path, encoding='utf-8').read()
         s = re.sub(r'<(script|style|code|pre|svg)\b.*?</\1>', ' ', s, flags=re.S)
         yield html.unescape(re.sub(r'<[^>]+>', ' ', s))
