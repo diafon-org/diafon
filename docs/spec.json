@@ -1,7 +1,7 @@
 {
  "name": "Diafon",
  "generated": "2026-10-31",
- "source": "c0bb93c",
+ "source": "eed04ae",
  "alphabet": {
   "consonant_bases": [
    "b",
@@ -3037,9 +3037,10 @@
     "aɪ": {
      "languages": [
       "de",
-      "en"
+      "en",
+      "zh"
      ],
-     "native": 456.0
+     "native": 1396.0
     }
    },
    "primary": "aɪ"
@@ -3054,9 +3055,10 @@
     "aʊ": {
      "languages": [
       "de",
-      "en"
+      "en",
+      "zh"
      ],
-     "native": 456.0
+     "native": 1396.0
     }
    },
    "primary": "aʊ"
@@ -3070,9 +3072,10 @@
    "readings": {
     "eɪ": {
      "languages": [
-      "en"
+      "en",
+      "zh"
      ],
-     "native": 380.0
+     "native": 1320.0
     },
     "ɛi": {
      "languages": [
@@ -3092,9 +3095,10 @@
    "readings": {
     "oʊ": {
      "languages": [
-      "en"
+      "en",
+      "zh"
      ],
-     "native": 380.0
+     "native": 1320.0
     }
    },
    "primary": "oʊ"
@@ -9938,10 +9942,28 @@
       "freq": "L"
      }
     ],
+    "aix": [
+     {
+      "ipa": "aɪ",
+      "freq": "M"
+     }
+    ],
     "aq": [
      {
       "ipa": "ɚ",
       "freq": "S"
+     }
+    ],
+    "aux": [
+     {
+      "ipa": "aʊ",
+      "freq": "M"
+     }
+    ],
+    "eix": [
+     {
+      "ipa": "eɪ",
+      "freq": "M"
      }
     ],
     "f": [
@@ -10011,6 +10033,12 @@
      },
      {
       "ipa": "ə",
+      "freq": "M"
+     }
+    ],
+    "oux": [
+     {
+      "ipa": "oʊ",
       "freq": "M"
      }
     ],
@@ -14121,8 +14149,20 @@
      "a"
     ],
     [
+     "aix",
+     "ai"
+    ],
+    [
      "aq",
      "er"
+    ],
+    [
+     "aux",
+     "ao"
+    ],
+    [
+     "eix",
+     "ei"
     ],
     [
      "f",
@@ -14167,6 +14207,10 @@
     [
      "oc",
      "e"
+    ],
+    [
+     "oux",
+     "ou"
     ],
     [
      "p",
