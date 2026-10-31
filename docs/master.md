@@ -28,6 +28,18 @@ typing box are below the tables.</p>
 </div>
 
 
+<div class="mt-samples" id="mt-samples" markdown="1">
+
+## Sample texts
+
+Longer texts in the picked language, read from their usual spelling and
+shown in Diafon. Texts in a language other than English come with an English
+translation.
+
+--8<-- "samples.html"
+
+</div>
+
 ## Check a font
 
 <div class="fontcheck" markdown="0">
@@ -64,18 +76,6 @@ typing box are below the tables.</p>
     <input type="text" id="mt-custom" placeholder="or any installed font" autocomplete="off" spellcheck="false">
     <span class="mt-summary" id="mt-summary"></span>
   </div>
-</div>
-
-<div class="mt-samples" id="mt-samples" markdown="1">
-
-## Sample texts
-
-Longer texts in the picked language, read from their usual spelling and
-shown in Diafon. Texts in a language other than English come with an English
-translation.
-
---8<-- "samples.html"
-
 </div>
 
 <script src="../play-data.js"></script>

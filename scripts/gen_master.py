@@ -301,7 +301,7 @@ def universal_table(agg, shares):
     langs = load_languages()
     name = lambda c: lang_name(langs[c]) if c in langs else c
     total = sum(d['speakers']['native'] for d in langs.values())
-    out = ['<section id="sec-universal" data-name="Diafon">', '<h2 id="universal">Diafon: every letter in use</h2>',
+    out = ['<section id="sec-universal" data-name="All languages supported by Diafon">', '<h2 id="universal">Diafon: every letter in use</h2>',
            facts([('covers', [(len(langs), 'languages'), (fmt(total), 'native speakers')]),
                   ('letters in use', [(len(rows), 'letters')])]),
            '<p class="lede">Every letter any language uses, grouped by how many keys it takes, then by '
