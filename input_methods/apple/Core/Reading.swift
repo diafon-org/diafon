@@ -178,7 +178,7 @@ extension Stages {
 
     /// A text from one source rendered in another; back into the same spelling, a
     /// word read as a loan goes out as it came (like stays like).
-    static func convert(_ text: String, _ source: String, _ target: String, tones: Bool = true) -> String {
+    static func convert(_ text: String, _ source: String, _ target: String, tones: Bool = true, join: Bool = false) -> String {
         if source == target, source.hasPrefix("stage:"), let st = SpecData.stages[String(source.dropFirst(6))] {
             let nfcText = Engine.nfc(text)
             let u = nfcText.unicodeScalars
@@ -194,7 +194,7 @@ extension Stages {
         let t = parse(text, source)
         if target == "transport" { return t }
         if target.hasPrefix("stage:"), let st = SpecData.stages[String(target.dropFirst(6))] { return render(t, st, strict: false, tones: tones) }
-        return Engine.lenient(t, tones: tones)
+        return Engine.lenient(t, tones: tones, join: join)
     }
 
     private static func letters(_ s: String) -> Int {

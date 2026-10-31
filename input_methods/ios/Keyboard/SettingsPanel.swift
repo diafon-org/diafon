@@ -13,7 +13,7 @@ final class SettingsPanel: UIView {
     private let languages = UIStackView()
     private let layoutPicker = UISegmentedControl(items: Layouts.all.map(\.label))
     private let sample = UILabel()
-    private let tones = UISwitch(), strict = UISwitch(), marked = UISwitch()
+    private let tones = UISwitch(), join = UISwitch(), strict = UISwitch(), marked = UISwitch()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -83,6 +83,7 @@ final class SettingsPanel: UIView {
         stack.addArrangedSubview(layoutPicker)
 
         stack.addArrangedSubview(toggle(tones, "Keep tone digits") { [weak self] in self?.prefs.tones = $0; self?.refresh() })
+        stack.addArrangedSubview(toggle(join, "Join long consonants") { [weak self] in self?.prefs.join = $0; self?.refresh() })
         stack.addArrangedSubview(toggle(strict, "Mark ill-formed letters on the strip") { [weak self] in self?.prefs.strict = $0 })
         stack.addArrangedSubview(toggle(marked, "Underline the letter being typed") { [weak self] in self?.prefs.tailMode = $0 ? .marked : .replace })
         let hint = caption("Turn this off if an app duplicates or drops letters while you type.")
@@ -112,6 +113,7 @@ final class SettingsPanel: UIView {
         sample.text = typed.isEmpty ? "" : "\(typed)  →  \(prefs.renderer()(typed))"
         layoutPicker.selectedSegmentIndex = Layouts.all.firstIndex { $0.code == prefs.layout } ?? 0
         tones.isOn = prefs.tones
+        join.isOn = prefs.join
         strict.isOn = prefs.strict
         marked.isOn = prefs.tailMode == .marked
     }
