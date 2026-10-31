@@ -77,6 +77,24 @@ new MutationObserver(recs => {
   }
 }).observe(document.body, {childList: true, subtree: true});
 
+// ---- the tones above the syllable (the Diafon fonts' calt) rise well over the
+// letters: a line that carries one gets the room for them (.tonal)
+const TONAL = /\p{L}\p{M}*[ˉˊˇˋ]/u;
+function tonal(root){
+  const it = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  while (it.nextNode()){
+    const n = it.currentNode;
+    if (n.parentElement && TONAL.test(n.nodeValue)) n.parentElement.classList.add('tonal');
+  }
+}
+tonal(document.body);
+new MutationObserver(recs => {
+  for (const r of recs){
+    if (r.type === 'characterData') tonal(r.target.parentElement || document.body);
+    else r.addedNodes.forEach(n => tonal(n.nodeType === 1 ? n : n.parentElement || document.body));
+  }
+}).observe(document.body, {childList: true, characterData: true, subtree: true});
+
 // ---- the switches
 function spellings(){
   return typeof SITE_SPELLINGS !== 'undefined' ? Promise.resolve() : load('assets/site-words.js');

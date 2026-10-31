@@ -14,7 +14,9 @@ regenerate that first), then apply the glyph surgery:
   FOOT, the same terminal the font's own descenders wear;
 - the comma above (U+0313) and NEW its mirror (U+0314), upright acutes;
 - NEW the double dot below (U+0324): two copies of the font's dot below;
-- NEW precomposed ḷ ṃ ṿ, composed like their existing siblings.
+- NEW precomposed ḷ ṃ ṿ, composed like their existing siblings;
+- NEW the tones above the syllable (tone<d>.above, tone<d>.syl<n>): the
+  pinyin shapes, two letters wide, high over the marks.
 
 The text is the composition (base letter + the system's combining marks,
 NFC), so the font carries the marks with their attachment and the baked
@@ -977,6 +979,72 @@ def _precomposed(font):
     print(f'  precomposed added: {" ".join(chr(c) for c in NEW_PRECOMPOSED)}')
 
 
+# The tones above the syllable: the pinyin shapes, two letters wide, in a band
+# well over the marks (which top out near 766). Points are (t across, level),
+# level on the 1-5 pitch scale of the band; keyed by contour (data/script.yaml).
+TONE_BAND = (880, 1180)
+TONE_SHAPES = {
+    'high':    [(0, 4), (1, 4)],
+    'rising':  [(0.15, 1.5), (0.85, 5)],
+    'dipping': [(0.1, 5), (0.5, 1.5), (0.9, 5)],
+    'falling': [(0.15, 5), (0.85, 1.5)],
+}
+TONE_SYLLABLE_MAX = 6       # letters a syllable variant reaches back over
+
+
+def _tone_glyphs(font):
+    """tone<d>.above: the tone's shape centred on 0, stroked at the weight of the
+    font's own macron; tone<d>.syl<n>: that shape, no advance, set back over the
+    n letters before the sign (make_ufo.py writes the calt rule that picks it)."""
+    import pathops
+    import yaml as _yaml
+    from fontTools.pens.cu2quPen import Cu2QuPen
+    from fontTools.pens.ttGlyphPen import TTGlyphPen
+    from fontTools.ttLib.tables._g_l_y_f import Glyph, GlyphComponent
+    glyf, cmap, hmtx = font['glyf'], font.getBestCmap(), font['hmtx']
+    gs = font.getGlyphSet()
+    _, _, m_lo, m_hi = _outline(gs, cmap[0x02C9])
+    weight = m_hi - m_lo
+    letters = [hmtx[cmap[ord(c)]][0] for c in 'abcdefghijklmnopqrstuvwxyz']
+    em_letter = sum(letters) / len(letters)       # a letter's width, on average
+    span = 2 * em_letter - weight                 # two letters, the round caps included
+    lo, hi = TONE_BAND
+    tones = _yaml.safe_load(open(os.path.join(ROOT, 'data', 'script.yaml')))['tones']
+    made = []
+    for d, t in tones.items():
+        shape = TONE_SHAPES.get(t['contour'])
+        if not shape or not t['sign']:
+            continue
+        pts = [(-span / 2 + x * span, lo + (lv - 1) / 4 * (hi - lo)) for x, lv in shape]
+        line = pathops.Path()
+        line.moveTo(*pts[0])
+        for p in pts[1:]:
+            line.lineTo(*p)
+        line.stroke(weight, pathops.LineCap.ROUND_CAP, pathops.LineJoin.ROUND_JOIN, 4)
+        line.convertConicsToQuads()              # the round caps come as conics
+        ink = pathops.simplify(line, clockwise=True)
+        tt = TTGlyphPen(None)
+        ink.draw(Cu2QuPen(tt, 1, reverse_direction=False))
+        name = f'tone{d}.above'
+        glyf[name] = tt.glyph()
+        glyf[name].recalcBounds(glyf)
+        hmtx[name] = (0, glyf[name].xMin)
+        _register(font, name)
+        for n in range(1, TONE_SYLLABLE_MAX + 1):
+            g = Glyph()
+            g.numberOfContours = -1
+            c = GlyphComponent(); c.glyphName = name
+            c.x, c.y = round(-n * em_letter / 2), 0; c.flags = 0x004
+            g.components = [c]
+            vname = f'tone{d}.syl{n}'
+            glyf[vname] = g
+            g.recalcBounds(glyf)
+            hmtx[vname] = (0, g.xMin)
+            _register(font, vname)
+        made.append(t['sign'])
+    print(f'  tones above: {" ".join(made)} · {TONE_SYLLABLE_MAX} syllable lengths')
+
+
 def build(key='serif'):
     from fontTools.ttLib import TTFont
     from fontTools.subset import Subsetter, Options
@@ -1008,6 +1076,7 @@ def build(key='serif'):
     svg_done = font_svg.import_overrides(font, fam['key'], final=False) if font_svg else []
     _anchor_glyphs(font, skip_0324='uni0324' in svg_done)
     _precomposed(font)
+    _tone_glyphs(font)
     if font_svg:
         svg_done += font_svg.import_overrides(font, fam['key'], skip=set(svg_done))
 

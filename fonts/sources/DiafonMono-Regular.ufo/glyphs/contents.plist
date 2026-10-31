@@ -748,6 +748,62 @@
     <string>tilde.glif</string>
     <key>tildecomb</key>
     <string>tildecomb.glif</string>
+    <key>tone1.above</key>
+    <string>tone1.above.glif</string>
+    <key>tone1.syl1</key>
+    <string>tone1.syl1.glif</string>
+    <key>tone1.syl2</key>
+    <string>tone1.syl2.glif</string>
+    <key>tone1.syl3</key>
+    <string>tone1.syl3.glif</string>
+    <key>tone1.syl4</key>
+    <string>tone1.syl4.glif</string>
+    <key>tone1.syl5</key>
+    <string>tone1.syl5.glif</string>
+    <key>tone1.syl6</key>
+    <string>tone1.syl6.glif</string>
+    <key>tone2.above</key>
+    <string>tone2.above.glif</string>
+    <key>tone2.syl1</key>
+    <string>tone2.syl1.glif</string>
+    <key>tone2.syl2</key>
+    <string>tone2.syl2.glif</string>
+    <key>tone2.syl3</key>
+    <string>tone2.syl3.glif</string>
+    <key>tone2.syl4</key>
+    <string>tone2.syl4.glif</string>
+    <key>tone2.syl5</key>
+    <string>tone2.syl5.glif</string>
+    <key>tone2.syl6</key>
+    <string>tone2.syl6.glif</string>
+    <key>tone3.above</key>
+    <string>tone3.above.glif</string>
+    <key>tone3.syl1</key>
+    <string>tone3.syl1.glif</string>
+    <key>tone3.syl2</key>
+    <string>tone3.syl2.glif</string>
+    <key>tone3.syl3</key>
+    <string>tone3.syl3.glif</string>
+    <key>tone3.syl4</key>
+    <string>tone3.syl4.glif</string>
+    <key>tone3.syl5</key>
+    <string>tone3.syl5.glif</string>
+    <key>tone3.syl6</key>
+    <string>tone3.syl6.glif</string>
+    <key>tone4.above</key>
+    <string>tone4.above.glif</string>
+    <key>tone4.syl1</key>
+    <string>tone4.syl1.glif</string>
+    <key>tone4.syl2</key>
+    <string>tone4.syl2.glif</string>
+    <key>tone4.syl3</key>
+    <string>tone4.syl3.glif</string>
+    <key>tone4.syl4</key>
+    <string>tone4.syl4.glif</string>
+    <key>tone4.syl5</key>
+    <string>tone4.syl5.glif</string>
+    <key>tone4.syl6</key>
+    <string>tone4.syl6.glif</string>
     <key>trademark</key>
     <string>trademark.glif</string>
     <key>two</key>

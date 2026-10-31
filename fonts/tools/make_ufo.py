@@ -15,7 +15,8 @@ What the UFO carries:
 - mark anchors as extracted from Noto's GPOS (fontmake writes mark and mkmk);
 - our own features.fea: ccmp for the baked letter+mark pairs (a base plus a
   combining mark renders as its composition, as the composed-marks stage
-  writes it) and the dotless i/j under above marks; liga for fi fl ff;
+  writes it) and the dotless i/j under above marks; liga for fi fl ff; calt
+  for the tones above the syllable (switched off, the sign follows it);
 - font info to Google Fonts' rules, glyph categories for GDEF, the meta table.
 
     python3 fonts/tools/make_ufo.py [serif|sans|mono] [derived.ttf] [out.ufo]
@@ -49,6 +50,7 @@ def reachable(ufo):
     for dn in ('dotlessi', 'uni0237', 'dotlessj', 'uni25CC'):
         if dn in ufo:
             keep.add(dn)
+    keep |= {g.name for g in ufo if re.fullmatch(r'tone\d+\.syl\d+', g.name)}   # the calt targets
     stack = list(keep)
     while stack:                       # components pull their parts along
         g = ufo[stack.pop()]
@@ -64,9 +66,43 @@ def is_mark(g):
         g.width == 0 and any(a.name.startswith('_') for a in g.anchors))
 
 
+def is_letter(g):
+    """A letter of a syllable: a letter codepoint (not a modifier, which the
+    tone signs are), a baked composition, a dotless form or a ligature."""
+    if g.unicodes:
+        return unicodedata.category(chr(g.unicodes[0])) in ('Lu', 'Ll', 'Lt', 'Lo')
+    return bool(re.fullmatch(r'.+_uni[0-9A-F]{4}', g.name)) or g.name in (
+        'dotlessi', 'uni0237', 'dotlessj') or g.name in LIGAS
+
+
+def tone_rules(ufo):
+    """calt: a tone sign after a syllable of n letters -> tone<d>.syl<n>, its
+    shape set back over the syllable; marks are skipped, so a letter with its
+    marks counts once. The longest syllable is tried first; a space, a mark
+    of punctuation or the previous tone sign ends the syllable."""
+    import yaml
+    tones = yaml.safe_load(open(os.path.join(ROOT, 'data', 'script.yaml')))['tones']
+    by_cp = {u: g.name for g in ufo for u in g.unicodes}
+    signs = [(by_cp[ord(t['sign'])], d) for d, t in tones.items()
+             if t['sign'] and ord(t['sign']) in by_cp and f'tone{d}.syl1' in ufo]
+    if not signs:
+        return []
+    longest = max(int(m.group(1)) for g in ufo
+                  if (m := re.fullmatch(r'tone\d+\.syl(\d+)', g.name)))
+    letters = sorted(g.name for g in ufo if is_letter(g) and not is_mark(g))
+    fea = ['@letter = [' + ' '.join(letters) + '];',
+           '@tone = [' + ' '.join(s for s, _ in signs) + '];']
+    for n in range(1, longest + 1):
+        fea.append(f'@tone_syl{n} = [' + ' '.join(f'tone{d}.syl{n}' for _, d in signs) + '];')
+    fea += ['', 'feature calt {', '    lookupflag IgnoreMarks;']
+    for n in range(longest, 0, -1):
+        fea.append('    sub ' + '@letter ' * n + f"@tone' by @tone_syl{n};")
+    return fea + ['} calt;', '']
+
+
 def features(ufo):
     """ccmp: base + combining mark -> the baked composition; dotless i j under
-    above marks; liga for the f ligatures."""
+    above marks; liga for the f ligatures; calt for the tones above."""
     names = {g.name for g in ufo}
     by_cp = {u: g.name for g in ufo for u in g.unicodes}   # the mark's real name
     subs = []                                                # (acutecomb, not uni0301)
@@ -93,6 +129,7 @@ def features(ufo):
     fea += ['feature ccmp {'] + subs + (['    lookup dotless {'] + dotless + ['    } dotless;'] if dotless and above else []) + ['} ccmp;', '']
     if ligas:
         fea += ['feature liga {'] + ligas + ['} liga;', '']
+    fea += tone_rules(ufo)
     return '\n'.join(fea), len(subs)
 
 
@@ -157,6 +194,15 @@ def main(argv):
     sel.add(7)                                     # USE_TYPO_METRICS
     info.openTypeOS2Selection = sorted(sel)
     info.openTypeHeadCreated = None
+    # Windows clips ink above the win ascent: the tones above reach over it
+    from fontTools.pens.boundsPen import BoundsPen
+    top = 0
+    for g in ufo:
+        bp = BoundsPen(ufo)
+        g.draw(bp)
+        if bp.bounds:
+            top = max(top, bp.bounds[3])
+    info.openTypeOS2WinAscent = max(info.openTypeOS2WinAscent or 0, int(top + 0.999))
     os.makedirs(os.path.dirname(out), exist_ok=True)
     if os.path.isdir(out):
         import shutil

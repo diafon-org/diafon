@@ -149,9 +149,13 @@ using the Bopomofo tone marks: `ma1 ma2 ma3 ma4`
 | Tone | high | rising | dipping | falling | mid | low | glottal rising | glottal low |
 | Sign | <span class="ug">ˉ</span> | <span class="ug">ˊ</span> | <span class="ug">ˇ</span> | <span class="ug">ˋ</span> | none | <span class="ug">ˍ</span> | <span class="ug">˜</span> | <span class="ug">ˀ</span> |
 
-Mid tone has no sign, as in Thai and Vietnamese spelling. The sign never
-sits on the vowel, so the vowel keeps its own marks. A language's own
-spelling can still show tones its usual way, like the accents of Pinyin.
+Mid tone has no sign, as in Thai and Vietnamese spelling. In the text the
+sign follows the syllable, so the vowel keeps its own marks. The Diafon
+fonts draw the high, rising, dipping and falling tones above the syllable
+instead, two letters wide and well clear of its marks. Other fonts, or the
+Diafon fonts with contextual alternates turned off, show the sign after the
+syllable. A language's own spelling can still show tones its usual way,
+like the accents of Pinyin.
 
 ## Text and fonts
 
