@@ -18,7 +18,7 @@ final class ConvertModel: ObservableObject {
         source = Stages.sourceFor(text, target: current, prefer: Prefs.shared.preferredSources)
         target = current
     }
-    var result: String { Stages.convert(text, source, target, tones: Prefs.shared.tones) }
+    var result: String { Stages.convert(text, source, target, tones: Prefs.shared.tones, join: Prefs.shared.join) }
     var confidence: String {
         guard let top = detected.first else { return "" }
         let pct = Int((top.1 * 100).rounded())
