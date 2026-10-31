@@ -1003,7 +1003,8 @@ def tone_letter(hmtx, cmap):
 
 def _tone_glyphs(font):
     """tone<d>.w<h>: the tone's shape, h half letters wide less
-    the gaps (at least TONE_MIN of a letter, at most two), centred on 0 with no advance, stroked
+    the gaps (at least TONE_MIN of a letter, at most two), scaled evenly so its
+    angles stay those of the full tone, centred on 0 with no advance, stroked
     at the weight of the font's own macron. make_ufo.py writes the rules that
     put it there: calt picks the width by the syllable's letters, dist sets it
     back by half of each letter's advance, so it centres on the syllable."""
@@ -1023,9 +1024,14 @@ def _tone_glyphs(font):
         shape = TONE_SHAPES.get(t['contour'])
         if not shape or not t['sign']:
             continue
+        full = (2 - 2 * TONE_GAP) * letter - weight         # the two-letter tone, the round caps inside
+        ys = [lo + (lv - 1) / 4 * (hi - lo) for _, lv in shape]
+        mid = (min(ys) + max(ys)) / 2
         for h in TONE_HALVES:
-            span = max(TONE_MIN, min(2, h / 2) - 2 * TONE_GAP) * letter - weight   # the round caps inside
-            pts = [(-span / 2 + x * span, lo + (lv - 1) / 4 * (hi - lo)) for x, lv in shape]
+            # a shorter tone is the full one scaled down about its own middle: the same angles,
+            # so a short rise reads as the same rise, and a level tone keeps its height
+            k = (max(TONE_MIN, min(2, h / 2) - 2 * TONE_GAP) * letter - weight) / full
+            pts = [((x - 0.5) * full * k, mid + (y - mid) * k) for (x, _), y in zip(shape, ys)]
             line = pathops.Path()
             line.moveTo(*pts[0])
             for p in pts[1:]:
