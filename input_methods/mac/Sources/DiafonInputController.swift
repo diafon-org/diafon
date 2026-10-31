@@ -311,7 +311,7 @@ public class DiafonInputController: IMKInputController {
         let p = prefs
         let target = p.enabled ? p.output : "script"
         let source = Stages.sourceFor(text, target: target, prefer: p.preferredSources)
-        client.insertText(Stages.convert(text, source, target, tones: p.tones), replacementRange: range)
+        client.insertText(Stages.convert(text, source, target, tones: p.tones, join: p.join), replacementRange: range)
     }
 
     @objc func convertSelectionChoosing(_ sender: Any!) {

@@ -62,7 +62,7 @@ the old content script.
     lexicon/          the lexicons (data/lexicon/*.json), fetched on demand for the page's language and its loans
     icons/            the round icon in its two states, on-*.png and off-*.png, from fonts/tools/logo.py
 
-Settings live in chrome.storage.sync: `on`; `keepNames`; `langs`, host → code for the
+Settings live in chrome.storage.sync: `on`; `keepNames`; `join`, a long consonant's letters joined by a ZWJ; `langs`, host → code for the
 sites picked by hand; `entries`, code → {spelling: said}, the reader's own. `#diafon=on` on a URL turns it on without the icon
 (for tests); the root element carries `data-diafon` (loaded) and
 `data-diafon-state` (on|off/language) for the same reason.

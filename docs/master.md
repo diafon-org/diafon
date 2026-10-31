@@ -26,6 +26,7 @@ typing box are below the tables.</p>
   <div class="tryout-row tryout-opts">
     <label><input type="checkbox" id="try-orig"> usual spelling</label>
     <label><input type="checkbox" id="try-tones" checked> tones above the syllable</label>
+    <label><input type="checkbox" id="try-join"> joined long consonants</label>
   </div>
 </div>
 

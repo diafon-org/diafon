@@ -85,6 +85,7 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         root.addArrangedSubview(check("A bare Shift tap switches conversion off and on; quick taps walk the cycle", p.shiftToggle) { Prefs.shared.shiftToggle = $0 })
         root.addArrangedSubview(note("While a segment is still underlined, Tab (or ↓) opens the candidate window with that segment in every spelling: arrows pick one, Return takes it, Escape closes; digits stay tones."))
         root.addArrangedSubview(check("Tone digits", p.tones) { Prefs.shared.tones = $0 })
+        root.addArrangedSubview(check("Joined long consonants: the Diafon fonts draw them fused; other fonts show the letter twice", p.join) { Prefs.shared.join = $0 })
         root.addArrangedSubview(note("Convert text in any spelling: select it in any app, then Diafon menu → Convert selection, or right-click → Services → Convert with Diafon."))
         root.addArrangedSubview(note("Spec \(SpecData.generated) · \(SpecData.source)"))
 

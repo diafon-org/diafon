@@ -1,5 +1,6 @@
 // The settings, shared in name and default with every Diafon input method
-// (plan.md, question 4): output, language, tones, strict, enabled, toggle.
+// (plan.md, question 4): output, language, tones, join, strict, enabled,
+// toggle.
 import Foundation
 
 final class Prefs {
@@ -69,18 +70,21 @@ final class Prefs {
 
     /// Keep tone digits in the output.
     var tones: Bool { get { bool("tones", true) } set { set(newValue, "tones") } }
+    /// Join a long consonant's two letters with a ZWJ (the Diafon fonts draw them
+    /// fused); off, a plain double.
+    var join: Bool { get { bool("join", false) } set { set(newValue, "join") } }
     /// Flag ill-formed segments (they still pass through).
     var strict: Bool { get { bool("strict", false) } set { set(newValue, "strict") } }
 
     /// The lenient renderer for an output.
     func renderer(_ out: String? = nil) -> (String) -> String {
         let out = out ?? output
-        let tones = self.tones
+        let tones = self.tones, join = self.join
         if out == "transport" { return { $0 } }
         if out.hasPrefix("stage:"), let st = SpecData.stages[String(out.dropFirst(6))] {
             return { Stages.render($0, st, strict: false, tones: tones) }
         }
-        return { Engine.lenient($0, tones: tones) }
+        return { Engine.lenient($0, tones: tones, join: join) }
     }
 
     func label(_ out: String? = nil) -> String {
