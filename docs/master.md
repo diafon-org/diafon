@@ -6,11 +6,11 @@ hide:
 
 # Reference
 
-## Tables
-
 <div class="mt-bar" markdown="0">
-  <label>language <select id="mt-table" autocomplete="off"></select></label>
+  <label>table <select id="mt-table" autocomplete="off"></select></label>
 </div>
+
+## Tables
 
 <p class="mt-lede">Every Diafon letter with its readings, and each
 language's own table. Pick a language to see its table. An example and the
@@ -26,7 +26,7 @@ typing box are below the tables.</p>
   <textarea id="try-in" spellcheck="false" rows="3" placeholder="Type in Diafon, for example: sjip, tqokolawda, ni3kxaux3" aria-label="Diafon typing"></textarea>
   <div class="tryout-out" id="try-out"></div>
   <div class="tryout-row tryout-opts">
-    <label>result <select id="try-as" autocomplete="off"><option value="diafon" selected>Diafon</option><option value="pinyin">Pinyin (Mandarin)</option></select></label>
+    <label><input type="checkbox" id="try-orig"> usual spelling</label>
     <label><input type="checkbox" id="try-tones" checked> tones above the syllable</label>
   </div>
 </div>
@@ -42,44 +42,6 @@ translation.
 
 --8<-- "samples.html"
 
-</div>
-
-## Check a font
-
-<div class="fontcheck" markdown="0">
-  <p class="tryout-help">Show every Diafon letter on this page in another font. A red outline
-  means the font leaves the mark out; amber means another font steps in.</p>
-  <div class="mt-bar fontbar">
-    <label>font <select id="mt-font" autocomplete="off">
-      <optgroup label="Diafon">
-        <option value="Diafon" selected>Diafon Serif</option>
-        <option value="Diafon Sans">Diafon Sans</option>
-        <option value="Diafon Mono">Diafon Mono</option>
-      </optgroup>
-      <optgroup label="popular">
-        <option>Arial</option>
-        <option>Times New Roman</option>
-        <option>Georgia</option>
-        <option>Verdana</option>
-        <option>Helvetica</option>
-        <option>Calibri</option>
-        <option>Segoe UI</option>
-        <option>Roboto</option>
-        <option>Noto Serif</option>
-        <option>Noto Sans</option>
-        <option>Charis SIL</option>
-        <option>Gentium Plus</option>
-      </optgroup>
-      <optgroup label="browser defaults">
-        <option value="serif">serif</option>
-        <option value="sans-serif">sans-serif</option>
-        <option value="monospace">monospace</option>
-        <option value="system-ui">system-ui</option>
-      </optgroup>
-    </select></label>
-    <input type="text" id="mt-custom" placeholder="or any installed font" autocomplete="off" spellcheck="false">
-    <span class="mt-summary" id="mt-summary"></span>
-  </div>
 </div>
 
 <script src="../play-data.js"></script>

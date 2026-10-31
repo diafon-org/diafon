@@ -132,7 +132,7 @@
 /* ---- the master tables */
 .md-typeset .g{font-family:var(--glyph,var(--serif))}
 .md-typeset .mt-lede{color:var(--muted);max-width:52rem}
-.md-typeset .mt-bar{position:sticky;top:2.4rem;z-index:3;display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1.2rem;
+.md-typeset .mt-bar{position:static;display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1.2rem;
   margin:1rem 0;padding:.6rem .8rem;background:var(--md-default-bg-color);border:1px solid var(--line);border-radius:12px;
   box-shadow:0 6px 14px -12px rgba(0,0,0,.4)}
 .md-typeset .mt-bar label,.md-typeset .tryout-row label{font:600 .64rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
@@ -184,6 +184,11 @@
 .md-typeset .mt td.g span{border-radius:4px;padding:0 .08em}
 .md-typeset .mt td.g span.miss{box-shadow:inset 0 0 0 2px var(--bad)}
 .md-typeset .mt td.g span.fall{box-shadow:inset 0 0 0 2px var(--warn)}
+/* the font check (Tools): every letter in use, in the chosen font */
+.md-typeset .fc-grid{display:flex;flex-wrap:wrap;gap:.3rem;margin:.8rem 0 0;font-size:1.5rem;line-height:1.3}
+.md-typeset .fc-grid span{min-width:2.2rem;padding:.15rem .3rem;text-align:center;border-radius:6px;background:var(--sunken)}
+.md-typeset .fc-grid span.miss{box-shadow:inset 0 0 0 2px var(--bad)}
+.md-typeset .fc-grid span.fall{box-shadow:inset 0 0 0 2px var(--warn)}
 .md-typeset .mt tr.grp th{background:var(--sunken);color:var(--accent)}
 .md-typeset .mt tr.flash td{animation:mt-flash 1.4s ease-out}
 @keyframes mt-flash{from{background:var(--md-accent-fg-color--transparent,rgba(14,124,134,.25))}}
@@ -220,7 +225,6 @@
   .md-typeset .sg th,.md-typeset .sg td{padding:.5rem .6rem}
   .md-typeset .sg tbody th{width:auto}
 }
-@media (max-width:44em){.md-typeset .mt-bar{position:static}}
 .md-typeset #sec-languages tr[data-goto]{cursor:pointer}
 .md-typeset #sec-languages tr[data-goto]:hover td{background:var(--base-t)}
 .md-typeset #sec-languages td{vertical-align:middle}

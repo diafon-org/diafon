@@ -39,7 +39,7 @@ def main():
                 form = over.get(code, {}).get(key) or table.get(key)
                 if form:
                     readings[form] = ud.normalize('NFC', ipa)
-        langs[code] = {'name': d['name'], 'native': native, 'readings': readings}
+        langs[code] = {'name': d['name'], 'native': native, 'readings': readings, 'tonal': bool(d.get('tones'))}
         for form, ipa in readings.items():
             default.setdefault(form, {}).setdefault(ipa, 0)
             default[form][ipa] += native

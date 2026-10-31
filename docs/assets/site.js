@@ -1,6 +1,6 @@
-// The two site-wide switches in the header: the site's language (English for
-// now) and the script its text is shown in: the usual spelling, Diafon, or,
-// kept apart, another language's spelling. The text is converted in place from
+// The site-wide switch in the header: the site's language (English for now).
+// The script the text is shown in (the usual spelling, Diafon, or another
+// language's spelling) has its switch hidden for now; ?script= still shows it. The text is converted in place from
 // the English reading of each word (site-words.js); examples, glyphs, IPA,
 // code and the tables stay as they are.
 (function(){
@@ -16,7 +16,7 @@ const SKIP = 'code, pre, kbd, script, style, textarea, select, option, svg, em, 
 const ROOTS = '.md-content, .md-tabs, .md-sidebar--secondary';
 const TOKEN = /\/[^\/\s][^\/]*?\/|[A-Za-z][A-Za-z']*[A-Za-z]/g;   // IPA between slashes stays; one letter is a letter named
 const original = new WeakMap();
-let mode = new URLSearchParams(location.search).get('script') || store.get('script') || 'latin';   // ?script=diafon links a view
+let mode = new URLSearchParams(location.search).get('script') || 'latin';   // ?script=diafon links a view (the switch is hidden for now)
 
 function load(src){
   return new Promise((ok, fail) => {
@@ -97,30 +97,15 @@ new MutationObserver(recs => {
   }
 }).observe(document.body, {childList: true, characterData: true, subtree: true});
 
-// ---- the switches
-function spellings(){
-  return typeof SITE_SPELLINGS !== 'undefined' ? Promise.resolve() : load('assets/site-words.js');
-}
+// ---- the switch: the site's language. The script switch (the site in Diafon or another
+// language's spelling) is hidden while it would only confuse; ?script= still shows a view
 const bar = document.createElement('div');
 bar.className = 'site-switch';
 bar.innerHTML =
   '<label><span>Language</span><select id="site-lang" autocomplete="off">' +
-    '<option value="en" selected>English</option><option disabled>more soon</option></select></label>' +
-  '<label><span>Script</span><select id="site-script" autocomplete="off">' +
-    '<option value="latin">Usual spelling</option><option value="diafon">Diafon</option></select></label>';
+    '<option value="en" selected>English</option><option disabled>more soon</option></select></label>';
 const header = document.querySelector('.md-header__inner');
 const before = header && (header.querySelector('.md-header__option') || header.querySelector('.md-search'));
 if (header) header.insertBefore(bar, before || null);
-const $script = bar.querySelector('#site-script');
-spellings().then(() => {
-  const g = document.createElement('optgroup');
-  g.label = 'In another language\'s spelling';
-  g.innerHTML = SITE_SPELLINGS.map(([c, n]) => `<option value="stage:${c}">${n.replace(/ spelling$/, '')}</option>`).join('');
-  $script.appendChild(g);
-  if (![...$script.options].some(o => o.value === mode)) mode = 'latin';
-  $script.value = mode;
-});
-$script.value = mode === 'diafon' ? 'diafon' : 'latin';
-$script.addEventListener('change', () => { mode = $script.value; store.set('script', mode); apply(); });
 if (mode !== 'latin') apply();
 })();
