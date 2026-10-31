@@ -33,7 +33,7 @@
 .md-typeset .ln-word .w{min-width:5rem}
 .md-typeset .ln-word .x{color:var(--muted)}
 .md-typeset .ln-word code{font-size:.7rem;white-space:nowrap}
-.md-typeset .ln-word .g{font-size:1.25rem;margin-left:auto}
+.md-typeset .ln-word .g{font-size:1.1rem;margin-left:auto}
 .md-typeset .ln-drill{border:1px dashed var(--line);border-radius:12px;padding:.2rem .9rem .7rem}
 .md-typeset .ln-ask{margin:.6rem 0 .4rem}
 .md-typeset .ln-prompt{font-size:1.15rem}
@@ -42,7 +42,7 @@
 .md-typeset .ln-in.ok{border-color:var(--good)!important;box-shadow:0 0 0 2px var(--x-t)}
 .md-typeset .ln-in.no{border-color:var(--bad)!important}
 .md-typeset .ln-said{margin:.5rem 0 0;min-height:1.6em}
-.md-typeset .ln-said .ug{font-size:1.3rem}
+.md-typeset .ln-said .ug{font-size:1.15rem}
 .md-typeset .ln-count{margin:.2rem 0 0;font:600 .62rem var(--mono);color:var(--muted)}
 .md-typeset .learn-move{display:flex;justify-content:space-between;margin:1rem 0 0}
 .md-typeset .ln-card h3{font-family:var(--serif);text-transform:none;letter-spacing:0;font-size:1.1rem;color:var(--ink)}
