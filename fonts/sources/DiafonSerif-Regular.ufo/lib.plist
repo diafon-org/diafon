@@ -382,21 +382,17 @@
       <string>tilde</string>
       <string>tildecomb</string>
       <string>tone1.w1</string>
+      <string>tone1.w1n</string>
       <string>tone1.w2</string>
-      <string>tone1.w3</string>
-      <string>tone1.w4</string>
       <string>tone2.w1</string>
+      <string>tone2.w1n</string>
       <string>tone2.w2</string>
-      <string>tone2.w3</string>
-      <string>tone2.w4</string>
       <string>tone3.w1</string>
+      <string>tone3.w1n</string>
       <string>tone3.w2</string>
-      <string>tone3.w3</string>
-      <string>tone3.w4</string>
       <string>tone4.w1</string>
+      <string>tone4.w1n</string>
       <string>tone4.w2</string>
-      <string>tone4.w3</string>
-      <string>tone4.w4</string>
       <string>trademark</string>
       <string>two</string>
       <string>u</string>
@@ -1285,35 +1281,27 @@
       <string>mark</string>
       <key>tone1.w1</key>
       <string>base</string>
+      <key>tone1.w1n</key>
+      <string>base</string>
       <key>tone1.w2</key>
-      <string>base</string>
-      <key>tone1.w3</key>
-      <string>base</string>
-      <key>tone1.w4</key>
       <string>base</string>
       <key>tone2.w1</key>
       <string>base</string>
+      <key>tone2.w1n</key>
+      <string>base</string>
       <key>tone2.w2</key>
-      <string>base</string>
-      <key>tone2.w3</key>
-      <string>base</string>
-      <key>tone2.w4</key>
       <string>base</string>
       <key>tone3.w1</key>
       <string>base</string>
+      <key>tone3.w1n</key>
+      <string>base</string>
       <key>tone3.w2</key>
-      <string>base</string>
-      <key>tone3.w3</key>
-      <string>base</string>
-      <key>tone3.w4</key>
       <string>base</string>
       <key>tone4.w1</key>
       <string>base</string>
+      <key>tone4.w1n</key>
+      <string>base</string>
       <key>tone4.w2</key>
-      <string>base</string>
-      <key>tone4.w3</key>
-      <string>base</string>
-      <key>tone4.w4</key>
       <string>base</string>
       <key>trademark</key>
       <string>base</string>
@@ -1575,7 +1563,7 @@
       <string>base</string>
     </dict>
     <key>public.openTypeHeadModified</key>
-    <string>2026/10/31 20:07:25</string>
+    <string>2026/10/31 20:23:45</string>
     <key>public.openTypeMeta</key>
     <dict>
       <key>dlng</key>

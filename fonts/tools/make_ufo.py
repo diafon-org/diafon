@@ -50,7 +50,7 @@ def reachable(ufo):
     for dn in ('dotlessi', 'uni0237', 'dotlessj', 'uni25CC'):
         if dn in ufo:
             keep.add(dn)
-    keep |= {g.name for g in ufo if re.fullmatch(r'tone\d+\.w\d+', g.name)}     # the calt targets
+    keep |= {g.name for g in ufo if re.fullmatch(r'tone\d+\.w\d+n?', g.name)}     # the calt targets
     stack = list(keep)
     while stack:                       # components pull their parts along
         g = ufo[stack.pop()]
@@ -80,39 +80,36 @@ TONE_REACH = 8              # letters a tone above is centred over, at most
 
 def tone_rules(ufo):
     """The tones above the syllable. calt: a tone sign after the syllable's
-    letters -> tone<d>.w<h>, h its width in half letters (a narrow letter is
-    one, others two; four and over is the two-letter tone); the longest
-    syllable is tried first, and a space, a mark of punctuation or the
+    letters -> tone<d>.w2 (two letters wide) after two letters and more,
+    tone<d>.w1 after one, tone<d>.w1n after one narrow letter (i l j: two
+    such syllables in a row keep apart); the longer is tried first, and a space, a mark of punctuation or the
     previous tone sign ends it. dist: the tone, no advance of its own, set
     back by half of each letter's advance, so it centres on the syllable.
     Marks are skipped, so a letter with its marks counts once. Switched off
     (calt), the sign follows the syllable."""
-    import itertools
     import yaml
     tones = yaml.safe_load(open(os.path.join(ROOT, 'data', 'script.yaml')))['tones']
     by_cp = {u: g.name for g in ufo for u in g.unicodes}
     signs = [(by_cp[ord(t['sign'])], d) for d, t in tones.items()
-             if t['sign'] and ord(t['sign']) in by_cp and f'tone{d}.w4' in ufo]
+             if t['sign'] and ord(t['sign']) in by_cp and f'tone{d}.w2' in ufo]
     if not signs:
         return []
     letters = sorted(g.name for g in ufo if is_letter(g) and not is_mark(g))
+    variants = [v for v in ('w1', 'w2', 'w1n') if f'tone{signs[0][1]}.{v}' in ufo]
     unit = sum(ufo[by_cp[ord(c)]].width for c in 'abcdefghijklmnopqrstuvwxyz') / 26
-    narrow = [n for n in letters if ufo[n].width < BF.TONE_NARROW * unit]
-    normal = [n for n in letters if n not in narrow]
-    kinds = [k for k, members in (('narrow', narrow), ('normal', normal)) if members]   # a monospace has no narrow
-    fea = ['@letter = [' + ' '.join(letters) + '];']
-    fea += [f'@{k} = [' + ' '.join(narrow if k == 'narrow' else normal) + '];' for k in kinds]
-    fea.append('@tone = [' + ' '.join(s for s, _ in signs) + '];')
-    for h in BF.TONE_HALVES:
-        fea.append(f'@tone_w{h} = [' + ' '.join(f'tone{d}.w{h}' for _, d in signs) + '];')
-    fea.append('@tone_above = [' + ' '.join(f'tone{d}.w{h}' for _, d in signs for h in BF.TONE_HALVES) + '];')
+    narrow = [n for n in letters if ufo[n].width < BF.TONE_NARROW * unit] if 'w1n' in variants else []
+    fea = ['@letter = [' + ' '.join(letters) + '];',
+           '@tone = [' + ' '.join(s for s, _ in signs) + '];']
+    if narrow:
+        fea.append('@narrow = [' + ' '.join(narrow) + '];')
+    for v in variants:
+        fea.append(f'@tone_{v} = [' + ' '.join(f'tone{d}.{v}' for _, d in signs) + '];')
+    fea.append('@tone_above = [' + ' '.join(f'tone{d}.{v}' for _, d in signs for v in variants) + '];')
     fea += ['', 'feature calt {', '    lookupflag IgnoreMarks;',
-            "    sub @letter @letter @letter @letter @tone' by @tone_w4;"]
-    for n in (3, 2, 1):
-        for pat in itertools.product(kinds, repeat=n):
-            h = min(4, sum(1 if c == 'narrow' else 2 for c in pat))
-            fea.append('    sub ' + ' '.join('@' + c for c in pat) + f" @tone' by @tone_w{h};")
-    fea += ['} calt;', '']
+            "    sub @letter @letter @tone' by @tone_w2;"]
+    if narrow:
+        fea.append("    sub @narrow @tone' by @tone_w1n;")
+    fea += ["    sub @letter @tone' by @tone_w1;", '} calt;', '']
     advances = sorted({ufo[n].width for n in letters})
     for a in advances:
         fea.append(f'@adv{a} = [' + ' '.join(n for n in letters if ufo[n].width == a) + '];')

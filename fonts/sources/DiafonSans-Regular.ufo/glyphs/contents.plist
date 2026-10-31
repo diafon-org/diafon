@@ -764,36 +764,28 @@
     <string>tildecomb.glif</string>
     <key>tone1.w1</key>
     <string>tone1.w1.glif</string>
+    <key>tone1.w1n</key>
+    <string>tone1.w1n.glif</string>
     <key>tone1.w2</key>
     <string>tone1.w2.glif</string>
-    <key>tone1.w3</key>
-    <string>tone1.w3.glif</string>
-    <key>tone1.w4</key>
-    <string>tone1.w4.glif</string>
     <key>tone2.w1</key>
     <string>tone2.w1.glif</string>
+    <key>tone2.w1n</key>
+    <string>tone2.w1n.glif</string>
     <key>tone2.w2</key>
     <string>tone2.w2.glif</string>
-    <key>tone2.w3</key>
-    <string>tone2.w3.glif</string>
-    <key>tone2.w4</key>
-    <string>tone2.w4.glif</string>
     <key>tone3.w1</key>
     <string>tone3.w1.glif</string>
+    <key>tone3.w1n</key>
+    <string>tone3.w1n.glif</string>
     <key>tone3.w2</key>
     <string>tone3.w2.glif</string>
-    <key>tone3.w3</key>
-    <string>tone3.w3.glif</string>
-    <key>tone3.w4</key>
-    <string>tone3.w4.glif</string>
     <key>tone4.w1</key>
     <string>tone4.w1.glif</string>
+    <key>tone4.w1n</key>
+    <string>tone4.w1n.glif</string>
     <key>tone4.w2</key>
     <string>tone4.w2.glif</string>
-    <key>tone4.w3</key>
-    <string>tone4.w3.glif</string>
-    <key>tone4.w4</key>
-    <string>tone4.w4.glif</string>
     <key>trademark</key>
     <string>trademark.glif</string>
     <key>two</key>

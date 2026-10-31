@@ -989,10 +989,22 @@ TONE_SHAPES = {
     'dipping': [(0.1, 5), (0.5, 1.5), (0.9, 5)],
     'falling': [(0.15, 5), (0.85, 1.5)],
 }
-TONE_HALVES = (1, 2, 3, 4)  # a tone's width in half letters: a narrow letter (i l j r t f) is one, others two;
-TONE_NARROW = 0.7           #   narrow = under this share of the average letter; 4 = two letters and over
 TONE_GAP = 0.15             # of a letter, kept clear at each end so neighbouring tones never touch
-TONE_MIN = 0.8             # the narrowest tone, in letters, ends included (a lone i)
+TONE_MIN = 0.8              # the one-letter tone at least this wide, in letters, ends included
+TONE_NARROW = 0.7           # a narrow letter (i l j ...): under this share of the average letter;
+TONE_ON_NARROW = 0.85       #   alone, its tone is this share of the narrow letters' average, so two
+                            #   in a row (yiyi) keep apart
+
+
+def tone_widths(hmtx, cmap):
+    """{variant: ink width} of the tones above: w2 over two letters and more,
+    w1 over one, w1n over one narrow letter (none in a monospace)."""
+    letter = tone_letter(hmtx, cmap)
+    out = {'w1': max(TONE_MIN, 1 - 2 * TONE_GAP) * letter, 'w2': (2 - 2 * TONE_GAP) * letter}
+    narrow = [w for w in (hmtx[cmap[ord(c)]][0] for c in 'abcdefghijklmnopqrstuvwxyz') if w < TONE_NARROW * letter]
+    if narrow:
+        out['w1n'] = TONE_ON_NARROW * sum(narrow) / len(narrow)
+    return out
 
 
 def tone_letter(hmtx, cmap):
@@ -1002,8 +1014,7 @@ def tone_letter(hmtx, cmap):
 
 
 def _tone_glyphs(font):
-    """tone<d>.w<h>: the tone's shape, h half letters wide less
-    the gaps (at least TONE_MIN of a letter, at most two), scaled evenly so its
+    """tone<d>.<variant> (tone_widths): the tone's shape, scaled evenly so its
     angles stay those of the full tone, centred on 0 with no advance, stroked
     at the weight of the font's own macron. make_ufo.py writes the rules that
     put it there: calt picks the width by the syllable's letters, dist sets it
@@ -1027,10 +1038,11 @@ def _tone_glyphs(font):
         full = (2 - 2 * TONE_GAP) * letter - weight         # the two-letter tone, the round caps inside
         ys = [lo + (lv - 1) / 4 * (hi - lo) for _, lv in shape]
         mid = (min(ys) + max(ys)) / 2
-        for h in TONE_HALVES:
+        widths = tone_widths(hmtx, cmap)
+        for var, width in widths.items():
             # a shorter tone is the full one scaled down about its own middle: the same angles,
             # so a short rise reads as the same rise, and a level tone keeps its height
-            k = (max(TONE_MIN, min(2, h / 2) - 2 * TONE_GAP) * letter - weight) / full
+            k = (width - weight) / full
             pts = [((x - 0.5) * full * k, mid + (y - mid) * k) for (x, _), y in zip(shape, ys)]
             line = pathops.Path()
             line.moveTo(*pts[0])
@@ -1041,13 +1053,14 @@ def _tone_glyphs(font):
             ink = pathops.simplify(line, clockwise=True)
             tt = TTGlyphPen(None)
             ink.draw(Cu2QuPen(tt, 1, reverse_direction=False))
-            name = f'tone{d}.w{h}'
+            name = f'tone{d}.{var}'
             glyf[name] = tt.glyph()
             glyf[name].recalcBounds(glyf)
             hmtx[name] = (0, glyf[name].xMin)
             _register(font, name)
         made.append(t['sign'])
-    print(f'  tones above: {" ".join(made)} · widths {", ".join(str(h / 2) for h in TONE_HALVES)} letters')
+    sizes = ', '.join('%s %.0f' % vw for vw in tone_widths(hmtx, cmap).items())
+    print(f'  tones above: {" ".join(made)} · widths {sizes}')
 
 
 def build(key='serif'):
