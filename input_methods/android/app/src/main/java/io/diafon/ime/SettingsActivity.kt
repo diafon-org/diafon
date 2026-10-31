@@ -101,6 +101,7 @@ class SettingsActivity : Activity() {
         root.addView(heading("Also"))
         root.addView(toggle("Conversion on", prefs.enabled) { prefs.enabled = it })
         root.addView(toggle("Tone digits", prefs.tones) { prefs.tones = it })
+        root.addView(toggle("Joined long consonants (the Diafon fonts draw them fused)", prefs.join) { prefs.join = it })
         root.addView(toggle("Strict: flag ill-formed segments", prefs.strict) { prefs.strict = it })
         root.addView(text("Select text typed with any keyboard, in any app, and choose Diafon in the " +
                 "text menu to convert it in place."))

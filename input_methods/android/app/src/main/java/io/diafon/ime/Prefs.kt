@@ -1,6 +1,6 @@
 // The settings above the keyboard, shared in name and default with every
-// Diafon input method (plan.md, question 4): output, tones, strict, enabled;
-// plus this keyboard's own: the base layout.
+// Diafon input method (plan.md, question 4): output, tones, join, strict,
+// enabled; plus this keyboard's own: the base layout.
 package io.diafon.ime
 
 import android.content.Context
@@ -31,6 +31,12 @@ class Prefs(ctx: Context) {
         get() = sp.getBoolean("tones", true)
         set(v) = sp.edit().putBoolean("tones", v).apply()
 
+    /** Join a long consonant's two letters with a ZWJ (the Diafon fonts draw
+     *  them fused); off, a plain double. */
+    var join: Boolean
+        get() = sp.getBoolean("join", false)
+        set(v) = sp.edit().putBoolean("join", v).apply()
+
     /** Flag ill-formed segments in the strip (they still pass through). */
     var strict: Boolean
         get() = sp.getBoolean("strict", false)
@@ -39,12 +45,13 @@ class Prefs(ctx: Context) {
     /** The lenient renderer for an output (the chosen one by default). */
     fun renderer(out: String = output): (String) -> String {
         val tones = tones
+        val join = join
         if (out == "transport") return { it }
         if (out.startsWith("stage:")) {
             val st = SpecData.STAGES[out.substring(6)]
             if (st != null) return { Stages.render(it, st, false, tones) }
         }
-        return { Engine.render(it, false, tones) }
+        return { Engine.render(it, false, tones, join) }
     }
 
     fun outputLabel(out: String = output): String = OUTPUTS.firstOrNull { it.first == out }?.second
