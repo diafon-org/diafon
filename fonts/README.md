@@ -75,8 +75,7 @@ stem of n m h d H M N J, or is drawn by hand (t s k b, read off Inkscape
 edits) and borrowed by the letters with a like bottom, every stroke brought to
 one weight; it lands on a one-sided plate, inward for the anchor and outward
 for the anti-anchor. Edit a written file by hand like any override, or change
-a number and regenerate. `tools/tail_sheet.py` makes a sheet to draw the
-tails on by hand. Earlier versions are not kept beside them: the fonts hold
+a number and regenerate. Earlier versions are not kept beside them: the fonts hold
 what shipped, and `font_svg.py export` gives any glyph back as an SVG. The
 anchors and dots of the other families stay procedural
 (`anchor.yaml`, `families.yaml`); an SVG override wins over them.
@@ -112,11 +111,3 @@ between the ink; Mono keeps its cells), so the joined text already reads as
 one long sound; a plain double (tt, no ZWJ) keeps its spacing. ZWJ and ZWNJ are
 empty and zero-width in every family. `tests/test_font_long.py` shapes every
 long consonant with HarfBuzz and CoreText.
-
-## The handwriting capture
-
-`hand/` grows the original hand, serif and sans families from one set of
-samples: `tools/hand_frame.py` draws the drawing frame, `tools/hand_read.py`
-reads a drawn copy back into per-glyph SVGs under `hand/glyphs/`, and
-`tools/hand_design.py` builds glyphs described in text (`hand/design.yaml`).
-See `hand/README.md`.

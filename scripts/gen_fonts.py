@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Generate fonts/glyphs.js: the glyph matrix, every glyph the system can draw;
-the font tools read it (subset_web, build_font, hand_frame, hand_sheet).
+the font tools read it (subset_web, build_font).
 
 Structure: bases across, derivations down. Every cell is one potential glyph
 with its codepoints and how many languages use it (0 = the grammar's reserve,

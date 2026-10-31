@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """SVG reading shared by the font tools: tag names, styles, colours, transforms
-and the basic shapes as path data. hand_read.py reads the drawn frame with
-these, font_svg.py the glyph overrides."""
+and the basic shapes as path data. font_svg.py reads the glyph overrides with
+these, long_sheet.py the long consonants' drawing sheet."""
 import math
 import re
 import xml.etree.ElementTree as ET

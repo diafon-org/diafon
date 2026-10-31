@@ -84,9 +84,6 @@ the current system. A superseded decision is deleted, not kept.
   precomposed codepoints draw these forms), and a mark's "middle" is that of
   the part of the letter it sits against: the upper part above (j: the
   stem), the lower part below (r: the stem, t: stem and tail).
-- fonts/tools/hand_sheet.py prints the glyphs in use as a one-page drawing
-  sheet (fonts/hand/sheet.html, sheet.pdf): each strip has the glyphs in a
-  thin top row and blank space beneath to draw in.
 - Capitals are orthographic, not phonemic. An uppercase base letter
   capitalizes its point (Sjan = Șan); operators read the same in either
   case, so all-caps text works point by point (SJAN = ȘAN); the capital
@@ -108,24 +105,6 @@ the current system. A superseded decision is deleted, not kept.
   delivery is not controllable in messengers and phone keyboards, so a stage
   is emitted at the IME level as a Unicode spelling of the same points, and
   is render-only: it never changes what a key means.
-- The handwriting capture gets a digital route beside paper: a drawing
-  frame in the fonts page's own structure (every potential glyph, plus the
-  extras a font needs), edited in any vector editor and read back by colour
-  and position rather than by document structure, since editors flatten
-  layers, drop ids and rescale on save; the corner squares register the
-  drawing. Everything in a cell is rasterised and traced into one filled
-  outline (strokes and brush fills alike, overlaps merged), so the result
-  is a glyph, never a stroke; the analysis counts pieces against the
-  reference rendered through the same pipeline (a ș is one piece, a t̤
-  three). Traced glyphs live in fonts/hand/glyphs, never fonts/svg, which
-  overrides the Diafon serif at build time.
-- Glyphs can be described in text before any drawing: fonts/hand/design.yaml
-  (points in font units, named heights, straight or smooth segments, a pen
-  width, fills, dots, composition with flips) proofed to SVG over the
-  Diafon reference and built through the frame's trace pipeline into the
-  same glyph files. The point of a text form is iteration by numbers, the
-  way the anchor is tuned in anchor.yaml; the smooth segment is a curve
-  through the points (Catmull-Rom), so no control handles need writing.
 - The Unicode representation (script.yaml `web`): the universal font is to be
   released separately and delivered through web font services, which cut a
   family into fixed subsets and never deliver a codepoint outside them; the
