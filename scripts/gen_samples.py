@@ -46,14 +46,30 @@ TEXTS = [
     ('zh', 'Mandarin (pinyin)', 'Universal Declaration of Human Rights, Article 1',
      "ren2ren2 sheng1 er2 zi4you2, zai4 zun1yan2 he2 quan2li4 shang4 yi1lü4 ping2deng3. ta1men fu4you3 li3xing4 he2 "
      "liang2xin1, bing4 ying1 yi3 xiong1di4 guan1xi4 de jing1shen2 xiang1 dui4dai4."),
+    ('zh', 'Mandarin (pinyin)', 'Quiet Night Thought (Li Bai)',
+     "chuang2 qian2 ming2 yue4 guang1,\nyi2 shi4 di4 shang4 shuang1.\nju3 tou2 wang4 ming2 yue4,\ndi1 tou2 si1 gu4 xiang1."),
+    ('zh', 'Mandarin (pinyin)', 'Spring Dawn (Meng Haoran)',
+     "chun1 mian2 bu4 jue2 xiao3,\nchu4 chu4 wen2 ti2 niao3.\nye4 lai2 feng1 yu3 sheng1,\nhua1 luo4 zhi1 duo1 shao3."),
+    ('zh', 'Mandarin (pinyin)', 'Meeting someone',
+     "ni3 hao3! ni3 jiao4 shen2me ming2zi?\nwo3 jiao4 Xiao3 Ming2. hen3 gao1xing4 ren4shi ni3.\n"
+     "ni3 shi4 na3 guo2 ren2?\nwo3 shi4 Zhong1guo2 ren2."),
 ]
 # English translations of the texts in other languages: the Declaration's own English text, and a plain
-# line-by-line rendering of Petőfi
+# line-by-line rendering of Petőfi and of the Mandarin texts
 UDHR_EN = TEXTS[2][3]
 TRANSLATION = {'National Song (Sándor Petőfi), first stanza':
                "Rise, Hungarians, the homeland calls!\nThe time is here, now or never!\nShall we be slaves or free?\n"
                "That is the question, choose!\nBy the God of the Hungarians\nWe swear,\nWe swear that we will be slaves\n"
-               "No longer!"}
+               "No longer!",
+               'Quiet Night Thought (Li Bai)':
+               "Before my bed, the bright moonlight,\nI take it for frost on the ground.\n"
+               "I raise my head to the bright moon,\nlower it, and think of home.",
+               'Spring Dawn (Meng Haoran)':
+               "Sleeping in spring, I miss the dawn,\neverywhere I hear the birds.\n"
+               "In the night, the sound of wind and rain:\nhow many flowers have fallen?",
+               'Meeting someone':
+               "Hello! What is your name?\nMy name is Xiaoming. Nice to meet you.\n"
+               "Which country are you from?\nI am Chinese."}
 
 
 MARKS = {'1': '\u0304', '2': '\u0301', '3': '\u030c', '4': '\u0300'}
