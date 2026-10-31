@@ -91,13 +91,7 @@ def main():
                      f'<span class="sample-title">{html.escape(title)}</span></header>'
                      f'<p class="sample-text g">{para(out)}</p><p class="sample-orig">{para(pinyin_marks(text) if code == "zh" else text)}</p>'
                      + (f'<p class="sample-trans">{para(trans)}</p>' if trans else '') + '</article>')
-    bar = ('<div class="sample-bar">'
-           '<label><input type="range" min="16" max="44" value="24" id="sample-size"> size</label>'
-           '<label><input type="checkbox" id="sample-orig" checked> usual spelling</label></div>')
-    js = ('<script>(function(){var r=document.querySelector(".samples");if(!r)return;'
-          'var s=document.getElementById("sample-size");s.oninput=function(){r.style.setProperty("--sample-size",s.value+"px")};'
-          'var o=document.getElementById("sample-orig");o.onchange=function(){r.classList.toggle("no-orig",!o.checked)};})();</script>')
-    page = f'<div class="samples" markdown="0">{bar}{"".join(cards)}</div>{js}'
+    page = f'<div class="samples" markdown="0">{"".join(cards)}</div>'
     path = os.path.join(ROOT, 'docs', '.include', 'samples.html'); open(path, 'w').write(page)
     print(f'{path}: {len(TEXTS)} texts')
 

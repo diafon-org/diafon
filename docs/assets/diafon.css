@@ -276,11 +276,6 @@
 .md-typeset .pt .nat{line-height:1.45}
 /* samples page */
 .md-typeset .samples{--sample-size:24px}
-.md-typeset .sample-bar{position:sticky;top:3.2rem;z-index:2;display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;align-items:center;padding:.5rem .7rem;margin:0 0 1.2rem;background:var(--card);border:1px solid var(--line, #ddd);border-radius:.4rem;font-size:.75rem}
-.md-typeset .sample-bar .seg button{font:inherit;padding:.2rem .7rem;border:1px solid var(--line, #ccc);background:transparent;color:var(--ink);cursor:pointer}
-.md-typeset .sample-bar .seg button:first-child{border-radius:.3rem 0 0 .3rem}
-.md-typeset .sample-bar .seg button:last-child{border-radius:0 .3rem .3rem 0}
-.md-typeset .sample-bar .seg button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
 .md-typeset .sample{margin:0 0 2.2rem}
 .md-typeset .sample header{display:flex;flex-wrap:wrap;gap:.2rem .7rem;align-items:baseline;margin-bottom:.3rem}
 .md-typeset .sample-lang{font-weight:600;font-size:.8rem;color:var(--accent)}
@@ -289,7 +284,6 @@
 .md-typeset .samples[data-font="sans"] .sample-text{font-family:"Diafon Sans",var(--serif)}
 .md-typeset .samples[data-font="mono"] .sample-text{font-family:"Diafon Mono",var(--mono)}
 .md-typeset .sample-orig{font-size:.8rem;line-height:1.5;color:var(--muted);margin:0}
-.md-typeset .samples.no-orig .sample-orig{display:none}
 /* home: one sound four ways, and what the system is for */
 .md-typeset .same{margin:1.8rem 0 0;max-width:34rem;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.9rem 1.2rem 1rem}
 .md-typeset .same-k{margin:0 0 .6rem;font-size:.85rem;color:var(--muted)}
