@@ -206,7 +206,7 @@ final class KeyboardViewController: UIInputViewController {
         guard let text = textDocumentProxy.selectedText, !text.isEmpty else { return }
         let target = prefs.output
         let source = Stages.sourceFor(text, target: target, prefer: prefs.preferredSources)
-        textDocumentProxy.insertText(Stages.convert(text, source, target, tones: prefs.tones))
+        textDocumentProxy.insertText(Stages.convert(text, source, target, tones: prefs.tones, join: prefs.join))
         refresh()
     }
 
