@@ -3,7 +3,8 @@
 (function(){
 'use strict';
 const $ = id => document.getElementById(id);
-const $table = $('mt-table'), $in = $('try-in'), $out = $('try-out'), $tones = $('try-tones'), $orig = $('try-orig');
+const $table = $('mt-table'), $in = $('try-in'), $out = $('try-out'), $tones = $('try-tones'), $orig = $('try-orig'),
+      $join = $('try-join');
 const secs = [...document.querySelectorAll('section[id^=sec-]')];
 const esc = s => s.replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 
@@ -100,7 +101,7 @@ function update(){
   };
   for (const tok of tokenize(typed)){
     if (tok.t === 'raw'){ flush(); html += esc(tok.ch); continue; }
-    const gl = tok.t === 'err' ? null : glyph(tok.form, tok.caps);
+    const gl = tok.t === 'err' ? null : glyph(tok.form, tok.caps, $join.checked);
     if (gl === null){ g += `<span class="err">${esc(tok.t === 'err' ? tok.ch : tok.form)}</span>`; t += tok.t === 'err' ? tok.ch : tok.form; continue; }
     g += esc(tok.caps ? capFirst(gl) : gl) + toneSigns(tok.tones);
     t += (tok.caps ? tok.form[0].toUpperCase() + tok.form.slice(1) : tok.form) + tok.tones;
@@ -129,6 +130,12 @@ $tones.addEventListener('change', () => {
   update();
 });
 $orig.addEventListener('change', update);
+// long consonants joined (t ZWJ t), which the Diafon fonts draw as one; off by default, kept per reader
+try { $join.checked = localStorage.getItem('diafon-join') === 'on'; } catch (e) {}
+$join.addEventListener('change', () => {
+  try { localStorage.setItem('diafon-join', $join.checked ? 'on' : 'off'); } catch (e) {}
+  update();
+});
 $table.addEventListener('change', () => {
   showTable(); showSample(); showSamples(); saveState();
   if ($table.value !== 'universal') try { localStorage.setItem('diafon-lang', $table.value); } catch (e) {}  // shared with Learning
