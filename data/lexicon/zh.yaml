@@ -9,7 +9,7 @@
 #
 # The phonemic analysis follows the zh table: j q x share the hush with zh
 # ch sh before the high front vowels (the vowel tells them apart), pinyin o after b p m f is
-# uo, e is ɤ (oc), the i of zi ci si zhi chi shi ri is ɨ (uc), ü is y (ic).
+# uo (written uo, as it sounds), e is ɤ (oc), the i of zi ci si zhi chi shi ri is ɨ (uc), ü is y (ic).
 code: zh
 name: Mandarin
 kind: syllable
@@ -39,9 +39,10 @@ initials:
   c: tch
   s: s
 finals:                 # pinyin final -> transport; i after z c s zh ch sh r becomes uc; the mid vowel /ə/
-                        #   is ë (oc) before n ŋ as alone, e o in the diphthongs ei ou (as eɪ oʊ everywhere)
+                        #   is written as it sounds: o after u (uo, and o after b p m f: [uo]), e o in the
+                        #   diphthongs ei ou (as eɪ oʊ everywhere), e after i ü, ë (oc) alone and before n ŋ
   a: a
-  o: uoc
+  o: uo
   e: oc
   i: i
   u: u
@@ -61,14 +62,14 @@ finals:                 # pinyin final -> transport; i after z c s zh ch sh r be
   iao: iaux
   iu: ioux
   iou: ioux
-  io: iuoc
+  io: io
   ian: ien
   in: in
   iang: ianx
   ing: inx
   iong: iunx
   ua: ua
-  uo: uoc
+  uo: uo
   uai: uaix
   ui: ueix
   uei: ueix
