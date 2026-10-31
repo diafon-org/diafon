@@ -45,7 +45,7 @@ function showSample(){
   const lang = $table.value === 'universal' ? 'en' : $table.value;
   const a = tops.find(x => x.dataset.lang === lang);
   if ($in.value && $in.value !== example) return;
-  example = a ? parse(firstSentence(a.querySelector('.sample-text')), 'script') : '';
+  example = a ? parse(firstSentence(a.querySelector('.sample-text')).replace(/[.!?。]$/, ''), 'script') : '';   // no full stop
   $in.value = example;
   update();
 }
