@@ -53,7 +53,46 @@ License. Download the `.ttf` files from the
 [fonts folder](https://github.com/diafon-org/diafon/tree/main/fonts).
 
 Other fonts show Diafon too, with the marks placed less precisely. The font
-check on the [Reference](master.md) page shows how any installed font does.
+check below shows how any installed font does.
+
+## Check a font
+
+<div class="fontcheck" markdown="0">
+  <p class="tryout-help">Every Diafon letter in use, in the font you pick. A red outline
+  means the font leaves the mark out; amber means another font steps in.</p>
+  <div class="mt-bar fontbar">
+    <label>font <select id="fc-font" autocomplete="off">
+      <optgroup label="Diafon">
+        <option value="Diafon" selected>Diafon Serif</option>
+        <option value="Diafon Sans">Diafon Sans</option>
+        <option value="Diafon Mono">Diafon Mono</option>
+      </optgroup>
+      <optgroup label="popular">
+        <option>Arial</option>
+        <option>Times New Roman</option>
+        <option>Georgia</option>
+        <option>Verdana</option>
+        <option>Helvetica</option>
+        <option>Calibri</option>
+        <option>Segoe UI</option>
+        <option>Roboto</option>
+        <option>Noto Serif</option>
+        <option>Noto Sans</option>
+        <option>Charis SIL</option>
+        <option>Gentium Plus</option>
+      </optgroup>
+      <optgroup label="browser defaults">
+        <option value="serif">serif</option>
+        <option value="sans-serif">sans-serif</option>
+        <option value="monospace">monospace</option>
+        <option value="system-ui">system-ui</option>
+      </optgroup>
+    </select></label>
+    <input type="text" id="fc-custom" placeholder="or any installed font" autocomplete="off" spellcheck="false">
+    <span class="mt-summary" id="fc-summary"></span>
+  </div>
+<div class="fc-grid" id="fc-grid"></div>
+</div>
 
 ## Building your own
 
@@ -61,3 +100,7 @@ Everything that types or shows Diafon reads one file,
 [spec.json](spec.json), and must pass its test cases. The
 [input methods overview](https://github.com/diafon-org/diafon/tree/main/input_methods)
 describes how conversion works on each platform.
+
+<script src="../play-data.js"></script>
+<script src="../engine.js"></script>
+<script src="../assets/fontcheck.js"></script>

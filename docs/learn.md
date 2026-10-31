@@ -11,7 +11,7 @@ hide:
 <link rel="stylesheet" href="../assets/learn.css">
 
 <div class="learn-bar" markdown="0">
-  <label>language <select id="ln-lang" autocomplete="off"></select></label>
+  <label>learning <select id="ln-lang" autocomplete="off"></select></label>
   <span class="learn-note" id="ln-note"></span>
 </div>
 
