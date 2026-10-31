@@ -1,6 +1,7 @@
 // The page shown in Universal, in place, by the engine (engine.js + data.js,
 // the same as the site's). Settings (chrome.storage.sync): on true|false,
-// for every page; keepNames true|false, names left as written; langs
+// for every page; keepNames true|false, names left as written; join
+// true|false, a long consonant's letters joined by a ZWJ; langs
 // {host: code}, a language picked by hand for a page
 // whose language was not recognised. An element's own lang attribute
 // overrides the page's for its text (a quote, a name), a language with no
@@ -73,10 +74,11 @@ function isName(text, m) {
 }
 
 /** One text, in a language's spelling, read into Universal; the text itself
- *  without a language; with keepNames, the names left as written. */
-function convertText(text, lang, keepNames = false) {
+ *  without a language; with keepNames, the names left as written; with join,
+ *  a long consonant's letters joined by a ZWJ (the Diafon fonts draw them fused). */
+function convertText(text, lang, keepNames = false, join = false) {
   if (!lang) return text;
-  const to = t => t ? convert(t, 'stage:' + lang, 'script') : '';
+  const to = t => t ? (join ? render(parse(t, 'stage:' + lang), true) : convert(t, 'stage:' + lang, 'script')) : '';
   if (!keepNames) return to(text);
   let out = '', i = 0;
   for (const m of text.matchAll(WORD_RE)) {
@@ -123,7 +125,7 @@ if (typeof document !== 'undefined') document.documentElement.dataset.diafon = (
 if (typeof document !== 'undefined' && typeof chrome !== 'undefined' && chrome.storage) {
   const originals = new WeakMap();          // text node -> its text before conversion
   const host = location.hostname;
-  let settings = {on: false, keepNames: false, langs: {}, entries: {}};   // entries: {lang: {spelling: said}}
+  let settings = {on: false, keepNames: false, join: false, langs: {}, entries: {}};   // entries: {lang: {spelling: said}}
   let detected = null;                      // from the page itself
   let lang = null;                          // detected, else picked for the host
   let pending = null;
@@ -172,7 +174,7 @@ if (typeof document !== 'undefined' && typeof chrome !== 'undefined' && chrome.s
       const code = own === undefined ? lang : own;
       if (code && code !== lang) want(code);
       const src = originals.get(node);
-      const out = on && code ? convertText(src, code, settings.keepNames) : src;
+      const out = on && code ? convertText(src, code, settings.keepNames, settings.join) : src;
       if (node.nodeValue !== out) { node.nodeValue = out; written.set(node, out); }
     }
   }
@@ -236,7 +238,7 @@ if (typeof document !== 'undefined' && typeof chrome !== 'undefined' && chrome.s
     }, 150);
   });
 
-  chrome.storage.sync.get({on: false, keepNames: false, langs: {}, entries: {}}, s => {
+  chrome.storage.sync.get({on: false, keepNames: false, join: false, langs: {}, entries: {}}, s => {
     settings = s;
     // a debugging aid: #diafon=on on a page turns it on without the icon
     const m = /diafon=(on|off)/.exec(location.hash);
@@ -248,6 +250,7 @@ if (typeof document !== 'undefined' && typeof chrome !== 'undefined' && chrome.s
     if (area !== 'sync') return;
     if (changes.on) settings.on = changes.on.newValue;
     if (changes.keepNames) settings.keepNames = !!changes.keepNames.newValue;
+    if (changes.join) settings.join = !!changes.join.newValue;
     if (changes.langs) settings.langs = changes.langs.newValue || {};
     if (changes.entries) settings.entries = changes.entries.newValue || {};
     run();
@@ -264,7 +267,7 @@ if (typeof document !== 'undefined' && typeof chrome !== 'undefined' && chrome.s
     const node = sel.anchorNode.nodeType === Node.TEXT_NODE ? sel.anchorNode : null;
     const orig = node && originals.get(node);
     if (!orig || orig === node.nodeValue) return word;
-    for (const m of orig.matchAll(WORD_RE)) if (convertText(m[0], lang) === word) return m[0];
+    for (const m of orig.matchAll(WORD_RE)) if (convertText(m[0], lang, false, settings.join) === word) return m[0];
     return word;
   }
 

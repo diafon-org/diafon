@@ -2,16 +2,18 @@
 // grey while off and coloured while on (icons/off-*.png, on-*.png). The
 // popup (a language picker) opens instead only on a tab whose language the
 // page walker could not recognise; the content script reports that per tab.
-// Settings (chrome.storage.sync): on true|false; langs {host: code}, the
+// Settings (chrome.storage.sync): on true|false; keepNames and join
+// true|false (the icon's menu offers both); langs {host: code}, the
 // languages picked by hand for the pages that needed it; entries, the
 // reader's own readings, made from the selection menu, kept on the options
 // page. The icon's own menu opens that page.
 'use strict';
 
 function menus() {
-  chrome.storage.sync.get({keepNames: false}, s => chrome.contextMenus.removeAll(() => {
+  chrome.storage.sync.get({keepNames: false, join: false}, s => chrome.contextMenus.removeAll(() => {
     chrome.contextMenus.create({id: 'say', title: 'Diafon: read “%s” as…', contexts: ['selection']});
     chrome.contextMenus.create({id: 'keepNames', type: 'checkbox', checked: s.keepNames, title: 'Keep names as written', contexts: ['action']});
+    chrome.contextMenus.create({id: 'join', type: 'checkbox', checked: s.join, title: 'Join long consonants', contexts: ['action']});
     chrome.contextMenus.create({id: 'entries', title: 'My entries…', contexts: ['action']}, () => {
       if (chrome.runtime.lastError) console.error('Diafon menus:', chrome.runtime.lastError.message);
     });
@@ -22,10 +24,12 @@ chrome.runtime.onInstalled.addListener(menus);
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === 'say' && tab) chrome.tabs.sendMessage(tab.id, {type: 'say'});
   if (info.menuItemId === 'keepNames') chrome.storage.sync.set({keepNames: !!info.checked});
+  if (info.menuItemId === 'join') chrome.storage.sync.set({join: !!info.checked});
   if (info.menuItemId === 'entries') chrome.runtime.openOptionsPage();
 });
 chrome.storage.onChanged.addListener((changes, area) => {
   if (area === 'sync' && changes.keepNames) chrome.contextMenus.update('keepNames', {checked: !!changes.keepNames.newValue}, () => chrome.runtime.lastError);
+  if (area === 'sync' && changes.join) chrome.contextMenus.update('join', {checked: !!changes.join.newValue}, () => chrome.runtime.lastError);
 });
 
 const icons = state => Object.fromEntries([16, 32, 48, 128].map(sz => [sz, `icons/${state}-${sz}.png`]));
