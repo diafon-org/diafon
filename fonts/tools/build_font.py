@@ -994,7 +994,7 @@ TONE_MIN = 0.8              # the one-letter tone at least this wide, in letters
 TONE_NARROW = 0.7           # a narrow letter (i l j ...): under this share of the average letter;
 TONE_ON_NARROW = 0.85       #   alone, its tone is this share of the narrow letters' average, so two
                             #   in a row (yiyi) keep apart
-TONE_SPACE = 0.1            # of an em: the tone's own advance, a small gap that shows where a toned
+TONE_SPACE = 0.15           # of an em: the tone's own advance, a small gap that shows where a toned
                             #   syllable ends (cuën ien, not cue nien); a monospace keeps its cell
 
 
