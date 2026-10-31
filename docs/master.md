@@ -7,7 +7,7 @@ hide:
 # Reference
 
 <div class="mt-bar" markdown="0">
-  <label>table <select id="mt-table" autocomplete="off"></select></label>
+  <label>Diafon flavour <select id="mt-table" autocomplete="off"></select></label>
 </div>
 
 ## Tables
