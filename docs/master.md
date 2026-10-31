@@ -20,8 +20,6 @@ typing box are below the tables.</p>
 
 ## Try it
 
-<div class="mt-sample" id="mt-sample" markdown="0"></div>
-
 <div class="tryout" markdown="0">
   <textarea id="try-in" spellcheck="false" rows="3" placeholder="Type in Diafon, for example: sjip, tqokolawda, ni3kxaux3" aria-label="Diafon typing"></textarea>
   <div class="tryout-out" id="try-out"></div>

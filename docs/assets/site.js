@@ -11,7 +11,7 @@ const store = {
   set(k, v){ try { localStorage.setItem('diafon-' + k, v); } catch (e) {} }
 };
 const SKIP = 'code, pre, kbd, script, style, textarea, select, option, svg, em, i, mark, .ug, .key, .md-search, ' +
-  '.headerlink, .same-nat, .same-dia, .sample, .mt-sample, .tryout, .mt-wrap, section[id^="sec-"], .pt, .opx, ' +
+  '.headerlink, .same-nat, .same-dia, .sample, .tryout, .mt-wrap, section[id^="sec-"], .pt, .opx, ' +
   '.chips, .tile, .site-switch';
 const ROOTS = '.md-content, .md-tabs, .md-sidebar--secondary';
 const TOKEN = /\/[^\/\s][^\/]*?\/|[A-Za-z][A-Za-z']*[A-Za-z]/g;   // IPA between slashes stays; one letter is a letter named

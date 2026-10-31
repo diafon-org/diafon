@@ -326,10 +326,6 @@
 .md-typeset h3,.md-typeset h4{font-family:var(--serif);font-weight:600;color:var(--ink)}
 .md-typeset h3{font-size:1.1rem} .md-typeset h4{font-size:.95rem}
 
-/* the picked language's text at the top of the Reference */
-.md-typeset .mt-sample .sample{margin:1rem 0 1.4rem;padding:.8rem 1rem;border-left:3px solid var(--accent);background:var(--card);border-radius:0 12px 12px 0}
-.md-typeset .mt-sample .sample-text{font-size:1.35rem;line-height:1.5}
-
 /* script glyphs in plain Markdown tables read at text size */
 .md-typeset table:not([class]) .ug{font-size:1.5em;line-height:1}
 
@@ -392,11 +388,6 @@ html{font-size:115%}
 @media screen and (min-width:125em){html{font-size:135%}}
 .md-typeset .tryout-out{font-size:1.35rem}
 .md-typeset .tryout-out.back{font-size:1rem}
-/* the small example at the top of the Reference */
-.md-typeset .mt-sample{margin:.6rem 0 1.4rem;padding:.6rem .9rem;border-left:3px solid var(--accent);background:var(--card);border-radius:0 10px 10px 0}
-.md-typeset .mt-sample p{margin:0}
-.md-typeset .mt-sample .g{font-size:1.15rem;line-height:1.5}
-.md-typeset .mt-sample .orig{font-size:.75rem;color:var(--muted)}
 /* the figures above each table: labelled groups of small tiles */
 .md-typeset .facts{display:flex;flex-wrap:wrap;gap:.8rem 1.6rem;margin:.4rem 0 1.2rem}
 .md-typeset .fgroup{display:flex;flex-direction:column;gap:.3rem}
@@ -411,5 +402,3 @@ html{font-size:115%}
 .md-typeset .tryout-out .w{display:inline-flex;flex-direction:column;align-items:center;padding:0 .2rem}
 .md-typeset .tryout-out .wg{font-size:1.35rem}
 .md-typeset .tryout-out .w code{font-size:.6rem;background:none;padding:0;color:var(--accent)}
-.md-typeset .mt-sample .g{font-size:1.2rem}
-.md-typeset .mt-sample:empty{display:none}

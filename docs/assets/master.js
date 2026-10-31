@@ -32,19 +32,22 @@ function showTable(){
 // the script with what was typed under it
 const OWN_MARKS = /[̦̖̓̔]|[a-z]̣/;     // Diafon's own marks: the text is already script
 const articles = [...document.querySelectorAll('.samples .sample')];
-// the one example at the top: the first sentence of the picked language's text in Diafon, built with the page,
-// its usual spelling small under it (Pinyin for Mandarin)
+// the example, typed in the try-out: the first sentence of the picked language's text, read back from
+// the Diafon the page was built with (English for the all-languages table). Text typed over it stays
 const firstSentence = el => {
   const t = el.innerHTML.replace(/<br\s*\/?>/g, ' ').replace(/<[^>]+>/g, '');
   const box = document.createElement('div'); box.innerHTML = (t.match(/^.*?[.!?。](?=\s|$)/) || [t])[0];
   return box.textContent.trim();
 };
+let example = '';
 function showSample(){
   const tops = articles.filter(x => x.hasAttribute('data-top'));
   const lang = $table.value === 'universal' ? 'en' : $table.value;
   const a = tops.find(x => x.dataset.lang === lang);
-  $('mt-sample').innerHTML = a ? `<p class="g">${esc(firstSentence(a.querySelector('.sample-text')))}</p>` +
-    `<p class="orig">${esc(firstSentence(a.querySelector('.sample-orig')))}</p>` : '';
+  if ($in.value && $in.value !== example) return;
+  example = a ? parse(firstSentence(a.querySelector('.sample-text')), 'script') : '';
+  $in.value = example;
+  update();
 }
 // the sample texts: only the picked language's own (English for the Diafon table, as the site's language);
 // a language without texts hides the section
