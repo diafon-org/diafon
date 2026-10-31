@@ -10,6 +10,7 @@ const S = DIA.script, WHOLE = S.whole_letters, MARKS = S.marks,
 const BELOWS = Object.values(MARKS).map(m => m.below).filter(Boolean);
 const TONES = Object.fromEntries(Object.entries(S.tones).map(([d, t]) => [d, t.sign]));   // digit -> its sign after the syllable
 const TONE_OF = Object.fromEntries(Object.entries(TONES).filter(([d, s]) => s).map(([d, s]) => [s, d]));   // and back
+const ZWJ = '\u200d';             // joins a long consonant's letters (join = true)
 const toneSigns = digits => [...digits].map(d => d in TONES ? TONES[d] : d).join('');
 
 function tokenize(text){
@@ -43,7 +44,7 @@ function mark(g, base, kind, caps){
   return g + (m.below || '');
 }
 
-function glyph(form, caps){
+function glyph(form, caps, join = false){
   const w = form.endsWith('w'), core = w ? form.slice(0, -1) : form;
   const base = core[0];
   const longVowel = w && VB.has(base) && WHOLE[core] === undefined;
@@ -59,7 +60,7 @@ function glyph(form, caps){
   };
   let g = compose(caps);
   if (g === null) return null;
-  if (w && !longVowel) g = g + g;         // long consonant doubles its letter
+  if (w && !longVowel) g = g + (join ? ZWJ : '') + g;   // long consonant doubles its letter
   return g.normalize('NFC');  // one codepoint per visual representation
 }
 
@@ -115,19 +116,20 @@ function vowel(base, ops){
 // ---- rendering with case, and the stages ----
 
 /** Script glyph of a form with orthographic case (Sjw -> Șș), or null. */
-function glyphCased(form){
+function glyphCased(form, join = false){
   const caps = form[0] !== form[0].toLowerCase();
-  const g = glyph(form[0].toLowerCase() + form.slice(1), caps);
+  const g = glyph(form[0].toLowerCase() + form.slice(1), caps, join);
   if (g === null) return null;
   return caps ? (g[0].toUpperCase() + g.slice(1)).normalize('NFC') : g;
 }
 
-/** Script form of a text; ill-formed input passes through as typed. */
-function render(text){
+/** Script form of a text; ill-formed input passes through as typed; join
+ *  puts a ZWJ between a long consonant's letters (t ZWJ t, fused in the Diafon fonts). */
+function render(text, join = false){
   let out = '';
   for (const tok of tokenize(text)){
     if (tok.t !== 'form'){ out += tok.ch; continue; }
-    const g = glyph(tok.form, tok.caps);
+    const g = glyph(tok.form, tok.caps, join);
     if (g === null){ out += tok.form + tok.tones; continue; }
     out += (tok.caps ? (g[0].toUpperCase() + g.slice(1)).normalize('NFC') : g) + toneSigns(tok.tones);
   }
@@ -349,16 +351,18 @@ function inventory(){
 }
 
 let SCRIPT_TABLE = null;
-/** {glyph text: form}, the forms in use (DIA.used) deciding a shared glyph. */
+/** {glyph text: form}, the forms in use (DIA.used) deciding a shared glyph;
+ *  a long consonant plain and joined. */
 function scriptTable(){
   if (SCRIPT_TABLE) return SCRIPT_TABLE;
   const used = new Set(DIA.used || []), inv = inventory();
   const table = {};
   for (const form of inv.filter(f => used.has(f)).concat(inv.filter(f => !used.has(f))))
-    for (const f of [form, form[0].toUpperCase() + form.slice(1)]){
-      const g = glyphCased(f);
-      if (!(g in table)) table[g] = f;
-    }
+    for (const f of [form, form[0].toUpperCase() + form.slice(1)])
+      for (const join of [false, true]){
+        const g = glyphCased(f, join);
+        if (!(g in table)) table[g] = f;
+      }
   SCRIPT_TABLE = table;
   return table;
 }

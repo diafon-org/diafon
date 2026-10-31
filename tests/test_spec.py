@@ -31,6 +31,7 @@ const fs = require('fs');
 for (const code of LEX_CODES) setLexicon(code, JSON.parse(fs.readFileSync(LEX_DIR + '/' + code + '.json', 'utf8')));
 const vec = JSON.parse(fs.readFileSync(0, 'utf8'));
 const out = {render: vec.render.map(([i]) => render(i)),
+             joined: vec.joined.map(([i]) => render(i, true)),
              parseScript: vec.parseScript.map(([i]) => parse(i, 'script')),
              parseStages: Object.fromEntries(Object.entries(vec.parseStages).map(([c, v]) => [c, v.map(([i]) => parse(i, 'stage:' + c))])),
              convert: vec.convert.map(([t, s, g]) => convert(t, s, g)),
@@ -52,6 +53,9 @@ def test_render_vectors():
         assert engine.render(inp) == want, (inp, engine.render(inp), want)
     for inp, want in VEC['lenient']:
         assert engine.render(inp, strict=False) == want, (inp, want)
+    for inp, want in VEC['joined']:
+        assert engine.render(inp, join=True) == want, (inp, engine.render(inp, join=True), want)
+        assert want.replace(engine.ZWJ, '') == engine.render(inp), inp     # the plain double, joined
     for inp in VEC['invalid']:
         try:
             engine.render(inp)
@@ -101,7 +105,8 @@ def test_stages():
 def test_parse():
     for spelled, want in VEC['parse']['script']:
         assert stages.parse(spelled, 'script') == want, (spelled, want)
-        assert engine.render(want, strict=False) == spelled, (spelled, want)     # the round trip is stable
+        join = engine.ZWJ in spelled
+        assert engine.render(want, strict=False, join=join) == spelled, (spelled, want)     # the round trip is stable
     for code, vec in VEC['parse']['stages'].items():
         st = stages.load(code)
         for spelled, want in vec:
@@ -149,7 +154,7 @@ def test_js_parity():
     eng = open(os.path.join(ROOT, 'docs', 'engine.js')).read()
     lexdir = os.path.join(ROOT, 'data', 'lexicon')
     prog = (data + '\n' + eng + f'\nconst LEX_CODES = {json.dumps(lexicon.codes())}, LEX_DIR = {json.dumps(lexdir)};' + JS_HARNESS)
-    vec = {'render': VEC['render'] + VEC['lenient'], 'parseScript': VEC['parse']['script'],
+    vec = {'render': VEC['render'] + VEC['lenient'], 'joined': VEC['joined'], 'parseScript': VEC['parse']['script'],
            'parseStages': VEC['parse']['stages'], 'convert': VEC['convert'], 'detect': VEC['detect'],
            'lexicon': VEC['lexicon']}
     res = subprocess.run([node, '-e', prog], input=json.dumps(vec), text=True, capture_output=True)
@@ -157,6 +162,8 @@ def test_js_parity():
     got = json.loads(res.stdout)
     bad = [(i, g, w) for (i, w), g in zip(vec['render'], got['render']) if g != w]
     assert not bad, ('render', bad[:10])
+    bad = [(i, g, w) for (i, w), g in zip(vec['joined'], got['joined']) if g != w]
+    assert not bad, ('joined', bad[:10])
     bad = [(i, g, w) for (i, w), g in zip(vec['parseScript'], got['parseScript']) if g != w]
     assert not bad, ('parse script', bad[:10])
     for code, v in vec['parseStages'].items():

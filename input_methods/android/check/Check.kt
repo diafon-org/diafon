@@ -2,6 +2,7 @@
 // line, "mode<TAB>input", one result per stdout line.
 //   render        strict script form, or "!ERR" when the input is rejected
 //   lenient       lenient script form
+//   joined        strict script form, long consonants joined with a ZWJ
 //   stream        the keystroke trace: buffer, committed, pending joined by
 //                 U+001E, steps joined by U+001F
 //   stage:<code>  the stage's spelling
@@ -19,6 +20,7 @@ fun main() {
         val result = when {
             mode == "render" -> try { Engine.render(input) } catch (e: ParseError) { "!ERR" }
             mode == "lenient" -> Engine.render(input, false)
+            mode == "joined" -> try { Engine.render(input, join = true) } catch (e: ParseError) { "!ERR" }
             mode == "stream" -> {
                 var buf = ""
                 val steps = ArrayList<String>()
