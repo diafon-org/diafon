@@ -15,8 +15,8 @@ regenerate that first), then apply the glyph surgery:
 - the comma above (U+0313) and NEW its mirror (U+0314), upright acutes;
 - NEW the double dot below (U+0324): two copies of the font's dot below;
 - NEW precomposed ḷ ṃ ṿ, composed like their existing siblings;
-- NEW the tones above the syllable (tone<d>.above, tone<d>.syl<n>): the
-  pinyin shapes, two letters wide, high over the marks.
+- NEW the tones above the syllable (tone<d>.w<h>): the pinyin shapes, as
+  wide as the syllable up to two letters, high over the marks.
 
 The text is the composition (base letter + the system's combining marks,
 NFC), so the font carries the marks with their attachment and the baked
@@ -989,25 +989,33 @@ TONE_SHAPES = {
     'dipping': [(0.1, 5), (0.5, 1.5), (0.9, 5)],
     'falling': [(0.15, 5), (0.85, 1.5)],
 }
-TONE_SYLLABLE_MAX = 6       # letters a syllable variant reaches back over
+TONE_HALVES = (1, 2, 3, 4)  # a tone's width in half letters: a narrow letter (i l j r t f) is one, others two;
+TONE_NARROW = 0.7           #   narrow = under this share of the average letter; 4 = two letters and over
+TONE_GAP = 0.15             # of a letter, kept clear at each end so neighbouring tones never touch
+TONE_MIN = 0.8             # the narrowest tone, in letters, ends included (a lone i)
+
+
+def tone_letter(hmtx, cmap):
+    """The average lowercase letter's advance: the unit the tones above are measured in."""
+    letters = [hmtx[cmap[ord(c)]][0] for c in 'abcdefghijklmnopqrstuvwxyz']
+    return sum(letters) / len(letters)
 
 
 def _tone_glyphs(font):
-    """tone<d>.above: the tone's shape centred on 0, stroked at the weight of the
-    font's own macron; tone<d>.syl<n>: that shape, no advance, set back over the
-    n letters before the sign (make_ufo.py writes the calt rule that picks it)."""
+    """tone<d>.w<h>: the tone's shape, h half letters wide less
+    the gaps (at least TONE_MIN of a letter, at most two), centred on 0 with no advance, stroked
+    at the weight of the font's own macron. make_ufo.py writes the rules that
+    put it there: calt picks the width by the syllable's letters, dist sets it
+    back by half of each letter's advance, so it centres on the syllable."""
     import pathops
     import yaml as _yaml
     from fontTools.pens.cu2quPen import Cu2QuPen
     from fontTools.pens.ttGlyphPen import TTGlyphPen
-    from fontTools.ttLib.tables._g_l_y_f import Glyph, GlyphComponent
     glyf, cmap, hmtx = font['glyf'], font.getBestCmap(), font['hmtx']
     gs = font.getGlyphSet()
     _, _, m_lo, m_hi = _outline(gs, cmap[0x02C9])
     weight = m_hi - m_lo
-    letters = [hmtx[cmap[ord(c)]][0] for c in 'abcdefghijklmnopqrstuvwxyz']
-    em_letter = sum(letters) / len(letters)       # a letter's width, on average
-    span = 2 * em_letter - weight                 # two letters, the round caps included
+    letter = tone_letter(hmtx, cmap)
     lo, hi = TONE_BAND
     tones = _yaml.safe_load(open(os.path.join(ROOT, 'data', 'script.yaml')))['tones']
     made = []
@@ -1015,34 +1023,25 @@ def _tone_glyphs(font):
         shape = TONE_SHAPES.get(t['contour'])
         if not shape or not t['sign']:
             continue
-        pts = [(-span / 2 + x * span, lo + (lv - 1) / 4 * (hi - lo)) for x, lv in shape]
-        line = pathops.Path()
-        line.moveTo(*pts[0])
-        for p in pts[1:]:
-            line.lineTo(*p)
-        line.stroke(weight, pathops.LineCap.ROUND_CAP, pathops.LineJoin.ROUND_JOIN, 4)
-        line.convertConicsToQuads()              # the round caps come as conics
-        ink = pathops.simplify(line, clockwise=True)
-        tt = TTGlyphPen(None)
-        ink.draw(Cu2QuPen(tt, 1, reverse_direction=False))
-        name = f'tone{d}.above'
-        glyf[name] = tt.glyph()
-        glyf[name].recalcBounds(glyf)
-        hmtx[name] = (0, glyf[name].xMin)
-        _register(font, name)
-        for n in range(1, TONE_SYLLABLE_MAX + 1):
-            g = Glyph()
-            g.numberOfContours = -1
-            c = GlyphComponent(); c.glyphName = name
-            c.x, c.y = round(-n * em_letter / 2), 0; c.flags = 0x004
-            g.components = [c]
-            vname = f'tone{d}.syl{n}'
-            glyf[vname] = g
-            g.recalcBounds(glyf)
-            hmtx[vname] = (0, g.xMin)
-            _register(font, vname)
+        for h in TONE_HALVES:
+            span = max(TONE_MIN, min(2, h / 2) - 2 * TONE_GAP) * letter - weight   # the round caps inside
+            pts = [(-span / 2 + x * span, lo + (lv - 1) / 4 * (hi - lo)) for x, lv in shape]
+            line = pathops.Path()
+            line.moveTo(*pts[0])
+            for p in pts[1:]:
+                line.lineTo(*p)
+            line.stroke(weight, pathops.LineCap.ROUND_CAP, pathops.LineJoin.ROUND_JOIN, 4)
+            line.convertConicsToQuads()              # the round caps come as conics
+            ink = pathops.simplify(line, clockwise=True)
+            tt = TTGlyphPen(None)
+            ink.draw(Cu2QuPen(tt, 1, reverse_direction=False))
+            name = f'tone{d}.w{h}'
+            glyf[name] = tt.glyph()
+            glyf[name].recalcBounds(glyf)
+            hmtx[name] = (0, glyf[name].xMin)
+            _register(font, name)
         made.append(t['sign'])
-    print(f'  tones above: {" ".join(made)} · {TONE_SYLLABLE_MAX} syllable lengths')
+    print(f'  tones above: {" ".join(made)} · widths {", ".join(str(h / 2) for h in TONE_HALVES)} letters')
 
 
 def build(key='serif'):

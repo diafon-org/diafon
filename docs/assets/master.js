@@ -4,7 +4,7 @@
 'use strict';
 const $ = id => document.getElementById(id);
 const $table = $('mt-table'), $font = $('mt-font'), $custom = $('mt-custom'), $summary = $('mt-summary'),
-      $in = $('try-in'), $out = $('try-out');
+      $in = $('try-in'), $out = $('try-out'), $tones = $('try-tones'), $as = $('try-as');
 const secs = [...document.querySelectorAll('section[id^=sec-]')];
 const esc = s => s.replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 
@@ -116,10 +116,33 @@ function showSamples(){
   $('mt-samples').hidden = !any;
 }
 
+// the result in pinyin (Mandarin): the lexicon writes each toned syllable back; the tone then
+// rides above the syllable as the fonts draw it, or, with that off, as pinyin's own mark on the vowel
+const PINYIN_MARK = {1: '\u0304', 2: '\u0301', 3: '\u030C', 4: '\u0300'};
+function pinyinMarks(text){
+  return text.replace(/([A-Za-zÜü]+)([1-5])/g, (_, syl, d) => {
+    const low = syl.toLowerCase();
+    let i = low.search(/[ae]/);                                  // a or e takes it, then the o of ou,
+    if (i < 0) i = low.indexOf('ou');                            //   else the last vowel
+    if (i < 0) for (let j = low.length - 1; j >= 0 && i < 0; j--) if ('iouü'.includes(low[j])) i = j;
+    if (i < 0 || !PINYIN_MARK[d]) return syl;
+    return (syl.slice(0, i + 1) + PINYIN_MARK[d] + syl.slice(i + 1)).normalize('NFC');
+  });
+}
+let pinyinReady = null;
+function pinyin(t){
+  const p = renderStage(t, DIA.stages.zh);
+  return $tones.checked ? p.replace(/\d+/g, toneSigns) : pinyinMarks(p);
+}
+
 function update(){
   const typed = OWN_MARKS.test($in.value.normalize('NFD')) ? parse($in.value, 'script') : $in.value;
   let html = '', g = '', t = '';
-  const flush = () => { if (g) html += `<span class="w"><span class="wg">${g}</span><code>${esc(t)}</code></span>`; g = t = ''; };
+  const asPinyin = $as.value === 'pinyin' && lex('zh');
+  const flush = () => {
+    if (g) html += `<span class="w"><span class="wg">${asPinyin && !g.includes('class="err"') ? esc(pinyin(t)) : g}</span><code>${esc(t)}</code></span>`;
+    g = t = '';
+  };
   for (const tok of tokenize(typed)){
     if (tok.t === 'raw'){ flush(); html += esc(tok.ch); continue; }
     const gl = tok.t === 'err' ? null : glyph(tok.form, tok.caps);
@@ -143,12 +166,18 @@ document.getElementById('sec-universal').addEventListener('click', e => {
 // ---- wiring
 $in.addEventListener('input', update);
 // tones above the syllable (the fonts' calt), on by default; off, the sign follows it (site.js applies it)
-const $tones = $('try-tones');
 try { $tones.checked = localStorage.getItem('diafon-tones') !== 'after'; } catch (e) {}
 $tones.addEventListener('change', () => {
   const v = $tones.checked ? 'above' : 'after';
   document.documentElement.dataset.tones = v;
   try { localStorage.setItem('diafon-tones', v); } catch (e) {}
+  update();
+});
+// the result as pinyin: the Mandarin lexicon, fetched the first time
+$as.addEventListener('change', () => {
+  if ($as.value === 'pinyin' && !lex('zh'))
+    pinyinReady = pinyinReady || fetch('../lexicon/zh.json').then(r => r.json()).then(d => setLexicon('zh', d));
+  (pinyinReady || Promise.resolve()).then(update, update);
 });
 $table.addEventListener('change', () => {
   showTable(); showSample(); showSamples(); saveState();

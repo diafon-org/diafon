@@ -1,8 +1,8 @@
 /* The Diafon docs on Material: the font, the palette the description's
    tables and diagrams use, and the blocks themselves. */
-@font-face{font-family:"Diafon";src:url(../diafon.woff2?v=1793398210) format("woff2");font-display:swap}
-@font-face{font-family:"Diafon Sans";src:url(../diafon-sans.woff2?v=1793398211) format("woff2");font-display:swap}
-@font-face{font-family:"Diafon Mono";src:url(../diafon-mono.woff2?v=1793398211) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon";src:url(../diafon.woff2?v=1793435581) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon Sans";src:url(../diafon-sans.woff2?v=1793435582) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon Mono";src:url(../diafon-mono.woff2?v=1793435583) format("woff2");font-display:swap}
 
 :root{
   --md-primary-fg-color:#0e7c86; --md-primary-fg-color--light:#3ec8cf; --md-primary-fg-color--dark:#0a5c64;
@@ -336,7 +336,7 @@ html[data-tones="after"] body{font-feature-settings:"calt" 0}
 html[data-tones="after"] .md-typeset .tonal{line-height:inherit}
 .md-typeset .tryout-out:has(.tonal) .wg{line-height:1.95}       /* a toneless word keeps its toned neighbours' line */
 html[data-tones="after"] .md-typeset .tryout-out .wg{line-height:inherit}
-.md-typeset .tryout-opts{margin:.5rem 0 0}
+.md-typeset .tryout-opts{margin:.5rem 0 0;gap:1.2rem}
 .md-typeset .tryout-opts label{display:flex;align-items:center;gap:.4rem;cursor:pointer}
 
 /* the whole site in the Diafon fonts; glyphs they lack (IPA, CJK) fall back */

@@ -377,34 +377,22 @@
       <string>three</string>
       <string>tilde</string>
       <string>tildecomb</string>
-      <string>tone1.above</string>
-      <string>tone1.syl1</string>
-      <string>tone1.syl2</string>
-      <string>tone1.syl3</string>
-      <string>tone1.syl4</string>
-      <string>tone1.syl5</string>
-      <string>tone1.syl6</string>
-      <string>tone2.above</string>
-      <string>tone2.syl1</string>
-      <string>tone2.syl2</string>
-      <string>tone2.syl3</string>
-      <string>tone2.syl4</string>
-      <string>tone2.syl5</string>
-      <string>tone2.syl6</string>
-      <string>tone3.above</string>
-      <string>tone3.syl1</string>
-      <string>tone3.syl2</string>
-      <string>tone3.syl3</string>
-      <string>tone3.syl4</string>
-      <string>tone3.syl5</string>
-      <string>tone3.syl6</string>
-      <string>tone4.above</string>
-      <string>tone4.syl1</string>
-      <string>tone4.syl2</string>
-      <string>tone4.syl3</string>
-      <string>tone4.syl4</string>
-      <string>tone4.syl5</string>
-      <string>tone4.syl6</string>
+      <string>tone1.w1</string>
+      <string>tone1.w2</string>
+      <string>tone1.w3</string>
+      <string>tone1.w4</string>
+      <string>tone2.w1</string>
+      <string>tone2.w2</string>
+      <string>tone2.w3</string>
+      <string>tone2.w4</string>
+      <string>tone3.w1</string>
+      <string>tone3.w2</string>
+      <string>tone3.w3</string>
+      <string>tone3.w4</string>
+      <string>tone4.w1</string>
+      <string>tone4.w2</string>
+      <string>tone4.w3</string>
+      <string>tone4.w4</string>
       <string>trademark</string>
       <string>two</string>
       <string>u</string>
@@ -1282,61 +1270,37 @@
       <string>base</string>
       <key>tildecomb</key>
       <string>mark</string>
-      <key>tone1.above</key>
+      <key>tone1.w1</key>
       <string>base</string>
-      <key>tone1.syl1</key>
+      <key>tone1.w2</key>
       <string>base</string>
-      <key>tone1.syl2</key>
+      <key>tone1.w3</key>
       <string>base</string>
-      <key>tone1.syl3</key>
+      <key>tone1.w4</key>
       <string>base</string>
-      <key>tone1.syl4</key>
+      <key>tone2.w1</key>
       <string>base</string>
-      <key>tone1.syl5</key>
+      <key>tone2.w2</key>
       <string>base</string>
-      <key>tone1.syl6</key>
+      <key>tone2.w3</key>
       <string>base</string>
-      <key>tone2.above</key>
+      <key>tone2.w4</key>
       <string>base</string>
-      <key>tone2.syl1</key>
+      <key>tone3.w1</key>
       <string>base</string>
-      <key>tone2.syl2</key>
+      <key>tone3.w2</key>
       <string>base</string>
-      <key>tone2.syl3</key>
+      <key>tone3.w3</key>
       <string>base</string>
-      <key>tone2.syl4</key>
+      <key>tone3.w4</key>
       <string>base</string>
-      <key>tone2.syl5</key>
+      <key>tone4.w1</key>
       <string>base</string>
-      <key>tone2.syl6</key>
+      <key>tone4.w2</key>
       <string>base</string>
-      <key>tone3.above</key>
+      <key>tone4.w3</key>
       <string>base</string>
-      <key>tone3.syl1</key>
-      <string>base</string>
-      <key>tone3.syl2</key>
-      <string>base</string>
-      <key>tone3.syl3</key>
-      <string>base</string>
-      <key>tone3.syl4</key>
-      <string>base</string>
-      <key>tone3.syl5</key>
-      <string>base</string>
-      <key>tone3.syl6</key>
-      <string>base</string>
-      <key>tone4.above</key>
-      <string>base</string>
-      <key>tone4.syl1</key>
-      <string>base</string>
-      <key>tone4.syl2</key>
-      <string>base</string>
-      <key>tone4.syl3</key>
-      <string>base</string>
-      <key>tone4.syl4</key>
-      <string>base</string>
-      <key>tone4.syl5</key>
-      <string>base</string>
-      <key>tone4.syl6</key>
+      <key>tone4.w4</key>
       <string>base</string>
       <key>trademark</key>
       <string>base</string>
@@ -1596,7 +1560,7 @@
       <string>base</string>
     </dict>
     <key>public.openTypeHeadModified</key>
-    <string>2026/10/30 22:10:05</string>
+    <string>2026/10/31 08:32:55</string>
     <key>public.openTypeMeta</key>
     <dict>
       <key>dlng</key>

@@ -23,7 +23,10 @@ typing box are below the tables.</p>
 <div class="tryout" markdown="0">
   <textarea id="try-in" spellcheck="false" rows="3" placeholder="Type in Diafon, for example: sjip, tqokolawda, ni3kxaux3" aria-label="Diafon typing"></textarea>
   <div class="tryout-out" id="try-out"></div>
-  <div class="tryout-row tryout-opts"><label><input type="checkbox" id="try-tones" checked> tones above the syllable</label></div>
+  <div class="tryout-row tryout-opts">
+    <label>result <select id="try-as" autocomplete="off"><option value="diafon" selected>Diafon</option><option value="pinyin">Pinyin (Mandarin)</option></select></label>
+    <label><input type="checkbox" id="try-tones" checked> tones above the syllable</label>
+  </div>
 </div>
 
 

@@ -16,7 +16,7 @@ What the UFO carries:
 - our own features.fea: ccmp for the baked letter+mark pairs (a base plus a
   combining mark renders as its composition, as the composed-marks stage
   writes it) and the dotless i/j under above marks; liga for fi fl ff; calt
-  for the tones above the syllable (switched off, the sign follows it);
+  and dist for the tones above the syllable (calt off, the sign follows it);
 - font info to Google Fonts' rules, glyph categories for GDEF, the meta table.
 
     python3 fonts/tools/make_ufo.py [serif|sans|mono] [derived.ttf] [out.ufo]
@@ -50,7 +50,7 @@ def reachable(ufo):
     for dn in ('dotlessi', 'uni0237', 'dotlessj', 'uni25CC'):
         if dn in ufo:
             keep.add(dn)
-    keep |= {g.name for g in ufo if re.fullmatch(r'tone\d+\.syl\d+', g.name)}   # the calt targets
+    keep |= {g.name for g in ufo if re.fullmatch(r'tone\d+\.w\d+', g.name)}     # the calt targets
     stack = list(keep)
     while stack:                       # components pull their parts along
         g = ufo[stack.pop()]
@@ -75,34 +75,60 @@ def is_letter(g):
         'dotlessi', 'uni0237', 'dotlessj') or g.name in LIGAS
 
 
+TONE_REACH = 8              # letters a tone above is centred over, at most
+
+
 def tone_rules(ufo):
-    """calt: a tone sign after a syllable of n letters -> tone<d>.syl<n>, its
-    shape set back over the syllable; marks are skipped, so a letter with its
-    marks counts once. The longest syllable is tried first; a space, a mark
-    of punctuation or the previous tone sign ends the syllable."""
+    """The tones above the syllable. calt: a tone sign after the syllable's
+    letters -> tone<d>.w<h>, h its width in half letters (a narrow letter is
+    one, others two; four and over is the two-letter tone); the longest
+    syllable is tried first, and a space, a mark of punctuation or the
+    previous tone sign ends it. dist: the tone, no advance of its own, set
+    back by half of each letter's advance, so it centres on the syllable.
+    Marks are skipped, so a letter with its marks counts once. Switched off
+    (calt), the sign follows the syllable."""
+    import itertools
     import yaml
     tones = yaml.safe_load(open(os.path.join(ROOT, 'data', 'script.yaml')))['tones']
     by_cp = {u: g.name for g in ufo for u in g.unicodes}
     signs = [(by_cp[ord(t['sign'])], d) for d, t in tones.items()
-             if t['sign'] and ord(t['sign']) in by_cp and f'tone{d}.syl1' in ufo]
+             if t['sign'] and ord(t['sign']) in by_cp and f'tone{d}.w4' in ufo]
     if not signs:
         return []
-    longest = max(int(m.group(1)) for g in ufo
-                  if (m := re.fullmatch(r'tone\d+\.syl(\d+)', g.name)))
     letters = sorted(g.name for g in ufo if is_letter(g) and not is_mark(g))
-    fea = ['@letter = [' + ' '.join(letters) + '];',
-           '@tone = [' + ' '.join(s for s, _ in signs) + '];']
-    for n in range(1, longest + 1):
-        fea.append(f'@tone_syl{n} = [' + ' '.join(f'tone{d}.syl{n}' for _, d in signs) + '];')
-    fea += ['', 'feature calt {', '    lookupflag IgnoreMarks;']
-    for n in range(longest, 0, -1):
-        fea.append('    sub ' + '@letter ' * n + f"@tone' by @tone_syl{n};")
-    return fea + ['} calt;', '']
+    unit = sum(ufo[by_cp[ord(c)]].width for c in 'abcdefghijklmnopqrstuvwxyz') / 26
+    narrow = [n for n in letters if ufo[n].width < BF.TONE_NARROW * unit]
+    normal = [n for n in letters if n not in narrow]
+    kinds = [k for k, members in (('narrow', narrow), ('normal', normal)) if members]   # a monospace has no narrow
+    fea = ['@letter = [' + ' '.join(letters) + '];']
+    fea += [f'@{k} = [' + ' '.join(narrow if k == 'narrow' else normal) + '];' for k in kinds]
+    fea.append('@tone = [' + ' '.join(s for s, _ in signs) + '];')
+    for h in BF.TONE_HALVES:
+        fea.append(f'@tone_w{h} = [' + ' '.join(f'tone{d}.w{h}' for _, d in signs) + '];')
+    fea.append('@tone_above = [' + ' '.join(f'tone{d}.w{h}' for _, d in signs for h in BF.TONE_HALVES) + '];')
+    fea += ['', 'feature calt {', '    lookupflag IgnoreMarks;',
+            "    sub @letter @letter @letter @letter @tone' by @tone_w4;"]
+    for n in (3, 2, 1):
+        for pat in itertools.product(kinds, repeat=n):
+            h = min(4, sum(1 if c == 'narrow' else 2 for c in pat))
+            fea.append('    sub ' + ' '.join('@' + c for c in pat) + f" @tone' by @tone_w{h};")
+    fea += ['} calt;', '']
+    advances = sorted({ufo[n].width for n in letters})
+    for a in advances:
+        fea.append(f'@adv{a} = [' + ' '.join(n for n in letters if ufo[n].width == a) + '];')
+    for a in advances:
+        fea.append(f'lookup tone_back{a} {{ pos @tone_above <{-round(a / 2)} 0 0 0>; }} tone_back{a};')
+    for k in range(1, TONE_REACH + 1):
+        fea += [f'lookup tone_centre{k} {{', '    lookupflag IgnoreMarks;']
+        fea += [f'    pos @adv{a} ' + '@letter ' * (k - 1) + f"@tone_above' lookup tone_back{a};" for a in advances]
+        fea.append(f'}} tone_centre{k};')
+    fea += ['', 'feature dist {'] + [f'    lookup tone_centre{k};' for k in range(1, TONE_REACH + 1)] + ['} dist;', '']
+    return fea
 
 
 def features(ufo):
     """ccmp: base + combining mark -> the baked composition; dotless i j under
-    above marks; liga for the f ligatures; calt for the tones above."""
+    above marks; liga for the f ligatures; calt and dist for the tones above."""
     names = {g.name for g in ufo}
     by_cp = {u: g.name for g in ufo for u in g.unicodes}   # the mark's real name
     subs = []                                                # (acutecomb, not uni0301)
