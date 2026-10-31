@@ -84,11 +84,13 @@ document.getElementById('proposeBtn').addEventListener('click', () => {
   navigator.clipboard.writeText(body).then(() => { $status.textContent = 'Copied as a proposal; the repo is not public yet, so send it to the maintainer.'; }, () => { $status.textContent = 'Shown below; the repo is not public yet, so send it to the maintainer.'; });
 });
 
-const $keep = document.getElementById('keepNames');
+const $keep = document.getElementById('keepNames'), $join = document.getElementById('join');
 $keep.addEventListener('change', () => chrome.storage.sync.set({keepNames: $keep.checked}));
-chrome.storage.sync.get({entries: {}, keepNames: false}, s => { entries = s.entries || {}; $keep.checked = !!s.keepNames; render(); });
+$join.addEventListener('change', () => chrome.storage.sync.set({join: $join.checked}));
+chrome.storage.sync.get({entries: {}, keepNames: false, join: false}, s => { entries = s.entries || {}; $keep.checked = !!s.keepNames; $join.checked = !!s.join; render(); });
 chrome.storage.onChanged.addListener((changes, area) => {
   if (area !== 'sync') return;
   if (changes.entries) { entries = changes.entries.newValue || {}; render(); }
   if (changes.keepNames) $keep.checked = !!changes.keepNames.newValue;
+  if (changes.join) $join.checked = !!changes.join.newValue;
 });
