@@ -238,6 +238,56 @@ def _op_gloss():
 
 
 
+MESSY = ('<b>Where it gets messy.</b> The reverse anchor marks the further-back partner of a sound, and only '
+         'languages that have both sounds write it: Polish /ɕ/ and /ʂ/ are <span class="ug">ș</span> and '
+         '<span class="ug">s̖</span>, Hindi /t/ and /ʈ/ are <span class="ug">t</span> and <span class="ug">t̖</span>, '
+         'Arabic /s/ and /sˤ/ are <span class="ug">s</span> and <span class="ug">s̖</span>. A language with one sound '
+         'of the pair writes it with the plain letter or the anchor, whatever its exact sound: Mandarin /ʂ/ is '
+         '<span class="ug">ș</span>. Russian and Ukrainian write ш as <span class="ug">s̖</span>, as their anchor marks '
+         'the soft /sʲ/ (сь). Where a sound is written otherwise in another language, its row says so.')
+
+
+@functools.lru_cache(None)
+def written_as():
+    """{sound (NFD): {form: [language codes]}}: how each language writes each sound."""
+    cons, vows, over, *_ = load_mapping()
+    out = {}
+    for code, d in load_languages().items():
+        for sec, table in (('consonants', cons), ('vowels', vows)):
+            for ipa, freq in d[sec].items():
+                if freq == 'X':
+                    continue
+                key = nfd(ipa)
+                form = over.get(code, {}).get(key) or table.get(key)
+                if form:
+                    out.setdefault(key, {}).setdefault(form, []).append(code)
+    return out
+
+
+def also(ipa, form, here=None):
+    """'also written s̖ in Polish, Russian': the other forms other languages give this sound,
+    each language a link to its own table at that row."""
+    langs = load_languages()
+    parts = []
+    for other, codes in sorted(written_as().get(nfd(ipa), {}).items(), key=lambda kv: -len(kv[1])):
+        codes = [c for c in codes if c != here]
+        if other == form or not codes:
+            continue
+        g = html.escape(engine.render(other))
+        names = ', '.join(f'<a href="#table={c}&amp;form={other}">{html.escape(langs[c]["name"])}</a>'
+                          for c in sorted(codes, key=lambda c: langs[c]['name']))
+        parts.append(f'<span class="ug">{g}</span> in {names}')
+    return f'<span class="also">also written {"; ".join(parts)}</span>' if parts else ''
+
+
+def note_row(form, state, cols):
+    """The reverse anchor's explanation, once a table, above its first reverse-anchor row."""
+    if state.get('noted') or '\u0316' not in ud.normalize('NFD', engine.render(form)):
+        return []
+    state['noted'] = True
+    return [f'<tr class="note"><td colspan="{cols}">{MESSY}</td></tr>']
+
+
 def group_rows(form, state, cols):
     """The group headers a row opens: the keystrokes, then the operator the form ends in."""
     keys, last = len(form), (form[-1] if len(form) > 1 else '')
@@ -314,19 +364,19 @@ def universal_table(agg, shares):
            '<th>main reading</th><th>other readings</th></tr>']
     state = {}
     for key, form, t, rd in rows:
-        out += group_rows(form, state, 5)
+        out += group_rows(form, state, 5) + note_row(form, state, 5)
         sh = shares.get(form, {})
         ipa, (n, s, codes) = rd[0]
         primary = (f'<a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank">/{ipa}/</a>'
                    f'<a class="rname" href="{ipa_names.url(ipa)}" target="_blank">{ipa_names.name(ipa)}</a>'
                    f'<span class="st"><span class="who" title="{html.escape(english(codes))}">{n} language{"s" if n > 1 else ""}</span>'
-                   f' · {fmt(s)} native speakers</span>')
+                   f' · {fmt(s)} native speakers</span>' + also(ipa, form))
         groups = ''
         for ipa, (n, s, codes) in rd[1:]:
             lines = f'<span class="just">{", ".join(name(c) for c in sorted(codes, key=lambda c: langs[c]["name"] if c in langs else c))}</span>'
             groups += (f'<div class="rgroup">'
                        f'<a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank">/{ipa}/</a>'
-                       f'<a class="rname" href="{ipa_names.url(ipa)}" target="_blank">{ipa_names.name(ipa)}</a>{lines}</div>')
+                       f'<a class="rname" href="{ipa_names.url(ipa)}" target="_blank">{ipa_names.name(ipa)}</a>{lines}{also(ipa, form)}</div>')
         shown = form_cell(form)
         out.append(f'<tr data-form="{form}"><td>{shown}</td>{glyph_cell(form)}'
                    f'<td class="tt">{kind(form)}</td><td>{primary}</td><td>{groups}</td></tr>')
@@ -391,7 +441,7 @@ def language_tables():
         rows, state = [], {}
         rank = {'L': 0, 'M': 1, 'S': 2, 'X': 3}
         for form in sorted(byform, key=_order_key):
-            rows += group_rows(form, state, 5)
+            rows += group_rows(form, state, 5) + note_row(form, state, 5)
             pairs = sorted(byform[form], key=lambda p: rank[p[1]])
             reading = ' = '.join(
                 f'<a class="wref ug" href="{ipa_names.url(i)}" target="_blank">'
@@ -400,6 +450,7 @@ def language_tables():
                         f' target="_blank">{ipa_names.name(pairs[0][0])}</a>')
             if len(pairs) > 1:
                 reading += '<span class="rname">one phoneme, merged</span>'
+            reading += ''.join(also(i, form, code) for i, freq in pairs if freq != 'X')
             rows.append(f'<tr data-form="{form}"><td>{form_cell(form)}</td>{glyph_cell(form)}'
                         f'<td class="tt">{kind(form)}</td>'
                         f'<td>{reading}</td>'

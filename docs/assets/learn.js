@@ -145,6 +145,11 @@ function body(k){
     if (c.length) t += `<li>On a consonant it ${op.c}. In the script: ${op.cm}.</li>`;
     if (v.length && op.v) t += `<li>On a vowel it ${op.v}. In the script: ${op.vm}.</li>`;
     t += '</ul>';
+    if (o === 'y' && c.some(f => f.g.normalize('NFD').includes('\u0316')))   // the reverse anchor, where it gets messy
+      t += `<p>The reverse anchor marks the further-back partner of a sound, and only a language that has both sounds writes it. ` +
+           `A language with one of the pair writes it with the plain letter or the anchor, so the same sound can carry either mark across languages.` +
+           ({ru: ' In Russian the anchor marks the soft /sʲ/ and /zʲ/, so ш and ж take the reverse anchor.',
+             uk: ' In Ukrainian the anchor marks the soft /sʲ/, /zʲ/ and /tsʲ/ (сь зь ць), so ш ж ч дж take the reverse anchor.'}[$lang.value] || '') + '</p>';
     const two = l.forms.find(f => f.f.length > 2);
     if (two){
       const first = two.f.slice(0, -1);

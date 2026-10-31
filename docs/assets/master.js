@@ -148,8 +148,21 @@ function fromHash(){
   const want = st.table && $('sec-' + st.table) ? st.table : picked;   // a section anchor (#try-it) is no table
   $table.value = want && $('sec-' + want) ? want : 'universal';
 }
+// an 'also written' link (#table=pl&form=sjy): that language's table, at that row
+function goRow(){
+  const st = hashState();
+  if (!st.table || !$('sec-' + st.table)) return;
+  if ($table.value !== st.table){ $table.value = st.table; showTable(); showSample(); showSamples(); }
+  const tr = st.form && document.querySelector(`#sec-${st.table} tr[data-form="${CSS.escape(st.form)}"]`);
+  if (!tr) return;
+  tr.scrollIntoView({block: 'center'});
+  tr.classList.remove('hit'); void tr.offsetWidth; tr.classList.add('hit');
+}
+window.addEventListener('hashchange', goRow);
+
 fromHash();
 showTable();
 showSample();
 showSamples();
+goRow();
 })();
