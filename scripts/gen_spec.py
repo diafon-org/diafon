@@ -46,7 +46,7 @@ LEX_WRITE = {'en': ['dxaj', 'kuxijk', 'rid', 'rejd', 'Sjeixkspir', 'zzz'],
 LEX_LOAN = {'hu': ['meeting', 'like', 'house', 'taxi', 'team', 'tagja', 'meetingen', 'Facebook', 'show', 'think', 'alma', 'hoc', 'sok',
                    'traumái', 'traumát', 'jamaicai', 'hazai', 'pizzát', 'Jamaicában', 'akinek', 'amiket', 'meetingen', 'franchise', 'chat', 'technika',
                    'streamingajánlójában', 'meetingjén', 'Bela', 'felkerült', 'vele', 'teamek', 'teaház', 'onlinera']}
-LEX_CHOICES = ['ni3', 'kxaux3', 'tqyunx1', 'kuoc2', 'sjyuc4', 'zzz1']
+LEX_CHOICES = ['ni3', 'kxaux3', 'tqyunx1', 'kuo2', 'sjyuc4', 'zzz1']
 LEX_TEXTS = {'stage:hu': ['Sok szép nyár. Folyó, gally, hely; helyes.', 'Meeting, like, house, taxi, ad hoc, team, tagja, Facebook.',
                           'Jamaicai franchise-ba, akinek traumái; Bach, pech, technika, chat.',
                           'Streamingajánlójában online teaház, felkerült; tea, team.', 'Cudjoe East, Ocho Rios.'],
