@@ -26,7 +26,7 @@ const OPS = {
   c: {c: 'makes an affricate, t into ts and d into dz, and on r the tap',
       cm: 'the letters c and x for the affricates, a dot on r',
       v: 'flips the rounding: i rounded, u unrounded, and so on', vm: 'a <b>double dot</b> above'},
-  q: {c: 'works as c and j at once: the hushing affricates, like the ch of church; on k it is the uvular q',
+  q: {c: 'works as c and j at once: the hushing affricates /tʃ/ and /dʒ/; on k it is the uvular /q/',
       cm: 'c and x with the anchor, and the letter q',
       v: 'flips the rounding and makes it lax; on a it is the vocalic r', vm: 'a double dot above, a dot below'},
   y: {c: 'leans it back: the retroflex sounds, said with the tongue curled back',
