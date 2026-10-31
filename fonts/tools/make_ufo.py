@@ -17,8 +17,8 @@ What the UFO carries:
   combining mark renders as its composition, as the composed-marks stage
   writes it) and the dotless i/j under above marks; liga for fi fl ff; calt
   and dist for the tones above the syllable (calt off, the sign follows it); rlig
-  for the long consonants (t ZWJ t -> t.long), the drawn ones only: a pair
-  not drawn yet is dropped, and the text shows the plain double;
+  for the long consonants (t ZWJ t -> t.long), the drawn ones only; a pair
+  not drawn yet is set nearly touching (dist), a plain double (tt) as it is;
 - font info to Google Fonts' rules, glyph categories for GDEF, the meta table.
 
     python3 fonts/tools/make_ufo.py [serif|sans|mono] [derived.ttf] [out.ufo]
@@ -147,6 +147,40 @@ def long_sources(ufo, stem, by_cp):
     return out + [stem] * (stem in ufo and stem not in out)
 
 
+LONG_GAP = 10               # what is left between a long consonant's letters until the pair is drawn
+
+
+def long_tight(ufo):
+    """dist: a long consonant joined (t ZWJ t) but not drawn yet keeps its two
+    letters nearly touching: the first loses its own side bearings, LONG_GAP
+    left between the ink. A drawn pair is one glyph by then (rlig), and a plain
+    double (tt, no ZWJ) stays as it is. A monospace keeps its cells."""
+    from fontTools.pens.boundsPen import BoundsPen
+    zwj = next((g.name for g in ufo if 0x200D in g.unicodes), None)
+    letters = [g for g in ufo if is_letter(g) and not is_mark(g) and not g.name.endswith('.long')]
+    if not zwj or len({g.width for g in letters}) == 1:
+        return []
+    by_value = {}
+    for g in letters:
+        pen = BoundsPen(ufo)
+        g.draw(pen)
+        if not pen.bounds:
+            continue
+        xmin, _, xmax, _ = pen.bounds
+        v = min(0, round(LONG_GAP - (g.width - xmax) - xmin))     # never wider than set
+        if v:
+            by_value.setdefault(v, []).append(g.name)
+    if not by_value:
+        return []
+    fea = []
+    for v, names in sorted(by_value.items()):
+        fea.append(f'lookup long_tight{-v} {{ pos [{" ".join(sorted(names))}] <0 0 {v} 0>; }} long_tight{-v};')
+    fea += ['lookup long_tight {', '    lookupflag IgnoreMarks;']
+    fea += [f"    pos {n}' lookup long_tight{-v} {zwj} {n};" for v, names in sorted(by_value.items()) for n in sorted(names)]
+    fea += ['} long_tight;', '', 'feature dist {', '    lookup long_tight;', '} dist;', '']
+    return fea
+
+
 def features(ufo):
     """ccmp: base + combining mark -> the baked composition; dotless i j under
     above marks; liga for the f ligatures; calt and dist for the tones above."""
@@ -182,6 +216,7 @@ def features(ufo):
     if ligas:
         fea += ['feature liga {'] + ligas + ['} liga;', '']
     fea += tone_rules(ufo)
+    fea += long_tight(ufo)
     return '\n'.join(fea), len(subs)
 
 

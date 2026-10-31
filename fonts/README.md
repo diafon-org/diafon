@@ -97,7 +97,10 @@ Only a drawn pair ships: `make_ufo.py` keeps a `.long` glyph when
 `liga`, which HarfBuzz would let take f ZWJ f). The marked pairs follow from
 the drawn one, named for the letter and its mark (`s_uni0326.long` for
 ș ZWJ ș): the single letter's mark (its baked glyph less the letter) joined
-to the second letter; a marked pair drawn as a whole wins. ZWJ and ZWNJ are
+to the second letter; a marked pair drawn as a whole wins. Until a pair is
+drawn, its two letters are set nearly touching (`dist`, `LONG_GAP` units
+between the ink; Mono keeps its cells), so the joined text already reads as
+one long sound; a plain double (tt, no ZWJ) keeps its spacing. ZWJ and ZWNJ are
 empty and zero-width in every family. `tests/test_font_long.py` shapes every
 long consonant with HarfBuzz and CoreText.
 
