@@ -75,10 +75,10 @@ stem of n m h d H M N J, or is drawn by hand (t s k b, read off Inkscape
 edits) and borrowed by the letters with a like bottom, every stroke brought to
 one weight; it lands on a one-sided plate, inward for the anchor and outward
 for the anti-anchor. Edit a written file by hand like any override, or change
-a number and regenerate. `hand/tails.pdf` (`tools/tail_sheet.py`) is a sheet
-to draw the tails on by hand; `svg-archive-tails-scan/` keeps a set built from
-a scanned sheet (and the study prototype), `svg-archive-tails-auto/` the
-current set. The anchors and dots of the other families stay procedural
+a number and regenerate. `tools/tail_sheet.py` makes a sheet to draw the
+tails on by hand. Earlier versions are not kept beside them: the fonts hold
+what shipped, and `font_svg.py export` gives any glyph back as an SVG. The
+anchors and dots of the other families stay procedural
 (`anchor.yaml`, `families.yaml`); an SVG override wins over them.
 
 ## Long consonants (t ZWJ t)
