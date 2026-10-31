@@ -92,6 +92,15 @@ cells wide), as a ghost to draw over:
     python3 fonts/tools/font_svg.py export serif t.long     # draw the shared stroke in Inkscape
     fonts/build.sh serif
 
+or all of them on one sheet, `hand/long-sheet.svg`: the 18 plain pairs in
+system order, six to a section, a row each for Serif, Sans and Mono, every
+pair one labelled path over its rough grey self and the guides. `read`
+writes an override for each pair whose drawing changed and leaves the rest
+rough:
+
+    python3 fonts/tools/long_sheet.py make     # after fonts/build.sh, which builds the rough pairs
+    python3 fonts/tools/long_sheet.py read     # then fonts/build.sh
+
 Only a drawn pair ships: `make_ufo.py` keeps a `.long` glyph when
 `svg/<family>/<letter>.long.svg` exists, and writes its `rlig` rule (before
 `liga`, which HarfBuzz would let take f ZWJ f). The marked pairs follow from
