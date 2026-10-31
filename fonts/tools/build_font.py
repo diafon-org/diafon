@@ -994,6 +994,8 @@ TONE_MIN = 0.8              # the one-letter tone at least this wide, in letters
 TONE_NARROW = 0.7           # a narrow letter (i l j ...): under this share of the average letter;
 TONE_ON_NARROW = 0.85       #   alone, its tone is this share of the narrow letters' average, so two
                             #   in a row (yiyi) keep apart
+TONE_SPACE = 0.1            # of an em: the tone's own advance, a small gap that shows where a toned
+                            #   syllable ends (cuën ien, not cue nien); a monospace keeps its cell
 
 
 def tone_widths(hmtx, cmap):
@@ -1015,7 +1017,8 @@ def tone_letter(hmtx, cmap):
 
 def _tone_glyphs(font):
     """tone<d>.<variant> (tone_widths): the tone's shape, scaled evenly so its
-    angles stay those of the full tone, centred on 0 with no advance, stroked
+    angles stay those of the full tone, centred on 0, its advance the small
+    gap after the syllable (TONE_SPACE; a monospace's cell), stroked
     at the weight of the font's own macron. make_ufo.py writes the rules that
     put it there: calt picks the width by the syllable's letters, dist sets it
     back by half of each letter's advance, so it centres on the syllable."""
@@ -1028,6 +1031,8 @@ def _tone_glyphs(font):
     _, _, m_lo, m_hi = _outline(gs, cmap[0x02C9])
     weight = m_hi - m_lo
     letter = tone_letter(hmtx, cmap)
+    cells = {hmtx[cmap[ord(c)]][0] for c in 'abcdefghijklmnopqrstuvwxyz'}
+    space = cells.pop() if len(cells) == 1 else round(TONE_SPACE * font['head'].unitsPerEm)
     lo, hi = TONE_BAND
     tones = _yaml.safe_load(open(os.path.join(ROOT, 'data', 'script.yaml')))['tones']
     made = []
@@ -1056,7 +1061,7 @@ def _tone_glyphs(font):
             name = f'tone{d}.{var}'
             glyf[name] = tt.glyph()
             glyf[name].recalcBounds(glyf)
-            hmtx[name] = (0, glyf[name].xMin)
+            hmtx[name] = (space, glyf[name].xMin)
             _register(font, name)
         made.append(t['sign'])
     sizes = ', '.join('%s %.0f' % vw for vw in tone_widths(hmtx, cmap).items())

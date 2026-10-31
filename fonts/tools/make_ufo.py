@@ -83,8 +83,9 @@ def tone_rules(ufo):
     letters -> tone<d>.w2 (two letters wide) after two letters and more,
     tone<d>.w1 after one, tone<d>.w1n after one narrow letter (i l j: two
     such syllables in a row keep apart); the longer is tried first, and a space, a mark of punctuation or the
-    previous tone sign ends it. dist: the tone, no advance of its own, set
-    back by half of each letter's advance, so it centres on the syllable.
+    previous tone sign ends it. dist: the tone, its advance only the small
+    gap after the syllable, set back by half of each letter's advance, so it
+    centres on the syllable.
     Marks are skipped, so a letter with its marks counts once. Switched off
     (calt), the sign follows the syllable."""
     import yaml
