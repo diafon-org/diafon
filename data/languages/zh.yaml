@@ -39,3 +39,7 @@ vowels:
   ə: M
   a: L
   ɚ: S
+  aɪ: M          # the diphthongs ai ei ao ou: a vowel and its glide (aj ej aw ow), as everywhere
+  eɪ: M
+  aʊ: M
+  oʊ: M
