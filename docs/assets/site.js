@@ -102,7 +102,7 @@ new MutationObserver(recs => {
 const bar = document.createElement('div');
 bar.className = 'site-switch';
 bar.innerHTML =
-  '<label><span>Language</span><select id="site-lang" autocomplete="off">' +
+  '<label><span>site language</span><select id="site-lang" autocomplete="off">' +
     '<option value="en" selected>English</option><option disabled>more soon</option></select></label>';
 const header = document.querySelector('.md-header__inner');
 const before = header && (header.querySelector('.md-header__option') || header.querySelector('.md-search'));
