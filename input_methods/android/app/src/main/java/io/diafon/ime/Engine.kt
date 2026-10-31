@@ -25,6 +25,7 @@ object Engine {
     private val MARKS = SpecData.MARKS
     private val DESC = SpecData.DESCENDERS
     private val PARTNER = SpecData.PARTNER
+    const val ZWJ = "\u200D"                          // joins a long consonant's letters (join = true)
     private val BELOWS = MARKS.values.mapNotNull { it.below }
 
     fun nfc(s: String): String = Normalizer.normalize(s, Normalizer.Form.NFC)
@@ -81,8 +82,9 @@ object Engine {
     }
 
     /** Script glyph of one form; an uppercase base letter capitalizes it, and
-     *  the float rule reads the capital's own shape. */
-    fun glyph(formIn: String): String {
+     *  the float rule reads the capital's own shape; join puts a ZWJ between
+     *  a long consonant's two letters. */
+    fun glyph(formIn: String, join: Boolean = false): String {
         val caps = formIn[0].isUpperCase()
         val form = if (caps) formIn[0].lowercaseChar() + formIn.substring(1) else formIn
         val w = form.endsWith("w")
@@ -99,7 +101,7 @@ object Engine {
             return nfc(g)
         }
         var g = compose(caps)
-        if (w && !longVowel) g += g                        // long consonant doubles its letter
+        if (w && !longVowel) g += (if (join) ZWJ else "") + g   // long consonant doubles its letter
         g = nfc(g)
         if (caps) g = nfc(g[0].uppercaseChar() + g.substring(1))
         return g
@@ -169,16 +171,17 @@ object Engine {
     }
 
     /** Script form of a text. strict=false passes ill-formed characters and
-     *  formless segments through as typed; tones=false drops tone digits. */
+     *  formless segments through as typed; tones=false drops tone digits;
+     *  join=true joins long consonants with a ZWJ. */
     /** the script's tone signs for a run of tone digits (a digit outside the table stays a digit) */
     fun toneSigns(digits: String): String = digits.map { SpecData.TONES[it] ?: it.toString() }.joinToString("")
 
-    fun render(text: String, strict: Boolean = true, tones: Boolean = true): String {
+    fun render(text: String, strict: Boolean = true, tones: Boolean = true, join: Boolean = false): String {
         val out = StringBuilder()
         for (seg in segments(text, strict)) {
             if (seg !is Seg.Form) { out.append(seg.src); continue }
             try {
-                out.append(glyph(seg.form)).append(if (tones) toneSigns(seg.tones) else "")
+                out.append(glyph(seg.form, join)).append(if (tones) toneSigns(seg.tones) else "")
             } catch (e: ParseError) {
                 if (strict) throw e
                 out.append(seg.src)

@@ -36,6 +36,7 @@ enum Engine {
     private static let marks = SpecData.marks
     private static let desc = SpecData.descenders
     private static let partner = SpecData.partner
+    static let zwj = "\u{200D}"                              // joins a long consonant's letters (join: true)
     private static let belows: [Unicode.Scalar] = marks.values.compactMap { $0.below?.unicodeScalars.first }
 
     static func nfc(_ s: String) -> String { s.precomposedStringWithCanonicalMapping }
@@ -111,8 +112,9 @@ enum Engine {
     }
 
     /// Script glyph of one form; an uppercase base letter capitalizes it, and
-    /// the float rule reads the capital's own shape.
-    static func glyph(_ formIn: String) throws -> String {
+    /// the float rule reads the capital's own shape; join puts a ZWJ between
+    /// a long consonant's two letters.
+    static func glyph(_ formIn: String, join: Bool = false) throws -> String {
         let first = formIn.first!
         let caps = first.isUppercase
         let form = caps ? String(lower(first)) + String(formIn.dropFirst()) : formIn
@@ -129,7 +131,7 @@ enum Engine {
             return nfc(g)
         }
         var g = try compose(caps)
-        if w && !longVowel { g += g }                         // long consonant doubles its letter
+        if w && !longVowel { g += (join ? zwj : "") + g }     // long consonant doubles its letter
         g = nfc(g)
         if caps {
             let u = scalars(g)
@@ -205,19 +207,20 @@ enum Engine {
     }
 
     /// Script form of a text. Lenient passes ill-formed characters and
-    /// formless segments through as typed; tones=false drops tone digits.
-    static func render(_ text: String, strict: Bool = true, tones: Bool = true) throws -> String {
+    /// formless segments through as typed; tones=false drops tone digits;
+    /// join=true joins long consonants with a ZWJ.
+    static func render(_ text: String, strict: Bool = true, tones: Bool = true, join: Bool = false) throws -> String {
         var out = ""
         for seg in try segments(text, strict: strict) {
             guard case .form(let src, let form, let t) = seg else { out += seg.src; continue }
-            do { out += try glyph(form) + (tones ? toneSigns(t) : "") }
+            do { out += try glyph(form, join: join) + (tones ? toneSigns(t) : "") }
             catch { if strict { throw error }; out += src }
         }
         return out
     }
 
     /// Lenient render, never throws.
-    static func lenient(_ text: String, tones: Bool = true) -> String { (try? render(text, strict: false, tones: tones)) ?? text }
+    static func lenient(_ text: String, tones: Bool = true, join: Bool = false) -> String { (try? render(text, strict: false, tones: tones, join: join)) ?? text }
 
     /// The streaming commit rule: everything before the last segment is
     /// final; a last segment that is a form may still grow, so it stays

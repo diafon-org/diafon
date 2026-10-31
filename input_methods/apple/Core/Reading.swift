@@ -22,7 +22,8 @@ extension Engine {
     }
 
     private static var scriptTableCache: [String: String]?
-    /// {glyph text: form}: the forms in use deciding a glyph two forms share.
+    /// {glyph text: form}: the forms in use deciding a glyph two forms share;
+    /// a long consonant plain and joined.
     static func scriptTable() -> [String: String] {
         if let t = scriptTableCache { return t }
         let used = Set(SpecData.used)
@@ -30,7 +31,9 @@ extension Engine {
         var table: [String: String] = [:]
         for form in inv.filter({ used.contains($0) }) + inv.filter({ !used.contains($0) }) {
             for f in [form, capFirst(form)] {
-                if let g = try? glyph(f), table[g] == nil { table[g] = f }
+                for join in [false, true] {
+                    if let g = try? glyph(f, join: join), table[g] == nil { table[g] = f }
+                }
             }
         }
         scriptTableCache = table

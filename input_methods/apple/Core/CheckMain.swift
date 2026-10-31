@@ -3,6 +3,7 @@
 // Kotlin check, so one test shape holds every port).
 //   render        strict script form, or "!ERR" when the input is rejected
 //   lenient       lenient script form
+//   joined        strict script form, long consonants joined with a ZWJ
 //   stream        the keystroke trace: buffer, committed, pending joined by
 //                 U+001E, steps joined by U+001F
 //   stage:<code>  the stage's spelling
@@ -25,6 +26,7 @@ struct Check {
             var result: String
             if mode == "render" { result = (try? Engine.render(input)) ?? "!ERR" }
             else if mode == "lenient" { result = Engine.lenient(input) }
+            else if mode == "joined" { result = (try? Engine.render(input, join: true)) ?? "!ERR" }
             else if mode == "stream" {
                 var buf = ""
                 var steps: [String] = []

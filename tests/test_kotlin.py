@@ -57,6 +57,8 @@ def test_kotlin_vectors():
         reqs.append(('render', inp)); wants.append('!ERR')
     for inp, want in vec['lenient']:
         reqs.append(('lenient', inp)); wants.append(want)
+    for inp, want in vec['joined']:
+        reqs.append(('joined', inp)); wants.append(want)
     for text, tr in vec['stream'].items():
         reqs.append(('stream', text)); wants.append(STEP.join(FIELD.join(step) for step in tr))
     for code, pairs in vec['stages'].items():

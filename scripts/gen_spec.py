@@ -131,6 +131,10 @@ def main():
         render_vec.append([f.upper(), engine.render(f.upper())])
     render_vec += [[f['form'], f['glyph']] for f in forms if f['segments'] > 1]
     render_vec += [[s, engine.render(s)] for s in SENTENCES]
+    long_forms = [f for f in engine.inventory() if f.endswith('w') and f[0] in engine.C_BASES]   # every long consonant
+    joined_vec = [[f, engine.render(f, join=True)] for f in long_forms]
+    joined_vec += [[f[0].upper() + f[1:], engine.render(f[0].upper() + f[1:], join=True)] for f in long_forms]
+    joined_vec += [[s, engine.render(s, join=True)] for s in SENTENCES if 'w' in s.lower()]
     for s in INVALID:
         try:
             engine.render(s)
@@ -145,6 +149,7 @@ def main():
         for form in (f, f[0].upper() + f[1:]):
             parse_script.append([engine.render(form), form])
     parse_script += [[engine.render(s), stages.parse(engine.render(s), 'script')] for s in SENTENCES]
+    parse_script += [[g, stages.parse(g, 'script')] for _, g in joined_vec]
     parse_stages = {}
     for code in stages.codes():
         st = stages.load(code)
@@ -208,6 +213,7 @@ def main():
             'A segment is one base letter followed by at most two operators (c j q x y), then w at most once and last, then tone digits.',
             'An operator or a digit never starts a segment; strictly, such input is an error; leniently, it passes through as typed.',
             'Case is orthographic: an uppercase base capitalizes its point, operators fold case, a long consonant capitalizes its first letter only.',
+            'A long consonant doubles its letter; with the join option a ZWJ (U+200D) stands between the two letters, and reading back takes either.',
             'Segmentation is greedy left to right and unique: no two forms concatenated ever re-read as anything else.',
             'Streaming: everything before the last segment is final; a last segment that is a form may still grow, so it stays pending.',
             'Any character outside the 26 letters and the digits is raw and passes through.',
@@ -219,6 +225,7 @@ def main():
         'vectors': {
             'render': render_vec,
             'lenient': [[s, engine.render(s, strict=False)] for s in LENIENT],
+            'joined': joined_vec,
             'invalid': INVALID,
             'stream': {s: trace(s) for s in SENTENCES[:3]},
             'stages': stage_vectors,

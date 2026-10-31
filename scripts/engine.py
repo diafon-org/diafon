@@ -20,6 +20,10 @@ Implements the grammar of docs/index.html:
   shape, and no capital in the system has a descender, so a capital always
   wears its mark below (p̓ P̦, ġ G̣); a long consonant capitalizes only its
   first letter (Sjw -> Șș).
+- Optionally (join=True) a long consonant carries a zero width joiner
+  between its two letters (tw -> t ZWJ t): the text then records the w, and
+  the Diafon fonts draw the pair fused; other fonts show the plain double.
+  Reading back takes either.
 
 Input methods use segments(strict=False), render(strict=False) and stream():
 ill-formed input passes through as typed, and a segment commits the moment
@@ -47,6 +51,7 @@ MARKS = _S['marks']
 PARTNER = _S['flip_partner']
 TONES = {d: t['sign'] for d, t in _S['tones'].items()}      # digit -> its sign after the syllable
 TONE_OF = {sign: d for d, sign in TONES.items() if sign}     # and back (mid is unmarked: it reads back as none)
+ZWJ = '\u200d'                                               # joins a long consonant's letters (join=True)
 
 
 def tone_signs(digits):
@@ -127,9 +132,10 @@ def _mark(glyph, base, kind, caps=False):
     return glyph + (below or '')
 
 
-def glyph(form):
+def glyph(form, join=False):
     """Script glyph for one segment form. An uppercase base letter
-    capitalizes the glyph; the float rule reads the capital's own shape."""
+    capitalizes the glyph; the float rule reads the capital's own shape.
+    join=True puts a ZWJ between a long consonant's two letters."""
     caps = form[0].isupper()
     if caps:
         form = form[0].lower() + form[1:]
@@ -148,7 +154,7 @@ def glyph(form):
 
     g = compose(caps)
     if w and not long_vowel:
-        g += g                  # long consonant doubles its letter
+        g += (ZWJ if join else '') + g      # long consonant doubles its letter
     g = ud.normalize('NFC', g)  # one codepoint per visual representation
     if caps:
         g = ud.normalize('NFC', g[0].upper() + g[1:])
@@ -243,16 +249,17 @@ def _vowel(base, ops):
     return g
 
 
-def render(text, strict=True):
+def render(text, strict=True, join=False):
     """Script form of a text. strict=False passes ill-formed characters and
-    forms with no glyph through as typed (the input-method reading)."""
+    forms with no glyph through as typed (the input-method reading);
+    join=True joins long consonants with a ZWJ."""
     out = []
     for seg in segments(text, strict):
         if seg['kind'] != 'form':
             out.append(seg['src'])
             continue
         try:
-            out.append(glyph(seg['form']) + tone_signs(seg['tones']))
+            out.append(glyph(seg['form'], join) + tone_signs(seg['tones']))
         except ParseError:
             if strict:
                 raise
@@ -283,7 +290,8 @@ _SCRIPT_TABLE = {}
 
 def script_table(used=()):
     """The script read back: {glyph text: form} over the whole inventory,
-    small and capitalized (Șș -> Sjw). Where two forms compose the same
+    small and capitalized (Șș -> Sjw), a long consonant plain and joined
+    (ș ZWJ ș -> sjw too). Where two forms compose the same
     glyph (the dot of kx and kc; a vowel operator repeated, acc = ac) the
     reading is a form in `used` (the forms the languages use, from the
     master table) before any other, and the shorter form after that; the
@@ -295,6 +303,7 @@ def script_table(used=()):
         for form in [f for f in inv if f in key] + [f for f in inv if f not in key]:
             for f in (form, form[0].upper() + form[1:]):
                 table.setdefault(glyph(f), f)
+                table.setdefault(glyph(f, join=True), f)
         _SCRIPT_TABLE[key] = table
     return _SCRIPT_TABLE[key]
 
