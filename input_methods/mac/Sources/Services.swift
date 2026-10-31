@@ -12,7 +12,7 @@ import Cocoa
         let p = Prefs.shared
         let target = p.enabled ? p.output : "script"
         let source = Stages.sourceFor(text, target: target, prefer: Prefs.shared.preferredSources)
-        write(pboard, Stages.convert(text, source, target, tones: p.tones))
+        write(pboard, Stages.convert(text, source, target, tones: p.tones, join: p.join))
     }
 
     @objc func convertSelectionChoosing(_ pboard: NSPasteboard, userData: String, error: AutoreleasingUnsafeMutablePointer<NSString>) {
