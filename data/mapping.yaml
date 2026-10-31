@@ -249,7 +249,8 @@ overrides:
     ə: a
   ja:            # the moraic nasal ん contrasts with n (kani ~ kan'i): the velar
     ɴ: nx        #   nasal's slot, ŋ being no phoneme of Japanese
-  zh:            # one mid vowel (pinyin e): ë throughout, [ə] before n ŋ as [ɤ] elsewhere
+  zh:            # one mid vowel (pinyin e): ë alone and before n ŋ, [ɤ] [ə]; after u it is [o],
+                 #   and the lexicon writes it o there (guo kuo, wo uo)
     ə: oc
                  # the retroflexes are the hush: no plain hush to contrast
     ʂ: sj        #   (j q x share it before i ü), so the back-lean is unsigned
