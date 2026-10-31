@@ -19,7 +19,8 @@ a little below p) instead of the serifed straight stroke. `fonts/build.sh [serif
   glyphs, and the web letters pointed at the compositions they stand for.
 - `tools/make_ufo.py <family>` extracts the editable sources, `sources/<Family>-Regular.ufo`:
   the reachable glyphs with their anchors and kerning, our own small
-  `features.fea` (ccmp for the compositions, dotless i j, the f ligatures;
+  `features.fea` (ccmp for the compositions, dotless i j, the f ligatures,
+  calt for the tones above the syllable;
   fontmake writes kern, mark and mkmk from the UFO's data), font info to
   Google Fonts' rules, glyph categories and the meta table. Regenerated on
   every build; hand edits belong upstream, in the SVG overrides or the tools.

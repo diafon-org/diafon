@@ -36,6 +36,8 @@ flip_partner: {i: u, u: i, e: o, o: e, a: a}
 # Tones: a digit in input is one contour in every language (data/README.md, the
 # standard tone vocabulary); the script draws it as a sign after the syllable,
 # the marks Bopomofo uses (mid unmarked, as in Thai and Vietnamese spelling).
+# The Diafon fonts draw the signs with a shape above the syllable (calt,
+# fonts/tools/build_font.py TONE_SHAPES); the text keeps the sign after it.
 tones:
   "1": {contour: high, sign: "ˉ"}
   "2": {contour: rising, sign: "ˊ"}

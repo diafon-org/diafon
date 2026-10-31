@@ -171,3 +171,66 @@ feature ccmp {
     sub j' @above by uni0237;
     } dotless;
 } ccmp;
+
+@letter = [A AE A_uni0300 A_uni0301 A_uni030B Abreve Acircumflex Adieresis Amacron Aogonek Aring Atilde B B_uni0308 B_uni0316 B_uni0326 C C_uni0308 C_uni0316 C_uni0326 Cacute Ccaron Ccedilla Cdotaccent D D_uni0308 D_uni0316 D_uni0326 Dcaron Dcroat E E_uni0300 E_uni0301 E_uni030B Ecaron Ecircumflex Edieresis Edotaccent Emacron Eogonek Eth F F_uni0308 F_uni0326 G G_uni0308 G_uni0316 G_uni0326 Gbreve Gdotaccent H H_uni0308 H_uni0316 H_uni0326 Hbar I I_uni0300 I_uni0301 I_uni030B Icircumflex Idieresis Idotaccent Imacron Iogonek J J_uni0308 J_uni0316 J_uni0326 K K_uni0308 K_uni0316 K_uni0326 L L_uni0308 L_uni0326 Lacute Lcaron Lslash M M_uni0308 M_uni0316 M_uni0326 N N_uni0308 N_uni0316 N_uni0326 Nacute Ncaron Ntilde O OE O_uni0300 O_uni0301 O_uni030B Ocircumflex Odieresis Oslash Otilde P P_uni0308 P_uni0316 P_uni0326 Q Q_uni0308 Q_uni0316 Q_uni0326 R R_uni0308 R_uni0326 Racute Rcaron S S_uni0308 S_uni0316 S_uni0326 Sacute Scaron Scedilla T T_uni0308 T_uni0316 T_uni0326 Tcaron Thorn U U_uni0300 U_uni0301 U_uni030B Ucircumflex Udieresis Umacron Uogonek Uring V V_uni0308 V_uni0316 V_uni0326 W Wacute Wcircumflex Wdieresis Wgrave X X_uni0308 X_uni0316 X_uni0326 Y Y_uni0316 Y_uni0326 Yacute Ycircumflex Ydieresis Ygrave Z Z_uni0308 Z_uni0316 Z_uni0326 Zacute Zcaron Zdotaccent a a_uni0300 a_uni0301 a_uni030B abreve acircumflex adieresis ae amacron aogonek aring atilde b b_uni0308 b_uni0316 b_uni0326 c c_uni0308 c_uni0316 c_uni0326 cacute ccaron ccedilla cdotaccent d d_uni0308 d_uni0316 d_uni0326 dcaron dcroat dotlessi e e_uni0300 e_uni0301 e_uni030B ecaron ecircumflex edieresis edotaccent emacron eogonek eth f f_uni0308 f_uni0326 g g_uni0308 g_uni0313 g_uni0314 gbreve gdotaccent germandbls h h_uni0308 h_uni0316 h_uni0326 hbar i i_uni0300 i_uni0301 i_uni030B icircumflex idieresis imacron iogonek j j_uni0308 j_uni0313 j_uni0314 k k_uni0308 k_uni0316 k_uni0326 l l_uni0308 l_uni0326 lacute lcaron lslash m m_uni0308 m_uni0316 m_uni0326 n n_uni0308 n_uni0316 n_uni0326 nacute ncaron ntilde o o_uni0300 o_uni0301 o_uni030B ocircumflex odieresis oe ordfeminine ordmasculine oslash otilde p p_uni0308 p_uni0313 p_uni0314 q q_uni0308 q_uni0313 q_uni0314 r r_uni0308 r_uni0326 racute rcaron s s_uni0308 s_uni0316 s_uni0326 sacute scaron scedilla t t_uni0308 t_uni0316 t_uni0326 tcaron thorn u u_uni0300 u_uni0301 u_uni030B ucircumflex udieresis umacron uni0122 uni0123 uni0136 uni0137 uni013B uni013C uni0145 uni0146 uni0237 uni1E04 uni1E05 uni1E0C uni1E0D uni1E24 uni1E25 uni1E32 uni1E33 uni1E36 uni1E37 uni1E42 uni1E43 uni1E46 uni1E47 uni1E56 uni1E57 uni1E5A uni1E5B uni1E62 uni1E63 uni1E6C uni1E6D uni1E7E uni1E7F uni1E92 uni1E93 uni1E9E uni1EA0 uni1EA0_uni0300 uni1EA0_uni0301 uni1EA1 uni1EA1_uni0300 uni1EA1_uni0301 uni1EB8 uni1EB8_uni0300 uni1EB8_uni0301 uni1EB9 uni1EB9_uni0300 uni1EB9_uni0301 uni1ECA uni1ECA_uni0300 uni1ECA_uni0301 uni1ECB uni1ECB_uni0300 uni1ECB_uni0301 uni1ECC uni1ECC_uni0300 uni1ECC_uni0301 uni1ECD uni1ECD_uni0300 uni1ECD_uni0301 uni1EE4 uni1EE4_uni0300 uni1EE4_uni0301 uni1EE5 uni1EE5_uni0300 uni1EE5_uni0301 uogonek uring v v_uni0308 v_uni0316 v_uni0326 w wacute wcircumflex wdieresis wgrave x x_uni0308 x_uni0316 x_uni0326 y y_uni0313 y_uni0314 yacute ycircumflex ydieresis ygrave z z_uni0308 z_uni0316 z_uni0326 zacute zcaron zdotaccent];
+@normal = [A AE A_uni0300 A_uni0301 A_uni030B Abreve Acircumflex Adieresis Amacron Aogonek Aring Atilde B B_uni0308 B_uni0316 B_uni0326 C C_uni0308 C_uni0316 C_uni0326 Cacute Ccaron Ccedilla Cdotaccent D D_uni0308 D_uni0316 D_uni0326 Dcaron Dcroat E E_uni0300 E_uni0301 E_uni030B Ecaron Ecircumflex Edieresis Edotaccent Emacron Eogonek Eth F F_uni0308 F_uni0326 G G_uni0308 G_uni0316 G_uni0326 Gbreve Gdotaccent H H_uni0308 H_uni0316 H_uni0326 Hbar I I_uni0300 I_uni0301 I_uni030B Icircumflex Idieresis Idotaccent Imacron Iogonek J J_uni0308 J_uni0316 J_uni0326 K K_uni0308 K_uni0316 K_uni0326 L L_uni0308 L_uni0326 Lacute Lcaron Lslash M M_uni0308 M_uni0316 M_uni0326 N N_uni0308 N_uni0316 N_uni0326 Nacute Ncaron Ntilde O OE O_uni0300 O_uni0301 O_uni030B Ocircumflex Odieresis Oslash Otilde P P_uni0308 P_uni0316 P_uni0326 Q Q_uni0308 Q_uni0316 Q_uni0326 R R_uni0308 R_uni0326 Racute Rcaron S S_uni0308 S_uni0316 S_uni0326 Sacute Scaron Scedilla T T_uni0308 T_uni0316 T_uni0326 Tcaron Thorn U U_uni0300 U_uni0301 U_uni030B Ucircumflex Udieresis Umacron Uogonek Uring V V_uni0308 V_uni0316 V_uni0326 W Wacute Wcircumflex Wdieresis Wgrave X X_uni0308 X_uni0316 X_uni0326 Y Y_uni0316 Y_uni0326 Yacute Ycircumflex Ydieresis Ygrave Z Z_uni0308 Z_uni0316 Z_uni0326 Zacute Zcaron Zdotaccent a a_uni0300 a_uni0301 a_uni030B abreve acircumflex adieresis ae amacron aogonek aring atilde b b_uni0308 b_uni0316 b_uni0326 c c_uni0308 c_uni0316 c_uni0326 cacute ccaron ccedilla cdotaccent d d_uni0308 d_uni0316 d_uni0326 dcaron dcroat dotlessi e e_uni0300 e_uni0301 e_uni030B ecaron ecircumflex edieresis edotaccent emacron eogonek eth f f_uni0308 f_uni0326 g g_uni0308 g_uni0313 g_uni0314 gbreve gdotaccent germandbls h h_uni0308 h_uni0316 h_uni0326 hbar i i_uni0300 i_uni0301 i_uni030B icircumflex idieresis imacron iogonek j j_uni0308 j_uni0313 j_uni0314 k k_uni0308 k_uni0316 k_uni0326 l l_uni0308 l_uni0326 lacute lcaron lslash m m_uni0308 m_uni0316 m_uni0326 n n_uni0308 n_uni0316 n_uni0326 nacute ncaron ntilde o o_uni0300 o_uni0301 o_uni030B ocircumflex odieresis oe ordfeminine ordmasculine oslash otilde p p_uni0308 p_uni0313 p_uni0314 q q_uni0308 q_uni0313 q_uni0314 r r_uni0308 r_uni0326 racute rcaron s s_uni0308 s_uni0316 s_uni0326 sacute scaron scedilla t t_uni0308 t_uni0316 t_uni0326 tcaron thorn u u_uni0300 u_uni0301 u_uni030B ucircumflex udieresis umacron uni0122 uni0123 uni0136 uni0137 uni013B uni013C uni0145 uni0146 uni0237 uni1E04 uni1E05 uni1E0C uni1E0D uni1E24 uni1E25 uni1E32 uni1E33 uni1E36 uni1E37 uni1E42 uni1E43 uni1E46 uni1E47 uni1E56 uni1E57 uni1E5A uni1E5B uni1E62 uni1E63 uni1E6C uni1E6D uni1E7E uni1E7F uni1E92 uni1E93 uni1E9E uni1EA0 uni1EA0_uni0300 uni1EA0_uni0301 uni1EA1 uni1EA1_uni0300 uni1EA1_uni0301 uni1EB8 uni1EB8_uni0300 uni1EB8_uni0301 uni1EB9 uni1EB9_uni0300 uni1EB9_uni0301 uni1ECA uni1ECA_uni0300 uni1ECA_uni0301 uni1ECB uni1ECB_uni0300 uni1ECB_uni0301 uni1ECC uni1ECC_uni0300 uni1ECC_uni0301 uni1ECD uni1ECD_uni0300 uni1ECD_uni0301 uni1EE4 uni1EE4_uni0300 uni1EE4_uni0301 uni1EE5 uni1EE5_uni0300 uni1EE5_uni0301 uogonek uring v v_uni0308 v_uni0316 v_uni0326 w wacute wcircumflex wdieresis wgrave x x_uni0308 x_uni0316 x_uni0326 y y_uni0313 y_uni0314 yacute ycircumflex ydieresis ygrave z z_uni0308 z_uni0316 z_uni0326 zacute zcaron zdotaccent];
+@tone = [macronmod uni02CA caron uni02CB];
+@tone_w1 = [tone1.w1 tone2.w1 tone3.w1 tone4.w1];
+@tone_w2 = [tone1.w2 tone2.w2 tone3.w2 tone4.w2];
+@tone_w3 = [tone1.w3 tone2.w3 tone3.w3 tone4.w3];
+@tone_w4 = [tone1.w4 tone2.w4 tone3.w4 tone4.w4];
+@tone_above = [tone1.w1 tone1.w2 tone1.w3 tone1.w4 tone2.w1 tone2.w2 tone2.w3 tone2.w4 tone3.w1 tone3.w2 tone3.w3 tone3.w4 tone4.w1 tone4.w2 tone4.w3 tone4.w4];
+
+feature calt {
+    lookupflag IgnoreMarks;
+    sub @letter @letter @letter @letter @tone' by @tone_w4;
+    sub @normal @normal @normal @tone' by @tone_w4;
+    sub @normal @normal @tone' by @tone_w4;
+    sub @normal @tone' by @tone_w2;
+} calt;
+
+@adv600 = [A AE A_uni0300 A_uni0301 A_uni030B Abreve Acircumflex Adieresis Amacron Aogonek Aring Atilde B B_uni0308 B_uni0316 B_uni0326 C C_uni0308 C_uni0316 C_uni0326 Cacute Ccaron Ccedilla Cdotaccent D D_uni0308 D_uni0316 D_uni0326 Dcaron Dcroat E E_uni0300 E_uni0301 E_uni030B Ecaron Ecircumflex Edieresis Edotaccent Emacron Eogonek Eth F F_uni0308 F_uni0326 G G_uni0308 G_uni0316 G_uni0326 Gbreve Gdotaccent H H_uni0308 H_uni0316 H_uni0326 Hbar I I_uni0300 I_uni0301 I_uni030B Icircumflex Idieresis Idotaccent Imacron Iogonek J J_uni0308 J_uni0316 J_uni0326 K K_uni0308 K_uni0316 K_uni0326 L L_uni0308 L_uni0326 Lacute Lcaron Lslash M M_uni0308 M_uni0316 M_uni0326 N N_uni0308 N_uni0316 N_uni0326 Nacute Ncaron Ntilde O OE O_uni0300 O_uni0301 O_uni030B Ocircumflex Odieresis Oslash Otilde P P_uni0308 P_uni0316 P_uni0326 Q Q_uni0308 Q_uni0316 Q_uni0326 R R_uni0308 R_uni0326 Racute Rcaron S S_uni0308 S_uni0316 S_uni0326 Sacute Scaron Scedilla T T_uni0308 T_uni0316 T_uni0326 Tcaron Thorn U U_uni0300 U_uni0301 U_uni030B Ucircumflex Udieresis Umacron Uogonek Uring V V_uni0308 V_uni0316 V_uni0326 W Wacute Wcircumflex Wdieresis Wgrave X X_uni0308 X_uni0316 X_uni0326 Y Y_uni0316 Y_uni0326 Yacute Ycircumflex Ydieresis Ygrave Z Z_uni0308 Z_uni0316 Z_uni0326 Zacute Zcaron Zdotaccent a a_uni0300 a_uni0301 a_uni030B abreve acircumflex adieresis ae amacron aogonek aring atilde b b_uni0308 b_uni0316 b_uni0326 c c_uni0308 c_uni0316 c_uni0326 cacute ccaron ccedilla cdotaccent d d_uni0308 d_uni0316 d_uni0326 dcaron dcroat dotlessi e e_uni0300 e_uni0301 e_uni030B ecaron ecircumflex edieresis edotaccent emacron eogonek eth f f_uni0308 f_uni0326 g g_uni0308 g_uni0313 g_uni0314 gbreve gdotaccent germandbls h h_uni0308 h_uni0316 h_uni0326 hbar i i_uni0300 i_uni0301 i_uni030B icircumflex idieresis imacron iogonek j j_uni0308 j_uni0313 j_uni0314 k k_uni0308 k_uni0316 k_uni0326 l l_uni0308 l_uni0326 lacute lcaron lslash m m_uni0308 m_uni0316 m_uni0326 n n_uni0308 n_uni0316 n_uni0326 nacute ncaron ntilde o o_uni0300 o_uni0301 o_uni030B ocircumflex odieresis oe ordfeminine ordmasculine oslash otilde p p_uni0308 p_uni0313 p_uni0314 q q_uni0308 q_uni0313 q_uni0314 r r_uni0308 r_uni0326 racute rcaron s s_uni0308 s_uni0316 s_uni0326 sacute scaron scedilla t t_uni0308 t_uni0316 t_uni0326 tcaron thorn u u_uni0300 u_uni0301 u_uni030B ucircumflex udieresis umacron uni0122 uni0123 uni0136 uni0137 uni013B uni013C uni0145 uni0146 uni0237 uni1E04 uni1E05 uni1E0C uni1E0D uni1E24 uni1E25 uni1E32 uni1E33 uni1E36 uni1E37 uni1E42 uni1E43 uni1E46 uni1E47 uni1E56 uni1E57 uni1E5A uni1E5B uni1E62 uni1E63 uni1E6C uni1E6D uni1E7E uni1E7F uni1E92 uni1E93 uni1E9E uni1EA0 uni1EA0_uni0300 uni1EA0_uni0301 uni1EA1 uni1EA1_uni0300 uni1EA1_uni0301 uni1EB8 uni1EB8_uni0300 uni1EB8_uni0301 uni1EB9 uni1EB9_uni0300 uni1EB9_uni0301 uni1ECA uni1ECA_uni0300 uni1ECA_uni0301 uni1ECB uni1ECB_uni0300 uni1ECB_uni0301 uni1ECC uni1ECC_uni0300 uni1ECC_uni0301 uni1ECD uni1ECD_uni0300 uni1ECD_uni0301 uni1EE4 uni1EE4_uni0300 uni1EE4_uni0301 uni1EE5 uni1EE5_uni0300 uni1EE5_uni0301 uogonek uring v v_uni0308 v_uni0316 v_uni0326 w wacute wcircumflex wdieresis wgrave x x_uni0308 x_uni0316 x_uni0326 y y_uni0313 y_uni0314 yacute ycircumflex ydieresis ygrave z z_uni0308 z_uni0316 z_uni0326 zacute zcaron zdotaccent];
+lookup tone_back600 { pos @tone_above <-300 0 0 0>; } tone_back600;
+lookup tone_centre1 {
+    lookupflag IgnoreMarks;
+    pos @adv600 @tone_above' lookup tone_back600;
+} tone_centre1;
+lookup tone_centre2 {
+    lookupflag IgnoreMarks;
+    pos @adv600 @letter @tone_above' lookup tone_back600;
+} tone_centre2;
+lookup tone_centre3 {
+    lookupflag IgnoreMarks;
+    pos @adv600 @letter @letter @tone_above' lookup tone_back600;
+} tone_centre3;
+lookup tone_centre4 {
+    lookupflag IgnoreMarks;
+    pos @adv600 @letter @letter @letter @tone_above' lookup tone_back600;
+} tone_centre4;
+lookup tone_centre5 {
+    lookupflag IgnoreMarks;
+    pos @adv600 @letter @letter @letter @letter @tone_above' lookup tone_back600;
+} tone_centre5;
+lookup tone_centre6 {
+    lookupflag IgnoreMarks;
+    pos @adv600 @letter @letter @letter @letter @letter @tone_above' lookup tone_back600;
+} tone_centre6;
+lookup tone_centre7 {
+    lookupflag IgnoreMarks;
+    pos @adv600 @letter @letter @letter @letter @letter @letter @tone_above' lookup tone_back600;
+} tone_centre7;
+lookup tone_centre8 {
+    lookupflag IgnoreMarks;
+    pos @adv600 @letter @letter @letter @letter @letter @letter @letter @tone_above' lookup tone_back600;
+} tone_centre8;
+
+feature dist {
+    lookup tone_centre1;
+    lookup tone_centre2;
+    lookup tone_centre3;
+    lookup tone_centre4;
+    lookup tone_centre5;
+    lookup tone_centre6;
+    lookup tone_centre7;
+    lookup tone_centre8;
+} dist;
