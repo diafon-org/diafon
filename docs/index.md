@@ -152,7 +152,8 @@ using the Bopomofo tone marks: `ma1 ma2 ma3 ma4`
 Mid tone has no sign, as in Thai and Vietnamese spelling. In the text the
 sign follows the syllable, so the vowel keeps its own marks. The Diafon
 fonts draw the high, rising, dipping and falling tones above the syllable
-instead, two letters wide and well clear of its marks. Other fonts, or the
+instead, two letters wide and well clear of its marks, with a small gap
+after it that shows where the syllable ends. Other fonts, or the
 Diafon fonts with contextual alternates turned off, show the sign after the
 syllable. A language's own spelling can still show tones its usual way,
 like the accents of Pinyin.
