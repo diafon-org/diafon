@@ -78,8 +78,10 @@ new MutationObserver(recs => {
 }).observe(document.body, {childList: true, subtree: true});
 
 // ---- the tones above the syllable (the Diafon fonts' calt) rise well over the
-// letters: a line that carries one gets the room for them (.tonal)
+// letters: a line that carries one gets the room for them (.tonal). The reader
+// can turn them off (html[data-tones=after]): the sign then follows the syllable.
 const TONAL = /\p{L}\p{M}*[ˉˊˇˋ]/u;
+document.documentElement.dataset.tones = store.get('tones') || 'above';
 function tonal(root){
   const it = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
   while (it.nextNode()){

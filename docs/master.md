@@ -21,8 +21,9 @@ typing box are below the tables.</p>
 <div class="mt-sample" id="mt-sample" markdown="0"></div>
 
 <div class="tryout" markdown="0">
-  <textarea id="try-in" spellcheck="false" rows="3" placeholder="Type in Diafon, for example: sjip, tqokolawda" aria-label="Diafon typing"></textarea>
+  <textarea id="try-in" spellcheck="false" rows="3" placeholder="Type in Diafon, for example: sjip, tqokolawda, ni3kxaux3" aria-label="Diafon typing"></textarea>
   <div class="tryout-out" id="try-out"></div>
+  <div class="tryout-row tryout-opts"><label><input type="checkbox" id="try-tones" checked> tones above the syllable</label></div>
 </div>
 
 

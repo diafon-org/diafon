@@ -331,6 +331,13 @@
 
 /* text with tones (site.js marks it): room for the tones drawn above the syllable */
 .md-typeset .tonal,.md-typeset table:not([class]) .ug.tonal{line-height:1.95}
+/* the reader turned them off (site.js): the sign follows the syllable */
+html[data-tones="after"] body{font-feature-settings:"calt" 0}
+html[data-tones="after"] .md-typeset .tonal{line-height:inherit}
+.md-typeset .tryout-out:has(.tonal) .wg{line-height:1.95}       /* a toneless word keeps its toned neighbours' line */
+html[data-tones="after"] .md-typeset .tryout-out .wg{line-height:inherit}
+.md-typeset .tryout-opts{margin:.5rem 0 0}
+.md-typeset .tryout-opts label{display:flex;align-items:center;gap:.4rem;cursor:pointer}
 
 /* the whole site in the Diafon fonts; glyphs they lack (IPA, CJK) fall back */
 :root{--md-text-font:"Diafon Sans";--md-code-font:"Diafon Mono"}
@@ -396,7 +403,7 @@ html{font-size:115%}
 .md-typeset .ft b{font:600 1rem/1.2 var(--md-text-font-family,sans-serif);color:var(--ink)}
 .md-typeset .ft span{font-size:.62rem;color:var(--muted)}
 /* the try-out: each word in Diafon with what was typed under it */
-.md-typeset .tryout-out{font-family:var(--glyph,var(--serif));line-height:1.2;display:flex;flex-wrap:wrap;align-items:flex-start;gap:.2rem .1rem}
+.md-typeset .tryout-out{font-family:var(--glyph,var(--serif));line-height:1.2;display:flex;flex-wrap:wrap;align-items:baseline;gap:.2rem .1rem}
 .md-typeset .tryout-out .w{display:inline-flex;flex-direction:column;align-items:center;padding:0 .2rem}
 .md-typeset .tryout-out .wg{font-size:1.35rem}
 .md-typeset .tryout-out .w code{font-size:.6rem;background:none;padding:0;color:var(--accent)}

@@ -124,7 +124,7 @@ function update(){
     if (tok.t === 'raw'){ flush(); html += esc(tok.ch); continue; }
     const gl = tok.t === 'err' ? null : glyph(tok.form, tok.caps);
     if (gl === null){ g += `<span class="err">${esc(tok.t === 'err' ? tok.ch : tok.form)}</span>`; t += tok.t === 'err' ? tok.ch : tok.form; continue; }
-    g += esc(tok.caps ? capFirst(gl) : gl) + tok.tones;
+    g += esc(tok.caps ? capFirst(gl) : gl) + toneSigns(tok.tones);
     t += (tok.caps ? tok.form[0].toUpperCase() + tok.form.slice(1) : tok.form) + tok.tones;
   }
   flush();
@@ -142,6 +142,14 @@ document.getElementById('sec-universal').addEventListener('click', e => {
 
 // ---- wiring
 $in.addEventListener('input', update);
+// tones above the syllable (the fonts' calt), on by default; off, the sign follows it (site.js applies it)
+const $tones = $('try-tones');
+try { $tones.checked = localStorage.getItem('diafon-tones') !== 'after'; } catch (e) {}
+$tones.addEventListener('change', () => {
+  const v = $tones.checked ? 'above' : 'after';
+  document.documentElement.dataset.tones = v;
+  try { localStorage.setItem('diafon-tones', v); } catch (e) {}
+});
 $table.addEventListener('change', () => {
   showTable(); showSample(); showSamples(); saveState();
   if ($table.value !== 'universal') try { localStorage.setItem('diafon-lang', $table.value); } catch (e) {}  // shared with Learning
