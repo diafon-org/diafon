@@ -351,18 +351,18 @@
 .md-typeset .mt tr.sub .op-c{background:var(--c-c)} .md-typeset .mt tr.sub .op-q{background:var(--q-c)}
 .md-typeset .mt tr.sub .op-y{background:var(--y-c)} .md-typeset .mt tr.sub .op-w{background:var(--accent)}
 .md-typeset .tryout-more{margin:.8rem 0 0;border-top:1px solid var(--line);padding-top:.5rem}
-.md-typeset .tryout-more > summary,.md-typeset .fontcheck > summary{cursor:pointer;font-weight:600;font-size:.8rem;color:var(--accent)}
+.md-typeset .tryout-more > summary{cursor:pointer;font-weight:600;font-size:.8rem;color:var(--accent)}
 .md-typeset .tryout-help{font-size:.75rem;color:var(--muted);margin:.4rem 0}
-.md-typeset .fontcheck{margin:2rem 0;padding:.8rem 1rem;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.md-typeset .fontcheck{margin:.6rem 0 1.4rem;padding:.8rem 1rem;border:1px solid var(--line);border-radius:12px;background:var(--card)}
 .md-typeset .fontcheck .fontbar{position:static;margin:.5rem 0 0;box-shadow:none;border:none;padding:0;background:none}
 .md-typeset .sample-text{font-family:var(--glyph,var(--serif))}
 .md-typeset .sample-trans{font-size:.8rem;line-height:1.5;color:var(--muted);font-style:italic;margin:.4rem 0 0}
 /* the try-out toggles and the font check are plain disclosures, not Material's call-out boxes */
-.md-typeset details.tryout-more,.md-typeset details.fontcheck{box-shadow:none;border-left:none;font-size:inherit}
+.md-typeset details.tryout-more{box-shadow:none;border-left:none;font-size:inherit}
 .md-typeset details.tryout-more{border:none;border-top:1px solid var(--line);border-radius:0;background:none;padding:.5rem 0 0}
-.md-typeset details.tryout-more > summary,.md-typeset details.fontcheck > summary{background:none;padding:.2rem 0 .2rem 1.2rem;border:none}
-.md-typeset details.tryout-more > summary::before,.md-typeset details.fontcheck > summary::before{display:none}
-.md-typeset details.tryout-more > summary::after,.md-typeset details.fontcheck > summary::after{left:0;right:auto;top:.25rem;background-color:var(--accent)}
+.md-typeset details.tryout-more > summary{background:none;padding:.2rem 0 .2rem 1.2rem;border:none}
+.md-typeset details.tryout-more > summary::before{display:none}
+.md-typeset details.tryout-more > summary::after{left:0;right:auto;top:.25rem;background-color:var(--accent)}
 
 /* languages by their own name, the English name small after it */
 .md-typeset .en-name{font-size:.68em;font-weight:400;color:var(--muted);margin-left:.35em;font-family:var(--md-text-font-family,sans-serif)}

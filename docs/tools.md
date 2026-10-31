@@ -2,6 +2,8 @@
 title: Tools
 hide:
   - navigation
+search:
+  exclude: true      # out of the nav and search until reviewed
 ---
 
 # Tools

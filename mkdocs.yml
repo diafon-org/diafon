@@ -31,11 +31,10 @@ theme:
     - search.suggest
     - content.code.copy
 
-nav:
+nav:                      # tools.md builds at its URL, out of the nav until reviewed
   - Diafon: index.md
   - Learning: learn.md
   - Reference: master.md
-  - Tools: tools.md
 
 markdown_extensions:
   - attr_list

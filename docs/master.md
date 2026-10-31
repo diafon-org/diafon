@@ -6,6 +6,8 @@ hide:
 
 # Reference
 
+## Tables
+
 <div class="mt-bar" markdown="0">
   <label>language <select id="mt-table" autocomplete="off"></select></label>
 </div>
@@ -26,8 +28,9 @@ typing box are below the tables.</p>
 </div>
 
 
-<details class="fontcheck" markdown="0">
-  <summary>Check a font</summary>
+## Check a font
+
+<div class="fontcheck" markdown="0">
   <p class="tryout-help">Show every Diafon letter on this page in another font. A red outline
   means the font leaves the mark out; amber means another font steps in.</p>
   <div class="mt-bar fontbar">
@@ -61,7 +64,7 @@ typing box are below the tables.</p>
     <input type="text" id="mt-custom" placeholder="or any installed font" autocomplete="off" spellcheck="false">
     <span class="mt-summary" id="mt-summary"></span>
   </div>
-</details>
+</div>
 
 <div class="mt-samples" id="mt-samples" markdown="1">
 

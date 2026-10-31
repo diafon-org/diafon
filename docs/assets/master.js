@@ -153,7 +153,7 @@ function fromHash(){
   const st = hashState();
   let picked = null;
   try { picked = localStorage.getItem('diafon-lang'); } catch (e) {}
-  const want = st.table || picked;
+  const want = st.table && $('sec-' + st.table) ? st.table : picked;   // a section anchor (#try-it) is no table
   $table.value = want && $('sec-' + want) ? want : 'universal';
   if (st.font){
     if ([...$font.options].some(o => o.value === st.font)) { $font.value = st.font; $custom.value = ''; }
