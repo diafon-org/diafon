@@ -13,6 +13,7 @@ Validation as before: every non-X phoneme mapped; no within-language form
 collision outside `merges`.
 """
 import glob
+import html
 import json
 import os
 import sys
@@ -300,6 +301,7 @@ def universal_table(agg, shares):
     rows.sort()
     langs = load_languages()
     name = lambda c: lang_name(langs[c]) if c in langs else c
+    english = lambda codes: ', '.join(sorted(langs[c]['name'] if c in langs else c for c in codes))   # the hover list
     total = sum(d['speakers']['native'] for d in langs.values())
     out = ['<section id="sec-universal" data-name="All languages supported by Diafon">', '<h2 id="universal">Diafon: every letter in use</h2>',
            facts([('covers', [(len(langs), 'languages'), (fmt(total), 'native speakers')]),
@@ -317,7 +319,8 @@ def universal_table(agg, shares):
         ipa, (n, s, codes) = rd[0]
         primary = (f'<a class="wref ug" href="{ipa_names.url(ipa)}" target="_blank">/{ipa}/</a>'
                    f'<a class="rname" href="{ipa_names.url(ipa)}" target="_blank">{ipa_names.name(ipa)}</a>'
-                   f'<span class="st">{n} language{"s" if n > 1 else ""} · {fmt(s)} native speakers</span>')
+                   f'<span class="st"><span class="who" title="{html.escape(english(codes))}">{n} language{"s" if n > 1 else ""}</span>'
+                   f' · {fmt(s)} native speakers</span>')
         groups = ''
         for ipa, (n, s, codes) in rd[1:]:
             lines = f'<span class="just">{", ".join(name(c) for c in sorted(codes, key=lambda c: langs[c]["name"] if c in langs else c))}</span>'
