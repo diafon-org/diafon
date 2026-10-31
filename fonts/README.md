@@ -81,6 +81,26 @@ a scanned sheet (and the study prototype), `svg-archive-tails-auto/` the
 current set. The anchors and dots of the other families stay procedural
 (`anchor.yaml`, `families.yaml`); an SVG override wins over them.
 
+## Long consonants (t ZWJ t)
+
+With the engine's join option a long consonant is written letter, ZWJ,
+letter, and the fonts draw the pair fused; any other font shows the plain
+double. `build_font.py` builds every pair rough, `<letter>.long` (the second
+letter set into the first by the shape they share, `LONG_OVERLAP`; Mono two
+cells wide), as a ghost to draw over:
+
+    python3 fonts/tools/font_svg.py export serif t.long     # draw the shared stroke in Inkscape
+    fonts/build.sh serif
+
+Only a drawn pair ships: `make_ufo.py` keeps a `.long` glyph when
+`svg/<family>/<letter>.long.svg` exists, and writes its `rlig` rule (before
+`liga`, which HarfBuzz would let take f ZWJ f). The marked pairs follow from
+the drawn one, named for the letter and its mark (`s_uni0326.long` for
+ș ZWJ ș): the single letter's mark (its baked glyph less the letter) joined
+to the second letter; a marked pair drawn as a whole wins. ZWJ and ZWNJ are
+empty and zero-width in every family. `tests/test_font_long.py` shapes every
+long consonant with HarfBuzz and CoreText.
+
 ## The handwriting capture
 
 `hand/` grows the original hand, serif and sans families from one set of

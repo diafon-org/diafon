@@ -15,8 +15,13 @@ regenerate that first), then apply the glyph surgery:
 - the comma above (U+0313) and NEW its mirror (U+0314), upright acutes;
 - NEW the double dot below (U+0324): two copies of the font's dot below;
 - NEW precomposed ḷ ṃ ṿ, composed like their existing siblings;
-- NEW the tones above the syllable (tone<d>.w<h>): the pinyin shapes, as
-  wide as the syllable up to two letters, high over the marks.
+- NEW the tones above the syllable (tone<d>.w1 .w2 .w1n): the pinyin
+  shapes, one letter or two wide, high over the marks;
+- NEW the long consonants (<glyph>.long): the letter twice, fused, for the
+  joined text (t ZWJ t; make_ufo.py writes the rlig rule). Built rough here,
+  as a ghost to draw over; a drawn fonts/svg/<family>/<letter>.long.svg makes
+  it ship, and its marked forms (ș ZWJ ș) follow from it: the drawn pair, the
+  mark joined to the second letter as on the single one.
 
 The text is the composition (base letter + the system's combining marks,
 NFC), so the font carries the marks with their attachment and the baked
@@ -110,7 +115,7 @@ def charset():
     _sc = _yaml.safe_load(open(os.path.join(ROOT, 'data', 'script.yaml')))
     walk(_sc['marks'])
     walk({d: t['sign'] for d, t in (_sc.get('tones') or {}).items()})   # the tone signs after a syllable
-    return {c for c in chars if not unicodedata.category(c).startswith('C')}
+    return {c for c in chars if not unicodedata.category(c).startswith('C')} | {'\u200C', '\u200D'}   # ZWNJ, ZWJ: zero width
 
 
 def _outline(glyphset, name):
@@ -1068,6 +1073,117 @@ def _tone_glyphs(font):
     print(f'  tones above: {" ".join(made)} · widths {sizes}')
 
 
+# The rough long consonant: the second letter set this far into the first's
+# ink (units; negative leaves a gap), by the shape the pair can share. Mono
+# keeps both letters in their own cells, two cells wide.
+LONG_OVERLAP = {'tf': 150, 'sczx': 95, 'pqg': 40, 'lhkbdnm': 55, 'rv': 40}
+LONG_OVERLAP_SANS = {'lhkbdnm': -40}        # sans stems have no foot to share
+
+
+def long_forms(font):
+    """The long consonants the grammar has, as glyphs of this font:
+    [(name, plain, glyph)]: the long glyph (named for the plain letter and
+    its mark, b_uni0323.long, whatever the font calls ḅ), the plain letter it
+    doubles, the letter with its mark (the plain one when unmarked)."""
+    sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+    import engine
+    cmap, order = font.getBestCmap(), set(font.getGlyphOrder())
+    out = {}
+    for form in engine.inventory():
+        if not (form.endswith('w') and form[0] in engine.C_BASES):
+            continue
+        g = engine.glyph(form[:-1])
+        nfd = unicodedata.normalize('NFD', g)
+        plain = cmap.get(ord(nfd[0]))
+        if not plain:
+            continue
+        stem = plain + ''.join(f'_uni{ord(m):04X}' for m in nfd[1:])
+        glyph = cmap.get(ord(g)) if len(g) == 1 else stem
+        if glyph in order:
+            out.setdefault(stem + '.long', (plain, glyph))
+    return [(n, p, g) for n, (p, g) in out.items()]
+
+
+def _long_dx(font, plain):
+    """Where the rough pair sets its second letter."""
+    from fontTools.pens.boundsPen import BoundsPen
+    adv = font['hmtx'][plain][0]
+    if font.diafon_family['key'] == 'mono':
+        return adv
+    bp = BoundsPen(font.getGlyphSet())
+    font.getGlyphSet()[plain].draw(bp)
+    x0, _, x1, _ = bp.bounds
+    ch = next(iter(font['cmap'].buildReversed().get(plain, {0})))
+    groups = dict(LONG_OVERLAP, **(LONG_OVERLAP_SANS if font.diafon_family['key'] == 'sans' else {}))
+    overlap = next((v for k, v in groups.items() if chr(ch) in k), 40)
+    return round(x1 - x0 - overlap)
+
+
+def _empty_joiners(font):
+    """ZWNJ and ZWJ: no ink, no advance (Noto Serif draws a visible sign for them)."""
+    from fontTools.ttLib.tables._g_l_y_f import Glyph
+    cmap = font.getBestCmap()
+    for cp in (0x200C, 0x200D):
+        name = cmap[cp]
+        font['glyf'][name] = Glyph()
+        font['hmtx'][name] = (0, 0)
+
+
+def _long_glyphs(font):
+    """<glyph>.long, rough: a composite of the plain letter and, at the
+    pair's offset, the letter with its mark; advance to the end of the pair."""
+    from fontTools.ttLib.tables._g_l_y_f import Glyph, GlyphComponent
+    glyf, hmtx = font['glyf'], font['hmtx']
+    made = 0
+    for name, plain, glyph in long_forms(font):
+        dx = _long_dx(font, plain)
+        g = Glyph()
+        g.numberOfContours = -1
+        g.components = []
+        for gname, x in ((plain, 0), (glyph, dx)):
+            c = GlyphComponent(); c.glyphName = gname
+            c.x, c.y = x, 0; c.flags = 0x004
+            g.components.append(c)
+        glyf[name] = g
+        g.recalcBounds(glyf)
+        hmtx[name] = (dx + hmtx[glyph][0], g.xMin)
+        _register(font, name)
+        made += 1
+    print(f'  long consonants: {made} rough pairs')
+
+
+def _long_marked(font, drawn):
+    """The marked long consonants of a drawn pair: the drawn <letter>.long
+    with the mark the single letter wears (its baked glyph less the letter)
+    joined to the second letter; a marked pair drawn as a whole stays."""
+    import pathops
+    from fontTools.pens.cu2quPen import Cu2QuPen
+    from fontTools.pens.transformPen import TransformPen
+    from fontTools.pens.ttGlyphPen import TTGlyphPen
+    glyf, hmtx = font['glyf'], font['hmtx']
+    gs = font.getGlyphSet()
+
+    def path(name, dx=0):
+        p = pathops.Path()
+        gs[name].draw(TransformPen(p.getPen(glyphSet=gs), (1, 0, 0, 1, dx, 0)))
+        return p
+    made = []
+    for name, plain, glyph in long_forms(font):
+        if glyph == plain or name in drawn or plain + '.long' not in drawn:
+            continue
+        dx = _long_dx(font, plain)
+        mark = pathops.op(path(glyph, dx), path(plain, dx), pathops.PathOp.DIFFERENCE, clockwise=True)
+        ink = pathops.op(path(plain + '.long'), mark, pathops.PathOp.UNION, clockwise=True)
+        tt = TTGlyphPen(None)
+        ink.draw(Cu2QuPen(tt, 1.0, reverse_direction=False))
+        glyf[name] = tt.glyph()
+        glyf[name].recalcBounds(glyf)
+        hmtx[name] = (hmtx[plain + '.long'][0], glyf[name].xMin)
+        made.append(name)
+    if made:
+        print(f'  long consonants marked from the drawn pairs: {" ".join(made)}')
+
+
 def build(key='serif'):
     from fontTools.ttLib import TTFont
     from fontTools.subset import Subsetter, Options
@@ -1100,8 +1216,11 @@ def build(key='serif'):
     _anchor_glyphs(font, skip_0324='uni0324' in svg_done)
     _precomposed(font)
     _tone_glyphs(font)
+    _empty_joiners(font)
+    _long_glyphs(font)
     if font_svg:
         svg_done += font_svg.import_overrides(font, fam['key'], skip=set(svg_done))
+    _long_marked(font, set(svg_done))
 
     # the name table, to Google Fonts' rules: a single-style family carries no
     # typographic family name; the copyright is the first line of OFL.txt

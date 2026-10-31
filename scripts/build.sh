@@ -22,5 +22,6 @@ python3 tests/test_spec.py
 python3 tests/test_extension.py
 python3 tests/test_kotlin.py
 python3 tests/test_swift.py
+python3 tests/test_font_long.py
 python3 -m mkdocs build --strict      # docs/ (Markdown + the app pages) -> site/, what GitHub Pages serves
 python3 scripts/gen_site_words.py     # the site's words in Diafon, for the script switch (reads site/)

@@ -16,7 +16,9 @@ What the UFO carries:
 - our own features.fea: ccmp for the baked letter+mark pairs (a base plus a
   combining mark renders as its composition, as the composed-marks stage
   writes it) and the dotless i/j under above marks; liga for fi fl ff; calt
-  and dist for the tones above the syllable (calt off, the sign follows it);
+  and dist for the tones above the syllable (calt off, the sign follows it); rlig
+  for the long consonants (t ZWJ t -> t.long), the drawn ones only: a pair
+  not drawn yet is dropped, and the text shows the plain double;
 - font info to Google Fonts' rules, glyph categories for GDEF, the meta table.
 
     python3 fonts/tools/make_ufo.py [serif|sans|mono] [derived.ttf] [out.ufo]
@@ -38,8 +40,18 @@ LIGAS = {'fi': ('f', 'i'), 'fl': ('f', 'l'), 'f_f': ('f', 'f'),
          'f_f_i': ('f', 'f', 'i'), 'f_f_l': ('f', 'f', 'l')}
 
 
-def reachable(ufo):
+def drawn_long(ufo, key):
+    """The long consonants that ship: <letter>.long drawn as an SVG override,
+    and the marked pairs built from it (s_uni0326.long from s.long)."""
+    d = os.path.join(ROOT, 'fonts', 'svg', key)
+    stems = {f[:-4] for f in os.listdir(d) if f.endswith('.svg')} if os.path.isdir(d) else set()
+    return {g.name for g in ufo if g.name.endswith('.long')
+            and (g.name in stems or g.name.split('_uni')[0] + '.long' in stems)}
+
+
+def reachable(ufo, key):
     keep = {'.notdef', 'space'} | {g.name for g in ufo if g.unicodes}
+    keep |= drawn_long(ufo, key)                                         # the rlig targets
     keep |= {n for n in LIGAS if n in ufo}
     # the baked compositions (<base>_uniXXXX) of kept bases: the ccmp targets,
     # which need no codepoint of their own
@@ -72,7 +84,7 @@ def is_letter(g):
     if g.unicodes:
         return unicodedata.category(chr(g.unicodes[0])) in ('Lu', 'Ll', 'Lt', 'Lo')
     return bool(re.fullmatch(r'.+_uni[0-9A-F]{4}', g.name)) or g.name in (
-        'dotlessi', 'uni0237', 'dotlessj') or g.name in LIGAS
+        'dotlessi', 'uni0237', 'dotlessj') or g.name in LIGAS or g.name.endswith('.long')
 
 
 TONE_REACH = 8              # letters a tone above is centred over, at most
@@ -124,6 +136,17 @@ def tone_rules(ufo):
     return fea
 
 
+def long_sources(ufo, stem, by_cp):
+    """The glyphs a long consonant's letter reaches in text: for b_uni0323,
+    the font's precomposed ḅ (the text is NFC) and the baked composition."""
+    plain, *marks = stem.split('_uni')
+    if plain not in ufo or not ufo[plain].unicodes:
+        return []
+    text = unicodedata.normalize('NFC', chr(ufo[plain].unicodes[0]) + ''.join(chr(int(m, 16)) for m in marks))
+    out = [by_cp[ord(text)]] if len(text) == 1 and ord(text) in by_cp else []
+    return out + [stem] * (stem in ufo and stem not in out)
+
+
 def features(ufo):
     """ccmp: base + combining mark -> the baked composition; dotless i j under
     above marks; liga for the f ligatures; calt and dist for the tones above."""
@@ -147,10 +170,15 @@ def features(ufo):
             dotless.append(f"    sub {base}' @above by {dl};")
     ligas = [f'    sub {" ".join(parts)} by {n};' for n, parts in LIGAS.items()
              if n in names and all(p in names for p in parts)]
+    zwj = by_cp.get(0x200D)
+    longs = [f'    sub {src} {zwj} {src} by {n};' for n in sorted(names)
+             if zwj and n.endswith('.long') for src in long_sources(ufo, n[:-5], by_cp)]
     fea = ['languagesystem DFLT dflt;', 'languagesystem latn dflt;', '']
     if above:
         fea += ['@above = [' + ' '.join(above) + '];', '']
     fea += ['feature ccmp {'] + subs + (['    lookup dotless {'] + dotless + ['    } dotless;'] if dotless and above else []) + ['} ccmp;', '']
+    if longs:       # required, so letter-spacing does not undo a long consonant; before liga,
+        fea += ['feature rlig {'] + longs + ['} rlig;', '']   # which HarfBuzz lets take f ZWJ f
     if ligas:
         fea += ['feature liga {'] + ligas + ['} liga;', '']
     fea += tone_rules(ufo)
@@ -163,7 +191,7 @@ def main(argv):
     out = argv[2] if len(argv) > 2 else fam['ufo']
     ufo = ufoLib2.Font()
     extractor.extractUFO(src, ufo, doGlyphs=True, doInfo=True, doKerning=True, doFeatures=False)
-    keep = reachable(ufo)
+    keep = reachable(ufo, fam['key'])
     for name in [g.name for g in ufo]:
         if name not in keep:
             del ufo[name]
@@ -207,7 +235,7 @@ def main(argv):
     info.openTypeNameWWSFamilyName = None
     info.openTypeNameWWSSubfamilyName = None
     info.openTypeOS2Type = []                      # installable embedding
-    widths = {g.width for g in ufo if g.width}      # a monospaced family says so
+    widths = {g.width for g in ufo if g.width and not g.name.endswith('.long')}   # a monospaced family says so (a long pair is two cells)
     if len(widths) == 1:
         info.postscriptIsFixedPitch = True
         panose = list(info.openTypeOS2Panose or [0] * 10)
