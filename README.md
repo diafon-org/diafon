@@ -10,6 +10,13 @@ text is ordinary Unicode.
 
 Documentation, lessons and tools: **[diafon.io](https://diafon.io)**
 
+## How Diafon is made
+
+The maintainer designs Diafon, makes the decisions and reviews the
+results. Most of the code, data, documentation and font tooling is written
+with Claude (Anthropic) through Claude Code, and checked by the project's
+tests. Commits are made under the project's name.
+
 ## Licence
 
 Anyone may use, write, teach and implement Diafon. Code is MIT (`LICENSE`),
