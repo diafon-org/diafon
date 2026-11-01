@@ -8,7 +8,7 @@ own sounds:
   2. one lesson per operator, in the order of how many of the language's
      sounds use it (a form with two operators comes with the later one);
   3. length (w), the special, sequences (two sounds in a row), tones;
-  4. capitals; then the card, every form of the language on one sheet.
+  4. capitals; the last step points to the language's Reference table.
 
 Example words come from data/learn.yaml's sources, read through the
 language's spelling stage; a word appears in the first lesson by which every

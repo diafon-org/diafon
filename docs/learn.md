@@ -19,8 +19,8 @@ hide:
 language. Each lesson adds one thing: first the letters that are sounds on
 their own, then each operator in the order your language uses it most, then
 length, the y forms, tones and capitals. Example words use only what the
-lessons so far have taught. The last lesson is a card of every sound, to
-print and keep by the keyboard.</p>
+lessons so far have taught. At the end, the language's table on the
+Reference page has every sound with its readings.</p>
 
 <div class="learn" markdown="0">
   <nav class="learn-steps" id="ln-steps" aria-label="lessons"></nav>

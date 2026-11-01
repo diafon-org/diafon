@@ -45,11 +45,4 @@
 .md-typeset .ln-said .ug{font-size:1.15rem}
 .md-typeset .ln-count{margin:.2rem 0 0;font:600 .62rem var(--mono);color:var(--muted)}
 .md-typeset .learn-move{display:flex;justify-content:space-between;margin:1rem 0 0}
-.md-typeset .ln-card h3{font-family:var(--serif);text-transform:none;letter-spacing:0;font-size:1.1rem;color:var(--ink)}
-
-@media print{
-  .md-header,.md-tabs,.md-footer,.md-sidebar,.learn-bar,.learn-steps,.learn-move,.learn-lede,
-  .md-typeset h1,.lesson > h2,.lesson > p,.ln-drill,.lesson > h3,.md-top{display:none!important}
-  .md-typeset .lesson{border:none;padding:0}
-  .md-typeset .ln-card .pt{break-inside:avoid}
-}
+.md-typeset .ln-end{margin:1.2rem 0 0;padding:.6rem .8rem;border-left:3px solid var(--accent);background:var(--card);border-radius:0 8px 8px 0}
