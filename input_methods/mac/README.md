@@ -15,7 +15,7 @@ Then, once: **System Settings → Keyboard → Input Sources → Edit… → +**
 search **Diafon** (listed under English) → Add; or `make enable`, which
 enables and selects it from the command line (and disables the old
 Diaphone input source if that is still installed). Pick it from the input menu
-in the menu bar and type `sjok sewp njawr`: it streams out as `șok sép ņár`.
+in the menu bar and type `sjok sewp njawr`: it streams out as `șok sép n̦ár`.
 
 ## What it does
 

@@ -1,6 +1,8 @@
-// The setup window: Universal or one language's spelling, the toggles, and a live pane that shows a typed line
-// both ways. Built in code, framework controls only.
+// The setup window: what is written out (Universal or one language's spelling), a live pane that shows a
+// typed line both ways, the options, and how to use it. Built in code, framework controls only. Diafon text
+// is set in the Diafon fonts, which the app carries (Resources/Fonts), so its marks draw as they should.
 import Cocoa
+import CoreText
 
 final class SetupWindow: NSObject, NSTextFieldDelegate {
     static let shared = SetupWindow()
@@ -8,11 +10,14 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
     private var input: NSTextField!
     private var previews: NSStackView!
     private var universalRadio: NSButton!
+    private var universalSample: NSTextField!
     private var languageRadio: NSButton!
     private var languagePopup: NSPopUpButton!
     private var languageSample: NSTextField!
     private var checkActions: [ObjectIdentifier: (Bool) -> Void] = [:]
-    private let neutral = "sjan txy tqok dqum acw"
+    private let example = "sjok sewp njawr"
+    private let width: CGFloat = 520
+    private let accent = NSColor(red: 0.055, green: 0.486, blue: 0.525, alpha: 1)
 
     func show() {
         if window == nil { build() }
@@ -22,36 +27,38 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         refresh()
     }
 
+    /// The Diafon fonts, registered for this process once; nil falls back to the system font.
+    private static let fontsRegistered: Bool = {
+        guard let dir = Bundle.main.resourceURL?.appendingPathComponent("Fonts"),
+              let files = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil) else { return false }
+        for f in files where f.pathExtension == "ttf" { CTFontManagerRegisterFontsForURL(f as CFURL, .process, nil) }
+        return true
+    }()
+    private func diafon(_ size: CGFloat, mono: Bool = false) -> NSFont {
+        _ = SetupWindow.fontsRegistered
+        let name = mono ? "DiafonMono-Regular" : "DiafonSerif-Regular"
+        return NSFont(name: name, size: size) ?? (mono ? NSFont.monospacedSystemFont(ofSize: size, weight: .regular) : NSFont.systemFont(ofSize: size))
+    }
+
     private func build() {
         let p = Prefs.shared
         let root = NSStackView()
         root.orientation = .vertical
         root.alignment = .leading
-        root.spacing = 8
-        root.edgeInsets = NSEdgeInsets(top: 20, left: 22, bottom: 22, right: 22)
+        root.spacing = 6
+        root.edgeInsets = NSEdgeInsets(top: 20, left: 24, bottom: 20, right: 24)
 
         root.addArrangedSubview(header())
-        root.addArrangedSubview(note("One keyboard, one script, every language. Type the input form in any app; the conversion happens as you type and commits as soon as a segment is final."))
+        root.addArrangedSubview(note("Type the Diafon input in any app; it turns into the script as you type."))
 
-        root.addArrangedSubview(heading("How to"))
-        root.addArrangedSubview(howto([
-            ("1", "Pick Diafon in the input menu (or ⌃Space). Your keyboard stays as it is."),
-            ("2", "Type sounds as letters. A consonant or vowel plus a mark: sj → \(p.renderer("script")("sj")), tq → \(p.renderer("script")("tq")), aw → \(p.renderer("script")("aw")); a segment stays underlined until the next key settles it."),
-            ("3", "A bare Shift tap switches conversion off and back on to the spelling you had. Quick taps in a row walk the cycle instead: passthrough → Universal → each language on your quick list; a label names the mode. ⇧Space opens the language chooser."),
-            ("4", "Tab (or ↓) on an underlined segment opens the candidate window with every spelling."),
-            ("5", "Text in any spelling: select it, then Diafon menu → Convert selection (or right-click → Services → Convert with Diafon); the … variants let you set the source and the target first."),
-        ]))
-
-        root.addArrangedSubview(heading("What is written out"))
-        universalRadio = NSButton(radioButtonWithTitle: "Universal    " + p.renderer("script")(neutral),
-                                  target: self, action: #selector(pickUniversal(_:)))
+        // what is written out
+        root.addArrangedSubview(gap(10))
+        root.addArrangedSubview(heading("Output"))
+        universalRadio = NSButton(radioButtonWithTitle: "Universal", target: self, action: #selector(pickUniversal(_:)))
         universalRadio.toolTip = "One letter per sound, the same in every language."
-        root.addArrangedSubview(universalRadio)
-        let row = NSStackView()
-        row.orientation = .horizontal
-        row.alignment = .firstBaseline
-        row.spacing = 8
-        languageRadio = NSButton(radioButtonWithTitle: "Language spelling", target: self, action: #selector(pickLanguage(_:)))
+        universalSample = sample("")
+        root.addArrangedSubview(line([universalRadio, universalSample]))
+        languageRadio = NSButton(radioButtonWithTitle: "A language's spelling", target: self, action: #selector(pickLanguage(_:)))
         languageRadio.toolTip = "Today's orthography of one language."
         languagePopup = NSPopUpButton(frame: .zero, pullsDown: false)
         for (code, name) in Prefs.languages {
@@ -60,39 +67,54 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         }
         languagePopup.target = self
         languagePopup.action = #selector(languageChosen(_:))
-        languageSample = NSTextField(labelWithString: "")
-        languageSample.font = NSFont(name: "Georgia", size: 13) ?? NSFont.systemFont(ofSize: 13)
-        row.addArrangedSubview(languageRadio)
-        row.addArrangedSubview(languagePopup)
-        row.addArrangedSubview(languageSample)
-        root.addArrangedSubview(row)
+        languageSample = sample("")
+        root.addArrangedSubview(line([languageRadio, languagePopup, languageSample]))
 
+        // try it
+        root.addArrangedSubview(gap(10))
         root.addArrangedSubview(heading("Try it"))
-        input = NSTextField(string: neutral)
-        input.font = NSFont.monospacedSystemFont(ofSize: 14, weight: .regular)
-        input.textColor = NSColor(red: 0.055, green: 0.486, blue: 0.525, alpha: 1)
+        input = NSTextField(string: example)
+        input.placeholderString = "type here, e.g. \(example)"
+        input.font = diafon(14, mono: true)
+        input.textColor = accent
         input.delegate = self
-        input.widthAnchor.constraint(equalToConstant: 540).isActive = true
+        input.widthAnchor.constraint(equalToConstant: width).isActive = true
         root.addArrangedSubview(input)
         previews = NSStackView()
         previews.orientation = .vertical
         previews.alignment = .leading
-        previews.spacing = 4
+        previews.spacing = 2
         root.addArrangedSubview(previews)
 
-        root.addArrangedSubview(heading("Also"))
-        root.addArrangedSubview(check("Conversion on", p.enabled) { Prefs.shared.enabled = $0 })
-        root.addArrangedSubview(check("A bare Shift tap switches conversion off and on; quick taps walk the cycle", p.shiftToggle) { Prefs.shared.shiftToggle = $0 })
-        root.addArrangedSubview(note("While a segment is still underlined, Tab (or ↓) opens the candidate window with that segment in every spelling: arrows pick one, Return takes it, Escape closes; digits stay tones."))
-        root.addArrangedSubview(check("Tone digits", p.tones) { Prefs.shared.tones = $0 })
-        root.addArrangedSubview(check("Joined long consonants: the Diafon fonts draw them fused; other fonts show the letter twice", p.join) { Prefs.shared.join = $0 })
-        root.addArrangedSubview(note("Convert text in any spelling: select it in any app, then Diafon menu → Convert selection, or right-click → Services → Convert with Diafon."))
-        root.addArrangedSubview(note("Spec \(SpecData.generated) · \(SpecData.source)"))
+        // options, each with what it does under it
+        root.addArrangedSubview(gap(10))
+        root.addArrangedSubview(heading("Options"))
+        root.addArrangedSubview(option("Conversion on", p.enabled,
+            "Off, Diafon passes your keys through as plain letters.") { Prefs.shared.enabled = $0 })
+        root.addArrangedSubview(option("Shift switches", p.shiftToggle,
+            "A bare Shift tap turns conversion off and back on. Quick taps in a row walk through Universal and your quick list of languages; ⇧Space opens the language chooser.") { Prefs.shared.shiftToggle = $0 })
+        root.addArrangedSubview(option("Tones", p.tones,
+            "A digit after a syllable writes its tone. Off, tone digits are left out.") { Prefs.shared.tones = $0 })
+        root.addArrangedSubview(option("Joined long consonants", p.join,
+            "A long consonant is written as one joined pair, which the Diafon fonts draw fused; other fonts show the letter twice.") { Prefs.shared.join = $0 })
 
-        let w = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 600, height: 700),
+        // how to, once
+        root.addArrangedSubview(gap(10))
+        root.addArrangedSubview(heading("How to"))
+        root.addArrangedSubview(howto([
+            "Pick Diafon in the input menu (⌃Space). Your keyboard stays as it is.",
+            "Type a sound as a letter, then its operators: sj → \(p.renderer("script")("sj")), tq → \(p.renderer("script")("tq")), aw → \(p.renderer("script")("aw")). The last sound stays underlined until the next key settles it.",
+            "Tab (or ↓) on the underlined sound shows it in every spelling.",
+            "To convert text already written: select it, then Diafon menu → Convert selection, or right-click → Services → Convert with Diafon.",
+        ]))
+        root.addArrangedSubview(gap(6))
+        root.addArrangedSubview(note("Spec \(SpecData.generated) · \(SpecData.source)", size: 11))
+
+        let w = NSWindow(contentRect: NSRect(x: 0, y: 0, width: width + 48, height: 600),
                          styleMask: [.titled, .closable, .miniaturizable], backing: .buffered, defer: false)
         w.title = "Diafon setup"
         w.contentView = root
+        w.setContentSize(root.fittingSize)                 // as tall as what it holds
         w.isReleasedWhenClosed = false
         window = w
         NotificationCenter.default.addObserver(forName: Prefs.changed, object: nil, queue: .main) { [weak self] _ in self?.refresh() }
@@ -106,19 +128,12 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         if let code = sender.selectedItem?.representedObject as? String { Prefs.shared.language = code }
     }
 
-    private func check(_ label: String, _ on: Bool, onChange: @escaping (Bool) -> Void) -> NSButton {
-        let b = NSButton(checkboxWithTitle: label, target: self, action: #selector(checkChanged(_:)))
-        b.state = on ? .on : .off
-        checkActions[ObjectIdentifier(b)] = onChange
-        return b
-    }
-
     @objc private func checkChanged(_ sender: NSButton) { checkActions[ObjectIdentifier(sender)]?(sender.state == .on) }
 
     func controlTextDidChange(_ obj: Notification) { refresh() }
 
-    /// The window follows the settings: the radios, the popup, the language's sample sentence
-    /// (its first clause), and the typed line in Universal and in the chosen spelling.
+    /// The window follows the settings: the radios, the popup, a sample in Universal and in the chosen
+    /// spelling (the language's own sample, its first clause), and the typed line both ways.
     private func refresh() {
         guard let previews = previews else { return }
         let p = Prefs.shared
@@ -128,86 +143,103 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         if let i = languagePopup.itemArray.firstIndex(where: { ($0.representedObject as? String) == code }) {
             languagePopup.selectItem(at: i)
         }
+        universalSample.stringValue = p.renderer("script")(example)
         let st = SpecData.stages[code]
-        let src = (st != nil && !st!.sample.isEmpty) ? st!.sample : neutral
-        let clause = src.split(separator: ",").first.map(String.init) ?? src
-        languageSample.stringValue = p.renderer("stage:\(code)")(clause)
+        let src = (st != nil && !st!.sample.isEmpty) ? st!.sample : example
+        languageSample.stringValue = p.renderer("stage:\(code)")(src.split(separator: ",").first.map(String.init) ?? src)
 
         previews.arrangedSubviews.forEach { $0.removeFromSuperview() }
         let typed = input.stringValue
-        for (value, label) in [("script", "universal"), ("stage:\(code)", (st?.name ?? code).lowercased())] {
-            let row = NSStackView()
-            row.orientation = .horizontal
-            row.alignment = .firstBaseline
-            row.spacing = 10
+        for (value, label) in [("script", "Universal"), ("stage:\(code)", st?.name ?? code)] {
             let l = NSTextField(labelWithString: label)
-            l.font = NSFont.monospacedSystemFont(ofSize: 10, weight: .medium)
+            l.font = NSFont.systemFont(ofSize: 11)
             l.textColor = .secondaryLabelColor
-            l.widthAnchor.constraint(equalToConstant: 120).isActive = true
-            let v = NSTextField(labelWithString: p.renderer(value)(typed))
-            v.font = NSFont(name: "Georgia", size: 17) ?? NSFont.systemFont(ofSize: 17)
-            row.addArrangedSubview(l)
-            row.addArrangedSubview(v)
-            previews.addArrangedSubview(row)
+            l.widthAnchor.constraint(equalToConstant: 80).isActive = true
+            let v = NSTextField(wrappingLabelWithString: p.renderer(value)(typed))
+            v.font = diafon(18)
+            v.preferredMaxLayoutWidth = width - 90
+            previews.addArrangedSubview(line([l, v]))
         }
     }
 
-    /// The mark beside the name, from the app icon.
+    // ---- pieces
     private func header() -> NSView {
-        let row = NSStackView()
-        row.orientation = .horizontal
-        row.alignment = .centerY
-        row.spacing = 10
+        var views: [NSView] = []
         if let path = Bundle.main.path(forResource: "Diafon", ofType: "icns"), let img = NSImage(contentsOfFile: path) {
             let iv = NSImageView(image: img)
             iv.imageScaling = .scaleProportionallyUpOrDown
-            iv.widthAnchor.constraint(equalToConstant: 36).isActive = true
-            iv.heightAnchor.constraint(equalToConstant: 36).isActive = true
-            row.addArrangedSubview(iv)
+            iv.widthAnchor.constraint(equalToConstant: 32).isActive = true
+            iv.heightAnchor.constraint(equalToConstant: 32).isActive = true
+            views.append(iv)
         }
-        row.addArrangedSubview(title("Diafon"))
+        let t = NSTextField(labelWithString: "Diafon")
+        t.font = diafon(22)
+        views.append(t)
+        let row = line(views)
+        row.alignment = .centerY
         return row
     }
-    /// Numbered lines, the number in a narrow column.
-    private func howto(_ lines: [(String, String)]) -> NSView {
+    /// A checkbox and, under its label, one line of what it does.
+    private func option(_ label: String, _ on: Bool, _ what: String, onChange: @escaping (Bool) -> Void) -> NSView {
+        let b = NSButton(checkboxWithTitle: label, target: self, action: #selector(checkChanged(_:)))
+        b.state = on ? .on : .off
+        checkActions[ObjectIdentifier(b)] = onChange
+        let d = note(what, size: 11, indent: 20)
+        let col = NSStackView(views: [b, d])
+        col.orientation = .vertical
+        col.alignment = .leading
+        col.spacing = 1
+        col.edgeInsets = NSEdgeInsets(top: 2, left: 0, bottom: 4, right: 0)
+        return col
+    }
+    private func howto(_ lines: [String]) -> NSView {
         let col = NSStackView()
         col.orientation = .vertical
         col.alignment = .leading
-        col.spacing = 3
-        for (n, text) in lines {
-            let row = NSStackView()
-            row.orientation = .horizontal
-            row.alignment = .firstBaseline
-            row.spacing = 8
-            let num = NSTextField(labelWithString: n)
-            num.font = NSFont.monospacedSystemFont(ofSize: 12, weight: .semibold)
-            num.textColor = NSColor(red: 0.055, green: 0.486, blue: 0.525, alpha: 1)
-            num.widthAnchor.constraint(equalToConstant: 12).isActive = true
+        col.spacing = 4
+        for (i, text) in lines.enumerated() {
+            let num = NSTextField(labelWithString: "\(i + 1)")
+            num.font = NSFont.systemFont(ofSize: 12, weight: .semibold)
+            num.textColor = accent
+            num.widthAnchor.constraint(equalToConstant: 14).isActive = true
             let t = NSTextField(wrappingLabelWithString: text)
             t.font = NSFont.systemFont(ofSize: 12)
-            t.preferredMaxLayoutWidth = 520
-            row.addArrangedSubview(num)
-            row.addArrangedSubview(t)
-            col.addArrangedSubview(row)
+            t.preferredMaxLayoutWidth = width - 22
+            col.addArrangedSubview(line([num, t]))
         }
         return col
     }
-    private func title(_ s: String) -> NSTextField {
+    private func line(_ views: [NSView]) -> NSStackView {
+        let row = NSStackView(views: views)
+        row.orientation = .horizontal
+        row.alignment = .firstBaseline
+        row.spacing = 8
+        return row
+    }
+    private func sample(_ s: String) -> NSTextField {
         let t = NSTextField(labelWithString: s)
-        t.font = NSFont(name: "Georgia-Bold", size: 22) ?? NSFont.boldSystemFont(ofSize: 22)
+        t.font = diafon(15)
+        t.textColor = .secondaryLabelColor
         return t
     }
     private func heading(_ s: String) -> NSTextField {
-        let t = NSTextField(labelWithString: s.uppercased())
-        t.font = NSFont.monospacedSystemFont(ofSize: 10, weight: .semibold)
-        t.textColor = .secondaryLabelColor
+        let t = NSTextField(labelWithString: s)
+        t.font = NSFont.systemFont(ofSize: 13, weight: .semibold)
         return t
     }
-    private func note(_ s: String) -> NSTextField {
+    private func note(_ s: String, size: CGFloat = 12, indent: CGFloat = 0) -> NSView {
         let t = NSTextField(wrappingLabelWithString: s)
-        t.font = NSFont.systemFont(ofSize: 12)
+        t.font = NSFont.systemFont(ofSize: size)
         t.textColor = .secondaryLabelColor
-        t.preferredMaxLayoutWidth = 540
-        return t
+        t.preferredMaxLayoutWidth = width - indent
+        guard indent > 0 else { return t }
+        let box = NSStackView(views: [t])
+        box.edgeInsets = NSEdgeInsets(top: 0, left: indent, bottom: 0, right: 0)
+        return box
+    }
+    private func gap(_ h: CGFloat) -> NSView {
+        let v = NSView()
+        v.heightAnchor.constraint(equalToConstant: h).isActive = true
+        return v
     }
 }
