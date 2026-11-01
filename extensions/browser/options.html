@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Diafon · my entries</title>
+<title>Diafon · my words</title>
 <style>
 :root{--ink:#1a1d24;--muted:#5b6472;--line:#dde1e8;--accent:#0e7c86;--paper:#fff;--field:#f5f6f8}
 @media (prefers-color-scheme:dark){:root{--ink:#e9ecf1;--muted:#98a1b0;--line:#2a2e37;--accent:#3ec8cf;--paper:#1b1e25;--field:#23262e}}
@@ -25,26 +25,27 @@ textarea{width:100%;box-sizing:border-box;min-height:120px;padding:8px;border:1p
 </style>
 </head>
 <body>
-<h1><img src="icons/on-48.png" alt="">My entries</h1>
-<p class="lede">Words read your way, as you said them: a name no dictionary knows, a loan the letters misread. Made from a page (select a word, right-click, “Diafon: read as…”) or here. They follow your browser profile.</p>
+<h1><img src="icons/on-48.png" alt="">My words</h1>
+<p class="lede">Words read as their own language says them: a name no dictionary knows, a loan the letters misread. Typed in Diafon input (sj → ș, tq → c̦, aw → á), one list for every language, so a word has one form wherever it appears. Made from a page (select a word, right-click, “Diafon: read as…”) or here. They follow your browser profile.</p>
 <h2>Reading</h2>
 <label class="row"><input type="checkbox" id="keepNames"> Keep names as written: a capitalised word inside a sentence stays in its own spelling.</label>
 <label class="row"><input type="checkbox" id="join"> Join long consonants: the Diafon fonts draw them fused; other fonts show the letter twice.</label>
-<h2>Entries</h2>
-<div id="langs"></div>
+<h2>Words</h2>
+<div id="words"></div>
 <h2>Add</h2>
 <div class="row">
-  <select id="addLang"></select>
   <input type="text" id="addWord" placeholder="spelling on the page (cudjoe)">
-  <input type="text" id="addSaid" placeholder="as it is said, in the language's letters (kadzsó)">
+  <input type="text" id="addSaid" placeholder="Diafon input (kajdqoux)">
   <button class="primary" id="addBtn">Add</button>
 </div>
 <h2>Share and keep</h2>
-<p class="note">The entries as the Diafon lexicon writes them (data/lexicon/&lt;code&gt;.yaml, the <code>names</code> section). Copy them into a proposal for the commons so every reader gets them, or keep them as a backup; paste the same shape below to import.</p>
+<p class="note">The words as the Diafon lexicon keeps them (data/lexicon/origin.yaml, shared by every language). Copy them into a proposal for the commons so every reader gets them, or keep them as a backup; paste the same shape below to import.</p>
 <div class="row"><button id="exportBtn">Show as yaml</button><button id="proposeBtn">Propose to the commons</button><button id="importBtn">Import from the box</button></div>
-<textarea id="yaml" spellcheck="false" placeholder="hu:&#10;  names:&#10;    cudjoe: kadzsó"></textarea>
+<textarea id="yaml" spellcheck="false" placeholder="cudjoe: {lang: en, t: kajdqoux}"></textarea>
 <p class="note" id="status"></p>
 <script src="data.js"></script>
+<script src="engine.js"></script>
+<script src="content.js"></script>
 <script src="options.js"></script>
 </body>
 </html>

@@ -1,85 +1,92 @@
-// The options page: the reader's entries per language, listed, edited, added,
-// exported as the lexicon's yaml, imported from it, and proposed to the
-// commons (a prefilled issue on the repo once it has one; the yaml on the
-// clipboard until then).
+// The options page: the reader's words (spelling -> Diafon input, one list for
+// every language), listed, edited, added, exported in the shape of
+// data/lexicon/origin.yaml, imported from it, and proposed to the commons (a
+// prefilled issue on the repo once it has one; the yaml on the clipboard
+// until then). diafonInput and migrateEntries come from content.js.
 'use strict';
 const REPO = null;                          // set at publish: 'https://github.com/<owner>/diafon'
-const $langs = document.getElementById('langs'), $status = document.getElementById('status'), $yaml = document.getElementById('yaml');
-const $addLang = document.getElementById('addLang'), $addWord = document.getElementById('addWord'), $addSaid = document.getElementById('addSaid');
-const native = code => { try { return new Intl.DisplayNames(['en'], {type: 'language'}).of(code); } catch (e) { return code; } };
-const lettered = Object.keys(DIA.stages).filter(c => !DIA.stages[c].lexical).sort((a, b) => native(a).localeCompare(native(b)));
-for (const c of lettered) { const o = document.createElement('option'); o.value = c; o.textContent = native(c); $addLang.appendChild(o); }
-let entries = {};
+const $words = document.getElementById('words'), $status = document.getElementById('status'), $yaml = document.getElementById('yaml');
+const $addWord = document.getElementById('addWord'), $addSaid = document.getElementById('addSaid');
+let words = {};
 
 function save(next, note) {
-  entries = next;
-  chrome.storage.sync.set({entries}, () => { render(); $status.textContent = note || ''; });
+  words = next;
+  chrome.storage.sync.set({words}, () => { show(); $status.textContent = note || ''; });
 }
 
-function render() {
-  $langs.innerHTML = '';
-  const codes = Object.keys(entries).filter(c => Object.keys(entries[c] || {}).length).sort();
-  if (!codes.length) { $langs.innerHTML = '<p class="empty">No entries yet.</p>'; return; }
-  for (const c of codes) {
-    const h = document.createElement('h2'); h.innerHTML = `<span class="lang">${native(c)}</span> <span class="note">(${c})</span>`;
-    $langs.appendChild(h);
-    const t = document.createElement('table');
-    t.innerHTML = '<tr><th>On the page</th><th>As it is said</th><th></th></tr>';
-    for (const [word, said] of Object.entries(entries[c]).sort()) {
-      const tr = document.createElement('tr');
-      const tdW = document.createElement('td'); tdW.textContent = word;
-      const tdS = document.createElement('td'); const inp = document.createElement('input'); inp.type = 'text'; inp.value = said; tdS.appendChild(inp);
-      inp.addEventListener('change', () => { const n = structuredClone(entries); if (inp.value.trim()) n[c][word] = inp.value.trim(); else delete n[c][word]; save(n, `${word}: ${inp.value.trim() || 'removed'}`); });
-      const tdX = document.createElement('td'); const del = document.createElement('button'); del.textContent = 'Remove'; tdX.appendChild(del);
-      del.addEventListener('click', () => { const n = structuredClone(entries); delete n[c][word]; save(n, `${word} removed`); });
-      tr.append(tdW, tdS, tdX); t.appendChild(tr);
-    }
-    $langs.appendChild(t);
+/** Diafon input checked, or a note on the status line and null. */
+function checked(said) {
+  const t = diafonInput(said);
+  if (!t) $status.textContent = `“${said}” is not Diafon input.`;
+  return t;
+}
+
+function show() {
+  $words.innerHTML = '';
+  const list = Object.entries(words).sort();
+  if (!list.length) { $words.innerHTML = '<p class="empty">No words yet.</p>'; return; }
+  const t = document.createElement('table');
+  t.innerHTML = '<tr><th>On the page</th><th>Diafon input</th><th>Shows</th><th></th></tr>';
+  for (const [word, said] of list) {
+    const tr = document.createElement('tr');
+    const tdW = document.createElement('td'); tdW.textContent = word;
+    const tdS = document.createElement('td'); const inp = document.createElement('input'); inp.type = 'text'; inp.value = said; tdS.appendChild(inp);
+    const tdR = document.createElement('td'); tdR.className = 'lang'; tdR.textContent = render(said);
+    inp.addEventListener('change', () => {
+      const n = structuredClone(words);
+      if (!inp.value.trim()) { delete n[word]; save(n, `${word} removed`); return; }
+      const v = checked(inp.value); if (!v) { inp.value = said; return; }
+      n[word] = v; save(n, `${word}: ${render(v)}`);
+    });
+    const tdX = document.createElement('td'); const del = document.createElement('button'); del.textContent = 'Remove'; tdX.appendChild(del);
+    del.addEventListener('click', () => { const n = structuredClone(words); delete n[word]; save(n, `${word} removed`); });
+    tr.append(tdW, tdS, tdR, tdX); t.appendChild(tr);
   }
+  $words.appendChild(t);
 }
 
 document.getElementById('addBtn').addEventListener('click', () => {
-  const c = $addLang.value, w = $addWord.value.normalize('NFC').trim().toLowerCase(), said = $addSaid.value.normalize('NFC').trim();
-  if (!w || !said) { $status.textContent = 'Both the spelling and how it is said are needed.'; return; }
-  const n = structuredClone(entries); n[c] = n[c] || {}; n[c][w] = said;
+  const w = $addWord.value.normalize('NFC').trim().toLowerCase(), said = $addSaid.value.trim();
+  if (!w || !said) { $status.textContent = 'Both the spelling and its Diafon input are needed.'; return; }
+  const t = checked(said); if (!t) return;
+  const n = structuredClone(words); n[w] = t;
   $addWord.value = ''; $addSaid.value = '';
-  save(n, `${w}: ${said}`);
+  save(n, `${w}: ${render(t)}`);
 });
 
-/** The entries in the lexicon's yaml: one language, its names section. */
-function toYaml(codes = null) {
-  const q = s => /[:#'"\s]/.test(s) || s === '' ? `'${s.replace(/'/g, "''")}'` : s;
-  return (codes || Object.keys(entries)).filter(c => Object.keys(entries[c] || {}).length).sort()
-    .map(c => `${c}:\n  names:\n` + Object.entries(entries[c]).sort().map(([w, s]) => `    ${q(w)}: ${q(s)}`).join('\n')).join('\n') + '\n';
+/** The words in the shape of data/lexicon/origin.yaml; the language of origin is the maintainer's to add. */
+function toYaml() {
+  const q = s => /[:#'"\s{}]/.test(s) || s === '' ? `'${s.replace(/'/g, "''")}'` : s;
+  return Object.entries(words).sort().map(([w, t]) => `${q(w)}: {lang: ?, t: ${t}}`).join('\n') + '\n';
 }
-/** The same shape read back: code: / names: / word: said; a bare word: said line goes to the last language seen. */
+/** origin.yaml lines (word: {t: …}), plain word: input lines, or the old per-language shape (code: / names: / word: said). */
 function fromYaml(text) {
-  const out = {}; let code = null;
+  const out = {}, old = {}; let code = null;
   const unq = s => { s = s.trim(); return /^'.*'$/.test(s) ? s.slice(1, -1).replace(/''/g, "'") : /^".*"$/.test(s) ? s.slice(1, -1) : s; };
   for (const raw of text.split('\n')) {
     const line = raw.replace(/#.*$/, '').trimEnd();
-    if (!line.trim()) continue;
     const m = /^(\s*)([^:]+):\s*(.*)$/.exec(line);
     if (!m) continue;
-    const key = unq(m[2]), val = unq(m[3]);
-    if (!val) { if (key !== 'names' && key !== 'spoken') code = key; continue; }
-    if (!code) continue;
-    out[code] = out[code] || {}; out[code][key.toLowerCase()] = val;
+    const key = unq(m[2]), val = m[3].trim();
+    if (!val) { if (key !== 'names' && key !== 'spoken') code = DIA.stages[key] ? key : null; continue; }
+    const t = (/\bt:\s*([A-Za-z0-9]+)/.exec(val) || [])[1];
+    if (t) { out[key.toLowerCase()] = t; continue; }
+    if (code) { (old[code] = old[code] || {})[key.toLowerCase()] = unq(val); continue; }
+    out[key.toLowerCase()] = unq(val);
   }
-  return out;
+  return Object.assign(migrateEntries(old), out);
 }
 
 document.getElementById('exportBtn').addEventListener('click', () => { $yaml.value = toYaml(); $status.textContent = 'Shown below.'; });
 document.getElementById('importBtn').addEventListener('click', () => {
-  const got = fromYaml($yaml.value); let n = 0;
-  const next = structuredClone(entries);
-  for (const [c, words] of Object.entries(got)) { if (!DIA.stages[c]) continue; next[c] = next[c] || {}; for (const [w, s] of Object.entries(words)) { next[c][w] = s; n++; } }
-  save(next, `${n} entries imported.`);
+  const next = structuredClone(words); let n = 0, bad = [];
+  for (const [w, s] of Object.entries(fromYaml($yaml.value))) { const t = diafonInput(s); if (t) { next[w] = t; n++; } else bad.push(w); }
+  save(next, `${n} words imported.` + (bad.length ? ` Not Diafon input: ${bad.join(', ')}.` : ''));
 });
 document.getElementById('proposeBtn').addEventListener('click', () => {
   const yaml = toYaml();
-  const body = `Entries from a reader, for data/lexicon/<code>.yaml, the names section:\n\n\`\`\`yaml\n${yaml}\`\`\`\n`;
-  if (REPO) { window.open(`${REPO}/issues/new?title=${encodeURIComponent('Names: entries from a reader')}&body=${encodeURIComponent(body)}`); return; }
+  const body = `Words from a reader, for data/lexicon/origin.yaml (fill in each word's language of origin):\n\n\`\`\`yaml\n${yaml}\`\`\`\n`;
+  if (REPO) { window.open(`${REPO}/issues/new?title=${encodeURIComponent('Words: from a reader')}&body=${encodeURIComponent(body)}`); return; }
   $yaml.value = yaml;
   navigator.clipboard.writeText(body).then(() => { $status.textContent = 'Copied as a proposal; the repo is not public yet, so send it to the maintainer.'; }, () => { $status.textContent = 'Shown below; the repo is not public yet, so send it to the maintainer.'; });
 });
@@ -87,10 +94,14 @@ document.getElementById('proposeBtn').addEventListener('click', () => {
 const $keep = document.getElementById('keepNames'), $join = document.getElementById('join');
 $keep.addEventListener('change', () => chrome.storage.sync.set({keepNames: $keep.checked}));
 $join.addEventListener('change', () => chrome.storage.sync.set({join: $join.checked}));
-chrome.storage.sync.get({entries: {}, keepNames: false, join: false}, s => { entries = s.entries || {}; $keep.checked = !!s.keepNames; $join.checked = !!s.join; render(); });
+chrome.storage.sync.get({words: {}, entries: {}, keepNames: false, join: false}, s => {
+  words = Object.assign(migrateEntries(s.entries), s.words || {});
+  if (Object.keys(s.entries || {}).length) chrome.storage.sync.set({words, entries: {}});
+  $keep.checked = !!s.keepNames; $join.checked = !!s.join; show();
+});
 chrome.storage.onChanged.addListener((changes, area) => {
   if (area !== 'sync') return;
-  if (changes.entries) { entries = changes.entries.newValue || {}; render(); }
+  if (changes.words) { words = changes.words.newValue || {}; show(); }
   if (changes.keepNames) $keep.checked = !!changes.keepNames.newValue;
   if (changes.join) $join.checked = !!changes.join.newValue;
 });
