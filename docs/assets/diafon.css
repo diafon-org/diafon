@@ -55,7 +55,7 @@
 .md-typeset dl.chartkey .mini{display:inline-flex;gap:.3rem;align-items:baseline;padding:.15rem .4rem;border-radius:6px;
   text-transform:none;letter-spacing:0;font:500 .62rem/1.2 var(--mono)}
 .md-typeset dl.chartkey .mini b{font-size:1rem;font-weight:400}
-.md-typeset dl.chartkey .mini.k-base{background:var(--card);border:1.5px solid var(--base-c)} .md-typeset dl.chartkey .mini.cmp{border-style:dashed;border-color:var(--j-c)}
+.md-typeset dl.chartkey .mini.k-base{background:var(--card);border:1.2px solid var(--base-c)} .md-typeset dl.chartkey .mini.cmp{border-style:dashed;border-color:var(--j-c)}
 .md-typeset dl.chartkey ul.ops{display:grid;grid-template-columns:repeat(auto-fill,minmax(13rem,1fr));gap:.2rem .8rem;margin:.35rem 0 0;padding:0;list-style:none}
 .md-typeset dl.chartkey ul.ops li{margin:0}
 .md-typeset dl.chartkey .sw{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:.35rem}
@@ -64,8 +64,8 @@
 .md-typeset dl.chartkey .sw.k-x{border-color:var(--x-c)} .md-typeset dl.chartkey .sw.k-c{border-color:var(--c-c)}
 .md-typeset dl.chartkey .sw.k-q{border-color:var(--q-c)} .md-typeset dl.chartkey .sw.k-y{border-color:var(--y-c)}
 .md-typeset dl.chartkey .chipkey{display:inline-block;font:400 1rem/1 var(--serif);text-transform:none;padding:.15rem .5rem;
-  border-radius:7px;border:1.5px solid var(--base-c)}
-.md-typeset dl.chartkey .chipkey.split{font-size:.8rem;padding:.1rem .35rem;border:1.5px dashed var(--j-c)}
+  border-radius:7px;border:1.2px solid var(--base-c)}
+.md-typeset dl.chartkey .chipkey.split{font-size:.8rem;padding:.1rem .35rem;border:1.2px dashed var(--j-c)}
 .md-typeset .pt.cmp{border-style:dashed}
 .md-typeset .opswrap{overflow-x:auto;margin:.8rem 0 0;border:1px solid var(--line);border-radius:14px;background:var(--card)}
 .md-typeset .opswrap table.ops{margin:0;border:none;min-width:600px;border-collapse:collapse;width:100%;display:table;font-size:inherit}
@@ -277,7 +277,7 @@
 .md-typeset table.pts caption{caption-side:top;text-align:left;padding:.55rem .8rem;font:600 .66rem/1.1 var(--mono);
   letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--sunken);border-bottom:1px solid var(--line)}
 .md-typeset .scroll + .scroll{margin-top:1rem}
-.md-typeset .pt{border-radius:8px;margin:2px;background:var(--card);border:1.5px solid var(--line)}   /* as the vowel chips: */
+.md-typeset .pt{border-radius:8px;margin:2px;background:var(--card);border:1.2px solid var(--line)}   /* as the vowel chips: */
 .md-typeset .pt.k-base{border-color:var(--base-c)} .md-typeset .pt.k-base .lab{color:var(--base-c)}        /*   the operator's colour */
 .md-typeset .pt.k-c{border-color:var(--c-c)} .md-typeset .pt.k-c .lab{color:var(--c-c)}                    /*   on the edge */
 .md-typeset .pt.k-j{border-color:var(--j-c)} .md-typeset .pt.k-j .lab{color:var(--j-c)}
