@@ -97,7 +97,8 @@ def main():
     cards, top = [], {}
     for code, lang, title, text in TEXTS:
         if code not in top or 'Human Rights' in title:
-            top[code] = title           # the Declaration where there is one: the try-out starts with it
+            top[code] = title           # the Declaration where there is one: the try-out starts with it,
+    top['en'] = 'Sonnet 18 (Shakespeare)'   # but English opens on a line that types cleanly (not hixuwmajn)
     outs = ['\n'.join(stages.convert(l, 'stage:' + c, 'script') for l in t.split('\n')) for c, _, _, t in TEXTS]
     for (code, lang, title, text), out in zip(TEXTS, outs):
         mark = ' data-top' if top[code] == title else ''

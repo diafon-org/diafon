@@ -147,12 +147,9 @@ $table.addEventListener('change', () => {
   if ($table.value !== 'universal') try { localStorage.setItem('diafon-lang', $table.value); } catch (e) {}  // shared with Learning
 });
 
-function fromHash(){
+function fromHash(){             // all languages, unless the address names a flavour (?table=hu)
   const st = urlState();
-  let picked = null;
-  try { picked = localStorage.getItem('diafon-lang'); } catch (e) {}
-  const want = st.table && $('sec-' + st.table) ? st.table : picked;   // a section anchor (#try-it) is no table
-  $table.value = want && $('sec-' + want) ? want : 'universal';
+  $table.value = st.table && $('sec-' + st.table) ? st.table : 'universal';
 }
 // an 'also written' link (#table=pl&form=sjy): that language's table, at that row
 function goRow(){
