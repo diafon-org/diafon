@@ -147,7 +147,8 @@ CONSONANTS = (['labial', 'dental', 'alveolar', 'postalveolar', 'palatal', 'velar
     ('fricative', {'labial': 'f v', 'dental': 'tx dx', 'alveolar': 's z', 'postalveolar': 'sj zj',
                    'velar': 'kx gx', 'glottal': 'h'}),
     ('nasal', {'labial': 'm', 'alveolar': 'n', 'palatal': 'nj', 'velar': 'nx'}),
-    ('trill · tap', {'alveolar': 'r rc'}),
+    ('trill', {'alveolar': 'r'}),
+    ('tap', {'alveolar': 'rc'}),
     ('lateral', {'alveolar': 'l'}),
 ])
 def vowel_areas():
@@ -210,10 +211,30 @@ VT_POS = {   # area or split form -> (x, y) in the 840 x 600 figure
 }
 
 
+def chip(glyphs, typed, sounds, kind, cls=''):
+    """A chip: the letters, what you type, the sounds, edged in the operator's colour. Both charts draw
+    every card with this, so they look the same; a split (small) or a composition (dashed) adds a class.
+    The outline sits half a stroke (0.6) inside the box."""
+    small = 'split' in cls
+    rect = ('<rect x="-26.4" y="-24.4" width="52.8" height="49.8" rx="9"/>' if small else
+            '<rect x="-43.4" y="-35.4" width="86.8" height="72.8" rx="13"/>')
+    y = (-4, 9, 20) if small else (-6, 14, 30)
+    return (f'<g class="chip k-{kind}{" " + cls if cls else ""}">{rect}'
+            f'<text class="nat" y="{y[0]}">{esc(glyphs)}</text><text class="lab" y="{y[1]}">{esc(typed)}</text>'
+            f'<text class="ipa" y="{y[2]}">/{esc(sounds)}/</text></g>')
+
+
+def chip_svg(forms, cls=''):
+    """One consonant cell as a chip of its own svg, the vowel chips' size."""
+    kinds = {f[-1] if len(f) > 1 else 'base' for f in forms}
+    assert len(kinds) == 1, f'a cell mixes operators: {forms}'
+    g = chip(' '.join(nfc(engine.render(f)) for f in forms), ' '.join(forms), ' '.join(IPA[f] for f in forms),
+             kinds.pop(), cls)
+    return f'<svg class="chips card" viewBox="-44.6 -36.6 89.2 75.2" width="89" height="75" aria-hidden="true">{g}</svg>'
+
+
 def vowel_triangle(areas):
-    # the chips' outlines sit half a stroke (0.6) inside their box, as the tiles' svg.edge does, so
-    # both land on the same pixels
-    out = ['<figure class="vt" markdown="0"><svg viewBox="0 0 840 600" role="img" '
+    out = ['<figure class="vt" markdown="0"><svg class="chips" viewBox="0 0 840 600" role="img" '
            'aria-label="The vowel areas in the vowel triangle, front on the left, close at the top, with their splits">',
            '<polygon class="edge" points="40,30 800,30 540,570 300,570"/>',
            '<text class="axis" x="40" y="22">front</text><text class="axis" x="800" y="22" text-anchor="end">back</text>'
@@ -229,14 +250,10 @@ def vowel_triangle(areas):
             if not users:
                 continue                                   # a split no language writes is left out
             out.append(f'<line class="band k-{kind}" x1="{ax}" y1="{ay}" x2="{sx}" y2="{sy}"/>')
-            chips.append(f'<g class="chip split k-{sf[-1]}" transform="translate({sx},{sy})">'
-                         f'<rect x="-26.4" y="-24.4" width="52.8" height="49.8" rx="9"/>'
-                         f'<text class="nat" y="-4">{esc(nfc(engine.render(sf)))}</text>'
-                         f'<text class="lab" y="9">{sf}</text><text class="ipa" y="20">/{reading}/</text></g>')
-        chips.append(f'<g class="chip k-{kind}" transform="translate({ax},{ay})">'
-                     f'<rect x="-43.4" y="-35.4" width="86.8" height="72.8" rx="13"/>'
-                     f'<text class="nat" y="-6">{esc(nfc(engine.render(area)))}</text>'
-                     f'<text class="lab" y="14">{area}</text><text class="ipa" y="30">/{" ".join(covers)}/</text></g>')
+            chips.append(f'<g transform="translate({sx},{sy})">'
+                         + chip(nfc(engine.render(sf)), sf, reading, sf[-1], 'split') + '</g>')
+        chips.append(f'<g transform="translate({ax},{ay})">'
+                     + chip(nfc(engine.render(area)), area, ' '.join(covers), kind) + '</g>')
     out += chips
     out.append('</svg></figure>')
     return ''.join(out)
@@ -246,7 +263,7 @@ def point_table(spec, caption):
     cols, rows = spec
 
     def cell(forms):
-        return ''.join(tile(f) for f in forms)
+        return chip_svg(forms, 'cmp' if set(forms) <= COMPOSED else '')
     head = (lambda c: f'<th title="{c}">{mouth(c)}<span>{c}</span></th>') if caption == 'consonants' else (lambda c: f'<th>{c}</th>')
     out = [f'<div class="scroll" markdown="0"><table class="grid pts"><caption>{caption}</caption>'
            '<thead><tr><th></th>' + ''.join(head(c) for c in cols) + '</tr></thead><tbody>']
@@ -274,14 +291,10 @@ def key(rows, cls=''):
 def consonant_chart():
     p = esc(nfc(engine.render('p')))
     return point_table(CONSONANTS, 'consonants') + key([
-        (f'<span class="mini k-base">{EDGE}<b class="ug">{p}</b><code>p</code>/p/</span>',
-         'a tile: the letter, what you type, the sound'),
-        (f'<span class="mini k-base">{EDGE}<b class="ug">p</b></span><span class="mini k-base">{EDGE}<b class="ug">b</b></span>',
-         'two tiles in a cell: voiceless, then voiced'),
+        (chip_svg(['p', 'b']), 'a card: the letters, what you type, the sounds; voiceless first, then voiced'),
         ('lips → throat', 'the columns: where the sound is made, marked in each profile'),
         ('edge colour', 'the operator that makes it' + colours()),
-        (f'<span class="mini k-j cmp">{EDGE}<b class="ug">{esc(nfc(engine.render("tj")))}</b></span>',
-         'dashed: a letter with a mark, shown where its sound sits '
+        (chip_svg(['tj', 'dj'], 'cmp'), 'dashed: letters with a mark, shown where their sound sits '
          f'({ug(" ".join(engine.render(f) for f in sorted(COMPOSED)))})'),
     ])
 

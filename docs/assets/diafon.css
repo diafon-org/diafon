@@ -303,7 +303,7 @@
 .md-typeset .pt.k-x{--edge:var(--x-c)} .md-typeset .pt.k-x .lab{color:var(--x-c)}
 .md-typeset .pt.k-y{--edge:var(--y-c)} .md-typeset .pt.k-y .lab{color:var(--y-c)}
 .md-typeset table.grid.pts td{vertical-align:middle}
-.md-typeset table.grid.pts{min-width:0;table-layout:fixed}
+.md-typeset table.grid.pts{min-width:860px;table-layout:fixed}
 .md-typeset table.pts thead th{font-size:clamp(.48rem,1.1vw,.66rem);letter-spacing:0;padding:.45rem .1rem;overflow-wrap:anywhere}
 .md-typeset table.pts tr > th:first-child{width:clamp(2.9rem,10vw,5.6rem);font-size:clamp(.5rem,1.2vw,.7rem);padding:.4rem .25rem;overflow-wrap:anywhere}
 .md-typeset table.pts .pt{flex:0 0 auto;width:clamp(30px,4.2vw,46px);min-width:0;padding:.35rem .05rem .3rem;margin:0}   /* one size, as the vowel chips */
@@ -326,17 +326,19 @@
 .md-typeset figure.vt .axis{font:600 11px var(--mono);fill:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .md-typeset figure.vt .band{stroke-width:56;stroke-linecap:round;opacity:.9}
 .md-typeset figure.vt .band.k-base{stroke:var(--base-t)} .md-typeset figure.vt .band.k-c{stroke:var(--c-t)} .md-typeset figure.vt .band.k-j{stroke:var(--j-t)}
-.md-typeset figure.vt .chip rect{fill:var(--card);stroke:var(--line);stroke-width:1.2px;vector-effect:non-scaling-stroke}   /* steady at any size; the tiles' svg.edge draws the same */
-.md-typeset figure.vt .chip.k-base rect{stroke:var(--base-c)} .md-typeset figure.vt .chip.k-c rect{stroke:var(--c-c)}
-.md-typeset figure.vt .chip.k-j rect{stroke:var(--j-c)} .md-typeset figure.vt .chip.k-q rect{stroke:var(--q-c)}
-.md-typeset figure.vt .chip.split rect{stroke-dasharray:4 3}
-.md-typeset figure.vt text{text-anchor:middle}
-.md-typeset figure.vt .nat{font-family:var(--serif);font-size:30px;fill:var(--ink)}
-.md-typeset figure.vt .split .nat{font-size:19px} .md-typeset figure.vt .split .lab{font-size:10px} .md-typeset figure.vt .split .ipa{font-size:11px}
-.md-typeset figure.vt .lab{font:600 13px var(--mono)}
-.md-typeset figure.vt .k-base .lab{fill:var(--base-c)} .md-typeset figure.vt .k-c .lab{fill:var(--c-c)}
-.md-typeset figure.vt .k-j .lab{fill:var(--j-c)} .md-typeset figure.vt .k-q .lab{fill:var(--q-c)}
-.md-typeset figure.vt .ipa{font-family:var(--serif);font-size:14px;fill:var(--muted)}
+.md-typeset .chips .chip rect{fill:var(--card);stroke:var(--line);stroke-width:1.2px;vector-effect:non-scaling-stroke}   /* both charts' chips (gen_site.chip) */
+.md-typeset .chips .chip.k-base rect{stroke:var(--base-c)} .md-typeset .chips .chip.k-c rect{stroke:var(--c-c)}
+.md-typeset .chips .chip.k-j rect{stroke:var(--j-c)} .md-typeset .chips .chip.k-q rect{stroke:var(--q-c)}
+.md-typeset .chips .chip.k-x rect{stroke:var(--x-c)} .md-typeset .chips .chip.k-y rect{stroke:var(--y-c)}
+.md-typeset .chips .chip.split rect,.md-typeset .chips .chip.cmp rect{stroke-dasharray:4 3}
+.md-typeset .chips text{text-anchor:middle}
+.md-typeset .chips .nat{font-family:var(--serif);font-size:30px;fill:var(--ink)}
+.md-typeset .chips .split .nat{font-size:19px} .md-typeset .chips .split .lab{font-size:10px} .md-typeset .chips .split .ipa{font-size:11px}
+.md-typeset .chips .lab{font:600 13px var(--mono)}
+.md-typeset .chips .k-base .lab{fill:var(--base-c)} .md-typeset .chips .k-c .lab{fill:var(--c-c)}
+.md-typeset .chips .k-j .lab{fill:var(--j-c)} .md-typeset .chips .k-q .lab{fill:var(--q-c)}
+.md-typeset .chips .k-x .lab{fill:var(--x-c)} .md-typeset .chips .k-y .lab{fill:var(--y-c)}
+.md-typeset .chips .ipa{font-family:var(--serif);font-size:14px;fill:var(--muted)}
 .md-typeset figure.vt .who{font:500 10.5px var(--mono);fill:var(--muted)}
 .md-typeset .pt .nat{line-height:1.45}
 /* samples page */
@@ -460,3 +462,8 @@ html{font-size:115%}     /* at GitHub's scale and steady on wide screens: body ~
 .md-typeset .tryout-out .w{display:inline-flex;flex-direction:column;align-items:center;padding:0 .2rem}
 .md-typeset .tryout-out .wg{font-size:1.15rem}
 .md-typeset .tryout-out .w code{font-size:.6rem;background:none;padding:0;color:var(--accent)}
+
+/* a consonant cell: one chip at the vowel chips' own size */
+.md-typeset table.pts svg.card{display:block;margin:0 auto;width:89px;height:75px;max-width:none}   /* never shrunk */
+.md-typeset table.grid.pts td{padding:.3rem .05rem}
+.md-typeset dl.chartkey svg.card{width:60px;height:auto;text-transform:none;letter-spacing:0}
