@@ -210,7 +210,7 @@ function show(){
   let [html, l] = body(k);
   if (at === steps.length - 1)          // the end: every sound of the language, with its readings, is its Reference table
     html += `<p class="ln-end">That is all of Diafon for ${esc(L.name)}. Every sound, with its readings and the spelling
-      rules, is in <a href="../master/#table=${$lang.value}">its table on the Reference page</a>.</p>`;
+      rules, is in <a href="../master/?table=${$lang.value}">its table on the Reference page</a>.</p>`;
   const items = l ? (l.drill.length ? l.drill : l.forms) : [];
   $lesson.innerHTML = `<h2>${at + 1}. ${esc(stepTitle(k))}</h2>${html}${l ? words(l.words) : ''}${drill(items)}`;
   wireDrill(items);
