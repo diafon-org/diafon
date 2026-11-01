@@ -169,9 +169,13 @@ def vowel_areas():
     return out
 
 
+# a card's edge: an SVG outline, as the vowel chips draw theirs, so both are drawn the same way
+EDGE = '<svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg>'
+
+
 def tile(form):
     kind = form[-1] if len(form) > 1 else 'base'
-    return (f'<div class="pt k-{kind}{" cmp" if form in COMPOSED else ""}">'
+    return (f'<div class="pt k-{kind}{" cmp" if form in COMPOSED else ""}">{EDGE}'
             f'<span class="nat">{esc(nfc(engine.render(form)))}</span>'
             f'<span class="lab">{form}</span><span class="ipa">/{IPA[form]}/</span></div>')
 
@@ -207,6 +211,8 @@ VT_POS = {   # area or split form -> (x, y) in the 840 x 600 figure
 
 
 def vowel_triangle(areas):
+    # the chips' outlines sit half a stroke (0.6) inside their box, as the tiles' svg.edge does, so
+    # both land on the same pixels
     out = ['<figure class="vt" markdown="0"><svg viewBox="0 0 840 600" role="img" '
            'aria-label="The vowel areas in the vowel triangle, front on the left, close at the top, with their splits">',
            '<polygon class="edge" points="40,30 800,30 540,570 300,570"/>',
@@ -224,11 +230,11 @@ def vowel_triangle(areas):
                 continue                                   # a split no language writes is left out
             out.append(f'<line class="band k-{kind}" x1="{ax}" y1="{ay}" x2="{sx}" y2="{sy}"/>')
             chips.append(f'<g class="chip split k-{sf[-1]}" transform="translate({sx},{sy})">'
-                         f'<rect x="-27" y="-25" width="54" height="51" rx="9"/>'
+                         f'<rect x="-26.4" y="-24.4" width="52.8" height="49.8" rx="9"/>'
                          f'<text class="nat" y="-4">{esc(nfc(engine.render(sf)))}</text>'
                          f'<text class="lab" y="9">{sf}</text><text class="ipa" y="20">/{reading}/</text></g>')
         chips.append(f'<g class="chip k-{kind}" transform="translate({ax},{ay})">'
-                     f'<rect x="-44" y="-36" width="88" height="74" rx="13"/>'
+                     f'<rect x="-43.4" y="-35.4" width="86.8" height="72.8" rx="13"/>'
                      f'<text class="nat" y="-6">{esc(nfc(engine.render(area)))}</text>'
                      f'<text class="lab" y="14">{area}</text><text class="ipa" y="30">/{" ".join(covers)}/</text></g>')
     out += chips
@@ -268,13 +274,13 @@ def key(rows, cls=''):
 def consonant_chart():
     p = esc(nfc(engine.render('p')))
     return point_table(CONSONANTS, 'consonants') + key([
-        (f'<span class="mini k-base"><b class="ug">{p}</b><code>p</code>/p/</span>',
+        (f'<span class="mini k-base">{EDGE}<b class="ug">{p}</b><code>p</code>/p/</span>',
          'a tile: the letter, what you type, the sound'),
-        ('<span class="mini k-base"><b class="ug">p</b></span><span class="mini k-base"><b class="ug">b</b></span>',
+        (f'<span class="mini k-base">{EDGE}<b class="ug">p</b></span><span class="mini k-base">{EDGE}<b class="ug">b</b></span>',
          'two tiles in a cell: voiceless, then voiced'),
         ('lips → throat', 'the columns: where the sound is made, marked in each profile'),
         ('edge colour', 'the operator that makes it' + colours()),
-        (f'<span class="mini k-base cmp"><b class="ug">{esc(nfc(engine.render("tj")))}</b></span>',
+        (f'<span class="mini k-j cmp">{EDGE}<b class="ug">{esc(nfc(engine.render("tj")))}</b></span>',
          'dashed: a letter with a mark, shown where its sound sits '
          f'({ug(" ".join(engine.render(f) for f in sorted(COMPOSED)))})'),
     ])
@@ -283,8 +289,8 @@ def consonant_chart():
 def vowel_chart():
     return vowel_triangle(vowel_areas()) + key([
         ('front · back', 'front on the left, back on the right, close at the top, open at the bottom'),
-        ('<span class="chipkey area">a</span>', 'an area: the plain letter, and every sound it covers'),
-        ('<span class="chipkey split">ẹ</span>', 'a split: written only by a language with two vowels in that area '
+        (f'<span class="chipkey area k-base">{EDGE}a</span>', 'an area: the plain letter, and every sound it covers'),
+        (f'<span class="chipkey split cmp k-j">{EDGE}ẹ</span>', 'a split: written only by a language with two vowels in that area '
          '(rule 2 on the Reference page)'),
         ('edge colour', 'the operator that makes it' + colours(vowels=True)),
     ], cls='vt-key')
