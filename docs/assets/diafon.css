@@ -497,4 +497,8 @@ html{font-size:115%}     /* at GitHub's scale and steady on wide screens: body ~
     margin-top:.15rem;font-size:.62rem;color:var(--muted)}                                                     /* how common */
   .md-typeset section[id^="sec-"] table.mt:not(.langs) tr[data-form] td:last-child{grid-column:1 / -1;margin-top:.4rem}
   .md-typeset section[id^="sec-"] table.mt:not(.langs) tr[data-form] td:last-child:empty{display:none}
+  .md-typeset #sec-universal table.mt tr[data-form] td:last-child{margin:.5rem 0 0 1.6rem;padding-left:.7rem;
+    border-left:2px solid var(--line);font-size:.92em}                                       /* the other readings: secondary */
+  .md-typeset #sec-universal table.mt tr[data-form] td:last-child:not(:empty)::before{content:"other readings";display:block;
+    font:600 .55rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
 }
