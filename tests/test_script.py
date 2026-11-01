@@ -50,13 +50,13 @@ def test_normalized():
         assert g == ud.normalize('NFC', g), (form, g)
         assert cap == ud.normalize('NFC', cap), (form, cap)
     assert engine.glyph('sj') == 'ș' and len(engine.glyph('sj')) == 1        # precomposed by NFC
-    assert engine.glyph('txy') == 't̤' and len(engine.glyph('txy')) == 2       # a sequence: none exists
+    assert engine.glyph('ty') == 't̖' and len(engine.glyph('ty')) == 2         # a sequence: none exists
     assert engine.glyph('kj') == 'k̦' and engine.glyph('aj') == 'ạ'
 
 
 def test_capitals_float_below():
     assert engine.glyph('Gj') == 'G̦' and engine.glyph('Pj') == 'P̦' and engine.glyph('Gx') == 'G̣'
-    assert engine.glyph('Txy') == 'T̤' and engine.glyph('Tjw') == 'Țț'
+    assert engine.glyph('Gy') == 'G̖' and engine.glyph('Tjw') == 'Țț'
     for form, g, cap in glyphs():
         assert ud.normalize('NFD', cap)[0].lower() == ud.normalize('NFD', g)[0], (form, g, cap)
         assert cap != g, form

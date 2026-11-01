@@ -36,7 +36,7 @@ it as written. Every frame converts its own document. Content that
 arrives later converts as it appears, and text a script rewrites in place
 is read anew. Words go through
 the lexicon where the language has one (data/lexicon): Hungarian ly stems,
-English and Latin loans in a Hungarian page (meeting → mítiŋg), English
+English and Latin loans in a Hungarian page (meeting → míting), English
 pages by the pronunciation dictionary, pinyin by syllable.
 
 ## Try it

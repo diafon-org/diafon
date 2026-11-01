@@ -6,7 +6,7 @@
 #
 # Loans: a word the Hungarian letters cannot read in full (x, w, sh, th, ee,
 # oo…) is looked up in the loan lexicons, English then Latin, and its sounds
-# fold into Hungarian ones the way a Hungarian says them: meeting -> mítiṇ,
+# fold into Hungarian ones the way a Hungarian says them: meeting -> míting,
 # like -> lájk. The fold is a rewrite over the transport segments, longest
 # rule first; draft, for native review.
 code: hu
@@ -50,4 +50,7 @@ fold:
   tx: t           # think -> tink
   dx: d           # that -> det
   ux: v           # web -> veb
+  nxk: nk         # pink -> pink: Hungarian has no ŋ of its own, only n before k and g
+  nxg: ng         # finger -> finger
+  nx: ng          # meeting -> míting: the g is said
   r: r

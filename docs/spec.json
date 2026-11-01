@@ -1,7 +1,7 @@
 {
  "name": "Diafon",
  "generated": "2026-11-01",
- "source": "4d48b39",
+ "source": "2dbbd82",
  "alphabet": {
   "consonant_bases": [
    "b",
@@ -18819,7 +18819,7 @@
     [
      "hu",
      "meeting",
-     "miwtinx"
+     "miwting"
     ],
     [
      "hu",
@@ -18849,7 +18849,7 @@
     [
      "hu",
      "meetingen",
-     "miwtinxen"
+     "miwtingen"
     ],
     [
      "hu",
@@ -18924,7 +18924,7 @@
     [
      "hu",
      "meetingen",
-     "miwtinxen"
+     "miwtingen"
     ],
     [
      "hu",
@@ -18944,12 +18944,12 @@
     [
      "hu",
      "streamingajánlójában",
-     "striwminxaixawnlowixawban"
+     "striwmingaixawnlowixawban"
     ],
     [
      "hu",
      "meetingjén",
-     "miwtinxixewn"
+     "miwtingixewn"
     ],
     [
      "hu",
@@ -19034,7 +19034,7 @@
     [
      "stage:hu",
      "Meeting, like, house, taxi, ad hoc, team, tagja, Facebook.",
-     "Miwtinx, lawixk, haus, taksiw, ad hok, tiwm, tagixa, Fewsbuk."
+     "Miwting, lawixk, haus, taksiw, ad hok, tiwm, tagixa, Fewsbuk."
     ],
     [
      "stage:hu",
@@ -19044,7 +19044,7 @@
     [
      "stage:hu",
      "Streamingajánlójában online teaház, felkerült; tea, team.",
-     "Striwminxaixawnlowixawban onlawixn teahawz, felkericlt; tea, tiwm."
+     "Striwmingaixawnlowixawban onlawixn teahawz, felkericlt; tea, tiwm."
     ],
     [
      "stage:hu",
@@ -19080,7 +19080,7 @@
     ],
     [
      "stage:hu",
-     "Miwtinx, lawixk, haus, taksiw, ad hok, tiwm, tagixa, Fewsbuk.",
+     "Miwting, lawixk, haus, taksiw, ad hok, tiwm, tagixa, Fewsbuk.",
      "Meeting, lájk, house, taxi, ad hoc, team, tagja, Facebook."
     ],
     [
@@ -19090,8 +19090,8 @@
     ],
     [
      "stage:hu",
-     "Striwminxaixawnlowixawban onlawixn teahawz, felkericlt; tea, tiwm.",
-     "Sztrímiṇajánlójában online teaház, felkerült; tea, team."
+     "Striwmingaixawnlowixawban onlawixn teahawz, felkericlt; tea, tiwm.",
+     "Sztrímingajánlójában online teaház, felkerült; tea, team."
     ],
     [
      "stage:hu",
@@ -19241,6 +19241,9 @@
     "tx": "t",
     "dx": "d",
     "ux": "v",
+    "nxk": "nk",
+    "nxg": "ng",
+    "nx": "ng",
     "r": "r"
    },
    "foreign": "ee|oo|ea|ou|w|x|q|sh|ch|th|ck|ph|(?<![gltn])y",

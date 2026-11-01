@@ -65,7 +65,7 @@ docs/engine.js; Lexicon.swift): English, whose spelling carries no reading
 of its own, reads and writes through the pronunciation dictionary
 (CMUdict); Hungarian writes ly on the stems that take it (folyók) and
 reads English and Latin loans by their own dictionaries, folded into
-Hungarian sounds (meeting → mítiŋg, like → lájk); Mandarin reads and
+Hungarian sounds (meeting → míting, like → lájk); Mandarin reads and
 writes pinyin by the syllable, and its `choices` table gives the input
 method the characters of a toned syllable, most frequent first. A word is
 read by the stage's own letters when they read it in full (a host with a
