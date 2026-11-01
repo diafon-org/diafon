@@ -4,8 +4,7 @@
 // quick list, Return or a double click picks it (turns conversion on in that
 // spelling). Right: the quick list itself, the languages the menu shows and
 // the Shift taps cycle through, in the order you give them there (drag, or
-// the buttons). Opened with ⇧Space, from the menu's "Other language…" and
-// from Setup. The model holds every action, so it can be driven without
+// the buttons). Opened with ⇧Space and from the menu's "Other language…". The model holds every action, so it can be driven without
 // the window.
 import Cocoa
 import SwiftUI

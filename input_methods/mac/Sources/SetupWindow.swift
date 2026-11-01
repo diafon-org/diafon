@@ -15,7 +15,8 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
     private var languagePopup: NSPopUpButton!
     private var languageSample: NSTextField!
     private var checkActions: [ObjectIdentifier: (Bool) -> Void] = [:]
-    private let example = "sjok sewp njawr"
+    private let example = "tqokolawda"                // c̦okoláda, the same word in many languages
+    private var prefilled = ""                         // what Try it was given, replaced while untouched
     private let width: CGFloat = 520
     private let accent = NSColor(red: 0.055, green: 0.486, blue: 0.525, alpha: 1)
 
@@ -28,7 +29,7 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
     }
 
     /// The Diafon fonts, registered for this process once; nil falls back to the system font.
-    private static let fontsRegistered: Bool = {
+    static let fontsRegistered: Bool = {
         guard let dir = Bundle.main.resourceURL?.appendingPathComponent("Fonts"),
               let files = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil) else { return false }
         for f in files where f.pathExtension == "ttf" { CTFontManagerRegisterFontsForURL(f as CFURL, .process, nil) }
@@ -59,7 +60,7 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         universalSample = sample("")
         root.addArrangedSubview(line([universalRadio, universalSample]))
         languageRadio = NSButton(radioButtonWithTitle: "A language's spelling", target: self, action: #selector(pickLanguage(_:)))
-        languageRadio.toolTip = "Today's orthography of one language."
+        languageRadio.toolTip = "The language's own spelling."
         languagePopup = NSPopUpButton(frame: .zero, pullsDown: false)
         for (code, name) in Prefs.languages {
             languagePopup.addItem(withTitle: name)
@@ -73,7 +74,7 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         // try it
         root.addArrangedSubview(gap(10))
         root.addArrangedSubview(heading("Try it"))
-        input = NSTextField(string: example)
+        input = NSTextField(string: "")
         input.placeholderString = "type here, e.g. \(example)"
         input.font = diafon(14, mono: true)
         input.textColor = accent
@@ -94,16 +95,16 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         root.addArrangedSubview(option("Shift switches", p.shiftToggle,
             "A bare Shift tap turns conversion off and back on. Quick taps in a row walk through Universal and your quick list of languages; ⇧Space opens the language chooser.") { Prefs.shared.shiftToggle = $0 })
         root.addArrangedSubview(option("Tones", p.tones,
-            "A digit after a syllable writes its tone. Off, tone digits are left out.") { Prefs.shared.tones = $0 })
+            "A digit after a syllable writes its tone, which the Diafon fonts draw above it. Off, tone digits are left out.") { Prefs.shared.tones = $0 })
         root.addArrangedSubview(option("Joined long consonants", p.join,
-            "A long consonant is written as one joined pair, which the Diafon fonts draw fused; other fonts show the letter twice.") { Prefs.shared.join = $0 })
+            "In Universal, a long consonant is written as one joined pair, which the Diafon fonts draw fused; other fonts show the letter twice.") { Prefs.shared.join = $0 })
 
         // how to, once
         root.addArrangedSubview(gap(10))
         root.addArrangedSubview(heading("How to"))
         root.addArrangedSubview(howto([
             "Pick Diafon in the input menu (⌃Space). Your keyboard stays as it is.",
-            "Type a sound as a letter, then its operators: sj → \(p.renderer("script")("sj")), tq → \(p.renderer("script")("tq")), aw → \(p.renderer("script")("aw")). The last sound stays underlined until the next key settles it.",
+            "Type a sound as a base, then its operators: sj → \(p.renderer("script")("sj")), tq → \(p.renderer("script")("tq")), aw → \(p.renderer("script")("aw")). The last sound stays underlined until the next key settles it.",
             "Tab (or ↓) on the underlined sound shows it in every spelling.",
             "To convert text already written: select it, then Diafon menu → Convert selection, or right-click → Services → Convert with Diafon.",
         ]))
@@ -146,7 +147,11 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         universalSample.stringValue = p.renderer("script")(example)
         let st = SpecData.stages[code]
         let src = (st != nil && !st!.sample.isEmpty) ? st!.sample : example
-        languageSample.stringValue = p.renderer("stage:\(code)")(src.split(separator: ",").first.map(String.init) ?? src)
+        let clause = src.split(separator: ",").first.map(String.init) ?? src
+        languageSample.stringValue = p.renderer("stage:\(code)")(clause)
+        // Try it starts on the output in use: the word for Universal, the language's own sample for its spelling
+        let start = p.universal ? example : clause
+        if input.stringValue == prefilled { input.stringValue = start; prefilled = start }
 
         previews.arrangedSubviews.forEach { $0.removeFromSuperview() }
         let typed = input.stringValue

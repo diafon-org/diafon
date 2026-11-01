@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Diafon",
   "version": "0.3.0",
-  "description": "Read any page in Universal: one keyboard, one script, every language. Click the icon to turn it on and off.",
+  "description": "Read pages in Universal, the Diafon script. Click the icon to turn it on and off.",
   "icons": {
     "16": "icons/on-16.png",
     "32": "icons/on-32.png",

@@ -27,7 +27,9 @@ machine is specified once, in docs/spec.json, and proven by its vectors.
    Universal · stage:<code>, one language's spelling · transport, the escape
    path only), `language` (the spelling's code, kept when the output goes
    back to Universal, defaulting to the first system language that has a
-   spelling), `tones` (keep the digits), `strict` (flag ill-formed segments),
+   spelling), `tones` (a tone digit writes its tone sign; off drops it), `join` (a long consonant's two
+   letters joined by a ZWJ, which the Diafon fonts draw fused; off by
+   default), `strict` (flag ill-formed segments),
    `enabled` (conversion on; off is a plain keyboard, flipped by a toggle
    key). A screen offers two choices, Universal or a language's spelling,
    the language from one list; never every spelling as a flat row.
@@ -70,7 +72,8 @@ read by the stage's own letters when they read it in full (a host with a
 dictionary checks for a loan first: the longest matching stem wins, native
 on ties unless the word has a foreign letter shape), else by its lexicon,
 else by a loan lexicon, else by the letters and the script. Kotlin has
-none of it yet: Android renders English and Mandarin in the script.
+none of it yet, nor the iOS keyboard: they render English and Mandarin
+in the script.
 
 ## Where the machine sits, per platform
 
@@ -93,4 +96,4 @@ none of it yet: Android renders English and Mandarin in the script.
 4. Wire the platform: key in, `stream` out; commit the head, compose the
    tail; flush the tail on focus loss, cursor movement, enter and
    modifier shortcuts; backspace edits the tail first.
-5. Expose the four settings under the same names and defaults.
+5. Expose the settings under the same names and defaults.

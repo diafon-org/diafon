@@ -4,7 +4,7 @@ An input method for macOS 13 and later. Pick it in the input menu and type
 the input form in any app; it converts as you type, by the streaming rule:
 each segment is inserted the moment the keystroke stream can no longer change
 it, and only the undecidable tail shows as underlined text in place. No
-compose step, no candidate window, no dictionary, no network.
+compose step and no network.
 
 ## Build and install (the Command Line Tools are enough, no Xcode)
 
@@ -15,7 +15,7 @@ Then, once: **System Settings → Keyboard → Input Sources → Edit… → +**
 search **Diafon** (listed under English) → Add; or `make enable`, which
 enables and selects it from the command line (and disables the old
 Diaphone input source if that is still installed). Pick it from the input menu
-in the menu bar and type `sjok sewp njawr`: it streams out as `șok sép n̦ár`.
+in the menu bar and type `tqokolawda`: it streams out as `c̦okoláda`.
 
 ## What it does
 
@@ -28,8 +28,7 @@ in the menu bar and type `sjok sewp njawr`: it streams out as `șok sép n̦ár`
   the spelling you had; taps in quick succession (within 1.5 s) walk the
   cycle instead, passthrough (a plain keyboard) → Universal → each language
   on the quick list (settable). A small label near the caret names the
-  mode for a moment. ⇧Space opens the language chooser, in every mode. A
-  plain English word costs a tap, not a switch of input source.
+  mode for a moment. ⇧Space opens the language chooser, in every mode.
 - **Mandarin.** In the Mandarin spelling, letters build a syllable shown as
   pinyin; the tone digit (or a space, for the neutral tone) completes it and
   the candidate window lists its characters, most frequent first, the pinyin
@@ -56,9 +55,10 @@ in the menu bar and type `sjok sewp njawr`: it streams out as `șok sép n̦ár`
   always listed, on the quick list or not. Then Setup. Flat by necessity: the menu is shown by a system
   process that returns only top-level clicks, so a submenu cannot be picked
   from.
-- **Setup…** opens a window: Universal or Language spelling with the language
-  in a popup and its sample beside it, a live pane that shows a typed line
-  both ways, the toggles.
+- **Setup…** opens a window: Universal or a language's spelling (the
+  language in a popup, its sample beside it), Try it (a typed line in
+  both), the options with a line on each, and How to. It is set in the
+  Diafon fonts, which the app carries.
 - **Convert selection.** Text in any app, any spelling: select it, then in
   the Diafon menu **Convert selection to …** converts it in place, from the
   source detected in the text (your own languages preferred when the text
@@ -74,9 +74,8 @@ in the menu bar and type `sjok sewp njawr`: it streams out as `șok sép n̦ár`
 ## How to (also in Setup…)
 
 1. Pick Diafon in the input menu (or ⌃Space). Your keyboard stays as it is.
-2. Type sounds as letters, a consonant or vowel plus a mark: `sj` → ș,
-   `tq` → c̦, `aw` → á; a segment stays underlined until the next key
-   settles it.
+2. Type a sound as a base, then its operators: `sj` → ș, `tq` → c̦,
+   `aw` → á; the last sound stays underlined until the next key settles it.
 3. A bare Shift tap switches conversion off and back on; quick taps in a
    row walk the cycle: passthrough → Universal → each language on your
    quick list. ⇧Space opens the language chooser.
@@ -93,7 +92,7 @@ in the menu bar and type `sjok sewp njawr`: it streams out as `șok sép n̦ár`
     ../apple/Core/Stages.swift         spelling stages, from scripts/stages.py
     ../apple/Core/Reading.swift        reading back, from scripts/engine.py and stages.py: inventory, tables, parse, convert, detect
     ../apple/Core/Lexicon.swift        the lexicon layer: English, Hungarian loans, Mandarin syllables
-    ../apple/Core/Prefs.swift          the settings (output, language, tones, strict, enabled, shift toggle) and the renderer
+    ../apple/Core/Prefs.swift          the settings (output, language, quick list, tones, join, strict, enabled, shift toggle) and the renderer
     ../apple/Core/CheckMain.swift      stdin/stdout driver used by tests/test_swift.py
     Sources/DiafonInputController.swift  IMKInputController: keystrokes in, streaming rule, insertText / setMarkedText out; the status menu
     Sources/ConvertWindow.swift        the From / To window of Convert with Diafon…

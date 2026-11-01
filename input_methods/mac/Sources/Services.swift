@@ -1,6 +1,6 @@
 // Convert a selection, in any app, through the Services menu (also in the
 // context menu of a selection):
-//   Convert with Diafon (⇧⌘D)   from the source detected in the text (the
+//   Convert with Diafon         from the source detected in the text (the
 //                               mode in use preferred) to the mode in use
 //   Convert with Diafon…        a window: the source, detected and
 //                               changeable, the target, a preview

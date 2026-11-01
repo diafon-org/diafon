@@ -87,7 +87,7 @@ any post.
    the rendering as a shareable image. This is the one artifact people
    post back.
 3. **Demo clips.** Two screen recordings of 15 to 25 seconds, no sound:
-   the Android keyboard streaming `sjok sewp njawr` into a chat, and the
+   the Android keyboard streaming `tqokolawda` into a chat, and the
    playground switching one typed line between script form and three
    stages. Exported as MP4 and GIF; every post carries one.
 4. **Specimen sheet.** One image: the same short passage in four
@@ -126,10 +126,10 @@ the day of the post; the FAQ page absorbs the repeated ones.
 | 1 | r/conlangs | the design argument: the partition is forced, six operators are necessary and sufficient, the neighbouring-column law | text post from the description | critique the tables |
 | 1 | r/hungarian, hup.hu, prog.hu (in Hungarian) | one keyboard, `sjok sewp njawr` reads as `sok szép nyár` | Android clip | native reviewers for hu.yaml |
 | 2 | r/typography, typo.social, TypeDrawers | three faces from one construction law; the anchor drawn per letter; the hand project | anchor construction figure, the fonts page | honest type critique |
-| 2 | Show HN, Lobsters, r/programming | the engineering: 26 keys, unique segmentation proven, a spec with 454 conformance vectors, streaming commit rule, one JSON that four engines replay | the spec, the macOS IM, the playground | implementers; Keyman, IBus, Windows ports |
+| 2 | Show HN, Lobsters, r/programming | the engineering: 26 keys, unique segmentation proven, a spec with over 600 conformance vectors, streaming commit rule, one JSON that four engines replay | the spec, the macOS IM, the playground | implementers; Keyman, IBus, Windows ports |
 | 3 | r/languagelearning, r/polyglot | one script for all your languages; the names page | names page image | learners, feedback on the learn page |
 | 3 | per-language subreddits, one per reviewed language | the language's own table and stage | that table | one credited native reviewer each |
-| 3 | Google Fonts issue, F-Droid, Keyman keyboard repository | listings | release assets | distribution, iOS via Keyman |
+| 3 | Google Fonts issue, F-Droid, Keyman keyboard repository | listings | release assets | distribution; the App Store for the iOS keyboard |
 
 Show HN specifics: Tuesday to Thursday, 8 to 10 in the morning US
 Eastern; title of the form "Show HN: Diafon – a phonemic script for every

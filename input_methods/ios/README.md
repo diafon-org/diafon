@@ -6,8 +6,8 @@ choice, the digits for tones, a symbols page and a few functional keys. It
 converts by the streaming rule and writes the result into whatever field has
 focus. Above the keys, the pending segment appears in every spelling, and a
 tap writes that one. Select text in any spelling and the strip offers to
-convert it. A word typed in English or Hungarian offers the emoji it names
-first on the strip (*heart* ❤️, *kutya* 🐶); a tap puts the emoji in the
+convert it. A word that names something in English or Hungarian offers the emoji it names
+first on the strip (`hawrt` ❤️, `kutja` 🐶); a tap puts the emoji in the
 word's place. That one small table (data/emoji.json, 86 KB) is the
 only word list the keyboard carries: no dictionary, no prediction, no
 network, no full access.
@@ -51,7 +51,7 @@ because iOS apps honour marked text unevenly:
   it with the settled head, which is final; then the new tail is marked.
   Text is never made final with `unmarkText`, except for an orphaned tail:
   in the simulator, a setMarkedText, unmarkText, setMarkedText sequence
-  garbled the field (`sjok sewp njawr` came out `okk epp ar`).
+  garbled the field (letters came out dropped and doubled).
 - **replace**: the tail is plain text the keyboard remembers. The next key
   deletes back only the graphemes that differ and types the rest.
 
@@ -63,12 +63,12 @@ overwrite it).
 
 **Simulator, the app's own field (SwiftUI TextField), 2026-10-02:** both
 modes pass items 1 and 3 below and the capitals-and-tones case
-(`Sjan1 Tqy` → `Șan1 C̖`). One `deleteBackward` takes `n̦` whole.
+(`Sjan1 Tqy` → `Șanˉ C̖`). One `deleteBackward` takes `n̦` whole.
 
 To check on a device, per app (Notes, Messages, Safari textarea and
 contenteditable, Mail, WhatsApp, Telegram, a search field), in both modes:
 
-1. `sjok sewp njawr` streams to `șok sép n̦ár`; nothing is doubled or dropped.
+1. `tqokolawda` streams to `c̦okoláda`; nothing is doubled or dropped.
 2. Fast typing (overlapping taps) loses no letter.
 3. Backspace after `nj` + `a` leaves `n̦`; one more removes the whole `n̦`
    (one `deleteBackward` must take a letter with its combining mark).
@@ -100,14 +100,14 @@ it; the UI test taps it by its id, `key:s`, `key:space`, `key:delete`).
 ## Layout of this project
 
     project.yml                       the Xcode project as text (XcodeGen); Diafon.xcodeproj is generated
-    Makefile                          check, data, project, sim, open
+    Makefile                          check, data, icon, project, sim, uitest, open
     Shared/Session.swift              the streaming rule against a TextSink; no UIKit
     Shared/KeyboardPrefs.swift        what iOS adds to the shared settings: layout, tail mode, the strip's spellings
     Shared/Layouts.swift              generated from data/layouts.yaml by scripts/gen_layouts.py
     Keyboard/KeyboardViewController.swift  UIInputViewController: proxy ↔ Session, keys, strip, convert selection
     Keyboard/KeyboardView.swift       the keys, drawn in one view; touch down emits; the globe button
     Keyboard/StripView.swift          the spellings of the pending segment, the mode, convert selection, the gear
-    Keyboard/SettingsPanel.swift      Universal or a language, layout, tones, strict, tail mode
+    Keyboard/SettingsPanel.swift      Universal or a language, layout, tones, join, strict, tail mode
     Keyboard/Theme.swift              the palette (light and dark), operator tints, Diafon Serif
     App/DiafonApp.swift               the app: setup, try, convert, how-to
     App/Assets.xcassets               the icon (copied from docs/logo/png by `make icon`)

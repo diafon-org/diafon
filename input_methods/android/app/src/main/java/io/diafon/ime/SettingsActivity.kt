@@ -26,7 +26,7 @@ class SettingsActivity : Activity() {
     private val ink = 0xFF1A1D24.toInt()
     private val muted = 0xFF5B6472.toInt()
     private val accent = 0xFF0E7C86.toInt()
-    private val sample = "sjan txy tqok dqum acw"   // a neutral line showing the marks; each language shows its own sentence
+    private val sample = "tqokolawda"   // c̦okoláda; each language shows its own sample
 
     override fun onCreate(saved: Bundle?) {
         super.onCreate(saved)
@@ -38,8 +38,8 @@ class SettingsActivity : Activity() {
         setContentView(ScrollView(this).apply { addView(root) })
 
         root.addView(title("Diafon"))
-        root.addView(text("One keyboard, one script, every language. Type the input form; the " +
-                "conversion happens above the keys and commits as soon as a segment is final."))
+        root.addView(text("One keyboard, one script, every language. Type the Diafon input; the field shows " +
+                "the result, and the strip above the keys shows the sound being typed in each spelling."))
 
         root.addView(heading("Setup"))
         root.addView(button("1. Enable Diafon in system settings") {
@@ -54,7 +54,7 @@ class SettingsActivity : Activity() {
         root.addView(radios(Layouts.ALL.map { it.first to it.second }, prefs.layout) { prefs.layout = it })
 
         root.addView(heading("What is written out"))
-        root.addView(text("Universal writes one letter per sound, the same in every language; a language's spelling writes today's orthography."))
+        root.addView(text("Universal writes one letter per sound, the same in every language; a language's spelling writes the language's own spelling."))
         val previews = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
         root.addView(radios(Prefs.OUTPUTS, prefs.output, describe = true) { prefs.output = it })
 
@@ -100,7 +100,7 @@ class SettingsActivity : Activity() {
 
         root.addView(heading("Also"))
         root.addView(toggle("Conversion on", prefs.enabled) { prefs.enabled = it })
-        root.addView(toggle("Tone digits", prefs.tones) { prefs.tones = it })
+        root.addView(toggle("Tones", prefs.tones) { prefs.tones = it })
         root.addView(toggle("Joined long consonants (the Diafon fonts draw them fused)", prefs.join) { prefs.join = it })
         root.addView(toggle("Strict: flag ill-formed segments", prefs.strict) { prefs.strict = it })
         root.addView(text("Select text typed with any keyboard, in any app, and choose Diafon in the " +

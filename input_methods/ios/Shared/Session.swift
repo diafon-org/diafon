@@ -11,7 +11,7 @@
 //             settled head, then the new tail is marked again. Text is made
 //             final by insertText, never by unmarkText: in the simulator a
 //             setMarkedText, unmarkText, setMarkedText run garbled the field
-//             (`sjok sewp njawr` came out `okk epp ar`)
+//             (letters came out dropped and doubled)
 //   .replace  the tail is plain text the session remembers (`shown`); the
 //             next key deletes back only the characters that differ and
 //             types the rest

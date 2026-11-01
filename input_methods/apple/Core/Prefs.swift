@@ -1,6 +1,6 @@
 // The settings, shared in name and default with every Diafon input method
-// (plan.md, question 4): output, language, tones, join, strict, enabled,
-// toggle.
+// (input_methods/README.md, Settings): output, language, tones, join,
+// strict, enabled, shiftToggle.
 import Foundation
 
 final class Prefs {
@@ -68,7 +68,7 @@ final class Prefs {
         else { set(false, "enabled") }
     }
 
-    /// Keep tone digits in the output.
+    /// Write tones: a digit after a syllable becomes its tone sign; off, tone digits are dropped.
     var tones: Bool { get { bool("tones", true) } set { set(newValue, "tones") } }
     /// Join a long consonant's two letters with a ZWJ (the Diafon fonts draw them
     /// fused); off, a plain double.

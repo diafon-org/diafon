@@ -40,7 +40,7 @@ struct ConvertView: View {
             Divider()
             ScrollView {
                 Text(model.result)
-                    .font(.custom("Georgia", size: 15))
+                    .font(.custom(SetupWindow.fontsRegistered ? "DiafonSerif-Regular" : "Georgia", size: 15))
                     .textSelection(.enabled)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
