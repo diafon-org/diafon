@@ -8,17 +8,23 @@ const $table = $('mt-table'), $in = $('try-in'), $out = $('try-out'), $tones = $
 const secs = [...document.querySelectorAll('section[id^=sec-]')];
 const esc = s => s.replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 
-// ---- state in the hash: #table=hu (a bare #hu still works)
-function hashState(){
+// ---- state in the address: ?table=hu, so the hash stays free for a section (?table=zh#try-it links
+// a flavour and a block together); an 'also written' link (#table=pl&form=sjy), an older #table=hu
+// and a bare #hu still read, and are written back as ?table=
+function urlState(){
+  const st = Object.fromEntries(new URLSearchParams(location.search));
   const h = location.hash.slice(1);
-  if (h && !h.includes('=')) return {table: h};
-  return Object.fromEntries(new URLSearchParams(h));
+  if (h.includes('=')) Object.assign(st, Object.fromEntries(new URLSearchParams(h)));
+  else if (h && $('sec-' + h)) st.table = h;
+  return st;
 }
 function saveState(){
-  const q = new URLSearchParams();
-  if ($table.value !== 'universal') q.set('table', $table.value);
-  const h = q.toString();
-  history.replaceState(null, '', h ? '#' + h : location.pathname);
+  const q = new URLSearchParams(location.search);
+  if ($table.value !== 'universal') q.set('table', $table.value); else q.delete('table');
+  const h = location.hash.slice(1);
+  const anchor = h && !h.includes('=') && !$('sec-' + h) ? '#' + h : '';   // a section anchor stays
+  const s = q.toString();
+  history.replaceState(null, '', location.pathname + (s ? '?' + s : '') + anchor);
 }
 
 // ---- tables
@@ -142,7 +148,7 @@ $table.addEventListener('change', () => {
 });
 
 function fromHash(){
-  const st = hashState();
+  const st = urlState();
   let picked = null;
   try { picked = localStorage.getItem('diafon-lang'); } catch (e) {}
   const want = st.table && $('sec-' + st.table) ? st.table : picked;   // a section anchor (#try-it) is no table
@@ -150,10 +156,11 @@ function fromHash(){
 }
 // an 'also written' link (#table=pl&form=sjy): that language's table, at that row
 function goRow(){
-  const st = hashState();
+  const st = urlState();
   if (!st.table || !$('sec-' + st.table)) return;
   if ($table.value !== st.table){ $table.value = st.table; showTable(); showSample(); showSamples(); }
   const tr = st.form && document.querySelector(`#sec-${st.table} tr[data-form="${CSS.escape(st.form)}"]`);
+  saveState();
   if (!tr) return;
   tr.scrollIntoView({block: 'center'});
   tr.classList.remove('hit'); void tr.offsetWidth; tr.classList.add('hit');
