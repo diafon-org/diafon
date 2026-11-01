@@ -46,21 +46,30 @@
 .md-typeset .pt .nat{font-family:var(--serif);font-size:1.35rem;line-height:1.15;color:var(--ink)}
 .md-typeset .pt .lab{font:600 .72rem/1 var(--mono);color:var(--accent)}
 .md-typeset .pt .ipa{font-family:var(--serif);font-size:.82rem;line-height:1.1;color:var(--muted)}
+/* a chart's key, under it: sample | meaning */
+.md-typeset dl.chartkey{display:grid;grid-template-columns:max-content 1fr;gap:.45rem 1rem;align-items:center;
+  margin:.6rem 0 1.6rem;padding:.7rem .9rem;border:1px solid var(--line);border-radius:10px;font-size:.7rem;color:var(--muted)}
+.md-typeset dl.chartkey dt{margin:0;font:600 .62rem/1.2 var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--ink);
+  display:flex;gap:.25rem;align-items:center;justify-content:flex-end}
+.md-typeset dl.chartkey dd{margin:0}
+.md-typeset dl.chartkey .mini{display:inline-flex;gap:.3rem;align-items:baseline;padding:.15rem .4rem;border-radius:6px;
+  text-transform:none;letter-spacing:0;font:500 .62rem/1.2 var(--mono)}
+.md-typeset dl.chartkey .mini b{font-size:1rem;font-weight:400}
+.md-typeset dl.chartkey .mini.k-base{background:var(--base-t)} .md-typeset dl.chartkey .mini.cmp{outline:1.5px dashed var(--muted);outline-offset:-2px}
+.md-typeset dl.chartkey ul.ops{display:grid;grid-template-columns:repeat(auto-fill,minmax(13rem,1fr));gap:.2rem .8rem;margin:.35rem 0 0;padding:0;list-style:none}
+.md-typeset dl.chartkey ul.ops li{margin:0}
+.md-typeset dl.chartkey .sw{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:.35rem}
+.md-typeset dl.chartkey .sw.k-base{background:var(--base-t)} .md-typeset dl.chartkey .sw.k-j{background:var(--j-t)}
+.md-typeset dl.chartkey .sw.k-x{background:var(--x-t)} .md-typeset dl.chartkey .sw.k-c{background:var(--c-t)}
+.md-typeset dl.chartkey .sw.k-q{background:var(--q-t)} .md-typeset dl.chartkey .sw.k-y{background:var(--y-t)}
+.md-typeset dl.chartkey.vt-key .sw{background:none;border:2px solid}                  /* the triangle colours its chips' edges */
+.md-typeset dl.chartkey.vt-key .sw.k-base{border-color:var(--base-c)} .md-typeset dl.chartkey.vt-key .sw.k-j{border-color:var(--j-c)}
+.md-typeset dl.chartkey.vt-key .sw.k-x{border-color:var(--x-c)} .md-typeset dl.chartkey.vt-key .sw.k-c{border-color:var(--c-c)}
+.md-typeset dl.chartkey.vt-key .sw.k-q{border-color:var(--q-c)} .md-typeset dl.chartkey.vt-key .sw.k-y{border-color:var(--y-c)}
+.md-typeset dl.chartkey .chipkey{display:inline-block;font:400 1rem/1 var(--serif);text-transform:none;padding:.15rem .5rem;
+  border-radius:7px;border:1.5px solid var(--base-c)}
+.md-typeset dl.chartkey .chipkey.split{font-size:.8rem;padding:.1rem .35rem;border:1.5px dashed var(--j-c)}
 .md-typeset .pt.cmp{outline:1.5px dashed var(--muted);outline-offset:-3px;border-radius:8px;opacity:.92}
-.md-typeset .klegend{display:flex;flex-wrap:wrap;gap:.5rem 1.3rem;margin:.8rem 0 0;font-size:.85rem;color:var(--muted);max-width:none}
-.md-typeset .klegend .sw{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:.3rem}
-.md-typeset .klegend b{color:var(--ink)}
-.md-typeset .klegend{margin:.4rem 0 .8rem;font-size:.72rem}           /* above its chart */
-.md-typeset .klegend .sw.k-base{background:var(--base-t)} .md-typeset .klegend .sw.k-j{background:var(--j-t)}
-.md-typeset .klegend .sw.k-x{background:var(--x-t)} .md-typeset .klegend .sw.k-c{background:var(--c-t)}
-.md-typeset .klegend .sw.k-q{background:var(--q-t)} .md-typeset .klegend .sw.k-y{background:var(--y-t)}
-.md-typeset .klegend .sw.cmp{outline:1.5px dashed var(--muted);outline-offset:-3px}
-.md-typeset .klegend .sw.chip-area{border:1.5px solid var(--base-c);width:18px;height:16px}
-.md-typeset .klegend .sw.chip-split{border:1.5px dashed var(--base-c);width:12px;height:11px}
-.md-typeset .klegend.vt-key .sw[class*="k-"]{background:none;border:2px solid}      /* the triangle colours its chips' edges */
-.md-typeset .klegend.vt-key .sw.k-base{border-color:var(--base-c)} .md-typeset .klegend.vt-key .sw.k-j{border-color:var(--j-c)}
-.md-typeset .klegend.vt-key .sw.k-x{border-color:var(--x-c)} .md-typeset .klegend.vt-key .sw.k-c{border-color:var(--c-c)}
-.md-typeset .klegend.vt-key .sw.k-q{border-color:var(--q-c)} .md-typeset .klegend.vt-key .sw.k-y{border-color:var(--y-c)}
 .md-typeset .opswrap{overflow-x:auto;margin:.8rem 0 0;border:1px solid var(--line);border-radius:14px;background:var(--card)}
 .md-typeset .opswrap table.ops{margin:0;border:none;min-width:600px;border-collapse:collapse;width:100%;display:table;font-size:inherit}
 .md-typeset .ops th{font:600 .66rem/1.1 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:.55rem .8rem;background:var(--sunken);text-align:left}

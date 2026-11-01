@@ -257,33 +257,41 @@ def point_table(spec, caption):
 
 
 def colours(vowels=False):
-    """The colour key: each operator's swatch and what it does, as on the keyboard."""
-    names = [('base', 'no operator')] + [(o, f'<code>{o}</code> {OPS[o][1 if vowels else 0][0]}') for o in 'jxcqy']
-    return ''.join(f'<span><i class="sw k-{k}"></i>{t}</span>' for k, t in names)
+    """The operator colours: a swatch, the key and what it does, one per line."""
+    names = [('base', '', 'no operator')] + [(o, o, OPS[o][1 if vowels else 0][0]) for o in 'jxcqy']
+    return '<ul class="ops">' + ''.join(
+        f'<li><i class="sw k-{k}"></i>{f"<code>{o}</code> " if o else ""}{t}</li>' for k, o, t in names) + '</ul>'
+
+
+def key(rows, cls=''):
+    """A chart's key, under it: a sample on the left, what it means on the right."""
+    return (f'<dl class="chartkey{" " + cls if cls else ""}" markdown="0">'
+            + ''.join(f'<dt>{dt}</dt><dd>{dd}</dd>' for dt, dd in rows) + '</dl>')
 
 
 def consonant_chart():
-    legend = (
-        '<div class="klegend" markdown="0">'
-        '<span>each tile: <b class="ug">letter</b> · <code>what you type</code> · /sound/; two in a cell: voiceless, voiced</span>'
-        '<span>columns run from the lips to the throat, the place marked in each profile</span>'
-        f'{colours()}'
-        f'<span><i class="sw k-base cmp"></i>dashed: a letter with a mark, shown where its sound sits '
-        f'({ug(" ".join(engine.render(f) for f in sorted(COMPOSED)))})</span>'
-        '</div>')
-    return legend + point_table(CONSONANTS, 'consonants')
+    p = esc(nfc(engine.render('p')))
+    return point_table(CONSONANTS, 'consonants') + key([
+        (f'<span class="mini k-base"><b class="ug">{p}</b><code>p</code>/p/</span>',
+         'a tile: the letter, what you type, the sound'),
+        ('<span class="mini k-base"><b class="ug">p</b></span><span class="mini k-base"><b class="ug">b</b></span>',
+         'two tiles in a cell: voiceless, then voiced'),
+        ('lips → throat', 'the columns: where the sound is made, marked in each profile'),
+        ('colour', 'the operator that makes it' + colours()),
+        (f'<span class="mini k-base cmp"><b class="ug">{esc(nfc(engine.render("tj")))}</b></span>',
+         'dashed: a letter with a mark, shown where its sound sits '
+         f'({ug(" ".join(engine.render(f) for f in sorted(COMPOSED)))})'),
+    ])
 
 
 def vowel_chart():
-    legend = (
-        '<div class="klegend vt-key" markdown="0">'
-        '<span>front on the left, close at the top</span>'
-        '<span><i class="sw chip-area"></i>an area: the plain letter, /everything it covers/</span>'
-        '<span><i class="sw chip-split"></i>small, dashed: a split, written only by the languages named under it, '
-        'which have two vowels in that area (rule 2 on the Reference page)</span>'
-        f'{colours(vowels=True)}'
-        '</div>')
-    return legend + vowel_triangle(vowel_areas())
+    return vowel_triangle(vowel_areas()) + key([
+        ('front · back', 'front on the left, back on the right, close at the top, open at the bottom'),
+        ('<span class="chipkey area">a</span>', 'an area: the plain letter, and every sound it covers'),
+        ('<span class="chipkey split">ẹ</span>', 'a split: written only by the languages named under it, which '
+         'have two vowels in that area (rule 2 on the Reference page)'),
+        ('edge colour', 'the operator that makes it' + colours(vowels=True)),
+    ], cls='vt-key')
 
 
 def main():

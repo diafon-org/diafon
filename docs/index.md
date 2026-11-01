@@ -126,13 +126,13 @@ needs no split. English is the same: *bit* i, *beat* í.
 The schwa has its own area, <span class="ug">ạ</span> /ə/. It sits next to
 both a and e in too many languages to belong to either.
 
+--8<-- "sounds-vowels.html"
+
 <span class="ug">ä</span> is made like <span class="ug">ü</span> and
 <span class="ug">ö</span>, but it is a split, not an area of its own: any
 language with a front rounded vowel writes <span class="ug">ü</span> or
 <span class="ug">ö</span>, while <span class="ug">ä</span> is written only by a
 language with both a front and a back a. Everywhere else a is a.
-
---8<-- "sounds-vowels.html"
 
 ### The limit
 
