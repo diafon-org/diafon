@@ -87,7 +87,7 @@ any post.
    the rendering as a shareable image. This is the one artifact people
    post back.
 3. **Demo clips.** Two screen recordings of 15 to 25 seconds, no sound:
-   the Android keyboard streaming `tqokolawda` into a chat, and the
+   the Android keyboard streaming a sentence into a chat, and the
    playground switching one typed line between script form and three
    stages. Exported as MP4 and GIF; every post carries one.
 4. **Specimen sheet.** One image: the same short passage in four

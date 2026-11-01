@@ -15,7 +15,7 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
     private var languagePopup: NSPopUpButton!
     private var languageSample: NSTextField!
     private var checkActions: [ObjectIdentifier: (Bool) -> Void] = [:]
-    private let example = "tqokolawda"                // c̦okoláda, the same word in many languages
+    private let example = "sj tq aw"                  // sounds, not a word: no word is the same in every language
     private var prefilled = ""                         // what Try it was given, replaced while untouched
     private let width: CGFloat = 520
     private let accent = NSColor(red: 0.055, green: 0.486, blue: 0.525, alpha: 1)
@@ -144,14 +144,13 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         if let i = languagePopup.itemArray.firstIndex(where: { ($0.representedObject as? String) == code }) {
             languagePopup.selectItem(at: i)
         }
-        universalSample.stringValue = p.renderer("script")(example)
+        // the chosen language's own sample, written both ways; Try it starts on it
         let st = SpecData.stages[code]
         let src = (st != nil && !st!.sample.isEmpty) ? st!.sample : example
         let clause = src.split(separator: ",").first.map(String.init) ?? src
+        universalSample.stringValue = p.renderer("script")(clause)
         languageSample.stringValue = p.renderer("stage:\(code)")(clause)
-        // Try it starts on the output in use: the word for Universal, the language's own sample for its spelling
-        let start = p.universal ? example : clause
-        if input.stringValue == prefilled { input.stringValue = start; prefilled = start }
+        if input.stringValue == prefilled { input.stringValue = clause; prefilled = clause }
 
         previews.arrangedSubviews.forEach { $0.removeFromSuperview() }
         let typed = input.stringValue
