@@ -171,7 +171,7 @@
 .md-typeset .tryout button{cursor:pointer}
 .md-typeset .tryout button:hover{border-color:var(--accent)}
 .md-typeset .mt-bar input{width:12rem}
-@media (max-width:44em){.md-typeset .mt-bar{position:static}}
+@media (max-width:44em){.md-typeset .mt-bar{padding:.4rem .6rem;margin:.6rem 0}}   /* it floats on a phone too, a little slimmer */
 @media screen and (min-width:76.25em){.md-typeset .mt-bar{top:4.8rem}}   /* below the header and the sticky tabs, which show from this width */
 /* scrolled down (Material shows the page title then), the header folds into one row: the tabs move
    up into the title's place, and what sticks below the header moves up with it. Mobile keeps its burger */
