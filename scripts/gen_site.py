@@ -138,7 +138,7 @@ def operators(read):
 IPA = {'p': 'p', 'b': 'b', 't': 't', 'd': 'd', 'tj': 'c', 'dj': 'ɟ', 'k': 'k', 'g': 'g', 'kq': 'q',
        'hx': 'ʔ', 'tc': 't͡s', 'dc': 'd͡z', 'tq': 't͡ʃ', 'dq': 'd͡ʒ', 'f': 'f', 'v': 'v', 'tx': 'θ',
        'dx': 'ð', 's': 's', 'z': 'z', 'sj': 'ʃ', 'zj': 'ʒ', 'kx': 'x', 'gx': 'ɣ', 'h': 'h', 'm': 'm',
-       'n': 'n', 'nj': 'ɲ', 'nx': 'ŋ', 'r': 'r', 'rc': 'ɾ', 'l': 'l'}       # vowels: from the areas
+       'n': 'n', 'nj': 'ɲ', 'nx': 'ŋ', 'r': 'r', 'rc': 'ɾ', 'l': 'l', 'ix': 'j', 'ux': 'w'}   # vowels: from the areas
 COMPOSED = {'tj', 'dj', 'nj'}     # compositions, shown for orientation
 CONSONANTS = (['labial', 'dental', 'alveolar', 'postalveolar', 'palatal', 'velar', 'uvular', 'glottal'], [   # lips to throat
     ('stop', {'labial': 'p b', 'alveolar': 't d', 'palatal': 'tj dj', 'velar': 'k g',
@@ -150,6 +150,7 @@ CONSONANTS = (['labial', 'dental', 'alveolar', 'postalveolar', 'palatal', 'velar
     ('trill', {'alveolar': 'r'}),
     ('tap', {'alveolar': 'rc'}),
     ('lateral', {'alveolar': 'l'}),
+    ('glide', {'labial': 'ux', 'palatal': 'ix'}),                 # i and u with x: w is labial-velar, j palatal
 ])
 def vowel_areas():
     """-> {area form: (covers, {split form: (reading, [languages])})}, from the

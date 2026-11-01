@@ -9,8 +9,8 @@
   --md-accent-fg-color:#0e7c86;
   --serif:"Diafon","Charis SIL","Gentium Plus","Noto Serif","Times New Roman",Georgia,serif;
   --mono:"Diafon Mono","SF Mono","JetBrains Mono","Menlo","Consolas",monospace;
-  --accent:#0e7c86; --base-c:#0e7c86; --c-c:#b06f14; --j-c:#3f5bc0; --q-c:#8a4bb0; --x-c:#2f8f66; --y-c:#c0468a;
-  --base-t:#0e7c8615; --c-t:#b06f1418; --j-t:#3f5bc016; --q-t:#8a4bb016; --x-t:#2f8f6618; --y-t:#c0468a1a;
+  --accent:#0e7c86; --base-c:#6b7280; --c-c:#b06f14; --j-c:#3f5bc0; --q-c:#8a4bb0; --x-c:#2f8f66; --y-c:#c0468a;
+  --base-t:#6b728014; --c-t:#b06f1418; --j-t:#3f5bc016; --q-t:#8a4bb016; --x-t:#2f8f6618; --y-t:#c0468a1a;
   --ink:#1a1d24; --muted:#5b6472; --line:#dde1e8; --card:#ffffff; --sunken:#eef0f4;
 }
 [data-md-color-scheme="default"]{
@@ -20,8 +20,8 @@
 [data-md-color-scheme="slate"]{
   --md-primary-fg-color:#0e7c86; --md-primary-fg-color--light:#3ec8cf; --md-primary-fg-color--dark:#0a5c64;
   --md-accent-fg-color:#3ec8cf; --md-typeset-a-color:#3ec8cf;
-  --accent:#3ec8cf; --base-c:#3ec8cf; --c-c:#e0a44a; --j-c:#8b9ff0; --q-c:#c08ee0; --x-c:#4fc79a; --y-c:#e88ac0;
-  --base-t:#3ec8cf1e; --c-t:#e0a44a22; --j-t:#8b9ff01e; --q-t:#c08ee01e; --x-t:#4fc79a22; --y-t:#e88ac022;
+  --accent:#3ec8cf; --base-c:#9ca3af; --c-c:#e0a44a; --j-c:#8b9ff0; --q-c:#c08ee0; --x-c:#4fc79a; --y-c:#e88ac0;
+  --base-t:#9ca3af1e; --c-t:#e0a44a22; --j-t:#8b9ff01e; --q-t:#c08ee01e; --x-t:#4fc79a22; --y-t:#e88ac022;
   --ink:#e9ecf1; --muted:#98a1b0; --line:#2a2e37; --card:#1b1e25; --sunken:#101216;
 }
 
