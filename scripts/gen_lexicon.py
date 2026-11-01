@@ -149,6 +149,15 @@ def gen_hu(cfg):
     for sp, said in list((cfg.get('spoken') or {}).items()) + list((cfg.get('names') or {}).items()):
         spoken[sp.lower()] = stages.read_letters(said, stages.table(hu))
         stems.setdefault(spoken[sp.lower()], sp)
+    for sp, t in (cfg.get('origin') or {}).items():   # words read as their own language says them: transport as given
+        spoken[sp.lower()] = t
+        stems.setdefault(t, sp)
+    for w in cfg.get('borrowed') or []:              # written back as the host writes them (email, not e-mail)
+        for lc in cfg.get('loans', []):
+            t = (lexicon.lex(lc) or {}).get('read', {}).get(w.lower())
+            if t:
+                loanwrite[t] = w
+                break
     native = set()
     if cfg.get('native'):
         for line in open(os.path.join(LEX, cfg['native']), encoding='utf-8'):
@@ -274,7 +283,9 @@ GEN = {'en': gen_en, 'hu': gen_hu, 'zh': gen_zh, 'la': gen_la}
 
 
 def codes():
-    return sorted(os.path.basename(p)[:-5] for p in glob.glob(os.path.join(LEX, '*.yaml')))
+    """Every lexicon, the ones a host borrows from first: a host reads their fresh json."""
+    all_ = sorted(os.path.basename(p)[:-5] for p in glob.glob(os.path.join(LEX, '*.yaml')))
+    return sorted(all_, key=lambda c: bool(load_yaml(c).get('loans')))
 
 
 if __name__ == '__main__':

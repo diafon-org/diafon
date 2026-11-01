@@ -20,22 +20,42 @@ foreign: "ee|oo|ea|ou|w|x|q|sh|ch|th|ck|ph|(?<![gltn])y"   # letter shapes Hunga
                              #   dictionary lists with one of these is a loan it keeps in foreign spelling (meeting, team);
                              #   not ai, oa (hazai, jamaicai), nor ay, ey (y after a vowel is already there)
 lengthen: {á: a, é: e}       # a stem's final a, e lengthens before a suffix (trauma, traumái): a stem is looked up short too
-spoken:                      # spellings Hungarian keeps and reads its own way, neither by the letters nor as an
-                             #   English loan: the word as a Hungarian says it, matched as a stem (jamaicai, Jamaicában);
-                             #   read before everything else; a hand list, for native review
-  jamaica: jamaika
-  bach: bah
+spoken:                      # Hungarian words spelled the old way and read their own way, neither by the
+                             #   letters nor as a loan, matched as a stem; read before everything else
   pech: peh
   cech: céh
   tea: tea                   # team is the loan, tea is not: the shape ea cannot tell them apart
-borrowed:                    # English words the Hungarian dictionary lists as its own and no shape betrays:
-                             #   read as the English they are
-  - online
+borrowed:                    # loans the Hungarian dictionary lists as its own and no shape betrays: read
+                             #   in their own language (se stays Hungarian: neither)
+  - online                   # English
   - offline
   - startup
   - email
   - update
-names:                       # proper names no dictionary reads (not CMUdict, not the frequency list), as a
-                             #   Hungarian says them; the same reading as spoken, kept apart for review
-  cudjoe: kadzsó
-  ocho: ocso
+  - curriculum               # Latin
+  - vitae
+  - summa
+  - laude
+  - priori
+  - posteriori
+  - facto
+  - status
+  - quasi
+  - circa
+  - cetera
+  - versa
+  - vice
+  - ergo
+  - mater
+  - nota
+  - bene
+  - situ
+  - sic
+origin:                      # words no dictionary here reads as their own language says them, given in
+                             #   Diafon input: the origin's sounds, one form in every text; matched as a stem
+                             #   (jamaicai, Jamaicában)
+  jamaica: dqajmeixkaj       # English
+  bach: bakx                 # German
+  live: laixv                # English, the sense Hungarian borrows (live stream)
+  cudjoe: kajdqoux           # English
+  ocho: otqo                 # Spanish

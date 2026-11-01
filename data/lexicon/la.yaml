@@ -1,6 +1,6 @@
 # Latin phrases as they live inside other languages' texts, unassimilated.
-# Read only, in the classical-in-Hungary reading (c before a o u = k, qu = kv,
-# ae = é).
+# Read only, in the classical reading, the language's own: c and g always
+# hard, v = w, qu = kw, ae = aj, au = aw, long vowels long.
 code: la
 name: Latin
 kind: word
@@ -8,29 +8,29 @@ match: word
 output: false            # loans only: never a spelling of its own
 read:                    # single words: the reader works word by word
   hoc: hok
-  facto: fakto
-  jure: iure
-  priori: priori
-  posteriori: posteriori
-  curriculum: kurrikulum
-  vitae: viwtew
-  status: stawtus
-  quo: kvow
+  facto: fawktow
+  jure: ixuwre
+  priori: priowriw
+  posteriori: posteriowriw
+  curriculum: kurwikulum
+  vitae: uxiwtaix
+  status: status
+  quo: kuxow
   se: sew
-  vice: vitce
-  versa: verza
+  vice: uxike
+  versa: uxersaw
   ergo: ergow
-  cetera: tcetera
+  cetera: kewtera
   situ: situ
-  quasi: kvazi
-  quantum: kvantum
-  aquincum: akvinkum
-  circa: tcirka
+  quasi: kuxasi
+  quantum: kuxantum
+  aquincum: akuxinkum
+  circa: kirkaw
   cum: kum
-  laude: laude
-  summa: summa
-  mater: mater
-  nota: nota
+  laude: lauxde
+  summa: sumwaw
+  mater: mawter
+  nota: notaw
   bene: bene
   scriptum: skriptum
-  sic: sik
+  sic: siwk
