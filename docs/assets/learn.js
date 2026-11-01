@@ -33,8 +33,9 @@ const OPS = {
       cm: 'the <b>reversed anchor</b>', v: '', vm: ''},
 };
 const VOWEL = f => 'aeiou'.includes(f[0]);
-const TITLE = {letters: 'The plain letters', long: 'Length', special: 'y', seq: 'Two sounds in a row',
-               tones: 'Tones', caps: 'Capitals', card: 'Your card'};
+const TITLE = {letters: 'The plain letters', long: 'Length', special: 'y · own variant', seq: 'Two sounds in a row',
+               tones: 'Tones', caps: 'Capitals'};
+const OP_NAME = {j: 'hush and soft', x: 'nearby sound', c: 'hiss', q: 'hushing hiss', y: 'leaned back'};   // what each does, in a word or two
 
 let L = null, steps = [], at = 0;
 
@@ -48,13 +49,14 @@ function build(c){
   L = LEARN[c];
   steps = L.lessons.map(l => l.key);
   if (Object.keys(L.tones).length) steps.push('tones');
-  steps.push('caps', 'card');
+  steps.push('caps');
   const words = L.words ? '' : ` No example words for ${esc(L.name)} yet: the lessons show its sounds.`;
-  $note.innerHTML = `<span class="badge ${L.review === 'native-reviewed' ? 'st-nat' : L.review === 'reviewed' ? 'st-rev' : 'st-non'}">${esc(L.review)}</span>` +
-    (L.review === 'non-reviewed' ? ` This mapping has not been reviewed yet; its readings may change.` : '') + words;
+  $note.innerHTML = `<span class="badge ${L.review === 'reviewed' ? 'st-rev' : 'st-non'}">${esc(L.review)}</span>` +
+    (L.review === 'reviewed' ? '' : ` This mapping has not been reviewed yet; its readings may change.`) + words;
 }
 
-function stepTitle(k){ return k.startsWith('op:') ? `The operator ${k.slice(3)}` : TITLE[k]; }
+function stepName(k){ return k.startsWith('op:') ? `${k.slice(3)} · ${OP_NAME[k.slice(3)] || 'operator'}` : TITLE[k]; }
+function stepTitle(k){ return k.startsWith('op:') ? `The operator ${k.slice(3)}: ${OP_NAME[k.slice(3)] || ''}` : TITLE[k]; }
 
 function tiles(forms){
   return '<div class="ln-tiles">' + forms.map(f => {
@@ -126,7 +128,6 @@ function wireDrill(items){
 }
 
 function lessonOf(k){ return L.lessons.find(l => l.key === k); }
-function allForms(){ return L.lessons.flatMap(l => l.forms.map(f => Object.assign({kind: l.key}, f))); }
 
 function body(k){
   const name = esc(L.name);
@@ -197,12 +198,6 @@ function body(k){
       read the same in either case, so all-caps text works sound by sound. A long consonant capitalizes only its first
       letter. A mark that floats above g or p goes below on the capital, since capitals have no descenders.</p>` + ex, null];
   }
-  if (k === 'card'){
-    const fs = allForms();
-    return [`<p>Every sound of ${name} on one sheet, in the order of the lessons. Print it and keep it by the keyboard.</p>
-      <p><button type="button" class="ln-print">print the card</button></p>
-      <div class="ln-card"><h3>Diafon for ${name}</h3>${tiles(fs)}</div>`, null];
-  }
   return ['', null];
 }
 
@@ -211,13 +206,14 @@ function show(){
   const k = steps[at];
   $steps.innerHTML = steps.map((s, i) =>
     `<button type="button" data-i="${i}" class="${i === at ? 'here' : i < at ? 'done' : ''}">` +
-    `<span class="n">${i + 1}</span> ${esc(s.startsWith('op:') ? s.slice(3) : TITLE[s])}</button>`).join('');
-  const [html, l] = body(k);
+    `<span class="n">${i + 1}</span> ${esc(stepName(s))}</button>`).join('');
+  let [html, l] = body(k);
+  if (at === steps.length - 1)          // the end: every sound of the language, with its readings, is its Reference table
+    html += `<p class="ln-end">That is all of Diafon for ${esc(L.name)}. Every sound, with its readings and the spelling
+      rules, is in <a href="../master/#table=${$lang.value}">its table on the Reference page</a>.</p>`;
   const items = l ? (l.drill.length ? l.drill : l.forms) : [];
   $lesson.innerHTML = `<h2>${at + 1}. ${esc(stepTitle(k))}</h2>${html}${l ? words(l.words) : ''}${drill(items)}`;
   wireDrill(items);
-  const p = $lesson.querySelector('.ln-print');
-  if (p) p.addEventListener('click', () => window.print());
   $prev.disabled = at === 0;
   $next.disabled = at === steps.length - 1;
   history.replaceState(null, '', `#lang=${$lang.value}&lesson=${at + 1}`);

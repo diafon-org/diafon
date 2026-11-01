@@ -6,8 +6,8 @@ live; docs/assets/master.js drives them).
 The universal table: every input form in use, grouped by keystroke count,
 with its glyph and its readings from the most to the least used (languages ·
 native speakers). Then one table per language (IPA, frequency, input form,
-glyph), stamped with the mapping's review state (non-reviewed · reviewed ·
-native-reviewed) from data/mapping.yaml.
+glyph), stamped with the mapping's review state (reviewed or not; the
+native level stays in data/mapping.yaml).
 
 Validation as before: every non-X phoneme mapped; no within-language form
 collision outside `merges`.
@@ -31,9 +31,9 @@ RETRO = {'ty','dy','ny','sjy','zjy','tqy','dqy'}  # the stops and the flipped hu
 SPECIAL2 = {'tcy','dcy'}
 V_POINTS = {'ij','ej','uj','oj','aj','ic','ec','uc','oc','ac','eq','iq','aq'}
 SEQ = {'aix','aux','ojix','oix','oicx','ecicx','ocux','eix','oux','ojicx','ejix','eqicx','ajux','tyh','dyh','rch','pf','ph','th','kh','bh','dh','gh','tch','tqh','dqh','tqyh'}
-STATES = {'native': ('native-reviewed', 'st-nat'),
-          'reviewed': ('reviewed', 'st-rev'),
-          None: ('non-reviewed', 'st-non')}
+STATES = {'native': ('reviewed', 'st-rev'),       # native or expert review stays in data/mapping.yaml:
+          'reviewed': ('reviewed', 'st-rev'),     #   the pages say only reviewed or not
+          None: ('not reviewed', 'st-non')}
 
 
 def form_type(f):
