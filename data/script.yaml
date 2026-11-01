@@ -29,7 +29,7 @@ marks:
   grave:         {above: "̀"}                    # vowel y; the special, default nasal
   acute:         {above: "́"}                    # vowel w; long
   double_acute:  {above: "̋"}                    # flip + long fused
-  flip:          {above: "̈"}                    # vowel c; on the partner letter; on a, the open back split
+  flip:          {above: "̈"}                    # vowel c; on the partner letter; on a, the front split /æ/
 
 flip_partner: {i: u, u: i, e: o, o: e, a: a}
 

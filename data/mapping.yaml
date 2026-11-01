@@ -203,7 +203,7 @@ areas:
   u:  {core: u, split: {uj: [ʊ]}}
   e:  {core: e, split: {ej: [ɛ]}}
   o:  {core: o, split: {oj: [ɔ]}}
-  a:  {core: a, split: {ac: [ɑ, ɒ]}}      # the open back vowel; æ keeps the area
+  a:  {core: a, split: {ac: [æ]}}         # the front vowel; ɑ ɒ keep the area (Finnish and Estonian a ä)
   ic: {core: y, split: {iq: [ʏ]}}
   ec: {core: ø, split: {eq: [œ]}}
   uc: {core: ɯ}
@@ -245,8 +245,6 @@ overrides:
     ɐ: a
   ko:            # ㅐ ㅔ have merged for most speakers: one e (merges below)
     ɛ: e
-  hi:            # the inherent vowel: a, Hindi having no short /a/ (á is /aː/)
-    ə: a
   ja:            # the moraic nasal ん contrasts with n (kani ~ kan'i): the velar
     ɴ: nx        #   nasal's slot, ŋ being no phoneme of Japanese
   zh:            # one mid vowel (pinyin e): ë alone and before n ŋ, [ɤ] [ə]; after u it is [o],

@@ -35,10 +35,10 @@ forms:
   r: r
   ix: j
   # vowels: the front a is ä, the back a is a; length doubles the letter
-  a: ä
-  aw: ää
-  ac: a
-  acw: aa
+  a: a
+  aw: aa
+  ac: ä
+  acw: ää
   e: e
   ew: ee
   ec: ö

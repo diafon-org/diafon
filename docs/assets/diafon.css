@@ -1,8 +1,8 @@
 /* The Diafon docs on Material: the font, the palette the description's
    tables and diagrams use, and the blocks themselves. */
-@font-face{font-family:"Diafon";src:url(../diafon.woff2?v=1793486735) format("woff2");font-display:swap}
-@font-face{font-family:"Diafon Sans";src:url(../diafon-sans.woff2?v=1793486737) format("woff2");font-display:swap}
-@font-face{font-family:"Diafon Mono";src:url(../diafon-mono.woff2?v=1793486737) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon";src:url(../diafon.woff2?v=1793491438) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon Sans";src:url(../diafon-sans.woff2?v=1793491439) format("woff2");font-display:swap}
+@font-face{font-family:"Diafon Mono";src:url(../diafon-mono.woff2?v=1793491439) format("woff2");font-display:swap}
 
 :root{
   --md-primary-fg-color:#0e7c86; --md-primary-fg-color--light:#3ec8cf; --md-primary-fg-color--dark:#0a5c64;
@@ -197,6 +197,11 @@
 .md-typeset .mt tr.note td{font-size:.66rem;line-height:1.5;color:var(--muted);background:var(--card);padding:.5rem .8rem}
 .md-typeset .mt tr.note b{color:var(--ink)}
 .md-typeset .mt .also{display:block;font-size:.62rem;line-height:1.35;color:var(--muted);margin-top:3px}
+.md-typeset .mt .also a.rtag{font:600 .55rem/1 var(--mono);color:var(--accent);border:1px solid var(--accent);border-bottom:1px solid var(--accent);
+  border-radius:1rem;padding:.08rem .3rem;margin-right:.25rem;text-transform:uppercase;letter-spacing:.03em}
+.md-typeset .rules{margin:.4rem 0 1.4rem}
+.md-typeset .rules p{margin:.5rem 0;padding:.5rem .8rem;border-left:3px solid var(--accent);background:var(--card);border-radius:0 8px 8px 0}
+.md-typeset .rules p:target{background:var(--sunken)}
 .md-typeset .mt .also a{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent)}
 .md-typeset .mt .also .ug{color:var(--ink)}
 @keyframes hit{from{background:var(--sunken)} to{background:transparent}}

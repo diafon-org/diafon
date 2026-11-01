@@ -112,7 +112,7 @@ A few languages have two vowels inside one area. Only they write the second
 one, with a mark that means the same in all of them:
 <span class="ug">ẹ ọ</span> /ɛ ɔ/ in French, Italian, Portuguese, Hindi,
 Thai and Vietnamese; <span class="ug">ị</span> /ɪ/ in Dutch and Ukrainian;
-<span class="ug">ä</span> /ɑ/ in Finnish, Estonian and Persian. A language
+<span class="ug">ä</span> /æ/ in Finnish, Estonian and Persian. A language
 that makes the split writes it everywhere, in long, nasal and diphthong
 vowels too: French /ɔ/ is <span class="ug">ọ</span> in *porte* and
 <span class="ug">ọ̀</span> in *bon*.

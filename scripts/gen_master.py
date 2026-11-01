@@ -244,7 +244,7 @@ MESSY = ('<b>Where it gets messy.</b> The reverse anchor marks the further-back 
          'Arabic /s/ and /sˤ/ are <span class="ug">s</span> and <span class="ug">s̖</span>. A language with one sound '
          'of the pair writes it with the plain letter or the anchor, whatever its exact sound: Mandarin /ʂ/ is '
          '<span class="ug">ș</span>. Russian and Ukrainian write ш as <span class="ug">s̖</span>, as their anchor marks '
-         'the soft /sʲ/ (сь). Where a sound is written otherwise in another language, its row says so.')
+         'the soft /sʲ/ (сь). This is <a href="#rule-1">rule 1</a> below the tables.')
 
 
 @functools.lru_cache(None)
@@ -264,9 +264,20 @@ def written_as():
     return out
 
 
+RULE_HUSH = {nfd(s) for s in ('ʂ', 'ʐ', 'tʂ', 'dʐ', 'ʃ', 'ʒ', 'tʃ', 'dʒ')}
+RULE_MERGED = {nfd(s) for s in ('ə', 'ʌ')}
+
+
+def rule_of(ipa):
+    """Which spelling rule (master.md, below the tables) gives a sound two letters: 1 the two hush
+    series, 3 one phoneme one letter, 2 the vowel areas' split."""
+    key = nfd(ipa)
+    return 1 if key in RULE_HUSH else 3 if key in RULE_MERGED else 2
+
+
 def also(ipa, form, here=None):
-    """'also written s̖ in Polish, Russian': the other forms other languages give this sound,
-    each language a link to its own table at that row."""
+    """'rule 1 · s̖ in Polish, Russian': the rule that gives this sound another letter elsewhere,
+    and that letter with its languages, each a link to its own table at that row."""
     langs = load_languages()
     parts = []
     for other, codes in sorted(written_as().get(nfd(ipa), {}).items(), key=lambda kv: -len(kv[1])):
@@ -277,7 +288,10 @@ def also(ipa, form, here=None):
         names = ', '.join(f'<a href="#table={c}&amp;form={other}">{html.escape(langs[c]["name"])}</a>'
                           for c in sorted(codes, key=lambda c: langs[c]['name']))
         parts.append(f'<span class="ug">{g}</span> in {names}')
-    return f'<span class="also">also written {"; ".join(parts)}</span>' if parts else ''
+    if not parts:
+        return ''
+    n = rule_of(ipa)
+    return f'<span class="also"><a class="rtag" href="#rule-{n}">rule {n}</a> {"; ".join(parts)}</span>'
 
 
 def note_row(form, state, cols):

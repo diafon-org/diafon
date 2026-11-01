@@ -1,7 +1,7 @@
 {
  "name": "Diafon",
- "generated": "2026-10-31",
- "source": "eed04ae",
+ "generated": "2026-11-01",
+ "source": "4d48b39",
  "alphabet": {
   "consonant_bases": [
    "b",
@@ -865,31 +865,25 @@
     },
     "æ": {
      "languages": [
-      "en",
-      "et",
-      "fa",
-      "fi"
+      "en"
      ],
-     "native": 466.5
-    },
-    "ə": {
-     "languages": [
-      "hi"
-     ],
-     "native": 500.0
-    },
-    "ɒ": {
-     "languages": [
-      "hu"
-     ],
-     "native": 13.0
+     "native": 380.0
     },
     "ɑ": {
      "languages": [
+      "et",
+      "fi",
       "nl",
       "sw"
      ],
-     "native": 41.0
+     "native": 47.5
+    },
+    "ɒ": {
+     "languages": [
+      "fa",
+      "hu"
+     ],
+     "native": 93.0
     },
     "ɐ": {
      "languages": [
@@ -1458,12 +1452,13 @@
       "de",
       "en",
       "fr",
+      "hi",
       "id",
       "nl",
       "ro",
       "vi"
      ],
-     "native": 714.0
+     "native": 1214.0
     },
     "ʌ": {
      "languages": [
@@ -1620,21 +1615,16 @@
    "type": "point",
    "segments": 1,
    "readings": {
-    "ɑ": {
+    "æ": {
      "languages": [
       "et",
+      "fa",
       "fi"
      ],
-     "native": 6.5
-    },
-    "ɒ": {
-     "languages": [
-      "fa"
-     ],
-     "native": 80.0
+     "native": 86.5
     }
    },
-   "primary": "ɑ"
+   "primary": "æ"
   },
   {
    "form": "ec",
@@ -2453,16 +2443,11 @@
     "ɑː": {
      "languages": [
       "en",
+      "et",
+      "fi",
       "hi"
      ],
-     "native": 880.0
-    },
-    "æː": {
-     "languages": [
-      "et",
-      "fi"
-     ],
-     "native": 6.5
+     "native": 886.5
     }
    },
    "primary": "aː"
@@ -2945,7 +2930,7 @@
    "type": "long",
    "segments": 1,
    "readings": {
-    "ɑː": {
+    "æː": {
      "languages": [
       "et",
       "fi"
@@ -2953,7 +2938,7 @@
      "native": 6.5
     }
    },
-   "primary": "ɑː"
+   "primary": "æː"
   },
   {
    "form": "ecw",
@@ -4859,25 +4844,25 @@
    "forms": {
     "a": [
      {
-      "ipa": "æ",
-      "freq": "M"
-     }
-    ],
-    "ac": [
-     {
       "ipa": "ɑ",
       "freq": "L"
      }
     ],
+    "ac": [
+     {
+      "ipa": "æ",
+      "freq": "M"
+     }
+    ],
     "acw": [
      {
-      "ipa": "ɑː",
+      "ipa": "æː",
       "freq": "M"
      }
     ],
     "aw": [
      {
-      "ipa": "æː",
+      "ipa": "ɑː",
       "freq": "M"
      }
     ],
@@ -5076,14 +5061,14 @@
    "forms": {
     "a": [
      {
-      "ipa": "æ",
-      "freq": "M"
+      "ipa": "ɒ",
+      "freq": "L"
      }
     ],
     "ac": [
      {
-      "ipa": "ɒ",
-      "freq": "L"
+      "ipa": "æ",
+      "freq": "M"
      }
     ],
     "b": [
@@ -5259,25 +5244,25 @@
    "forms": {
     "a": [
      {
-      "ipa": "æ",
+      "ipa": "ɑ",
       "freq": "L"
      }
     ],
     "ac": [
      {
-      "ipa": "ɑ",
+      "ipa": "æ",
       "freq": "L"
      }
     ],
     "acw": [
      {
-      "ipa": "ɑː",
+      "ipa": "æː",
       "freq": "M"
      }
     ],
     "aw": [
      {
-      "ipa": "æː",
+      "ipa": "ɑː",
       "freq": "M"
      }
     ],
@@ -5870,7 +5855,7 @@
    "geminates": false,
    "tones": null,
    "forms": {
-    "a": [
+    "aj": [
      {
       "ipa": "ə",
       "freq": "L"
@@ -10294,10 +10279,10 @@
     "l": "l",
     "r": "r",
     "ix": "j",
-    "a": "ä",
-    "aw": "ää",
-    "ac": "a",
-    "acw": "aa",
+    "a": "a",
+    "aw": "aa",
+    "ac": "ä",
+    "acw": "ää",
     "e": "e",
     "ew": "ee",
     "ec": "ö",
@@ -13419,19 +13404,19 @@
    "fi": [
     [
      "a",
-     "ä"
-    ],
-    [
-     "ac",
      "a"
     ],
     [
+     "ac",
+     "ä"
+    ],
+    [
      "acw",
-     "aa"
+     "ää"
     ],
     [
      "aw",
-     "ää"
+     "aa"
     ],
     [
      "b",
@@ -13615,27 +13600,27 @@
     ],
     [
      "sjok sewp njawr",
-     "šok seep n̦äär"
+     "šok seep n̦aar"
     ],
     [
      "Sjan1, sjok!",
-     "Šän1, šok!"
+     "Šan1, šok!"
     ],
     [
      "SJAN",
-     "ŠÄN"
+     "ŠAN"
     ],
     [
      "Gj Pj Gy Ty Ic Sjw Tqyh Aw",
-     "G̦ P̦ G̖ T̖ Y Šš C̖h Ää"
+     "G̦ P̦ G̖ T̖ Y Šš C̖h Aa"
     ],
     [
      "ma1 ma2 ma3 ma4",
-     "mä1 mä2 mä3 mä4"
+     "ma1 ma2 ma3 ma4"
     ],
     [
      "hoswuw aclmac",
-     "hossuu alma"
+     "hossuu älmä"
     ],
     [
      "tqi3 sjuc3 tquc1",
@@ -13643,7 +13628,7 @@
     ],
     [
      "Diafon: ix i ux.",
-     "Diäfon: j i w."
+     "Diafon: j i w."
     ],
     [
      "ky gy lj rj fj vj Lj Rj",
@@ -16839,19 +16824,19 @@
     ],
     "fi": [
      [
-      "ä",
+      "a",
       "a"
      ],
      [
-      "a",
+      "ä",
       "ac"
      ],
      [
-      "aa",
+      "ää",
       "acw"
      ],
      [
-      "ää",
+      "aa",
       "aw"
      ],
      [
@@ -16971,27 +16956,27 @@
       "v"
      ],
      [
-      "šok seep n̦äär",
+      "šok seep n̦aar",
       "sjok sewp njawr"
      ],
      [
-      "Šän1, šok!",
+      "Šan1, šok!",
       "Sjan1, sjok!"
      ],
      [
-      "ŠÄN",
+      "ŠAN",
       "SjAN"
      ],
      [
-      "G̦ P̦ G̖ T̖ Y Šš C̖h Ää",
+      "G̦ P̦ G̖ T̖ Y Šš C̖h Aa",
       "Gj Pj Gy Ty Ic Sjw Tqyh Aw"
      ],
      [
-      "mä1 mä2 mä3 mä4",
+      "ma1 ma2 ma3 ma4",
       "ma1 ma2 ma3 ma4"
      ],
      [
-      "hossuu alma",
+      "hossuu älmä",
       "hoswuw aclmac"
      ],
      [
@@ -16999,7 +16984,7 @@
       "tqi3 sjuc3 tquc1"
      ],
      [
-      "Diäfon: j i w.",
+      "Diafon: j i w.",
       "Diafon: ix i v."
      ],
      [
@@ -17027,7 +17012,7 @@
       "tyh dyh rch pf th kh"
      ],
      [
-      "hyvää yötä ja kaunista kesää",
+      "hyvaa yöta jä käunistä kesaa",
       "hicvaw icecta ixac kacunistac kesaw"
      ],
      [
@@ -18150,7 +18135,7 @@
     "dobrí den, přátelé",
     "stage:cs",
     "stage:fi",
-    "dobrii den, pr̦äätelee"
+    "dobrii den, pr̦aatelee"
    ],
    [
     "dobrí den, přátelé",
@@ -18204,7 +18189,7 @@
     "one keyboard, one script, many languages",
     "stage:en",
     "stage:fi",
-    "wạn kiiboord, wạn skript, menii längwạx̦ạz"
+    "wạn kiiboord, wạn skript, menii langwạx̦ạz"
    ],
    [
     "one keyboard, one script, many languages",
@@ -18237,55 +18222,55 @@
     "wạn kíbórd, wạn skript, mení langwạx̦ạz"
    ],
    [
-    "hyvää yötä ja kaunista kesää",
+    "hyvaa yöta jä käunistä kesaa",
     "stage:fi",
     "script",
     "hüvá üöta jä käunistä kesá"
    ],
    [
-    "hyvää yötä ja kaunista kesää",
+    "hyvaa yöta jä käunistä kesaa",
     "stage:fi",
     "transport",
     "hicvaw icecta ixac kacunistac kesaw"
    ],
    [
-    "hyvää yötä ja kaunista kesää",
+    "hyvaa yöta jä käunistä kesaa",
     "stage:fi",
     "stage:cs",
     "hüvá üöta jä käunistä kesá"
    ],
    [
-    "hyvää yötä ja kaunista kesää",
+    "hyvaa yöta jä käunistä kesaa",
     "stage:fi",
     "stage:en",
     "hüvá üöta jä käunistä kesá"
    ],
    [
-    "hyvää yötä ja kaunista kesää",
+    "hyvaa yöta jä käunistä kesaa",
     "stage:fi",
     "stage:hu",
     "hüvá üöta jä käunisztä keszá"
    ],
    [
-    "hyvää yötä ja kaunista kesää",
+    "hyvaa yöta jä käunistä kesaa",
     "stage:fi",
     "stage:pl",
     "hüwá üöta jä käunistä kesá"
    ],
    [
-    "hyvää yötä ja kaunista kesää",
+    "hyvaa yöta jä käunistä kesaa",
     "stage:fi",
     "stage:sw",
     "hüvá üöta yä käunistä kesá"
    ],
    [
-    "hyvää yötä ja kaunista kesää",
+    "hyvaa yöta jä käunistä kesaa",
     "stage:fi",
     "stage:tr",
     "hüvâ üöta yä käunistä kesâ"
    ],
    [
-    "hyvää yötä ja kaunista kesää",
+    "hyvaa yöta jä käunistä kesaa",
     "stage:fi",
     "stage:zh",
     "hüvá üöta jä käunistä kesá"
@@ -18318,7 +18303,7 @@
     "sok szép nyár, hosszú alma",
     "stage:hu",
     "stage:fi",
-    "šok seep n̦äär, hossuu älmä"
+    "šok seep n̦aar, hossuu alma"
    ],
    [
     "sok szép nyár, hosszú alma",
@@ -18372,7 +18357,7 @@
     "dobra noc, kochani",
     "stage:pl",
     "stage:fi",
-    "dobrä noc, koḳäni"
+    "dobra noc, koḳani"
    ],
    [
     "dobra noc, kochani",
@@ -18426,7 +18411,7 @@
     "habari za asubuhi, karibu sana",
     "stage:sw",
     "stage:fi",
-    "häbäri zä äsubuhi, käribu sänä"
+    "habari za asubuhi, karibu sana"
    ],
    [
     "habari za asubuhi, karibu sana",
@@ -18534,7 +18519,7 @@
     "ni3 hao3, shi4 jie4",
     "stage:zh",
     "stage:fi",
-    "ni3 ḳäw3, šï4 c̦ie4"
+    "ni3 ḳaw3, šï4 c̦ie4"
    ],
    [
     "ni3 hao3, shi4 jie4",
