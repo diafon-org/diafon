@@ -303,7 +303,7 @@
 .md-typeset .pt.k-x{--edge:var(--x-c)} .md-typeset .pt.k-x .lab{color:var(--x-c)}
 .md-typeset .pt.k-y{--edge:var(--y-c)} .md-typeset .pt.k-y .lab{color:var(--y-c)}
 .md-typeset table.grid.pts td{vertical-align:middle}
-.md-typeset table.grid.pts{min-width:860px;table-layout:fixed}
+.md-typeset table.grid.pts{min-width:700px;max-width:740px;table-layout:fixed}
 .md-typeset table.pts thead th{font-size:clamp(.48rem,1.1vw,.66rem);letter-spacing:0;padding:.45rem .1rem;overflow-wrap:anywhere}
 .md-typeset table.pts tr > th:first-child{width:clamp(2.9rem,10vw,5.6rem);font-size:clamp(.5rem,1.2vw,.7rem);padding:.4rem .25rem;overflow-wrap:anywhere}
 .md-typeset table.pts .pt{flex:0 0 auto;width:clamp(30px,4.2vw,46px);min-width:0;padding:.35rem .05rem .3rem;margin:0}   /* one size, as the vowel chips */
@@ -317,10 +317,10 @@
 .md-typeset table.pts .pt .ipa{font-size:clamp(.55rem,1.3vw,.82rem)}
 .md-typeset table.pts .pt *{max-width:100%;overflow:hidden}
 @media (max-width:600px){.md-typeset table.pts .pt .ipa{display:none} .md-typeset table.pts .pt .nat{font-size:clamp(.8rem,3.4vw,1.1rem)} .md-typeset table.pts .pt .lab{font-size:.5rem} .md-typeset table.pts thead th span{display:none} .md-typeset table.pts .pt .lab{white-space:nowrap;font-size:.46rem} .md-typeset table.pts tr > th:first-child{white-space:normal;font-size:.5rem}}
-.md-typeset table.pts th svg.mouth{display:block;width:100%;max-width:62px;height:auto;aspect-ratio:104/90;margin:0 auto 4px;fill:none;stroke:var(--muted);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.md-typeset table.pts th svg.mouth{display:block;width:100%;max-width:50px;height:auto;aspect-ratio:104/90;margin:0 auto 4px;fill:none;stroke:var(--muted);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .md-typeset table.pts th svg.mouth .tongue{fill:var(--sunken);stroke:var(--line);stroke-width:2}
 .md-typeset table.pts th svg.mouth circle{fill:var(--accent);stroke:var(--card);stroke-width:2.5}
-.md-typeset figure.vt{margin:1.2rem 0 .4rem;width:100%;max-width:840px;display:block}
+.md-typeset figure.vt{margin:1.2rem 0 .4rem;width:100%;max-width:672px;display:block}   /* 80% of its 840, as the consonant chips */
 .md-typeset figure.vt svg{width:100%;height:auto;display:block}
 .md-typeset figure.vt .edge{fill:var(--sunken);stroke:var(--line);stroke-width:1.5;stroke-dasharray:6 6}
 .md-typeset figure.vt .axis{font:600 11px var(--mono);fill:var(--muted);text-transform:uppercase;letter-spacing:.06em}
@@ -464,6 +464,8 @@ html{font-size:115%}     /* at GitHub's scale and steady on wide screens: body ~
 .md-typeset .tryout-out .w code{font-size:.6rem;background:none;padding:0;color:var(--accent)}
 
 /* a consonant cell: one chip at the vowel chips' own size */
-.md-typeset table.pts svg.card{display:block;margin:0 auto;width:89px;height:75px;max-width:none}   /* never shrunk */
-.md-typeset table.grid.pts td{padding:.3rem .05rem}
+.md-typeset table.pts svg.card{display:block;margin:0 auto;width:71px;height:60px;max-width:none}   /* the chips at 80%, as the triangle; never shrunk */
+.md-typeset table.grid.pts td{padding:.2rem .05rem}
 .md-typeset dl.chartkey svg.card{width:60px;height:auto;text-transform:none;letter-spacing:0}
+.md-typeset .scroll:has(> table.pts){width:fit-content;max-width:100%}   /* the frame fits the chart */
+.md-typeset table.pts thead th{overflow-wrap:normal;hyphens:manual}

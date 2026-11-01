@@ -264,7 +264,8 @@ def point_table(spec, caption):
 
     def cell(forms):
         return chip_svg(forms, 'cmp' if set(forms) <= COMPOSED else '')
-    head = (lambda c: f'<th title="{c}">{mouth(c)}<span>{c}</span></th>') if caption == 'consonants' else (lambda c: f'<th>{c}</th>')
+    shy = lambda c: c.replace('postalveolar', 'post\u00adalveolar')          # breaks as post-alveolar, if at all
+    head = (lambda c: f'<th title="{c}">{mouth(c)}<span>{shy(c)}</span></th>') if caption == 'consonants' else (lambda c: f'<th>{c}</th>')
     out = [f'<div class="scroll" markdown="0"><table class="grid pts"><caption>{caption}</caption>'
            '<thead><tr><th></th>' + ''.join(head(c) for c in cols) + '</tr></thead><tbody>']
     for name, cells in rows:
