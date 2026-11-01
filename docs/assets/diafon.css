@@ -480,3 +480,21 @@ html{font-size:115%}     /* at GitHub's scale and steady on wide screens: body ~
 .md-typeset .chart > dl.chartkey{width:0;min-width:100%;box-sizing:border-box;margin:.6rem 0 0}
 /* the liquids: r ṛ side by side, l under them */
 .md-typeset table.pts .cell.cluster{flex-wrap:wrap;width:calc(2 * 71px + 4px);margin:0 auto;row-gap:4px}
+/* the sound tables on a phone: typed, letter and main reading on one line, the other readings in
+   full width under them (a language's: how common, small), instead of a column off-screen that wrapped each row tall and blank */
+@media (max-width:44em){
+  .md-typeset section[id^="sec-"] table.mt:not(.langs){display:block;min-width:0}
+  .md-typeset section[id^="sec-"] table.mt:not(.langs) tbody{display:block}
+  .md-typeset section[id^="sec-"] table.mt:not(.langs) tr{display:block}
+  .md-typeset section[id^="sec-"] table.mt:not(.langs) tr:first-child{display:none}                       /* the column titles */
+  .md-typeset section[id^="sec-"] table.mt:not(.langs) tr.grp th,.md-typeset section[id^="sec-"] table.mt:not(.langs) tr.sub th{display:block}
+  .md-typeset section[id^="sec-"] table.mt:not(.langs) tr.note td{display:block}
+  .md-typeset section[id^="sec-"] table.mt:not(.langs) tr[data-form]{display:grid;grid-template-columns:auto auto 1fr;column-gap:.6rem;
+    align-items:start;border-top:1px solid var(--line);padding:.5rem .4rem}
+  .md-typeset section[id^="sec-"] table.mt:not(.langs) tr[data-form] td{display:block;border:none;padding:0}
+  .md-typeset section[id^="sec-"] table.mt:not(.langs) tr[data-form] td.tt{display:none}                    /* kind */
+  .md-typeset section[id^="sec-"]:not(#sec-universal) table.mt tr[data-form] td.tt:last-child{display:block;grid-column:3;
+    margin-top:.15rem;font-size:.62rem;color:var(--muted)}                                                     /* how common */
+  .md-typeset section[id^="sec-"] table.mt:not(.langs) tr[data-form] td:last-child{grid-column:1 / -1;margin-top:.4rem}
+  .md-typeset section[id^="sec-"] table.mt:not(.langs) tr[data-form] td:last-child:empty{display:none}
+}
