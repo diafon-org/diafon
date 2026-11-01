@@ -317,7 +317,7 @@
 .md-typeset figure.vt .axis{font:600 11px var(--mono);fill:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .md-typeset figure.vt .band{stroke-width:56;stroke-linecap:round;opacity:.9}
 .md-typeset figure.vt .band.k-base{stroke:var(--base-t)} .md-typeset figure.vt .band.k-c{stroke:var(--c-t)} .md-typeset figure.vt .band.k-j{stroke:var(--j-t)}
-.md-typeset figure.vt .chip rect{fill:var(--card);stroke:var(--line);stroke-width:1.2}
+.md-typeset figure.vt .chip rect{fill:var(--card);stroke:var(--line);stroke-width:1.2px;vector-effect:non-scaling-stroke}   /* steady at any size; 1.2px reads as the tiles 1.25px inset edge */
 .md-typeset figure.vt .chip.k-base rect{stroke:var(--base-c)} .md-typeset figure.vt .chip.k-c rect{stroke:var(--c-c)}
 .md-typeset figure.vt .chip.k-j rect{stroke:var(--j-c)} .md-typeset figure.vt .chip.k-q rect{stroke:var(--q-c)}
 .md-typeset figure.vt .chip.split rect{stroke-dasharray:4 3}
