@@ -172,6 +172,17 @@
 .md-typeset .mt-bar input{width:12rem}
 @media (max-width:44em){.md-typeset .mt-bar{position:static}}
 @media screen and (min-width:76.25em){.md-typeset .mt-bar{top:4.8rem}}   /* below the header and the sticky tabs, which show from this width */
+/* scrolled down (Material shows the page title then), the header folds into one row: the tabs move
+   up into the title's place, and what sticks below the header moves up with it. Mobile keeps its burger */
+@media screen and (min-width:76.25em){
+  .md-header:has(.md-header__title--active) .md-header__title{visibility:hidden}
+  .md-header:has(.md-header__title--active) .md-tabs{position:absolute;top:0;left:0;right:0;height:2.4rem;
+    background:transparent;pointer-events:none}
+  .md-header:has(.md-header__title--active) .md-tabs__list{margin-left:3.4rem;pointer-events:auto}
+  .md-header:has(.md-header__title--active) .md-tabs__item{height:2.4rem;padding-top:0;display:inline-flex;align-items:center}
+  .md-header:has(.md-header__title--active) .md-tabs__link{margin-top:0}
+  body:has(.md-header__title--active) .md-typeset .mt-bar{top:2.4rem}
+}
 .md-typeset .mt-summary{font:600 .66rem/1.3 var(--mono);color:var(--muted)}
 .md-typeset .mt-summary .miss{color:var(--bad)} .md-typeset .mt-summary .fall{color:var(--warn)}
 
