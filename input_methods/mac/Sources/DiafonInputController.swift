@@ -217,7 +217,7 @@ public class DiafonInputController: IMKInputController {
 
     /// One character in: the streaming rule decides what is final.
     private func type(_ client: IMKTextInput, _ ch: Character) {
-        let (committed, tail) = Engine.stream(pending + String(ch), renderer: render())
+        let (committed, tail) = Engine.stream(pending + String(ch), renderer: render(), wordwise: output.hasPrefix("stage:"))
         if !committed.isEmpty { insert(client, committed) }
         pending = tail
         mark(client)
@@ -229,7 +229,7 @@ public class DiafonInputController: IMKInputController {
     }
 
     private func mark(_ client: IMKTextInput) {
-        let shown = pending.isEmpty ? "" : (mandarin ? Stages.render(pending, SpecData.stages["zh"]!, tones: prefs.tones) : render()(pending))
+        let shown = pending.isEmpty ? "" : (mandarin ? Stages.render(pending, SpecData.stages["zh"]!, tones: prefs.tones) : prefs.renderer(output, letters: true)(pending))
         let attrs: [NSAttributedString.Key: Any] = [.underlineStyle: NSUnderlineStyle.single.rawValue]
         client.setMarkedText(NSAttributedString(string: shown, attributes: attrs),
                              selectionRange: NSRange(location: (shown as NSString).length, length: 0),

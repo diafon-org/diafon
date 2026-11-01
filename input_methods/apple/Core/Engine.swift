@@ -224,10 +224,16 @@ enum Engine {
 
     /// The streaming commit rule: everything before the last segment is
     /// final; a last segment that is a form may still grow, so it stays
-    /// pending. Returns (committed, pending).
-    static func stream(_ buffer: String, renderer: (String) -> String = { lenient($0) }) -> (String, String) {
+    /// pending. Returns (committed, pending). Wordwise, for a language's
+    /// spelling, the whole word being typed stays pending: such a spelling is
+    /// looked up by the word (its lexicon), and a part of a word is not one.
+    static func stream(_ buffer: String, renderer: (String) -> String = { lenient($0) }, wordwise: Bool = false) -> (String, String) {
         let segs = (try? segments(buffer, strict: false)) ?? []
         guard let last = segs.last else { return ("", "") }
+        if wordwise {
+            let start = (segs.lastIndex { if case .raw = $0 { return true } else { return false } } ?? -1) + 1
+            return (renderer(segs[..<start].map { $0.src }.joined()), segs[start...].map { $0.src }.joined())
+        }
         let head = last.isForm ? Array(segs.dropLast()) : segs
         let tail = last.isForm ? last.src : ""
         return (renderer(head.map { $0.src }.joined()), tail)
