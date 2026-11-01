@@ -233,7 +233,8 @@ def chip_svg(forms, cls=''):
 
 
 def vowel_triangle(areas):
-    out = ['<figure class="vt" markdown="0"><svg class="chips" viewBox="0 0 840 600" role="img" '
+    out = ['<div class="scroll vt-frame"><div class="chart-cap">vowels</div>'          # framed and titled as the consonants
+           '<figure class="vt" markdown="0"><svg class="chips" viewBox="0 0 840 600" role="img" '
            'aria-label="The vowel areas in the vowel triangle, front on the left, close at the top, with their splits">',
            '<polygon class="edge" points="40,30 800,30 540,570 300,570"/>',
            '<text class="axis" x="40" y="22">front</text><text class="axis" x="800" y="22" text-anchor="end">back</text>'
@@ -254,7 +255,7 @@ def vowel_triangle(areas):
         chips.append(f'<g transform="translate({ax},{ay})">'
                      + chip(nfc(engine.render(area)), area, ' '.join(covers), kind) + '</g>')
     out += chips
-    out.append('</svg></figure>')
+    out.append('</svg></figure></div>')
     return ''.join(out)
 
 
@@ -281,7 +282,8 @@ def point_table(spec, caption):
             skip = span - 1                                   # (3, 'r | rc'): across three columns, centred on the middle one
             cls = 'cell cluster' if '|' in spec else 'cell'
             tds.append(f'<td{f" colspan={span}" if span > 1 else ""}><div class="{cls}">{cards(spec)}</div></td>')
-        out.append(f'<tr><th>{name}</th>' + ''.join(tds) + '</tr>')
+        label = name.replace('approximant', 'approx\u00adimant')        # can break on a phone
+        out.append(f'<tr><th>{label}</th>' + ''.join(tds) + '</tr>')
     out.append('</tbody></table></div>')
     return ''.join(out)
 

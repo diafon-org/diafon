@@ -286,8 +286,11 @@
 
 /* the point tables: one tile for consonants and vowels, coloured by operator */
 .md-typeset table.grid.pts{margin:0}
-.md-typeset table.pts caption{caption-side:top;text-align:left;padding:.55rem .8rem;font:600 .66rem/1.1 var(--mono);
+.md-typeset table.pts caption,.md-typeset .chart-cap{caption-side:top;text-align:left;padding:.55rem .8rem;font:600 .66rem/1.1 var(--mono);
   letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--sunken);border-bottom:1px solid var(--line)}
+/* the vowel triangle framed like the consonant table: keeps a readable size and scrolls on a phone */
+.md-typeset .vt-frame .chart-cap{position:sticky;left:0}
+.md-typeset .vt-frame figure.vt{min-width:560px;max-width:672px;margin:.6rem auto .6rem}
 .md-typeset .scroll + .scroll{margin-top:1rem}
 .md-typeset .pt{--edge:var(--line);position:relative;border-radius:8px;margin:2px;background:var(--card)}
 /* a card's edge is an SVG outline drawn exactly as the vowel chips' (1.2px, not scaled, dashed 4 3),
@@ -473,7 +476,7 @@ html{font-size:115%}     /* at GitHub's scale and steady on wide screens: body ~
 .md-typeset .chart{width:fit-content;max-width:100%;margin:1rem auto 1.6rem}
 .md-typeset .chart.vt-chart{width:min(672px,100%)}
 .md-typeset .chart > .scroll{margin:0}
-.md-typeset .chart > figure.vt{margin:.4rem auto .4rem}
+.md-typeset .chart > .vt-frame{margin:0}
 .md-typeset .chart > dl.chartkey{width:0;min-width:100%;box-sizing:border-box;margin:.6rem 0 0}
 /* the liquids: r ṛ side by side, l under them */
 .md-typeset table.pts .cell.cluster{flex-wrap:wrap;width:calc(2 * 71px + 4px);margin:0 auto;row-gap:4px}
