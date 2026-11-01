@@ -234,7 +234,7 @@ function readWordLex(word, code){
 }
 
 /** A word, or with match: prefix a stem, the host's lexicon reads its own way before the
- *  letters (Hungarian spoken: jamaica -> jamaika): [transport, the rest of the spelling]; else null. */
+ *  letters (Hungarian spoken: pech -> peh): [transport, the rest of the spelling]; else null. */
 function spokenStem(key, L){
   if (!Object.keys(L.read).length || L.kind === 'syllable') return 0;
   if (L.match !== 'prefix') return key in L.read ? key.length : 0;

@@ -1,7 +1,7 @@
 {
  "name": "Diafon",
- "generated": "2026-11-01",
- "source": "ebdced7",
+ "generated": "2026-11-02",
+ "source": "18dae3e",
  "alphabet": {
   "consonant_bases": [
    "b",
@@ -18702,22 +18702,22 @@
     [
      "la",
      "vitae",
-     "viwtew"
+     "uxiwtaix"
     ],
     [
      "la",
      "quo",
-     "kvow"
+     "kuxow"
     ],
     [
      "hu",
      "jamaica",
-     "ixamaika"
+     "dqajmeixkaj"
     ],
     [
      "hu",
      "Bach",
-     "Bah"
+     "Bakx"
     ],
     [
      "hu",
@@ -18727,7 +18727,7 @@
     [
      "hu",
      "Cudjoe",
-     "Kadqow"
+     "Kajdqoux"
     ],
     [
      "hu",
@@ -19039,7 +19039,7 @@
     [
      "stage:hu",
      "Jamaicai franchise-ba, akinek traumái; Bach, pech, technika, chat.",
-     "Ixamaikai frantqaixz-ba, akinek traumawi; Bah, peh, tetchnika, tqat."
+     "Dqajmeixkaji frantqaixz-ba, akinek traumawi; Bakx, peh, tetchnika, tqat."
     ],
     [
      "stage:hu",
@@ -19049,7 +19049,7 @@
     [
      "stage:hu",
      "Cudjoe East, Ocho Rios.",
-     "Kadqow Iwst, Otqo Riwouxs."
+     "Kajdqoux Iwst, Otqo Riwouxs."
     ],
     [
      "stage:en",
@@ -19085,7 +19085,7 @@
     ],
     [
      "stage:hu",
-     "Ixamaikai frantqaixz-ba, akinek traumawi; Bah, peh, tetchnika, tqat.",
+     "Dqajmeixkaji frantqaixz-ba, akinek traumawi; Bakx, peh, tetchnika, tqat.",
      "Jamaicai franchise-ba, akinek traumái; Bach, pech, technika, csat."
     ],
     [
@@ -19095,7 +19095,7 @@
     ],
     [
      "stage:hu",
-     "Kadqow Iwst, Otqo Riwouxs.",
+     "Kajdqoux Iwst, Otqo Riwouxs.",
      "Cudjoe East, Ocho Rios."
     ],
     [
@@ -19239,9 +19239,9 @@
    "sample": null,
    "output": true,
    "sizes": {
-    "read": 7,
-    "write": 1887,
-    "native": 84836
+    "read": 8,
+    "write": 1888,
+    "native": 84830
    }
   },
   "la": {
