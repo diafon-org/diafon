@@ -469,3 +469,11 @@ html{font-size:115%}     /* at GitHub's scale and steady on wide screens: body ~
 .md-typeset dl.chartkey svg.card{width:60px;height:auto;text-transform:none;letter-spacing:0}
 .md-typeset .scroll:has(> table.pts){width:fit-content;max-width:100%}   /* the frame fits the chart */
 .md-typeset table.pts thead th{overflow-wrap:normal;hyphens:manual}
+/* a chart and its key: one block, centred; the key as wide as the chart */
+.md-typeset .chart{width:fit-content;max-width:100%;margin:1rem auto 1.6rem}
+.md-typeset .chart.vt-chart{width:min(672px,100%)}
+.md-typeset .chart > .scroll{margin:0}
+.md-typeset .chart > figure.vt{margin:.4rem auto .4rem}
+.md-typeset .chart > dl.chartkey{width:0;min-width:100%;box-sizing:border-box;margin:.6rem 0 0}
+/* the liquids: r ṛ side by side, l under them */
+.md-typeset table.pts .cell.cluster{flex-wrap:wrap;width:calc(2 * 71px + 4px);margin:0 auto;row-gap:4px}

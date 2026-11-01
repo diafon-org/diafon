@@ -147,9 +147,7 @@ CONSONANTS = (['labial', 'dental', 'alveolar', 'postalveolar', 'palatal', 'velar
     ('fricative', {'labial': 'f v', 'dental': 'tx dx', 'alveolar': 's z', 'postalveolar': 'sj zj',
                    'velar': 'kx gx', 'glottal': 'h'}),
     ('nasal', {'labial': 'm', 'alveolar': 'n', 'palatal': 'nj', 'velar': 'nx'}),
-    ('trill', {'alveolar': 'r'}),
-    ('tap', {'alveolar': 'rc'}),
-    ('lateral', {'alveolar': 'l'}),
+    ('trill · tap · lateral', {'alveolar': 'r | rc | l'}),          # one cell, two columns wide: r ṛ, l under them
     ('glide', {'labial': 'ux', 'palatal': 'ix'}),                 # i and u with x: w is labial-velar, j palatal
 ])
 def vowel_areas():
@@ -263,16 +261,29 @@ def vowel_triangle(areas):
 def point_table(spec, caption):
     cols, rows = spec
 
-    def cell(forms):
-        return chip_svg(forms, 'cmp' if set(forms) <= COMPOSED else '')
+    def cards(spec):
+        groups = [g.split() for g in spec.split('|')]          # 'r | rc | l': a card each
+        return ''.join(chip_svg(forms, 'cmp' if set(forms) <= COMPOSED else '') for forms in groups), len(groups) > 1
     shy = lambda c: c.replace('postalveolar', 'post\u00adalveolar')          # breaks as post-alveolar, if at all
     head = (lambda c: f'<th title="{c}">{mouth(c)}<span>{shy(c)}</span></th>') if caption == 'consonants' else (lambda c: f'<th>{c}</th>')
     out = [f'<div class="scroll" markdown="0"><table class="grid pts"><caption>{caption}</caption>'
            '<thead><tr><th></th>' + ''.join(head(c) for c in cols) + '</tr></thead><tbody>']
     for name, cells in rows:
-        out.append(f'<tr><th>{name}</th>' + ''.join(
-            f'<td><div class="cell">{cell(cells[c].split())}</div></td>'
-            if c in cells else '<td></td>' for c in cols) + '</tr>')
+        tds, skip = [], False
+        for i, c in enumerate(cols):
+            if skip:
+                skip = False
+                continue
+            if c not in cells:
+                tds.append('<td></td>')
+                continue
+            html_, cluster = cards(cells[c])
+            if cluster:                                       # a group spans its column and the next, empty one
+                skip = True
+                tds.append(f'<td colspan="2"><div class="cell cluster">{html_}</div></td>')
+            else:
+                tds.append(f'<td><div class="cell">{html_}</div></td>')
+        out.append(f'<tr><th>{name}</th>' + ''.join(tds) + '</tr>')
     out.append('</tbody></table></div>')
     return ''.join(out)
 
@@ -291,24 +302,23 @@ def key(rows, cls=''):
 
 
 def consonant_chart():
-    p = esc(nfc(engine.render('p')))
-    return point_table(CONSONANTS, 'consonants') + key([
+    return '<div class="chart" markdown="0">' + point_table(CONSONANTS, 'consonants') + key([
         (chip_svg(['p', 'b']), 'a card: the letters, what you type, the sounds; voiceless first, then voiced'),
         ('lips → throat', 'the columns: where the sound is made, marked in each profile'),
         ('edge colour', 'the operator that makes it' + colours()),
         (chip_svg(['tj', 'dj'], 'cmp'), 'dashed: letters with a mark, shown where their sound sits '
          f'({ug(" ".join(engine.render(f) for f in sorted(COMPOSED)))})'),
-    ])
+    ]) + '</div>'
 
 
 def vowel_chart():
-    return vowel_triangle(vowel_areas()) + key([
+    return '<div class="chart vt-chart" markdown="0">' + vowel_triangle(vowel_areas()) + key([
         ('front · back', 'front on the left, back on the right, close at the top, open at the bottom'),
         (f'<span class="chipkey area k-base">{EDGE}a</span>', 'an area: the plain letter, and every sound it covers'),
         (f'<span class="chipkey split cmp k-j">{EDGE}ẹ</span>', 'a split: written only by a language with two vowels in that area '
          '(rule 2 on the Reference page)'),
         ('edge colour', 'the operator that makes it' + colours(vowels=True)),
-    ], cls='vt-key')
+    ], cls='vt-key') + '</div>'
 
 
 def main():
