@@ -62,7 +62,7 @@ function tiles(forms){
   return '<div class="ln-tiles">' + forms.map(f => {
     const core = f.f.replace(/w$/, ''), last = core.slice(-1);
     const k = core.length > 1 && 'jxcqy'.includes(last) ? last : 'base';     // coloured by its operator
-    return `<div class="pt k-${k}">` +
+    return `<div class="pt k-${k}"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg>` +   // as gen_site.EDGE
       `<span class="nat">${esc(f.g)}</span><span class="lab">${esc(f.f)}</span>` +
       `<span class="ipa">${f.ipa.map(i => '/' + esc(i) + '/').join(' ')}</span></div>`;
   }).join('') + '</div>';
