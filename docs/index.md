@@ -151,20 +151,21 @@ first letter.
 ## Tones
 
 A tone is typed as a digit after the syllable, and each digit is the same
-tone in each language. The script shows it as a sign after the syllable,
-using the Bopomofo tone marks: `ma1 ma2 ma3 ma4`
-<span class="ug">maˉ maˊ maˇ maˋ</span>.
+tone in each language. The script draws it as a mark above the syllable:
+`ma1 ma2 ma3 ma4` <span class="ug">maˉ maˊ maˇ maˋ</span>.
 
 | Digit | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
 |---|---|---|---|---|---|---|---|---|
 | Tone | high | rising | dipping | falling | mid | low | glottal rising | glottal low |
-| Sign | <span class="ug">ˉ</span> | <span class="ug">ˊ</span> | <span class="ug">ˇ</span> | <span class="ug">ˋ</span> | none | <span class="ug">ˍ</span> | <span class="ug">˜</span> | <span class="ug">ˀ</span> |
+| Stored as | <span class="ug">ˉ</span> | <span class="ug">ˊ</span> | <span class="ug">ˇ</span> | <span class="ug">ˋ</span> | none | <span class="ug">ˍ</span> | <span class="ug">˜</span> | <span class="ug">ˀ</span> |
 
-Mid tone has no sign, as in Thai and Vietnamese spelling. In the text the
-sign follows the syllable, so the vowel keeps its own marks. The Diafon
-fonts draw the high, rising, dipping and falling tones above the syllable
-instead, two letters wide and well clear of its marks, with a small gap
-after it that shows where the syllable ends. Other fonts, or the
+Mid tone has no mark, as in Thai and Vietnamese spelling. The mark sits
+well clear of the vowel's own marks: one letter wide over a one-letter
+syllable, two over a longer one, with a small gap after the syllable that
+shows where it ends. The low and the glottal tones stay after the syllable.
+
+In the text a tone is stored as a sign after its syllable, the Bopomofo tone
+marks in the table, and the Diafon fonts draw it above. Other fonts, or the
 Diafon fonts with contextual alternates turned off, show the sign after the
 syllable. A language's own spelling can still show tones its usual way,
 like the accents of Pinyin.
