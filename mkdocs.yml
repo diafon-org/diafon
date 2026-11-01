@@ -30,6 +30,7 @@ theme:
   features:
     - navigation.footer
     - navigation.tabs
+    - navigation.tabs.sticky      # the page tabs stay in reach when scrolled down
     - navigation.top
     - toc.follow
     - search.suggest

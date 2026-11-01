@@ -10,12 +10,6 @@ hide:
   <label>Diafon flavour <select id="mt-table" autocomplete="off"></select></label>
 </div>
 
-## Tables
-
-<p class="mt-lede">Every Diafon letter with its readings, and each
-language's own table. Pick a language to see its table. An example and the
-typing box are below the tables.</p>
-
 --8<-- "master-tables.html"
 
 ## Spelling rules
