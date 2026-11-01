@@ -306,7 +306,12 @@
 .md-typeset table.grid.pts{min-width:0;table-layout:fixed}
 .md-typeset table.pts thead th{font-size:clamp(.48rem,1.1vw,.66rem);letter-spacing:0;padding:.45rem .1rem;overflow-wrap:anywhere}
 .md-typeset table.pts tr > th:first-child{width:clamp(2.9rem,10vw,5.6rem);font-size:clamp(.5rem,1.2vw,.7rem);padding:.4rem .25rem;overflow-wrap:anywhere}
-.md-typeset table.pts .pt{min-width:0;padding:.35rem .05rem .3rem;margin:1px}
+.md-typeset table.pts .pt{flex:0 0 auto;width:clamp(30px,4.2vw,46px);min-width:0;padding:.35rem .05rem .3rem;margin:0}   /* one size, as the vowel chips */
+.md-typeset table.pts .cell{gap:4px}
+.md-typeset table.grid.pts td{border-left:none;border-right:none;border-color:color-mix(in srgb,var(--line) 55%,transparent);padding:.3rem .2rem}
+.md-typeset table.grid.pts th{background:none;border-left:none;border-right:none;border-color:color-mix(in srgb,var(--line) 55%,transparent)}   /* no grey frame */
+.md-typeset table.grid.pts tbody th{vertical-align:middle;text-align:left;color:var(--muted)}
+.md-typeset table.pts .pt{padding:.28rem .05rem .22rem}
 .md-typeset table.pts .pt .nat{font-size:clamp(.95rem,2.3vw,1.35rem)}
 .md-typeset table.pts .pt .lab{font-size:clamp(.5rem,1.2vw,.72rem)}
 .md-typeset table.pts .pt .ipa{font-size:clamp(.55rem,1.3vw,.82rem)}
