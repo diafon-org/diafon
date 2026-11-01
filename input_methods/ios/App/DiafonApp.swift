@@ -35,7 +35,7 @@ struct SetupView: View {
                     }
                 }
                 Section("Try it") {
-                    TextField("type tqokolawda", text: $trial, axis: .vertical)
+                    TextField("type sj tq aw", text: $trial, axis: .vertical)
                         .font(.custom("DiafonSerif-Regular", size: 22, relativeTo: .title2))
                         .lineLimit(3...8)
                         .autocorrectionDisabled()

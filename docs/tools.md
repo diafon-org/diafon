@@ -29,7 +29,7 @@ only the last sound stays underlined until then.
 
 On macOS, after `make install` in `input_methods/mac`, add Diafon under
 System Settings → Keyboard → Input Sources, pick it from the input menu and
-type `tqokolawda` to get <span class="ug">c̦okoláda</span>.
+type `sj tq aw` to get <span class="ug">ș c̦ á</span>.
 
 ## Browser extension
 

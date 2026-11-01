@@ -15,7 +15,7 @@ Then, once: **System Settings → Keyboard → Input Sources → Edit… → +**
 search **Diafon** (listed under English) → Add; or `make enable`, which
 enables and selects it from the command line (and disables the old
 Diaphone input source if that is still installed). Pick it from the input menu
-in the menu bar and type `tqokolawda`: it streams out as `c̦okoláda`.
+in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
 
 ## What it does
 

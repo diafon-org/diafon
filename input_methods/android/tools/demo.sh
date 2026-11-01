@@ -31,12 +31,12 @@ adb shell am start -W -a android.intent.action.INSERT -t vnd.android.cursor.dir/
 sleep 3
 adb shell input tap 535 943            # First name (Pixel 7, 1080x2400)
 sleep 1.5
-adb shell input text "tqokolawda"
+adb shell input text "sj%stq%saw"
 sleep 0.5
 adb exec-out screencap -p > "$OUT/script.png"
 adb shell uiautomator dump /sdcard/ui.xml >/dev/null
 adb shell cat /sdcard/ui.xml | grep -o 'text="[^"]*" [^>]*EditText' | head -1
-echo "expected: c̦okoláda (Universal) · screenshot: $OUT/script.png"
+echo "expected: ș c̦ á (Universal) · screenshot: $OUT/script.png"
 # the candidate strip mid-word, then the setup screen
 adb shell input text "%sTqy"
 sleep 1

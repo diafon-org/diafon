@@ -109,7 +109,7 @@ final class SettingsPanel: UIView {
             languages.addArrangedSubview(b)
         }
         let st = SpecData.stages[prefs.language]
-        let typed = prefs.universal ? "tqokolawda" : (st?.sample ?? "")
+        let typed = st?.sample ?? ""                    // the language's own sample, in the output in use
         sample.text = typed.isEmpty ? "" : "\(typed)  →  \(prefs.renderer()(typed))"
         layoutPicker.selectedSegmentIndex = Layouts.all.firstIndex { $0.code == prefs.layout } ?? 0
         tones.isOn = prefs.tones

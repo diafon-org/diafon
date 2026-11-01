@@ -68,7 +68,7 @@ modes pass items 1 and 3 below and the capitals-and-tones case
 To check on a device, per app (Notes, Messages, Safari textarea and
 contenteditable, Mail, WhatsApp, Telegram, a search field), in both modes:
 
-1. `tqokolawda` streams to `c̦okoláda`; nothing is doubled or dropped.
+1. `sj tq aw` streams to `ș c̦ á`; nothing is doubled or dropped.
 2. Fast typing (overlapping taps) loses no letter.
 3. Backspace after `nj` + `a` leaves `n̦`; one more removes the whole `n̦`
    (one `deleteBackward` must take a letter with its combining mark).

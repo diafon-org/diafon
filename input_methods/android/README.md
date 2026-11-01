@@ -79,15 +79,14 @@ else.
    tapping a chip commits that spelling instead. Idle, it names the output
    and the layout; `abc` when conversion is off.
 
-Example, output = script, typing `tqok `:
+Example, output = script, typing `sja `:
 
 | key | buffer | committed | pending | editor shows |
 |---|---|---|---|---|
-| t | t | | t | t̲ |
-| q | tq | | tq | c̦̲ |
-| o | tqo | c̦ | o | c̦o̲ |
-| k | ok | o | k | c̦ok̲ |
-| space | k␠ | k␠ | | c̦ok␠ |
+| s | s | | s | s̲ |
+| j | sj | | sj | ș̲ |
+| a | sja | ș | a | șa̲ |
+| space | a␠ | a␠ | | șa␠ |
 
 Backspace edits the tail first (`pending` loses its last character and the
 composing text is re-rendered). With no tail it deletes one whole grapheme
@@ -140,10 +139,10 @@ service, the views, the settings) are checked by the Gradle build.
 ## Device pass
 
 `tools/demo.sh <apk>` boots a headless Pixel 7 emulator (API 35), installs
-and selects Diafon, opens a contact form and types `tqokolawda`
+and selects Diafon, opens a contact form and types `sj tq aw`
 through the IME. Screenshots from that pass are in `screenshots/`:
 
-- `script.png`: the panel and `c̦okoláda` in the field
+- `script.png`: the panel and `ș c̦ á` in the field
 - `strip.png`: `Tqy` pending, the strip showing `C̖`
 - `settings.png`: the setup and settings screen
 

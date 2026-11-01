@@ -26,7 +26,7 @@ class SettingsActivity : Activity() {
     private val ink = 0xFF1A1D24.toInt()
     private val muted = 0xFF5B6472.toInt()
     private val accent = 0xFF0E7C86.toInt()
-    private val sample = "tqokolawda"   // c̦okoláda; each language shows its own sample
+    private val sample = "sj tq aw"   // sounds, not a word; each language shows its own sample
 
     override fun onCreate(saved: Bundle?) {
         super.onCreate(saved)
