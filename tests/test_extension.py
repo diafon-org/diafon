@@ -21,6 +21,7 @@ import tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+import engine
 import stages
 
 EXT = os.path.join(ROOT, 'extensions', 'browser')
@@ -117,32 +118,36 @@ process.stdout.write(JSON.stringify([convertText(%s, 'hu', true), convertText(%s
 
 
 def test_entries():
-    """The reader's own entries (content.js entryTable, layEntries): laid over
-    the Hungarian lexicon a name reads as said, competing with the loan stems
-    by length; over a language with no lexicon (Czech) one is made; a removed
-    entry goes."""
+    """The reader's own words (content.js entryTable, layEntries), in Diafon
+    input, one list for every language: laid over the Hungarian lexicon a
+    name reads as its own language says it, competing with the loan stems by
+    length; over a language with no lexicon (Czech) one is made, the same
+    word the same form; a removed word goes; input that is not Diafon is
+    refused; entries of the old shape migrate."""
     node = shutil.which('node')
     hu = stages.load('hu')
     want = stages.convert('Trelóni', 'stage:hu', 'script')
-    want_cs = stages.convert('Cadžou', 'stage:cs', 'script')
+    cudjoe = engine.render('Kajdqoux')
     prog = bundle() + r'''
 const out = [];
-layEntries('hu', {trelawny: 'trelóni', team: 'tím'});
-out.push(convertText('Trelawny, team, teamek.', 'hu'));
+layEntries('hu', {trelawny: 'trelowni', team: 'tiwm', cudjoe: 'kajdqoux'});
+out.push(convertText('Trelawny, team, teamek, Cudjoe.', 'hu'));
 layEntries('hu', {});
 out.push(convertText('Trelawny, team.', 'hu'));
-layEntries('cs', {cudjoe: 'Cadžou'});
+layEntries('cs', {cudjoe: 'kajdqoux', bad: 'kadzsó'});
 out.push(convertText('Cudjoe', 'cs'));
+out.push(JSON.stringify(migrateEntries({hu: {trelawny: 'Trelóni'}})));
 process.stdout.write(JSON.stringify(out));
 '''
     res = subprocess.run([node, '-e', prog], text=True, capture_output=True)
     assert res.returncode == 0, res.stderr
     got = json.loads(res.stdout)
     team = stages.convert('team', 'stage:hu', 'script')
-    assert got[0] == f'{want}, {stages.convert("tím", "stage:hu", "script")}, {stages.convert("tímek", "stage:hu", "script")}.', got[0]
+    assert got[0] == f'{want}, {stages.convert("tím", "stage:hu", "script")}, {stages.convert("tímek", "stage:hu", "script")}, {cudjoe}.', got[0]
     assert got[1] == f'{stages.convert("Trelawny", "stage:hu", "script")}, {team}.', got[1]
-    assert got[2] == want_cs, (got[2], want_cs)
-    print('entries hold: laid, removed, and over a language with no lexicon')
+    assert got[2] == cudjoe, (got[2], cudjoe)                   # the same word, the same form, in Czech
+    assert json.loads(got[3]) == {'trelawny': 'trelowni'}, got[3]
+    print('words hold: laid, removed, one form in every language, old entries migrated')
 
 
 def sample_page():
@@ -251,7 +256,7 @@ def test_chrome():
         res = subprocess.run([node, os.path.join(ROOT, 'tests', 'ext_driver.mjs'), chrome, EXT,
                               f'http://127.0.0.1:{port}/page.html',
                               os.path.join(tmp, 'page.png'), '3000',
-                              'chrome.storage.sync.set({on: true, keepNames: true, entries: {hu: {trelawny: "trelóni"}}})', 'chrome.storage.sync.set({on: false})',
+                              'chrome.storage.sync.set({on: true, keepNames: true, words: {trelawny: "trelowni"}})', 'chrome.storage.sync.set({on: false})',
                               'new Promise(r => chrome.contextMenus.create({id: "say", title: "x", contexts: ["selection"]}, () => r(chrome.runtime.lastError ? chrome.runtime.lastError.message : "created")))'],
                              capture_output=True, text=True, timeout=120)
         assert res.returncode == 0, res.stderr

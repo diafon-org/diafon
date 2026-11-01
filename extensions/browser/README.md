@@ -19,13 +19,14 @@ Reads any page in Universal. Chrome, Edge, Brave (Manifest V3) and Firefox.
   options page): a capitalised word inside a sentence stays in its own
   spelling; the first word of a sentence still reads, since it cannot be
   told from a name.
-- **Your own entries.** A name no dictionary knows, a loan the letters
-  misread: select the word, right-click, “Diafon: read … as…”, and write it
-  as it is said in the language's letters (Cudjoe → kadzsó). The page
-  re-reads at once. Right-click the icon for “My entries”: the list per
-  language, editable, exported as the lexicon's yaml (the `names` section
-  of data/lexicon/<code>.yaml), imported from it, and proposed to the
-  commons, so a good entry reaches every reader through the repo. Entries
+- **Your own words.** A name no dictionary knows, a loan the letters
+  misread: select the word, right-click, “Diafon: read … as…”, and type
+  it as its own language says it, in Diafon input (Cudjoe → `kajdqoux`,
+  Kạx̦ow). One list for every language, so a word has one form wherever it
+  appears. The page re-reads at once. Right-click the icon for “My
+  words”: the list, editable, exported in the shape of
+  data/lexicon/origin.yaml, imported from it, and proposed to the
+  commons, so a good word reaches every reader through the repo. Words
   compete with the loan stems by length like the lexicon's own spoken
   entries, and follow the browser profile.
 
@@ -58,12 +59,12 @@ the old content script.
     data.js           the data, a copy of docs/play-data.js
     content.js        the page walker: convertText, pageLanguage, the observer; reports the page's language
     popup.html/js     the picker: the switch and the language for this site
-    options.html/js   my entries: list, edit, add, export and import as yaml, propose to the commons
+    options.html/js   my words: list, edit, add, export and import as yaml, propose to the commons
     lexicon/          the lexicons (data/lexicon/*.json), fetched on demand for the page's language and its loans
     icons/            the round icon in its two states, on-*.png and off-*.png, from fonts/tools/logo.py
 
 Settings live in chrome.storage.sync: `on`; `keepNames`; `join`, a long consonant's letters joined by a ZWJ; `langs`, host → code for the
-sites picked by hand; `entries`, code → {spelling: said}, the reader's own. `#diafon=on` on a URL turns it on without the icon
+sites picked by hand; `words`, spelling → Diafon input, the reader's own (the old per-language `entries` migrate into it). `#diafon=on` on a URL turns it on without the icon
 (for tests); the root element carries `data-diafon` (loaded) and
 `data-diafon-state` (on|off/language) for the same reason.
 tests/test_extension.py holds convertText to the spec in node, and loads the

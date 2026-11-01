@@ -6,8 +6,9 @@
 // whose language was not recognised. An element's own lang attribute
 // overrides the page's for its text (a quote, a name), a language with no
 // stage leaving it as written; every frame converts its own document;
-// entries {code: {spelling: said}}, the
-// reader's own readings (a name as it is said), laid over the lexicon. The page's language: its lang
+// words {spelling: Diafon input}, the
+// reader's own readings (a name as its own language says it), one list for
+// every language, laid over each lexicon. The page's language: its lang
 // attribute when it names a stage, else detected from its text (the
 // reader's languages breaking a tie), else the hand-picked one for its host. Every text node keeps its original in a
 // map, so turning off restores the page. New content (a mutation) converts
@@ -89,27 +90,47 @@ function convertText(text, lang, keepNames = false, join = false) {
   return out + to(text.slice(i));
 }
 
-/** The reader's own entries for a language ({spelling: how it is said, in the
- *  language's letters}) as a read table, spelling -> transport, read by the
- *  letters alone; a stage without letters takes none. */
-function entryTable(entries, st) {
+/** Diafon input the engine reads in full (no stray operator, a real form), else null. */
+function diafonInput(text) {
+  const t = (text || '').normalize('NFC').trim();
+  if (!t || !/^[A-Za-z0-9]+$/.test(t) || tokenize(t).some(tok => tok.t !== 'form')) return null;
+  try { render(t); } catch (e) { return null; }
+  return t;
+}
+
+/** The reader's own words ({spelling: how its own language says it, in Diafon
+ *  input}) as a read table, spelling -> transport; a stage without letters
+ *  takes none. The same words in every language: a word has one form. */
+function entryTable(words, st) {
   const out = {};
   if (!st || st.lexical) return out;
-  for (const [sp, said] of Object.entries(entries || {})) {
-    const key = sp.normalize('NFC').toLowerCase().trim();
-    if (key && said && said.trim()) out[key] = readLetters(said.normalize('NFC').trim(), stageTable(st));
+  for (const [sp, said] of Object.entries(words || {})) {
+    const key = sp.normalize('NFC').toLowerCase().trim(), t = diafonInput(said);
+    if (key && t) out[key] = t;
   }
   return out;
+}
+
+/** Entries of the old shape ({code: {spelling: said in that language's letters}})
+ *  as words: read by that language's letters once. */
+function migrateEntries(entries) {
+  const words = {};
+  for (const [code, list] of Object.entries(entries || {})) {
+    const st = DIA.stages[code];
+    if (!st || st.lexical) continue;
+    for (const [sp, said] of Object.entries(list || {})) if (said && said.trim()) words[sp.normalize('NFC').toLowerCase().trim()] = readLetters(said.normalize('NFC').trim(), stageTable(st)).toLowerCase();
+  }
+  return words;
 }
 
 /** The reader's entries laid over a language's lexicon (made on the spot when
  *  the language has none), the earlier ones of the reader lifted first, so a
  *  removed entry goes; they compete with the loan stems like spoken entries. */
 const laid = {};                            // code -> the keys laid last time
-function layEntries(code, entries) {
+function layEntries(code, words) {
   const st = DIA.stages[code];
   if (!st || st.lexical) return;
-  const table = entryTable(entries, st);
+  const table = entryTable(words, st);
   if (!lex(code)) {
     if (st.lexicon) return;                                    // its own lexicon is still to come; laid when it arrives
     if (!Object.keys(table).length) return;
@@ -121,11 +142,12 @@ function layEntries(code, entries) {
   laid[code] = Object.keys(table);
 }
 
-if (typeof document !== 'undefined') document.documentElement.dataset.diafon = (typeof chrome !== 'undefined' && chrome.storage) ? 'loaded' : 'no-storage';
-if (typeof document !== 'undefined' && typeof chrome !== 'undefined' && chrome.storage) {
+const ON_PAGE = typeof document !== 'undefined' && !/^(chrome|moz)-extension:$/.test(location.protocol);   // not the extension's own pages (options.html reads the helpers above)
+if (ON_PAGE) document.documentElement.dataset.diafon = (typeof chrome !== 'undefined' && chrome.storage) ? 'loaded' : 'no-storage';
+if (ON_PAGE && typeof chrome !== 'undefined' && chrome.storage) {
   const originals = new WeakMap();          // text node -> its text before conversion
   const host = location.hostname;
-  let settings = {on: false, keepNames: false, join: false, langs: {}, entries: {}};   // entries: {lang: {spelling: said}}
+  let settings = {on: false, keepNames: false, join: false, langs: {}, words: {}};   // words: {spelling: Diafon input}
   let detected = null;                      // from the page itself
   let lang = null;                          // detected, else picked for the host
   let pending = null;
@@ -152,7 +174,7 @@ if (typeof document !== 'undefined' && typeof chrome !== 'undefined' && chrome.s
   function want(code) {
     if (wanted.has(code)) return;
     wanted.add(code);
-    layEntries(code, settings.entries[code]);
+    layEntries(code, settings.words);
     if (!lex(code)) ensureLexicon(code).then(loaded => { if (loaded && settings.on) apply(document.documentElement); });
   }
 
@@ -189,7 +211,7 @@ if (typeof document !== 'undefined' && typeof chrome !== 'undefined' && chrome.s
     const fetchOne = c => {
       if (lex(c)) return Promise.resolve(true);
       if (!loading[c]) loading[c] = fetch(chrome.runtime.getURL(`lexicon/${c}.json`)).then(r => r.json())
-        .then(d => { setLexicon(c, d); layEntries(c, settings.entries[c]); return d; }).catch(() => null);
+        .then(d => { setLexicon(c, d); layEntries(c, settings.words); return d; }).catch(() => null);
       return loading[c];
     };
     return fetchOne(code).then(d => Promise.all((d && d.loans || []).map(fetchOne))).then(() => true);
@@ -199,7 +221,7 @@ if (typeof document !== 'undefined' && typeof chrome !== 'undefined' && chrome.s
     if (!seen.length) apply(document.documentElement);          // collects the originals (the title too)
     if (detected === null) detected = pageLanguage(document, seen.join(' '), navigator.languages || []);
     lang = detected || settings.langs[host] || null;
-    if (lang) layEntries(lang, settings.entries[lang]);
+    for (const c of new Set([lang, ...wanted])) if (c) layEntries(c, settings.words);
     apply(document.documentElement);
     if (lang && settings.on && !lex(lang)) ensureLexicon(lang).then(loaded => { if (loaded) apply(document.documentElement); });
     document.documentElement.dataset.diafonState = (settings.on ? 'on' : 'off') + '/' + (lang || '-');
@@ -238,7 +260,11 @@ if (typeof document !== 'undefined' && typeof chrome !== 'undefined' && chrome.s
     }, 150);
   });
 
-  chrome.storage.sync.get({on: false, keepNames: false, join: false, langs: {}, entries: {}}, s => {
+  chrome.storage.sync.get({on: false, keepNames: false, join: false, langs: {}, words: {}, entries: {}}, s => {
+    if (Object.keys(s.entries).length) {                         // entries of the old shape: once into words
+      s.words = Object.assign(migrateEntries(s.entries), s.words);
+      chrome.storage.sync.set({words: s.words, entries: {}});
+    }
     settings = s;
     // a debugging aid: #diafon=on on a page turns it on without the icon
     const m = /diafon=(on|off)/.exec(location.hash);
@@ -252,7 +278,7 @@ if (typeof document !== 'undefined' && typeof chrome !== 'undefined' && chrome.s
     if (changes.keepNames) settings.keepNames = !!changes.keepNames.newValue;
     if (changes.join) settings.join = !!changes.join.newValue;
     if (changes.langs) settings.langs = changes.langs.newValue || {};
-    if (changes.entries) settings.entries = changes.entries.newValue || {};
+    if (changes.words) settings.words = changes.words.newValue || {};
     run();
   });
 
@@ -281,17 +307,18 @@ if (typeof document !== 'undefined' && typeof chrome !== 'undefined' && chrome.s
       const word = selectedWord();
       if (!word) return;
       const key = word.normalize('NFC').toLowerCase();
-      const have = (settings.entries[lang] || {})[key] || '';
-      const said = prompt(`Diafon: how is “${word}” said? Write it in ${st.name.replace(' spelling', '')} letters.`, have || word);
+      const have = settings.words[key] || parse(word, 'stage:' + lang).toLowerCase();   // its reading now, to correct
+      const said = prompt(`Diafon: how does its own language say “${word}”? Type it in Diafon input (sj → ș, tq → c̦, aw → á); empty removes it.`, have || '');
       if (said === null) return;
-      chrome.storage.sync.get({entries: {}}, s => {
-        const entries = s.entries;
-        entries[lang] = entries[lang] || {};
-        if (said.trim()) entries[lang][key] = said.trim(); else delete entries[lang][key];
-        chrome.storage.sync.set({entries});
+      const t = diafonInput(said);
+      if (said.trim() && !t) { alert(`Diafon: “${said.trim()}” is not Diafon input; nothing saved.`); return; }
+      chrome.storage.sync.get({words: {}}, s => {
+        const words = s.words;
+        if (t) words[key] = t; else delete words[key];
+        chrome.storage.sync.set({words});
       });
     }
   });
 }
 
-if (typeof module !== 'undefined') module.exports = {convertText, isName, pageLanguage, coverage, entryTable, layEntries, SKIP};
+if (typeof module !== 'undefined') module.exports = {convertText, isName, pageLanguage, coverage, entryTable, layEntries, diafonInput, migrateEntries, SKIP};

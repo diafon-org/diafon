@@ -14,7 +14,7 @@ function menus() {
     chrome.contextMenus.create({id: 'say', title: 'Diafon: read “%s” as…', contexts: ['selection']});
     chrome.contextMenus.create({id: 'keepNames', type: 'checkbox', checked: s.keepNames, title: 'Keep names as written', contexts: ['action']});
     chrome.contextMenus.create({id: 'join', type: 'checkbox', checked: s.join, title: 'Join long consonants', contexts: ['action']});
-    chrome.contextMenus.create({id: 'entries', title: 'My entries…', contexts: ['action']}, () => {
+    chrome.contextMenus.create({id: 'entries', title: 'My words…', contexts: ['action']}, () => {
       if (chrome.runtime.lastError) console.error('Diafon menus:', chrome.runtime.lastError.message);
     });
   }));
