@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """The site layer around MkDocs (mkdocs.yml builds docs/ into site/).
 
-Writes the home page's figures into docs/.include (home-*.html and the point
-tables, points.html), every glyph computed by the engine and the stages,
+Writes the home page's figures into docs/.include (home-*.html, and the two
+charts: sounds-consonants.html, sounds-vowels.html), every glyph computed by the engine and the stages,
 never typed by hand.
 """
 import html
@@ -108,7 +108,7 @@ OP_ORDER = 'jxcqyw'          # the operators' fixed order, everywhere on the sit
 OPS = {                      # operator: (on a consonant: gloss, examples), (on a vowel: gloss, examples)
     'j': (('hushed or soft', ['sj', 'zj', 'tj', 'nj']), ('more open; on a, the schwa', ['ij', 'ej', 'oj', 'aj'])),
     'x': (('a fixed nearby sound', ['tx', 'dx', 'kx', 'nx', 'hx']), ('the glide: i to j, u to w', ['ix', 'ux'])),
-    'c': (('adds a hiss', ['tc', 'dc']), ('lip rounding swapped', ['ic', 'ec', 'uc', 'ac'])),
+    'c': (('adds a hiss', ['tc', 'dc']), ('lip rounding swapped; on a, the front a', ['ic', 'ec', 'uc', 'ac'])),
     'q': (('c and j together', ['tq', 'dq']), ('c and j together', ['eq', 'iq', 'aq'])),
     'y': (("the language's own variant", ['ty', 'ny', 'sjy']), ('nasal', ['ay', 'ey', 'oy'])),
     'w': (('long: written double', ['sjw']), ('long', ['aw', 'iw', 'ew'])),
@@ -256,27 +256,44 @@ def point_table(spec, caption):
     return ''.join(out)
 
 
-def points():
+def colours(vowels=False):
+    """The colour key: each operator's swatch and what it does, as on the keyboard."""
+    names = [('base', 'no operator')] + [(o, f'<code>{o}</code> {OPS[o][1 if vowels else 0][0]}') for o in 'jxcqy']
+    return ''.join(f'<span><i class="sw k-{k}"></i>{t}</span>' for k, t in names)
+
+
+def consonant_chart():
     legend = (
         '<div class="klegend" markdown="0">'
-        '<span>each tile: <b class="ug">glyph</b> · <code>input</code> · /reading/</span>'
-        '<span>colour: the operator that makes it, as on the keyboard</span>'
-        '<span>a pair in one cell: voiceless | voiced, unrounded | rounded</span>'
-        '<span>consonants: lips to throat, the place marked in each column\'s profile</span>'
-        '<span>vowels: front left, close at the top; a chip covers an area, /all it covers/; '
-        'the small dashed chip is its split, written only by the languages named under it</span>'
-        f'<span>dashed: a composition shown for orientation ({ug(" ".join(engine.render(f) for f in ["tj", "dj", "nj"]))})</span>'
+        '<span>each tile: <b class="ug">letter</b> · <code>what you type</code> · /sound/; two in a cell: voiceless, voiced</span>'
+        '<span>columns run from the lips to the throat, the place marked in each profile</span>'
+        f'{colours()}'
+        f'<span><i class="sw k-base cmp"></i>dashed: a letter with a mark, shown where its sound sits '
+        f'({ug(" ".join(engine.render(f) for f in sorted(COMPOSED)))})</span>'
         '</div>')
-    return (point_table(CONSONANTS, 'consonants') + vowel_triangle(vowel_areas()) + legend)
+    return legend + point_table(CONSONANTS, 'consonants')
+
+
+def vowel_chart():
+    legend = (
+        '<div class="klegend vt-key" markdown="0">'
+        '<span>front on the left, close at the top</span>'
+        '<span><i class="sw chip-area"></i>an area: the plain letter, /everything it covers/</span>'
+        '<span><i class="sw chip-split"></i>small, dashed: a split, written only by the languages named under it, '
+        'which have two vowels in that area (rule 2 on the Reference page)</span>'
+        f'{colours(vowels=True)}'
+        '</div>')
+    return legend + vowel_triangle(vowel_areas())
 
 
 def main():
     read = readings()
-    write('points.html', points())
+    write('sounds-consonants.html', consonant_chart())
+    write('sounds-vowels.html', vowel_chart())
     write('home-hero.html', hero())
     write('home-keys.html', keyboard())
     write('home-ops.html', operators(read))
-    print('home figures in docs/.include: home-*.html, points.html')
+    print('home figures in docs/.include: home-*.html, sounds-consonants.html, sounds-vowels.html')
 
 
 if __name__ == '__main__':

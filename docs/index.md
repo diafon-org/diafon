@@ -102,6 +102,8 @@ The reverse anchor marks a language's own variant of a consonant, such as
 the retroflex <span class="ug">t̖ d̖</span> of Hindi or the emphatics of
 Arabic. The plain letter is a fair approximation of it.
 
+--8<-- "sounds-consonants.html"
+
 ### Vowels
 
 Vowel areas are wide. e is any front mid vowel, close or open. a is any open
@@ -123,6 +125,14 @@ needs no split. English is the same: *bit* i, *beat* í.
 
 The schwa has its own area, <span class="ug">ạ</span> /ə/. It sits next to
 both a and e in too many languages to belong to either.
+
+<span class="ug">ä</span> is made like <span class="ug">ü</span> and
+<span class="ug">ö</span>, but it is a split, not an area of its own: any
+language with a front rounded vowel writes <span class="ug">ü</span> or
+<span class="ug">ö</span>, while <span class="ug">ä</span> is written only by a
+language with both a front and a back a. Everywhere else a is a.
+
+--8<-- "sounds-vowels.html"
 
 ### The limit
 
@@ -182,15 +192,6 @@ The Diafon fonts (Serif, Sans and Mono) draw the marks as designed, with the
 anchor joined to its letter. Other fonts draw the same characters roughly in
 place, and the font picker on the [Reference](master.md) page shows how any
 font does.
-
-## All the sounds
-
-Every sound of the system in one chart. Consonants run from the lips to the
-throat. Vowels sit as areas in the vowel triangle, with their splits. Each
-tile shows the letter, what you type and the sound, coloured by the operator
-key that makes it.
-
---8<-- "points.html"
 
 ## Glossary
 
