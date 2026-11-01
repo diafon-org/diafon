@@ -212,8 +212,6 @@ def vowel_triangle(areas):
            '<polygon class="edge" points="40,30 800,30 540,570 300,570"/>',
            '<text class="axis" x="40" y="22">front</text><text class="axis" x="800" y="22" text-anchor="end">back</text>'
            '<text class="axis" x="30" y="76" text-anchor="end">close</text><text class="axis" x="290" y="560" text-anchor="end">open</text>']
-    import gen_master
-    names = {c: re.sub(r'\s*\(.*\)$', '', d['name']) for c, d in gen_master.load_languages().items()}
     chips = []
     for area, (covers, splits) in areas.items():
         if area not in VT_POS:
@@ -225,12 +223,10 @@ def vowel_triangle(areas):
             if not users:
                 continue                                   # a split no language writes is left out
             out.append(f'<line class="band k-{kind}" x1="{ax}" y1="{ay}" x2="{sx}" y2="{sy}"/>')
-            lines = [names[u] for u in users]
-            who = ''.join(f'<text class="who" y="{38 + 12 * n}">{esc(t)}</text>' for n, t in enumerate(lines))
             chips.append(f'<g class="chip split k-{sf[-1]}" transform="translate({sx},{sy})">'
                          f'<rect x="-27" y="-25" width="54" height="51" rx="9"/>'
                          f'<text class="nat" y="-4">{esc(nfc(engine.render(sf)))}</text>'
-                         f'<text class="lab" y="9">{sf}</text><text class="ipa" y="20">/{reading}/</text>{who}</g>')
+                         f'<text class="lab" y="9">{sf}</text><text class="ipa" y="20">/{reading}/</text></g>')
         chips.append(f'<g class="chip k-{kind}" transform="translate({ax},{ay})">'
                      f'<rect x="-44" y="-36" width="88" height="74" rx="13"/>'
                      f'<text class="nat" y="-6">{esc(nfc(engine.render(area)))}</text>'
@@ -277,7 +273,7 @@ def consonant_chart():
         ('<span class="mini k-base"><b class="ug">p</b></span><span class="mini k-base"><b class="ug">b</b></span>',
          'two tiles in a cell: voiceless, then voiced'),
         ('lips → throat', 'the columns: where the sound is made, marked in each profile'),
-        ('colour', 'the operator that makes it' + colours()),
+        ('edge colour', 'the operator that makes it' + colours()),
         (f'<span class="mini k-base cmp"><b class="ug">{esc(nfc(engine.render("tj")))}</b></span>',
          'dashed: a letter with a mark, shown where its sound sits '
          f'({ug(" ".join(engine.render(f) for f in sorted(COMPOSED)))})'),
@@ -288,8 +284,8 @@ def vowel_chart():
     return vowel_triangle(vowel_areas()) + key([
         ('front · back', 'front on the left, back on the right, close at the top, open at the bottom'),
         ('<span class="chipkey area">a</span>', 'an area: the plain letter, and every sound it covers'),
-        ('<span class="chipkey split">ẹ</span>', 'a split: written only by the languages named under it, which '
-         'have two vowels in that area (rule 2 on the Reference page)'),
+        ('<span class="chipkey split">ẹ</span>', 'a split: written only by a language with two vowels in that area '
+         '(rule 2 on the Reference page)'),
         ('edge colour', 'the operator that makes it' + colours(vowels=True)),
     ], cls='vt-key')
 
