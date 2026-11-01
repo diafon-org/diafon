@@ -77,11 +77,13 @@ final class Prefs {
     var strict: Bool { get { bool("strict", false) } set { set(newValue, "strict") } }
 
     /// The lenient renderer for an output.
-    func renderer(_ out: String? = nil) -> (String) -> String {
+    /// Letters only: a language's spelling without its lexicon, for a word still being typed.
+    func renderer(_ out: String? = nil, letters: Bool = false) -> (String) -> String {
         let out = out ?? output
         let tones = self.tones, join = self.join
         if out == "transport" { return { $0 } }
         if out.hasPrefix("stage:"), let st = SpecData.stages[String(out.dropFirst(6))] {
+            if letters { return { Stages.renderLetters($0, st, strict: false, tones: tones) } }
             return { Stages.render($0, st, strict: false, tones: tones) }
         }
         return { Engine.lenient($0, tones: tones, join: join) }

@@ -18,7 +18,12 @@ final class ProxySink: TextSink {
 
 final class KeyboardViewController: UIInputViewController {
     private let prefs = Prefs.shared
-    private lazy var session = Session(sink: ProxySink(self), mode: prefs.tailMode, render: prefs.renderer())
+    private lazy var session: Session = {
+        let s = Session(sink: ProxySink(self), mode: prefs.tailMode, render: prefs.renderer())
+        s.wordwise = !prefs.universal
+        s.preview = prefs.renderer(letters: true)
+        return s
+    }()
     private let keys = KeyboardView()
     private let strip = StripView()
     private let panel = SettingsPanel()
@@ -222,6 +227,8 @@ final class KeyboardViewController: UIInputViewController {
     private func prefsChanged() {
         session.flush()                              // the shown tail belongs to the old renderer
         session.render = prefs.renderer()
+        session.wordwise = !prefs.universal
+        session.preview = prefs.renderer(letters: true)
         session.mode = prefs.tailMode
         keys.layoutCode = prefs.layout
         refresh()

@@ -35,6 +35,10 @@ final class Session {
     var mode: TailMode
     /// The renderer of the output in use (KeyboardPrefs.renderer).
     var render: (String) -> String
+    /// A language's spelling: the word being typed stays pending (Engine.stream).
+    var wordwise = false
+    /// What the tail shows while typed (its letters); nil shows render.
+    var preview: ((String) -> String)? = nil
     /// The typed tail whose reading can still change, as typed.
     private(set) var pending = ""
     /// What the editor shows for the tail: its render, or "" with no tail.
@@ -50,7 +54,7 @@ final class Session {
     /// One character in: the streaming rule decides what is final.
     func type(_ ch: Character) {
         if (ch.isLetter && ch.isASCII) || ch.isNumber { word.append(ch) } else { word = "" }
-        let (committed, tail) = Engine.stream(pending + String(ch), renderer: render)
+        let (committed, tail) = Engine.stream(pending + String(ch), renderer: render, wordwise: wordwise)
         show(head: committed, tail: tail)
     }
 
@@ -113,7 +117,7 @@ final class Session {
 
     /// Committed head, then the new tail; the editor ends up showing head + render(tail).
     private func show(head: String, tail: String) {
-        let next = tail.isEmpty ? "" : render(tail)
+        let next = tail.isEmpty ? "" : (preview ?? render)(tail)
         switch mode {
         case .marked:
             if !head.isEmpty { sink.insertText(head) }    // replaces the old marked tail, final
