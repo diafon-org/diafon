@@ -28,6 +28,7 @@ app: check
 	cp $(ROOT)/docs/logo/DiafonMenu.tiff $(BUILD)/$(APP).app/Contents/Resources/DiafonMenu.tiff
 	cp $(ROOT)/docs/logo/DiafonBadge.pdf $(BUILD)/$(APP).app/Contents/Resources/DiafonBadge.pdf
 	mkdir -p $(BUILD)/$(APP).app/Contents/Resources/lexicon && cp $(ROOT)/data/lexicon/*.json $(BUILD)/$(APP).app/Contents/Resources/lexicon/
+	mkdir -p $(BUILD)/$(APP).app/Contents/Resources/Fonts && cp $(ROOT)/fonts/Diafon*-Regular.ttf $(BUILD)/$(APP).app/Contents/Resources/Fonts/
 	codesign --force --sign - $(BUILD)/$(APP).app
 
 install: clean app
@@ -39,7 +40,7 @@ install: clean app
 	-/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f "$$HOME/Library/Input Methods/$(APP).app" 2>/dev/null
 	@echo ""
 	@echo "Installed. Enable it once: System Settings → Keyboard → Input Sources → Edit… → + →"
-	@echo "search “Diafon” (under English). Pick it from the input menu and type: sjok sewp njawr → șok sép ņár."
+	@echo "search “Diafon” (under English). Pick it from the input menu and type: sjok sewp njawr → șok sép n̦ár."
 
 enable:
 	swift tools/enable.swift
