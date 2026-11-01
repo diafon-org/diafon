@@ -75,6 +75,16 @@
 .md-typeset .ops th{font:600 .66rem/1.1 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:.55rem .8rem;background:var(--sunken);text-align:left}
 .md-typeset .ops td{padding:.55rem .8rem;border-top:1px solid var(--line);vertical-align:top}
 .md-typeset .ops td.op{font:600 1rem/1 var(--mono);width:2.2rem}
+/* the marks: each shape large, its examples large and in full ink, readable on white */
+.md-typeset .ops.marks td{vertical-align:middle}
+.md-typeset .ops.marks td.mk{width:3.2rem;text-align:center}
+.md-typeset .ops.marks td.mk .ug{font-size:1.7rem;line-height:1;color:var(--ink)}
+.md-typeset .ops.marks td.mk.multi .ug{font-size:1.15rem;white-space:nowrap}
+.md-typeset .ops.marks td.ex .ug{font-size:1.4rem;line-height:1.2;color:var(--ink);word-spacing:.25em;white-space:nowrap}
+.md-typeset .ops.marks span.op{font:600 .95rem/1 var(--mono)}
+.md-typeset .ops.marks span.op-j{color:var(--j-c)} .md-typeset .ops.marks span.op-x{color:var(--x-c)}
+.md-typeset .ops.marks span.op-c{color:var(--c-c)} .md-typeset .ops.marks span.op-q{color:var(--q-c)}
+.md-typeset .ops.marks span.op-y{color:var(--y-c)} .md-typeset .ops.marks span.op-w{color:var(--accent)}
 .op-c{color:var(--c-c)} .op-j{color:var(--j-c)} .op-q{color:var(--q-c)} .op-x{color:var(--x-c)} .op-w{color:var(--accent)} .op-y{color:var(--y-c)}
 
 /* ---- the home page */

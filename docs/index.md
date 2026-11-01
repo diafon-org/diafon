@@ -55,9 +55,9 @@ examples give the letter, what you type and its usual sound.
 
 ## The marks
 
-Each mark means one thing on every letter, and none is taken from a national
-alphabet. A consonant takes one mark. A vowel takes at most one above and
-one below.
+The operators above show as marks. Each mark means one thing on every
+letter, and none is taken from a national alphabet. A consonant takes one
+mark. A vowel takes at most one above and one below.
 
 ### On consonants
 
@@ -78,7 +78,8 @@ mark below: <span class="ug">P̦ G̣</span>. This is the **float rule**.
 The double acute is rounding swap and length in one mark. The dot below
 combines with one mark above:
 <span class="ug">ẹ́</span> /ɛː/, <span class="ug">ẹ̀</span> /ɛ̃/,
-<span class="ug">ọ̈</span> /œ/.
+<span class="ug">ọ̈</span> /œ/. On a, q gives the vocalic r,
+<span class="ug">r̈</span> /ɚ/.
 
 ## Each letter covers an area
 

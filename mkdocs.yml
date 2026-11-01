@@ -12,7 +12,11 @@ theme:
   logo: logo/icon-light.svg
   favicon: logo/icon-rounded.svg
   font: false
-  palette:
+  palette:                  # the system's scheme by default; the toggle cycles system, light, dark
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: light
     - media: "(prefers-color-scheme: light)"
       scheme: default
       toggle:
@@ -22,7 +26,7 @@ theme:
       scheme: slate
       toggle:
         icon: material/brightness-4
-        name: light
+        name: the system's setting
   features:
     - navigation.footer
     - navigation.tabs
