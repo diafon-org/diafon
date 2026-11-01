@@ -192,7 +192,7 @@ function renderLetters(text, st){
 const LEXICON = {};                 // code -> the parsed <code>.json; setLexicon() fills it
 function setLexicon(code, data){
   data.read = data.read || {}; data.write = data.write || {}; data.choices = data.choices || {};
-  data.loans = data.loans || []; data.fold = data.fold || {}; data.match = data.match || 'word'; data.loanwrite = data.loanwrite || {}; data.lengthen = data.lengthen || {};
+  data.loans = data.loans || []; data.match = data.match || 'word'; data.loanwrite = data.loanwrite || {}; data.lengthen = data.lengthen || {};
   data.nativeSet = new Set(data.native || []);
   data.commonSet = new Set(data.common || []);
   data.foreignRe = data.foreign ? new RegExp(data.foreign, 'u') : null;
@@ -282,28 +282,7 @@ function writeLoan(t, code, lettersSpelling){
   return sp === undefined ? null : recase(sp, t) + digits;
 }
 
-/** A loan's transport rewritten in the host's sounds: the fold rules over the segment forms, longest first. */
-function fold(t, code){
-  const L = lex(code), rules = L ? L.fold : {};
-  const keys = Object.keys(rules).sort((a, b) => b.length - a.length);
-  if (!keys.length) return t;
-  const segs = tokenize(t);
-  const forms = segs.map(s => s.t === 'form' ? s.form : null);
-  const parsed = {}; for (const k of keys) parsed[k] = tokenize(k).map(s => s.form);
-  const out = []; let i = 0;
-  while (i < segs.length){
-    const hit = keys.find(k => parsed[k].every((f, j) => forms[i + j] === f));
-    if (hit === undefined){ out.push(segs[i].t === 'form' ? (segs[i].caps ? segs[i].form[0].toUpperCase() + segs[i].form.slice(1) : segs[i].form) + segs[i].tones : segs[i].ch); i++; continue; }
-    const n = parsed[hit].length, repl = rules[hit];
-    const caps = segs[i].t === 'form' && segs[i].caps;
-    const tones = segs.slice(i, i + n).map(s => s.tones || '').join('');
-    out.push((caps ? repl[0].toUpperCase() + repl.slice(1) : repl) + tones);
-    i += n;
-  }
-  return out.join('');
-}
-
-/** A host's word that is a loan: [transport folded, source code], or null. The longest stem a
+/** A host's word that is a loan: [transport in its own sounds, source code], or null. The longest stem a
  *  loan lexicon reads (among its common words where it has them) against the longest native stem,
  *  native on ties unless the stem has a foreign shape; a suffixed word whose stem has no shape is
  *  never a loan (akinek), with the shape the rest is read by the host's letters (streamingajánló);
@@ -330,7 +309,7 @@ function loan(word, code){
   if (nativeLen > loanLen || (nativeLen === loanLen && !foreign)) return null;
   const t = recase(lex(src).read[stem], word);
   const rest = w.slice(loanLen);
-  return [fold(t, code) + (rest ? readLetters(rest, stageTable(DIA.stages[code])) : ''), src];
+  return [t + (rest ? readLetters(rest, stageTable(DIA.stages[code])) : ''), src];
 }
 
 function choices(key, code = 'zh'){ const L = lex(code); return (L && L.choices[key.toLowerCase()]) || []; }
@@ -547,4 +526,4 @@ function sourceFor(text, target, prefer = null){
   return ranked[0][0];
 }
 
-if (typeof module !== 'undefined') module.exports = {tokenize, glyph, glyphCased, render, spell, renderStage, inventory, scriptTable, stageTable, read, parse, convert, detect, sourceFor, sources, setLexicon, lex, readWordLex, writeWordLex, writeLoan, loan, fold, choices, stageReadWord, readStem};
+if (typeof module !== 'undefined') module.exports = {tokenize, glyph, glyphCased, render, spell, renderStage, inventory, scriptTable, stageTable, read, parse, convert, detect, sourceFor, sources, setLexicon, lex, readWordLex, writeWordLex, writeLoan, loan, choices, stageReadWord, readStem};

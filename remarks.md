@@ -283,15 +283,15 @@ the current system. A superseded decision is deleted, not kept.
   are open dictionaries, never hand lists where a dictionary exists:
   CMUdict, Magyar Ispell, Unihan, a subtitle frequency list to rank
   homophones. Two decisions worth recording. Loans belong to the source
-  language, not the host: one English lexicon serves every host, and the
-  host says only how the sounds fold into its own (θ → t, æ → e), a small
-  table a native speaker can review, drafted for Hungarian. And the loan
+  language, not the host: one English lexicon serves every host, and a
+  loan keeps the sounds of the language it comes from (2026-11-01: the
+  Hungarian fold, θ → t, æ → e, is gone; Diafon shows the word itself,
+  meeting is mítiṇ in a Hungarian text). And the loan
   decision stays lexical, never phonotactic alone: the host's own
   dictionary decides what is native (tag, team), the loan lexicon what is
   foreign, the longest stem wins, and only a foreign letter shape (ee, sh,
-  w) tips a word the host's dictionary also lists. The round trip of a
-  loan is lossy by design: hausz, lájk, míting are how Hungarian ends up
-  writing them anyway.
+  w) tips a word the host's dictionary also lists; English words that
+  dictionary lists as its own (online, email) are named in `borrowed`.
 
 - **The extension is a switch (2026-09-27).** Sz: the icon should turn the
   conversion on and off; and the reverse mode, a Universal page shown in a

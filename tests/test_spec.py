@@ -141,8 +141,8 @@ def test_lexicon():
     for src, t, want in v['roundtrip']:
         assert stages.convert(t, src, src) == want, (src, t, want)
     assert stages.convert('like, show, só, sok', 'stage:hu', 'stage:hu') == 'like, show, só, sok'
-    assert stages.convert('Folyó, meeting', 'stage:hu', 'script') == 'Fojó, míting'    # the English loan, folded: long í
-    assert stages.convert('Fojó, míting', 'script', 'stage:hu') == 'Folyó, meeting'  # and back: ly and the loan restored
+    assert stages.convert('Folyó, meeting', 'stage:hu', 'script') == 'Fojó, mítiṇ'    # the English loan, in English sounds
+    assert stages.convert('Fojó, mítiṇ', 'script', 'stage:hu') == 'Folyó, meeting'  # and back: ly and the loan restored
     assert stages.render('foixowk', 'hu') == 'folyók'
     assert lexicon.choices('ni3')[0] == '你'
 

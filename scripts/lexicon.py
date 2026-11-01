@@ -6,7 +6,6 @@ writing above the letter stages. Loaded from data/lexicon/<code>.json.
   read_word(word, code)     spelling -> transport, or None
   write_word(t, code)       transport -> spelling; prefix lexicons (hu ly
                             stems) return (stem spelling, rest of transport)
-  fold(t, code)             a loan's transport folded into the host's sounds
   choices(t_tone, code)     the characters of a toned syllable (zh)
   recase(out, original)     the original's case laid on the output
 """
@@ -44,7 +43,6 @@ def lex(code):
             _CACHE[code].setdefault('read', {})
             _CACHE[code].setdefault('write', {})
             _CACHE[code].setdefault('loans', [])
-            _CACHE[code].setdefault('fold', {})
             _CACHE[code].setdefault('choices', {})
             _CACHE[code].setdefault('loanwrite', {})
             _CACHE[code].setdefault('match', 'word')
@@ -153,7 +151,7 @@ def read_stem(word, code):
 
 
 def loan(word, code):
-    """A host's word that is a loan: (transport folded, source code), or
+    """A host's word that is a loan: (transport in its own sounds, source code), or
     None. The longest stem a loan lexicon reads (among its `common` words
     where it has them: not CMUdict's names) decides against the longest
     native stem (the host's dictionary), native on ties unless the stem has
@@ -199,11 +197,11 @@ def loan(word, code):
     if rest:
         import stages                                  # the rest by the host's letters
         rest = stages.read_letters(rest, stages.table(stages.load(code)))
-    return fold(t, code) + rest, src
+    return t + rest, src
 
 
 def write_loan(t, code, letters_spelling):
-    """A host's word written back as the loan it is: the folded transport
+    """A host's word written back as the loan it is: the transport
     of a loan word -> its own spelling, unless the letters' spelling is a
     word of the host (só stays só). None otherwise."""
     L = lex(code)
@@ -216,38 +214,6 @@ def write_loan(t, code, letters_spelling):
         digits, t = t[-1] + digits, t[:-1]
     sp = L['loanwrite'].get(t[0].lower() + t[1:]) if t else None
     return recase(sp, t) + digits if sp is not None else None
-
-
-def fold(t, code):
-    """A loan's transport rewritten in the host's sounds: the host's fold
-    rules over the segment forms, longest rule first, left to right."""
-    L = lex(code)
-    rules = L['fold'] if L else {}
-    if not rules:
-        return t
-    segs = engine.segments(t, strict=False)
-    forms = [s['form'].lower() if s['kind'] == 'form' else None for s in segs]
-    keys = sorted(rules, key=len, reverse=True)
-    parsed = {k: [s['form'] for s in engine.segments(k)] for k in keys}
-    out, i = [], 0
-    while i < len(segs):
-        hit = None
-        for k in keys:
-            pf = parsed[k]
-            if forms[i:i + len(pf)] == pf:
-                hit = k
-                break
-        if hit is None:
-            out.append(segs[i]['src'])
-            i += 1
-            continue
-        repl = rules[hit]
-        first = segs[i]
-        caps = first['kind'] == 'form' and first['form'][0].isupper()
-        tones = ''.join(s.get('tones', '') for s in segs[i:i + len(parsed[hit])])
-        out.append((repl[0].upper() + repl[1:] if caps else repl) + tones)
-        i += len(parsed[hit])
-    return ''.join(out)
 
 
 def choices(t_tone, code='zh'):

@@ -1,6 +1,6 @@
 # Latin phrases as they live inside other languages' texts, unassimilated.
 # Read only, in the classical-in-Hungary reading (c before a o u = k, qu = kv,
-# ae = é); a host folds nothing, these are already in its sounds.
+# ae = é).
 code: la
 name: Latin
 kind: word

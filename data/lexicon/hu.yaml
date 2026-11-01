@@ -5,10 +5,9 @@
 # list (ly reads as j through the stage's read aliases).
 #
 # Loans: a word the Hungarian letters cannot read in full (x, w, sh, th, ee,
-# oo…) is looked up in the loan lexicons, English then Latin, and its sounds
-# fold into Hungarian ones the way a Hungarian says them: meeting -> míting,
-# like -> lájk. The fold is a rewrite over the transport segments, longest
-# rule first; draft, for native review.
+# oo…) is looked up in the loan lexicons, English then Latin, and is written
+# with the sounds of the language it comes from, not as a Hungarian says
+# it: meeting -> mítiṇ, like -> lajk. Diafon shows the word itself.
 code: hu
 name: Hungarian
 kind: word
@@ -29,28 +28,14 @@ spoken:                      # spellings Hungarian keeps and reads its own way, 
   pech: peh
   cech: céh
   tea: tea                   # team is the loan, tea is not: the shape ea cannot tell them apart
-  online: onlájn             # loans the dictionary lists in English spelling and no shape betrays
-  offline: oflájn
-  startup: sztartap
-  email: ímél
-  update: apdét
-  live: lájv
+borrowed:                    # English words the Hungarian dictionary lists as its own and no shape betrays:
+                             #   read as the English they are
+  - online
+  - offline
+  - startup
+  - email
+  - update
 names:                       # proper names no dictionary reads (not CMUdict, not the frequency list), as a
                              #   Hungarian says them; the same reading as spoken, kept apart for review
   cudjoe: kadzsó
   ocho: ocso
-fold:
-  aix: awix       # like -> lájk
-  aux: au         # house -> hausz
-  eix: ew         # mail -> mél
-  oux: ow         # show -> só
-  ow: o           # dog -> dog
-  aq: ecw         # bird -> bőrd
-  aj: ec          # but -> böt
-  tx: t           # think -> tink
-  dx: d           # that -> det
-  ux: v           # web -> veb
-  nxk: nk         # pink -> pink: Hungarian has no ŋ of its own, only n before k and g
-  nxg: ng         # finger -> finger
-  nx: ng          # meeting -> míting: the g is said
-  r: r

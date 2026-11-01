@@ -129,9 +129,9 @@ def gen_hu(cfg):
         if 'ix' not in t:
             continue
         stems[t] = word
-    # loans written back in their own spelling: the folded transport of each
-    # common loan word (the English frequency list; every Latin entry) ->
-    # the word, the commonest first where two fold alike
+    # loans written back in their own spelling: the transport of each common
+    # loan word (the English frequency list; every Latin entry) -> the word,
+    # the commonest first where two read alike
     import lexicon
     loanwrite = {}
     for lc in cfg.get('loans', []):
@@ -144,7 +144,7 @@ def gen_hu(cfg):
                 freq.setdefault(w, int(n))
             entries = sorted(((t, w) for t, w in entries if w in freq), key=lambda e: -freq[e[1]])
         for t, w in entries:
-            loanwrite.setdefault(_fold_with(cfg.get('fold', {}), t), w)
+            loanwrite.setdefault(t, w)
     spoken = {}                                    # the hand entries (spoken, names), in Hungarian spelling -> transport, by the letters alone
     for sp, said in list((cfg.get('spoken') or {}).items()) + list((cfg.get('names') or {}).items()):
         spoken[sp.lower()] = stages.read_letters(said, stages.table(hu))
@@ -155,17 +155,12 @@ def gen_hu(cfg):
             word = line.split('/')[0].split('\t')[0].strip().lower()
             if re.fullmatch(r'[a-záéíóöőúüű]{2,}', word):
                 native.add(word)
+    native -= {w.lower() for w in cfg.get('borrowed') or []}   # English words the dictionary lists as its own
     return {'name': cfg['name'], 'kind': cfg['kind'], 'match': cfg['match'],
-            'loans': cfg.get('loans', []), 'fold': cfg.get('fold', {}),
+            'loans': cfg.get('loans', []),
             'read': spoken, 'write': stems, 'loanwrite': loanwrite, 'native': sorted(native), 'foreign': cfg.get('foreign', ''),
             'lengthen': cfg.get('lengthen', {})}
 
-
-def _fold_with(rules, t):
-    """lexicon.fold with the yaml's rules (the json is being generated)."""
-    import lexicon
-    lexicon._CACHE['_gen'] = {'read': {}, 'write': {}, 'loans': [], 'fold': rules, 'choices': {}, 'match': 'word', 'native': set()}
-    return lexicon.fold(t, '_gen')
 
 
 # ---- zh ----

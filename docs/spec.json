@@ -1,7 +1,7 @@
 {
  "name": "Diafon",
  "generated": "2026-11-01",
- "source": "2dbbd82",
+ "source": "ebdced7",
  "alphabet": {
   "consonant_bases": [
    "b",
@@ -13690,15 +13690,15 @@
     ],
     [
      "ec",
-     "a"
+     "ö"
     ],
     [
      "ecw",
-     "are"
+     "ő"
     ],
     [
      "ew",
-     "a"
+     "é"
     ],
     [
      "f",
@@ -13754,11 +13754,11 @@
     ],
     [
      "o",
-     "aw"
+     "o"
     ],
     [
      "ow",
-     "oh"
+     "aw"
     ],
     [
      "p",
@@ -13954,11 +13954,11 @@
     ],
     [
      "aq r ix ux icx ucx",
-     "r̈ r j w j̈ ẅ"
+     "are r j w j̈ ẅ"
     ],
     [
      "aj ej ij oj uj ay ey iy oy uy",
-     "ạ ẹ ị ọ ụ à è ì ò ù"
+     "a ẹ ị ọ ụ à è ì ò ù"
     ],
     [
      "tyh dyh rch pf th kh",
@@ -17098,16 +17098,16 @@
       "eh"
      ],
      [
-      "a",
-      "a"
+      "ö",
+      "ec"
      ],
      [
-      "are",
-      "awr"
+      "ő",
+      "ecw"
      ],
      [
-      "a",
-      "a"
+      "é",
+      "ew"
      ],
      [
       "f",
@@ -17162,12 +17162,12 @@
       "nj"
      ],
      [
-      "aw",
-      "av"
+      "o",
+      "o"
      ],
      [
-      "oh",
-      "oh"
+      "aw",
+      "av"
      ],
      [
       "p",
@@ -17266,12 +17266,12 @@
       "tcx dcx"
      ],
      [
-      "r̈ r j w j̈ ẅ",
-      "aq r ix v icx ucx"
+      "are r j w j̈ ẅ",
+      "awr r ix v icx ucx"
      ],
      [
-      "ạ ẹ ị ọ ụ à è ì ò ù",
-      "aj ej ij oj uj ay ey iy oy uy"
+      "a ẹ ị ọ ụ à è ì ò ù",
+      "a ej ij oj uj ay ey iy oy uy"
      ],
      [
       "t̖h d̖h ṛh pf th kh",
@@ -18141,7 +18141,7 @@
     "dobrí den, přátelé",
     "stage:cs",
     "stage:hu",
-    "dobrí then, pr̦átelé"
+    "dobrí den, pr̦átelé"
    ],
    [
     "dobrí den, přátelé",
@@ -18195,7 +18195,7 @@
     "one keyboard, one script, many languages",
     "stage:en",
     "stage:hu",
-    "wạn kíbórd, wạn szkript, many langwạdzsạz"
+    "one keyboard, one szkript, many languages"
    ],
    [
     "one keyboard, one script, many languages",
@@ -18819,17 +18819,17 @@
     [
      "hu",
      "meeting",
-     "miwting"
+     "miwtinx"
     ],
     [
      "hu",
      "like",
-     "lawixk"
+     "laixk"
     ],
     [
      "hu",
      "house",
-     "haus"
+     "hauxs"
     ],
     [
      "hu",
@@ -18849,22 +18849,22 @@
     [
      "hu",
      "meetingen",
-     "miwtingen"
+     "miwtinxen"
     ],
     [
      "hu",
      "Facebook",
-     "Fewsbuk"
+     "Feixsbuk"
     ],
     [
      "hu",
      "show",
-     "sjow"
+     "sjoux"
     ],
     [
      "hu",
      "think",
-     "tink"
+     "txink"
     ],
     [
      "hu",
@@ -18924,12 +18924,12 @@
     [
      "hu",
      "meetingen",
-     "miwtingen"
+     "miwtinxen"
     ],
     [
      "hu",
      "franchise",
-     "frantqawixz"
+     "frantqaixz"
     ],
     [
      "hu",
@@ -18944,17 +18944,17 @@
     [
      "hu",
      "streamingajánlójában",
-     "striwmingaixawnlowixawban"
+     "striwminxaixawnlowixawban"
     ],
     [
      "hu",
      "meetingjén",
-     "miwtingixewn"
+     "miwtinxixewn"
     ],
     [
      "hu",
      "Bela",
-     "Belec"
+     "Belaj"
     ],
     [
      "hu",
@@ -19034,22 +19034,22 @@
     [
      "stage:hu",
      "Meeting, like, house, taxi, ad hoc, team, tagja, Facebook.",
-     "Miwting, lawixk, haus, taksiw, ad hok, tiwm, tagixa, Fewsbuk."
+     "Miwtinx, laixk, hauxs, taksiw, ad hok, tiwm, tagixa, Feixsbuk."
     ],
     [
      "stage:hu",
      "Jamaicai franchise-ba, akinek traumái; Bach, pech, technika, chat.",
-     "Ixamaikai frantqawixz-ba, akinek traumawi; Bah, peh, tetchnika, tqat."
+     "Ixamaikai frantqaixz-ba, akinek traumawi; Bah, peh, tetchnika, tqat."
     ],
     [
      "stage:hu",
      "Streamingajánlójában online teaház, felkerült; tea, team.",
-     "Striwmingaixawnlowixawban onlawixn teahawz, felkericlt; tea, tiwm."
+     "Striwminxaixawnlowixawban ownlaixn teahawz, felkericlt; tea, tiwm."
     ],
     [
      "stage:hu",
      "Cudjoe East, Ocho Rios.",
-     "Kadqow Iwst, Otqo Riwows."
+     "Kadqow Iwst, Otqo Riwouxs."
     ],
     [
      "stage:en",
@@ -19080,22 +19080,22 @@
     ],
     [
      "stage:hu",
-     "Miwting, lawixk, haus, taksiw, ad hok, tiwm, tagixa, Fewsbuk.",
-     "Meeting, lájk, house, taxi, ad hoc, team, tagja, Facebook."
+     "Miwtinx, laixk, hauxs, taksiw, ad hok, tiwm, tagixa, Feixsbuk.",
+     "Meeting, like, house, taxi, ad hoc, team, tagja, Facebook."
     ],
     [
      "stage:hu",
-     "Ixamaikai frantqawixz-ba, akinek traumawi; Bah, peh, tetchnika, tqat.",
+     "Ixamaikai frantqaixz-ba, akinek traumawi; Bah, peh, tetchnika, tqat.",
      "Jamaicai franchise-ba, akinek traumái; Bach, pech, technika, csat."
     ],
     [
      "stage:hu",
-     "Striwmingaixawnlowixawban onlawixn teahawz, felkericlt; tea, tiwm.",
-     "Sztrímingajánlójában online teaház, felkerült; tea, team."
+     "Striwminxaixawnlowixawban ownlaixn teahawz, felkericlt; tea, tiwm.",
+     "Sztrímiṇajánlójában online teaház, felkerült; tea, team."
     ],
     [
      "stage:hu",
-     "Kadqow Iwst, Otqo Riwows.",
+     "Kadqow Iwst, Otqo Riwouxs.",
      "Cudjoe East, Ocho Rios."
     ],
     [
@@ -19212,7 +19212,7 @@
    "kind": "word",
    "match": "word",
    "loans": [],
-   "fold": {},
+   "fold": null,
    "foreign": null,
    "lengthen": {},
    "sample": "uxajn kiwbowrd, uxajn skript, meniw languxajdqajz",
@@ -19230,22 +19230,7 @@
     "la",
     "en"
    ],
-   "fold": {
-    "aix": "awix",
-    "aux": "au",
-    "eix": "ew",
-    "oux": "ow",
-    "ow": "o",
-    "aq": "ecw",
-    "aj": "ec",
-    "tx": "t",
-    "dx": "d",
-    "ux": "v",
-    "nxk": "nk",
-    "nxg": "ng",
-    "nx": "ng",
-    "r": "r"
-   },
+   "fold": null,
    "foreign": "ee|oo|ea|ou|w|x|q|sh|ch|th|ck|ph|(?<![gltn])y",
    "lengthen": {
     "á": "a",
@@ -19254,9 +19239,9 @@
    "sample": null,
    "output": true,
    "sizes": {
-    "read": 13,
-    "write": 1893,
-    "native": 84840
+    "read": 7,
+    "write": 1887,
+    "native": 84836
    }
   },
   "la": {
@@ -19264,7 +19249,7 @@
    "kind": "word",
    "match": "word",
    "loans": [],
-   "fold": {},
+   "fold": null,
    "foreign": null,
    "lengthen": {},
    "sample": null,
@@ -19279,7 +19264,7 @@
    "kind": "syllable",
    "match": "word",
    "loans": [],
-   "fold": {},
+   "fold": null,
    "foreign": null,
    "lengthen": {},
    "sample": "ni3 kxaux3, sjuc4 tqie4",
