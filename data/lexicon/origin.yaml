@@ -1,0 +1,12 @@
+# Words as their language of origin says them: names and loans no dictionary
+# here reads, shared by every host. Diafon writes a word the same in every
+# text, so a host never gives its own reading of these. Keyed by the
+# original spelling; `lang` is the origin, `t` the reading in Diafon input.
+# A host that respells a word (Czech Jamajka) adds its spelling as `also`.
+# Built into each host lexicon by scripts/gen_lexicon.py, matched as a stem
+# (jamaicai, Jamaicában).
+jamaica: {lang: en, t: dqajmeixkaj}
+bach:    {lang: de, t: bakx}
+live:    {lang: en, t: laixv}         # the sense the hosts borrow (live stream)
+cudjoe:  {lang: en, t: kajdqoux}
+ocho:    {lang: es, t: otqo}

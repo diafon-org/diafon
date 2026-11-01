@@ -30,10 +30,11 @@ A lexicon has:
   (streaming + ajánlójában); `lengthen` names
   the final vowels a suffix lengthens (Hungarian á → a, é → e), so the
   stem of traumái is trauma. `spoken` (Hungarian) lists the host's own
-  words in an old spelling it reads its own way (pech: peh), `origin` the
-  words no dictionary here reads, given as their own language says them,
-  in Diafon input (jamaica: dqajmeixkaj, bach: bakx), and `names` a
-  person's own entries; all matched as stems. `borrowed` names loans the
+  words in an old spelling it reads its own way (pech: peh) and `names` a
+  person's own entries; both matched as stems. `origin.yaml`, shared by
+  every host, holds the words no dictionary here reads, as their own
+  language says them, in Diafon input (jamaica: dqajmeixkaj, bach: bakx);
+  each host lexicon is built with it. `borrowed` names loans the
   host's dictionary lists as its own and no shape betrays (online, summa):
   they read in their own language. A word is written as its language of
   origin says it, the same in every text.

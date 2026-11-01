@@ -28,6 +28,16 @@ import engine
 LEX = os.path.join(ROOT, 'data', 'lexicon')
 
 
+def origin():
+    """The shared table of words as their origin says them: spelling -> transport, aliases included."""
+    out = {}
+    for sp, e in (yaml.safe_load(open(os.path.join(LEX, 'origin.yaml'))) or {}).items():
+        engine.segments(e['t'])
+        for w in [sp] + list(e.get('also', [])):
+            out[w.lower()] = e['t']
+    return out
+
+
 def load_yaml(code):
     return yaml.safe_load(open(os.path.join(LEX, f'{code}.yaml')))
 
@@ -149,7 +159,7 @@ def gen_hu(cfg):
     for sp, said in list((cfg.get('spoken') or {}).items()) + list((cfg.get('names') or {}).items()):
         spoken[sp.lower()] = stages.read_letters(said, stages.table(hu))
         stems.setdefault(spoken[sp.lower()], sp)
-    for sp, t in (cfg.get('origin') or {}).items():   # words read as their own language says them: transport as given
+    for sp, t in origin().items():                 # words as their own language says them (origin.yaml), one form in every host
         spoken[sp.lower()] = t
         stems.setdefault(t, sp)
     for w in cfg.get('borrowed') or []:              # written back as the host writes them (email, not e-mail)
@@ -284,7 +294,7 @@ GEN = {'en': gen_en, 'hu': gen_hu, 'zh': gen_zh, 'la': gen_la}
 
 def codes():
     """Every lexicon, the ones a host borrows from first: a host reads their fresh json."""
-    all_ = sorted(os.path.basename(p)[:-5] for p in glob.glob(os.path.join(LEX, '*.yaml')))
+    all_ = sorted(os.path.basename(p)[:-5] for p in glob.glob(os.path.join(LEX, '*.yaml')) if not p.endswith('origin.yaml'))
     return sorted(all_, key=lambda c: bool(load_yaml(c).get('loans')))
 
 
