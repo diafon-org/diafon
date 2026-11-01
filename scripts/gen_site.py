@@ -147,8 +147,8 @@ CONSONANTS = (['labial', 'dental', 'alveolar', 'postalveolar', 'palatal', 'velar
     ('fricative', {'labial': 'f v', 'dental': 'tx dx', 'alveolar': 's z', 'postalveolar': 'sj zj',
                    'velar': 'kx gx', 'glottal': 'h'}),
     ('nasal', {'labial': 'm', 'alveolar': 'n', 'palatal': 'nj', 'velar': 'nx'}),
-    ('trill · tap · lateral', {'alveolar': 'r | rc | l'}),          # one cell, two columns wide: r ṛ, l under them
-    ('glide', {'labial': 'ux', 'palatal': 'ix'}),                 # i and u with x: w is labial-velar, j palatal
+    ('trill · tap', {'dental': (3, 'r | rc')}),                       # r ṛ side by side, centred under n
+    ('glide · lateral', {'labial': 'ux', 'alveolar': 'l', 'palatal': 'ix'}),   # the approximants: w j (i u with x), l
 ])
 def vowel_areas():
     """-> {area form: (covers, {split form: (reading, [languages])})}, from the
@@ -262,27 +262,25 @@ def point_table(spec, caption):
     cols, rows = spec
 
     def cards(spec):
-        groups = [g.split() for g in spec.split('|')]          # 'r | rc | l': a card each
-        return ''.join(chip_svg(forms, 'cmp' if set(forms) <= COMPOSED else '') for forms in groups), len(groups) > 1
+        groups = [g.split() for g in spec.split('|')]          # 'r | rc': a card each
+        return ''.join(chip_svg(forms, 'cmp' if set(forms) <= COMPOSED else '') for forms in groups)
     shy = lambda c: c.replace('postalveolar', 'post\u00adalveolar')          # breaks as post-alveolar, if at all
     head = (lambda c: f'<th title="{c}">{mouth(c)}<span>{shy(c)}</span></th>') if caption == 'consonants' else (lambda c: f'<th>{c}</th>')
     out = [f'<div class="scroll" markdown="0"><table class="grid pts"><caption>{caption}</caption>'
            '<thead><tr><th></th>' + ''.join(head(c) for c in cols) + '</tr></thead><tbody>']
     for name, cells in rows:
-        tds, skip = [], False
-        for i, c in enumerate(cols):
+        tds, skip = [], 0
+        for c in cols:
             if skip:
-                skip = False
+                skip -= 1
                 continue
             if c not in cells:
                 tds.append('<td></td>')
                 continue
-            html_, cluster = cards(cells[c])
-            if cluster:                                       # a group spans its column and the next, empty one
-                skip = True
-                tds.append(f'<td colspan="2"><div class="cell cluster">{html_}</div></td>')
-            else:
-                tds.append(f'<td><div class="cell">{html_}</div></td>')
+            span, spec = cells[c] if isinstance(cells[c], tuple) else (1, cells[c])
+            skip = span - 1                                   # (3, 'r | rc'): across three columns, centred on the middle one
+            cls = 'cell cluster' if '|' in spec else 'cell'
+            tds.append(f'<td{f" colspan={span}" if span > 1 else ""}><div class="{cls}">{cards(spec)}</div></td>')
         out.append(f'<tr><th>{name}</th>' + ''.join(tds) + '</tr>')
     out.append('</tbody></table></div>')
     return ''.join(out)
