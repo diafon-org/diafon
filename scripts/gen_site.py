@@ -148,7 +148,7 @@ CONSONANTS = (['labial', 'dental', 'alveolar', 'postalveolar', 'palatal', 'velar
                    'velar': 'kx gx', 'glottal': 'h'}),
     ('nasal', {'labial': 'm', 'alveolar': 'n', 'palatal': 'nj', 'velar': 'nx'}),
     ('trill · tap', {'dental': (3, 'r | rc')}),                       # r ṛ side by side, centred under n
-    ('glide · lateral', {'labial': 'ux', 'alveolar': 'l', 'palatal': 'ix'}),   # the approximants: w j (i u with x), l
+    ('approximant', {'labial': 'ux', 'alveolar': 'l', 'palatal': 'ix'}),   # the glides w j (i u with x) and the lateral l
 ])
 def vowel_areas():
     """-> {area form: (covers, {split form: (reading, [languages])})}, from the

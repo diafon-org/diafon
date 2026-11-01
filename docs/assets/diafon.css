@@ -310,7 +310,7 @@
 .md-typeset table.pts .cell{gap:4px}
 .md-typeset table.grid.pts td{border-left:none;border-right:none;border-color:color-mix(in srgb,var(--line) 55%,transparent);padding:.3rem .2rem}
 .md-typeset table.grid.pts th{background:none;border-left:none;border-right:none;border-color:color-mix(in srgb,var(--line) 55%,transparent)}   /* no grey frame */
-.md-typeset table.grid.pts tbody th{vertical-align:middle;text-align:left;color:var(--muted);white-space:normal;overflow-wrap:normal}   /* glide · lateral wraps */
+.md-typeset table.grid.pts tbody th{vertical-align:middle;text-align:left;color:var(--muted);white-space:normal;overflow-wrap:normal}   /* a long label wraps */
 .md-typeset table.pts .pt{padding:.28rem .05rem .22rem}
 .md-typeset table.pts .pt .nat{font-size:clamp(.95rem,2.3vw,1.35rem)}
 .md-typeset table.pts .pt .lab{font-size:clamp(.5rem,1.2vw,.72rem)}
