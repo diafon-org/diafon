@@ -4,7 +4,7 @@ An input method (IME) for Android 8.0 and later. It shows the 26 letters on
 the base layout of your choice (QWERTY, QWERTZ, AZERTY, Dvorak, Colemak), the
 digits for tones and a handful of functional keys, converts what you type by
 the streaming rule, and commits the result into whatever field has focus.
-Above the keys, the pending segment appears in the universal spelling and in
+Above the keys, the pending segment appears in Universal and in
 each language's spelling, and tapping one commits it. Text typed with any
 other keyboard converts too: select it in any app and choose Diafon in the
 text menu. No dictionary, no prediction, no network, no permission.
@@ -40,7 +40,7 @@ app/src/main/java/io/diafon/ime/
   SpecData.kt          generated from docs/spec.json by scripts/gen_android.py: script rules, stages
   Engine.kt            the engine, rule for rule from scripts/engine.py: segments, glyph, render, stream
   Stages.kt            spelling stages, from scripts/stages.py
-  Prefs.kt             the settings (output, layout, tones, strict, enabled) and the renderer they select
+  Prefs.kt             the settings (output, layout, tones, join, strict, enabled) and the renderer they select
   Layouts.kt           the base layouts, generated from data/layouts.yaml by scripts/gen_layouts.py (shared with iOS)
   DiafonIme.kt         the InputMethodService: keys in, streaming rule, InputConnection out; the candidate strip
   KeyboardView.kt      the keys, drawn on a canvas; operators tinted; shift, backspace, toggle, settings
@@ -73,21 +73,21 @@ else.
    shows the new tail underlined, or `finishComposingText()` if there is
    none. The editor's text is therefore always the render of everything
    typed, with the last segment provisional.
-4. The strip above the keys shows the pending segment in the universal
-   spelling and each language's, one chip per distinct result, the current
+4. The strip above the keys shows the pending segment in Universal
+   and in each language's spelling, one chip per distinct result, the current
    output outlined;
    tapping a chip commits that spelling instead. Idle, it names the output
    and the layout; `abc` when conversion is off.
 
-Example, output = script, typing `sjok `:
+Example, output = script, typing `tqok `:
 
 | key | buffer | committed | pending | editor shows |
 |---|---|---|---|---|
-| s | s | | s | s̲ |
-| j | sj | | sj | ș̲ |
-| o | sjo | ș | o | șo̲ |
-| k | ok | o | k | șok̲ |
-| space | k␠ | k␠ | | șok␠ |
+| t | t | | t | t̲ |
+| q | tq | | tq | c̦̲ |
+| o | tqo | c̦ | o | c̦o̲ |
+| k | ok | o | k | c̦ok̲ |
+| space | k␠ | k␠ | | c̦ok␠ |
 
 Backspace edits the tail first (`pending` loses its last character and the
 composing text is re-rendered). With no tail it deletes one whole grapheme
@@ -140,18 +140,15 @@ service, the views, the settings) are checked by the Gradle build.
 ## Device pass
 
 `tools/demo.sh <apk>` boots a headless Pixel 7 emulator (API 35), installs
-and selects Diafon, opens a contact form and types `sjok sewp njawr`
+and selects Diafon, opens a contact form and types `tqokolawda`
 through the IME. Screenshots from that pass are in `screenshots/`:
 
-- `script.png`: the panel and `șok sép n̦ár` in the field
-- `composing.png`: Shift, t, q, y tapped on the soft keys; the strip
-  shows `Tqy · C̖` and the editor the composing capital
-- `hungarian.png`: the Hungarian stage, `Sok szép nyár, hosszú Öröm`
+- `script.png`: the panel and `c̦okoláda` in the field
+- `strip.png`: `Tqy` pending, the strip showing `C̖`
 - `settings.png`: the setup and settings screen
 
 Checked on the emulator: soft keys, hardware key path (`adb shell input
-text`), a long burst with tones and specials (`șok sép n̦ár, C̖i3 șï3 c̦ï1
-k̤alíl ḍis`), streaming commit word by word, the stage output,
+text`), a long burst with tones and marks, streaming commit word by word, the stage output,
 backspace over the tail and over a committed marked glyph, the toggle and
 the settings screen.
 
@@ -165,12 +162,12 @@ case for the transport font and for a Diafon font in apps that allow one.
 1. Install; open the Diafon app (it is the settings screen).
 2. Tap "Enable Diafon in system settings" and switch it on in the list.
    Android warns that an input method may collect what you type; this one
-   has no network permission and stores nothing but its four settings.
+   has no network permission and stores nothing but its settings.
 3. Tap "Switch to Diafon", or use the keyboard icon in the navigation bar
    from any text field.
 4. Type. `Dia` in the bottom left toggles conversion off (`abc`) and back;
-   the gear opens the settings. Pick the output there: script form,
-   transport form, or a spelling stage.
+   the gear opens the settings. Pick what is written out there:
+   Universal or a language's spelling.
 
 ## Design choices, briefly
 
@@ -178,7 +175,7 @@ case for the transport font and for a Diafon font in apps that allow one.
   corrections to wait for.
 - **No suggestions, no autocorrect**: the spelling is phonemic and
   determined; correcting it would be wrong by construction.
-- **One layout**: the system's premise is the 26 letters; tones are digits
+- **One set of keys**: the 26 letters on the base layout you pick; tones are digits
   on the top row; punctuation beyond comma and full stop comes from the
   system's symbol keyboard or a hardware keyboard.
 - **The tail is transport, the editor shows the render**: `pending` holds
@@ -196,5 +193,4 @@ case for the transport font and for a Diafon font in apps that allow one.
 - Long-press alternatives (punctuation, digits on letters).
 - A dark theme for the panel; the colours are the site's light palette.
 - Per-app memory of the enabled state.
-- An app icon; the system default is used.
 - Release signing and a Play listing.

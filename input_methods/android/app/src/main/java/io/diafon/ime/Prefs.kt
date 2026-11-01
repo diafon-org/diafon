@@ -14,7 +14,7 @@ class Prefs(ctx: Context) {
         get() = sp.getBoolean("enabled", true)
         set(v) = sp.edit().putBoolean("enabled", v).apply()
 
-    /** What is written out: "script" (universal: the web letters) or
+    /** What is written out: "script" (Universal, the default) or
      *  "stage:<code>" (a language's spelling). "transport" (as typed) exists
      *  for the escape path, never as a choice. */
     var output: String
@@ -26,7 +26,7 @@ class Prefs(ctx: Context) {
         get() = sp.getString("layout", "qwerty")!!
         set(v) = sp.edit().putString("layout", v).apply()
 
-    /** Keep tone digits in the output. */
+    /** Write tones: a digit after a syllable becomes its tone sign; off, tone digits are dropped. */
     var tones: Boolean
         get() = sp.getBoolean("tones", true)
         set(v) = sp.edit().putBoolean("tones", v).apply()

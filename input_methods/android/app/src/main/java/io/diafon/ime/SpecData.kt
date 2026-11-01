@@ -20,7 +20,7 @@ object SpecData {
         "double_acute" to Mark(null, "̋"),
         "flip" to Mark(null, "̈"))
     val PARTNER: Map<Char, Char> = mapOf('i' to 'u', 'u' to 'i', 'e' to 'o', 'o' to 'e', 'a' to 'a')
-    /** a tone digit -> its sign after the syllable (mid: none) */
+    /** a tone digit -> its stored sign; the Diafon fonts draw it above the syllable (mid: none) */
     val TONES: Map<Char, String> = mapOf('1' to "ˉ", '2' to "ˊ", '3' to "ˇ", '4' to "ˋ", '5' to "", '6' to "ˍ", '7' to "˜", '8' to "ˀ")
     val STAGES: Map<String, Stage> = mapOf(
         "cs" to Stage("cs", "Czech spelling", "double", mapOf("p" to "p", "b" to "b", "t" to "t", "d" to "d", "k" to "k", "g" to "g", "f" to "f", "v" to "v", "s" to "s", "z" to "z", "sj" to "š", "zj" to "ž", "tc" to "c", "dc" to "dz", "tq" to "č", "dq" to "dž", "tj" to "ť", "dj" to "ď", "nj" to "ň", "kx" to "ch", "h" to "h", "m" to "m", "n" to "n", "l" to "l", "r" to "r", "rj" to "ř", "ix" to "j", "a" to "a", "aw" to "á", "e" to "e", "ew" to "é", "i" to "i", "iw" to "í", "o" to "o", "ow" to "ó", "u" to "u", "uw" to "ú"), mapOf(), "dobriw den, prjawtelew"),

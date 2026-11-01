@@ -40,7 +40,7 @@ install: clean app
 	-/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f "$$HOME/Library/Input Methods/$(APP).app" 2>/dev/null
 	@echo ""
 	@echo "Installed. Enable it once: System Settings → Keyboard → Input Sources → Edit… → + →"
-	@echo "search “Diafon” (under English). Pick it from the input menu and type: sjok sewp njawr → șok sép n̦ár."
+	@echo "search “Diafon” (under English). Pick it from the input menu and type: tqokolawda → c̦okoláda."
 
 enable:
 	swift tools/enable.swift

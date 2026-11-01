@@ -82,7 +82,7 @@ final class SettingsPanel: UIView {
         stack.addArrangedSubview(caption("Layout"))
         stack.addArrangedSubview(layoutPicker)
 
-        stack.addArrangedSubview(toggle(tones, "Keep tone digits") { [weak self] in self?.prefs.tones = $0; self?.refresh() })
+        stack.addArrangedSubview(toggle(tones, "Tones") { [weak self] in self?.prefs.tones = $0; self?.refresh() })
         stack.addArrangedSubview(toggle(join, "Join long consonants") { [weak self] in self?.prefs.join = $0; self?.refresh() })
         stack.addArrangedSubview(toggle(strict, "Mark ill-formed letters on the strip") { [weak self] in self?.prefs.strict = $0 })
         stack.addArrangedSubview(toggle(marked, "Underline the letter being typed") { [weak self] in self?.prefs.tailMode = $0 ? .marked : .replace })
@@ -109,7 +109,7 @@ final class SettingsPanel: UIView {
             languages.addArrangedSubview(b)
         }
         let st = SpecData.stages[prefs.language]
-        let typed = st?.sample ?? ""
+        let typed = prefs.universal ? "tqokolawda" : (st?.sample ?? "")
         sample.text = typed.isEmpty ? "" : "\(typed)  →  \(prefs.renderer()(typed))"
         layoutPicker.selectedSegmentIndex = Layouts.all.firstIndex { $0.code == prefs.layout } ?? 0
         tones.isOn = prefs.tones

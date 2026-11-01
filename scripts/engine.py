@@ -4,8 +4,8 @@
 Implements the grammar of docs/index.html:
 - 20 bases, 6 operators; an operator never starts a segment, a base always does.
 - The two-operator law: a form carries at most two of c j q x y; w (length)
-  rides free after them; trailing digits are tones, drawn in the script as
-  the sign of their contour after the syllable (data/script.yaml tones).
+  rides free after them; trailing digits are tones, stored as a sign after the syllable
+  (data/script.yaml tones); the Diafon fonts draw it above the syllable.
 - Glyphs compose from data/script.yaml: whole letters, per-operator marks,
   the float rule (descenders take their mark above), secondary x flips the
   mark already there, secondary y flips an anchor to the reverse (sjy tqy),

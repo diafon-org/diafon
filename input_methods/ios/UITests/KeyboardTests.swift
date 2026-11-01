@@ -18,7 +18,7 @@ final class KeyboardTests: XCTestCase {
 
     private var value: String {
         let v = field.value as? String ?? ""
-        return v == "type sjok sewp njawr" ? "" : v      // the placeholder
+        return v == "type tqokolawda" ? "" : v      // the placeholder
     }
 
     /// A fresh app with Diafon up in the Try field.
@@ -67,9 +67,9 @@ final class KeyboardTests: XCTestCase {
 
     private func cases(_ mode: String) {
         start()
-        type("sjok sewp njawr")
-        shot("\(mode): sjok sewp njawr")
-        XCTAssertEqual(value, "șok sép n̦ár", "\(mode): stream")
+        type("tqokolawda")
+        shot("\(mode): tqokolawda")
+        XCTAssertEqual(value, "c̦okoláda", "\(mode): stream")
 
         start()
         type("njanj")
@@ -84,7 +84,7 @@ final class KeyboardTests: XCTestCase {
         start()
         type("Sjan1 Tqy")                                 // shift, a tone digit, two operators
         shot("\(mode): Sjan1 Tqy")
-        XCTAssertEqual(value, "Șan1 C̖", "\(mode): capitals and tones")
+        XCTAssertEqual(value, "Șanˉ C̖", "\(mode): capitals and tones")
 
         start()
         type("ok hawrt")                                  // heart: its emoji offered on the strip

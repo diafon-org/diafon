@@ -35,7 +35,7 @@ struct SetupView: View {
                     }
                 }
                 Section("Try it") {
-                    TextField("type sjok sewp njawr", text: $trial, axis: .vertical)
+                    TextField("type tqokolawda", text: $trial, axis: .vertical)
                         .font(.custom("DiafonSerif-Regular", size: 22, relativeTo: .title2))
                         .lineLimit(3...8)
                         .autocorrectionDisabled()
@@ -98,10 +98,10 @@ struct HowToView: View {
     var body: some View {
         NavigationStack {
             List {
-                Text("Type sounds as letters: a consonant or vowel, then a mark. sj → ș, tq → c̦, aw → á.")
+                Text("Type a sound as a base, then up to two operators, then w if it is long: sj → ș, tq → c̦, aw → á.")
                 Text("The letter being typed stays provisional until the next key settles it; the strip above the keys shows it in every spelling, and a tap writes that one.")
                 Text("Dia switches conversion off and on. Quick taps walk the cycle: off → Universal → your language. Hold it for the settings.")
-                Text("The digits are tones; turn them off in the settings to drop them from the output.")
+                Text("A digit after a syllable is its tone, which the Diafon fonts draw above it. Turn tones off in the settings to leave them out.")
                 Text("Select text in any spelling and the strip offers to convert it to the spelling in use.")
             }
             .navigationTitle("How to")
