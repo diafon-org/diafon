@@ -7,12 +7,10 @@ final class Lexicon {
     let code: String
     let kind: String, match: String
     let read: [String: String], write: [String: String], choices: [String: [String]]
-    let loans: [String], fold: [String: String], native: Set<String>, foreign: NSRegularExpression?
+    let loans: [String], native: Set<String>, foreign: NSRegularExpression?
     let loanwrite: [String: String], lengthen: [String: String], common: Set<String>
     let sample: String, output: Bool
     private(set) lazy var syllables: [String] = read.keys.sorted { $0.count > $1.count }
-    private(set) lazy var foldRules: [(String, [String], String)] = fold.keys.sorted { $0.count > $1.count }
-        .map { k in (k, ((try? Engine.segments(k)) ?? []).compactMap { if case .form(_, let f, _) = $0 { return f } else { return nil } }, fold[k]!) }
     private(set) lazy var stems: [String] = write.keys.sorted { $0.count > $1.count }
 
     init?(json: [String: Any], code: String) {
@@ -23,7 +21,6 @@ final class Lexicon {
         write = json["write"] as? [String: String] ?? [:]
         choices = json["choices"] as? [String: [String]] ?? [:]
         loans = json["loans"] as? [String] ?? []
-        fold = json["fold"] as? [String: String] ?? [:]
         native = Set(json["native"] as? [String] ?? [])
         loanwrite = json["loanwrite"] as? [String: String] ?? [:]
         lengthen = json["lengthen"] as? [String: String] ?? [:]
@@ -174,27 +171,7 @@ final class Lexicon {
         return Lexicon.recase(sp, t) + digits
     }
 
-    /// A loan's transport rewritten in this host's sounds.
-    func foldLoan(_ t: String) -> String {
-        if foldRules.isEmpty { return t }
-        let segs = (try? Engine.segments(t, strict: false)) ?? []
-        let forms: [String?] = segs.map { if case .form(_, let f, _) = $0 { return String(f.first!).lowercased() + f.dropFirst() } else { return nil } }
-        var out = "", i = 0
-        while i < segs.count {
-            var hit: (String, [String], String)? = nil
-            for r in foldRules where i + r.1.count <= segs.count {
-                if (0..<r.1.count).allSatisfy({ forms[i + $0] == r.1[$0] }) { hit = r; break }
-            }
-            guard let h = hit else { out += segs[i].src; i += 1; continue }
-            var caps = false, tones = ""
-            for s in segs[i..<i + h.1.count] { if case .form(_, let f, let tn) = s { tones += tn; if s.src == segs[i].src { caps = f.first!.isUppercase } } }
-            out += (caps ? String(h.2.first!).uppercased() + h.2.dropFirst() : h.2) + tones
-            i += h.1.count
-        }
-        return out
-    }
-
-    /// A host's word that is a loan: (transport folded, source code), or nil. The longest stem a loan
+    /// A host's word that is a loan: (transport in its own sounds, source code), or nil. The longest stem a loan
     /// lexicon reads (among its common words where it has them) against the longest native stem, native
     /// on ties unless the stem has a foreign shape; a suffixed word whose stem has no shape is never a
     /// loan (akinek), with the shape the rest is read by the host's letters (streamingajánló); a stem
@@ -228,7 +205,7 @@ final class Lexicon {
         let t = Lexicon.recase(Lexicon.get(s)!.read[st]!, word)
         let rest = String(wchars.count == chars.count ? wchars[loanLen...] : chars[loanLen...])
         let restT = rest.isEmpty ? "" : (SpecData.stages[code].map { Stages.readLetters(rest, Stages.table($0)) } ?? rest)
-        return (foldLoan(t) + restT, s)
+        return (t + restT, s)
     }
 
     func choose(_ key: String) -> [String] { choices[key.lowercased()] ?? [] }
