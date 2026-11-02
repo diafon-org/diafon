@@ -203,9 +203,10 @@ def loan(word, code):
 def write_loan(t, code, letters_spelling):
     """A host's word written back as the loan it is: the transport
     of a loan word -> its own spelling, unless the letters' spelling is a
-    word of the host (só stays só). None otherwise."""
+    word of the host (só stays só). None otherwise, and for a word under
+    three letters: a loan is looked up from three, as it is read (e, az)."""
     L = lex(code)
-    if not L or not L['loanwrite']:
+    if not L or not L['loanwrite'] or len(letters_spelling) < 3:
         return None
     if letters_spelling.lower() in L['native']:
         return None
