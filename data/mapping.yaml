@@ -216,7 +216,6 @@ areas:
 # States: reviewed (checked against the sources) · native (native/expert-reviewed)
 review:
   en: reviewed
-  hu: native
   zh: reviewed
 
 overrides:
