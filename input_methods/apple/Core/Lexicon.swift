@@ -164,7 +164,7 @@ final class Lexicon {
 
     /// A host's word written back as the loan it is, unless the letters' spelling is a host word.
     func writeLoan(_ tIn: String, lettersSpelling: String) -> String? {
-        if loanwrite.isEmpty || native.contains(lettersSpelling.lowercased()) { return nil }
+        if loanwrite.isEmpty || lettersSpelling.count < 3 || native.contains(lettersSpelling.lowercased()) { return nil }   // a loan from three letters, as it is read
         var t = tIn, digits = ""
         while let last = t.last, last.isASCII, last.isNumber { digits = String(last) + digits; t.removeLast() }
         guard !t.isEmpty, let sp = loanwrite[String(t.first!).lowercased() + t.dropFirst()] else { return nil }

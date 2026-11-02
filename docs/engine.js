@@ -275,7 +275,7 @@ function writeWordLex(t, code){
 /** A host's word written back as the loan it is, unless the letters' spelling is a host word. */
 function writeLoan(t, code, lettersSpelling){
   const L = lex(code);
-  if (!L || !Object.keys(L.loanwrite).length || L.nativeSet.has(lettersSpelling.toLowerCase())) return null;
+  if (!L || !Object.keys(L.loanwrite).length || [...lettersSpelling].length < 3 || L.nativeSet.has(lettersSpelling.toLowerCase())) return null;   // a loan from three letters, as it is read
   let digits = '';
   while (t && /\d/.test(t[t.length - 1])){ digits = t[t.length - 1] + digits; t = t.slice(0, -1); }
   const sp = t ? L.loanwrite[t[0].toLowerCase() + t.slice(1)] : undefined;
