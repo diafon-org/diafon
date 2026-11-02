@@ -83,7 +83,7 @@ in the script.
 | macOS | Input Method Kit: `IMKInputController` receives keystrokes from any app, `setMarkedText` shows the tail, `insertText` commits; two text Services convert a selection in any spelling, from the source detected or chosen in a window, to the mode in use or any other | mac/: on spec.json (Swift engine holds every vector, reading back included, tests/test_swift.py), status menu, quick list and chooser, Mandarin candidate window, setup window, services |
 | Linux | IBus, and fcitx5: an m17n `.mim` table (declarative transducer) generated from spec.json; no native code | planned |
 | Windows | Text Services Framework text service, Rust, the one native build | planned |
-| Web | browser extension on docs/engine.js: a content script reads a page in Universal, toggled from the icon, the language from the page itself (extensions/browser, tests/test_extension.py); input into editable fields and contenteditable | pages done; editable fields planned |
+| Web | browser extension on docs/engine.js: a content script reads a page in Universal, toggled from the icon, the language from the page itself (extensions/browser, tests/test_extension.py); input into editable fields and contenteditable | paused: macOS and iOS first |
 | iOS | a keyboard extension (`UIInputViewController`): the keyboard owns the keys and a `textDocumentProxy` into the field, the tail kept as marked text or as plain text it rewrites; the selection converted from the strip; no full access, so the settings live in the keyboard | ios/: on the shared Swift core (apple/Core); the keystroke logic checked on a Mac (tests/test_ios_session.py), UIKit typechecked; device pass open |
 
 ## Porting checklist
