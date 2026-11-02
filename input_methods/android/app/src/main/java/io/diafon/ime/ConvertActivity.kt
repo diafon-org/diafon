@@ -34,7 +34,7 @@ class ConvertActivity : Activity() {
             setPadding(dp(12), dp(8), dp(12), dp(4))
             alpha = 0.7f
         })
-        for ((value, label) in Prefs.OUTPUTS) {
+        for ((value, label) in prefs.choices()) {
             val out = prefs.renderer(value)(text)
             if (out == text) continue                                   // nothing to convert to
             root.addView(row(label, out) {

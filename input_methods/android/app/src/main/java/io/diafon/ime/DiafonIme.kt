@@ -251,7 +251,7 @@ class DiafonIme : InputMethodService() {
         }
         val ill = prefs.strict && Engine.segments(pending, false).any { it is Seg.Err }
         val seen = HashSet<String>()
-        for ((value, label) in Prefs.OUTPUTS) {
+        for ((value, label) in prefs.choices()) {
             val text = prefs.renderer(value)(pending)
             if (!seen.add(text)) continue                     // one chip per distinct spelling
             val current = value == output

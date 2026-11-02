@@ -5,7 +5,7 @@ the base layout of your choice (QWERTY, QWERTZ, AZERTY, Dvorak, Colemak), the
 digits for tones and a handful of functional keys, converts what you type by
 the streaming rule, and commits the result into whatever field has focus.
 Above the keys, the pending segment appears in Universal and in
-each language's spelling, and tapping one commits it. Text typed with any
+your language's spelling, and tapping one commits it. Text typed with any
 other keyboard converts too: select it in any app and choose Diafon in the
 text menu. No dictionary, no prediction, no network, no permission.
 
@@ -40,7 +40,7 @@ app/src/main/java/io/diafon/ime/
   SpecData.kt          generated from docs/spec.json by scripts/gen_android.py: script rules, stages
   Engine.kt            the engine, rule for rule from scripts/engine.py: segments, glyph, render, stream
   Stages.kt            spelling stages, from scripts/stages.py
-  Prefs.kt             the settings (output, layout, tones, join, strict, enabled) and the renderer they select
+  Prefs.kt             the settings (output, language, layout, tones, join, strict, enabled) and the renderer they select
   Layouts.kt           the base layouts, generated from data/layouts.yaml by scripts/gen_layouts.py (shared with iOS)
   DiafonIme.kt         the InputMethodService: keys in, streaming rule, InputConnection out; the candidate strip
   KeyboardView.kt      the keys, drawn on a canvas; operators tinted; shift, backspace, toggle, settings
@@ -74,8 +74,8 @@ else.
    none. The editor's text is therefore always the render of everything
    typed, with the last segment provisional.
 4. The strip above the keys shows the pending segment in Universal
-   and in each language's spelling, one chip per distinct result, the current
-   output outlined;
+   and in the chosen language's spelling, one chip per distinct result, the
+   current output outlined;
    tapping a chip commits that spelling instead. Idle, it names the output
    and the layout; `abc` when conversion is off.
 
