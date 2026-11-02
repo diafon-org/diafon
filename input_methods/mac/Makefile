@@ -8,8 +8,8 @@ ROOT  := ../..
 BUILD := build
 APP   := DiafonIM
 SWIFTC := xcrun swiftc -swift-version 5 -O
-CORE  := $(ROOT)/input_methods/apple/Core/SpecData.swift $(ROOT)/input_methods/apple/Core/Engine.swift $(ROOT)/input_methods/apple/Core/Stages.swift $(ROOT)/input_methods/apple/Core/Reading.swift $(ROOT)/input_methods/apple/Core/Lexicon.swift $(ROOT)/input_methods/apple/Core/Prefs.swift
-APPSRC := Sources/main.swift Sources/Services.swift Sources/ConvertWindow.swift Sources/Hud.swift Sources/LanguageChooser.swift Sources/SetupWindow.swift Sources/DiafonInputController.swift
+CORE  := $(ROOT)/input_methods/apple/Core/SpecData.swift $(ROOT)/input_methods/apple/Core/Engine.swift $(ROOT)/input_methods/apple/Core/Stages.swift $(ROOT)/input_methods/apple/Core/Reading.swift $(ROOT)/input_methods/apple/Core/Lexicon.swift $(ROOT)/input_methods/apple/Core/Prefs.swift $(ROOT)/input_methods/apple/Core/Layouts.swift
+APPSRC := Sources/MacPrefs.swift Sources/main.swift Sources/Services.swift Sources/ConvertWindow.swift Sources/Hud.swift Sources/LanguageChooser.swift Sources/SetupWindow.swift Sources/DiafonInputController.swift
 
 .PHONY: data check app install enable clean
 

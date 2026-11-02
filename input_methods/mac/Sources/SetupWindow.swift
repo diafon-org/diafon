@@ -14,6 +14,7 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
     private var languageRadio: NSButton!
     private var languagePopup: NSPopUpButton!
     private var languageSample: NSTextField!
+    private var layoutPopup: NSPopUpButton!
     private var checkActions: [ObjectIdentifier: (Bool) -> Void] = [:]
     private let example = "sj tq aw"                  // sounds, not a word: no word is the same in every language
     private var prefilled = ""                         // what Try it was given, replaced while untouched
@@ -71,6 +72,18 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         languageSample = sample("")
         root.addArrangedSubview(line([languageRadio, languagePopup, languageSample]))
 
+        // the base layout: where the 26 letters sit, whatever layout the Mac had before
+        root.addArrangedSubview(gap(10))
+        root.addArrangedSubview(heading("Base layout"))
+        layoutPopup = NSPopUpButton(frame: .zero, pullsDown: false)
+        for l in Layouts.all {
+            layoutPopup.addItem(withTitle: l.label)
+            layoutPopup.lastItem?.representedObject = l.code
+        }
+        layoutPopup.target = self
+        layoutPopup.action = #selector(layoutChosen(_:))
+        root.addArrangedSubview(line([layoutPopup, note("Where the 26 letters sit. Only the placement changes; the typing is the same.", size: 11)]))
+
         // try it
         root.addArrangedSubview(gap(10))
         root.addArrangedSubview(heading("Try it"))
@@ -103,7 +116,7 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         root.addArrangedSubview(gap(10))
         root.addArrangedSubview(heading("How to"))
         root.addArrangedSubview(howto([
-            "Pick Diafon in the input menu (⌃Space). Your keyboard stays as it is.",
+            "Pick Diafon in the input menu (⌃Space). The letters sit as the base layout above puts them.",
             "Type a sound as a base, then its operators: sj → \(p.renderer("script")("sj")), tq → \(p.renderer("script")("tq")), aw → \(p.renderer("script")("aw")). The last sound stays underlined until the next key settles it.",
             "To convert text already written: select it, then Diafon menu → Convert selection, or right-click → Services → Convert with Diafon.",
         ]))
@@ -128,6 +141,10 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         if let code = sender.selectedItem?.representedObject as? String { Prefs.shared.language = code }
     }
 
+    @objc private func layoutChosen(_ sender: NSPopUpButton) {
+        if let code = sender.selectedItem?.representedObject as? String { Prefs.shared.layout = code }
+    }
+
     @objc private func checkChanged(_ sender: NSButton) { checkActions[ObjectIdentifier(sender)]?(sender.state == .on) }
 
     func controlTextDidChange(_ obj: Notification) { refresh() }
@@ -139,6 +156,7 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         let p = Prefs.shared
         universalRadio.state = p.universal ? .on : .off
         languageRadio.state = p.universal ? .off : .on
+        if let i = layoutPopup.itemArray.firstIndex(where: { ($0.representedObject as? String) == p.layout }) { layoutPopup.selectItem(at: i) }
         let code = p.language
         if let i = languagePopup.itemArray.firstIndex(where: { ($0.representedObject as? String) == code }) {
             languagePopup.selectItem(at: i)

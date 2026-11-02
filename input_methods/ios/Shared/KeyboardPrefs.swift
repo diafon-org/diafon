@@ -11,7 +11,7 @@ extension Prefs {
         NotificationCenter.default.post(name: Prefs.changed, object: nil)
     }
 
-    /// The base layout (Layouts.swift), the first one by default.
+    /// The base layout (apple/Core/Layouts.swift), the first one by default.
     var layout: String {
         get { defaults.string(forKey: "layout").flatMap { c in Layouts.all.contains { $0.code == c } ? c : nil } ?? Layouts.all[0].code }
         set { store(newValue, "layout") }
