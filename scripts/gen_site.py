@@ -39,7 +39,7 @@ def write(name, body):
     open(os.path.join(INC, name), 'w', encoding='utf-8').write(body.strip() + '\n')
 
 
-# ---- the hero: what the system is for, and one familiar word shown four ways
+# ---- the hero: what the system is for, and one sound in the spellings of a few languages
 HERO = [('stage:cs', 'Czech', 'čokoláda', 'č'), ('stage:tr', 'Turkish', 'çikolata', 'ç'),
         ('stage:hu', 'Hungarian', 'csokoládé', 'cs'), ('stage:sw', 'Swahili', 'chokoleti', 'ch'),
         ('stage:en', 'English', 'chocolate', 'ch')]
@@ -70,7 +70,7 @@ def hero():
   <div class="hero-title">{mark}<div><h1>Diafon</h1>
     <p class="hero-tag">One alphabet for the sounds of many languages.</p></div></div>
   <div class="same">
-    <p class="same-k">One sound, /t͡ʃ/, spelled five ways. Diafon writes it c̦ in each of them.</p>
+    <p class="same-k">One sound /t͡ʃ/ spelled 4 ways, diafon writes it c̦ always.</p>
     {''.join(rows)}
   </div>
   <div class="uses">{uses}</div>

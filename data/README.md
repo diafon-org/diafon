@@ -7,8 +7,8 @@ Two layers, strictly separated:
 - `mapping.yaml`, **the mapping**: phoneme → input form, the explicit,
   reviewable layer between the metadata and everything generated. Global map
   plus per-language `overrides`, reviewed within-language `merges`, and the
-  per-language `review` state: non-reviewed → reviewed → native-reviewed.
-  Every language ultimately needs a native or expert reviewer.
+  per-language `review` state: not reviewed, or reviewed (checked against
+  the sources).
 
 `scripts/gen_master.py` validates the mapping (full coverage; no
 within-language form collision outside `merges`) and renders the master

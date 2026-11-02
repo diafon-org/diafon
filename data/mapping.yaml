@@ -211,12 +211,10 @@ areas:
   aj: {core: ə}
   aq: {core: ɝ}
 
-# Review state of each language's mapping. Full confidence requires a native
-# or expert reviewer per language; absent entries are non-reviewed.
-# States: reviewed (checked against the sources) · native (native/expert-reviewed)
+# Review state of each language's mapping: reviewed (checked against the
+# sources); absent entries are not reviewed.
 review:
   en: reviewed
-  hu: native
   zh: reviewed
 
 overrides:
