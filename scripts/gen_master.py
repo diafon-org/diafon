@@ -6,8 +6,7 @@ live; docs/assets/master.js drives them).
 The universal table: every input form in use, grouped by keystroke count,
 with its glyph and its readings from the most to the least used (languages ·
 native speakers). Then one table per language (IPA, frequency, input form,
-glyph), stamped with the mapping's review state (reviewed or not; the
-native level stays in data/mapping.yaml).
+glyph), stamped with the mapping's review state (reviewed or not).
 
 Validation as before: every non-X phoneme mapped; no within-language form
 collision outside `merges`.
@@ -31,8 +30,7 @@ RETRO = {'ty','dy','ny','sjy','zjy','tqy','dqy'}  # the stops and the flipped hu
 SPECIAL2 = {'tcy','dcy'}
 V_POINTS = {'ij','ej','uj','oj','aj','ic','ec','uc','oc','ac','eq','iq','aq'}
 SEQ = {'aix','aux','ojix','oix','oicx','ecicx','ocux','eix','oux','ojicx','ejix','eqicx','ajux','tyh','dyh','rch','pf','ph','th','kh','bh','dh','gh','tch','tqh','dqh','tqyh'}
-STATES = {'native': ('reviewed', 'st-rev'),       # native or expert review stays in data/mapping.yaml:
-          'reviewed': ('reviewed', 'st-rev'),     #   the pages say only reviewed or not
+STATES = {'reviewed': ('reviewed', 'st-rev'),
           None: ('not reviewed', 'st-non')}
 
 
@@ -429,7 +427,7 @@ def overview():
                     f'<td class="tt">{n_c}</td><td class="tt">{n_v}</td></tr>')
     return ('<h2 id="languages">The languages</h2>\n'
             f'<p class="lede">{len(langs)} languages so far. Pick one for its own table. A mapping marked '
-            '<span class="rev">reviewed</span> has been checked against the literature or by a native speaker.</p>\n'
+            '<span class="rev">reviewed</span> has been checked against the literature.</p>\n'
             '<div class="mt-wrap"><table class="mt langs">'
             '<tr><th rowspan="2">language</th><th colspan="2">speakers</th><th colspan="2">phonemes used</th></tr>'
             '<tr><th>native</th><th>overall</th><th>consonants</th><th>vowels</th></tr>' + ''.join(rows) + '</table></div>')

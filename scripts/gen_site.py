@@ -62,7 +62,6 @@ def hero():
                     f'<span class="same-nat"><b>{esc(letters)}</b>{esc(word[len(letters):])}</span>'
                     f'<span class="same-arrow" aria-hidden="true">→</span>'
                     f'<span class="same-dia ug"><b>{esc(out[0:2])}</b>{esc(out[2:])}</span></div>')
-    ways = ['one', 'two', 'three', 'four', 'five', 'six', 'seven'][len({h[3] for h in HERO}) - 1]   # distinct spellings: Swahili and English share ch
     uses = ''.join(f'<div class="use"><h3>{esc(t)}</h3><p>{esc(d)}</p></div>' for t, d in USES)
     mark = open(os.path.join(ROOT, 'docs', 'logo', 'mark-inline.svg'), encoding='utf-8').read().strip()
     mark = mark.replace('width="1em" height="1em"', 'class="hero-mark"')
@@ -71,7 +70,7 @@ def hero():
   <div class="hero-title">{mark}<div><h1>Diafon</h1>
     <p class="hero-tag">One alphabet for the sounds of many languages.</p></div></div>
   <div class="same">
-    <p class="same-k">One sound, /t͡ʃ/, spelled {ways} ways. Diafon always writes it c̦.</p>
+    <p class="same-k">One sound /t͡ʃ/ spelled 4 ways, diafon writes it c̦ always.</p>
     {''.join(rows)}
   </div>
   <div class="uses">{uses}</div>
