@@ -17,7 +17,7 @@ import tempfile
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CORE = os.path.join(ROOT, 'input_methods', 'apple', 'Core')
 IOS = os.path.join(ROOT, 'input_methods', 'ios')
-CORE_FILES = ('SpecData.swift', 'Engine.swift', 'Stages.swift', 'Reading.swift', 'Lexicon.swift', 'Prefs.swift', 'Emoji.swift')
+CORE_FILES = ('SpecData.swift', 'Engine.swift', 'Stages.swift', 'Reading.swift', 'Lexicon.swift', 'Prefs.swift', 'Emoji.swift', 'Layouts.swift')
 
 
 def build():
