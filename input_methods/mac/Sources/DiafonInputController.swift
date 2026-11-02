@@ -20,19 +20,6 @@ public class DiafonInputController: IMKInputController {
     private var output: String { prefs.output }
     private func render() -> (String) -> String { prefs.renderer(output) }
 
-    /// The pending segment in every spelling, distinct, the current output first:
-    /// Universal, each language's spelling, then as typed.
-    private func spellings(_ tail: String) -> [String] {
-        var outs = ["script"] + Prefs.languages.map { "stage:\($0.0)" } + ["transport"]
-        if let i = outs.firstIndex(of: output) { outs.remove(at: i); outs.insert(output, at: 0) }
-        var seen = Set<String>(), list: [String] = []
-        for o in outs {
-            let t = prefs.renderer(o)(tail)
-            if seen.insert(t).inserted { list.append(t) }
-        }
-        return list
-    }
-
     /// Where the caret is on screen, if the app says.
     private func caretRect(_ client: IMKTextInput) -> NSRect? {
         var rect = NSRect.zero
@@ -46,11 +33,7 @@ public class DiafonInputController: IMKInputController {
 
     public override func candidateSelected(_ candidateString: NSAttributedString!) {
         guard let client = self.client() else { return }
-        if syllable != nil { takeCandidate(client, candidateString.string); return }
-        insert(client, candidateString.string)
-        pending = ""
-        mark(client)
-        hidePanel()
+        if syllable != nil { takeCandidate(client, candidateString.string) }      // Mandarin: the syllable's character
     }
 
     public override func activateServer(_ sender: Any!) {
@@ -87,7 +70,7 @@ public class DiafonInputController: IMKInputController {
         if mods == [.shift], event.keyCode == 49 { flush(client); LanguageChooser.shared.show(); return true }
         if !prefs.enabled { return false }                     // a plain keyboard: touch nothing
 
-        // the candidate window is up: it takes arrows, Return and the digits; Escape closes it
+        // the candidate window (Mandarin characters) is up: it takes arrows, Return and the digits; Escape closes it
         if (candidatePanelIfAny?.isVisible() ?? false) {
             switch event.keyCode {
             case 53: hidePanel(); return true
@@ -103,15 +86,6 @@ public class DiafonInputController: IMKInputController {
             }
         }
         if mandarin { if handleMandarin(event, client) { return true } }
-        if !pending.isEmpty, event.keyCode == 48 || event.keyCode == 125 {   // Tab, down: open the chooser
-            candidateList = spellings(pending)
-            let panel = candidatePanelMake()                       // the default selection keys stay set: handle()
-            //   takes every digit before the panel sees it (digits are tones); an empty key list crashes the
-            //   client-side candidate UI (TextInputUIMacHelper) in Electron apps such as Teams
-            panel.update()
-            panel.show(kIMKLocateCandidatesBelowHint)
-            return true
-        }
 
         // shortcuts and navigation: make the tail final, let the app have the key
         if !event.modifierFlags.intersection([.command, .control, .option]).isEmpty { flush(client); return false }
@@ -192,7 +166,9 @@ public class DiafonInputController: IMKInputController {
         candidateList = list
         client.setMarkedText(NSAttributedString(string: list[0], attributes: [.underlineStyle: NSUnderlineStyle.thick.rawValue]),
                              selectionRange: NSRange(location: (list[0] as NSString).length, length: 0), replacementRange: anyRange)
-        let panel = candidatePanelMake()
+        let panel = candidatePanelMake()                   // the default selection keys stay set: handle() takes every
+        //   digit before the panel sees it (digits are tones); an empty key list crashes the client-side
+        //   candidate UI (TextInputUIMacHelper) in Electron apps such as Teams
         panel.update()
         panel.show(kIMKLocateCandidatesBelowHint)
     }

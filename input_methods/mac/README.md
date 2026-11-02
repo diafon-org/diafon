@@ -35,12 +35,6 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
   last. Return or space takes the selection, the next letter takes the first
   choice and starts the next syllable, Escape keeps the pinyin. The
   characters come from data/lexicon/zh.json (Unihan).
-- **The candidate window.** While a segment is still underlined, Tab (or ↓)
-  opens the system's candidate window, the one the CJK input methods use,
-  with that segment in every spelling: the current output first, then
-  Universal, each language, and as typed. Arrows pick one, Return takes
-  it, Escape closes it; any other key, digits included (they are tones),
-  closes it and typing goes on.
 - **The output**: Universal (one letter per sound, the same in every
   language; the default) or one language's spelling.
 - **The status menu**, under the input source in the menu bar: Passthrough
@@ -79,9 +73,7 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
 3. A bare Shift tap switches conversion off and back on; quick taps in a
    row walk the cycle: passthrough → Universal → each language on your
    quick list. ⇧Space opens the language chooser.
-4. Tab (or ↓) on an underlined segment opens the candidate window with
-   every spelling.
-5. Text in any spelling: select it, then Diafon menu → Convert selection
+4. Text in any spelling: select it, then Diafon menu → Convert selection
    (or right-click → Services → Convert with Diafon); the … variants let
    you set the source and the target first.
 
