@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Generate the soft keyboards' layout tables from data/layouts.yaml:
-input_methods/android/.../Layouts.kt and input_methods/ios/Shared/Layouts.swift.
+input_methods/android/.../Layouts.kt and input_methods/apple/Core/Layouts.swift.
 
 Every layout must place each of the 26 letters exactly once; a layout that
 drops or doubles a letter fails here, before any keyboard is built.
@@ -14,7 +14,7 @@ import yaml
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KT = os.path.join(ROOT, 'input_methods', 'android', 'app', 'src', 'main',
                   'java', 'io', 'diafon', 'ime', 'Layouts.kt')
-SWIFT = os.path.join(ROOT, 'input_methods', 'ios', 'Shared', 'Layouts.swift')
+SWIFT = os.path.join(ROOT, 'input_methods', 'apple', 'Core', 'Layouts.swift')
 
 
 def load():

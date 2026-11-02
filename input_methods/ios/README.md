@@ -103,7 +103,6 @@ it; the UI test taps it by its id, `key:s`, `key:space`, `key:delete`).
     Makefile                          check, data, icon, project, sim, uitest, open
     Shared/Session.swift              the streaming rule against a TextSink; no UIKit
     Shared/KeyboardPrefs.swift        what iOS adds to the shared settings: layout, tail mode, the strip's spellings
-    Shared/Layouts.swift              generated from data/layouts.yaml by scripts/gen_layouts.py
     Keyboard/KeyboardViewController.swift  UIInputViewController: proxy ↔ Session, keys, strip, convert selection
     Keyboard/KeyboardView.swift       the keys, drawn in one view; touch down emits; the globe button
     Keyboard/StripView.swift          the spellings of the pending segment, the mode, convert selection, the gear

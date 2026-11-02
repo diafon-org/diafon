@@ -38,6 +38,15 @@ public class DiafonInputController: IMKInputController {
 
     public override func activateServer(_ sender: Any!) {
         pending = ""
+        if let client = sender as? IMKTextInput { applyLayout(client) }
+    }
+
+    /// The base layout under Diafon (MacPrefs), set on the client when it differs from the last one set.
+    private var appliedLayout = ""
+    private func applyLayout(_ client: IMKTextInput) {
+        let id = prefs.keyLayoutID
+        client.overrideKeyboard(withKeyboardNamed: id)
+        appliedLayout = id
     }
 
     public override func recognizedEvents(_ sender: Any!) -> Int {
@@ -64,6 +73,7 @@ public class DiafonInputController: IMKInputController {
         }
         guard event.type == .keyDown else { return false }
         shiftPending = false
+        if appliedLayout != prefs.keyLayoutID { applyLayout(client) }    // changed in Setup since this field was entered
 
         // ⇧Space, in every mode: the language chooser
         let mods = event.modifierFlags.intersection([.command, .control, .option, .shift])

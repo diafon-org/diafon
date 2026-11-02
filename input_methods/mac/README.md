@@ -67,7 +67,9 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
 
 ## How to (also in Setup…)
 
-1. Pick Diafon in the input menu (or ⌃Space). Your keyboard stays as it is.
+1. Pick Diafon in the input menu (or ⌃Space). The letters sit as Setup's
+   base layout puts them: QWERTY by default, or QWERTZ, AZERTY, Dvorak,
+   Colemak, whatever layout the Mac had selected before.
 2. Type a sound as a base, then its operators: `sj` → ș, `tq` → c̦,
    `aw` → á; the last sound stays underlined until the next key settles it.
 3. A bare Shift tap switches conversion off and back on; quick taps in a
@@ -91,6 +93,7 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
     Sources/Hud.swift                  the mode label shown for a moment after a switch
     Sources/LanguageChooser.swift      the searchable language list (Other language…)
     Sources/SetupWindow.swift          the setup window
+    Sources/MacPrefs.swift             the base layout under Diafon (overrideKeyboard), from ../apple/Core/Layouts.swift
     Sources/Services.swift             the text service
     Sources/main.swift                 IMKServer bootstrap, services registration
     Info.plist                         the input source, the services, the app icon (docs/logo/Diafon.icns) and

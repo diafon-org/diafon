@@ -70,7 +70,7 @@ def hero():
   <div class="hero-title">{mark}<div><h1>Diafon</h1>
     <p class="hero-tag">One alphabet for the sounds of many languages.</p></div></div>
   <div class="same">
-    <p class="same-k">One sound /t͡ʃ/ spelled 4 ways, diafon writes it c̦ always.</p>
+    <p class="same-k">One sound /t͡ʃ/ spelled 4 ways, Diafon writes it c̦ always.</p>
     {''.join(rows)}
   </div>
   <div class="uses">{uses}</div>
