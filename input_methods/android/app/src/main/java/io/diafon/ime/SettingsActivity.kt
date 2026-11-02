@@ -1,6 +1,7 @@
 // Setup and settings: enable the input method and switch to it; the base
-// layout; what is written out; a live pane that
-// shows a typed line in every spelling. Also the app's launcher entry.
+// layout; what is written out, Universal or a language's spelling, the
+// language from one list; a live pane that shows a typed line both ways.
+// Also the app's launcher entry.
 package io.diafon.ime
 
 import android.app.Activity
@@ -12,13 +13,17 @@ import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.TypedValue
+import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.ScrollView
+import android.widget.Spinner
 import android.widget.Switch
 import android.widget.TextView
 
@@ -56,27 +61,40 @@ class SettingsActivity : Activity() {
         root.addView(heading("What is written out"))
         root.addView(text("Universal writes one letter per sound, the same in every language; a language's spelling writes the language's own spelling."))
         val previews = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
-        root.addView(radios(Prefs.OUTPUTS, prefs.output, describe = true) { prefs.output = it })
+        val universal = RadioButton(this).apply { setPadding(dp(6), dp(8), 0, dp(8)) }
+        val spelling = RadioButton(this).apply { setPadding(dp(6), dp(8), 0, dp(8)) }
+        val picker = Spinner(this).apply {
+            adapter = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, Prefs.LANGUAGES.map { it.second })
+            setSelection(Prefs.LANGUAGES.indexOfFirst { it.first == prefs.language }.coerceAtLeast(0))
+        }
+        root.addView(RadioGroup(this).apply { addView(universal); addView(spelling) })
+        root.addView(picker)
 
         root.addView(heading("Try it"))
         val input = EditText(this).apply {
-            setText(sample)
+            setText(clause(prefs))
             typeface = Typeface.MONOSPACE
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
             setTextColor(accent)
         }
         root.addView(input)
         root.addView(previews)
+        var prefilled = input.text.toString()
         val refresh = {
+            universal.isChecked = prefs.universal
+            spelling.isChecked = !prefs.universal
+            universal.text = "Universal   ${prefs.renderer("script")(clause(prefs))}"
+            spelling.text = "A language's spelling   ${prefs.renderer("stage:${prefs.language}")(clause(prefs))}"
+            if (input.text.toString() == prefilled) { prefilled = clause(prefs); input.setText(prefilled) }
             previews.removeAllViews()
             val typed = input.text.toString()
-            for ((value, label) in Prefs.OUTPUTS) {
+            for ((value, label) in prefs.choices()) {
                 val out = prefs.renderer(value)(typed)
                 previews.addView(LinearLayout(this).apply {
                     orientation = LinearLayout.HORIZONTAL
                     setPadding(0, dp(6), 0, dp(6))
                     addView(TextView(context).apply {
-                        text = label.lowercase()
+                        text = label
                         setTextColor(muted)
                         setTextSize(TypedValue.COMPLEX_UNIT_SP, 11f)
                         minWidth = dp(110)
@@ -96,6 +114,18 @@ class SettingsActivity : Activity() {
             override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
             override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
         })
+        universal.setOnClickListener { prefs.output = "script"; refresh() }
+        spelling.setOnClickListener { prefs.output = "stage:${prefs.language}"; refresh() }
+        picker.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
+                val code = Prefs.LANGUAGES[pos].first
+                if (code == prefs.language) return
+                prefs.language = code
+                if (!prefs.universal) prefs.output = "stage:$code"
+                refresh()
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
         refresh()
 
         root.addView(heading("Also"))
@@ -109,17 +139,16 @@ class SettingsActivity : Activity() {
         root.addView(text("Spec ${SpecData.GENERATED} · ${SpecData.SOURCE}").apply { alpha = 0.6f })
     }
 
-    /** A radio group; with describe, each option shows the sample in that spelling. */
-    private fun radios(options: List<Pair<String, String>>, current: String, describe: Boolean = false,
-                       onPick: (String) -> Unit): RadioGroup {
-        val prefs = Prefs(this)
+    /** The language's own sample, its first clause; the sounds when it has none. */
+    private fun clause(prefs: Prefs): String =
+        SpecData.STAGES[prefs.language]?.sample?.takeIf { it.isNotEmpty() }?.substringBefore(',') ?: sample
+
+    /** A radio group, one option per (value, label). */
+    private fun radios(options: List<Pair<String, String>>, current: String, onPick: (String) -> Unit): RadioGroup {
         val group = RadioGroup(this)
         options.forEachIndexed { i, (value, label) ->
-            val st = if (value.startsWith("stage:")) SpecData.STAGES[value.substring(6)] else null
-            val src = if (st != null && st.sample.isNotEmpty()) st.sample else sample
-            val sampleText = if (describe) "   ${prefs.renderer(value)(src.substringBefore(','))}" else ""
             group.addView(RadioButton(this).apply {
-                text = label + sampleText
+                text = label
                 id = i + 1
                 isChecked = current == value
                 setPadding(dp(6), dp(8), 0, dp(8))
