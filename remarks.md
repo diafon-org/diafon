@@ -220,7 +220,7 @@ the current system. A superseded decision is deleted, not kept.
   closest-shape study as guidance for drawing the shared precomposed letters.
 
 - **Two choices, not seven (2026-09-14).** The Mac status menu listed
-  Universal and every language's spelling as one flat row of radio items; Sz:
+  Universal and every language's spelling as one flat row of radio items; the maintainer:
   too many options. The choice a person makes is binary, Universal or my
   language's spelling, and the language is a second, rarer choice. So every
   screen now offers Universal (the default) and Language spelling, the
@@ -232,7 +232,7 @@ the current system. A superseded decision is deleted, not kept.
   Android keeps its flat list for now and follows in its own round.
 
 - **One key for the mode; the CJK candidate window for the spellings
-  (2026-09-14).** Sz asked for a good shortcut between passthrough, Universal
+  (2026-09-14).** The maintainer asked for a good shortcut between passthrough, Universal
   and the language's spelling: the bare Shift tap now cycles the three in
   that order, with a label near the caret naming the mode, so a three-state
   cycle stays legible. And the Pinyin-style chooser: InputMethodKit's own
@@ -242,7 +242,7 @@ the current system. A superseded decision is deleted, not kept.
   Android strip in the Mac's native form, and one more argument for the
   IME as the place where the spellings meet.
 
-- **The h-sequence is a reading, not a segment (2026-09-25).** Sz: lighthouse
+- **The h-sequence is a reading, not a segment (2026-09-25).** The maintainer: lighthouse
   is not tʰ, so th already has a problem. The engine agrees: th is two
   segments, t and h, and the text is the two letters; the aspirated reading
   is a convention of the languages that have aspirates (zh ko th vi ka: tʰ,
@@ -273,7 +273,7 @@ the current system. A superseded decision is deleted, not kept.
   the script, which is the argument for the script made on every page of
   the web.
 
-- **The lexicon: the fourth layer (2026-09-26).** Sz asked for English (its
+- **The lexicon: the fourth layer (2026-09-26).** The maintainer asked for English (its
   own spelling, and as loans), Hungarian ly, and a pinyin chooser by tone,
   in one structure. They are one thing: knowledge the letters cannot carry,
   kept per word. So the system now has four layers: the points, the marks
@@ -293,7 +293,7 @@ the current system. A superseded decision is deleted, not kept.
   w) tips a word the host's dictionary also lists; English words that
   dictionary lists as its own (online, email) are named in `borrowed`.
 
-- **The extension is a switch (2026-09-27).** Sz: the icon should turn the
+- **The extension is a switch (2026-09-27).** The maintainer: the icon should turn the
   conversion on and off; and the reverse mode, a Universal page shown in a
   language's spelling, is a very rare feature, maybe useless; keep the
   language by hand only where auto does not work. So the extension has one
@@ -308,7 +308,7 @@ the current system. A superseded decision is deleted, not kept.
   holds on and off both. The state is the icon itself, not a badge: round,
   inset to 70% of the canvas as toolbar icons are, light grey while off,
   the two-tone mark on ink while on (logo.py draws both, the extension's
-  icons/ folder holds them). Sz: no settings is fine only if auto is
+  icons/ folder holds them). The maintainer: no settings is fine only if auto is
   reliable. The engine's detect scores a stage by the letters it reads
   without its aliases, so Czech text with y or ě never reached the 0.98
   bar, and plain ASCII ties every Latin stage. The extension reads a page
@@ -324,7 +324,7 @@ the current system. A superseded decision is deleted, not kept.
   neither tolerates the other's key, so build.sh writes an extensions/
   firefox copy with manifest.firefox.json.
 
-- **A stem looked up short (2026-09-27).** Sz, reading a page: traumái came
+- **A stem looked up short (2026-09-27).** The maintainer, reading a page: traumái came
   out as tromái, jamaicai as dzsöméköi. Two holes in the loan rule. The
   native stem is matched as a prefix of the word, and a Hungarian suffix
   lengthens the stem's final a or e (trauma, traumái), so trauma was never
@@ -339,26 +339,26 @@ the current system. A superseded decision is deleted, not kept.
   against a suffix, so a suffixed word with no foreign shape is now never
   a loan; a loan is a whole word (like, team) or carries its shape
   (meetingen). Left as they were, for a
-  native review: tea reads as the loan ti, because ea is the shape that
+  review: tea reads as the loan ti, because ea is the shape that
   makes team a loan and the two cannot be told apart by shape; and
   igazságtalanságok reads zs across the morpheme boundary, the stated
   limit of longest match, which only a dictionary split would lift.
 
-- **Spoken: the spellings a host keeps (2026-09-27).** Sz, still reading:
+- **Spoken: the spellings a host keeps (2026-09-27).** The maintainer, still reading:
   jamaicai came out by the letters (jämäicäi, c as ts) once it was no
   loan, and franchise-ba by the letters too, the dictionary listing the
   word and ch being no shape on the list. Two answers. ch joins the
   foreign shapes: franchise, chat, Michael go to English; but Bach, pech,
   cech would too, and Jamaica is nobody's: not the English sounds, not
   the Hungarian letters, but the name as a Hungarian says it. So the
-  Hungarian lexicon has a `spoken` section, a hand list for native
+  Hungarian lexicon has a `spoken` section, a hand list for
   review: spelling -> how it is said, in Hungarian letters, read by the
   letters alone (bah is an English word too), matched as a stem with the
   lengthening, and consulted before everything else, in the three ports.
   The reader's order for a host with letters is now: its own entries,
   then the loan check, then the letters. The vectors carry the sentence.
 
-- **The stems compete (2026-09-27).** Sz: streamingajánlójában read by
+- **The stems compete (2026-09-27).** The maintainer: streamingajánlójában read by
   the letters, felkerült as fẹlkőült (a stale copy: Felker is a CMUdict
   surname), and asked for the systemic view. Three rules changed, in the
   three ports. A loan stem is one of the source's common words (the
@@ -377,12 +377,12 @@ the current system. A superseded decision is deleted, not kept.
   English words with no foreign shape (had, has, sir, must, mind, film,
   hotel, video, internet, online…); the dictionary lists what Hungarian
   writes, not how it is said, so the ones read the English way need a
-  spoken entry each, and no source decides it. Sz, on Cudjoe East read
+  spoken entry each, and no source decides it. The maintainer, on Cudjoe East read
   as Cudjoẹ Ist: the names could have an entry. So `names`, beside
   spoken, the proper names no dictionary reads, as a Hungarian says them
   (cudjoe: kadzsó, ocho: ocso), the same table kept apart for review.
 
-- **The commons free, the closed ecosystems pay (2026-09-27).** Sz, on the
+- **The commons free, the closed ecosystems pay (2026-09-27).** The maintainer, on the
   reader's own entries: they need syncing across the extension and the
   input methods, which needs an account, which is the monetization. So
   three layers, in order. One: the entries live in the extension (the
@@ -393,7 +393,7 @@ the current system. A superseded decision is deleted, not kept.
   left to set at publish. Three: an account (sign in with Apple or
   Google, one record per user, merged on change), the paid tier: the
   personal dictionary that follows a person across every keyboard and
-  browser; later, when users ask. The principle, Sz's: a closed-source
+  browser; later, when users ask. The principle, the maintainer's: a closed-source
   ecosystem that charges its developers should carry a paying service,
   so the iOS keyboard is about one dollar, and macOS may follow; the
   price low, covering the developer fees plus a small donation on top;
@@ -409,7 +409,7 @@ the current system. A superseded decision is deleted, not kept.
   question; an accountant answers it for the country of residence, once,
   before the first store listing.
 
-- **Names kept (2026-09-27).** Sz: an option not to convert names; and
+- **Names kept (2026-09-27).** The maintainer: an option not to convert names; and
   the icon's disc too tight around the mark. A reader can keep names as
   written (the icon's menu, the options page): a capitalised word inside
   a sentence stays in its spelling, the first word of a sentence reads,
@@ -422,7 +422,7 @@ the current system. A superseded decision is deleted, not kept.
   the worker restarts often and a reload is not always an install; the
   headless test proves the selection item exists by refusing a duplicate.
 
-- **Detection follows the content (2026-09-27).** Sz: a page reloaded with
+- **Detection follows the content (2026-09-27).** The maintainer: a page reloaded with
   the conversion on did not convert. The headless reload did, so the
   page differed: the language was detected once, at load, from the text
   present then, and a page filled by script had none yet; a later toggle
@@ -434,7 +434,7 @@ the current system. A superseded decision is deleted, not kept.
   switch-on and on reload.
 
 - **The page as it changes, and the languages inside it (2026-09-27).**
-  Sz: text loaded dynamically stays unconverted, and mixed-language text
+  The maintainer: text loaded dynamically stays unconverted, and mixed-language text
   needs work. The observer watched added nodes only: a script that
   rewrites a text node in place (a framework's update) changed nothing
   it saw, and the old original would have come back on the next pass. It

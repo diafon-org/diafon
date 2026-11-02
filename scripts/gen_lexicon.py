@@ -172,7 +172,7 @@ def gen_hu(cfg):
     if cfg.get('native'):
         for line in open(os.path.join(LEX, cfg['native']), encoding='utf-8'):
             word = line.split('/')[0].split('\t')[0].strip().lower()
-            if re.fullmatch(r'[a-záéíóöőúüű]{2,}', word):
+            if re.fullmatch(r'[a-záéíóöőúüű]+', word):          # one-letter words too: a, e, s, ó
                 native.add(word)
     native -= {w.lower() for w in cfg.get('borrowed') or []}   # English words the dictionary lists as its own
     return {'name': cfg['name'], 'kind': cfg['kind'], 'match': cfg['match'],

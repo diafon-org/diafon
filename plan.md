@@ -34,7 +34,7 @@ the reference.
   marker and the settings schema.
 - G4 Build in CI: scripts/build.sh on every push, docs/ published as the
   site, tests green.
-- G5 One stage native-reviewed (hu), one desktop input method shipped,
+- G5 One stage reviewed, one desktop input method shipped,
   the transport font released.
 - G6 One /support line on every surface.
 
@@ -91,4 +91,4 @@ Order: 1 3 5 13 14 (the launch), then 4 11 8, then 7 15 10 12.
   stay separated in the Ltd's books meanwhile.
 - The repo address for the extension's "propose to the commons" button
   (extensions/browser/options.js, REPO), set at publish.
-- Native review of data/stages/hu.yaml; ly is the one stated loss.
+- Review of data/stages/hu.yaml; ly is the one stated loss.

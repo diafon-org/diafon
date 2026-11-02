@@ -11,7 +11,7 @@ launch and lives on what the launch recruits; nothing here waits for it.
 The repo has no remote. Everything in this stage is invisible after the
 push and hard to change after it, so it is done first.
 
-1. **Owner.** One named legal person (Sz or the company) is the copyright
+1. **Owner.** One named legal person (a person or the company) is the copyright
    holder of record, the trademark claimant, the donation recipient and
    the store publisher. The git identity for public commits is chosen
    with it; the existing pseudonymous history is either kept as is or
@@ -112,7 +112,7 @@ any post.
    and does not restrict).
 
 Gate: G5 for wave 1 is playground, fonts, Android APK and the hu stage
-native-reviewed (data/stages/hu.yaml is still draft: Sz reviews it first).
+reviewed (data/stages/hu.yaml is still a draft).
 
 ## Stage D: launch waves
 
@@ -133,7 +133,7 @@ the day of the post; the FAQ page absorbs the repeated ones.
 
 Show HN specifics: Tuesday to Thursday, 8 to 10 in the morning US
 Eastern; title of the form "Show HN: Diafon – a phonemic script for every
-language, typed on 26 keys"; the first comment is Sz's own, the origin
+language, typed on 26 keys"; the first comment is the author's own, the origin
 and the two cornerstones in five sentences, with the invitation to break
 the segmentation guarantee in the playground. Not posted: r/linguistics
 and r/asklinguistics remove constructed systems by rule.
