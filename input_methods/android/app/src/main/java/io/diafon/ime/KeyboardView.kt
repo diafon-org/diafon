@@ -40,9 +40,9 @@ class KeyboardView(ctx: Context, private val onKey: (Key) -> Unit) : View(ctx) {
     private val fill = Paint(Paint.ANTI_ALIAS_FLAG)
     private val text = Paint(Paint.ANTI_ALIAS_FLAG).apply { textAlign = Paint.Align.CENTER }
 
-    private val opColor = mapOf(
-        'c' to 0xFFB06F14.toInt(), 'j' to 0xFF2F6FB0.toInt(), 'q' to 0xFF7A4FB0.toInt(),
-        'x' to 0xFF2F8F66.toInt(), 'y' to 0xFFB03F7A.toInt(), 'w' to 0xFF5B6472.toInt())
+    private val opColor = mapOf(                          // the site's colours (docs/assets/diafon.css; w the accent)
+        'c' to 0xFFB06F14.toInt(), 'j' to 0xFF3F5BC0.toInt(), 'q' to 0xFF8A4BB0.toInt(),
+        'x' to 0xFF2F8F66.toInt(), 'y' to 0xFFC0468A.toInt(), 'w' to 0xFF0E7C86.toInt())
 
     // rows of (key, width in letter-key units); the letter rows follow the layout
     private var rows: List<List<Pair<Key, Float>>> = buildRows("qwerty")
