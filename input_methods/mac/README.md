@@ -84,7 +84,7 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
     ../apple/Core/Stages.swift         spelling stages, from scripts/stages.py
     ../apple/Core/Reading.swift        reading back, from scripts/engine.py and stages.py: inventory, tables, parse, convert, detect
     ../apple/Core/Lexicon.swift        the lexicon layer: English, Hungarian loans, Mandarin syllables
-    ../apple/Core/Prefs.swift          the settings (output, language, quick list, tones, join, strict, enabled, shift toggle) and the renderer
+    ../apple/Core/Prefs.swift          the settings (output, language, quick list, tones, join, enabled, shift toggle; strict only colours the iOS strip, the Mac has none) and the renderer
     ../apple/Core/CheckMain.swift      stdin/stdout driver used by tests/test_swift.py
     Sources/DiafonInputController.swift  IMKInputController: keystrokes in, streaming rule, insertText / setMarkedText out; the status menu
     Sources/ConvertWindow.swift        the From / To window of Convert with Diafon…

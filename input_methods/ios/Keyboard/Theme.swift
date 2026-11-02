@@ -23,10 +23,10 @@ enum Theme {
     static let onAccent = dyn(0xFFFFFF, 0x1B1E25)
     static let warn = dyn(0xB03F3F, 0xE07A7A)
 
-    /// The operator letters, in the Android keyboard's and the site's colours.
+    /// The operator letters, in the site's colours (docs/assets/diafon.css, --c-c … --y-c; w the accent).
     static let operators: [Character: UIColor] = [
-        "c": dyn(0xB06F14, 0xE0A04A), "j": dyn(0x2F6FB0, 0x6FA8E0), "q": dyn(0x7A4FB0, 0xAE8BE0),
-        "x": dyn(0x2F8F66, 0x5FC79A), "y": dyn(0xB03F7A, 0xE07AB0), "w": dyn(0x5B6472, 0xA3AAB5)]
+        "c": dyn(0xB06F14, 0xE0A44A), "j": dyn(0x3F5BC0, 0x8B9FF0), "q": dyn(0x8A4BB0, 0xC08EE0),
+        "x": dyn(0x2F8F66, 0x4FC79A), "y": dyn(0xC0468A, 0xE88AC0), "w": dyn(0x0E7C86, 0x3EC8CF)]
 
     private static var registered = false
     /// Diafon Serif from the bundle, registered once; the system serif if it is missing.

@@ -69,6 +69,7 @@ final class SettingsPanel: UIView {
             langScroll.heightAnchor.constraint(equalToConstant: 34),
         ])
         stack.addArrangedSubview(langScroll)
+        stack.addArrangedSubview(caption("Tap a language to write its spelling. Hold it to add it to the Dia key's cycle or take it off; a dot marks the ones on it."))
 
         sample.numberOfLines = 0
         sample.font = Theme.serif(17)
@@ -97,15 +98,20 @@ final class SettingsPanel: UIView {
     func refresh() {
         output.selectedSegmentIndex = prefs.universal ? 0 : 1
         languages.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        let quick = prefs.quickLanguages
         for (code, name) in Prefs.languages {
             var cfg = UIButton.Configuration.plain()
             let on = !prefs.universal && code == prefs.language
-            cfg.attributedTitle = AttributedString(name, attributes: AttributeContainer([.font: UIFont.systemFont(ofSize: 15), .foregroundColor: on ? Theme.onAccent : Theme.ink]))
+            let inCycle = quick.contains(code)
+            cfg.attributedTitle = AttributedString(inCycle ? "\(name) •" : name, attributes: AttributeContainer([.font: UIFont.systemFont(ofSize: 15), .foregroundColor: on ? Theme.onAccent : Theme.ink]))
             cfg.background.backgroundColor = on ? Theme.accent : Theme.key
             cfg.background.cornerRadius = 8
             cfg.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10)
             let b = UIButton(configuration: cfg)
             b.addAction(UIAction { [weak self] _ in self?.prefs.language = code; self?.refresh() }, for: .touchUpInside)
+            b.menu = UIMenu(children: [UIAction(title: inCycle ? "Take off the Dia cycle" : "Add to the Dia cycle") { [weak self] _ in
+                self?.prefs.setQuick(code, !inCycle); self?.refresh()
+            }])                                         // a hold shows the menu; a tap still picks
             languages.addArrangedSubview(b)
         }
         let st = SpecData.stages[prefs.language]
