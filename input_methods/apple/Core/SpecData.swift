@@ -14,7 +14,7 @@ struct Stage {
 
 enum SpecData {
     static let generated = "2026-11-02"
-    static let source = "18dae3e"
+    static let source = "7e515c0"
     static let descenders: Set<Character> = ["g", "j", "p", "q", "y"]
     static let whole: [String: String] = ["tc": "c", "dc": "x", "tq": "c̦", "dq": "x̦", "kq": "q", "ix": "j", "ux": "w", "icx": "j̈", "ucx": "ẅ", "aq": "r̈"]
     static let marks: [String: Mark] = [
