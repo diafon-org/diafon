@@ -2,7 +2,6 @@ fonts/build/
 input_methods/mac/build/
 .DS_Store
 data/lexicon/sources/
-extensions/firefox/
 site/
 input_methods/ios/Diafon.xcodeproj/
 input_methods/ios/build/

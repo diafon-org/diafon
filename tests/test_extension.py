@@ -15,6 +15,10 @@
 import json
 import os
 import shutil
+
+import pytest
+
+pytestmark = pytest.mark.skip(reason='the browser extension is paused (plan.md, Order)')
 import subprocess
 import sys
 import tempfile

@@ -1,5 +1,9 @@
 # Diafon browser extension
 
+**Paused (2026-11-02).** macOS and iOS come first, then Android, Windows
+and Linux. This code is kept as it was, out of scripts/build.sh and the
+test run; its engine, data and lexicon copies are no longer refreshed.
+
 Reads any page in Universal. Chrome, Edge, Brave (Manifest V3) and Firefox.
 
 - **Click the icon** to turn it on, and again to turn it off; the setting

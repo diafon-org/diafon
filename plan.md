@@ -21,6 +21,12 @@ Every implementation consumes one machine-readable file, docs/spec.json
 (scripts/gen_spec.py), and must reproduce its vectors. The Python engine is
 the reference.
 
+## Order (2026-11-02)
+
+macOS and iOS first, the desktop and the mobile tool, until both are
+right; then Android, Windows and Linux. The browser extension is paused:
+its code stays in extensions/browser, out of the build and the tests.
+
 ## Gates
 
 - G1 Name: diafon.io registered; the mark claimed with ™ on every surface,
@@ -49,7 +55,7 @@ the reference.
 | 5 | Span marker and settings schema in the description | vectors for mixed text | open |
 | 6 | macOS input method, Input Method Kit, on spec.json | tests/test_swift.py replays all vectors | done |
 | 7 | m17n table for IBus and fcitx5, generated from spec.json, no native code | ibus-engine replays vectors via a driver | open |
-| 8 | Browser extension (Chrome, Firefox, Safari) on docs/engine.js: any page read in Universal, on and off from the icon; then input into editable fields | tests/test_extension.py (content script cases in node; headless Chrome over a sample page) | pages done, fields open |
+| 8 | Browser extension (Chrome, Firefox, Safari) on docs/engine.js: any page read in Universal, on and off from the icon; then input into editable fields | tests/test_extension.py (content script cases in node; headless Chrome over a sample page) | paused (pages worked; fields never started) |
 | 9 | Android input method, input_methods/android | tests/test_kotlin.py replays all vectors on the JVM; Gradle build; device pass of the README's keystroke table | done |
 | 10 | Windows Text Services Framework service, Rust | the Rust port replays vectors | open |
 | 11 | Learning page (docs/learn.md, scripts/gen_learn.py): per language, the concepts one at a time: the plain letters, each operator in the order the language uses it most, length, the y forms, sequences, tones, capitals; each lesson with the language's own sounds, example words that use only what is already taught, and a typing drill; a printable card of every sound. Then an IPA to Diafon converter for dictionary and Wiktionary use, and a names page | every example word re-reads to its own spelling and uses only the lessons so far (generator); converter round-trips mapping.yaml for every language | Learning page done (example words for en hu zh cs fi pl tr, native review open); converter and names page open |
