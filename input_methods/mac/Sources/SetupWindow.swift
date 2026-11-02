@@ -105,7 +105,6 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         root.addArrangedSubview(howto([
             "Pick Diafon in the input menu (⌃Space). Your keyboard stays as it is.",
             "Type a sound as a base, then its operators: sj → \(p.renderer("script")("sj")), tq → \(p.renderer("script")("tq")), aw → \(p.renderer("script")("aw")). The last sound stays underlined until the next key settles it.",
-            "Tab (or ↓) on the underlined sound shows it in every spelling.",
             "To convert text already written: select it, then Diafon menu → Convert selection, or right-click → Services → Convert with Diafon.",
         ]))
         root.addArrangedSubview(gap(6))
