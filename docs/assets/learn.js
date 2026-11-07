@@ -17,25 +17,25 @@ const store = {
 // what each operator does, on a consonant and on a vowel, and how it looks
 const OPS = {
   j: {c: 'softens it toward the palate, and turns s and z into the hushing sounds',
-      cm: 'the <b>anchor</b>, a comma-like stroke attached below the letter (above on g and p)',
-      v: 'makes it lax, pulled toward the centre; on a it is the reduced vowel',
-      vm: 'a dot below'},
-  x: {c: 'shifts the manner: a stop becomes the fricative beside it, and h becomes the glottal stop',
-      cm: 'a <b>dot</b> below the letter (above on g and p)',
-      v: 'turns i and u into the glides', vm: 'the letters j and w'},
-  c: {c: 'makes an affricate, t into ts and d into dz, and on r the tap',
-      cm: 'the letters c and x for the affricates, a dot on r',
-      v: 'flips the rounding: i rounded, u unrounded, and so on; on a it is the front /æ/', vm: 'a <b>double dot</b> above'},
-  q: {c: 'works as c and j at once: the hushing affricates /tʃ/ and /dʒ/; on k it is the uvular /q/',
-      cm: 'c and x with the anchor, and the letter q',
-      v: 'flips the rounding and makes it lax; on a it is the vocalic r', vm: 'a double dot above, a dot below'},
+      cm: 'with the <b>anchor</b>, a comma-like stroke attached below the letter (above on g and p)',
+      v: 'makes it more open; on a it is the schwa',
+      vm: 'with a dot below'},
+  x: {c: 'gives a fixed nearby sound: a stop becomes the fricative beside it, n becomes /ŋ/, and h becomes the glottal stop',
+      cm: 'with a <b>dot</b> below the letter (above on g and p)',
+      v: 'turns i and u into the glides', vm: 'as the letters j and w'},
+  c: {c: 'makes an affricate, t into /t͡s/ and d into /d͡z/, and on r the tap',
+      cm: 'as the letters c and x for the affricates, and with a dot on r',
+      v: 'swaps the lip rounding: i rounded, u unrounded, and so on; on a it is the front /æ/', vm: 'with a <b>double dot</b> above'},
+  q: {c: 'works as c and j together: the hushing affricates /t͡ʃ/ and /d͡ʒ/; on k it is the uvular /q/',
+      cm: 'as c and x with the anchor, and as the letter q',
+      v: 'works as c and j together: the rounding swapped and more open; on a it is the vocalic r', vm: 'with a double dot above and a dot below'},
   y: {c: 'leans it back: the retroflex sounds, said with the tongue curled back',
-      cm: 'the <b>reversed anchor</b>', v: '', vm: ''},
+      cm: 'with the <b>reversed anchor</b>', v: '', vm: ''},
 };
 const VOWEL = f => 'aeiou'.includes(f[0]);
 const TITLE = {letters: 'The plain letters', long: 'Length', special: 'y · own variant', seq: 'Two sounds in a row',
                tones: 'Tones', caps: 'Capitals'};
-const OP_NAME = {j: 'hush and soft', x: 'nearby sound', c: 'hiss', q: 'hushing hiss', y: 'leaned back'};   // what each does, in a word or two
+const OP_NAME = {j: 'hush and soft', x: 'nearby sound', c: 'hiss', q: 'c and j together', y: 'leaned back'};   // what each does, in a word or two
 
 let L = null, steps = [], at = 0;
 
@@ -135,16 +135,17 @@ function body(k){
     const l = lessonOf(k), v = l.forms.filter(f => VOWEL(f.f)), c = l.forms.filter(f => !VOWEL(f.f));
     const odd = l.forms.filter(f => !f.ipa.includes(f.f));
     return [`<p>${l.forms.length} of ${name}'s sounds are written with one letter, exactly as you type it.
-      Read them by this table, not by habit: these are ${name}'s own readings, and they stay the same in every word.</p>` +
+      Read them by this table: these are ${name}'s own readings, and they stay the same in every word.</p>` +
       (odd.length ? `<p>Watch ${odd.map(f => code(f.f)).join(', ')}: in ${name} ${odd.length > 1 ? 'they read' : 'it reads'} as shown below.</p>` : '') +
       (v.length ? '<h3>Vowels</h3>' + tiles(v) : '') + (c.length ? '<h3>Consonants</h3>' + tiles(c) : ''), l];
   }
   if (k.startsWith('op:')){
     const o = k.slice(3), l = lessonOf(k), op = OPS[o];
     const c = l.forms.filter(f => !VOWEL(f.f)), v = l.forms.filter(f => VOWEL(f.f));
-    let t = `<p><b class="ln-op op-${o}">${o}</b> is an operator: it never stands alone, it changes the letter before it.</p><ul>`;
-    if (c.length) t += `<li>On a consonant it ${op.c}. In the script: ${op.cm}.</li>`;
-    if (v.length && op.v) t += `<li>On a vowel it ${op.v}. In the script: ${op.vm}.</li>`;
+    const first = L.lessons.find(x => x.key.startsWith('op:')) === l;      // the operator idea, said once
+    let t = (first ? `<p><b class="ln-op op-${o}">${o}</b> is an operator: it never stands alone, it changes the letter before it.</p>` : '') + '<ul>';
+    if (c.length) t += `<li>On a consonant it ${op.c}. It is written ${op.cm}.</li>`;
+    if (v.length && op.v) t += `<li>On a vowel it ${op.v}. It is written ${op.vm}.</li>`;
     t += '</ul>';
     if (o === 'y' && c.some(f => f.g.normalize('NFD').includes('\u0316')))   // the reverse anchor, where it gets messy
       t += `<p>The reverse anchor marks the further-back partner of a sound, and only a language that has both sounds writes it. ` +
@@ -173,30 +174,40 @@ function body(k){
   }
   if (k === 'seq'){
     const l = lessonOf(k), asp = l.forms.filter(f => f.f.endsWith('h')), dip = l.forms.filter(f => !f.f.endsWith('h'));
-    let t = '<p>Some sounds are written as two in a row, each typed as itself; nothing new to learn, only to notice.</p><ul>';
+    let t = '<p>Some sounds are written as two in a row, each typed as itself.</p><ul>';
     if (asp.length) t += `<li>Aspiration is the letter followed by h, as it sounds: ${code(asp[0].f)} is ${ug(asp[0].g)}.</li>`;
     if (dip.length) t += `<li>A diphthong is a vowel followed by a glide: ${code(dip[0].f)} is ${ug(dip[0].g)}.</li>`;
-    return [t + '</ul>' + tiles(l.forms), l];
+    t += '</ul>';
+    if ($lang.value === 'en' && dip.length)       // English spelling habits read these as other words
+      t += `<p>Careful: in Diafon, ${ug('now')} is English <i>no</i> and ${ug('awt')} is English <i>out</i>. Here w is always the glide.</p>`;
+    return [t + tiles(l.forms), l];
   }
   if (k === 'tones'){
     const ts = Object.entries(L.tones);
     const ex = L.lessons.flatMap(l => l.words).find(w => /\d$/.test(w.t));
     return [`<p>${name} has ${ts.length} tones. Write each as a digit after its syllable, in the input and in the
       script alike: ${ts.map(([n, t]) => `<b>${n}</b> ${esc(t)}`).join(', ')}.` +
-      (ex ? ` So ${code(ex.t)} is ${ug(ex.g)}.` : '') + '</p>', null];
+      (ex ? ` So ${code(ex.t)} is ${ug(ex.g)}.` : '') + '</p>' +
+      ($lang.value === 'zh' ? `<p>In Diafon the digit 5 is the mid tone. Pinyin's neutral tone takes no digit:
+      <i>shénme</i> is ${code('sjocn2moc')} ${ug(render('sjocn2moc'))}.</p>` : ''), null];
   }
   if (k === 'caps'){
-    const w = L.lessons.flatMap(l => l.words).find(w => w.t.length > w.w.length - 1 && /[a-z]/.test(w.t[0]) && w.t !== w.w);
+    // the example starts with a marked letter, so the capital shows its operator: a word of the
+    // language's own, else its first marked consonant on its own
+    const w = L.lessons.flatMap(l => l.words).find(w => /^[a-z][jxcqy]/.test(w.t));
+    const f = L.lessons.flatMap(l => l.forms).find(f => /^[b-df-hk-np-tvz][jxcqy]+$/.test(f.f));
+    const t = w ? w.t : f ? f.f : '';
     let ex = '';
-    if (w){
-      const cap = w.t[0].toUpperCase() + w.t.slice(1);
+    if (t){
+      const cap = t[0].toUpperCase() + t.slice(1);
       let g = cap; try { g = render(cap); } catch (e) {}
-      let G = w.t.toUpperCase(); try { G = render(G); } catch (e) {}
-      ex = `<p>${code(cap)} is ${ug(g)}; ${code(w.t.toUpperCase())} is ${ug(G)}.</p>`;
+      let G = t.toUpperCase(); try { G = render(G); } catch (e) {}
+      ex = `<p>${code(cap)} is ${ug(g)}; ${code(t.toUpperCase())} is ${ug(G)}.</p>`;
     }
-    return [`<p>Case is spelling, not sound. Capitalize a sound by typing its base letter uppercase. The operators
-      read the same in either case, so all-caps text works sound by sound. A long consonant capitalizes only its first
-      letter. A mark that floats above g or p goes below on the capital, since capitals have no descenders.</p>` + ex, null];
+    return [`<p>Capitals belong to spelling and leave the sound as it is. Capitalise a sound by typing its base letter
+      uppercase. The operators read the same in either case, so all-caps text works sound by sound. A long consonant
+      capitalises only its first letter. A mark that floats above g or p goes below on the capital, since capitals have no
+      descenders.</p>` + ex, null];
   }
   return ['', null];
 }
@@ -208,6 +219,9 @@ function show(){
     `<button type="button" data-i="${i}" class="${i === at ? 'here' : i < at ? 'done' : ''}">` +
     `<span class="n">${i + 1}</span> ${esc(stepName(s))}</button>`).join('');
   let [html, l] = body(k);
+  if (l && l.forms.some(f => f.ipa.length > 1))       // two readings on one letter: one phoneme of the language
+    html += `<p>A letter shown with two sounds stands for one sound of ${esc(L.name)}, said two ways
+      (<a href="../master/#rule-3">rule 3</a>: one phoneme, one letter).</p>`;
   if (at === steps.length - 1)          // the end: every sound of the language, with its readings, is its Reference table
     html += `<p class="ln-end">That is all of Diafon for ${esc(L.name)}. Every sound, with its readings and the spelling
       rules, is in <a href="../master/?table=${$lang.value}">its table on the Reference page</a>.</p>`;

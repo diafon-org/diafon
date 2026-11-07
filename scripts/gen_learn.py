@@ -145,8 +145,9 @@ def zh_words():
     return out
 
 
-def place_words(words, lesson_of, forms):
-    """Each word into the first lesson that has taught all its sounds."""
+def place_words(words, lesson_of, forms, seq=(frozenset(), -1)):
+    """Each word into the first lesson that has taught all its sounds; a word
+    with a sequence (a diphthong, an aspirate) waits for the sequence lesson."""
     placed = {}
     for w, t, extra in words:
         try:
@@ -166,6 +167,9 @@ def place_words(words, lesson_of, forms):
             idx = max(idx, lesson_of[f])
         if not ok or idx < 0:
             continue
+        fs = [s['form'].lower() for s in segs]
+        if any(a + b in seq[0] for a, b in zip(fs, fs[1:])):
+            idx = max(idx, seq[1])
         new = {s['form'].lower() for s in segs if lesson_of.get(s['form'].lower()) == idx}
         placed.setdefault(idx, []).append({'w': w, 't': t, 'g': nfc(engine.render(t)), 'x': extra,
                                            'new': sorted(new)})
@@ -211,7 +215,8 @@ def main():
             words = zh_words()
         elif src and os.path.exists(os.path.join(LEX, src)):
             words = stage_words(code, frequency_words(os.path.join(LEX, src)), avoid)
-        placed = place_words(words, lesson_of, forms)
+        seq = next(((frozenset(fs), i) for i, (key, fs) in enumerate(lessons) if key == 'seq'), (frozenset(), -1))
+        placed = place_words(words, lesson_of, forms, seq)
         les = []
         for i, (key, fs) in enumerate(lessons):
             ws = placed.get(i, [])
