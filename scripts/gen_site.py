@@ -43,13 +43,11 @@ def write(name, body):
 HERO = [('stage:cs', 'Czech', 'čokoláda', 'č'), ('stage:tr', 'Turkish', 'çikolata', 'ç'),
         ('stage:hu', 'Hungarian', 'csokoládé', 'cs'), ('stage:sw', 'Swahili', 'chokoleti', 'ch'),
         ('stage:en', 'English', 'chocolate', 'ch')]
-USES = [('One alphabet for many languages', 'A phonemic Latin alphabet. Each letter stands for one sound and is read '
-         'much the same way across languages, so a new word can be read close to how it is said.'),
-        ('The 26 Latin letters as easy input', 'Everything is typed with the plain Latin letters, without dead keys. '
+USES = [('Typed on a normal keyboard', 'Everything is typed with the plain Latin letters, without dead keys. '
          'There are a few letter combinations to learn.'),
-        ('Your language\'s own spelling too', 'Text can be converted to and from the usual spelling of the supported '
+        ('Converts to and from usual spelling', 'Text can be converted to and from the usual spelling of the supported '
          'languages, Pinyin included.'),
-        ('One keyboard layout for fast typing', 'The supported languages can all be typed '
+        ('One layout for all of them', 'The supported languages can all be typed '
          'on one layout, without switching between keyboards.')]
 
 
@@ -109,14 +107,16 @@ OPS = {                      # operator: (on a consonant: gloss, examples), (on 
     'j': (('hushed or soft', ['sj', 'zj', 'tj', 'nj']), ('more open; on a, the schwa', ['ij', 'ej', 'oj', 'aj'])),
     'x': (('a fixed nearby sound', ['tx', 'dx', 'kx', 'nx', 'hx']), ('the glide: i to j, u to w', ['ix', 'ux'])),
     'c': (('adds a hiss', ['tc', 'dc']), ('lip rounding swapped; on a, the front a', ['ic', 'ec', 'uc', 'ac'])),
-    'q': (('c and j together', ['tq', 'dq']), ('c and j together', ['eq', 'iq', 'aq'])),
-    'y': (("the language's own variant", ['ty', 'ny', 'sjy']), ('nasal', ['ay', 'ey', 'oy'])),
+    'q': (('c and j together', ['tq', 'dq']), ('c and j together: rounding swapped and more open; on a, the vocalic r', ['eq', 'iq', 'aq'])),
+    'y': (("the language's own variant", ['ty', 'dy', 'ny']), ('nasal', ['ay', 'ey', 'oy'])),
     'w': (('long: written double', ['sjw']), ('long', ['aw', 'iw', 'ew'])),
 }
 
 
 def operators(read):
-    read = dict(read, aj='ə')     # ạ is the schwa area; English's /ʌ/ is only its commonest reading
+    read = dict(read, aj='ə', aq='ɝ')     # the areas' own values (mapping.yaml areas), not the commonest reading
+    read.update(IPA)                      # consonants: the chart's values, so the tables agree (z̦ /ʒ/, c /t͡s/)
+    read.update({f + 'w': IPA[f] + 'ː' for f in IPA})
     def side(use):
         if use is None:
             return '<div class="opside none">no vowel use</div>'

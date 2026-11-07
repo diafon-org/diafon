@@ -41,7 +41,9 @@ Tone languages add a digit after the syllable. An operator never starts a
 sound, so everything you type turns into script one way only.
 
 The six operators are always typed in this order. Each has one job after a
-consonant and one after a vowel, and shows as a small mark. The
+consonant and one after a vowel, and shows as a small mark. The exceptions
+are q on k, which gives /q/, c on r, which gives the tap
+<span class="ug">ṛ</span>, and the values on a shown in the table. The
 examples give the letter, what you type and its usual sound.
 
 --8<-- "home-ops.html"
@@ -55,8 +57,9 @@ examples give the letter, what you type and its usual sound.
 
 ## The marks
 
-The operators above show as marks. Each mark means one thing on every
-letter, and none is taken from a national alphabet. A consonant takes one
+The operators above show as marks. Each mark has one meaning on consonants
+and one on vowels, with the exceptions listed below, and none is taken from a
+national alphabet. A consonant takes one
 mark. A vowel takes at most one above and one below.
 
 ### On consonants
@@ -79,7 +82,7 @@ The double acute is rounding swap and length in one mark. The dot below
 combines with one mark above:
 <span class="ug">ẹ́</span> /ɛː/, <span class="ug">ẹ̀</span> /ɛ̃/,
 <span class="ug">ọ̈</span> /œ/. On a, q gives the vocalic r,
-<span class="ug">r̈</span> /ɚ/.
+<span class="ug">r̈</span> /ɝ/.
 
 ## Each letter covers an area
 
@@ -89,7 +92,7 @@ sounds a language tells apart. The p in English *pin* has a puff of air and
 the p in *spin* does not, but no English word depends on it, so both are p.
 
 So each letter covers a small area of sounds, and reads a little differently
-from one language to the next, always close. [Each language's table](master.md)
+from one language to the next. [Each language's table](master.md)
 shows how its letters are read.
 
 ### Consonants
@@ -127,10 +130,14 @@ needs no split. English is the same: *bit* i, *beat* í.
 The schwa has its own area, <span class="ug">ạ</span> /ə/. It sits next to
 both a and e in too many languages to belong to either.
 
+Two sounds that are one phoneme in a language share one letter: English /ʌ/
+is its stressed schwa, <span class="ug">ạ</span> ([rule 3](master.md#rule-3),
+one phoneme, one letter).
+
 --8<-- "sounds-vowels.html"
 
 <span class="ug">ä</span> is made like <span class="ug">ü</span> and
-<span class="ug">ö</span>, but it is a split, not an area of its own: any
+<span class="ug">ö</span>, but it is a split inside the a area: any
 language with a front rounded vowel writes <span class="ug">ü</span> or
 <span class="ug">ö</span>, while <span class="ug">ä</span> is written only by a
 language with both a front and a back a. Everywhere else a is a.
@@ -143,7 +150,7 @@ everyday spelling.
 
 ## Capitals
 
-Case is spelling, not sound. Type the base in uppercase: `Sjip`
+Capitals belong to spelling and leave the sound as it is. Type the base in uppercase: `Sjip`
 <span class="ug">Șip</span>. Operators read the same in either case, so
 `SJIP` is <span class="ug">ȘIP</span>. A long consonant capitalises only its
 first letter.
@@ -207,5 +214,5 @@ font does.
 | area | the range of sounds one letter covers |
 | split | a second vowel inside an area, written only by languages that have both |
 
-Diafon is named after the diaphoneme: one unit for matching sounds across
-languages, said a little differently in each.
+Diafon is named after the diaphoneme: one unit for a sound that several
+languages share, even where each says it a little differently.

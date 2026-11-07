@@ -15,7 +15,7 @@ hide:
   <span class="learn-note" id="ln-note"></span>
 </div>
 
-<p class="learn-lede">Diafon one idea at a time, in the sounds of your
+<p class="learn-lede">Learn Diafon one idea at a time, in the sounds of your
 language. Each lesson adds one thing: first the letters that are sounds on
 their own, then each operator in the order your language uses it most, then
 length, the y forms, tones and capitals. Example words use only what the
