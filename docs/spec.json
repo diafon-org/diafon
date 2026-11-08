@@ -1,7 +1,7 @@
 {
  "name": "Diafon",
- "generated": "2026-11-02",
- "source": "8675ce7",
+ "generated": "2026-11-08",
+ "source": "81bb1e5",
  "alphabet": {
   "consonant_bases": [
    "b",
@@ -6184,7 +6184,7 @@
   "hu": {
    "name": "Hungarian",
    "native": 13,
-   "review": "native",
+   "review": "non-reviewed",
    "geminates": true,
    "tones": null,
    "forms": {
@@ -10207,6 +10207,13 @@
     "mě": "mnje",
     "ě": "ixe"
    },
+   "before_i": {
+    "tj": "t",
+    "dj": "d",
+    "nj": "n"
+   },
+   "i_softens": false,
+   "before_vowel": {},
    "lexical": false,
    "lexicon": false
   },
@@ -10219,6 +10226,9 @@
    "caps": {},
    "sample": "uxajn kiwbowrd, uxajn skript, meniw languxajdqajz",
    "read": {},
+   "before_i": {},
+   "i_softens": false,
+   "before_vowel": {},
    "lexical": true,
    "lexicon": true
   },
@@ -10276,6 +10286,7 @@
     "m": "m",
     "n": "n",
     "nx": "ng",
+    "nxw": "ng",
     "l": "l",
     "r": "r",
     "ix": "j",
@@ -10304,6 +10315,9 @@
     "q": "kv",
     "z": "tc"
    },
+   "before_i": {},
+   "i_softens": false,
+   "before_vowel": {},
    "lexical": false,
    "lexicon": false
   },
@@ -10404,6 +10418,9 @@
     "ly": "ix",
     "lly": "ixw"
    },
+   "before_i": {},
+   "i_softens": false,
+   "before_vowel": {},
    "lexical": false,
    "lexicon": true
   },
@@ -10499,6 +10516,23 @@
     "rz": "zjy",
     "h": "kx"
    },
+   "before_i": {
+    "sj": "s",
+    "zj": "z",
+    "tq": "c",
+    "dq": "dz",
+    "nj": "n"
+   },
+   "i_softens": true,
+   "before_vowel": {
+    "pj": "p",
+    "bj": "b",
+    "fj": "f",
+    "vj": "w",
+    "mj": "m",
+    "kj": "k",
+    "gj": "g"
+   },
    "lexical": false,
    "lexicon": false
   },
@@ -10578,6 +10612,9 @@
     "x": "ks",
     "q": "kv"
    },
+   "before_i": {},
+   "i_softens": false,
+   "before_vowel": {},
    "lexical": false,
    "lexicon": false
   },
@@ -10652,8 +10689,19 @@
    "read": {
     "x": "ks",
     "w": "v",
-    "q": "kv"
+    "q": "kv",
+    "ağ": "aw",
+    "eğ": "ew",
+    "ığ": "ucw",
+    "iğ": "iw",
+    "oğ": "ow",
+    "öğ": "ecw",
+    "uğ": "uw",
+    "üğ": "icw"
    },
+   "before_i": {},
+   "i_softens": false,
+   "before_vowel": {},
    "lexical": false,
    "lexicon": false
   },
@@ -10666,6 +10714,9 @@
    "caps": {},
    "sample": "ni3 kxaux3, sjuc4 tqie4",
    "read": {},
+   "before_i": {},
+   "i_softens": false,
+   "before_vowel": {},
    "lexical": true,
    "lexicon": true
   }
@@ -13572,7 +13623,11 @@
     ],
     [
      "nxw",
-     "ngng"
+     "ng"
+    ],
+    [
+     "nxww",
+     "nxww"
     ],
     [
      "pw",
@@ -14216,15 +14271,15 @@
     ],
     [
      "sjok sewp njawr",
-     "śok sép ńár"
+     "siok sép niár"
     ],
     [
      "Sjan1, sjok!",
-     "Śan1, śok!"
+     "Sian1, siok!"
     ],
     [
      "SJAN",
-     "ŚAN"
+     "SiAN"
     ],
     [
      "Gj Pj Gy Ty Ic Sjw Tqyh Aw",
@@ -14240,7 +14295,7 @@
     ],
     [
      "tqi3 sjuc3 tquc1",
-     "ći3 śy3 ćy1"
+     "ci3 siy3 ciy1"
     ],
     [
      "Diafon: ix i ux.",
@@ -16653,7 +16708,7 @@
      ],
      [
       "Diafon: j i w.",
-      "Diafon: ix i v."
+      "Djiafon: ix i v."
      ],
      [
       "k̖ g̔ l̦ ř f̦ v̦ L̦ Ř",
@@ -16913,7 +16968,11 @@
      ],
      [
       "ng",
-      "nx"
+      "nxw"
+     ],
+     [
+      "ng",
+      "nxw"
      ],
      [
       "o",
@@ -17484,16 +17543,16 @@
       "zjy"
      ],
      [
-      "śok sép ńár",
-      "sjok sewp njawr"
+      "siok sép niár",
+      "sjok sewp njiawr"
      ],
      [
-      "Śan1, śok!",
+      "Sian1, siok!",
       "Sjan1, sjok!"
      ],
      [
-      "ŚAN",
-      "SjAN"
+      "SiAN",
+      "SjiAN"
      ],
      [
       "G̦ P̦ G̖ T̖ Ü Śś Czh Á",
@@ -17508,7 +17567,7 @@
       "kxoswuw aclmac"
      ],
      [
-      "ći3 śy3 ćy1",
+      "ci3 siy3 ciy1",
       "tqi3 sjuc3 tquc1"
      ],
      [
@@ -17541,7 +17600,7 @@
      ],
      [
       "dobra noc, kochani",
-      "dobra notc, kokxani"
+      "dobra notc, kokxanji"
      ],
      [
       "x",
@@ -17561,7 +17620,7 @@
      ],
      [
       "rz",
-      "rz"
+      "zjy"
      ],
      [
       "h",
@@ -18016,6 +18075,38 @@
       "kv"
      ],
      [
+      "ağ",
+      "aw"
+     ],
+     [
+      "eğ",
+      "ew"
+     ],
+     [
+      "ığ",
+      "ucw"
+     ],
+     [
+      "iğ",
+      "iw"
+     ],
+     [
+      "oğ",
+      "ow"
+     ],
+     [
+      "öğ",
+      "ecw"
+     ],
+     [
+      "uğ",
+      "uw"
+     ],
+     [
+      "üğ",
+      "icw"
+     ],
+     [
       "P",
       "P"
      ],
@@ -18201,7 +18292,7 @@
     "one keyboard, one script, many languages",
     "stage:en",
     "stage:pl",
-    "łạn kíbórd, łạn skript, mení langłạdźạz"
+    "łạn kíbórd, łạn skript, mení langłạdziạz"
    ],
    [
     "one keyboard, one script, many languages",
@@ -18309,7 +18400,7 @@
     "sok szép nyár, hosszú alma",
     "stage:hu",
     "stage:pl",
-    "śok sép ńár, hossú alma"
+    "siok sép niár, hossú alma"
    ],
    [
     "sok szép nyár, hosszú alma",
@@ -18333,13 +18424,13 @@
     "dobra noc, kochani",
     "stage:pl",
     "script",
-    "dobra noc, koḳani"
+    "dobra noc, koḳan̦i"
    ],
    [
     "dobra noc, kochani",
     "stage:pl",
     "transport",
-    "dobra notc, kokxani"
+    "dobra notc, kokxanji"
    ],
    [
     "dobra noc, kochani",
@@ -18351,37 +18442,37 @@
     "dobra noc, kochani",
     "stage:pl",
     "stage:en",
-    "dobra noc, koḳani"
+    "dobra noc, koḳan̦i"
    ],
    [
     "dobra noc, kochani",
     "stage:pl",
     "stage:fi",
-    "dobra noc, koḳani"
+    "dobra noc, koḳan̦i"
    ],
    [
     "dobra noc, kochani",
     "stage:pl",
     "stage:hu",
-    "dobra noc, koḳani"
+    "dobra noc, koḳanyi"
    ],
    [
     "dobra noc, kochani",
     "stage:pl",
     "stage:sw",
-    "dobra noc, kokhani"
+    "dobra noc, kokhanyi"
    ],
    [
     "dobra noc, kochani",
     "stage:pl",
     "stage:tr",
-    "dobra noc, koḳani"
+    "dobra noc, koḳan̦i"
    ],
    [
     "dobra noc, kochani",
     "stage:pl",
     "stage:zh",
-    "dobra noc, koḳani"
+    "dobra noc, koḳan̦i"
    ],
    [
     "habari za asubuhi, karibu sana",
@@ -18531,7 +18622,7 @@
     "ni3 hao3, shi4 jie4",
     "stage:zh",
     "stage:pl",
-    "ni3 chał3, śy4 ćie4"
+    "ni3 chał3, siy4 cie4"
    ],
    [
     "ni3 hao3, shi4 jie4",
@@ -19218,8 +19309,8 @@
    "sample": "uxajn kiwbowrd, uxajn skript, meniw languxajdqajz",
    "output": true,
    "sizes": {
-    "read": 126052,
-    "write": 114879
+    "read": 126053,
+    "write": 114882
    }
   },
   "hu": {

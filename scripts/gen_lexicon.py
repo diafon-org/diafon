@@ -94,6 +94,8 @@ def gen_en(cfg):
     lines = [f'{w} {ph}' for w, ph in own.items()]
     lines += open(os.path.join(LEX, cfg['sources'][0]), encoding='utf-8').read().splitlines()
     read, write_cands = {}, {}
+    vowels = {'AA', 'AE', 'AH', 'AO', 'AW', 'AY', 'EH', 'ER', 'EY', 'IH', 'IY', 'OW', 'OY', 'UH', 'UW'}
+    r_split = set()                             # words whose reading has an unstressed ER before a vowel
     for n, line in enumerate(lines):
         line = line.split('#')[0].strip()
         if not line:
@@ -105,7 +107,12 @@ def gen_en(cfg):
         variant = 0
         if m:
             word, variant = m.group(1), int(m.group(2))
+        # an unstressed ER before a vowel is a schwa and an r that starts the next syllable:
+        # around is ạrawnd, not r̈awnd
+        split = [i for i, p in enumerate(phones[:-1]) if p == 'ER0' and re.sub(r'\d', '', phones[i + 1]) in vowels]
         phones = [re.sub(r'\d', '', p) for p in phones]
+        for i in reversed(split):
+            phones[i:i + 1] = ['AH', 'R']
         try:
             t = ''.join(assimilated(p, phones[i + 1] if i + 1 < len(phones) else None) or arpa[p]
                         for i, p in enumerate(phones))
@@ -113,8 +120,12 @@ def gen_en(cfg):
             continue
         engine.segments(t)                      # every entry must re-segment strictly
         prefer = (cfg.get('prefer') or {}).get(word, 0)
-        if variant == prefer or (variant == 0 and word not in read):
-            read[word] = t                      # the first reading, or the one en.yaml prefers
+        if variant == prefer or (variant == 0 and word not in read) or \
+                (word in r_split and not split and word not in (cfg.get('prefer') or {})):
+            read[word] = t                      # the first reading, or the one en.yaml prefers, or one
+            r_split.discard(word)               # without the split schwa (every: evrí, not evạrí)
+            if split and variant == 0:
+                r_split.add(word)
         # the commonest spelling of a transport: no digits or apostrophes, shortest, first
         key = (bool(re.search(r"[\d']", word)), -freq.get(word, 0), len(word), n)
         if t not in write_cands or key < write_cands[t][0]:

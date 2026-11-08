@@ -1,8 +1,9 @@
 # Turkish spelling stage: the point stream rendered in today's Turkish
 # orthography. Render-only, like every stage.
 #
-# Losses, one-way and stated: the soft g (ğ), which lengthens or glides,
-# has no point of its own and is not written; long a in loanwords takes the
+# Losses, one-way and stated: the soft g (ğ) has no point of its own. It is
+# read as the length of the vowel before it (doğa -> dóa) and is not written
+# back; long a in loanwords takes the
 # circumflex (kâr) so that it stays apart from plain a.
 code: tr
 name: Turkish spelling
@@ -14,6 +15,14 @@ read:                   # read back but never written: the loan letters
   x: ks
   w: v
   q: kv
+  ağ: aw                # ğ lengthens the vowel before it
+  eğ: ew
+  ığ: ucw
+  iğ: iw
+  oğ: ow
+  öğ: ecw
+  uğ: uw
+  üğ: icw
 forms:
   p: p
   b: b

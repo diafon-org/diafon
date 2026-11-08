@@ -4,12 +4,15 @@
 # Losses, one-way and stated: i and y spell the same vowel (i is written
 # throughout, so byl comes out bil); ú and ů spell the same long vowel (ú
 # throughout); ě is a spelling of a soft consonant plus e and is not written
-# (ť ď ň plus e appear instead: těsto comes out ťesto).
+# (ť ď ň plus e appear instead: těsto comes out ťesto). Before i and í,
+# ť ď ň are written t d n, as in Czech (ticho, dívka, nic); so the hard ty dy ny
+# read back as ti di ni, the i/y loss again.
 code: cs
 name: Czech spelling
 state: draft
 letters: a á b c č d ď dz dž e é f g h ch i í j k l m n ň o ó p r ř s š t ť u ú v z ž
 long: double
+before_i: {tj: t, dj: d, nj: n}    # tj + i is written ti
 sample: dobriw den, prjawtelew      # dobrý den, přátelé
 read:                   # spellings read back but never written: etymological y, ů, and ě after d t n m
   x: ks

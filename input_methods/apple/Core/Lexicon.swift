@@ -133,6 +133,7 @@ final class Lexicon {
         while let last = word.last, last.isASCII, last.isNumber { digits = String(last) + digits; word.removeLast() }
         let key = word.lowercased()
         var t = read[key]
+        if t == nil, key.hasSuffix("'d") || key.hasSuffix("’d") { t = read[String(key.dropLast(2)) + "ed"] }   // poetry's elided -ed: dimm'd
         if t == nil, kind == "syllable", !key.isEmpty {
             var out = "", i = key.startIndex
             while i < key.endIndex {

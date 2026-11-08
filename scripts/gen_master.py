@@ -230,7 +230,8 @@ def _op_gloss():
     from gen_site import OPS
     out = {}
     for op, (cons, vow) in OPS.items():
-        out[op] = cons[0] if not vow or vow[0] == cons[0] else f'{cons[0]} · {vow[0]}'
+        v = vow[0].removeprefix(cons[0] + ': ') if vow else None      # q: "c and j together" once
+        out[op] = cons[0] if not v or v == cons[0] else f'{cons[0]} · {v}'
     out['h'] = 'aspirated or breathy'
     return out
 

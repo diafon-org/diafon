@@ -67,6 +67,9 @@ def load(code):
     d.setdefault('caps', {})
     d.setdefault('sample', '')
     d.setdefault('read', {})
+    d.setdefault('before_i', {})        # a soft consonant before i is written plain: Czech ti, Polish si
+    d.setdefault('i_softens', False)     # before another vowel it is written plain + i: Polish się, nie
+    d.setdefault('before_vowel', {})    # soft only before a vowel other than i, written plain + i: Polish bj + e is bie
     d['lexical'] = not d['forms']
     d['lexicon'] = L
     _LOADED[code] = d
@@ -131,13 +134,35 @@ def render(text, code, strict=False):
     return ''.join(out)
 
 
+def soft_spelling(stage, form, nxt):
+    """The spelling of a soft consonant before a vowel (before_i, i_softens),
+    or None: Polish sj + i is si, sj + e is sie; Czech tj + i is ti."""
+    low = form[0].lower() + form[1:]
+    if nxt is None or nxt[0].lower() not in engine.V_BASES:
+        return None
+    nxt = nxt.lower()
+    plain = stage['before_i'].get(low)
+    if plain is not None and nxt in ('i', 'iw'):
+        sp = plain
+    elif plain is not None and stage['i_softens']:
+        sp = plain + 'i'
+    elif low in stage['before_vowel'] and nxt not in ('i', 'iw'):
+        sp = stage['before_vowel'][low] + 'i'
+    else:
+        return None
+    return sp[0].upper() + sp[1:] if form[0].isupper() else sp
+
+
 def render_letters(text, stage, strict=False):
     out = []
-    for seg in engine.segments(text, strict):
+    segs = engine.segments(text, strict)
+    for k, seg in enumerate(segs):
         if seg['kind'] != 'form':
             out.append(seg['src'])
             continue
-        sp = spell(stage, seg['form'])
+        nxt = segs[k + 1] if k + 1 < len(segs) else None
+        sp = soft_spelling(stage, seg['form'], nxt['form'] if nxt and nxt['kind'] == 'form' else None)
+        sp = sp or spell(stage, seg['form'])
         if sp is None:
             if strict:
                 raise engine.ParseError(f'{seg["form"]}: not spelled in the {stage["code"]} stage')
@@ -177,12 +202,30 @@ def table(stage, fallback=True, aliases=True):
             up = sp.upper()
             if up not in (sp, cap):
                 t[up] = form[0].upper() + form[1:]
-    for sp, form in (stage['read'].items() if aliases else ()):
+    for sp, form in (dict(soft_reads(stage), **stage['read']).items() if aliases else ()):
         t[sp] = form
         t[sp[0].upper() + sp[1:]] = form[0].upper() + form[1:]
         t[sp.upper()] = form[0].upper() + form[1:]
     _TABLES[key] = t
     return t
+
+
+def soft_reads(stage):
+    """The spellings before_i, i_softens and before_vowel imply, read back:
+    Polish si -> sji, sie -> sje, się -> sjey, bie -> bje; Czech ti -> tji, tí -> tjiw."""
+    out = {}
+    vowels = [(v, sp) for v, sp in stage['forms'].items() if v[0] in engine.V_BASES and v not in ('i', 'iw')]
+    for form, plain in stage['before_i'].items():
+        for v in ('i', 'iw'):
+            if stage['forms'].get(v):
+                out[plain + stage['forms'][v]] = form + v
+        if stage['i_softens']:
+            for v, sp in vowels:
+                out[plain + 'i' + sp] = form + v
+    for form, plain in stage['before_vowel'].items():
+        for v, sp in vowels:
+            out[plain + 'i' + sp] = form + v
+    return out
 
 
 _USED = None
@@ -241,9 +284,8 @@ def read_word(word, stage):
             hit = lexicon.read_stem(word, stage['code'])
             if hit is not None:
                 return hit[0] + read_letters(hit[1], table(stage)), 'lexicon'
-        t = _own(word, stage)
-        if t is not None:
-            return t, 'letters'
+        if _own(word, stage) is not None:            # the stage's own letters cover it: read them with its
+            return read_letters(word, table(stage, fallback=False)), 'letters'   # read spellings (rz, si, ti)
     if L:
         hit = lexicon.loan(word, stage['code'])
         if hit is not None:
@@ -395,7 +437,7 @@ def validate(code):
     for form in list(forms):
         if form[0] in engine.C_BASES and stage['forms'].get(form) is not None:
             long = spell(stage, form + 'w')
-            if long in seen and seen[long] != form + 'w':
+            if long in seen and seen[long] != form + 'w' and form + 'w' not in stage['forms']:   # spelled on purpose
                 errors.append(f'{code}: long {form}w spelled {long}, same as {seen[long]}')
     return errors
 

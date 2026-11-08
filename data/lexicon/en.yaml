@@ -21,6 +21,7 @@ prefer:                      # homographs whose commoner reading is not CMUdict'
 pron:                        # words whose CMUdict readings are all off: word -> ARPAbet
   towards: T UH W AO R D Z   #   tu-, not the schwa tạwórdz or the clipped tórdz
   toward: T UH W AO R D
+  untrimmed: AH0 N T R IH1 M D   #   not in CMUdict; Sonnet 18's untrimm'd
 arpabet:                     # ARPAbet -> transport form (stress digits stripped)
   AA: aw
   AE: a

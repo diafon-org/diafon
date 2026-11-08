@@ -79,6 +79,8 @@ def read_word(word, code):
         digits, word = word[-1] + digits, word[:-1]
     key = word.lower()
     t = L['read'].get(key)
+    if t is None and re.search(r"['’]d$", key):            # poetry's elided -ed: dimm'd reads as dimmed
+        t = L['read'].get(key[:-2] + 'ed')
     if t is None and L.get('kind') == 'syllable' and key:
         out, i, keys = [], 0, sorted(L['read'], key=len, reverse=True)
         while i < len(key):

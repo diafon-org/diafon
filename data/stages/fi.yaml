@@ -2,8 +2,8 @@
 # orthography. Render-only, like every stage.
 #
 # Finnish is written as it sounds: length doubles the letter, front a is ä.
-# Losses, one-way and stated: a single /ŋ/ before k is written n in Finnish
-# (kenkä), here always ng.
+# Finnish ng is the long /ŋː/ (hengessä), read as ṇṇ. Losses, one-way and
+# stated: a single /ŋ/ before k is written n in Finnish (kenkä), here ng.
 code: fi
 name: Finnish spelling
 state: draft
@@ -31,6 +31,7 @@ forms:
   m: m
   n: n
   nx: ng
+  nxw: ng               # ng is long: read back as nxw
   l: l
   r: r
   ix: j
