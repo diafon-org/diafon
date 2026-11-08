@@ -104,6 +104,8 @@ extension Stages {
                 if up != sp && up != cap { t[up] = capForm }
             }
         }
+        let soft = softReads(st)
+        for (sp, form) in (aliases ? soft.sorted { $0.key < $1.key } : []) where st.read[sp] == nil { t[sp] = form; addCaps(&t, sp, form) }
         for sp in (aliases ? st.readOrder : []) {
             let form = st.read[sp]!
             let capForm = String(form.first!).uppercased() + form.dropFirst()
@@ -113,6 +115,24 @@ extension Stages {
         }
         tables[key] = t
         return t
+    }
+
+    private static func addCaps(_ t: inout [String: String], _ sp: String, _ form: String) {
+        let capForm = String(form.first!).uppercased() + form.dropFirst()
+        t[String(sp.first!).uppercased() + sp.dropFirst()] = capForm
+        t[sp.uppercased()] = capForm
+    }
+
+    /// The spellings beforeI, iSoftens and beforeVowel imply, read back: Polish si -> sji, sie -> sje, bie -> bje; Czech ti -> tji.
+    static func softReads(_ st: Stage) -> [String: String] {
+        var out: [String: String] = [:]
+        let vowels = st.forms.filter { Engine.vBases.contains($0.key.first!) && $0.key != "i" && $0.key != "iw" }
+        for (form, plain) in st.beforeI {
+            for v in ["i", "iw"] { if let sp = st.forms[v] { out[plain + sp] = form + v } }
+            if st.iSoftens { for (v, sp) in vowels { out[plain + "i" + sp] = form + v } }
+        }
+        for (form, plain) in st.beforeVowel { for (v, sp) in vowels { out[plain + "i" + sp] = form + v } }
+        return out
     }
 
     static func sources() -> [String] { ["transport", "script"] + SpecData.stages.keys.sorted().map { "stage:" + $0 } }
@@ -151,7 +171,7 @@ extension Stages {
                 if let h = L.loan(word) { return (h.0, "loan:" + h.1) }
                 if let h = L.readStem(word) { return (h.0 + readLetters(h.1, table(st)), "lexicon") }
             }
-            if let t = own(word, st) { return (t, "letters") }
+            if own(word, st) != nil { return (readLetters(word, table(st, fallback: false)), "letters") }   // own letters, read with the read spellings (rz, si, ti)
         }
         if let L = L {
             if let h = L.loan(word) { return (h.0, "loan:" + h.1) }

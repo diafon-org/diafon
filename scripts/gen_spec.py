@@ -116,6 +116,9 @@ def main():
         stage_data[code]['caps'] = st.get('caps') or {}
         stage_data[code]['sample'] = st.get('sample') or ''
         stage_data[code]['read'] = st.get('read') or {}
+        stage_data[code]['before_i'] = st['before_i']          # soft consonants before a vowel (pl, cs)
+        stage_data[code]['i_softens'] = st['i_softens']
+        stage_data[code]['before_vowel'] = st['before_vowel']   # soft labials and k g before a vowel (pl)
         stage_data[code]['lexical'] = st['lexical']
         stage_data[code]['lexicon'] = bool(st.get('lexicon'))
         vec = [[f, stages.render(f, st)] for f in sorted(stages.language_forms(code))]

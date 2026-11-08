@@ -174,12 +174,29 @@ function renderStage(text, st){
   return out + renderLetters(text.slice(i), st);
 }
 
+/** A soft consonant before a vowel (before_i, i_softens), or null: Polish sj + i is si, sj + e sie; Czech tj + i ti. */
+function softSpelling(st, form, caps, next){
+  if (!next || !VB.has(next[0])) return null;
+  const plain = (st.before_i || {})[form], bv = (st.before_vowel || {})[form];
+  const isI = next === 'i' || next === 'iw';
+  let sp;
+  if (plain !== undefined && isI) sp = plain;
+  else if (plain !== undefined && st.i_softens) sp = plain + 'i';
+  else if (bv !== undefined && !isI) sp = bv + 'i';
+  else return null;
+  return caps ? sp[0].toUpperCase() + sp.slice(1) : sp;
+}
+
 function renderLetters(text, st){
   let out = '';
-  for (const tok of tokenize(text)){
+  const toks = tokenize(text);
+  for (let k = 0; k < toks.length; k++){
+    const tok = toks[k];
     if (tok.t !== 'form'){ out += tok.ch; continue; }
     const form = (tok.caps ? tok.form[0].toUpperCase() : tok.form[0]) + tok.form.slice(1);
-    let sp = spell(st, form);
+    const nxt = toks[k + 1] && toks[k + 1].t === 'form' ? toks[k + 1].form : null;
+    let sp = softSpelling(st, tok.form, tok.caps, nxt);
+    if (sp === null) sp = spell(st, form);
     if (sp === null) sp = glyphCased(form);
     if (sp === null) sp = form;
     out += sp + tok.tones;
@@ -221,6 +238,7 @@ function readWordLex(word, code){
   while (word && /\d/.test(word[word.length - 1])){ digits = word[word.length - 1] + digits; word = word.slice(0, -1); }
   const key = word.toLowerCase();
   let t = L.read[key];
+  if (t === undefined && /['’]d$/.test(key)) t = L.read[key.slice(0, -2) + 'ed'];   // poetry's elided -ed: dimm'd
   if (t === undefined && L.syllables && key){
     const out = []; let i = 0;
     while (i < key.length){
@@ -363,13 +381,26 @@ function stageTable(st, fallback = true, aliases = true){
       if (up !== sp && up !== cap) t[up] = form[0].toUpperCase() + form.slice(1);
     }
   }
-  for (const [sp, form] of Object.entries(aliases ? (st.read || {}) : {})){
+  for (const [sp, form] of Object.entries(aliases ? Object.assign(softReads(st), st.read || {}) : {})){
     t[sp] = form;
     t[sp[0].toUpperCase() + sp.slice(1)] = form[0].toUpperCase() + form.slice(1);
     t[sp.toUpperCase()] = form[0].toUpperCase() + form.slice(1);
   }
   STAGE_TABLES[key] = t;
   return t;
+}
+
+/** The spellings before_i, i_softens and before_vowel imply, read back: Polish si -> sji, sie -> sje, bie -> bje; Czech ti -> tji. */
+function softReads(st){
+  const out = {};
+  const vowels = Object.entries(st.forms).filter(([v]) => VB.has(v[0]) && v !== 'i' && v !== 'iw');
+  for (const [form, plain] of Object.entries(st.before_i || {})){
+    for (const v of ['i', 'iw']) if (st.forms[v]) out[plain + st.forms[v]] = form + v;
+    if (st.i_softens) for (const [v, sp] of vowels) out[plain + 'i' + sp] = form + v;
+  }
+  for (const [form, plain] of Object.entries(st.before_vowel || {}))
+    for (const [v, sp] of vowels) out[plain + 'i' + sp] = form + v;
+  return out;
 }
 
 /** Longest match over a table; -> [{t:'form', form, tones, src} | {t:'raw', ch}]. */
@@ -423,8 +454,7 @@ function stageReadWord(word, st){
       const h = loan(word, st.code); if (h) return [h[0], 'loan:' + h[1]];
       const s = readStem(word, st.code); if (s) return [s[0] + readLetters(s[1], stageTable(st)), 'lexicon'];
     }
-    const t = ownRead(word, st);
-    if (t !== null) return [t, 'letters'];
+    if (ownRead(word, st) !== null) return [readLetters(word, stageTable(st, false)), 'letters'];   // own letters, read with the read spellings (rz, si, ti)
   }
   if (L){
     const h = loan(word, st.code);

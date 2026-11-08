@@ -47,12 +47,27 @@ enum Stages {
         return out + renderLetters(String(String.UnicodeScalarView(u[i...])), st, strict: strict, tones: tones)
     }
 
+    /// A soft consonant before a vowel, or nil: Polish sj + i is si, sj + e sie; Czech tj + i ti.
+    static func soft(_ st: Stage, _ form: String, _ next: String?) -> String? {
+        let low = String(form.first!).lowercased() + String(form.dropFirst())
+        guard let n = next?.lowercased(), let v = n.first, Engine.vBases.contains(v) else { return nil }
+        let isI = n == "i" || n == "iw"
+        let sp: String
+        if let plain = st.beforeI[low], isI { sp = plain }
+        else if let plain = st.beforeI[low], st.iSoftens { sp = plain + "i" }
+        else if let bv = st.beforeVowel[low], !isI { sp = bv + "i" }
+        else { return nil }
+        return form.first!.isUppercase ? String(sp.first!).uppercased() + String(sp.dropFirst()) : sp
+    }
+
     static func renderLetters(_ text: String, _ st: Stage, strict: Bool = false, tones: Bool = true) -> String {
         var out = ""
         let segs = (try? Engine.segments(text, strict: strict)) ?? []
-        for seg in segs {
+        for (k, seg) in segs.enumerated() {
             guard case .form(let src, let form, let t) = seg else { out += seg.src; continue }
-            let sp = spell(st, form) ?? ((try? Engine.glyph(form)) ?? src)
+            var next: String? = nil
+            if k + 1 < segs.count, case .form(_, let f, _) = segs[k + 1] { next = f }
+            let sp = soft(st, form, next) ?? spell(st, form) ?? ((try? Engine.glyph(form)) ?? src)
             out += sp + (tones ? t : "")
         }
         return out

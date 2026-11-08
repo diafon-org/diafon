@@ -51,7 +51,8 @@ def main():
     st = {}
     for code in stg.codes():
         d = stg.load(code)
-        st[code] = {k: d[k] for k in ('code', 'name', 'long', 'forms', 'caps', 'sample', 'read', 'letters', 'lexical')}
+        st[code] = {k: d[k] for k in ('code', 'name', 'long', 'forms', 'caps', 'sample', 'read', 'letters', 'lexical',
+                                      'before_i', 'i_softens', 'before_vowel')}
         st[code]['lexicon'] = bool(d.get('lexicon'))       # the tables themselves: docs/lexicon/<code>.json
     data = {'script': script, 'langs': langs, 'default': top, 'stages': st, 'used': sorted(stg.used_forms())}
     out = os.path.join(ROOT, 'docs', 'play-data.js')
