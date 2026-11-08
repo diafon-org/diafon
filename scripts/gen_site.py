@@ -74,7 +74,7 @@ def hero():
   <div class="uses">{uses}</div>
   <div class="hero-go">
     <a class="md-button md-button--primary" href="learn/">Start learning</a>
-    <a class="md-button" href="master/">Reference</a>
+    <a class="md-button" href="reference/">Reference</a>
   </div>
 </div>'''
 

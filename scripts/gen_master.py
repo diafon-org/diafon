@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Generate the master tables: docs/.include/master-tables.html, the body of
-the Master tables page (docs/master.md, where the try-out and the font switch
+the Master tables page (docs/reference.md, where the try-out and the font switch
 live; docs/assets/master.js drives them).
 
 The universal table: every input form in use, grouped by keystroke count,
@@ -267,7 +267,7 @@ RULE_MERGED = {nfd(s) for s in ('ə', 'ʌ')}
 
 
 def rule_of(ipa):
-    """Which spelling rule (master.md, below the tables) gives a sound two letters: 1 the two hush
+    """Which spelling rule (reference.md, below the tables) gives a sound two letters: 1 the two hush
     series, 3 one phoneme one letter, 2 the vowel areas' split."""
     key = nfd(ipa)
     return 1 if key in RULE_HUSH else 3 if key in RULE_MERGED else 2

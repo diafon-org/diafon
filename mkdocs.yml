@@ -9,6 +9,7 @@ use_directory_urls: true
 
 theme:
   name: material
+  custom_dir: overrides     # main.html: the home page's tab title
   logo: logo/icon-light.svg
   favicon: logo/icon-rounded.svg
   font: false
@@ -39,7 +40,7 @@ theme:
 nav:                      # tools.md builds at its URL, out of the nav until reviewed
   - Diafon: index.md
   - Learning: learn.md
-  - Reference: master.md
+  - Reference: reference.md
 
 markdown_extensions:
   - attr_list

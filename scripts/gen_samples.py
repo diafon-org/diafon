@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sample texts in Diafon for the Reference page (docs/master.md): longer passages read from their ordinary spelling by the
+"""Sample texts in Diafon for the Reference page (docs/reference.md): longer passages read from their ordinary spelling by the
 engine (stages.convert: the lexicons for English and Hungarian, the letter stages elsewhere, pinyin for Mandarin)
 -> docs/.include/samples.html. The texts are public domain: Aesop's North Wind and the Sun, Article 1 of the
 Universal Declaration of Human Rights, Shakespeare, Petőfi."""

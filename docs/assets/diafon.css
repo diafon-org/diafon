@@ -363,7 +363,7 @@
 .md-typeset .same-arrow{color:var(--muted)}
 .md-typeset .same-dia{font-size:1.35rem;color:var(--ink)}
 .md-typeset .same b{font-weight:inherit;color:var(--accent)}
-.md-typeset .uses{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;margin:1.6rem 0 0;max-width:46rem}
+.md-typeset .uses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;margin:1.6rem 0 0;max-width:46rem}
 .md-typeset .use{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.9rem 1.1rem}
 .md-typeset .use h3{margin:0 0 .4rem;font-size:.95rem;font-family:var(--serif);color:var(--ink)}
 .md-typeset .use p{margin:0;font-size:.8rem;color:var(--muted)}

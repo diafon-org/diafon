@@ -109,3 +109,14 @@ const before = header && (header.querySelector('.md-header__option') || header.q
 if (header) header.insertBefore(bar, before || null);
 if (mode !== 'latin') apply();
 })();
+
+// GitHub's star and fork counts in the header stay hidden while they are 0
+(function(){
+'use strict';
+const hide = () => document.querySelectorAll('.md-source__fact--stars, .md-source__fact--forks').forEach(li => {
+  if (li.textContent.trim() === '0') li.style.display = 'none';
+});
+const src = document.querySelector('.md-header__source');
+if (src) new MutationObserver(hide).observe(src, {childList: true, subtree: true});
+hide();
+})();

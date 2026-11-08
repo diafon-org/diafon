@@ -12,7 +12,7 @@ Two layers, strictly separated:
 
 `scripts/gen_master.py` validates the mapping (full coverage; no
 within-language form collision outside `merges`) and renders the master
-tables (`docs/.include/master-tables.html`, shown by `docs/master.md`): the
+tables (`docs/.include/master-tables.html`, shown by `docs/reference.md`): the
 universal table plus every language's own table, each stamped with its
 review state.
 

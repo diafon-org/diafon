@@ -34,55 +34,39 @@ The bases are the letters with a sound no other letter covers. The
 operators are the letters Latin spelling wastes: c and q repeat k or s, x is
 only k plus s, and j, w and y are i and u in another role.
 
-## Typing a sound
-
-Type a sound as a base, then up to two operators, then `w` if it is long.
-Tone languages add a digit after the syllable. An operator never starts a
-sound, so everything you type turns into script one way only.
-
-The six operators are always typed in this order. Each has one job after a
-consonant and one after a vowel, and shows as a small mark. The exceptions
-are q on k, which gives /q/, c on r, which gives the tap
-<span class="ug">ṛ</span>, and the values on a shown in the table. The
-examples give the letter, what you type and its usual sound.
-
---8<-- "home-ops.html"
-
-- A second operator works on the first, as the first works on the base:
-  `sj` is <span class="ug">ș</span>, `sjy` is <span class="ug">s̖</span>.
-- A long vowel takes an acute, `aw` <span class="ug">á</span>. A long
-  consonant is written double, `sjw` <span class="ug">șș</span>.
-- Aspiration and breathy voice are not operators. Type them with h, as they
-  sound: `th` /tʰ/, `bh` /bʱ/.
-
 ## The marks
 
-The operators above show as marks. Each mark has one meaning on consonants
+Each operator shows as a small mark. Each mark has one meaning on consonants
 and one on vowels, with the exceptions listed below, and none is taken from a
-national alphabet. A consonant takes one
-mark. A vowel takes at most one above and one below.
+national alphabet. A consonant takes one mark. A vowel takes at most one above
+and one below.
 
 ### On consonants
 
 --8<-- "marks.html"
+
+Two letters borrow a mark: `tq` and `dq` take the anchor,
+<span class="ug">c̦ x̦</span>, and the tap `rc` takes the dot,
+<span class="ug">ṛ</span>.
 
 The anchor is Diafon's own mark: a comma-like stroke joined to its letter,
 written in one movement by hand. It sits on the thin letters too:
 <span class="ug">ț ș n̦ l̦ r̦ f̦</span>.
 
 On g and p the mark goes above, because the tail below is already taken:
-<span class="ug">p̓ ġ</span>. Capitals have no tail below, so they keep the
-mark below: <span class="ug">P̦ G̣</span>. This is the **float rule**.
+<span class="ug">p̓ g̓</span>. Capitals have no tail, so the mark stays below:
+<span class="ug">P̦ G̦</span>. This is the **float rule**.
 
 ### On vowels
 
 --8<-- "vowelmarks.html"
 
-The double acute is rounding swap and length in one mark. The dot below
-combines with one mark above:
-<span class="ug">ẹ́</span> /ɛː/, <span class="ug">ẹ̀</span> /ɛ̃/,
-<span class="ug">ọ̈</span> /œ/. On a, q gives the vocalic r,
-<span class="ug">r̈</span> /ɝ/.
+Marks combine, at most one above and one below. The double dot and length
+together make the double acute, `icw` <span class="ug">ű</span>. The dot below
+takes one mark above: <span class="ug">ẹ́</span> /ɛː/,
+<span class="ug">ẹ̀</span> /ɛ̃/. q gives the double dot and the dot below
+together, `eq` <span class="ug">ọ̈</span> /œ/, and on a the vocalic r,
+`aq` <span class="ug">r̈</span> /ɝ/.
 
 ## Each letter covers an area
 
@@ -91,8 +75,13 @@ sound is said. A phonemic spelling records only which sound it is, among the
 sounds a language tells apart. The p in English *pin* has a puff of air and
 the p in *spin* does not, but no English word depends on it, so both are p.
 
+IPA is made for phonetics: it records exact sounds, with many symbols that are
+hard to type and to read in everyday text. Diafon is for everyday writing, so
+it writes only the sounds a language tells apart, on a normal keyboard. This
+site uses IPA to say what each Diafon letter stands for.
+
 So each letter covers a small area of sounds, and reads a little differently
-from one language to the next. [Each language's table](master.md)
+from one language to the next. [Each language's table](reference.md)
 shows how its letters are read.
 
 ### Consonants
@@ -131,7 +120,7 @@ The schwa has its own area, <span class="ug">ạ</span> /ə/. It sits next to
 both a and e in too many languages to belong to either.
 
 Two sounds that are one phoneme in a language share one letter: English /ʌ/
-is its stressed schwa, <span class="ug">ạ</span> ([rule 3](master.md#rule-3),
+is its stressed schwa, <span class="ug">ạ</span> ([rule 3](reference.md#rule-3),
 one phoneme, one letter).
 
 --8<-- "sounds-vowels.html"
@@ -148,14 +137,28 @@ An area is kept small enough that its sounds are not easily told apart: no u for
 voiced for voiceless. Dialects and fine detail are not written, as in any
 everyday spelling.
 
-## Capitals
+## Typing
+
+Type a sound as its base, then its operators in the order of this table, then
+`w` if it is long. Each operator has one job after a consonant and one after a
+vowel. The exceptions are q on k, which gives /q/, c on r, which gives the
+tap <span class="ug">ṛ</span>, and the values on a shown in the table. The
+examples give the letter, what you type and its usual sound.
+
+--8<-- "home-ops.html"
+
+A long vowel takes an acute, `aw` <span class="ug">á</span>, and a long
+consonant is written double, `sjw` <span class="ug">șș</span>. Aspiration is
+typed with h, as it sounds: `th` /tʰ/.
+
+### Capitals
 
 Capitals belong to spelling and leave the sound as it is. Type the base in uppercase: `Sjip`
 <span class="ug">Șip</span>. Operators read the same in either case, so
 `SJIP` is <span class="ug">ȘIP</span>. A long consonant capitalises only its
 first letter.
 
-## Tones
+### Tones
 
 A tone is typed as a digit after the syllable, and each digit is the same
 tone in each language. The script draws it as a mark above the syllable:
@@ -199,7 +202,7 @@ Both count as the same text.
 
 The Diafon fonts (Serif, Sans and Mono) draw the marks as designed, with the
 anchor joined to its letter. Other fonts draw the same characters roughly in
-place, and the font picker on the [Reference](master.md) page shows how any
+place, and the font picker on the [Reference](reference.md) page shows how any
 font does.
 
 ## Glossary

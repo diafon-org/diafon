@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{# the home page's tab title says what Diafon is; Material would repeat the site name ("Diafon - Diafon") #}
+{% block htmltitle %}
+  {% if page.is_homepage %}<title>Diafon: one alphabet for many languages</title>{% else %}{{ super() }}{% endif %}
+{% endblock %}
