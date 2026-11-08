@@ -52,7 +52,8 @@ function build(c){
   steps.push('caps');
   const words = L.words ? '' : ` No example words for ${esc(L.name)} yet: the lessons show its sounds.`;
   $note.innerHTML = `<span class="badge ${L.review === 'reviewed' ? 'st-rev' : 'st-non'}">${esc(L.review)}</span>` +
-    (L.review === 'reviewed' ? '' : ` This mapping has not been reviewed yet; its readings may change.`) + words;
+    (L.review === 'reviewed' ? ' Its readings have been checked against published descriptions of its sounds.'
+      : ` This mapping has not been reviewed yet, so its readings may change. Reviewed means checked against published descriptions of the language's sounds.`) + words;
 }
 
 function stepName(k){ return k.startsWith('op:') ? `${k.slice(3)} · ${OP_NAME[k.slice(3)] || 'operator'}` : TITLE[k]; }
@@ -221,10 +222,10 @@ function show(){
   let [html, l] = body(k);
   if (l && l.forms.some(f => f.ipa.length > 1))       // two readings on one letter: one phoneme of the language
     html += `<p>A letter shown with two sounds stands for one sound of ${esc(L.name)}, said two ways
-      (<a href="../master/#rule-3">rule 3</a>: one phoneme, one letter).</p>`;
+      (<a href="../reference/#rule-3">rule 3</a>: one phoneme, one letter).</p>`;
   if (at === steps.length - 1)          // the end: every sound of the language, with its readings, is its Reference table
     html += `<p class="ln-end">That is all of Diafon for ${esc(L.name)}. Every sound, with its readings and the spelling
-      rules, is in <a href="../master/?table=${$lang.value}">its table on the Reference page</a>.</p>`;
+      rules, is in <a href="../reference/?table=${$lang.value}">its table on the Reference page</a>.</p>`;
   const items = l ? (l.drill.length ? l.drill : l.forms) : [];
   $lesson.innerHTML = `<h2>${at + 1}. ${esc(stepTitle(k))}</h2>${html}${l ? words(l.words) : ''}${drill(items)}`;
   wireDrill(items);
