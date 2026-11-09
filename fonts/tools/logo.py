@@ -3,7 +3,7 @@
 dot above and the anchor below; the letter between them is implied. One
 geometry (VARIANTS['mark']), the finals only: the two-tone mark light and
 dark, the inline mark for the pages, the app icon square and rounded, the
-Android adaptive layers, the browser extension's tile in its two states, PNGs at every icon size and the macOS icns.
+Android adaptive layers, the rounded tile in its two states, PNGs at every icon size and the macOS icns.
 """
 import os
 
@@ -146,8 +146,8 @@ def finals(v):
         f'<g transform="translate({sh:.0f} {sh:.0f})">{mark_two(v, TEAL_BRIGHT, PAPER, k)}</g></svg>')
     open(os.path.join(fin, 'android-background.svg'), 'w').write(
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {S} {S}" width="{S}" height="{S}"><rect width="{S}" height="{S}" fill="{INK}"/></svg>')
-    # the browser extension's toolbar icon: the app icon's rounded tile, full
-    # bleed (the toolbar pads it), the mark at 78% of it; two states, the
+    # the rounded tile (the Mac's menu-bar sizes): the app icon's tile, full
+    # bleed, the mark at 78% of it; two states, the
     # two-tone mark on ink when the conversion is on, all grey when it is off
     mk = 0.78
     mo = S * (1 - mk) / 2
@@ -234,7 +234,7 @@ def rasterise():
         iconset = os.path.join(tmp, 'Diafon.iconset')
         os.makedirs(iconset)
         for s_ in (16, 32, 128, 256, 512):
-            src = 'icon-tile-on' if s_ <= 32 else 'icon-mac'       # menu-bar sizes: the full-bleed tile, as the extension's
+            src = 'icon-tile-on' if s_ <= 32 else 'icon-mac'       # menu-bar sizes: the full-bleed tile
             shutil.copy(os.path.join(png, f'{src}-{s_}.png'), os.path.join(iconset, f'icon_{s_}x{s_}.png'))
             shutil.copy(os.path.join(png, f'{src}-{s_ * 2}.png'), os.path.join(iconset, f'icon_{s_}x{s_}@2x.png'))
         subprocess.run(['iconutil', '-c', 'icns', iconset, '-o', os.path.join(fin, 'Diafon.icns')], capture_output=True)
@@ -243,13 +243,6 @@ def rasterise():
                         os.path.join(png, 'icon-template-30.png'), '-out', os.path.join(fin, 'DiafonMenu.tiff')],
                        capture_output=True)
     shutil.rmtree(tmp)
-    ext = os.path.join(ROOT, 'extensions', 'browser', 'icons')       # the extension's two states
-    if os.path.isdir(os.path.dirname(ext)):
-        os.makedirs(ext, exist_ok=True)
-        for st in ('on', 'off'):
-            for sz in (128, 48, 32, 16):
-                shutil.copy(os.path.join(png, f'icon-tile-{st}-{sz}.png'), os.path.join(ext, f'{st}-{sz}.png'))
-        print('  extension icons written')
 
 
 def mark_two(v, dot_fill, anchor_fill, k=S / 1000):

@@ -1,8 +1,8 @@
 // The Diafon engine in JavaScript, rule for rule from scripts/engine.py and
 // scripts/stages.py: tokenize, glyph, render; the stages; and reading back
 // (inventory, scriptTable, read, parse, convert, detect). Needs DIA from
-// play-data.js (generated). Loaded by the master tables page and bundled by the browser
-// extension; tests/test_spec.py holds it to docs/spec.json's vectors.
+// play-data.js (generated). Loaded by the site's pages;
+// tests/test_spec.py holds it to docs/spec.json's vectors.
 'use strict';
 const CB = new Set('bdfghklmnprstvz'), VB = new Set('aeiou'), OPS = new Set('cjqxwy');
 const S = DIA.script, WHOLE = S.whole_letters, MARKS = S.marks,
