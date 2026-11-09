@@ -87,6 +87,8 @@ function consonant(base, ops, caps){
   if (!ops) return g;
   const op1 = ops[0];
   if (op1 === 'y' && 'lrf'.includes(base)) return null;
+  // one typed form per letter: the dot is x, but the tap is rc; s̖ z̖ are sjy zjy
+  if ((op1 === 'c' && base !== 'r') || (op1 === 'x' && base === 'r') || (op1 === 'y' && 'sz'.includes(base))) return null;
   if (op1 === 'j') g = mark(g, base, 'anchor', caps);
   else if (op1 === 'x') g = mark(g, base, 'dot', caps);
   else if (op1 === 'y') g = mark(g, base, 'reverse', caps);
@@ -100,7 +102,10 @@ function consonant(base, ops, caps){
   return null;
 }
 
+const VOWEL_OPS = new Set(['', 'j', 'c', 'q', 'y', 'jy', 'cy', 'qy']);   // one of j c q, then y
+
 function vowel(base, ops){
+  if (!VOWEL_OPS.has(ops)) return null;
   let g = base;
   for (const op of ops){
     if (op === 'c') g = PARTNER[base] + MARKS.flip.above;

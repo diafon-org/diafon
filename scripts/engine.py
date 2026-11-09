@@ -210,6 +210,13 @@ def _consonant(base, ops, caps=False):
     op1 = ops[0]
     if op1 == 'y' and base in 'lrf':
         raise ParseError(f'{base}{ops}: no reverse anchor on the thin stems l r f')
+    # one typed form per letter: the dot is x, but the tap is rc; s̖ z̖ are sjy zjy
+    if op1 == 'c' and base != 'r':
+        raise ParseError(f'{base}{ops}: c on a consonant only in the tap rc and the whole letters (tc dc)')
+    if op1 == 'x' and base == 'r':
+        raise ParseError(f'{base}{ops}: the tap is typed rc')
+    if op1 == 'y' and base in 'sz':
+        raise ParseError(f'{base}{ops}: the reverse anchor on {base} is typed {base}jy')
     if op1 == 'j':
         g = _mark(g, base, 'anchor', caps)
     elif op1 == 'x':
@@ -231,7 +238,12 @@ def _consonant(base, ops, caps=False):
     raise ParseError(f'{base}{ops}: {op2} cannot be secondary')
 
 
+VOWEL_OPS = ('', 'j', 'c', 'q', 'y', 'jy', 'cy', 'qy')    # one of j c q, then y: one typed form per letter
+
+
 def _vowel(base, ops):
+    if ops not in VOWEL_OPS and 'x' not in ops:
+        raise ParseError(f'{base}{ops}: on a vowel, one of j c q, then y (c and j together is q)')
     g = base
     for i, op in enumerate(ops):
         if op == 'c':
@@ -291,11 +303,10 @@ _SCRIPT_TABLE = {}
 def script_table(used=()):
     """The script read back: {glyph text: form} over the whole inventory,
     small and capitalized (Șș -> Sjw), a long consonant plain and joined
-    (ș ZWJ ș -> sjw too). Where two forms compose the same
-    glyph (the dot of kx and kc; a vowel operator repeated, acc = ac) the
-    reading is a form in `used` (the forms the languages use, from the
-    master table) before any other, and the shorter form after that; the
-    inventory lists shorter forms first."""
+    (ș ZWJ ș -> sjw too). The grammar types each letter one way, so no
+    two forms compose the same glyph (tests/test_engine.py); should that
+    ever change, a form in `used` (the forms the languages use) is read
+    first, then the shorter one."""
     key = frozenset(used)
     if key not in _SCRIPT_TABLE:
         table = {}
