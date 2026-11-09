@@ -34,6 +34,13 @@ consonants:
   r: L
   j: M
   w: M
+  pʲ: S          # the soft labials and k g: only before a vowel, written pi bi wi mi ki gi (wiem, kiedy)
+  bʲ: S
+  fʲ: S
+  vʲ: M
+  mʲ: M
+  kʲ: S
+  gʲ: S
 vowels:
   i: L
   ɨ: M

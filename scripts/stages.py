@@ -418,7 +418,7 @@ def validate(code):
     errors = []
     forms = language_forms(code)
     for form, reads in forms.items():
-        if stage['forms'].get(form) is None:
+        if stage['forms'].get(form) is None and form not in stage['before_vowel']:   # pl bj: only bie, bia…
             errors.append(f'{code}: {form} ({", ".join(i for i, _ in reads)}) not spelled')
     for form, sp in stage['forms'].items():
         if sp not in letters:
@@ -426,6 +426,8 @@ def validate(code):
     seen = {}
     for form in forms:
         sp = stage['forms'].get(form)
+        if sp is None:
+            continue
         if sp in seen:
             errors.append(f'{code}: {form} and {seen[sp]} both spelled {sp}')
         seen[sp] = form
