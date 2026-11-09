@@ -2,7 +2,7 @@
 """Generate docs/spec.json: the system as machine-readable data, with the
 test vectors every implementation must reproduce.
 
-One file for implementers of the input methods, the browser extension, the
+One file for implementers of the input methods, the
 fonts and the language stages: the alphabet and the grammar, the script
 rules (data/script.yaml), every form in use with its glyph and readings, each
 language's table and review state, the spelling stages, and the vectors:
