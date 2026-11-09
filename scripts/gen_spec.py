@@ -205,7 +205,7 @@ def main():
         },
         'reading': [
             'Reading back inverts the rendering: longest match over a table of spellings, tone digits attached to the form before them, anything unmatched raw.',
-            'The script table is the whole inventory of the grammar, small and capitalized; a repeated vowel operator (acc) reads as the shorter form (ac).',
+            'The script table is the whole inventory of the grammar, small and capitalized; the grammar types each letter one way, so each glyph reads as one form.',
             'A stage table is its spellings, long forms, capitalized and all-caps spellings and its read aliases (etymological spellings the stage never writes), over the script table as fallback.',
             'All-caps reads as capitalized: SZÉP -> SEwP -> SzÉP; the transport form carries no case beyond the first letter.',
             'Digraph boundaries inside compounds (házszám) read by longest match and can mislead; no dictionary is consulted.',

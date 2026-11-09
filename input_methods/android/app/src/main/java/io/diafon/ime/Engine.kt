@@ -137,6 +137,10 @@ object Engine {
         if (ops.isEmpty()) return g
         val op1 = ops[0]
         if (op1 == 'y' && base in "lrf") throw ParseError("$base$ops: no reverse anchor on the thin stems l r f")
+        // one typed form per letter: the dot is x, but the tap is rc; s̖ z̖ are sjy zjy
+        if (op1 == 'c' && base != 'r') throw ParseError("$base$ops: c on a consonant only in the tap rc and the whole letters (tc dc)")
+        if (op1 == 'x' && base == 'r') throw ParseError("$base$ops: the tap is typed rc")
+        if (op1 == 'y' && base in "sz") throw ParseError("$base$ops: the reverse anchor on $base is typed ${base}jy")
         when (op1) {
             'j' -> g = mark(g, base, "anchor", caps)
             'x' -> g = mark(g, base, "dot", caps)
@@ -155,7 +159,10 @@ object Engine {
         throw ParseError("$base$ops: $op2 cannot be secondary")
     }
 
+    private val VOWEL_OPS = setOf("", "j", "c", "q", "y", "jy", "cy", "qy")   // one of j c q, then y
+
     private fun vowel(base: Char, ops: String): String {
+        if (ops !in VOWEL_OPS && 'x' !in ops) throw ParseError("$base$ops: on a vowel, one of j c q, then y (c and j together is q)")
         var g = base.toString()
         for (op in ops) {
             when (op) {

@@ -171,6 +171,10 @@ enum Engine {
         let o = Array(opsS)
         let op1 = o[0]
         if op1 == "y" && "lrf".contains(base) { throw ParseError(message: "\(base)\(opsS): no reverse anchor on the thin stems l r f") }
+        // one typed form per letter: the dot is x, but the tap is rc; s̖ z̖ are sjy zjy
+        if op1 == "c" && base != "r" { throw ParseError(message: "\(base)\(opsS): c on a consonant only in the tap rc and the whole letters (tc dc)") }
+        if op1 == "x" && base == "r" { throw ParseError(message: "\(base)\(opsS): the tap is typed rc") }
+        if op1 == "y" && "sz".contains(base) { throw ParseError(message: "\(base)\(opsS): the reverse anchor on \(base) is typed \(base)jy") }
         switch op1 {
         case "j": g = mark(g, base, "anchor", caps)
         case "x": g = mark(g, base, "dot", caps)
@@ -191,7 +195,10 @@ enum Engine {
         throw ParseError(message: "\(base)\(opsS): \(op2) cannot be secondary")
     }
 
+    private static let vowelOps: Set<String> = ["", "j", "c", "q", "y", "jy", "cy", "qy"]   // one of j c q, then y
+
     private static func vowel(_ base: Character, _ opsS: String) throws -> String {
+        if !vowelOps.contains(opsS) && !opsS.contains("x") { throw ParseError(message: "\(base)\(opsS): on a vowel, one of j c q, then y (c and j together is q)") }
         var g = String(base)
         for op in opsS {
             switch op {

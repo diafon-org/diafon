@@ -7,6 +7,9 @@
 3. Glyph injectivity: no two single-segment forms share a script glyph.
    Documented exception: a long consonant doubles its letter, so its glyph
    equals the two-segment sequence of its base — deliberate.
+4. One typed form per letter: across the whole inventory of the grammar, not
+   only the forms in use, no two forms compose the same glyph (no kc beside
+   kx, no sy beside sjy, no ecj beside eq).
 """
 import os
 import sys
@@ -65,6 +68,20 @@ def test_glyph_injectivity():
         seen[g] = f
 
 
+def test_one_form_per_letter():
+    seen = {}
+    for f in engine.inventory():
+        g = engine.glyph(f)
+        assert g not in seen, (f, seen[g], g)
+        seen[g] = f
+    for f in ('kc', 'bc', 'rx', 'sy', 'zy', 'ajc', 'ecj', 'eqq', 'ayj', 'acc'):
+        try:
+            engine.glyph(f)
+        except engine.ParseError:
+            continue
+        raise AssertionError(f'{f} should not be a typed form')
+
+
 def test_case():
     """Capitals: base case carries the point; marks keep the small side,
     except that no capital descends, so a capital's mark sits below."""
@@ -89,5 +106,6 @@ if __name__ == '__main__':
     test_sequences_are_two_segments()
     test_stream_decodability()
     test_glyph_injectivity()
+    test_one_form_per_letter()
     test_case()
     print('all engine guarantees hold')

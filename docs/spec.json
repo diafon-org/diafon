@@ -1,7 +1,7 @@
 {
  "name": "Diafon",
- "generated": "2026-11-08",
- "source": "81bb1e5",
+ "generated": "2026-11-09",
+ "source": "65031a4",
  "alphabet": {
   "consonant_bases": [
    "b",
@@ -39,7 +39,7 @@
  },
  "reading": [
   "Reading back inverts the rendering: longest match over a table of spellings, tone digits attached to the form before them, anything unmatched raw.",
-  "The script table is the whole inventory of the grammar, small and capitalized; a repeated vowel operator (acc) reads as the shorter form (ac).",
+  "The script table is the whole inventory of the grammar, small and capitalized; the grammar types each letter one way, so each glyph reads as one form.",
   "A stage table is its spellings, long forms, capitalized and all-caps spellings and its read aliases (etymological spellings the stage never writes), over the script table as fallback.",
   "All-caps reads as capitalized: SZÉP -> SEwP -> SzÉP; the transport form carries no case beyond the first letter.",
   "Digraph boundaries inside compounds (házszám) read by longest match and can mislead; no dictionary is consulted.",
@@ -12072,10 +12072,6 @@
     "b‍b"
    ],
    [
-    "bcw",
-    "ḅ‍ḅ"
-   ],
-   [
     "bjw",
     "b̦‍b̦"
    ],
@@ -12124,10 +12120,6 @@
     "f‍f"
    ],
    [
-    "fcw",
-    "f̣‍f̣"
-   ],
-   [
     "fjw",
     "f̦‍f̦"
    ],
@@ -12138,10 +12130,6 @@
    [
     "gw",
     "g‍g"
-   ],
-   [
-    "gcw",
-    "ġ‍ġ"
    ],
    [
     "gjw",
@@ -12160,10 +12148,6 @@
     "h‍h"
    ],
    [
-    "hcw",
-    "ḥ‍ḥ"
-   ],
-   [
     "hjw",
     "h̦‍h̦"
    ],
@@ -12178,10 +12162,6 @@
    [
     "kw",
     "k‍k"
-   ],
-   [
-    "kcw",
-    "ḳ‍ḳ"
    ],
    [
     "kjw",
@@ -12208,10 +12188,6 @@
     "l‍l"
    ],
    [
-    "lcw",
-    "ḷ‍ḷ"
-   ],
-   [
     "ljw",
     "l̦‍l̦"
    ],
@@ -12222,10 +12198,6 @@
    [
     "mw",
     "m‍m"
-   ],
-   [
-    "mcw",
-    "ṃ‍ṃ"
    ],
    [
     "mjw",
@@ -12244,10 +12216,6 @@
     "n‍n"
    ],
    [
-    "ncw",
-    "ṇ‍ṇ"
-   ],
-   [
     "njw",
     "n̦‍n̦"
    ],
@@ -12262,10 +12230,6 @@
    [
     "pw",
     "p‍p"
-   ],
-   [
-    "pcw",
-    "ṗ‍ṗ"
    ],
    [
     "pjw",
@@ -12292,16 +12256,8 @@
     "r̦‍r̦"
    ],
    [
-    "rxw",
-    "ṛ‍ṛ"
-   ],
-   [
     "sw",
     "s‍s"
-   ],
-   [
-    "scw",
-    "ṣ‍ṣ"
    ],
    [
     "sjw",
@@ -12310,10 +12266,6 @@
    [
     "sxw",
     "ṣ‍ṣ"
-   ],
-   [
-    "syw",
-    "s̖‍s̖"
    ],
    [
     "sjyw",
@@ -12356,10 +12308,6 @@
     "v‍v"
    ],
    [
-    "vcw",
-    "ṿ‍ṿ"
-   ],
-   [
     "vjw",
     "v̦‍v̦"
    ],
@@ -12376,10 +12324,6 @@
     "z‍z"
    ],
    [
-    "zcw",
-    "ẓ‍ẓ"
-   ],
-   [
     "zjw",
     "z̦‍z̦"
    ],
@@ -12388,20 +12332,12 @@
     "ẓ‍ẓ"
    ],
    [
-    "zyw",
-    "z̖‍z̖"
-   ],
-   [
     "zjyw",
     "z̖‍z̖"
    ],
    [
     "Bw",
     "B‍b"
-   ],
-   [
-    "Bcw",
-    "Ḅ‍ḅ"
    ],
    [
     "Bjw",
@@ -12452,10 +12388,6 @@
     "F‍f"
    ],
    [
-    "Fcw",
-    "F̣‍f̣"
-   ],
-   [
     "Fjw",
     "F̦‍f̦"
    ],
@@ -12466,10 +12398,6 @@
    [
     "Gw",
     "G‍g"
-   ],
-   [
-    "Gcw",
-    "G̣‍g̣"
    ],
    [
     "Gjw",
@@ -12488,10 +12416,6 @@
     "H‍h"
    ],
    [
-    "Hcw",
-    "Ḥ‍ḥ"
-   ],
-   [
     "Hjw",
     "H̦‍h̦"
    ],
@@ -12506,10 +12430,6 @@
    [
     "Kw",
     "K‍k"
-   ],
-   [
-    "Kcw",
-    "Ḳ‍ḳ"
    ],
    [
     "Kjw",
@@ -12536,10 +12456,6 @@
     "L‍l"
    ],
    [
-    "Lcw",
-    "Ḷ‍ḷ"
-   ],
-   [
     "Ljw",
     "L̦‍l̦"
    ],
@@ -12550,10 +12466,6 @@
    [
     "Mw",
     "M‍m"
-   ],
-   [
-    "Mcw",
-    "Ṃ‍ṃ"
    ],
    [
     "Mjw",
@@ -12572,10 +12484,6 @@
     "N‍n"
    ],
    [
-    "Ncw",
-    "Ṇ‍ṇ"
-   ],
-   [
     "Njw",
     "N̦‍n̦"
    ],
@@ -12590,10 +12498,6 @@
    [
     "Pw",
     "P‍p"
-   ],
-   [
-    "Pcw",
-    "P̣‍p̣"
    ],
    [
     "Pjw",
@@ -12620,16 +12524,8 @@
     "R̦‍r̦"
    ],
    [
-    "Rxw",
-    "Ṛ‍ṛ"
-   ],
-   [
     "Sw",
     "S‍s"
-   ],
-   [
-    "Scw",
-    "Ṣ‍ṣ"
    ],
    [
     "Sjw",
@@ -12638,10 +12534,6 @@
    [
     "Sxw",
     "Ṣ‍ṣ"
-   ],
-   [
-    "Syw",
-    "S̖‍s̖"
    ],
    [
     "Sjyw",
@@ -12684,10 +12576,6 @@
     "V‍v"
    ],
    [
-    "Vcw",
-    "Ṿ‍ṿ"
-   ],
-   [
     "Vjw",
     "V̦‍v̦"
    ],
@@ -12704,20 +12592,12 @@
     "Z‍z"
    ],
    [
-    "Zcw",
-    "Ẓ‍ẓ"
-   ],
-   [
     "Zjw",
     "Z̦‍z̦"
    ],
    [
     "Zxw",
     "Ẓ‍ẓ"
-   ],
-   [
-    "Zyw",
-    "Z̖‍z̖"
    ],
    [
     "Zjyw",
@@ -15864,16 +15744,12 @@
      "bw"
     ],
     [
-     "ḅ‍ḅ",
-     "bcw"
-    ],
-    [
      "b̦‍b̦",
      "bjw"
     ],
     [
      "ḅ‍ḅ",
-     "bcw"
+     "bxw"
     ],
     [
      "b̖‍b̖",
@@ -15916,24 +15792,16 @@
      "fw"
     ],
     [
-     "f̣‍f̣",
-     "fcw"
-    ],
-    [
      "f̦‍f̦",
      "fjw"
     ],
     [
      "f̣‍f̣",
-     "fcw"
+     "fxw"
     ],
     [
      "g‍g",
      "gw"
-    ],
-    [
-     "ġ‍ġ",
-     "gcw"
     ],
     [
      "g̓‍g̓",
@@ -15941,7 +15809,7 @@
     ],
     [
      "ġ‍ġ",
-     "gcw"
+     "gxw"
     ],
     [
      "g̔‍g̔",
@@ -15952,16 +15820,12 @@
      "hw"
     ],
     [
-     "ḥ‍ḥ",
-     "hcw"
-    ],
-    [
      "h̦‍h̦",
      "hjw"
     ],
     [
      "ḥ‍ḥ",
-     "hcw"
+     "hxw"
     ],
     [
      "h̖‍h̖",
@@ -15970,10 +15834,6 @@
     [
      "k‍k",
      "kw"
-    ],
-    [
-     "ḳ‍ḳ",
-     "kcw"
     ],
     [
      "k̦‍k̦",
@@ -15985,7 +15845,7 @@
     ],
     [
      "ḳ‍ḳ",
-     "kcw"
+     "kxw"
     ],
     [
      "k̖‍k̖",
@@ -16000,24 +15860,16 @@
      "lw"
     ],
     [
-     "ḷ‍ḷ",
-     "lcw"
-    ],
-    [
      "l̦‍l̦",
      "ljw"
     ],
     [
      "ḷ‍ḷ",
-     "lcw"
+     "lxw"
     ],
     [
      "m‍m",
      "mw"
-    ],
-    [
-     "ṃ‍ṃ",
-     "mcw"
     ],
     [
      "m̦‍m̦",
@@ -16025,7 +15877,7 @@
     ],
     [
      "ṃ‍ṃ",
-     "mcw"
+     "mxw"
     ],
     [
      "m̖‍m̖",
@@ -16036,16 +15888,12 @@
      "nw"
     ],
     [
-     "ṇ‍ṇ",
-     "ncw"
-    ],
-    [
      "n̦‍n̦",
      "njw"
     ],
     [
      "ṇ‍ṇ",
-     "ncw"
+     "nxw"
     ],
     [
      "n̖‍n̖",
@@ -16056,16 +15904,12 @@
      "pw"
     ],
     [
-     "ṗ‍ṗ",
-     "pcw"
-    ],
-    [
      "p̓‍p̓",
      "pjw"
     ],
     [
      "ṗ‍ṗ",
-     "pcw"
+     "pxw"
     ],
     [
      "p̔‍p̔",
@@ -16084,16 +15928,8 @@
      "rjw"
     ],
     [
-     "ṛ‍ṛ",
-     "rcw"
-    ],
-    [
      "s‍s",
      "sw"
-    ],
-    [
-     "ṣ‍ṣ",
-     "scw"
     ],
     [
      "ș‍ș",
@@ -16101,15 +15937,11 @@
     ],
     [
      "ṣ‍ṣ",
-     "scw"
+     "sxw"
     ],
     [
      "s̖‍s̖",
-     "syw"
-    ],
-    [
-     "s̖‍s̖",
-     "syw"
+     "sjyw"
     ],
     [
      "t‍t",
@@ -16148,16 +15980,12 @@
      "vw"
     ],
     [
-     "ṿ‍ṿ",
-     "vcw"
-    ],
-    [
      "v̦‍v̦",
      "vjw"
     ],
     [
      "ṿ‍ṿ",
-     "vcw"
+     "vxw"
     ],
     [
      "v̖‍v̖",
@@ -16168,32 +15996,20 @@
      "zw"
     ],
     [
-     "ẓ‍ẓ",
-     "zcw"
-    ],
-    [
      "z̦‍z̦",
      "zjw"
     ],
     [
      "ẓ‍ẓ",
-     "zcw"
+     "zxw"
     ],
     [
      "z̖‍z̖",
-     "zyw"
-    ],
-    [
-     "z̖‍z̖",
-     "zyw"
+     "zjyw"
     ],
     [
      "B‍b",
      "Bw"
-    ],
-    [
-     "Ḅ‍ḅ",
-     "Bcw"
     ],
     [
      "B̦‍b̦",
@@ -16201,7 +16017,7 @@
     ],
     [
      "Ḅ‍ḅ",
-     "Bcw"
+     "Bxw"
     ],
     [
      "B̖‍b̖",
@@ -16244,24 +16060,16 @@
      "Fw"
     ],
     [
-     "F̣‍f̣",
-     "Fcw"
-    ],
-    [
      "F̦‍f̦",
      "Fjw"
     ],
     [
      "F̣‍f̣",
-     "Fcw"
+     "Fxw"
     ],
     [
      "G‍g",
      "Gw"
-    ],
-    [
-     "G̣‍g̣",
-     "Gcw"
     ],
     [
      "G̦‍g̦",
@@ -16269,7 +16077,7 @@
     ],
     [
      "G̣‍g̣",
-     "Gcw"
+     "Gxw"
     ],
     [
      "G̖‍g̖",
@@ -16280,16 +16088,12 @@
      "Hw"
     ],
     [
-     "Ḥ‍ḥ",
-     "Hcw"
-    ],
-    [
      "H̦‍h̦",
      "Hjw"
     ],
     [
      "Ḥ‍ḥ",
-     "Hcw"
+     "Hxw"
     ],
     [
      "H̖‍h̖",
@@ -16298,10 +16102,6 @@
     [
      "K‍k",
      "Kw"
-    ],
-    [
-     "Ḳ‍ḳ",
-     "Kcw"
     ],
     [
      "K̦‍k̦",
@@ -16313,7 +16113,7 @@
     ],
     [
      "Ḳ‍ḳ",
-     "Kcw"
+     "Kxw"
     ],
     [
      "K̖‍k̖",
@@ -16328,24 +16128,16 @@
      "Lw"
     ],
     [
-     "Ḷ‍ḷ",
-     "Lcw"
-    ],
-    [
      "L̦‍l̦",
      "Ljw"
     ],
     [
      "Ḷ‍ḷ",
-     "Lcw"
+     "Lxw"
     ],
     [
      "M‍m",
      "Mw"
-    ],
-    [
-     "Ṃ‍ṃ",
-     "Mcw"
     ],
     [
      "M̦‍m̦",
@@ -16353,7 +16145,7 @@
     ],
     [
      "Ṃ‍ṃ",
-     "Mcw"
+     "Mxw"
     ],
     [
      "M̖‍m̖",
@@ -16364,16 +16156,12 @@
      "Nw"
     ],
     [
-     "Ṇ‍ṇ",
-     "Ncw"
-    ],
-    [
      "N̦‍n̦",
      "Njw"
     ],
     [
      "Ṇ‍ṇ",
-     "Ncw"
+     "Nxw"
     ],
     [
      "N̖‍n̖",
@@ -16384,16 +16172,12 @@
      "Pw"
     ],
     [
-     "P̣‍p̣",
-     "Pcw"
-    ],
-    [
      "P̦‍p̦",
      "Pjw"
     ],
     [
      "P̣‍p̣",
-     "Pcw"
+     "Pxw"
     ],
     [
      "P̖‍p̖",
@@ -16412,16 +16196,8 @@
      "Rjw"
     ],
     [
-     "Ṛ‍ṛ",
-     "Rcw"
-    ],
-    [
      "S‍s",
      "Sw"
-    ],
-    [
-     "Ṣ‍ṣ",
-     "Scw"
     ],
     [
      "Ș‍ș",
@@ -16429,15 +16205,11 @@
     ],
     [
      "Ṣ‍ṣ",
-     "Scw"
+     "Sxw"
     ],
     [
      "S̖‍s̖",
-     "Syw"
-    ],
-    [
-     "S̖‍s̖",
-     "Syw"
+     "Sjyw"
     ],
     [
      "T‍t",
@@ -16476,16 +16248,12 @@
      "Vw"
     ],
     [
-     "Ṿ‍ṿ",
-     "Vcw"
-    ],
-    [
      "V̦‍v̦",
      "Vjw"
     ],
     [
      "Ṿ‍ṿ",
-     "Vcw"
+     "Vxw"
     ],
     [
      "V̖‍v̖",
@@ -16496,24 +16264,16 @@
      "Zw"
     ],
     [
-     "Ẓ‍ẓ",
-     "Zcw"
-    ],
-    [
      "Z̦‍z̦",
      "Zjw"
     ],
     [
      "Ẓ‍ẓ",
-     "Zcw"
+     "Zxw"
     ],
     [
      "Z̖‍z̖",
-     "Zyw"
-    ],
-    [
-     "Z̖‍z̖",
-     "Zyw"
+     "Zjyw"
     ],
     [
      "șok sép n̦ár",
