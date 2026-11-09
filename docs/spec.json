@@ -1,7 +1,7 @@
 {
  "name": "Diafon",
  "generated": "2026-11-09",
- "source": "65031a4",
+ "source": "b7de3b6",
  "alphabet": {
   "consonant_bases": [
    "b",
@@ -1104,9 +1104,10 @@
    "readings": {
     "pʲ": {
      "languages": [
+      "pl",
       "ru"
      ],
-     "native": 145.0
+     "native": 185.0
     }
    },
    "primary": null
@@ -1145,9 +1146,10 @@
    "readings": {
     "kʲ": {
      "languages": [
+      "pl",
       "ru"
      ],
-     "native": 145.0
+     "native": 185.0
     }
    },
    "primary": null
@@ -1161,9 +1163,10 @@
    "readings": {
     "bʲ": {
      "languages": [
+      "pl",
       "ru"
      ],
-     "native": 145.0
+     "native": 185.0
     }
    },
    "primary": null
@@ -1208,9 +1211,10 @@
    "readings": {
     "gʲ": {
      "languages": [
+      "pl",
       "ru"
      ],
-     "native": 145.0
+     "native": 185.0
     }
    },
    "primary": null
@@ -1224,9 +1228,10 @@
    "readings": {
     "fʲ": {
      "languages": [
+      "pl",
       "ru"
      ],
-     "native": 145.0
+     "native": 185.0
     }
    },
    "primary": null
@@ -1240,9 +1245,10 @@
    "readings": {
     "vʲ": {
      "languages": [
+      "pl",
       "ru"
      ],
-     "native": 145.0
+     "native": 185.0
     }
    },
    "primary": null
@@ -1351,9 +1357,10 @@
    "readings": {
     "mʲ": {
      "languages": [
+      "pl",
       "ru"
      ],
-     "native": 145.0
+     "native": 185.0
     }
    },
    "primary": null
@@ -7800,6 +7807,12 @@
       "freq": "M"
      }
     ],
+    "bj": [
+     {
+      "ipa": "bʲ",
+      "freq": "S"
+     }
+    ],
     "d": [
      {
       "ipa": "d",
@@ -7842,10 +7855,22 @@
       "freq": "M"
      }
     ],
+    "fj": [
+     {
+      "ipa": "fʲ",
+      "freq": "S"
+     }
+    ],
     "g": [
      {
       "ipa": "g",
       "freq": "M"
+     }
+    ],
+    "gj": [
+     {
+      "ipa": "gʲ",
+      "freq": "S"
      }
     ],
     "i": [
@@ -7866,6 +7891,12 @@
       "freq": "L"
      }
     ],
+    "kj": [
+     {
+      "ipa": "kʲ",
+      "freq": "S"
+     }
+    ],
     "kx": [
      {
       "ipa": "x",
@@ -7882,6 +7913,12 @@
      {
       "ipa": "m",
       "freq": "L"
+     }
+    ],
+    "mj": [
+     {
+      "ipa": "mʲ",
+      "freq": "M"
      }
     ],
     "n": [
@@ -7912,6 +7949,12 @@
      {
       "ipa": "p",
       "freq": "M"
+     }
+    ],
+    "pj": [
+     {
+      "ipa": "pʲ",
+      "freq": "S"
      }
     ],
     "r": [
@@ -7984,6 +8027,12 @@
      {
       "ipa": "v",
       "freq": "L"
+     }
+    ],
+    "vj": [
+     {
+      "ipa": "vʲ",
+      "freq": "M"
      }
     ],
     "z": [
@@ -13910,6 +13959,10 @@
      "b"
     ],
     [
+     "bj",
+     "b̦"
+    ],
+    [
      "d",
      "d"
     ],
@@ -13938,8 +13991,16 @@
      "f"
     ],
     [
+     "fj",
+     "f̦"
+    ],
+    [
      "g",
      "g"
+    ],
+    [
+     "gj",
+     "g̓"
     ],
     [
      "i",
@@ -13954,6 +14015,10 @@
      "k"
     ],
     [
+     "kj",
+     "k̦"
+    ],
+    [
      "kx",
      "ch"
     ],
@@ -13964,6 +14029,10 @@
     [
      "m",
      "m"
+    ],
+    [
+     "mj",
+     "m̦"
     ],
     [
      "n",
@@ -13984,6 +14053,10 @@
     [
      "p",
      "p"
+    ],
+    [
+     "pj",
+     "p̓"
     ],
     [
      "r",
@@ -14032,6 +14105,10 @@
     [
      "v",
      "w"
+    ],
+    [
+     "vj",
+     "v̦"
     ],
     [
      "z",
