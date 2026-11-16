@@ -130,8 +130,8 @@ final class KeyboardViewController: UIInputViewController {
         case .enter:
             session.insertFinal("\n")
         case .toggle:
-            // as the Shift tap on the Mac: a tap after a pause switches conversion off and
-            // back on; taps in quick succession walk the cycle (Prefs.cycleMode)
+            // a tap after a pause switches conversion off and back on; taps in quick
+            // succession walk the cycle (Prefs.cycleMode)
             session.flush()
             let now = Date()
             if now.timeIntervalSince(lastToggleTap) < Prefs.tapWindow { prefs.cycleMode() } else { prefs.toggleOff() }

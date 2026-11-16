@@ -13,7 +13,7 @@ final class Prefs {
 
     /// Conversion on; off is a plain keyboard.
     var enabled: Bool { get { bool("enabled", true) } set { set(newValue, "enabled") } }
-    /// A bare Shift tap flips conversion on and off.
+    /// A double Shift tap flips conversion on and off.
     var shiftToggle: Bool { get { bool("shiftToggle", true) } set { set(newValue, "shiftToggle") } }
     /// What is written out: "script" (Universal, the default) or "stage:<code>" (a language's
     /// spelling); "transport" only serves the escape path.
@@ -31,7 +31,7 @@ final class Prefs {
             set("stage:\(newValue)", "output")
         }
     }
-    /// The quick list: the languages the menu shows and the Shift tap cycles through, in
+    /// The quick list: the languages the menu and the switcher show, in
     /// the order given in the chooser (its right pane). No cap; past `quickComfort` the
     /// chooser warns that the cycle gets long.
     static let quickComfort = 3
@@ -50,15 +50,16 @@ final class Prefs {
     }
 
     /// The mode as the person sees it: off (a plain keyboard), Universal, or the language's
-    /// spelling; the toggle key cycles them.
+    /// spelling.
     var modeLabel: String { enabled ? label() : "Conversion off" }
-    /// A bare Shift tap after a pause: off, or back to the last spelling that was on.
-    /// Taps within `tapWindow` of each other walk the cycle instead (cycleMode).
-    static let tapWindow: TimeInterval = 1.5
+    /// Off, or back to the last spelling that was on (Mac: a double Shift tap; iOS: a toggle tap after a pause).
     func toggleOff() {
         if !enabled, output == "transport" { d.set("script", forKey: "output") }
         set(!enabled, "enabled")
     }
+    /// The iOS toggle key: taps within `tapWindow` of each other walk the cycle
+    /// (cycleMode); a tap after a pause is toggleOff.
+    static let tapWindow: TimeInterval = 1.5
     /// Quick taps: off → Universal → each language on the quick list → off.
     func cycleMode() {
         let quick = quickLanguages
@@ -67,6 +68,36 @@ final class Prefs {
         else if !universal, let i = quick.firstIndex(of: language), i + 1 < quick.count { language = quick[i + 1] }
         else { set(false, "enabled") }
     }
+    /// Mac: a bare Shift tap counts only when Shift was down for less than `tapHold`; two taps
+    /// within `doubleTap` switch conversion off and on.
+    static let tapHold: TimeInterval = 0.3
+    static let doubleTap: TimeInterval = 0.4
+
+    /// The modes the switcher lists (⇧Space, then Shift taps): Universal ("script"), each
+    /// language on the quick list ("stage:<code>"), the language in use if it is off the
+    /// list, and "off".
+    var modes: [String] {
+        var langs = quickLanguages
+        if !universal, !langs.contains(language) { langs.append(language) }
+        return ["script"] + langs.map { "stage:\($0)" } + ["off"]
+    }
+    /// The mode in use, as `modes` names it.
+    var mode: String { !enabled ? "off" : universal ? "script" : output }
+    /// Put a mode in use; a language picked here stays where it is on the quick list.
+    func setMode(_ m: String) {
+        if m == "off" { set(false, "enabled"); return }
+        if m.hasPrefix("stage:") { d.set(String(m.dropFirst(6)), forKey: "language") }
+        d.set(m.hasPrefix("stage:") ? m : "script", forKey: "output")
+        set(true, "enabled")
+    }
+    /// The next mode in `modes`, round to the first after the last.
+    func nextMode() {
+        let list = modes
+        let i = list.firstIndex(of: mode) ?? -1
+        setMode(list[(i + 1) % list.count])
+    }
+    /// A mode's name in the switcher.
+    func modeName(_ m: String) -> String { m == "off" ? "Off (plain keys)" : label(m) }
 
     /// Write tones: a digit after a syllable becomes its tone sign; off, tone digits are dropped.
     var tones: Bool { get { bool("tones", true) } set { set(newValue, "tones") } }

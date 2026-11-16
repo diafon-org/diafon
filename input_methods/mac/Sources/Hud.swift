@@ -36,6 +36,11 @@ final class Hud {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.1, execute: work)
     }
 
+    func hide() {
+        hideWork?.cancel()
+        panel?.orderOut(nil)
+    }
+
     private func build() {
         let p = NSPanel(contentRect: NSRect(x: 0, y: 0, width: 120, height: 34),
                         styleMask: [.borderless, .nonactivatingPanel], backing: .buffered, defer: false)

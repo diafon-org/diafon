@@ -24,11 +24,15 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
   text, the last segment stays underlined until a key settles it. Backspace
   edits the underlined tail first; Escape drops the tail in as typed; Return,
   Tab, arrows and any shortcut make the tail final and pass through.
-- **Two keys.** A bare Shift tap switches conversion off, and back on to
-  the spelling you had; taps in quick succession (within 1.5 s) walk the
-  cycle instead, passthrough (a plain keyboard) → Universal → each language
-  on the quick list (settable). A small label near the caret names the
-  mode for a moment. ⇧Space opens the language chooser, in every mode.
+- **Two keys.** Two quick Shift taps (within 0.4 s) switch conversion off,
+  and back on to the spelling you had; a small label near the caret names
+  the mode for a moment. ⇧Space opens the switcher beside the caret, in
+  every mode: Universal, each language on the quick list, off, the one in
+  use marked. While it is up each Shift tap puts the next one in use and
+  typing goes on; a second ⇧Space closes it, and so do 2.5 s without a
+  Shift tap. A tap counts only when Shift was down under 0.3 s with no key,
+  other modifier, click or scroll in between, so Shift-click and
+  Shift-scroll never switch.
 - **Mandarin.** In the Mandarin spelling, letters build a syllable shown as
   pinyin; the tone digit (or a space, for the neutral tone) completes it and
   the candidate window lists its characters, most frequent first, the pinyin
@@ -40,11 +44,11 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
 - **The status menu**, under the input source in the menu bar: Passthrough
   (conversion off), Universal, then the quick list of language-specific
   spellings (by their own names and codes: magyar (hu), suomi (fi)…), the
-  current choice ticked, and **Other language…** (⇧Space), the chooser
+  current choice ticked, and **Other language…**, the chooser
   with every language, filtered as you type by native name, English name or
   code, and on its right the quick list itself: the box beside a language
   puts it there, and Up, Down and Remove order and prune it; that order is
-  the menu's and the Shift cycle's. No cap, but past three the chooser warns
+  the menu's and the switcher's. No cap, but past three the chooser warns
   that every Shift tap then has further to go. The language in use is
   always listed, on the quick list or not. Then Setup. Flat by necessity: the menu is shown by a system
   process that returns only top-level clicks, so a submenu cannot be picked
@@ -72,9 +76,9 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
    Colemak, whatever layout the Mac had selected before.
 2. Type a sound as a base, then its operators: `sj` → ș, `tq` → c̦,
    `aw` → á; the last sound stays underlined until the next key settles it.
-3. A bare Shift tap switches conversion off and back on; quick taps in a
-   row walk the cycle: passthrough → Universal → each language on your
-   quick list. ⇧Space opens the language chooser.
+3. Two quick Shift taps switch conversion off and back on. ⇧Space opens
+   the switcher; Shift taps step through Universal, your quick list and
+   off, and ⇧Space (or a pause) closes it.
 4. Text in any spelling: select it, then Diafon menu → Convert selection
    (or right-click → Services → Convert with Diafon); the … variants let
    you set the source and the target first.
@@ -91,6 +95,7 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
     Sources/DiafonInputController.swift  IMKInputController: keystrokes in, streaming rule, insertText / setMarkedText out; the status menu
     Sources/ConvertWindow.swift        the From / To window of Convert with Diafon…
     Sources/Hud.swift                  the mode label shown for a moment after a switch
+    Sources/Switcher.swift             the switcher by the caret (⇧Space, then Shift taps)
     Sources/LanguageChooser.swift      the searchable language list (Other language…)
     Sources/SetupWindow.swift          the setup window
     Sources/MacPrefs.swift             the base layout under Diafon (overrideKeyboard), from ../apple/Core/Layouts.swift

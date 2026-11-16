@@ -2,9 +2,9 @@
 // two panes. Left: every language with a spelling, filtered as you type by
 // native name, English name or code; the box beside each keeps it on the
 // quick list, Return or a double click picks it (turns conversion on in that
-// spelling). Right: the quick list itself, the languages the menu shows and
-// the Shift taps cycle through, in the order you give them there (drag, or
-// the buttons). Opened with ⇧Space and from the menu's "Other language…". The model holds every action, so it can be driven without
+// spelling). Right: the quick list itself, the languages the menu and the
+// switcher (⇧Space) show, in the order you give them there (drag, or the
+// buttons). Opened from the menu's "Other language…". The model holds every action, so it can be driven without
 // the window.
 import Cocoa
 import SwiftUI
@@ -73,8 +73,8 @@ final class ChooserModel: ObservableObject {
 
 struct LanguageChooserView: View {
     @ObservedObject var model: ChooserModel
-    private let hintText = "Return picks a language. The box keeps it on the quick list: the menu, and the cycle of quick Shift taps, in the order on the right."
-    private var longText: String { "More than \(Prefs.quickComfort) languages on the quick list make the Shift cycle long: every tap has further to go. Fewer is quicker." }
+    private let hintText = "Return picks a language. The box keeps it on the quick list: the menu and the switcher (⇧Space), in the order on the right."
+    private var longText: String { "More than \(Prefs.quickComfort) languages on the quick list make the switcher long: every Shift tap has further to go. Fewer is quicker." }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
