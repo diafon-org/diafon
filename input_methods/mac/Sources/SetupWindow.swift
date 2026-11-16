@@ -105,8 +105,8 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         root.addArrangedSubview(heading("Options"))
         root.addArrangedSubview(option("Conversion on", p.enabled,
             "Off, Diafon passes your keys through as plain letters.") { Prefs.shared.enabled = $0 })
-        root.addArrangedSubview(option("Shift switches", p.shiftToggle,
-            "A bare Shift tap turns conversion off and back on. Quick taps in a row walk through Universal and your quick list of languages; ⇧Space opens the language chooser.") { Prefs.shared.shiftToggle = $0 })
+        root.addArrangedSubview(option("Double Shift switches", p.shiftToggle,
+            "Two quick Shift taps turn conversion off and back on. ⇧Space opens the switcher by the cursor: each Shift tap moves to the next of Universal, your quick list of languages and off.") { Prefs.shared.shiftToggle = $0 })
         root.addArrangedSubview(option("Tones", p.tones,
             "A digit after a syllable writes its tone, which the Diafon fonts draw above it. Off, tone digits are left out.") { Prefs.shared.tones = $0 })
         root.addArrangedSubview(option("Joined long consonants", p.join,
