@@ -214,7 +214,8 @@ function renderLetters(text, st){
 const LEXICON = {};                 // code -> the parsed <code>.json; setLexicon() fills it
 function setLexicon(code, data){
   data.read = data.read || {}; data.write = data.write || {}; data.choices = data.choices || {};
-  data.loans = data.loans || []; data.match = data.match || 'word'; data.loanwrite = data.loanwrite || {}; data.lengthen = data.lengthen || {};
+  data.loans = !!data.loans; data.match = data.match || 'word'; data.lengthen = data.lengthen || {};
+  data.hand = data.hand || {}; data.hosts = data.hosts || {};
   data.nativeSet = new Set(data.native || []);
   data.commonSet = new Set(data.common || []);
   data.foreignRe = data.foreign ? new RegExp(data.foreign, 'u') : null;
@@ -295,44 +296,55 @@ function writeWordLex(t, code){
   return sp === undefined ? null : recase(sp, t) + digits;
 }
 
-/** A host's word written back as the loan it is, unless the letters' spelling is a host word. */
+/** A host's word written back as the loan it is (how the host writes it, else its own spelling),
+ *  unless the letters' spelling is a host word. Needs the loan dictionary (setLexicon('loans', …)). */
 function writeLoan(t, code, lettersSpelling){
-  const L = lex(code);
-  if (!L || !Object.keys(L.loanwrite).length || [...lettersSpelling].length < 3 || L.nativeSet.has(lettersSpelling.toLowerCase())) return null;   // a loan from three letters, as it is read
+  const L = lex(code), D = lex('loans');
+  if (!L || !L.loans || !D || [...lettersSpelling].length < 3 || L.nativeSet.has(lettersSpelling.toLowerCase())) return null;   // a loan from three letters, as it is read
   let digits = '';
   while (t && /\d/.test(t[t.length - 1])){ digits = t[t.length - 1] + digits; t = t.slice(0, -1); }
-  const sp = t ? L.loanwrite[t[0].toLowerCase() + t.slice(1)] : undefined;
+  if (!t) return null;
+  const k = t[0].toLowerCase() + t.slice(1), hw = (D.hosts[code] || {}).write || {};
+  const sp = hw[k] || D.write[k];
   return sp === undefined ? null : recase(sp, t) + digits;
 }
 
-/** A host's word that is a loan: [transport in its own sounds, source code], or null. The longest stem a
- *  loan lexicon reads (among its common words where it has them) against the longest native stem,
- *  native on ties unless the stem has a foreign shape; a suffixed word whose stem has no shape is
- *  never a loan (akinek), with the shape the rest is read by the host's letters (streamingajánló);
- *  a stem whose final vowel the suffix lengthened (lengthen: pizzát) is looked up short too. */
+/** A host's word that is a loan: [transport in its own sounds, origin code], or null, from the one
+ *  loan dictionary (loans.json). The longest stem the dictionaries read against the longest native
+ *  stem, native on ties unless the stem has a foreign shape, and against the host's own entries and
+ *  the hand loans (origin.yaml, and the host's spellings of them: míting), the longer wins; a suffixed
+ *  word whose stem has no shape is never a dictionary loan (akinek), with the shape the rest is read by
+ *  the host's letters (streamingajánló); a hand loan is a stem (Jamaicában); a stem whose final vowel
+ *  the suffix lengthened (lengthen: pizzát) is looked up short too. */
 function loan(word, code){
-  const L = lex(code);
-  if (!L || !L.loans.length) return null;
-  const w = word.normalize('NFC'), key = w.toLowerCase();
+  const L = lex(code), D = lex('loans');
+  if (!L || !L.loans || !D) return null;
+  const w = word.normalize('NFC'), key = w.toLowerCase(), top = Math.min(key.length, 24);
   const stems = i => { const pre = key.slice(0, i), last = pre[pre.length - 1]; return last in L.lengthen ? [pre, pre.slice(0, -1) + L.lengthen[last]] : [pre]; };
+  const withRest = (t, n) => { const rest = w.slice(n); return recase(t, word) + (rest ? readLetters(rest, stageTable(DIA.stages[code])) : ''); };
+  const own = (D.hosts[code] || {}).read || {};
   let nativeLen = 0;
-  for (let i = Math.min(key.length, 24); i > 2; i--) if (stems(i).some(p => L.nativeSet.has(p))){ nativeLen = i; break; }
-  const spokenLen = spokenStem(key, L);          // the host's own entry, if any: it wins unless a loan stem is longer
-  let loanLen = 0, src = null, stem = null;
-  outer: for (let i = Math.min(key.length, 24); i > 2; i--)
-    for (const lc of L.loans){
-      const LL = lex(lc);
-      if (!LL) continue;
-      stem = stems(i).find(p => p in LL.read && (!LL.commonSet.size || LL.commonSet.has(p)));
+  for (let i = top; i > 2; i--) if (stems(i).some(p => L.nativeSet.has(p))){ nativeLen = i; break; }
+  const spokenLen = spokenStem(key, L);          // the host's own entry, if any
+  let handLen = 0, hand = null;                  // a hand loan, the host's spelling of it first
+  for (let i = top; i > 2 && !hand; i--){
+    const p = stems(i).find(p => p in own || p in D.hand);
+    if (p !== undefined){ handLen = i; hand = own[p] || D.hand[p]; }
+  }
+  let loanLen = 0, src = null, stem;
+  outer: for (let i = top; i > 2; i--)
+    for (const lc in D.read){
+      if (lc === code) continue;
+      stem = stems(i).find(p => p in D.read[lc]);
       if (stem !== undefined){ loanLen = i; src = lc; break outer; }
     }
-  if (src === null || spokenLen >= loanLen) return null;
-  const foreign = L.foreignRe ? L.foreignRe.test(key.slice(0, loanLen)) : false;
-  if (!foreign && loanLen < key.length) return null;
-  if (nativeLen > loanLen || (nativeLen === loanLen && !foreign)) return null;
-  const t = recase(lex(src).read[stem], word);
-  const rest = w.slice(loanLen);
-  return [t + (rest ? readLetters(rest, stageTable(DIA.stages[code])) : ''), src];
+  if (src !== null && loanLen > Math.max(spokenLen, handLen)){
+    const foreign = L.foreignRe ? L.foreignRe.test(key.slice(0, loanLen)) : false;
+    if ((foreign || loanLen === key.length) && !(nativeLen > loanLen || (nativeLen === loanLen && !foreign)))
+      return [withRest(D.read[src][stem], loanLen), src];
+  }
+  if (hand && handLen > spokenLen) return [withRest(hand[0], handLen), hand[1]];
+  return null;
 }
 
 function choices(key, code = 'zh'){ const L = lex(code); return (L && L.choices[key.toLowerCase()]) || []; }
