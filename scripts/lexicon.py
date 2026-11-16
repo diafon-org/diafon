@@ -42,9 +42,8 @@ def lex(code):
         if _CACHE[code] is not None:
             _CACHE[code].setdefault('read', {})
             _CACHE[code].setdefault('write', {})
-            _CACHE[code].setdefault('loans', [])
+            _CACHE[code].setdefault('loans', False)
             _CACHE[code].setdefault('choices', {})
-            _CACHE[code].setdefault('loanwrite', {})
             _CACHE[code].setdefault('match', 'word')
             _CACHE[code].setdefault('lengthen', {})
             _CACHE[code]['common'] = set(_CACHE[code].get('common', []))
@@ -152,21 +151,30 @@ def read_stem(word, code):
     return recase(t, w), w[i:]
 
 
+def loans():
+    """The one loan dictionary (loans.json), or None."""
+    return lex('loans')
+
+
 def loan(word, code):
-    """A host's word that is a loan: (transport in its own sounds, source code), or
-    None. The longest stem a loan lexicon reads (among its `common` words
-    where it has them: not CMUdict's names) decides against the longest
-    native stem (the host's dictionary), native on ties unless the stem has
-    a foreign letter shape (the host's `foreign` pattern: ee, sh, w…). A
-    suffixed word whose stem has no foreign shape is never a loan (akinek
-    is aki + nek, not akin + ek); with the shape the rest may be anything,
-    read by the host's letters (streaming + ajánlójában). A stem whose final
+    """A host's word that is a loan: (transport in its own sounds, origin code), or
+    None, from the one loan dictionary (loans.json), the same form in every host.
+    The longest stem the dictionaries read (Latin; English, its common words: not
+    CMUdict's names) decides against the longest native stem (the host's
+    dictionary), native on ties unless the stem has a foreign letter shape (the
+    host's `foreign` pattern: ee, sh, w…), and against the host's own entries and
+    the hand loans (origin.yaml, and the host's own spellings of them: míting),
+    the longer wins. A suffixed word whose stem has no foreign shape is never a
+    dictionary loan (akinek is aki + nek, not akin + ek); with the shape the rest
+    may be anything, read by the host's letters (streaming + ajánlójában). A hand
+    loan is a stem, its rest read by the letters (Jamaicában). A stem whose final
     vowel the suffix lengthened (`lengthen`: pizzát) is looked up short too."""
-    L = lex(code)
-    if not L or not L['loans']:
+    L, D = lex(code), loans()
+    if not L or not L['loans'] or not D:
         return None
     w = ud.normalize('NFC', word)
     key = w.lower()
+    top = min(len(key), 24)
 
     def stems(i):
         pre = key[:i]
@@ -174,48 +182,60 @@ def loan(word, code):
         if pre[-1] in L['lengthen']:
             yield pre[:-1] + L['lengthen'][pre[-1]]
 
-    native_len = next((i for i in range(min(len(key), 24), 2, -1) if any(p in L['native'] for p in stems(i))), 0)
-    spoken_len = spoken_stem(key, L)                   # the host's own entry, if any: it wins unless a loan stem is longer
+    def with_rest(t, n):
+        rest = w[n:]
+        if rest:
+            import stages                              # the rest by the host's letters
+            rest = stages.read_letters(rest, stages.table(stages.load(code)))
+        return recase(t, word) + rest
+
+    own = D['hosts'].get(code, {}).get('read', {})
+    native_len = next((i for i in range(top, 2, -1) if any(p in L['native'] for p in stems(i))), 0)
+    spoken_len = spoken_stem(key, L)                   # the host's own entry, if any
+    hand_len, hand = 0, None                           # a hand loan, the host's spelling of it first
+    for i in range(top, 2, -1):
+        p = next((p for p in stems(i) if p in own or p in D['hand']), None)
+        if p is not None:
+            hand_len, hand = i, own.get(p) or D['hand'][p]
+            break
     loan_len, src, stem = 0, None, None
-    for i in range(min(len(key), 24), 2, -1):
-        for lc in L['loans']:
-            LL = lex(lc)
-            if LL:
-                stem = next((p for p in stems(i) if p in LL['read'] and (not LL['common'] or p in LL['common'])), None)
-                if stem is not None:
-                    loan_len, src = i, lc
-                    break
+    for i in range(top, 2, -1):
+        for lc, table in D['read'].items():
+            if lc == code:
+                continue
+            stem = next((p for p in stems(i) if p in table), None)
+            if stem is not None:
+                loan_len, src = i, lc
+                break
         if src:
             break
-    if src is None or spoken_len >= loan_len:
-        return None
-    foreign = bool(L.get('foreign')) and re.search(L['foreign'], key[:loan_len]) is not None
-    if not foreign and loan_len < len(key):
-        return None
-    if native_len > loan_len or (native_len == loan_len and not foreign):
-        return None
-    t = recase(lex(src)['read'][stem], word)
-    rest = w[loan_len:]
-    if rest:
-        import stages                                  # the rest by the host's letters
-        rest = stages.read_letters(rest, stages.table(stages.load(code)))
-    return t + rest, src
+    if src is not None and loan_len > max(spoken_len, hand_len):
+        foreign = bool(L.get('foreign')) and re.search(L['foreign'], key[:loan_len]) is not None
+        if (foreign or loan_len == len(key)) and not (native_len > loan_len or (native_len == loan_len and not foreign)):
+            return with_rest(D['read'][src][stem], loan_len), src
+    if hand is not None and hand_len > spoken_len:
+        return with_rest(hand[0], hand_len), hand[1]
+    return None
 
 
 def write_loan(t, code, letters_spelling):
-    """A host's word written back as the loan it is: the transport
-    of a loan word -> its own spelling, unless the letters' spelling is a
-    word of the host (só stays só). None otherwise, and for a word under
-    three letters: a loan is looked up from three, as it is read (e, az)."""
-    L = lex(code)
-    if not L or not L['loanwrite'] or len(letters_spelling) < 3:
+    """A host's word written back as the loan it is: the transport of a loan
+    word -> how the host writes it (origin.yaml `spell`, `borrowed`), else its
+    own spelling, unless the letters' spelling is a word of the host (só stays
+    só). None otherwise, and for a word under three letters: a loan is looked up
+    from three, as it is read (e, az)."""
+    L, D = lex(code), loans()
+    if not L or not L['loans'] or not D or len(letters_spelling) < 3:
         return None
     if letters_spelling.lower() in L['native']:
         return None
     digits = ''
     while t and t[-1].isdigit():
         digits, t = t[-1] + digits, t[:-1]
-    sp = L['loanwrite'].get(t[0].lower() + t[1:]) if t else None
+    if not t:
+        return None
+    k = t[0].lower() + t[1:]
+    sp = D['hosts'].get(code, {}).get('write', {}).get(k) or D['write'].get(k)
     return recase(sp, t) + digits if sp is not None else None
 
 

@@ -45,11 +45,13 @@ LEX_WRITE = {'en': ['dxaj', 'kuxijk', 'rid', 'rejd', 'Sjeixkspir', 'zzz'],
              'zh': ['ni', 'kxaux', 'tqyunx', 'sjyuc']}
 LEX_LOAN = {'hu': ['meeting', 'like', 'house', 'taxi', 'team', 'tagja', 'meetingen', 'Facebook', 'show', 'think', 'alma', 'hoc', 'sok',
                    'traumái', 'traumát', 'jamaicai', 'hazai', 'pizzát', 'Jamaicában', 'akinek', 'amiket', 'meetingen', 'franchise', 'chat', 'technika',
-                   'streamingajánlójában', 'meetingjén', 'Bela', 'felkerült', 'vele', 'teamek', 'teaház', 'onlinera']}
+                   'streamingajánlójában', 'meetingjén', 'Bela', 'felkerült', 'vele', 'teamek', 'teaház', 'onlinera',
+                   'míting', 'Mítingen', 'lájk', 'lájkol', 'Bach', 'ocho']}
 LEX_CHOICES = ['ni3', 'kxaux3', 'tqyunx1', 'kuo2', 'sjyuc4', 'zzz1']
 LEX_TEXTS = {'stage:hu': ['Sok szép nyár. Folyó, gally, hely; helyes.', 'Meeting, like, house, taxi, ad hoc, team, tagja, Facebook.',
                           'Jamaicai franchise-ba, akinek traumái; Bach, pech, technika, chat.',
-                          'Streamingajánlójában online teaház, felkerült; tea, team.', 'Cudjoe East, Ocho Rios.'],
+                          'Streamingajánlójában online teaház, felkerült; tea, team.', 'Cudjoe East, Ocho Rios.',
+                          'Míting és meeting; lájk, like, lájkol.'],
              'stage:en': ['The quick brown fox jumps over the lazy dog.', 'Shakespeare wrote Hamlet; Diafon reads it.'],
              'stage:zh': ['Ni3 hao3, shi4 jie4!', 'nihao ma']}
 INVALID = ['jok', '1', 'tqyx', 'tww', 'twx', 'ly', 'ry', 'fy', 'bq', 'ax', 'txx',
@@ -210,7 +212,7 @@ def main():
             'All-caps reads as capitalized: SZÉP -> SEwP -> SzÉP; the transport form carries no case beyond the first letter.',
             'Digraph boundaries inside compounds (házszám) read by longest match and can mislead; no dictionary is consulted.',
             'detect ranks the sources by coverage: the share of letters and marks a source reads with its own spellings; ties go to the script when its marks are present, to a syllable lexicon that read every word with a tone digit, to a word lexicon that read every word, then the preferred sources, then transport.',
-            'The lexicon (data/lexicon) reads and writes word by word above the letters: a host with letters reads a word as a loan (the longest stem a loan lexicon reads among its common words, against the host dictionary stem and its own entries: the longest wins, the host on ties unless the stem has a foreign shape, the rest by the letters), else by its own entries (spoken stems), else by its letters when they read it in full, else by the letters with aliases and the script; a lexical stage reads by its lexicon; a word is written by the lexicon (the word, or a stem by prefix), else by the letters.',
+            'The lexicon (data/lexicon) reads and writes word by word above the letters: a host with letters reads a word as a loan from the one loan dictionary (loans.json: the longest stem its dictionaries read, against the host dictionary stem, its own entries and the hand loans with the host spellings of them: the longest wins, the host on ties unless the stem has a foreign shape, the rest by the letters), else by its own entries (spoken stems), else by its letters when they read it in full, else by the letters with aliases and the script; a lexical stage reads by its lexicon; a word is written by the lexicon (the word, or a stem by prefix), else by the letters.',
         ],
         'grammar': [
             'A segment is one base letter followed by at most two operators (c j q x y), then w at most once and last, then tone digits.',

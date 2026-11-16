@@ -1,7 +1,7 @@
 {
  "name": "Diafon",
- "generated": "2026-11-09",
- "source": "b7de3b6",
+ "generated": "2026-11-16",
+ "source": "b7288f0",
  "alphabet": {
   "consonant_bases": [
    "b",
@@ -44,7 +44,7 @@
   "All-caps reads as capitalized: SZÉP -> SEwP -> SzÉP; the transport form carries no case beyond the first letter.",
   "Digraph boundaries inside compounds (házszám) read by longest match and can mislead; no dictionary is consulted.",
   "detect ranks the sources by coverage: the share of letters and marks a source reads with its own spellings; ties go to the script when its marks are present, to a syllable lexicon that read every word with a tone digit, to a word lexicon that read every word, then the preferred sources, then transport.",
-  "The lexicon (data/lexicon) reads and writes word by word above the letters: a host with letters reads a word as a loan (the longest stem a loan lexicon reads among its common words, against the host dictionary stem and its own entries: the longest wins, the host on ties unless the stem has a foreign shape, the rest by the letters), else by its own entries (spoken stems), else by its letters when they read it in full, else by the letters with aliases and the script; a lexical stage reads by its lexicon; a word is written by the lexicon (the word, or a stem by prefix), else by the letters."
+  "The lexicon (data/lexicon) reads and writes word by word above the letters: a host with letters reads a word as a loan from the one loan dictionary (loans.json: the longest stem its dictionaries read, against the host dictionary stem, its own entries and the hand loans with the host spellings of them: the longest wins, the host on ties unless the stem has a foreign shape, the rest by the letters), else by its own entries (spoken stems), else by its letters when they read it in full, else by the letters with aliases and the script; a lexical stage reads by its lexicon; a word is written by the lexicon (the word, or a stem by prefix), else by the letters."
  ],
  "grammar": [
   "A segment is one base letter followed by at most two operators (c j q x y), then w at most once and last, then tone digits.",
@@ -18640,12 +18640,12 @@
     [
      "hu",
      "jamaica",
-     "dqajmeixkaj"
+     null
     ],
     [
      "hu",
      "Bach",
-     "Bakx"
+     null
     ],
     [
      "hu",
@@ -18655,7 +18655,7 @@
     [
      "hu",
      "Cudjoe",
-     "Kajdqoux"
+     null
     ],
     [
      "hu",
@@ -18822,7 +18822,7 @@
     [
      "hu",
      "jamaicai",
-     null
+     "dqajmeixkaji"
     ],
     [
      "hu",
@@ -18837,7 +18837,7 @@
     [
      "hu",
      "Jamaicában",
-     null
+     "Dqajmeixkajban"
     ],
     [
      "hu",
@@ -18908,6 +18908,36 @@
      "hu",
      "onlinera",
      null
+    ],
+    [
+     "hu",
+     "míting",
+     "miwtinx"
+    ],
+    [
+     "hu",
+     "Mítingen",
+     "Miwtinxen"
+    ],
+    [
+     "hu",
+     "lájk",
+     "laixk"
+    ],
+    [
+     "hu",
+     "lájkol",
+     "laixkol"
+    ],
+    [
+     "hu",
+     "Bach",
+     "Bakx"
+    ],
+    [
+     "hu",
+     "ocho",
+     "otqo"
     ]
    ],
    "choices": [
@@ -18980,6 +19010,11 @@
      "Kajdqoux Iwst, Otqo Riwouxs."
     ],
     [
+     "stage:hu",
+     "Míting és meeting; lájk, like, lájkol.",
+     "Miwtinx ewsj miwtinx; laixk, laixk, laixkol."
+    ],
+    [
      "stage:en",
      "The quick brown fox jumps over the lazy dog.",
      "Dxaj kuxik brauxn fawks dqajmps ouxvaq dxaj leixziw dowg."
@@ -19009,7 +19044,7 @@
     [
      "stage:hu",
      "Miwtinx, laixk, hauxs, taksiw, ad hok, tiwm, tagixa, Feixsbuk.",
-     "Meeting, like, house, taxi, ad hoc, team, tagja, Facebook."
+     "Meeting, lájk, house, taxi, ad hoc, team, tagja, Facebook."
     ],
     [
      "stage:hu",
@@ -19025,6 +19060,11 @@
      "stage:hu",
      "Kajdqoux Iwst, Otqo Riwouxs.",
      "Cudjoe East, Ocho Rios."
+    ],
+    [
+     "stage:hu",
+     "Miwtinx ewsj miwtinx; laixk, laixk, laixkol.",
+     "Meeting és meeting; lájk, lájk, lájkol."
     ],
     [
      "stage:en",
@@ -19066,6 +19106,10 @@
     ],
     [
      "Cudjoe East, Ocho Rios.",
+     "script"
+    ],
+    [
+     "Míting és meeting; lájk, like, lájkol.",
      "script"
     ],
     [
@@ -19112,6 +19156,11 @@
      "Cudjoe East, Ocho Rios."
     ],
     [
+     "stage:hu",
+     "Míting és meeting; lájk, like, lájkol.",
+     "Míting és meeting; lájk, like, lájkol."
+    ],
+    [
      "stage:en",
      "The quick brown fox jumps over the lazy dog.",
      "The quick brown fox jumps over the lazy dog."
@@ -19139,7 +19188,7 @@
    "name": "English",
    "kind": "word",
    "match": "word",
-   "loans": [],
+   "loans": false,
    "fold": null,
    "foreign": null,
    "lengthen": {},
@@ -19154,10 +19203,7 @@
    "name": "Hungarian",
    "kind": "word",
    "match": "prefix",
-   "loans": [
-    "la",
-    "en"
-   ],
+   "loans": true,
    "fold": null,
    "foreign": "ee|oo|ea|ou|w|x|q|sh|ch|th|ck|ph|(?<![gltn])y",
    "lengthen": {
@@ -19167,8 +19213,8 @@
    "sample": null,
    "output": true,
    "sizes": {
-    "read": 8,
-    "write": 1888,
+    "read": 3,
+    "write": 1890,
     "native": 84830
    }
   },
@@ -19176,7 +19222,7 @@
    "name": "Latin",
    "kind": "word",
    "match": "word",
-   "loans": [],
+   "loans": false,
    "fold": null,
    "foreign": null,
    "lengthen": {},
@@ -19187,11 +19233,26 @@
     "write": 27
    }
   },
+  "loans": {
+   "name": "Loans",
+   "kind": "loans",
+   "match": "prefix",
+   "loans": false,
+   "fold": null,
+   "foreign": null,
+   "lengthen": {},
+   "sample": null,
+   "output": false,
+   "sizes": {
+    "read": 2,
+    "write": 41293
+   }
+  },
   "zh": {
    "name": "Mandarin",
    "kind": "syllable",
    "match": "word",
-   "loans": [],
+   "loans": false,
    "fold": null,
    "foreign": null,
    "lengthen": {},

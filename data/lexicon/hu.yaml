@@ -5,7 +5,7 @@
 # list (ly reads as j through the stage's read aliases).
 #
 # Loans: a word the Hungarian letters cannot read in full (x, w, sh, th, ee,
-# oo…) is looked up in the loan lexicons, English then Latin, and is written
+# oo…) is looked up in the one loan dictionary (loans.json), and is written
 # with the sounds of the language it comes from, not as a Hungarian says
 # it: meeting -> mítiṇ, like -> lajk. Diafon shows the word itself.
 code: hu
@@ -14,7 +14,7 @@ kind: word
 match: prefix
 sources:
   - sources/hu_HU.dic        # https://github.com/LibreOffice/dictionaries/tree/master/hu_HU
-loans: [la, en]
+loans: true                 # catches loans through the one loan dictionary (loans.json)
 native: sources/hu_HU.dic   # the stems: a word the dictionary knows is Hungarian, whatever English also has
 foreign: "ee|oo|ea|ou|w|x|q|sh|ch|th|ck|ph|(?<![gltn])y"   # letter shapes Hungarian never has: a word the
                              #   dictionary lists with one of these is a loan it keeps in foreign spelling (meeting, team);
