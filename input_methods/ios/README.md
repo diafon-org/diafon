@@ -5,10 +5,13 @@ four rows: the strip on top, the 26 letters on the base layout of your
 choice, and a bottom row of three keys: the Diafon logo, space and return.
 It converts by the streaming rule and writes the result into whatever field
 has focus. The strip is the digit row between words; inside a word that
-names something in English or Hungarian, its emoji take the digits' place
-(`hawrt` ❤️, `kutja` 🐶), and a tap puts the emoji in the word's place. In
+names something in any of seven languages (English, Hungarian, Czech,
+Polish, Finnish, Turkish, Swahili), its emoji take the digits' place: the
+word's own first, then from the third letter those of the words it begins
+(`haw` ❤️, `kutja` 🐶, `dowg` 🐶). A classic emoticon (`:)` `<3` `;)`) offers
+its emoji too. A tap puts the emoji in place of the word or the emoticon. In
 Mandarin the digits stay, since they write the tones. Select text in any
-spelling and the strip offers to convert it. That one small table (data/emoji.json, 86 KB) is the
+spelling and the strip offers to convert it. The emoji table (data/emoji.json, 643 KB: 1,855 emoji, 28,876 words) is the
 only word list the keyboard carries: no dictionary, no prediction, no
 network, no full access.
 
