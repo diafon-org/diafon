@@ -64,8 +64,8 @@ final class KeyboardViewController: UIInputViewController {
         panel.isHidden = true
 
         keys.onKey = { [weak self] in self?.key($0) }
-        keys.onLogoHold = { [weak self] _ in self?.showMenu() }
-        keys.onSpaceHold = { [weak self] in self?.showMenu(modesOnly: true) }
+        keys.onLogoHold = { [weak self] _ in self?.showSettings(true) }
+        keys.onSpaceHold = { [weak self] in self?.showMenu() }
         keys.onMenuDrag = { [weak self] p in guard let self else { return }; self.menu.drag(to: self.keys.convert(p, to: self.menu)) }
         keys.onMenuRelease = { [weak self] p in guard let self else { return }; self.menu.release(at: self.keys.convert(p, to: self.menu)) }
         menu.onPick = { [weak self] id in
@@ -177,7 +177,7 @@ final class KeyboardViewController: UIInputViewController {
     }
 
     private func type(_ ch: Character) {
-        if prefs.enabled { session.type(ch) } else { session.insertFinal(String(ch)) }
+        if prefs.enabled { session.type(ch) } else { session.typePlain(ch) }
     }
 
     private func setShift(_ on: Bool) {
@@ -207,8 +207,9 @@ final class KeyboardViewController: UIInputViewController {
 
     private func refresh() {
         keys.enabledMode = prefs.enabled
-        keys.spaceLabel = prefs.enabled ? prefs.label() : "off"
+        keys.spaceLabel = prefs.enabled ? prefs.shortLabel() : "abc"
         keys.returnLabel = returnLabel()
+        keys.returnSymbol = returnSymbol()
         if let sel = textDocumentProxy.selectedText, !sel.isEmpty, session.pending.isEmpty {
             strip.show(.convert(prefs.label()))
             return
@@ -244,6 +245,16 @@ final class KeyboardViewController: UIInputViewController {
         refresh()
     }
 
+    private func returnSymbol() -> String {
+        switch textDocumentProxy.returnKeyType ?? .default {
+        case .send: return "arrow.up"
+        case .google, .yahoo, .search: return "magnifyingglass"
+        case .go, .next, .continue, .route, .join: return "arrow.right"
+        case .done: return "checkmark"
+        default: return "return.left"
+        }
+    }
+
     private func returnLabel() -> String {
         switch textDocumentProxy.returnKeyType ?? .default {
         case .go: return "go"
@@ -271,12 +282,11 @@ final class KeyboardViewController: UIInputViewController {
 
     // MARK: the menu and settings
 
-    /// The logo key's menu (the modes and the settings), or the space bar's (the modes alone).
-    private func showMenu(modesOnly: Bool = false) {
+    /// The space bar's menu: the modes.
+    private func showMenu() {
         session.flush()
-        var items = prefs.menuModes.map { (id: $0, title: prefs.menuTitle($0)) }
-        if !modesOnly { items.append((id: "settings", title: "Settings…")) }
-        menu.present(items, current: prefs.menuMode, anchor: keys.convert(modesOnly ? keys.spaceFrame : keys.logoFrame, to: menu))
+        let items = prefs.menuModes.map { (id: $0, title: prefs.menuTitle($0)) }
+        menu.present(items, current: prefs.menuMode, anchor: keys.convert(keys.spaceFrame, to: menu))
     }
 
     private func showSettings(_ on: Bool) {

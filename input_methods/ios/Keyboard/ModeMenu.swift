@@ -1,6 +1,5 @@
-// The menu a hold on the logo key opens: Universal, the languages on the quick
-// list, off (plain keys), and the settings; a hold on the space bar opens the
-// modes alone. Slide to an item and let go, or let
+// The menu a hold on the space bar opens: Universal, the languages on the
+// quick list, and off (plain keys). Slide to an item and let go, or let
 // go anywhere and tap one; a tap outside the menu closes it.
 import UIKit
 
@@ -74,10 +73,11 @@ final class ModeMenu: UIView {
     }
 
     /// The finger still down from the hold, moving (this view's coordinates).
-    func drag(to p: CGPoint) { let i = index(at: p); if i != lit { lit = i; paint() } }
+    func drag(to p: CGPoint) { guard !isHidden else { return }; let i = index(at: p); if i != lit { lit = i; paint() } }
 
     /// Let go: the item under the finger, or the menu stays for a tap.
     func release(at p: CGPoint) {
+        guard !isHidden else { return }
         lit = nil; paint()
         if let i = index(at: p) { pick(i) }
     }

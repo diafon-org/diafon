@@ -73,7 +73,7 @@ targets:
         excludes: [CheckMain.swift]
       - path: ../../fonts/DiafonSerif-Regular.ttf
         buildPhase: resources
-      - path: ../../data/emoji.json              # the word -> emoji choices, 643 KB; no lexicon
+      - path: ../../data/emoji.json              # the word -> emoji choices, 1.1 MB; no lexicon
         buildPhase: resources
     settings:
       base:
