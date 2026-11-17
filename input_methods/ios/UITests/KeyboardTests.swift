@@ -56,7 +56,8 @@ final class KeyboardTests: XCTestCase {
     /// Underlined (marked) tail on or off, in the keyboard's settings panel.
     private func setMarked(_ on: Bool) {
         start()
-        app.descendants(matching: .any)["Diafon settings"].firstMatch.tap()
+        key("diafon").press(forDuration: 0.8)          // the logo key's menu, then its settings
+        app.descendants(matching: .any)["menu:settings"].firstMatch.tap()
         let sw = app.switches.matching(NSPredicate(format: "label CONTAINS 'Underline' OR identifier CONTAINS 'Underline'")).firstMatch
         let toggle = sw.exists ? sw : app.switches.element(boundBy: app.switches.count - 1)
         XCTAssertTrue(toggle.waitForExistence(timeout: 5))
@@ -93,6 +94,10 @@ final class KeyboardTests: XCTestCase {
         shot("\(mode): emoji for hawrt")
         heart.tap()
         XCTAssertEqual(value, "ok ❤️", "\(mode): the emoji takes the word's place")
+
+        start()
+        type("ok  ")                                      // two spaces after a word: a full stop
+        XCTAssertEqual(value, "ok. ", "\(mode): double space")
     }
 
     func testMarked() {
