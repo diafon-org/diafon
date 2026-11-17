@@ -39,5 +39,9 @@ extension Prefs {
         if m.hasPrefix("stage:") { language = String(m.dropFirst(6)) } else { output = "script" }
         if !enabled { enabled = true }
     }
+    /// The mode in use, short, for the space bar: Diafon, or the language's name.
+    func shortLabel() -> String {
+        universal ? "Diafon" : label().replacingOccurrences(of: " spelling", with: "")
+    }
     func menuTitle(_ m: String) -> String { m == "off" ? "Off (plain keys)" : label(m) }
 }

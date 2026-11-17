@@ -53,10 +53,27 @@ final class Session {
 
     /// One character in: the streaming rule decides what is final.
     func type(_ ch: Character) {
-        if (ch.isLetter && ch.isASCII) || ch.isNumber { word.append(ch) } else { word = "" }
+        track(ch, plain: false)
         let (committed, tail) = Engine.stream(pending + String(ch), renderer: render, wordwise: wordwise)
         show(head: committed, tail: tail)
     }
+
+    /// One character in as it is, conversion off; the word is still tracked, so its
+    /// emoji are offered (typed in a language's usual letters, or in input forms).
+    func typePlain(_ ch: Character) {
+        flush()
+        sink.insertText(String(ch))
+        track(ch, plain: true)
+    }
+
+    /// The word grows by a letter or digit; anything else ends it.
+    private func track(_ ch: Character, plain: Bool) {
+        if wordPlain != plain { word = ""; wordPlain = plain }
+        if (ch.isLetter && (ch.isASCII || plain)) || ch.isNumber { word.append(ch) } else { word = "" }
+    }
+    /// The word was typed with conversion off: it stands in the text as typed.
+    private var wordPlain = false
+    private func written(_ w: String) -> String { wordPlain ? w : render(w) }
 
     /// Text that is final at once (a space key, a chosen spelling's neighbour,
     /// a symbol): the tail is settled first, then the text goes in as it is.
@@ -68,7 +85,11 @@ final class Session {
 
     /// Backspace edits the tail first; with no tail, one grapheme of the editor's text.
     func backspace() {
-        if pending.isEmpty { sink.deleteBackward(); word = ""; return }
+        if pending.isEmpty {
+            sink.deleteBackward()
+            if wordPlain, !word.isEmpty { word.removeLast() } else { word = "" }
+            return
+        }
         pending.removeLast()
         if !word.isEmpty { word.removeLast() }
         show(head: "", tail: pending)
@@ -94,9 +115,9 @@ final class Session {
     func pick(_ emoji: String) {
         let typed = word
         flush()
-        let written = render(typed)
-        if !typed.isEmpty, let before = sink.contextBefore, before.hasSuffix(written) {
-            for _ in 0..<written.count { sink.deleteBackward() }
+        let shown = written(typed)
+        if !typed.isEmpty, let before = sink.contextBefore, before.hasSuffix(shown) {
+            for _ in 0..<shown.count { sink.deleteBackward() }
         }
         sink.insertText(emoji)
         word = ""
@@ -109,7 +130,7 @@ final class Session {
     /// the tail alone. The host calls this for its own reasons as well as ours, so
     /// a tail that is still in place survives.
     func editorChanged() {
-        if !word.isEmpty, let before = sink.contextBefore, !before.hasSuffix(render(word)) { word = "" }
+        if !word.isEmpty, let before = sink.contextBefore, !before.hasSuffix(written(word)) { word = "" }
         guard !pending.isEmpty, let before = sink.contextBefore, !before.hasSuffix(shown) else { return }
         if mode == .marked { sink.unmarkText() }
         pending = ""; shown = ""

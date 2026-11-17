@@ -153,6 +153,16 @@ enum SessionCheck {
             s.pick("🔥")                                       // no word: the emoji goes in, nothing is deleted
             expect(ed.display.hasSuffix(" x🔥"), "pick with no word \(mode): \(ed.display.debugDescription)")
         }
+        do {   // conversion off: the word is still tracked, and a picked emoji replaces it as typed
+            let ed = StringEditor(), s = Session(sink: ed, mode: .marked, render: { Engine.lenient($0) })
+            for c in "ok kutya" { s.typePlain(c) }
+            expect(s.word == "kutya" && ed.display == "ok kutya", "plain word: \(s.word.debugDescription)")
+            s.backspace(); s.typePlain("a")
+            expect(s.word == "kutya", "plain word after backspace: \(s.word.debugDescription)")
+            s.pick("🐶")
+            expect(ed.display == "ok 🐶", "plain pick: \(ed.display.debugDescription)")
+            expect(Emoji.choices("kutya").first == "🐶" && Emoji.choices("cool").contains("😎"), "plain spellings in the table")
+        }
         do {   // the emoji table: a word in any language, most used first, then its prefixes
             expect(Emoji.choices("hawrt").first == "❤️", "emoji hawrt: \(Emoji.choices("hawrt"))")
             expect(Emoji.choices("Siwv").first == "❤️", "emoji Siwv (szív, any case): \(Emoji.choices("Siwv"))")

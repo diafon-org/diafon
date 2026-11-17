@@ -30,6 +30,8 @@ final class KeyboardView: UIView {
     var capsLock = false { didSet { setNeedsDisplay() } }
     var enabledMode = true { didSet { setNeedsDisplay() } }
     var returnLabel = "return" { didSet { setNeedsDisplay() } }
+    /// The return key's symbol, for the field's return key type.
+    var returnSymbol = "return.left" { didSet { setNeedsDisplay() } }
     /// The mode in use, named on the space bar.
     var spaceLabel = "" { didSet { setNeedsDisplay() } }
 
@@ -74,9 +76,10 @@ final class KeyboardView: UIView {
     }
     required init?(coder: NSCoder) { fatalError() }
 
-    /// The signs, on two pages: the common ones first.
-    static let signs = [[".,?!'\"-:;/", "()@&#%+=*_", "~<>$€^|"],
-                        ["[]{}\\`…•§°", "¥£¢¿¡«»„“”", "‘’–—·×÷"]]
+    /// The signs, on two pages, in the system keyboard's order (its two sign pages
+    /// without the digit row, which is the strip here); the sentence signs on both.
+    static let signs = [["-/:;()$&@\"", "[]{}#%^*+=", ".,?!'"],
+                        ["_\\|~<>€£¥•", "„“”«»‘’–—…", ".,?!'"]]
 
     private func rebuild() {
         let letters = Layouts.get(layoutCode).rows
@@ -90,7 +93,7 @@ final class KeyboardView: UIView {
         bottom += [(.space, showsGlobe ? 5 : 6.25), (.enter, 2)]
         let page = Self.signs[morePage ? 1 : 0]
         rows = symbolsPage
-            ? [keys(page[0]), keys(page[1]), sided(.more, page[2]), bottom]
+            ? [keys(page[0]), keys(page[1]), [(.more, 1.5)] + page[2].map { (.char($0), 1.4) } + [(.backspace, 1.5)], bottom]
             : [keys(letters[0]), keys(letters[1]), sided(.shift, letters[2]), bottom]
         globeButton.isHidden = !showsGlobe
         setNeedsLayout(); setNeedsDisplay()
@@ -142,7 +145,7 @@ final class KeyboardView: UIView {
         accessibilityElements = slots.map { s -> Any in
             if s.key == .globe { return globeButton }
             let e = KeyElement(accessibilityContainer: self)
-            e.accessibilityLabel = s.key == .logo ? (symbolsPage ? "letters" : "signs; hold for the Diafon menu") : spoken(s.key)
+            e.accessibilityLabel = s.key == .logo ? (symbolsPage ? "letters" : "signs; hold for the Diafon settings") : spoken(s.key)
             if case .char(let c) = s.key { e.accessibilityIdentifier = "key:\(c)" } else { e.accessibilityIdentifier = "key:" + spoken(s.key) }
             e.accessibilityTraits = .keyboardKey
             e.accessibilityFrameInContainerSpace = s.rect
@@ -170,8 +173,18 @@ final class KeyboardView: UIView {
         case .shift: return capsLock ? "⇪" : "⇧"
         case .enter: return returnLabel
         case .logo: return symbolsPage ? "abc" : ""
-        case .more: return morePage ? "1/2" : "2/2"
+        case .more: return morePage ? "2/2" : "1/2"
         case .globe: return ""
+        }
+    }
+
+    /// The SF Symbol a functional key is drawn with.
+    private func symbol(_ key: Key) -> String? {
+        switch key {
+        case .shift: return capsLock ? "capslock.fill" : shifted ? "shift.fill" : "shift"
+        case .backspace: return "delete.left"
+        case .enter: return returnSymbol
+        default: return nil
         }
     }
 
@@ -209,16 +222,26 @@ final class KeyboardView: UIView {
             fill.setFill()
             UIBezierPath(roundedRect: s.rect, cornerRadius: 5).fill()
 
-            if s.key == .logo && !symbolsPage {
-                drawMark(in: s.rect.insetBy(dx: 8, dy: 9), color: enabledMode ? Theme.accent : Theme.muted)
+            if s.key == .logo {
+                // on the signs the key is lit: a tap brings the letters back
+                if symbolsPage { Theme.accent.setFill(); UIBezierPath(roundedRect: s.rect, cornerRadius: 5).fill() }
+                drawMark(in: s.rect.insetBy(dx: 8, dy: 9), color: symbolsPage ? Theme.onAccent : enabledMode ? Theme.accent : Theme.muted)
                 continue
             }
             var color = on ? Theme.onAccent : Theme.ink
+            if let name = symbol(s.key) {
+                // the functional keys as symbols, in the letters' ink and weight
+                let cfg = UIImage.SymbolConfiguration(pointSize: 19, weight: .regular)
+                if let img = UIImage(systemName: name, withConfiguration: cfg)?.withTintColor(color, renderingMode: .alwaysOriginal) {
+                    img.draw(at: CGPoint(x: s.rect.midX - img.size.width / 2, y: s.rect.midY - img.size.height / 2))
+                }
+                continue
+            }
             var font = UIFont.systemFont(ofSize: functional ? 16 : 22)
             if case .char(let c) = s.key {
                 if let op = Theme.operators[c], enabledMode, !symbolsPage { color = op; font = .systemFont(ofSize: 22, weight: .semibold) }
             }
-            if [.enter, .logo, .more].contains(s.key) { font = .systemFont(ofSize: 15) }
+            if s.key == .more { font = .systemFont(ofSize: 15) }
             if s.key == .space { font = .systemFont(ofSize: 13); color = Theme.muted }
             let text = label(s.key) as NSString
             let attrs: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: color]

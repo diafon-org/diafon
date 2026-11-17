@@ -56,8 +56,7 @@ final class KeyboardTests: XCTestCase {
     /// Underlined (marked) tail on or off, in the keyboard's settings panel.
     private func setMarked(_ on: Bool) {
         start()
-        key("diafon").press(forDuration: 0.8)          // the logo key's menu, then its settings
-        app.descendants(matching: .any)["menu:settings"].firstMatch.tap()
+        key("diafon").press(forDuration: 0.8)          // a hold on the logo key: the settings
         let sw = app.switches.matching(NSPredicate(format: "label CONTAINS 'Underline' OR identifier CONTAINS 'Underline'")).firstMatch
         let toggle = sw.exists ? sw : app.switches.element(boundBy: app.switches.count - 1)
         XCTAssertTrue(toggle.waitForExistence(timeout: 5))
