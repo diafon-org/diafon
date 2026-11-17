@@ -35,6 +35,7 @@ enum SessionCheck {
     }
 
     static func main() {
+        Session.settle = 0                          // the logic first; the window is checked on its own below
         let path = CommandLine.arguments[1]
         let spec = try! JSONSerialization.jsonObject(with: Data(contentsOf: URL(fileURLWithPath: path))) as! [String: Any]
         let traces = (spec["vectors"] as! [String: Any])["stream"] as! [String: [[String]]]
@@ -162,6 +163,15 @@ enum SessionCheck {
             for c in "nj" { s.type(c) }
             s.forget()
             expect(s.pending.isEmpty && s.word.isEmpty, "forget \(mode)")
+        }
+        do {   // a lagging context right after our own edit does not orphan the tail
+            Session.settle = 10
+            let ed = StringEditor(), s = Session(sink: ed, mode: .marked, render: { Engine.lenient($0) })
+            for c in "nj" { s.type(c) }
+            ed.marked = ""                                  // the host has not caught up
+            s.editorChanged()
+            expect(s.pending == "nj", "settle window keeps the tail")
+            Session.settle = 0
         }
         do {   // conversion off: the word is still tracked, and a picked emoji replaces it as typed
             let ed = StringEditor(), s = Session(sink: ed, mode: .marked, render: { Engine.lenient($0) })

@@ -41,6 +41,9 @@ final class KeyboardViewController: UIInputViewController {
     private var emoticon: String?
     private var observer: NSObjectProtocol?
 
+    /// Keys at the screen's edges answer at once, not after the system's edge gestures.
+    override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge { .all }
+
     override func loadView() {
         view = KeyboardInputView(frame: .zero, inputViewStyle: .keyboard)
     }
