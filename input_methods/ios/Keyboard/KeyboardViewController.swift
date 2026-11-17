@@ -41,7 +41,7 @@ final class KeyboardViewController: UIInputViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Theme.board
+        view.backgroundColor = .clear                 // the system's own keyboard backdrop shows through
         for v in [strip, keys, panel, menu] as [UIView] { v.translatesAutoresizingMaskIntoConstraints = false; view.addSubview(v) }
         NSLayoutConstraint.activate([
             strip.topAnchor.constraint(equalTo: view.topAnchor),

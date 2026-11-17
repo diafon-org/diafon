@@ -11,6 +11,7 @@ final class SettingsPanel: UIView {
     private let stack = UIStackView()
     private let output = UISegmentedControl(items: ["Universal", "Language"])
     private let languages = UIStackView()
+    private let quickRow = UIStackView()
     private let layoutPicker = UISegmentedControl(items: Layouts.all.map(\.label))
     private let sample = UILabel()
     private let tones = UISwitch(), join = UISwitch(), autoCaps = UISwitch(), marked = UISwitch()
@@ -54,22 +55,11 @@ final class SettingsPanel: UIView {
         }, for: .valueChanged)
         stack.addArrangedSubview(output)
 
-        languages.axis = .horizontal
-        languages.spacing = 6
-        let langScroll = UIScrollView()
-        langScroll.showsHorizontalScrollIndicator = false
-        languages.translatesAutoresizingMaskIntoConstraints = false
-        langScroll.addSubview(languages)
-        NSLayoutConstraint.activate([
-            languages.leadingAnchor.constraint(equalTo: langScroll.contentLayoutGuide.leadingAnchor),
-            languages.trailingAnchor.constraint(equalTo: langScroll.contentLayoutGuide.trailingAnchor),
-            languages.topAnchor.constraint(equalTo: langScroll.contentLayoutGuide.topAnchor),
-            languages.bottomAnchor.constraint(equalTo: langScroll.contentLayoutGuide.bottomAnchor),
-            languages.heightAnchor.constraint(equalTo: langScroll.frameLayoutGuide.heightAnchor),
-            langScroll.heightAnchor.constraint(equalToConstant: 34),
-        ])
-        stack.addArrangedSubview(langScroll)
-        stack.addArrangedSubview(caption("Tap a language to write its spelling. Hold it to put it on the logo key's menu or take it off; a dot marks the ones on it."))
+        stack.addArrangedSubview(scrolled(languages))
+        stack.addArrangedSubview(caption("Tap a language to write its spelling."))
+        stack.addArrangedSubview(caption("On the space bar's menu (hold space)"))
+        stack.addArrangedSubview(scrolled(quickRow))
+        stack.addArrangedSubview(caption("Tap to put a language on the menu or take it off; as many as you like."))
 
         sample.numberOfLines = 0
         sample.font = Theme.serif(17)
@@ -98,21 +88,17 @@ final class SettingsPanel: UIView {
     func refresh() {
         output.selectedSegmentIndex = prefs.universal ? 0 : 1
         languages.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        quickRow.arrangedSubviews.forEach { $0.removeFromSuperview() }
         let quick = prefs.quickLanguages
         for (code, name) in Prefs.languages {
-            var cfg = UIButton.Configuration.plain()
             let on = !prefs.universal && code == prefs.language
-            let inCycle = quick.contains(code)
-            cfg.attributedTitle = AttributedString(inCycle ? "\(name) •" : name, attributes: AttributeContainer([.font: UIFont.systemFont(ofSize: 15), .foregroundColor: on ? Theme.onAccent : Theme.ink]))
-            cfg.background.backgroundColor = on ? Theme.accent : Theme.key
-            cfg.background.cornerRadius = 8
-            cfg.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10)
-            let b = UIButton(configuration: cfg)
-            b.addAction(UIAction { [weak self] _ in self?.prefs.language = code; self?.refresh() }, for: .touchUpInside)
-            b.menu = UIMenu(children: [UIAction(title: inCycle ? "Take off the menu" : "Put on the menu") { [weak self] _ in
-                self?.prefs.setQuick(code, !inCycle); self?.refresh()
-            }])                                         // a hold shows the menu; a tap still picks
-            languages.addArrangedSubview(b)
+            languages.addArrangedSubview(chip(name, fill: on ? Theme.accent : Theme.key, ink: on ? Theme.onAccent : Theme.ink) { [weak self] in
+                self?.prefs.language = code; self?.refresh()
+            })
+            let inMenu = quick.contains(code)
+            quickRow.addArrangedSubview(chip(inMenu ? "✓ \(code)" : code, fill: Theme.key, ink: inMenu ? Theme.accent : Theme.muted, outline: inMenu) { [weak self] in
+                self?.prefs.setQuick(code, !inMenu); self?.refresh()
+            })
         }
         let st = SpecData.stages[prefs.language]
         let typed = st?.sample ?? ""                    // the language's own sample, in the output in use
@@ -122,6 +108,37 @@ final class SettingsPanel: UIView {
         join.isOn = prefs.join
         autoCaps.isOn = prefs.autoCaps
         marked.isOn = prefs.tailMode == .marked
+    }
+
+    /// A row of chips that scrolls sideways.
+    private func scrolled(_ row: UIStackView) -> UIView {
+        row.axis = .horizontal
+        row.spacing = 6
+        let sc = UIScrollView()
+        sc.showsHorizontalScrollIndicator = false
+        row.translatesAutoresizingMaskIntoConstraints = false
+        sc.addSubview(row)
+        NSLayoutConstraint.activate([
+            row.leadingAnchor.constraint(equalTo: sc.contentLayoutGuide.leadingAnchor),
+            row.trailingAnchor.constraint(equalTo: sc.contentLayoutGuide.trailingAnchor),
+            row.topAnchor.constraint(equalTo: sc.contentLayoutGuide.topAnchor),
+            row.bottomAnchor.constraint(equalTo: sc.contentLayoutGuide.bottomAnchor),
+            row.heightAnchor.constraint(equalTo: sc.frameLayoutGuide.heightAnchor),
+            sc.heightAnchor.constraint(equalToConstant: 34),
+        ])
+        return sc
+    }
+
+    private func chip(_ title: String, fill: UIColor, ink: UIColor, outline: Bool = false, tap: @escaping () -> Void) -> UIButton {
+        var cfg = UIButton.Configuration.plain()
+        cfg.attributedTitle = AttributedString(title, attributes: AttributeContainer([.font: UIFont.systemFont(ofSize: 15), .foregroundColor: ink]))
+        cfg.background.backgroundColor = fill
+        cfg.background.cornerRadius = 8
+        if outline { cfg.background.strokeColor = Theme.accent; cfg.background.strokeWidth = 2 }
+        cfg.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10)
+        let b = UIButton(configuration: cfg)
+        b.addAction(UIAction { _ in tap() }, for: .touchUpInside)
+        return b
     }
 
     private func hrow(_ views: [UIView]) -> UIStackView {
