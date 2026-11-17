@@ -86,6 +86,7 @@ final class KeyboardViewController: UIInputViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        session.forget()                              // a tail from the last field must not come back here
         prefsChanged()
         autoShift()
     }
