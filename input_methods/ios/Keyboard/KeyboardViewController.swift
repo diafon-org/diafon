@@ -63,6 +63,7 @@ final class KeyboardViewController: UIInputViewController {
 
         keys.onKey = { [weak self] in self?.key($0) }
         keys.onLogoHold = { [weak self] _ in self?.showMenu() }
+        keys.onSpaceHold = { [weak self] in self?.showMenu(modesOnly: true) }
         keys.onMenuDrag = { [weak self] p in guard let self else { return }; self.menu.drag(to: self.keys.convert(p, to: self.menu)) }
         keys.onMenuRelease = { [weak self] p in guard let self else { return }; self.menu.release(at: self.keys.convert(p, to: self.menu)) }
         menu.onPick = { [weak self] id in
@@ -244,10 +245,12 @@ final class KeyboardViewController: UIInputViewController {
 
     // MARK: the menu and settings
 
-    private func showMenu() {
+    /// The logo key's menu (the modes and the settings), or the space bar's (the modes alone).
+    private func showMenu(modesOnly: Bool = false) {
         session.flush()
-        let items = prefs.menuModes.map { (id: $0, title: prefs.menuTitle($0)) } + [(id: "settings", title: "Settings…")]
-        menu.present(items, current: prefs.menuMode, anchor: keys.convert(keys.logoFrame, to: menu))
+        var items = prefs.menuModes.map { (id: $0, title: prefs.menuTitle($0)) }
+        if !modesOnly { items.append((id: "settings", title: "Settings…")) }
+        menu.present(items, current: prefs.menuMode, anchor: keys.convert(modesOnly ? keys.spaceFrame : keys.logoFrame, to: menu))
     }
 
     private func showSettings(_ on: Bool) {

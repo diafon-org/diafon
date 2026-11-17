@@ -1,5 +1,6 @@
 // The menu a hold on the logo key opens: Universal, the languages on the quick
-// list, off (plain keys), and the settings. Slide to an item and let go, or let
+// list, off (plain keys), and the settings; a hold on the space bar opens the
+// modes alone. Slide to an item and let go, or let
 // go anywhere and tap one; a tap outside the menu closes it.
 import UIKit
 
@@ -50,7 +51,7 @@ final class ModeMenu: UIView {
         let frame = anchor.minY - 4 >= h
             ? CGRect(x: anchor.minX, y: anchor.minY - 4 - h, width: w, height: h)
             : CGRect(x: anchor.maxX + 6, y: max(4, anchor.maxY - h), width: w, height: h)
-        card.frame = frame
+        card.frame = frame.offsetBy(dx: min(0, bounds.maxX - 4 - frame.maxX), dy: 0)   // kept on screen
         for (i, l) in labels.enumerated() { l.frame = CGRect(x: 4, y: 4 + CGFloat(i) * rowH, width: w - 8, height: rowH) }
         paint()
         isHidden = false
