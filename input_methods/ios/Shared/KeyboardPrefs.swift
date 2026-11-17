@@ -1,7 +1,7 @@
 // What the iOS keyboard adds to the shared settings (apple/Core/Prefs.swift):
-// the base layout, how the tail is kept provisional, and the strip's list of
-// spellings. Without full access a keyboard cannot share a container with its
-// app, so these live in the keyboard's own defaults and are set in its panel.
+// the base layout, how the tail is kept provisional, and the logo key's menu.
+// Without full access a keyboard cannot share a container with its app, so
+// these live in the keyboard's own defaults and are set in its panel.
 import Foundation
 
 extension Prefs {
@@ -25,28 +25,19 @@ extension Prefs {
         set { store(newValue.rawValue, "tailMode") }
     }
 
-    /// The small label of an output on a strip chip.
-    func shortLabel(_ out: String) -> String {
-        if out == "transport" { return "as typed" }
-        if out.hasPrefix("stage:") { return String(out.dropFirst(6)) }
-        return "universal"
+    /// The modes on the logo key's menu: Universal, the quick list, the language in
+    /// use if it is off the list, and off (plain keys).
+    var menuModes: [String] {
+        var list = ["script"] + quickLanguages.map { "stage:" + $0 }
+        if !list.contains("stage:" + language), !universal { list.append("stage:" + language) }
+        return list + ["off"]
     }
-
-    /// The tail in every spelling, one entry per distinct text: the output in use
-    /// first, then Universal, each language, as typed.
-    func spellings(_ tail: String) -> [(output: String, text: String)] {
-        var outs = ["script"] + Prefs.languages.map { "stage:\($0.0)" } + ["transport"]
-        if let i = outs.firstIndex(of: output) { outs.remove(at: i); outs.insert(output, at: 0) }
-        var seen = Set<String>(), list: [(String, String)] = []
-        for o in outs {
-            let t = renderer(o)(tail)
-            if seen.insert(t).inserted { list.append((o, t)) }
-        }
-        return list
+    /// The mode in use, as the menu names it.
+    var menuMode: String { !enabled ? "off" : universal ? "script" : "stage:" + language }
+    func setMenuMode(_ m: String) {
+        if m == "off" { if enabled { toggleOff() }; return }
+        if m.hasPrefix("stage:") { language = String(m.dropFirst(6)) } else { output = "script" }
+        if !enabled { enabled = true }
     }
-
-    /// The tail has an ill-formed segment (shown in the warning colour when `strict`).
-    func illFormed(_ tail: String) -> Bool {
-        ((try? Engine.segments(tail, strict: false)) ?? []).contains { if case .err = $0 { return true } else { return false } }
-    }
+    func menuTitle(_ m: String) -> String { m == "off" ? "Off (plain keys)" : label(m) }
 }

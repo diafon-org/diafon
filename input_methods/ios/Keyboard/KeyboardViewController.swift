@@ -27,9 +27,10 @@ final class KeyboardViewController: UIInputViewController {
     private let keys = KeyboardView()
     private let strip = StripView()
     private let panel = SettingsPanel()
+    private let menu = ModeMenu()
     private var height: NSLayoutConstraint?
     private var shifted = false, capsLock = false
-    private var lastShiftTap = Date.distantPast, lastToggleTap = Date.distantPast
+    private var lastShiftTap = Date.distantPast, lastSpaceAt = Date.distantPast
     private var observer: NSObjectProtocol?
 
     override func loadView() {
@@ -39,7 +40,7 @@ final class KeyboardViewController: UIInputViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Theme.board
-        for v in [strip, keys, panel] as [UIView] { v.translatesAutoresizingMaskIntoConstraints = false; view.addSubview(v) }
+        for v in [strip, keys, panel, menu] as [UIView] { v.translatesAutoresizingMaskIntoConstraints = false; view.addSubview(v) }
         NSLayoutConstraint.activate([
             strip.topAnchor.constraint(equalTo: view.topAnchor),
             strip.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -53,16 +54,25 @@ final class KeyboardViewController: UIInputViewController {
             panel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             panel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             panel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            menu.topAnchor.constraint(equalTo: view.topAnchor),
+            menu.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            menu.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            menu.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         panel.isHidden = true
 
         keys.onKey = { [weak self] in self?.key($0) }
-        keys.onToggleHold = { [weak self] in self?.showSettings(true) }
+        keys.onLogoHold = { [weak self] _ in self?.showMenu() }
+        keys.onMenuDrag = { [weak self] p in guard let self else { return }; self.menu.drag(to: self.keys.convert(p, to: self.menu)) }
+        keys.onMenuRelease = { [weak self] p in guard let self else { return }; self.menu.release(at: self.keys.convert(p, to: self.menu)) }
+        menu.onPick = { [weak self] id in
+            guard let self else { return }
+            if id == "settings" { self.showSettings(true) } else { self.session.flush(); self.prefs.setMenuMode(id) }
+        }
         keys.globeButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
-        strip.onPick = { [weak self] text in self?.session.take(text); self?.refresh() }
+        strip.onDigit = { [weak self] d in self?.key(.char(d)) }
         strip.onEmoji = { [weak self] e in self?.session.pick(e); self?.autoShift(); self?.refresh() }
         strip.onConvert = { [weak self] in self?.convertSelection() }
-        strip.onGear = { [weak self] in self?.showSettings(true) }
         panel.onDone = { [weak self] in self?.showSettings(false) }
         observer = NotificationCenter.default.addObserver(forName: Prefs.changed, object: nil, queue: .main) { [weak self] _ in
             self?.prefsChanged()
@@ -112,13 +122,24 @@ final class KeyboardViewController: UIInputViewController {
     // MARK: keys
 
     private func key(_ key: Key) {
+        if key != .space { lastSpaceAt = .distantPast }
         switch key {
         case .char(let c):
             let ch = (shifted || capsLock) && c.isLetter ? Character(String(c).uppercased()) : c
             if shifted, !capsLock { setShift(false) }
             type(ch)
         case .space:
-            type(" ")
+            // a second space soon after a word's: a full stop and a space, as iOS's own
+            let now = Date()
+            if now.timeIntervalSince(lastSpaceAt) < 0.6, stopFits() {
+                session.backspace()
+                session.insertFinal(". ")
+                lastSpaceAt = .distantPast
+            } else {
+                type(" ")
+                lastSpaceAt = now
+            }
+            keys.symbolsPage = false                  // a sign and a space: the letters back
         case .backspace:
             session.backspace()
         case .shift:
@@ -129,20 +150,27 @@ final class KeyboardViewController: UIInputViewController {
             lastShiftTap = now
         case .enter:
             session.insertFinal("\n")
-        case .toggle:
-            // as the Shift tap on the Mac: a tap after a pause switches conversion off and
-            // back on; taps in quick succession walk the cycle (Prefs.cycleMode)
-            session.flush()
-            let now = Date()
-            if now.timeIntervalSince(lastToggleTap) < Prefs.tapWindow { prefs.cycleMode() } else { prefs.toggleOff() }
-            lastToggleTap = now
-        case .symbols:
-            keys.symbolsPage.toggle()
+            keys.symbolsPage = false
+        case .logo:
+            break                                     // the key view switched the page
+        case .more:
+            keys.morePage.toggle()
         case .globe:
             break                                     // the UIButton handles it
         }
         if key != .shift { autoShift() }
         refresh()
+    }
+
+    /// The text ends with a word (or a closing sign) and one space: a double space
+    /// may make it a full stop.
+    private func stopFits() -> Bool {
+        session.flush()
+        let before = Array(textDocumentProxy.documentContextBeforeInput ?? "")
+        guard before.count >= 2, before[before.count - 1] == " " else { return false }
+        let c = before[before.count - 2]
+        return c.isLetter || c.isNumber || c.unicodeScalars.first.map { (0x300...0x36F).contains($0.value) } == true
+            || ")]\"'”’»".contains(c)
     }
 
     private func type(_ ch: Character) {
@@ -176,18 +204,17 @@ final class KeyboardViewController: UIInputViewController {
 
     private func refresh() {
         keys.enabledMode = prefs.enabled
+        keys.spaceLabel = prefs.enabled ? prefs.label() : "off"
         keys.returnLabel = returnLabel()
         if let sel = textDocumentProxy.selectedText, !sel.isEmpty, session.pending.isEmpty {
             strip.show(.convert(prefs.label()))
-        } else if !prefs.enabled {
-            strip.show(.note("abc · conversion off"))
-        } else if session.pending.isEmpty {
-            strip.show(.note("\(prefs.label()) · \(Layouts.get(prefs.layout).label)"))
-        } else {
-            let list = prefs.spellings(session.pending).map { (output: $0.output, text: $0.text, label: prefs.shortLabel($0.output)) }
-            strip.show(.spellings(list, current: prefs.output, warn: prefs.strict && prefs.illFormed(session.pending),
-                                  emoji: Emoji.choices(session.word)))   // every language's names: a word in any of them
+            return
         }
+        // inside a word, its suggestions take the digits' place; a tone-aware mode
+        // (Mandarin) keeps the digits, which write the syllable's tone
+        let toneAware = prefs.enabled && prefs.output == "stage:zh"
+        let emoji = toneAware || keys.symbolsPage ? [] : Emoji.choices(session.word)
+        strip.show(emoji.isEmpty ? .digits : .emoji(emoji))
     }
 
     private func returnLabel() -> String {
@@ -215,7 +242,13 @@ final class KeyboardViewController: UIInputViewController {
         refresh()
     }
 
-    // MARK: settings
+    // MARK: the menu and settings
+
+    private func showMenu() {
+        session.flush()
+        let items = prefs.menuModes.map { (id: $0, title: prefs.menuTitle($0)) } + [(id: "settings", title: "Settings…")]
+        menu.present(items, current: prefs.menuMode, anchor: keys.convert(keys.logoFrame, to: menu))
+    }
 
     private func showSettings(_ on: Bool) {
         session.flush()

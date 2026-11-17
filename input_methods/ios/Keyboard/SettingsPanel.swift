@@ -1,6 +1,6 @@
 // The settings, inside the keyboard: without full access a keyboard shares no
-// storage with its app, so this is where they are set (the gear on the strip,
-// or a long press on Dia). Two choices for the output, Universal or a
+// storage with its app, so this is where they are set (Settings… on the menu
+// a hold on the logo key opens). Two choices for the output, Universal or a
 // language's spelling, the language from one row; never every spelling flat.
 import UIKit
 
@@ -13,7 +13,7 @@ final class SettingsPanel: UIView {
     private let languages = UIStackView()
     private let layoutPicker = UISegmentedControl(items: Layouts.all.map(\.label))
     private let sample = UILabel()
-    private let tones = UISwitch(), join = UISwitch(), strict = UISwitch(), marked = UISwitch()
+    private let tones = UISwitch(), join = UISwitch(), marked = UISwitch()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -69,7 +69,7 @@ final class SettingsPanel: UIView {
             langScroll.heightAnchor.constraint(equalToConstant: 34),
         ])
         stack.addArrangedSubview(langScroll)
-        stack.addArrangedSubview(caption("Tap a language to write its spelling. Hold it to add it to the Dia key's cycle or take it off; a dot marks the ones on it."))
+        stack.addArrangedSubview(caption("Tap a language to write its spelling. Hold it to put it on the logo key's menu or take it off; a dot marks the ones on it."))
 
         sample.numberOfLines = 0
         sample.font = Theme.serif(17)
@@ -85,7 +85,6 @@ final class SettingsPanel: UIView {
 
         stack.addArrangedSubview(toggle(tones, "Tones") { [weak self] in self?.prefs.tones = $0; self?.refresh() })
         stack.addArrangedSubview(toggle(join, "Join long consonants") { [weak self] in self?.prefs.join = $0; self?.refresh() })
-        stack.addArrangedSubview(toggle(strict, "Mark ill-formed letters on the strip") { [weak self] in self?.prefs.strict = $0 })
         stack.addArrangedSubview(toggle(marked, "Underline the letter being typed") { [weak self] in self?.prefs.tailMode = $0 ? .marked : .replace })
         let hint = caption("Turn this off if an app duplicates or drops letters while you type.")
         hint.numberOfLines = 0
@@ -109,7 +108,7 @@ final class SettingsPanel: UIView {
             cfg.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10)
             let b = UIButton(configuration: cfg)
             b.addAction(UIAction { [weak self] _ in self?.prefs.language = code; self?.refresh() }, for: .touchUpInside)
-            b.menu = UIMenu(children: [UIAction(title: inCycle ? "Take off the Dia cycle" : "Add to the Dia cycle") { [weak self] _ in
+            b.menu = UIMenu(children: [UIAction(title: inCycle ? "Take off the menu" : "Put on the menu") { [weak self] _ in
                 self?.prefs.setQuick(code, !inCycle); self?.refresh()
             }])                                         // a hold shows the menu; a tap still picks
             languages.addArrangedSubview(b)
@@ -120,7 +119,6 @@ final class SettingsPanel: UIView {
         layoutPicker.selectedSegmentIndex = Layouts.all.firstIndex { $0.code == prefs.layout } ?? 0
         tones.isOn = prefs.tones
         join.isOn = prefs.join
-        strict.isOn = prefs.strict
         marked.isOn = prefs.tailMode == .marked
     }
 
@@ -137,6 +135,7 @@ final class SettingsPanel: UIView {
         l.text = s
         l.font = .systemFont(ofSize: 13)
         l.textColor = Theme.muted
+        l.numberOfLines = 0
         return l
     }
 

@@ -1,14 +1,14 @@
 # Diafon for iOS
 
-A custom keyboard for iOS 16 and later, with the app that carries it. Like
-the Android keyboard it shows the 26 letters on the base layout of your
-choice, the digits for tones, a symbols page and a few functional keys. It
-converts by the streaming rule and writes the result into whatever field has
-focus. Above the keys, the pending segment appears in every spelling, and a
-tap writes that one. Select text in any spelling and the strip offers to
-convert it. A word that names something in English or Hungarian offers the emoji it names
-first on the strip (`hawrt` ❤️, `kutja` 🐶); a tap puts the emoji in the
-word's place. That one small table (data/emoji.json, 86 KB) is the
+A custom keyboard for iOS 16 and later, with the app that carries it. It shows
+four rows: the strip on top, the 26 letters on the base layout of your
+choice, and a bottom row of three keys: the Diafon logo, space and return.
+It converts by the streaming rule and writes the result into whatever field
+has focus. The strip is the digit row between words; inside a word that
+names something in English or Hungarian, its emoji take the digits' place
+(`hawrt` ❤️, `kutja` 🐶), and a tap puts the emoji in the word's place. In
+Mandarin the digits stay, since they write the tones. Select text in any
+spelling and the strip offers to convert it. That one small table (data/emoji.json, 86 KB) is the
 only word list the keyboard carries: no dictionary, no prediction, no
 network, no full access.
 
@@ -37,7 +37,7 @@ Extensions run under a tight memory limit (tens of megabytes), and without
 **full access** a keyboard has no network and no storage shared with its
 app. Diafon needs neither, so it does not ask, and the system shows no
 warning when it is turned on. As a result, its settings live in the
-keyboard (the gear on the strip, or hold Dia), not in the app.
+keyboard (hold the logo key, then Settings…), not in the app.
 
 ## The text path, and the device pass that settles it
 
@@ -85,11 +85,11 @@ per-app choice if the apps disagree.
 
 | Key | Does |
 |---|---|
-| letters, digits | `Session.type`: the head becomes final, the tail stays provisional; digits are tones |
+| letters, digits | `Session.type`: the head becomes final, the tail stays provisional; digits (on the strip) are tones |
 | ⇧ | next letter capital; double tap locks; on at a sentence start where the field asks |
 | ⌫ | edits the tail first, then one grapheme of the field; repeats when held |
-| 123 / ABC | the symbols page and back |
-| Dia / abc | a tap switches conversion off and back on; quick taps walk off → Universal → each language on the quick list (the Mac's Shift cycle); hold for the settings |
+| logo / abc | a tap: the signs (two pages, `2/2` for the second) and back; press and slide to a sign: that sign, then the letters again; hold: the menu (Universal, the quick list, off, Settings…), slide to an item and let go, or tap one |
+| space | names the mode in use; after a sign, the letters come back; two spaces after a word: a full stop and a space |
 | 🌐 | the system's keyboard list; shown only where the system has no switcher of its own (`needsInputModeSwitchKey`) |
 | return | settles the tail, then a newline; labelled by the field's return key type |
 
@@ -102,11 +102,12 @@ it; the UI test taps it by its id, `key:s`, `key:space`, `key:delete`).
     project.yml                       the Xcode project as text (XcodeGen); Diafon.xcodeproj is generated
     Makefile                          check, data, icon, project, sim, uitest, open
     Shared/Session.swift              the streaming rule against a TextSink; no UIKit
-    Shared/KeyboardPrefs.swift        what iOS adds to the shared settings: layout, tail mode, the strip's spellings
+    Shared/KeyboardPrefs.swift        what iOS adds to the shared settings: layout, tail mode, the logo key's menu
     Keyboard/KeyboardViewController.swift  UIInputViewController: proxy ↔ Session, keys, strip, convert selection
     Keyboard/KeyboardView.swift       the keys, drawn in one view; touch down emits; the globe button
-    Keyboard/StripView.swift          the spellings of the pending segment, the mode, convert selection, the gear
-    Keyboard/SettingsPanel.swift      Universal or a language, layout, tones, join, strict, tail mode
+    Keyboard/StripView.swift          the digit row, or a word's emoji, or convert selection
+    Keyboard/ModeMenu.swift           the logo key's menu
+    Keyboard/SettingsPanel.swift      Universal or a language, the menu's languages, layout, tones, join, tail mode
     Keyboard/Theme.swift              the palette (light and dark), operator tints, Diafon Serif
     App/DiafonApp.swift               the app: setup, try, convert, how-to
     App/Assets.xcassets               the icon (copied from docs/logo/png by `make icon`)
