@@ -89,7 +89,7 @@ per-app choice if the apps disagree.
 | ⇧ | next letter capital; double tap locks; on at a sentence start where the field asks |
 | ⌫ | edits the tail first, then one grapheme of the field; repeats when held |
 | logo / abc | a tap: the signs (two pages, `2/2` for the second) and back; press and slide to a sign: that sign, then the letters again; hold: the menu (Universal, the quick list, off, Settings…), slide to an item and let go, or tap one |
-| space | names the mode in use; after a sign, the letters come back; two spaces after a word: a full stop and a space |
+| space | names the mode in use; goes in on release; hold: the modes alone (slide and let go, or tap); after a sign, the letters come back; two spaces after a word: a full stop and a space |
 | 🌐 | the system's keyboard list; shown only where the system has no switcher of its own (`needsInputModeSwitchKey`) |
 | return | settles the tail, then a newline; labelled by the field's return key type |
 
