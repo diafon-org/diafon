@@ -15,7 +15,7 @@ final class StripView: UIView {
     var onEmoji: ((String) -> Void)?
     var onConvert: (() -> Void)?
 
-    private let digits = UIStackView()
+    private let digits = DigitRow()
     private let scroll = UIScrollView()
     private let row = UIStackView()
     private var shown: Content?
@@ -23,19 +23,7 @@ final class StripView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        digits.axis = .horizontal
-        digits.distribution = .fillEqually
-        digits.spacing = 6
-        for d in "1234567890" {
-            var cfg = UIButton.Configuration.plain()
-            cfg.attributedTitle = AttributedString(String(d), attributes: AttributeContainer([.font: UIFont.systemFont(ofSize: 20), .foregroundColor: Theme.ink]))
-            cfg.contentInsets = .zero
-            let b = UIButton(configuration: cfg)
-            b.accessibilityIdentifier = "key:\(d)"
-            b.accessibilityLabel = String(d)
-            b.addAction(UIAction { [weak self] _ in UIDevice.current.playInputClick(); self?.onDigit?(d) }, for: .touchDown)
-            digits.addArrangedSubview(b)
-        }
+        digits.onDigit = { [weak self] d in UIDevice.current.playInputClick(); self?.onDigit?(d) }
         scroll.showsHorizontalScrollIndicator = false
         row.axis = .horizontal
         row.spacing = 6
@@ -103,5 +91,78 @@ final class StripView: UIView {
         b.accessibilityLabel = "\(big), \(small)"
         b.addAction(UIAction { _ in tap() }, for: .touchUpInside)
         return b
+    }
+}
+
+/// The digits, as keys: every touch is a key on touch down, any number of
+/// fingers at once and the same digit as fast as it comes (a UIButton turns a
+/// quick second tap into a repeat event and takes one finger at a time).
+final class DigitRow: UIView {
+    var onDigit: ((Character) -> Void)?
+    private let digits = Array("1234567890")
+    private var down: [ObjectIdentifier: Int] = [:]
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        isMultipleTouchEnabled = true
+        backgroundColor = .clear
+        contentMode = .redraw
+    }
+    required init?(coder: NSCoder) { fatalError() }
+
+    private func cell(_ i: Int) -> CGRect {
+        let w = bounds.width / CGFloat(digits.count)
+        return CGRect(x: CGFloat(i) * w, y: 0, width: w, height: bounds.height)
+    }
+
+    override func draw(_ rect: CGRect) {
+        let pressed = Set(down.values)
+        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 20), .foregroundColor: Theme.ink]
+        for (i, d) in digits.enumerated() {
+            let r = cell(i)
+            if pressed.contains(i) {
+                Theme.pressed.setFill()
+                UIBezierPath(roundedRect: r.insetBy(dx: 3, dy: 4), cornerRadius: 6).fill()
+            }
+            let text = String(d) as NSString
+            let size = text.size(withAttributes: attrs)
+            text.draw(at: CGPoint(x: r.midX - size.width / 2, y: r.midY - size.height / 2), withAttributes: attrs)
+        }
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for t in touches {
+            let x = t.location(in: self).x
+            let i = max(0, min(digits.count - 1, Int(x / max(1, bounds.width) * CGFloat(digits.count))))
+            down[ObjectIdentifier(t)] = i
+            onDigit?(digits[i])
+        }
+        setNeedsDisplay()
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) { lift(touches) }
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) { lift(touches) }
+    private func lift(_ touches: Set<UITouch>) {
+        for t in touches { down.removeValue(forKey: ObjectIdentifier(t)) }
+        setNeedsDisplay()
+    }
+
+    // one element per digit, for VoiceOver and the UI tests (key:1 …)
+    private final class DigitElement: UIAccessibilityElement {
+        var activate: (() -> Void)?
+        override func accessibilityActivate() -> Bool { activate?(); return true }
+    }
+    override var accessibilityElements: [Any]? {
+        get {
+            digits.enumerated().map { i, d in
+                let e = DigitElement(accessibilityContainer: self)
+                e.accessibilityLabel = String(d)
+                e.accessibilityIdentifier = "key:\(d)"
+                e.accessibilityTraits = .keyboardKey
+                e.accessibilityFrameInContainerSpace = cell(i)
+                e.activate = { [weak self] in self?.onDigit?(d) }
+                return e
+            }
+        }
+        set {}
     }
 }
