@@ -186,8 +186,9 @@ final class KeyboardViewController: UIInputViewController {
         keys.capsLock = capsLock
     }
 
-    /// Shift on at the start of a sentence, where the field asks for it.
+    /// Shift on at the start of a sentence, where the field asks for it (autoCaps, off by default).
     private func autoShift() {
+        guard prefs.autoCaps else { return }
         guard !capsLock, !keys.symbolsPage, session.pending.isEmpty else { return }
         let proxy = textDocumentProxy
         let before = proxy.documentContextBeforeInput ?? ""
@@ -207,7 +208,7 @@ final class KeyboardViewController: UIInputViewController {
 
     private func refresh() {
         keys.enabledMode = prefs.enabled
-        keys.spaceLabel = prefs.enabled ? prefs.shortLabel() : "abc"
+        keys.spaceLabel = prefs.enabled ? prefs.shortLabel() : ""
         keys.returnLabel = returnLabel()
         keys.returnSymbol = returnSymbol()
         if let sel = textDocumentProxy.selectedText, !sel.isEmpty, session.pending.isEmpty {
@@ -223,7 +224,9 @@ final class KeyboardViewController: UIInputViewController {
             if let (typed, list) = Emoji.emoticon(before: textDocumentProxy.documentContextBeforeInput ?? "") {
                 emoticon = typed; emoji = list
             } else if !keys.symbolsPage {
-                emoji = Emoji.choices(session.word)
+                // conversion off: the word as usually spelled, read by the person's own spellings
+                emoji = prefs.enabled ? Emoji.choices(session.word)
+                    : Emoji.plain(session.word, spellings: prefs.preferredSources.filter { $0.hasPrefix("stage:") && $0 != "stage:zh" }.map { String($0.dropFirst(6)) })
             }
         }
         strip.show(emoji.isEmpty ? .digits : .emoji(emoji))

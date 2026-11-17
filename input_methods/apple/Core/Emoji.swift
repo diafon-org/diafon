@@ -7,7 +7,12 @@
 import Foundation
 
 enum Emoji {
-    private struct Table { let rank: [String]; let words: [String: [Int]]; let keys: [String] }
+    private struct Index { let words: [String: [Int]]; let keys: [String] }
+    private struct Table { let rank: [String]; let exact: Index; let base: Index }
+
+    /// An input form on its base letters alone: without the operators and the
+    /// length mark (c j q x y w), as a word typed without accents reads.
+    static func base(_ t: String) -> String { String(t.lowercased().filter { !"cjqxyw".contains($0) && !$0.isNumber }) }
 
     private static let table: Table? = {
         let urls = [ProcessInfo.processInfo.environment["DIAFON_EMOJI"].map { URL(fileURLWithPath: $0) },
@@ -17,7 +22,11 @@ enum Emoji {
             guard let data = try? Data(contentsOf: url),
                   let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { continue }
             let words = json["words"] as? [String: [Int]] ?? [:]
-            return Table(rank: json["rank"] as? [String] ?? [], words: words, keys: words.keys.sorted())
+            var based: [String: Set<Int>] = [:]
+            for (k, v) in words { based[base(k), default: []].formUnion(v) }
+            let b = based.mapValues { Array($0.sorted().prefix(12)) }
+            return Table(rank: json["rank"] as? [String] ?? [], exact: Index(words: words, keys: words.keys.sorted()),
+                         base: Index(words: b, keys: b.keys.sorted()))
         }
         return nil
     }()
@@ -28,19 +37,39 @@ enum Emoji {
     static func choices(_ word: String, limit: Int = 16, prefixFrom: Int = 3) -> [String] {
         guard let t = table, !word.isEmpty else { return [] }
         let key = String(word.lowercased().filter { !$0.isNumber })
-        var out: [Int] = t.words[key] ?? []
-        if key.count >= prefixFrom {
+        return lookup([key], t.exact, prefixFrom).prefix(limit).map { t.rank[$0] }
+    }
+
+    /// With conversion off: a word typed in a language's usual letters, likely
+    /// without its accents (kutya, sziv, cool), read by each of `spellings`
+    /// (stage codes, the person's own first) and matched on base letters.
+    static func plain(_ word: String, spellings: [String], limit: Int = 16, prefixFrom: Int = 3) -> [String] {
+        guard let t = table, !word.isEmpty else { return [] }
+        var keys: [String] = []
+        for code in spellings {
+            let k = base(Stages.parse(word.lowercased(), "stage:" + code))
+            if !k.isEmpty, !keys.contains(k) { keys.append(k) }
+        }
+        return lookup(keys, t.base, prefixFrom).prefix(limit).map { t.rank[$0] }
+    }
+
+    /// The keys' own emoji, then (from `prefixFrom` letters) those of the keys they
+    /// begin, each part most used first.
+    private static func lookup(_ keys: [String], _ ix: Index, _ prefixFrom: Int) -> [Int] {
+        var out: [Int] = []
+        for k in keys { out += (ix.words[k] ?? []).filter { !out.contains($0) } }
+        out.sort()
+        var more = Set<Int>()
+        for key in keys where key.count >= prefixFrom {
             // the keys are sorted: the ones that begin with the word are one run
-            var lo = 0, hi = t.keys.count
-            while lo < hi { let mid = (lo + hi) / 2; if t.keys[mid] < key { lo = mid + 1 } else { hi = mid } }
-            var more = Set<Int>()
-            while lo < t.keys.count, t.keys[lo].hasPrefix(key) {
-                if t.keys[lo] != key { more.formUnion(t.words[t.keys[lo]] ?? []) }
+            var lo = 0, hi = ix.keys.count
+            while lo < hi { let mid = (lo + hi) / 2; if ix.keys[mid] < key { lo = mid + 1 } else { hi = mid } }
+            while lo < ix.keys.count, ix.keys[lo].hasPrefix(key) {
+                if ix.keys[lo] != key { more.formUnion(ix.words[ix.keys[lo]] ?? []) }
                 lo += 1
             }
-            out += more.subtracting(out).sorted()
         }
-        return out.prefix(limit).map { t.rank[$0] }
+        return out + more.subtracting(out).sorted()
     }
 
     /// The classic emoticons, offered when the text before the cursor ends with one.

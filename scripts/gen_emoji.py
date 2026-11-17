@@ -15,8 +15,9 @@ a word naming too many emoji is dropped there), is read into its input form
 by the language's own reading (English: the lexicon; the others: their
 spelling stage). Diafon forms read the same in every language, so the words
 of all the languages share one table: kutja and dog both find the dog.
-The words as spelled, without their accents, are keys too (kutya, szia,
-pies): with conversion off the keyboard still offers emoji.
+With conversion off the keyboard reads the word typed by the person's own
+spellings into input form and matches it on the base letters alone
+(Emoji.swift, plain), so the table needs no spelled keys.
 
   {"rank": [emoji, most used first, then the rest in CLDR order],
    "words": {input form: [indices into rank, most used first]}}
@@ -106,15 +107,6 @@ def reader(code):
     return spelled
 
 
-FOLD = str.maketrans({'ł': 'l', 'ı': 'i', 'ø': 'o', 'æ': 'ae', 'ß': 'ss', 'đ': 'd'})
-
-
-def plain(w):
-    """A spelling as the keyboard's plain keys type it: no accents, a–z only; or None."""
-    w = ''.join(c for c in ud.normalize('NFD', w.lower().translate(FOLD)) if not ud.combining(c))
-    return w if re.fullmatch(r'[a-z]{2,}', w) else None
-
-
 def key(t):
     """The input form as the keyboard looks it up, or None for an ill-formed one."""
     k = re.sub(r'\d', '', t).lower()
@@ -151,7 +143,8 @@ def main():
         for e in rank:
             whole, parts = named.get(e, ([], []))
             for w in whole + [p for p in parts if crowd[p] <= CROWD]:
-                for k in {form(w), plain(w)} - {None}:
+                k = form(w)
+                if k:
                     lst = words.setdefault(k, set())
                     if at[e] not in lst:
                         lst.add(at[e]); n += 1

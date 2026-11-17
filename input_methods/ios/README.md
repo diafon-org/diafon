@@ -10,9 +10,10 @@ Polish, Finnish, Turkish, Swahili), its emoji take the digits' place: the
 word's own first, then from the third letter those of the words it begins
 (`haw` ❤️, `kutja` 🐶, `dowg` 🐶). A classic emoticon (`:)` `<3` `;)`) offers
 its emoji too. A tap puts the emoji in place of the word or the emoticon. With conversion
-off the words work as usually spelled, without accents (`kutya`, `cool`). In
+off a word typed as usually spelled, without accents (`kutya`, `sziv`), is
+read by your own languages' spellings and matched on its base letters. In
 Mandarin the digits stay, since they write the tones. Select text in any
-spelling and the strip offers to convert it. The emoji table (data/emoji.json, 1.1 MB: 1,855 emoji, 49,935 words) is the
+spelling and the strip offers to convert it. The emoji table (data/emoji.json, 643 KB: 1,855 emoji, 28,876 words) is the
 only word list the keyboard carries: no dictionary, no prediction, no
 network, no full access.
 
@@ -90,10 +91,10 @@ per-app choice if the apps disagree.
 | Key | Does |
 |---|---|
 | letters, digits | `Session.type`: the head becomes final, the tail stays provisional; digits (on the strip) are tones |
-| ⇧ | next letter capital; double tap locks; on at a sentence start where the field asks |
+| ⇧ | next letter capital; double tap locks; on at a sentence start where the field asks, if turned on in the settings (off by default) |
 | ⌫ | edits the tail first, then one grapheme of the field; repeats when held |
 | logo | a tap: the signs (two pages in the system keyboard's order, `1/2` and `2/2`), the key lit; a tap again: the letters; press and slide to a sign: that sign, then the letters again; hold: the settings |
-| space | names the mode in use (Diafon, or the language); goes in on release; hold: the modes (Universal, the quick list, off), slide and let go, or tap; after a sign, the letters come back; two spaces after a word: a full stop and a space |
+| space | names the mode in use (diafon, or the language code; blank when off); goes in on release; hold: the modes (Universal, the quick list, off), slide and let go, or tap; after a sign, the letters come back; two spaces after a word: a full stop and a space |
 | 🌐 | the system's keyboard list; shown only where the system has no switcher of its own (`needsInputModeSwitchKey`) |
 | return | settles the tail, then a newline; labelled by the field's return key type |
 
