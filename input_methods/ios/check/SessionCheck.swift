@@ -153,11 +153,18 @@ enum SessionCheck {
             s.pick("🔥")                                       // no word: the emoji goes in, nothing is deleted
             expect(ed.display.hasSuffix(" x🔥"), "pick with no word \(mode): \(ed.display.debugDescription)")
         }
-        do {   // the emoji table: a word in either language, most used first
+        do {   // the emoji table: a word in any language, most used first, then its prefixes
             expect(Emoji.choices("hawrt").first == "❤️", "emoji hawrt: \(Emoji.choices("hawrt"))")
             expect(Emoji.choices("Siwv").first == "❤️", "emoji Siwv (szív, any case): \(Emoji.choices("Siwv"))")
-            expect(Emoji.choices("kutja") == ["🐶", "🐕"], "emoji kutja: \(Emoji.choices("kutja"))")
-            expect(Emoji.choices("sjok").isEmpty, "emoji sjok: none")
+            expect(Emoji.choices("kutja").prefix(2) == ["🐶", "🐕"], "emoji kutja: \(Emoji.choices("kutja"))")
+            expect(Emoji.choices("dowg").first == "🐶", "emoji dowg (English dog): \(Emoji.choices("dowg"))")
+            expect(Emoji.choices("pjes").first == "🐶", "emoji pjes (Polish pies): \(Emoji.choices("pjes"))")
+            expect(Emoji.choices("haw").contains("❤️"), "emoji haw, a prefix of hawrt: \(Emoji.choices("haw"))")
+            expect(Emoji.choices("ha", prefixFrom: 3).allSatisfy { Emoji.choices("ha").contains($0) }, "emoji ha: exact only")
+            expect(Emoji.choices("qqqq").isEmpty, "emoji qqqq: none")
+            expect(Emoji.emoticon(before: "ok :)")?.1.first == "🙂", "emoticon :)")
+            expect(Emoji.emoticon(before: "ok <3")?.0 == "<3", "emoticon <3")
+            expect(Emoji.emoticon(before: "f(:)") == nil, "emoticon inside a word: none")
         }
         do {   // unknown context leaves the tail alone
             final class Blind: TextSink {

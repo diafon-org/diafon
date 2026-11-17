@@ -31,6 +31,8 @@ final class KeyboardViewController: UIInputViewController {
     private var height: NSLayoutConstraint?
     private var shifted = false, capsLock = false
     private var lastShiftTap = Date.distantPast, lastSpaceAt = Date.distantPast
+    /// The emoticon the strip's emoji would replace (:) <3), if it shows one's.
+    private var emoticon: String?
     private var observer: NSObjectProtocol?
 
     override func loadView() {
@@ -72,7 +74,7 @@ final class KeyboardViewController: UIInputViewController {
         }
         keys.globeButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         strip.onDigit = { [weak self] d in self?.key(.char(d)) }
-        strip.onEmoji = { [weak self] e in self?.session.pick(e); self?.autoShift(); self?.refresh() }
+        strip.onEmoji = { [weak self] e in self?.pickEmoji(e) }
         strip.onConvert = { [weak self] in self?.convertSelection() }
         panel.onDone = { [weak self] in self?.showSettings(false) }
         observer = NotificationCenter.default.addObserver(forName: Prefs.changed, object: nil, queue: .main) { [weak self] _ in
@@ -214,8 +216,32 @@ final class KeyboardViewController: UIInputViewController {
         // inside a word, its suggestions take the digits' place; a tone-aware mode
         // (Mandarin) keeps the digits, which write the syllable's tone
         let toneAware = prefs.enabled && prefs.output == "stage:zh"
-        let emoji = toneAware || keys.symbolsPage ? [] : Emoji.choices(session.word)
+        emoticon = nil
+        var emoji: [String] = []
+        if !toneAware {
+            if let (typed, list) = Emoji.emoticon(before: textDocumentProxy.documentContextBeforeInput ?? "") {
+                emoticon = typed; emoji = list
+            } else if !keys.symbolsPage {
+                emoji = Emoji.choices(session.word)
+            }
+        }
         strip.show(emoji.isEmpty ? .digits : .emoji(emoji))
+    }
+
+    /// An emoji from the strip takes the place of the word or the emoticon it came from.
+    private func pickEmoji(_ e: String) {
+        if let typed = emoticon {
+            session.flush()
+            if (textDocumentProxy.documentContextBeforeInput ?? "").hasSuffix(typed) {
+                for _ in 0..<typed.count { textDocumentProxy.deleteBackward() }
+            }
+            textDocumentProxy.insertText(e)
+        } else {
+            session.pick(e)
+        }
+        keys.symbolsPage = false
+        autoShift()
+        refresh()
     }
 
     private func returnLabel() -> String {
