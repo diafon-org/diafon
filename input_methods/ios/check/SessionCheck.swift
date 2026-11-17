@@ -153,6 +153,16 @@ enum SessionCheck {
             s.pick("🔥")                                       // no word: the emoji goes in, nothing is deleted
             expect(ed.display.hasSuffix(" x🔥"), "pick with no word \(mode): \(ed.display.debugDescription)")
         }
+        for mode in modes {   // the field cleared under the tail (a search field's ✕): flush writes nothing back
+            let ed = StringEditor(), s = Session(sink: ed, mode: mode, render: { Engine.lenient($0) })
+            for c in "ok nj" { s.type(c) }
+            ed.text = ""; ed.marked = ""
+            s.flush()
+            expect(ed.display.isEmpty && s.pending.isEmpty, "cleared field, flush \(mode): \(ed.display.debugDescription)")
+            for c in "nj" { s.type(c) }
+            s.forget()
+            expect(s.pending.isEmpty && s.word.isEmpty, "forget \(mode)")
+        }
         do {   // conversion off: the word is still tracked, and a picked emoji replaces it as typed
             let ed = StringEditor(), s = Session(sink: ed, mode: .marked, render: { Engine.lenient($0) })
             for c in "ok kutya" { s.typePlain(c) }

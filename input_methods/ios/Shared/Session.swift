@@ -96,11 +96,18 @@ final class Session {
     }
 
     /// Make the tail final as it stands (return, focus loss, the globe, a cursor move).
+    /// A tail the field no longer shows (cleared by the app, a search field's ✕) is
+    /// dropped, never written back; unknown context (nil) writes it as before.
     func flush() {
         guard !pending.isEmpty else { return }
-        if mode == .marked { sink.insertText(shown) }     // the marked tail, final as it stands
+        if mode == .marked {                              // the marked tail, final as it stands
+            if let before = sink.contextBefore, !before.hasSuffix(shown) { sink.unmarkText() } else { sink.insertText(shown) }
+        }
         pending = ""; shown = ""
     }
+
+    /// A new field, or the keyboard back after a while: nothing typed before is ours.
+    func forget() { pending = ""; shown = ""; word = "" }
 
     /// A spelling picked from the strip takes the tail's place and is final.
     func take(_ text: String) {
