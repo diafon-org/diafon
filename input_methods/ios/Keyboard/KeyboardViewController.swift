@@ -13,7 +13,13 @@ final class ProxySink: TextSink {
     func deleteBackward() { proxy?.deleteBackward() }
     func setMarkedText(_ text: String) { proxy?.setMarkedText(text, selectedRange: NSRange(location: (text as NSString).length, length: 0)) }
     func unmarkText() { proxy?.unmarkText() }
-    var contextBefore: String? { proxy?.documentContextBeforeInput }
+    /// An empty field gives no context (nil) rather than "", which reads as unknown and
+    /// keeps a tail the app cleared (a search field's ✕); with no text at all it is "".
+    var contextBefore: String? {
+        guard let proxy else { return nil }
+        if let before = proxy.documentContextBeforeInput { return before }
+        return proxy.hasText ? nil : ""
+    }
 }
 
 final class KeyboardViewController: UIInputViewController {
