@@ -26,14 +26,14 @@ final class KeyboardView: UIView {
     /// The signs instead of the letters (the logo key), and which of their two pages.
     var symbolsPage = false { didSet { if symbolsPage != oldValue { if !symbolsPage { morePage = false }; rebuild() } } }
     var morePage = false { didSet { if morePage != oldValue { rebuild() } } }
-    var shifted = false { didSet { setNeedsDisplay() } }
-    var capsLock = false { didSet { setNeedsDisplay() } }
-    var enabledMode = true { didSet { setNeedsDisplay() } }
-    var returnLabel = "return" { didSet { setNeedsDisplay() } }
+    var shifted = false { didSet { if shifted != oldValue { setNeedsDisplay() } } }
+    var capsLock = false { didSet { if capsLock != oldValue { setNeedsDisplay() } } }
+    var enabledMode = true { didSet { if enabledMode != oldValue { setNeedsDisplay() } } }
+    var returnLabel = "return" { didSet { if returnLabel != oldValue { setNeedsDisplay() } } }
     /// The return key's symbol, for the field's return key type.
-    var returnSymbol = "return.left" { didSet { setNeedsDisplay() } }
+    var returnSymbol = "return.left" { didSet { if returnSymbol != oldValue { setNeedsDisplay() } } }
     /// The mode in use, named on the space bar.
-    var spaceLabel = "" { didSet { setNeedsDisplay() } }
+    var spaceLabel = "" { didSet { if spaceLabel != oldValue { setNeedsDisplay() } } }
 
     let globeButton = UIButton(type: .system)
 
@@ -113,7 +113,7 @@ final class KeyboardView: UIView {
             }
         }
         if let g = slots.first(where: { $0.key == .globe }) { globeButton.frame = g.rect }
-        rebuildAccessibility()
+        axDirty = true
         setNeedsDisplay()
     }
 
@@ -141,8 +141,16 @@ final class KeyboardView: UIView {
         override func accessibilityActivate() -> Bool { activate?(); return true }
     }
 
-    private func rebuildAccessibility() {
-        accessibilityElements = slots.map { s -> Any in
+    /// Built when asked for (VoiceOver, UI tests), not on every key: a fast typist's
+    /// keys must not wait on it.
+    private var axDirty = true, axCache: [Any] = []
+    override var accessibilityElements: [Any]? {
+        get { if axDirty { axCache = buildAccessibility(); axDirty = false }; return axCache }
+        set {}
+    }
+
+    private func buildAccessibility() -> [Any] {
+        slots.map { s -> Any in
             if s.key == .globe { return globeButton }
             let e = KeyElement(accessibilityContainer: self)
             e.accessibilityLabel = s.key == .logo ? (symbolsPage ? "letters" : "signs; hold for the Diafon settings") : spoken(s.key)
@@ -158,7 +166,7 @@ final class KeyboardView: UIView {
 
     override func setNeedsDisplay() {
         super.setNeedsDisplay()
-        if !slots.isEmpty { rebuildAccessibility() }     // labels follow shift and mode
+        axDirty = true                                   // labels follow shift and mode
     }
 
     override var intrinsicContentSize: CGSize { CGSize(width: UIView.noIntrinsicMetric, height: rowHeight * CGFloat(Self.rowCount) + gap) }
@@ -176,6 +184,16 @@ final class KeyboardView: UIView {
         case .more: return morePage ? "2/2" : "1/2"
         case .globe: return ""
         }
+    }
+
+    private var symbolCache: [String: UIImage] = [:]
+    private func symbolImage(_ name: String, _ color: UIColor) -> UIImage? {
+        let id = "\(name) \(traitCollection.userInterfaceStyle.rawValue) \(color == Theme.onAccent)"
+        if let img = symbolCache[id] { return img }
+        let cfg = UIImage.SymbolConfiguration(pointSize: 19, weight: .regular)
+        let img = UIImage(systemName: name, withConfiguration: cfg)?.withTintColor(color.resolvedColor(with: traitCollection), renderingMode: .alwaysOriginal)
+        symbolCache[id] = img
+        return img
     }
 
     /// The SF Symbol a functional key is drawn with.
@@ -231,8 +249,7 @@ final class KeyboardView: UIView {
             var color = on ? Theme.onAccent : Theme.ink
             if let name = symbol(s.key) {
                 // the functional keys as symbols, in the letters' ink and weight
-                let cfg = UIImage.SymbolConfiguration(pointSize: 19, weight: .regular)
-                if let img = UIImage(systemName: name, withConfiguration: cfg)?.withTintColor(color, renderingMode: .alwaysOriginal) {
+                if let img = symbolImage(name, color) {
                     img.draw(at: CGPoint(x: s.rect.midX - img.size.width / 2, y: s.rect.midY - img.size.height / 2))
                 }
                 continue

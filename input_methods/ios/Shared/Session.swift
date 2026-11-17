@@ -43,6 +43,12 @@ final class Session {
     private(set) var pending = ""
     /// What the editor shows for the tail: its render, or "" with no tail.
     private(set) var shown = ""
+    /// After its own edit the session trusts its tail for this long: a host's context
+    /// lags behind fast typing, and a lagging context must not orphan the tail.
+    static var settle: TimeInterval = 0.4
+    private var lastEdit = Date.distantPast
+    private var settling: Bool { Date().timeIntervalSince(lastEdit) < Session.settle }
+
     /// The word being typed, as typed (letters and tone digits since the last
     /// space or punctuation): its emoji are offered, and one picked takes its place.
     private(set) var word = ""
@@ -61,6 +67,7 @@ final class Session {
     /// One character in as it is, conversion off; the word is still tracked, so its
     /// emoji are offered (typed in a language's usual letters, or in input forms).
     func typePlain(_ ch: Character) {
+        lastEdit = Date()
         flush()
         sink.insertText(String(ch))
         track(ch, plain: true)
@@ -78,6 +85,7 @@ final class Session {
     /// Text that is final at once (a space key, a chosen spelling's neighbour,
     /// a symbol): the tail is settled first, then the text goes in as it is.
     func insertFinal(_ text: String) {
+        lastEdit = Date()
         flush()
         sink.insertText(text)
         word = ""
@@ -85,6 +93,7 @@ final class Session {
 
     /// Backspace edits the tail first; with no tail, one grapheme of the editor's text.
     func backspace() {
+        lastEdit = Date()
         if pending.isEmpty {
             sink.deleteBackward()
             if wordPlain, !word.isEmpty { word.removeLast() } else { word = "" }
@@ -101,7 +110,7 @@ final class Session {
     func flush() {
         guard !pending.isEmpty else { return }
         if mode == .marked {                              // the marked tail, final as it stands
-            if let before = sink.contextBefore, !before.hasSuffix(shown) { sink.unmarkText() } else { sink.insertText(shown) }
+            if !settling, let before = sink.contextBefore, !before.hasSuffix(shown) { sink.unmarkText() } else { sink.insertText(shown) }
         }
         pending = ""; shown = ""
     }
@@ -137,6 +146,7 @@ final class Session {
     /// the tail alone. The host calls this for its own reasons as well as ours, so
     /// a tail that is still in place survives.
     func editorChanged() {
+        if settling { return }                            // our own edit, not yet in the context
         if !word.isEmpty, let before = sink.contextBefore, !before.hasSuffix(written(word)) { word = "" }
         guard !pending.isEmpty, let before = sink.contextBefore, !before.hasSuffix(shown) else { return }
         if mode == .marked { sink.unmarkText() }
@@ -145,6 +155,7 @@ final class Session {
 
     /// Committed head, then the new tail; the editor ends up showing head + render(tail).
     private func show(head: String, tail: String) {
+        lastEdit = Date()
         let next = tail.isEmpty ? "" : (preview ?? render)(tail)
         switch mode {
         case .marked:
