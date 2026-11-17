@@ -39,9 +39,13 @@ extension Prefs {
         if m.hasPrefix("stage:") { language = String(m.dropFirst(6)) } else { output = "script" }
         if !enabled { enabled = true }
     }
-    /// The mode in use, short, for the space bar: Diafon, or the language's name.
-    func shortLabel() -> String {
-        universal ? "Diafon" : label().replacingOccurrences(of: " spelling", with: "")
+    /// The mode in use, short, for the space bar: diafon, or the language's code.
+    func shortLabel() -> String { universal ? "diafon" : language }
+
+    /// Shift on at a sentence start, where the field asks for it; off by default.
+    var autoCaps: Bool {
+        get { defaults.object(forKey: "autoCaps") == nil ? false : defaults.bool(forKey: "autoCaps") }
+        set { store(newValue, "autoCaps") }
     }
     func menuTitle(_ m: String) -> String { m == "off" ? "Off (plain keys)" : label(m) }
 }

@@ -161,7 +161,10 @@ enum SessionCheck {
             expect(s.word == "kutya", "plain word after backspace: \(s.word.debugDescription)")
             s.pick("🐶")
             expect(ed.display == "ok 🐶", "plain pick: \(ed.display.debugDescription)")
-            expect(Emoji.choices("kutya").first == "🐶" && Emoji.choices("cool").contains("😎"), "plain spellings in the table")
+            let mine = ["hu", "en", "cs"]
+            expect(Emoji.plain("kutya", spellings: mine).first == "🐶", "plain kutya: \(Emoji.plain("kutya", spellings: mine))")
+            expect(Emoji.plain("sziv", spellings: mine).first == "❤️", "plain sziv: \(Emoji.plain("sziv", spellings: mine))")
+            expect(Emoji.plain("napszem", spellings: mine).contains("😎"), "plain napszem: \(Emoji.plain("napszem", spellings: mine))")
         }
         do {   // the emoji table: a word in any language, most used first, then its prefixes
             expect(Emoji.choices("hawrt").first == "❤️", "emoji hawrt: \(Emoji.choices("hawrt"))")
