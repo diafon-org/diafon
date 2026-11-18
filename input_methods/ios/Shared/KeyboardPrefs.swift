@@ -17,11 +17,11 @@ extension Prefs {
         set { store(newValue, "layout") }
     }
 
-    /// How the tail stays provisional: marked text (underlined, as the system's own
-    /// keyboards compose) or plain text the keyboard rewrites; the second for apps
-    /// that mishandle marked text (README, the text path).
+    /// How the tail stays provisional: plain text the keyboard rewrites (the default),
+    /// or marked text (underlined, as the system's own keyboards compose). Contacts
+    /// leaves marked text out of the context and drops it on Done (README, the text path).
     var tailMode: TailMode {
-        get { defaults.string(forKey: "tailMode").flatMap(TailMode.init(rawValue:)) ?? .marked }
+        get { defaults.string(forKey: "tailMode").flatMap(TailMode.init(rawValue:)) ?? .replace }
         set { store(newValue.rawValue, "tailMode") }
     }
 

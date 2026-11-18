@@ -53,15 +53,15 @@ editor always shows the render of everything typed, and only the last
 segment is provisional. There are two ways to keep that segment provisional,
 because iOS apps honour marked text unevenly:
 
-- **marked** (the default): the tail is marked text. `insertText` replaces
+- **marked**: the tail is marked text. `insertText` replaces
   it with the settled head, which is final; then the new tail is marked.
   Text is never made final with `unmarkText`, except for an orphaned tail:
   in the simulator, a setMarkedText, unmarkText, setMarkedText sequence
   garbled the field (letters came out dropped and doubled).
-- **replace**: the tail is plain text the keyboard remembers. The next key
+- **replace** (the default): the tail is plain text the keyboard remembers. The next key
   deletes back only the graphemes that differ and types the rest.
 
-The settings panel switches between them ("Underline the letter being
+The settings panel switches between them ("Underline what is being
 typed"). A changed field (`textDidChange`, `selectionDidChange`) keeps the
 tail only if the text before the cursor still ends with it. Otherwise the
 tail is left where it is, final (unmarked first, so the next key cannot
@@ -86,6 +86,15 @@ contenteditable, Mail, WhatsApp, Telegram, a search field), in both modes:
 
 Record the results here. The outcome decides the default mode, or a
 per-app choice if the apps disagree.
+
+**Device, Contacts (new contact, a name field), Hungarian, marked mode,
+2026-11-18** (a debug build's trace, `Trace` in KeyboardViewController):
+`documentContextBeforeInput` leaves the marked text out (item 4 fails: after
+`D` is marked the context still ends `Boronyák `), and Done saves the field
+without the marked word: `Dóra` was lost. The keyboard gets no call before
+the save, so nothing can settle it in time. In a language's spelling the whole
+word stays marked, so the loss is a word, not a letter. Replace mode keeps
+the tail as plain text, saved like any other: it is the default since.
 
 ## The keyboard, key by key
 
