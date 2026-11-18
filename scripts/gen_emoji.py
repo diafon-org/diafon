@@ -47,7 +47,7 @@ import stages
 SRC = os.path.join(ROOT, 'data', 'lexicon', 'sources', 'emoji')
 OUT = os.path.join(ROOT, 'data', 'emoji.json')       # beside the lexicons, not one of them
 LANGS = ['en', 'hu', 'cs', 'pl', 'fi', 'tr', 'sw']
-TOP = 300               # the most used, from freq.txt (gender variants merged)
+TOP = 400               # the most used, from freq.txt (gender variants merged)
 # the 2024-25 rankings' top emoji newer than 2019's (Gboard 2025, Meltwater 2024,
 # Brandwatch 2025, NYT), then hand picks
 ADD = ['🥰', '🫰', '🗿', '🐌']

@@ -73,7 +73,9 @@ targets:
         excludes: [CheckMain.swift]
       - path: ../../fonts/DiafonSerif-Regular.ttf
         buildPhase: resources
-      - path: ../../data/emoji.json              # the word -> emoji choices, 184 KB; no lexicon
+      - path: ../../data/emoji.json              # the word -> emoji choices, 220 KB; no lexicon
+        buildPhase: resources
+      - path: ../../data/lexicon/en.read.tsv     # English words -> input forms, 2.2 MB, searched mapped (ReadIndex)
         buildPhase: resources
     settings:
       base:
