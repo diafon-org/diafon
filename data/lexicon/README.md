@@ -45,7 +45,7 @@ names and keywords of each language (`sources/emoji/`, Unicode licence v3)
 and Unicode's emoji frequency ranking, maps a word's input form to the emoji
 it names, most used first (`choices` per language, `rank` overall). Each
 one-word name is read by its language (English through this lexicon,
-Hungarian through its stage). The 600 most used emoji are covered. The input
+Hungarian through its stage). Every emoji with a name is covered (1855, skin tones aside); a word with a suffix finds its stem's (kutjawval: kutja). The input
 methods offer them for the word being typed; nothing changes unless one is
 picked.
 
