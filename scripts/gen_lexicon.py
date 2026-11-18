@@ -9,6 +9,7 @@ data/lexicon/<code>.yaml (see data/lexicon/README.md).
   zh  the pinyin syllables of Unihan -> read/write by rule, and choices:
       transport + tone -> characters, most frequent first
   la  the hand table, copied
+  loans  the one loan dictionary: origin.yaml, Latin, English's common words
 
 Usage: gen_lexicon.py [code ...]   (all codes with a yaml by default)
 """
@@ -29,13 +30,83 @@ LEX = os.path.join(ROOT, 'data', 'lexicon')
 
 
 def origin():
-    """The shared table of words as their origin says them: spelling -> transport, aliases included."""
+    """The hand entries of origin.yaml: spelling -> {lang, t, also, spell}, `t` filled from the
+    origin language's lexicon where the entry leaves it out (meeting: English reads it)."""
+    import lexicon
     out = {}
     for sp, e in (yaml.safe_load(open(os.path.join(LEX, 'origin.yaml'))) or {}).items():
+        e = dict(e)
+        if 't' not in e:
+            LL = lexicon.lex(e['lang'])
+            assert LL and sp.lower() in LL['read'], f'origin.yaml: {sp} needs a t ({e["lang"]} does not read it)'
+            e['t'] = LL['read'][sp.lower()]
         engine.segments(e['t'])
-        for w in [sp] + list(e.get('also', [])):
-            out[w.lower()] = e['t']
+        e['also'] = {h: [w] if isinstance(w, str) else list(w) for h, w in (e.get('also') or {}).items()}
+        e['spell'] = dict(e.get('spell') or {})
+        out[sp.lower()] = e
     return out
+
+
+def hosts():
+    """The lexicons that catch loans (`loans: true`)."""
+    return [c for c in yaml_codes() if load_yaml(c).get('loans')]
+
+
+# ---- loans: the one loan dictionary every host consults ----
+
+LOAN_SOURCES = ['la', 'en']        # dictionary loans, in priority: a spelling two of them read is the first's
+
+
+def gen_loans():
+    """data/lexicon/loans.json: every word a host may hold as a loan, with the one Diafon form its
+    language of origin gives it, the same in every host.
+      hand   origin.yaml: spelling -> [transport, lang]; matched as a stem, ahead of a host's
+             dictionary (jamaicai), like a host's own entries
+      read   lang -> spelling -> transport: the dictionaries (Latin; English, its common words);
+             a spelling is in one only, hand entries in none
+      write  transport -> the origin spelling (a homophone: hand, then Latin, then the commonest English)
+      hosts  code -> read (a host's own spelling of a loan, origin.yaml `also` and `spell`:
+             spelling -> [transport, lang]) and write (transport -> how the host writes the
+             loan: `spell`, the host's `borrowed`)"""
+    import lexicon
+    hand = origin()
+    read, write_ = {}, {}
+    for sp, e in hand.items():
+        write_.setdefault(e['t'], sp)
+    taken = set(hand)
+    for lc in LOAN_SOURCES:
+        LL = lexicon.lex(lc)
+        words = [w for w in LL['read'] if not LL['common'] or w in LL['common']]
+        entries = list(LL['write'].items())
+        if lc == 'en':
+            freq = {}
+            for line in open(os.path.join(LEX, 'sources', 'en_50k.txt'), encoding='utf-8'):
+                w, n = line.split()
+                freq.setdefault(w, int(n))
+            entries = sorted(((t, w) for t, w in entries if w in freq), key=lambda e: -freq[e[1]])
+        read[lc] = {w: LL['read'][w] for w in words if w not in taken}
+        taken |= set(read[lc])
+        for t, w in entries:
+            write_.setdefault(t, w)
+    host = {}
+    for code in hosts():
+        cfg = load_yaml(code)
+        r, w = {}, {}
+        for sp, e in hand.items():
+            for v in e['also'].get(code, []) + ([e['spell'][code]] if code in e['spell'] else []):
+                r[v.lower()] = [e['t'], e['lang']]
+            if code in e['spell']:
+                w[e['t']] = e['spell'][code]
+        for b in cfg.get('borrowed') or []:              # written back as the host writes them
+            for lc in LOAN_SOURCES:
+                t = lexicon.lex(lc)['read'].get(b.lower())
+                if t:
+                    w.setdefault(t, b)
+                    break
+        host[code] = {'read': r, 'write': w}
+    return {'name': 'Loans', 'kind': 'loans', 'match': 'prefix', 'output': False,
+            'hand': {sp: [e['t'], e['lang']] for sp, e in hand.items()},
+            'read': read, 'write': write_, 'hosts': host}
 
 
 def load_yaml(code):
@@ -165,35 +236,12 @@ def gen_hu(cfg):
         if 'ix' not in t:
             continue
         stems[t] = word
-    # loans written back in their own spelling: the transport of each common
-    # loan word (the English frequency list; every Latin entry) -> the word,
-    # the commonest first where two read alike
-    import lexicon
-    loanwrite = {}
-    for lc in cfg.get('loans', []):
-        LL = lexicon.lex(lc)
-        entries = list(LL['write'].items())
-        if lc == 'en':
-            freq = {}
-            for line in open(os.path.join(LEX, 'sources', 'en_50k.txt'), encoding='utf-8'):
-                w, n = line.split()
-                freq.setdefault(w, int(n))
-            entries = sorted(((t, w) for t, w in entries if w in freq), key=lambda e: -freq[e[1]])
-        for t, w in entries:
-            loanwrite.setdefault(t, w)
     spoken = {}                                    # the hand entries (spoken, names), in Hungarian spelling -> transport, by the letters alone
     for sp, said in list((cfg.get('spoken') or {}).items()) + list((cfg.get('names') or {}).items()):
         spoken[sp.lower()] = stages.read_letters(said, stages.table(hu))
         stems.setdefault(spoken[sp.lower()], sp)
-    for sp, t in origin().items():                 # words as their own language says them (origin.yaml), one form in every host
-        spoken[sp.lower()] = t
-        stems.setdefault(t, sp)
-    for w in cfg.get('borrowed') or []:              # written back as the host writes them (email, not e-mail)
-        for lc in cfg.get('loans', []):
-            t = (lexicon.lex(lc) or {}).get('read', {}).get(w.lower())
-            if t:
-                loanwrite[t] = w
-                break
+    for sp, e in origin().items():                 # the hand loans written back by stem (Jamaicában), as Hungarian writes them
+        stems.setdefault(e['t'], e['spell'].get(cfg['code'], sp))
     native = set()
     if cfg.get('native'):
         for line in open(os.path.join(LEX, cfg['native']), encoding='utf-8'):
@@ -202,8 +250,8 @@ def gen_hu(cfg):
                 native.add(word)
     native -= {w.lower() for w in cfg.get('borrowed') or []}   # English words the dictionary lists as its own
     return {'name': cfg['name'], 'kind': cfg['kind'], 'match': cfg['match'],
-            'loans': cfg.get('loans', []),
-            'read': spoken, 'write': stems, 'loanwrite': loanwrite, 'native': sorted(native), 'foreign': cfg.get('foreign', ''),
+            'loans': bool(cfg.get('loans')),
+            'read': spoken, 'write': stems, 'native': sorted(native), 'foreign': cfg.get('foreign', ''),
             'lengthen': cfg.get('lengthen', {})}
 
 
@@ -318,14 +366,23 @@ def gen_la(cfg):
 GEN = {'en': gen_en, 'hu': gen_hu, 'zh': gen_zh, 'la': gen_la}
 
 
+def yaml_codes():
+    return sorted(os.path.basename(p)[:-5] for p in glob.glob(os.path.join(LEX, '*.yaml')) if not p.endswith('origin.yaml'))
+
+
 def codes():
-    """Every lexicon, the ones a host borrows from first: a host reads their fresh json."""
-    all_ = sorted(os.path.basename(p)[:-5] for p in glob.glob(os.path.join(LEX, '*.yaml')) if not p.endswith('origin.yaml'))
-    return sorted(all_, key=lambda c: bool(load_yaml(c).get('loans')))
+    """Every lexicon, the loan dictionary after its sources (it reads their fresh json)."""
+    return yaml_codes() + ['loans']
 
 
 if __name__ == '__main__':
     for code in sys.argv[1:] or codes():
+        if code == 'loans':
+            data = {'code': 'loans', **gen_loans()}
+            json.dump(data, open(out_path('loans'), 'w'), ensure_ascii=False, separators=(',', ':'))
+            print(f"{out_path('loans')}: hand {len(data['hand'])}, " + ', '.join(f'{k} {len(v)}' for k, v in data['read'].items())
+                  + f", write {len(data['write'])} · {os.path.getsize(out_path('loans')) // 1024} KB")
+            continue
         cfg = load_yaml(code)
         for s in cfg.get('sources', []):
             if not os.path.exists(os.path.join(LEX, s)):

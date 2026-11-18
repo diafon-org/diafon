@@ -93,7 +93,11 @@ function showOptions(){
   $orig.closest('label').hidden = !st;
   $tones.closest('label').hidden = !(!L || L.tonal);
   if (st && st.lexicon && !lex(st.code) && !lexReady[st.code])
-    lexReady[st.code] = fetch(`../lexicon/${st.code}.json`).then(r => r.json()).then(d => setLexicon(st.code, d)).then(update, update);
+    lexReady[st.code] = fetch(`../lexicon/${st.code}.json`).then(r => r.json()).then(d => {
+      setLexicon(st.code, d);
+      if (d.loans && !lex('loans'))                 // a host that catches loans: the one loan dictionary too
+        return fetch('../lexicon/loans.json').then(r => r.json()).then(l => setLexicon('loans', l));
+    }).then(update, update);
   update();
 }
 
