@@ -1,7 +1,7 @@
 // Emoji as word choices (data/emoji.json, from scripts/gen_emoji.py): a typed
 // word's input form -> the emoji its names give, in any language, most used
 // first; from the third letter, also those of the words it begins; failing
-// both, those of its longest stem (kutjawval: kutja, hawzban: hawz). Offered
+// both, those of its longest stem (kutjawval: kutja, tqigawt: tqiga). Offered
 // like Mandarin's characters for a syllable; nothing changes in the text
 // unless one is picked. Loaded once, lazily: from $DIAFON_EMOJI (the check),
 // the lexicon directory (the Mac bundle) or the bundle's root (iOS).

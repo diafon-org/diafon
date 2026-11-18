@@ -19,7 +19,12 @@ With conversion off the keyboard reads the word typed by the person's own
 spellings into input form and matches it on the base letters alone
 (Emoji.swift, plain), so the table needs no spelled keys.
 
-  {"rank": [emoji, most used first, then the rest in CLDR order],
+The set is curated, not every emoji (2026-11-18): Unicode's 2019 frequency
+ranking, its first TOP with gender variants merged into the neutral one (as
+Unicode itself counts them), then ADD (the 2024-25 rankings' top emoji that
+2019 could not rank, and hand picks), then every country's flag.
+
+  {"rank": [emoji, most used first, then ADD, then the flags in CLDR order],
    "words": {input form: [indices into rank, most used first]}}
 
 The keyboard offers a word's own emoji first, then from the third letter
@@ -42,6 +47,10 @@ import stages
 SRC = os.path.join(ROOT, 'data', 'lexicon', 'sources', 'emoji')
 OUT = os.path.join(ROOT, 'data', 'emoji.json')       # beside the lexicons, not one of them
 LANGS = ['en', 'hu', 'cs', 'pl', 'fi', 'tr', 'sw']
+TOP = 300               # the most used, from freq.txt (gender variants merged)
+# the 2024-25 rankings' top emoji newer than 2019's (Gboard 2025, Meltwater 2024,
+# Brandwatch 2025, NYT), then hand picks
+ADD = ['🥰', '🫰', '🗿', '🐌']
 PER_KEY = 12            # emoji per word, most used first
 CROWD = 30              # a word of longer names naming more emoji than this is too vague
 WORD = re.compile(r"^[^\W\d_]+$")
@@ -80,18 +89,39 @@ def names(code):
     return out
 
 
+def neutral(e, known):
+    """A gendered emoji -> its neutral one where CLDR has it (🤷‍♀️ → 🤷, 👩‍⚕️ → 🧑‍⚕️)."""
+    n = re.sub('\u200d[\u2640\u2642]', '', e)
+    if '\u200d' in n and n[0] in '👨👩':
+        n = '🧑' + n[1:]
+    return n if n in known else e
+
+
+def is_flag(e):
+    return any(0x1F1E6 <= ord(c) <= 0x1F1FF for c in e) or '\U000E0067' in e
+
+
 def order():
-    """The emoji, most used first (freq.txt), then the rest in CLDR's order."""
-    rank = [bare(e) for e in open(os.path.join(SRC, 'freq.txt'), encoding='utf-8').read().split('\n') if e]
-    seen = set(rank)
+    """The set, most used first: freq.txt's first TOP (gender merged), ADD, the flags."""
+    known = []
     for f in ('annotations-en.json', 'derived-en.json'):
         d = json.load(open(os.path.join(SRC, f), encoding='utf-8'))
         table = d.get('annotations', d.get('annotationsDerived', {}))
-        for e in table.get('annotations', table):
-            e = bare(e)
-            if e not in seen and is_emoji(e):
-                seen.add(e); rank.append(e)
-    return [e for e in rank if is_emoji(e)]
+        known += [bare(e) for e in table.get('annotations', table)]
+    have = set(known)
+    rank, seen = [], set()
+    def put(e):
+        if e not in seen and is_emoji(e):
+            seen.add(e); rank.append(e)
+    for e in open(os.path.join(SRC, 'freq.txt'), encoding='utf-8').read().split('\n'):
+        if e and len(rank) < TOP:
+            put(neutral(bare(e), have))
+    for e in ADD:
+        put(bare(e))
+    for e in known:
+        if is_flag(e):
+            put(e)
+    return rank
 
 
 def reader(code):
