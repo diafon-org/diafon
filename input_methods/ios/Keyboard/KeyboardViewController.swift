@@ -37,8 +37,8 @@ final class KeyboardViewController: UIInputViewController {
     private var height: NSLayoutConstraint?
     private var shifted = false, capsLock = false
     private var lastShiftTap = Date.distantPast, lastSpaceAt = Date.distantPast
-    /// The emoticon the strip's emoji would replace (:) <3), if it shows one's.
-    private var emoticon: String?
+    /// The strip shows an emoticon's emoji (:D <3): a pick replaces what was typed since the space.
+    private var emoticon = false
     private var observer: NSObjectProtocol?
 
     /// Keys at the screen's edges answer at once, not after the system's edge gestures.
@@ -231,11 +231,13 @@ final class KeyboardViewController: UIInputViewController {
         // inside a word, its suggestions take the digits' place; a tone-aware mode
         // (Mandarin) keeps the digits, which write the syllable's tone
         let toneAware = prefs.enabled && prefs.output == "stage:zh"
-        emoticon = nil
+        emoticon = false
         var emoji: [String] = []
         if !toneAware {
-            if let (typed, list) = Emoji.emoticon(before: textDocumentProxy.documentContextBeforeInput ?? "") {
-                emoticon = typed; emoji = list
+            // read from the keys typed since the space: the host's context lags, and may
+            // leave out the marked tail (the D of :D)
+            if let list = Emoji.emoticons[session.run] {
+                emoticon = true; emoji = list
             } else if !keys.symbolsPage {
                 // conversion off: the word as usually spelled, read by the person's own spellings
                 emoji = prefs.enabled ? Emoji.choices(session.word)
@@ -247,12 +249,8 @@ final class KeyboardViewController: UIInputViewController {
 
     /// An emoji from the strip takes the place of the word or the emoticon it came from.
     private func pickEmoji(_ e: String) {
-        if let typed = emoticon {
-            session.flush()
-            if (textDocumentProxy.documentContextBeforeInput ?? "").hasSuffix(typed) {
-                for _ in 0..<typed.count { textDocumentProxy.deleteBackward() }
-            }
-            textDocumentProxy.insertText(e)
+        if emoticon {
+            session.replaceRun(with: e)
         } else {
             session.pick(e)
         }

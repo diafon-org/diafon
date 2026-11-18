@@ -8,8 +8,9 @@ has focus. The strip is the digit row between words; inside a word that
 names something in any of seven languages (English, Hungarian, Czech,
 Polish, Finnish, Turkish, Swahili), its emoji take the digits' place: the
 word's own first, then from the third letter those of the words it begins
-(`haw` ❤️, `kutja` 🐶, `dowg` 🐶). A classic emoticon (`:)` `<3` `;)`) offers
-its emoji too. A tap puts the emoji in place of the word or the emoticon. With conversion
+(`haw` ❤️, `kutja` 🐶, `dowg` 🐶), and failing both those of its longest stem
+(`kutjawval` 🐶, `hawzban` 🏠). A classic emoticon typed after a space (`:)`
+`:D` `<3`) offers its emoji too, read from the keys themselves, not the field. A tap puts the emoji in place of the word or the emoticon. With conversion
 off a word typed as usually spelled, without accents (`kutya`, `sziv`), is
 read by your own languages' spellings and matched on its base letters. In
 Mandarin the digits stay, since they write the tones. Select text in any

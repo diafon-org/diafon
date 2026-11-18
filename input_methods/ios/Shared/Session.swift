@@ -52,6 +52,12 @@ final class Session {
     /// The word being typed, as typed (letters and tone digits since the last
     /// space or punctuation): its emoji are offered, and one picked takes its place.
     private(set) var word = ""
+    /// Everything typed since the last space, as typed (`run`) and as it stands in
+    /// the editor once the tail is final (`runText`): an emoticon (:D, <3) is read
+    /// from the keys, not from the host's context, which lags and may leave out
+    /// the marked tail.
+    private(set) var run = ""
+    private var runText = ""
 
     init(sink: TextSink, mode: TailMode, render: @escaping (String) -> String) {
         self.sink = sink; self.mode = mode; self.render = render
@@ -60,6 +66,7 @@ final class Session {
     /// One character in: the streaming rule decides what is final.
     func type(_ ch: Character) {
         track(ch, plain: false)
+        if ch.isWhitespace { run = "" } else { run.append(ch) }
         let (committed, tail) = Engine.stream(pending + String(ch), renderer: render, wordwise: wordwise)
         show(head: committed, tail: tail)
     }
@@ -70,6 +77,8 @@ final class Session {
         lastEdit = Date()
         flush()
         sink.insertText(String(ch))
+        noteFinal(String(ch))
+        if ch.isWhitespace { run = "" } else { run.append(ch) }
         track(ch, plain: true)
     }
 
@@ -88,7 +97,14 @@ final class Session {
         lastEdit = Date()
         flush()
         sink.insertText(text)
+        noteFinal(text)
+        if let i = text.lastIndex(where: { $0.isWhitespace }) { run = String(text[text.index(after: i)...]) } else { run += text }
         word = ""
+    }
+
+    /// Text gone into the editor as final: the run's text grows, or starts after its last space.
+    private func noteFinal(_ text: String) {
+        if let i = text.lastIndex(where: { $0.isWhitespace }) { runText = String(text[text.index(after: i)...]) } else { runText += text }
     }
 
     /// Backspace edits the tail first; with no tail, one grapheme of the editor's text.
@@ -97,10 +113,12 @@ final class Session {
         if pending.isEmpty {
             sink.deleteBackward()
             if wordPlain, !word.isEmpty { word.removeLast() } else { word = "" }
+            if runText.isEmpty { run = "" } else { runText.removeLast(); if !run.isEmpty { run.removeLast() } }
             return
         }
         pending.removeLast()
         if !word.isEmpty { word.removeLast() }
+        if !run.isEmpty { run.removeLast() }
         show(head: "", tail: pending)
     }
 
@@ -110,19 +128,38 @@ final class Session {
     func flush() {
         guard !pending.isEmpty else { return }
         if mode == .marked {                              // the marked tail, final as it stands
-            if !settling, let before = sink.contextBefore, !before.hasSuffix(shown) { sink.unmarkText() } else { sink.insertText(shown) }
-        }
+            if !settling, let before = sink.contextBefore, !before.hasSuffix(shown) { sink.unmarkText(); run = ""; runText = "" }
+            else { sink.insertText(shown); noteFinal(shown) }
+        } else { noteFinal(shown) }
         pending = ""; shown = ""
     }
 
     /// A new field, or the keyboard back after a while: nothing typed before is ours.
-    func forget() { pending = ""; shown = ""; word = "" }
+    func forget() { pending = ""; shown = ""; word = ""; run = ""; runText = "" }
 
     /// A spelling picked from the strip takes the tail's place and is final.
     func take(_ text: String) {
         guard !pending.isEmpty else { return }
         if mode == .marked { sink.insertText(text) } else { replaceTail(with: text) }
-        pending = ""; shown = ""; word = ""
+        pending = ""; shown = ""; word = ""; run = ""; runText = ""
+    }
+
+    /// An emoticon picked from the strip takes the place of everything typed since
+    /// the last space (the run: `:D`, `<3`). The session's own record decides what
+    /// goes: the host's context only vetoes it when it is known, settled and no
+    /// longer ends with the run (the person moved or the app edited).
+    func replaceRun(with text: String) {
+        let ours = settling || (sink.contextBefore.map { $0.hasSuffix(runText + shown) } ?? false)
+        if ours {
+            if !pending.isEmpty { if mode == .marked { sink.setMarkedText("") } else { replaceTail(with: "") } }
+            for _ in 0..<runText.count { sink.deleteBackward() }
+            pending = ""; shown = ""
+        } else {
+            flush()
+        }
+        lastEdit = Date()
+        sink.insertText(text)
+        word = ""; run = ""; runText = ""
     }
 
     /// An emoji picked for the word just typed takes the word's place, as a chosen
@@ -136,7 +173,7 @@ final class Session {
             for _ in 0..<shown.count { sink.deleteBackward() }
         }
         sink.insertText(emoji)
-        word = ""
+        word = ""; run = ""; runText = ""
     }
 
     /// The editor changed under us (the person moved the cursor, or the app edited).
@@ -148,6 +185,7 @@ final class Session {
     func editorChanged() {
         if settling { return }                            // our own edit, not yet in the context
         if !word.isEmpty, let before = sink.contextBefore, !before.hasSuffix(written(word)) { word = "" }
+        if !run.isEmpty, let before = sink.contextBefore, !before.hasSuffix(runText + shown) { run = ""; runText = "" }
         guard !pending.isEmpty, let before = sink.contextBefore, !before.hasSuffix(shown) else { return }
         if mode == .marked { sink.unmarkText() }
         pending = ""; shown = ""
@@ -164,6 +202,7 @@ final class Session {
         case .replace:
             replaceTail(with: head + next)
         }
+        noteFinal(head)
         pending = tail; shown = next
     }
 

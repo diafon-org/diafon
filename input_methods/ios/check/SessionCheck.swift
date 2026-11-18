@@ -195,9 +195,37 @@ enum SessionCheck {
             expect(Emoji.choices("haw").contains("❤️"), "emoji haw, a prefix of hawrt: \(Emoji.choices("haw"))")
             expect(Emoji.choices("ha", prefixFrom: 3).allSatisfy { Emoji.choices("ha").contains($0) }, "emoji ha: exact only")
             expect(Emoji.choices("qqqq").isEmpty, "emoji qqqq: none")
-            expect(Emoji.emoticon(before: "ok :)")?.1.first == "🙂", "emoticon :)")
-            expect(Emoji.emoticon(before: "ok <3")?.0 == "<3", "emoticon <3")
-            expect(Emoji.emoticon(before: "f(:)") == nil, "emoticon inside a word: none")
+            expect(Emoji.choices("kutjawval").first == "🐶", "emoji kutjawval, the stem kutja: \(Emoji.choices("kutjawval"))")
+            expect(Emoji.choices("hawzban").first == "🏠", "emoji hawzban, the stem hawz: \(Emoji.choices("hawzban"))")
+            expect(Emoji.plain("kutyaval", spellings: ["hu"]).first == "🐶", "plain kutyaval: \(Emoji.plain("kutyaval", spellings: ["hu"]))")
+        }
+        for mode in modes {   // emoticons: read from the keys typed since the space, the marked D included
+            for (keys, want, left) in [("ok :D", "😃", "ok "), (":)", "🙂", ""), ("a <3", "❤️", "a "), ("x :P", "😛", "x "), ("xD", "😆", "")] {
+                for plain in [false, true] {
+                    let ed = StringEditor(), s = Session(sink: ed, mode: mode, render: { Engine.lenient($0) })
+                    for c in keys { if plain { s.typePlain(c) } else { s.type(c) } }
+                    let list = Emoji.emoticons[s.run]
+                    expect(list?.first == want, "emoticon \(keys.debugDescription) \(mode) plain \(plain): run \(s.run.debugDescription)")
+                    s.replaceRun(with: want)
+                    expect(ed.display == left + want && ed.marked.isEmpty, "emoticon pick \(keys.debugDescription) \(mode) plain \(plain): \(ed.display.debugDescription)")
+                }
+            }
+            let ed = StringEditor(), s = Session(sink: ed, mode: mode, render: { Engine.lenient($0) })
+            for c in "f(:)" { s.type(c) }
+            expect(Emoji.emoticons[s.run] == nil, "emoticon inside a word: none")
+            for c in " :" { s.type(c) }; s.backspace(); s.type("(")
+            expect(s.run == "(", "run after a backspace: \(s.run.debugDescription)")
+            Session.settle = 10                              // a lagging host: the marked D not in its context yet
+            let lag = StringEditor(), t = Session(sink: lag, mode: mode, render: { Engine.lenient($0) })
+            for c in "hi :D" { t.type(c) }
+            t.replaceRun(with: "😃")
+            expect(lag.display == "hi 😃", "emoticon pick while settling \(mode): \(lag.display.debugDescription)")
+            Session.settle = 0
+            let moved = StringEditor(), u = Session(sink: moved, mode: mode, render: { Engine.lenient($0) })
+            for c in ":D" { u.type(c) }
+            u.flush(); moved.text += " z"                    // the person typed elsewhere: the run is not there
+            u.replaceRun(with: "😃")
+            expect(moved.display == ":D z😃", "emoticon pick after an outside edit \(mode): \(moved.display.debugDescription)")
         }
         do {   // unknown context leaves the tail alone
             final class Blind: TextSink {

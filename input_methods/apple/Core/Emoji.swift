@@ -1,6 +1,7 @@
 // Emoji as word choices (data/emoji.json, from scripts/gen_emoji.py): a typed
 // word's input form -> the emoji its names give, in any language, most used
-// first; from the third letter, also those of the words it begins. Offered
+// first; from the third letter, also those of the words it begins; failing
+// both, those of its longest stem (kutjawval: kutja, hawzban: hawz). Offered
 // like Mandarin's characters for a syllable; nothing changes in the text
 // unless one is picked. Loaded once, lazily: from $DIAFON_EMOJI (the check),
 // the lexicon directory (the Mac bundle) or the bundle's root (iOS).
@@ -53,8 +54,12 @@ enum Emoji {
         return lookup(keys, t.base, prefixFrom).prefix(limit).map { t.rank[$0] }
     }
 
+    /// A stem is at least this long: shorter ones match too much (kutjawt: kutja, not kut).
+    static let stemFrom = 4
+
     /// The keys' own emoji, then (from `prefixFrom` letters) those of the keys they
-    /// begin, each part most used first.
+    /// begin, each part most used first; with neither, those of the longest stem
+    /// a key begins with, so a word with a suffix finds its stem's.
     private static func lookup(_ keys: [String], _ ix: Index, _ prefixFrom: Int) -> [Int] {
         var out: [Int] = []
         for k in keys { out += (ix.words[k] ?? []).filter { !out.contains($0) } }
@@ -69,10 +74,21 @@ enum Emoji {
                 lo += 1
             }
         }
+        if out.isEmpty, more.isEmpty {
+            var best: (Int, [Int])? = nil
+            for key in keys {
+                let c = Array(key)
+                for n in stride(from: c.count - 1, through: stemFrom, by: -1) where n > (best?.0 ?? 0) {
+                    if let hit = ix.words[String(c[..<n])] { best = (n, hit); break }
+                }
+            }
+            return best?.1 ?? []
+        }
         return out + more.subtracting(out).sorted()
     }
 
-    /// The classic emoticons, offered when the text before the cursor ends with one.
+    /// The classic emoticons, offered when what was typed since the last space is one
+    /// (Session.run, the keys themselves: the host's context lags behind them).
     static let emoticons: [String: [String]] = [
         ":)": ["🙂", "😊"], ":-)": ["🙂", "😊"], "(:": ["🙂"], ":]": ["🙂"],
         ":D": ["😃", "😄", "😁"], ":-D": ["😃", "😄"], ";)": ["😉"], ";-)": ["😉"],
@@ -82,18 +98,6 @@ enum Emoji {
         ":|": ["😐"], ":/": ["😕"], ":\\": ["😕"], ":S": ["😖"], ":$": ["😳"],
         "<3": ["❤️", "😍"], "</3": ["💔"], "^^": ["😊"], "^_^": ["😊"], "-_-": ["😑"],
         ">:(": ["😠", "😡"], "B)": ["😎"], "8)": ["😎"], "O:)": ["😇"], "o/": ["👋"], "\\o/": ["🙌"],
-        ":+1:": ["👍"], "(y)": ["👍"],
+        ":+1:": ["👍"], "(y)": ["👍"], "xD": ["😆"], "XD": ["😆"], ":3": ["😺"],
     ]
-
-    /// The emoticon the text ends with, standing alone (at the start or after a
-    /// space): (the emoticon, its emoji), the longest one first.
-    static func emoticon(before text: String) -> (String, [String])? {
-        for n in stride(from: min(5, text.count), through: 2, by: -1) {
-            let tail = String(text.suffix(n))
-            guard let e = emoticons[tail] else { continue }
-            let rest = text.dropLast(n)
-            if rest.isEmpty || rest.last?.isWhitespace == true { return (tail, e) }
-        }
-        return nil
-    }
 }
