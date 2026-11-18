@@ -21,8 +21,8 @@ only the last sound stays underlined until then.
 
 | Platform | What it does | State |
 |---|---|---|
-| macOS 13+ | An input method for every app. A Shift tap turns conversion off and on. Mandarin offers the characters of each syllable. Two text Services convert selected text. | Works. [Build and install](https://github.com/diafon-org/diafon/tree/main/input_methods/mac) |
-| iOS 16+ | A keyboard with a strip above the keys that shows the sound being typed; no full access and no network. Typing a word in any of seven languages, or its first three letters, offers the emoji it names. | Tested in the simulator, not yet on a device. [Build](https://github.com/diafon-org/diafon/tree/main/input_methods/ios) |
+| macOS 13+ | An input method for every app. A double Shift tap turns conversion off and on; ⇧Space opens a switcher by the cursor. Mandarin offers the characters of each syllable. Two text Services convert selected text. | Works. [Build and install](https://github.com/diafon-org/diafon/tree/main/input_methods/mac) |
+| iOS 16+ | A keyboard with a strip above the keys that shows the sound being typed; no full access and no network. Typing a word in any of seven languages, or its first three letters, offers the emoji it names. | Tested in the simulator and on an iPhone. [Build](https://github.com/diafon-org/diafon/tree/main/input_methods/ios) |
 | Android 8+ | A keyboard on QWERTY, QWERTZ, AZERTY, Dvorak or Colemak, with the digits for tones. The strip above the keys shows the sound being typed. Selected text converts from the text menu. | Builds; next after macOS and iOS. [Build](https://github.com/diafon-org/diafon/tree/main/input_methods/android) |
 | Windows | A Text Services Framework service. | Planned, after Android |
 | Linux | A table for IBus and fcitx5. | Planned, after Android |
