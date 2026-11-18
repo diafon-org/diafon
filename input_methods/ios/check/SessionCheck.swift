@@ -185,7 +185,7 @@ enum SessionCheck {
             expect(Emoji.plain("kutya", spellings: mine).first == "🐶", "plain kutya: \(Emoji.plain("kutya", spellings: mine))")
             expect(Emoji.plain("sziv", spellings: mine).first == "❤️", "plain sziv: \(Emoji.plain("sziv", spellings: mine))")
             expect(Emoji.plain("napszem", spellings: mine).contains("😎"), "plain napszem: \(Emoji.plain("napszem", spellings: mine))")
-            expect(Emoji.plain("szemuveg", spellings: mine).first == "👓", "plain szemuveg (u for ü): \(Emoji.plain("szemuveg", spellings: mine))")
+            expect(Emoji.plain("napszemuveg", spellings: mine).contains("😎"), "plain napszemuveg (u for ü): \(Emoji.plain("napszemuveg", spellings: mine))")
         }
         do {   // the emoji table: a word in any language, most used first, then its prefixes
             expect(Emoji.choices("hawrt").first == "❤️", "emoji hawrt: \(Emoji.choices("hawrt"))")
@@ -197,7 +197,8 @@ enum SessionCheck {
             expect(Emoji.choices("ha", prefixFrom: 3).allSatisfy { Emoji.choices("ha").contains($0) }, "emoji ha: exact only")
             expect(Emoji.choices("qqqq").isEmpty, "emoji qqqq: none")
             expect(Emoji.choices("kutjawval").first == "🐶", "emoji kutjawval, the stem kutja: \(Emoji.choices("kutjawval"))")
-            expect(Emoji.choices("hawzban").first == "🏠", "emoji hawzban, the stem hawz: \(Emoji.choices("hawzban"))")
+            expect(Emoji.choices("tqigawt").first == "🐌", "emoji tqigawt, the stem tqiga: \(Emoji.choices("tqigawt"))")
+            expect(Emoji.choices("madjarorsawg").first == "🇭🇺", "emoji madjarorsawg: \(Emoji.choices("madjarorsawg"))")
             expect(Emoji.plain("kutyaval", spellings: ["hu"]).first == "🐶", "plain kutyaval: \(Emoji.plain("kutyaval", spellings: ["hu"]))")
         }
         for mode in modes {   // emoticons: read from the keys typed since the space, the marked D included
