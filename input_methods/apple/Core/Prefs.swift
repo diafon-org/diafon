@@ -91,14 +91,16 @@ final class Prefs {
 
     func label(_ out: String? = nil) -> String {
         let out = out ?? output
-        if out.hasPrefix("stage:") { return SpecData.stages[String(out.dropFirst(6))]?.name ?? "Universal" }
+        if out.hasPrefix("stage:") { return SpecData.stages[String(out.dropFirst(6))].map { Prefs.plainName($0.name) } ?? "Universal" }
         return "Universal"
     }
 
     /// The languages with a spelling, in the order every screen lists them: (code, name).
     static let languages: [(String, String)] = SpecData.stageOrder.compactMap { code in
-        SpecData.stages[code].map { (code, $0.name) }
+        SpecData.stages[code].map { (code, plainName($0.name)) }
     }
+    /// A language's name as a person calls it: "Hungarian", not the data's "Hungarian spelling".
+    static func plainName(_ name: String) -> String { name.replacingOccurrences(of: " spelling", with: "") }
 
     /// The person's own sources, for detection's ties: the mode in use, the language
     /// in use, the quick list, the system's languages.
