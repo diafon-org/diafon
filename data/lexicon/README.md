@@ -45,7 +45,7 @@ names and keywords of each language (`sources/emoji/`, Unicode licence v3)
 and Unicode's emoji frequency ranking, maps a word's input form to the emoji
 it names, most used first (`choices` per language, `rank` overall). Each
 one-word name is read by its language (English through this lexicon,
-Hungarian through its stage). The set is curated (scripts/gen_emoji.py: Unicode's 300 most used, gender variants merged, a few newer favourites, every country's flag; 563 emoji, skin tones left to the system); a word with a suffix finds its stem's (kutjawval: kutja). The input
+Hungarian through its stage). The set is curated (scripts/gen_emoji.py: Unicode's 400 most used, gender variants merged, a few newer favourites, every country's flag; 656 emoji, skin tones left to the system); a word with a suffix finds its stem's (kutjawval: kutja). The input
 methods offer them for the word being typed; nothing changes unless one is
 picked.
 

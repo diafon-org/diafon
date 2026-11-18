@@ -10,13 +10,16 @@ Polish, Finnish, Turkish, Swahili), its emoji take the digits' place: the
 word's own first, then from the third letter those of the words it begins
 (`haw` ❤️, `kutja` 🐶, `dowg` 🐶), and failing both those of its longest stem
 (`kutjawval` 🐶, `tqigawt` 🐌). A classic emoticon typed after a space (`:)`
-`:D` `<3`) offers its emoji too, read from the keys themselves, not the field. A tap puts the emoji in place of the word or the emoticon. With conversion
-off a word typed as usually spelled, without accents (`kutya`, `sziv`), is
-read by your own languages' spellings and matched on its base letters. In
+`:D` `<3`) offers its emoji too, read from the keys themselves, not the field. A tap puts the emoji in place of the word or the emoticon. A word typed as
+usually spelled, with or without accents (`kutya`, `sziv`, `home`), is read
+by your own languages' spellings too, in any mode: in full first, then on its
+base letters. English is read through its lexicon's reading, carried as sorted
+lines searched in place (data/lexicon/en.read.tsv, 2.2 MB; the parsed lexicon
+would take 40 MB). In
 Mandarin the digits stay, since they write the tones. Select text in any
-spelling and the strip offers to convert it. The emoji table (data/emoji.json, 184 KB: 563 emoji, 9,717 words) is the
-only word list the keyboard carries: no dictionary, no prediction, no
-network, no full access.
+spelling and the strip offers to convert it. The emoji table (data/emoji.json, 220 KB: 656 emoji, 11,442 words) and the
+English reading are the only word lists the keyboard carries: no
+prediction, no network, no full access.
 
 **State:** the keystroke logic is checked on a Mac. The app and the keyboard
 build for iOS, and a UI test types on the keyboard in the simulator (iPhone

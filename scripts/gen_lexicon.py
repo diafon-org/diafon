@@ -64,6 +64,19 @@ def sample(cfg, read, kind):
     return ''.join(out)
 
 
+# The lexicons whose reading the iOS keyboard needs and cannot load whole (en.json
+# takes 40 MB parsed; a keyboard has about 50): the same `read` table as sorted
+# lines, `word<TAB>input form`, searched in place (ReadIndex.swift).
+READ_INDEX = ('en',)
+
+
+def write_read_index(code, read):
+    path = os.path.join(LEX, f'{code}.read.tsv')
+    lines = sorted((f'{w.lower()}\t{t}' for w, t in read.items()), key=lambda l: l.split('\t')[0].encode('utf-8'))
+    open(path, 'w', encoding='utf-8', newline='\n').write('\n'.join(lines) + '\n')
+    print(f'{path}: {len(lines)} words · {os.path.getsize(path) // 1024} KB')
+
+
 def write(code, data):
     data = {'code': code, **data}
     cfg = load_yaml(code)
@@ -72,6 +85,8 @@ def write(code, data):
     if cfg.get('sample_text'):
         data['sample'] = sample(cfg, data['read'], data['kind'])
     json.dump(data, open(out_path(code), 'w'), ensure_ascii=False, separators=(',', ':'))
+    if code in READ_INDEX:
+        write_read_index(code, data['read'])
     kb = os.path.getsize(out_path(code)) // 1024
     print(f'{out_path(code)}: ' + ', '.join(f'{k} {len(v)}' for k, v in data.items() if isinstance(v, dict)) + f' · {kb} KB')
 
