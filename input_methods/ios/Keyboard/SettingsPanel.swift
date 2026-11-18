@@ -12,7 +12,7 @@ final class SettingsPanel: UIView {
     private let quickRow = UIStackView()
     private let layoutPicker = UISegmentedControl(items: Layouts.all.map(\.label))
     private let sample = UILabel()
-    private let tones = UISwitch(), join = UISwitch(), autoCaps = UISwitch(), marked = UISwitch()
+    private let tones = UISwitch(), autoCaps = UISwitch(), marked = UISwitch()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -64,7 +64,6 @@ final class SettingsPanel: UIView {
 
         stack.addArrangedSubview(toggle(tones, "Tones") { [weak self] in self?.prefs.tones = $0; self?.refresh() })
         stack.addArrangedSubview(toggle(autoCaps, "Capital at a sentence start") { [weak self] in self?.prefs.autoCaps = $0 })
-        stack.addArrangedSubview(toggle(join, "Join long consonants") { [weak self] in self?.prefs.join = $0; self?.refresh() })
         stack.addArrangedSubview(toggle(marked, "Underline the letter being typed") { [weak self] in self?.prefs.tailMode = $0 ? .marked : .replace })
         let hint = caption("Turn this off if an app duplicates or drops letters while you type.")
         hint.numberOfLines = 0
@@ -103,7 +102,6 @@ final class SettingsPanel: UIView {
         sample.text = typed.isEmpty ? "" : "\(typed)  →  \(prefs.renderer()(typed))"
         layoutPicker.selectedSegmentIndex = Layouts.all.firstIndex { $0.code == prefs.layout } ?? 0
         tones.isOn = prefs.tones
-        join.isOn = prefs.join
         autoCaps.isOn = prefs.autoCaps
         marked.isOn = prefs.tailMode == .marked
     }

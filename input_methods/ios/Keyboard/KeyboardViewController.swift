@@ -50,6 +50,9 @@ final class KeyboardViewController: UIInputViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // the joiner in a long consonant is drawn fused only by the Diafon fonts; in
+        // the fonts of the apps the keyboard types into it misplaces the marks
+        if prefs.join { prefs.join = false }
         view.backgroundColor = .clear                 // the system's own keyboard backdrop shows through
         for v in [strip, keys, panel, menu] as [UIView] { v.translatesAutoresizingMaskIntoConstraints = false; view.addSubview(v) }
         NSLayoutConstraint.activate([

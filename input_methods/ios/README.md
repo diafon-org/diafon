@@ -112,7 +112,7 @@ it; the UI test taps it by its id, `key:s`, `key:space`, `key:delete`).
     Keyboard/KeyboardView.swift       the keys, drawn in one view; touch down emits; the globe button
     Keyboard/StripView.swift          the digit row, or a word's emoji, or convert selection
     Keyboard/ModeMenu.swift           the logo key's menu
-    Keyboard/SettingsPanel.swift      the space menu's languages (up to four), layout, capitals, tones, join, tail mode
+    Keyboard/SettingsPanel.swift      the space menu's languages (up to four), layout, capitals, tones, tail mode (no join: other apps' fonts misplace the marks around the joiner)
     Keyboard/Theme.swift              the palette (light and dark), operator tints, Diafon Serif
     App/DiafonApp.swift               the app: setup, try, convert, how-to
     App/Assets.xcassets               the icon (copied from docs/logo/png by `make icon`)
