@@ -1,7 +1,7 @@
 {
  "name": "Diafon",
- "generated": "2026-11-09",
- "source": "b7de3b6",
+ "generated": "2026-11-18",
+ "source": "ae9b5e9",
  "alphabet": {
   "consonant_bases": [
    "b",
@@ -10160,7 +10160,7 @@
  },
  "stages": {
   "cs": {
-   "name": "Czech spelling",
+   "name": "Czech",
    "state": "draft",
    "letters": [
     "a",
@@ -10282,7 +10282,7 @@
    "lexicon": true
   },
   "fi": {
-   "name": "Finnish spelling",
+   "name": "Finnish",
    "state": "draft",
    "letters": [
     "a",
@@ -10371,7 +10371,7 @@
    "lexicon": false
   },
   "hu": {
-   "name": "Hungarian spelling",
+   "name": "Hungarian",
    "state": "draft",
    "letters": [
     "a",
@@ -10474,7 +10474,7 @@
    "lexicon": true
   },
   "pl": {
-   "name": "Polish spelling",
+   "name": "Polish",
    "state": "draft",
    "letters": [
     "a",
@@ -10586,7 +10586,7 @@
    "lexicon": false
   },
   "sw": {
-   "name": "Swahili spelling",
+   "name": "Swahili",
    "state": "draft",
    "letters": [
     "a",
@@ -10668,7 +10668,7 @@
    "lexicon": false
   },
   "tr": {
-   "name": "Turkish spelling",
+   "name": "Turkish",
    "state": "draft",
    "letters": [
     "a",
