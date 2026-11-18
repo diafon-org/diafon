@@ -5,7 +5,7 @@
 # and stated: the velar nasal before g is written n in Swahili (ngoma), here
 # always ng'.
 code: sw
-name: Swahili spelling
+name: Swahili
 state: draft
 letters: a b ch d dh e f g gh h i j k kh l m n ng' ny o p r s sh t th u v w y z
 long: double

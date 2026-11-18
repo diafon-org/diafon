@@ -6,7 +6,7 @@
 # back; long a in loanwords takes the
 # circumflex (kâr) so that it stays apart from plain a.
 code: tr
-name: Turkish spelling
+name: Turkish
 state: draft
 letters: a â b c ç d e f g h ı i j k l m n o ö p r s ş t u ü v y z
 long: double

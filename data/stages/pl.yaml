@@ -8,7 +8,7 @@
 # shows (si, ni). The soft pj bj fj vj mj kj gj are written pi bi fi wi mi ki gi
 # before a vowel other than i (wiara, kiedy); before i they are plain (pić, kino).
 code: pl
-name: Polish spelling
+name: Polish
 state: draft
 letters: a ą b c ć ch cz d dz dź dż e ę f g h i j k l ł m n ń o ó p r s ś sz t u w y z ź ż
 long: double

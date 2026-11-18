@@ -8,7 +8,7 @@
 # ť ď ň are written t d n, as in Czech (ticho, dívka, nic); so the hard ty dy ny
 # read back as ti di ni, the i/y loss again.
 code: cs
-name: Czech spelling
+name: Czech
 state: draft
 letters: a á b c č d ď dz dž e é f g h ch i í j k l m n ň o ó p r ř s š t ť u ú v z ž
 long: double

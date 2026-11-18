@@ -5,7 +5,7 @@
 # Finnish ng is the long /ŋː/ (hengessä), read as ṇṇ. Losses, one-way and
 # stated: a single /ŋ/ before k is written n in Finnish (kenkä), here ng.
 code: fi
-name: Finnish spelling
+name: Finnish
 state: draft
 letters: a aa ä ää b d e ee f g h i ii j k l m n ng o oo ö öö p r s š t u uu v y yy
 long: double            # a long consonant doubles its letter: tt, kk, ss
