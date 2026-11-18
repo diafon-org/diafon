@@ -4,15 +4,36 @@
 // (tests/test_ios_session.py); this file only wires it to UIKit.
 import UIKit
 
+/// A debug build's trace of every edit and what the host said before it
+/// (Library/Caches/trace.log in the keyboard's container, read with devicectl).
+enum Trace {
+    #if DEBUG
+    private static let url = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first?.appendingPathComponent("trace.log")
+    private static var lines: [String] = []
+    private static let start = Date()
+    static func log(_ s: @autoclosure () -> String) {
+        lines.append(String(format: "%7.3f ", Date().timeIntervalSince(start)) + s())
+        if lines.count > 600 { lines.removeFirst(lines.count - 600) }
+        if let url { try? lines.joined(separator: "\n").write(to: url, atomically: false, encoding: .utf8) }
+    }
+    #else
+    static func log(_ s: @autoclosure () -> String) {}
+    #endif
+    static func q(_ t: String?) -> String {
+        guard let t else { return "nil" }
+        return "\"" + t.suffix(16).unicodeScalars.map { $0.isASCII && $0.value >= 32 ? String($0) : String(format: "<%04X>", $0.value) }.joined() + "\""
+    }
+}
+
 /// The host's text field, as Session needs it.
 final class ProxySink: TextSink {
     weak var controller: UIInputViewController?
     init(_ controller: UIInputViewController) { self.controller = controller }
     private var proxy: UITextDocumentProxy? { controller?.textDocumentProxy }
-    func insertText(_ text: String) { proxy?.insertText(text) }
-    func deleteBackward() { proxy?.deleteBackward() }
-    func setMarkedText(_ text: String) { proxy?.setMarkedText(text, selectedRange: NSRange(location: (text as NSString).length, length: 0)) }
-    func unmarkText() { proxy?.unmarkText() }
+    func insertText(_ text: String) { Trace.log("insert \(Trace.q(text)) ctx \(Trace.q(proxy?.documentContextBeforeInput))"); proxy?.insertText(text) }
+    func deleteBackward() { Trace.log("delete ctx \(Trace.q(proxy?.documentContextBeforeInput))"); proxy?.deleteBackward() }
+    func setMarkedText(_ text: String) { Trace.log("mark \(Trace.q(text)) ctx \(Trace.q(proxy?.documentContextBeforeInput))"); proxy?.setMarkedText(text, selectedRange: NSRange(location: (text as NSString).length, length: 0)) }
+    func unmarkText() { Trace.log("unmark ctx \(Trace.q(proxy?.documentContextBeforeInput))"); proxy?.unmarkText() }
     /// An empty field gives no context (nil) rather than "", which reads as unknown and
     /// keeps a tail the app cleared (a search field's ✕); with no text at all it is "".
     var contextBefore: String? {
@@ -126,11 +147,13 @@ final class KeyboardViewController: UIInputViewController {
 
     // The host tells us the text or the cursor changed; ours or the person's.
     override func textDidChange(_ textInput: UITextInput?) {
+        Trace.log("textDidChange ctx \(Trace.q(textDocumentProxy.documentContextBeforeInput)) word \(Trace.q(session.word)) pending \(Trace.q(session.pending))")
         session.editorChanged()
         refresh()
     }
 
     override func selectionDidChange(_ textInput: UITextInput?) {
+        Trace.log("selectionDidChange ctx \(Trace.q(textDocumentProxy.documentContextBeforeInput))")
         session.editorChanged()
         refresh()
     }
@@ -138,6 +161,7 @@ final class KeyboardViewController: UIInputViewController {
     // MARK: keys
 
     private func key(_ key: Key) {
+        Trace.log("key \(key)")
         if key != .space { lastSpaceAt = .distantPast }
         switch key {
         case .char(let c):
@@ -239,16 +263,20 @@ final class KeyboardViewController: UIInputViewController {
             if let list = Emoji.emoticons[session.run] {
                 emoticon = true; emoji = list
             } else if !keys.symbolsPage {
-                // conversion off: the word as usually spelled, read by the person's own spellings
-                emoji = prefs.enabled ? Emoji.choices(session.word)
-                    : Emoji.plain(session.word, spellings: prefs.preferredSources.filter { $0.hasPrefix("stage:") && $0 != "stage:zh" }.map { String($0.dropFirst(6)) })
+                // the word as input form, then as usually spelled (read by the person's own
+                // spellings): with conversion on, laza or cool typed as written finds its emoji too
+                let spellings = prefs.preferredSources.filter { $0.hasPrefix("stage:") && $0 != "stage:zh" }.map { String($0.dropFirst(6)) }
+                let plain = Emoji.plain(session.word, spellings: spellings)
+                emoji = prefs.enabled ? Array(NSOrderedSet(array: Emoji.choices(session.word) + plain).array.prefix(16)) as! [String] : plain
             }
         }
+        Trace.log("strip word \(Trace.q(session.word)) run \(Trace.q(session.run)) pending \(Trace.q(session.pending)) -> \(emoji.prefix(4).joined())")
         strip.show(emoji.isEmpty ? .digits : .emoji(emoji))
     }
 
     /// An emoji from the strip takes the place of the word or the emoticon it came from.
     private func pickEmoji(_ e: String) {
+        Trace.log("pick \(e) word \(Trace.q(session.word)) ctx \(Trace.q(textDocumentProxy.documentContextBeforeInput))")
         if emoticon {
             session.replaceRun(with: e)
         } else {

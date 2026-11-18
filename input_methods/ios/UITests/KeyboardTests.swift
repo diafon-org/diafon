@@ -106,7 +106,6 @@ final class KeyboardTests: XCTestCase {
 
     func testReplace() {
         setMarked(false)
-        cases("replace")
-        setMarked(true)                                   // leave the default behind
+        cases("replace")                                  // the default, left behind
     }
 }

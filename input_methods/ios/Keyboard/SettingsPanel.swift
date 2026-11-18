@@ -64,7 +64,7 @@ final class SettingsPanel: UIView {
 
         stack.addArrangedSubview(toggle(tones, "Tones") { [weak self] in self?.prefs.tones = $0; self?.refresh() })
         stack.addArrangedSubview(toggle(autoCaps, "Capital at a sentence start") { [weak self] in self?.prefs.autoCaps = $0 })
-        stack.addArrangedSubview(toggle(marked, "Underline the letter being typed") { [weak self] in self?.prefs.tailMode = $0 ? .marked : .replace })
+        stack.addArrangedSubview(toggle(marked, "Underline what is being typed (Contacts and some other apps drop it on Done)") { [weak self] in self?.prefs.tailMode = $0 ? .marked : .replace })
         let hint = caption("Turn this off if an app duplicates or drops letters while you type.")
         hint.numberOfLines = 0
         stack.addArrangedSubview(hint)

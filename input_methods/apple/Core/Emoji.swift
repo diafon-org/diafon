@@ -12,8 +12,13 @@ enum Emoji {
     private struct Table { let rank: [String]; let exact: Index; let base: Index }
 
     /// An input form on its base letters alone: without the operators and the
-    /// length mark (c j q x y w), as a word typed without accents reads.
-    static func base(_ t: String) -> String { String(t.lowercased().filter { !"cjqxyw".contains($0) && !$0.isNumber }) }
+    /// length mark (c j q x y w), as a word typed without accents reads; the
+    /// rounded front vowels as their plain look-alikes (ic ü → u, ec ö → o), as
+    /// szemuveg is typed for szemüveg.
+    static func base(_ t: String) -> String {
+        let t = t.lowercased().replacingOccurrences(of: "ic", with: "u").replacingOccurrences(of: "ec", with: "o")
+        return String(t.filter { !"cjqxyw".contains($0) && !$0.isNumber })
+    }
 
     private static let table: Table? = {
         let urls = [ProcessInfo.processInfo.environment["DIAFON_EMOJI"].map { URL(fileURLWithPath: $0) },
