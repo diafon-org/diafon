@@ -1,7 +1,7 @@
 // The settings, inside the keyboard: without full access a keyboard shares no
-// storage with its app, so this is where they are set (Settings… on the menu
-// a hold on the logo key opens). Two choices for the output, Universal or a
-// language's spelling, the language from one row; never every spelling flat.
+// storage with its app, so this is where they are set (a hold on the logo
+// key). The languages the space bar's menu offers: one list, up to
+// Prefs.quickMax ticked.
 import UIKit
 
 final class SettingsPanel: UIView {
@@ -9,8 +9,6 @@ final class SettingsPanel: UIView {
 
     private let prefs = Prefs.shared
     private let stack = UIStackView()
-    private let output = UISegmentedControl(items: ["Universal", "Language"])
-    private let languages = UIStackView()
     private let quickRow = UIStackView()
     private let layoutPicker = UISegmentedControl(items: Layouts.all.map(\.label))
     private let sample = UILabel()
@@ -48,18 +46,9 @@ final class SettingsPanel: UIView {
         done.addAction(UIAction { [weak self] _ in self?.onDone?() }, for: .touchUpInside)
         stack.addArrangedSubview(hrow([title, UIView(), done]))
 
-        output.addAction(UIAction { [weak self] _ in
-            guard let self else { return }
-            if self.output.selectedSegmentIndex == 0 { self.prefs.output = "script" } else { self.prefs.language = self.prefs.language }
-            self.refresh()
-        }, for: .valueChanged)
-        stack.addArrangedSubview(output)
-
-        stack.addArrangedSubview(scrolled(languages))
-        stack.addArrangedSubview(caption("Tap a language to write its spelling."))
-        stack.addArrangedSubview(caption("On the space bar's menu (hold space)"))
+        stack.addArrangedSubview(caption("Languages"))
         stack.addArrangedSubview(scrolled(quickRow))
-        stack.addArrangedSubview(caption("Tap to put a language on the menu or take it off; as many as you like."))
+        stack.addArrangedSubview(caption("Tick up to \(Prefs.quickMax). Hold the space bar to switch between Universal and these."))
 
         sample.numberOfLines = 0
         sample.font = Theme.serif(17)
@@ -86,19 +75,28 @@ final class SettingsPanel: UIView {
     required init?(coder: NSCoder) { fatalError() }
 
     func refresh() {
-        output.selectedSegmentIndex = prefs.universal ? 0 : 1
-        languages.arrangedSubviews.forEach { $0.removeFromSuperview() }
         quickRow.arrangedSubviews.forEach { $0.removeFromSuperview() }
         let quick = prefs.quickLanguages
+        let full = quick.count >= Prefs.quickMax
         for (code, name) in Prefs.languages {
-            let on = !prefs.universal && code == prefs.language
-            languages.addArrangedSubview(chip(name, fill: on ? Theme.accent : Theme.key, ink: on ? Theme.onAccent : Theme.ink) { [weak self] in
-                self?.prefs.language = code; self?.refresh()
-            })
             let inMenu = quick.contains(code)
-            quickRow.addArrangedSubview(chip(inMenu ? "✓ \(code)" : code, fill: Theme.key, ink: inMenu ? Theme.accent : Theme.muted, outline: inMenu) { [weak self] in
-                self?.prefs.setQuick(code, !inMenu); self?.refresh()
-            })
+            let b = chip(inMenu ? "✓ \(name)" : name, fill: Theme.key, ink: inMenu ? Theme.accent : Theme.ink, outline: inMenu) { [weak self] in
+                guard let self else { return }
+                if inMenu {
+                    guard quick.count > 1 else { return }       // one at least, for the language spellings
+                    let universal = self.prefs.universal
+                    self.prefs.setQuick(code, false)
+                    if self.prefs.language == code, let first = self.prefs.quickLanguages.first {
+                        self.prefs.language = first             // the language in use stays on the list
+                        if universal { self.prefs.output = "script" }
+                    }
+                } else if !full {
+                    self.prefs.setQuick(code, true)
+                }
+                self.refresh()
+            }
+            b.alpha = !inMenu && full ? 0.4 : 1
+            quickRow.addArrangedSubview(b)
         }
         let st = SpecData.stages[prefs.language]
         let typed = st?.sample ?? ""                    // the language's own sample, in the output in use

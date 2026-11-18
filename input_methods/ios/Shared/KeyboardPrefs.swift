@@ -25,11 +25,15 @@ extension Prefs {
         set { store(newValue.rawValue, "tailMode") }
     }
 
-    /// The modes on the logo key's menu: Universal, the quick list, the language in
+    /// The most languages on the space bar's menu: the menu fits the keyboard and
+    /// stays quick to slide through.
+    static let quickMax = 4
+
+    /// The modes on the space bar's menu: Universal, the quick list, the language in
     /// use if it is off the list, and off (plain keys).
     var menuModes: [String] {
         var list = ["script"] + quickLanguages.map { "stage:" + $0 }
-        if !list.contains("stage:" + language), !universal { list.append("stage:" + language) }
+        if !list.contains("stage:" + language), !universal, list.count <= Prefs.quickMax { list.append("stage:" + language) }
         return list + ["off"]
     }
     /// The mode in use, as the menu names it.
