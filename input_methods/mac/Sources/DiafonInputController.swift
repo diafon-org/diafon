@@ -10,6 +10,7 @@ import InputMethodKit
 public class DiafonInputController: IMKInputController {
     private var pending = ""                 // the typed tail still composing
     private var shiftPending = false
+    private var shiftDownAt: TimeInterval = 0         // when Shift went down
     private var lastShiftTap: TimeInterval = -1000   // when the last bare Shift tap landed
     private let anyRange = NSRange(location: NSNotFound, length: NSNotFound)
     private var prefs: Prefs { Prefs.shared }
@@ -56,28 +57,32 @@ public class DiafonInputController: IMKInputController {
     public override func handle(_ event: NSEvent!, client sender: Any!) -> Bool {
         guard let event, let client = sender as? IMKTextInput else { return false }
 
-        // a bare Shift tap (down, then up, with no key between) flips conversion on and off
+        // a bare Shift tap (down, then up, short, with no key, other modifier or mouse between):
+        // with the switcher up, the next mode; else two in a row flip conversion on and off
         if event.type == .flagsChanged {
-            if prefs.shiftToggle, event.keyCode == 56 || event.keyCode == 60 {
-                if event.modifierFlags.contains(.shift) { shiftPending = true }
-                else if shiftPending {
+            if event.keyCode == 56 || event.keyCode == 60 {
+                if event.modifierFlags.contains(.shift) {
+                    shiftPending = event.modifierFlags.intersection([.command, .control, .option]).isEmpty
+                    shiftDownAt = event.timestamp
+                } else if shiftPending {
                     shiftPending = false
-                    flush(client)
-                    let quickTap = event.timestamp - lastShiftTap < Prefs.tapWindow
-                    lastShiftTap = event.timestamp
-                    if quickTap { prefs.cycleMode() } else { prefs.toggleOff() }
-                    Hud.shared.show(prefs.modeLabel, near: caretRect(client))
+                    if cleanTap(held: event.timestamp - shiftDownAt) { shiftTapped(client, at: event.timestamp) }
                 }
             } else { shiftPending = false }
             return false
         }
         guard event.type == .keyDown else { return false }
         shiftPending = false
+        lastShiftTap = -1000                                    // a key between two Shift taps: no double tap
         if appliedLayout != prefs.keyLayoutID { applyLayout(client) }    // changed in Setup since this field was entered
 
-        // ⇧Space, in every mode: the language chooser
+        // ⇧Space, in every mode: the switcher, open or closed
         let mods = event.modifierFlags.intersection([.command, .control, .option, .shift])
-        if mods == [.shift], event.keyCode == 49 { flush(client); LanguageChooser.shared.show(); return true }
+        if mods == [.shift], event.keyCode == 49 {
+            flush(client)
+            if Switcher.shared.isVisible { Switcher.shared.hide() } else { Hud.shared.hide(); Switcher.shared.show(near: caretRect(client)) }
+            return true
+        }
         if !prefs.enabled { return false }                     // a plain keyboard: touch nothing
 
         // the candidate window (Mandarin characters) is up: it takes arrows, Return and the digits; Escape closes it
@@ -116,6 +121,33 @@ public class DiafonInputController: IMKInputController {
             else { flush(client); return false }
         }
         return true
+    }
+
+    // MARK: Shift
+
+    /// A Shift press and release counts as a tap only when it was short and no mouse
+    /// button went down or wheel turned while Shift was held (Shift-click, Shift-scroll
+    /// select; the input method never sees the mouse, so the system's clock tells).
+    private func cleanTap(held: TimeInterval) -> Bool {
+        guard held < Prefs.tapHold, NSEvent.pressedMouseButtons == 0 else { return false }
+        let mouse: [CGEventType] = [.leftMouseDown, .rightMouseDown, .otherMouseDown, .scrollWheel]
+        return mouse.allSatisfy { CGEventSource.secondsSinceLastEventType(.combinedSessionState, eventType: $0) > held + 0.05 }
+    }
+
+    private func shiftTapped(_ client: IMKTextInput, at time: TimeInterval) {
+        if Switcher.shared.isVisible {
+            flush(client)
+            prefs.nextMode()
+            Switcher.shared.show(near: nil)
+            return
+        }
+        guard prefs.shiftToggle else { return }
+        if time - lastShiftTap < Prefs.doubleTap {
+            lastShiftTap = -1000
+            flush(client)
+            prefs.toggleOff()
+            Hud.shared.show(prefs.modeLabel, near: caretRect(client))
+        } else { lastShiftTap = time }
     }
 
     // MARK: Mandarin: the syllable, then its character
@@ -237,6 +269,7 @@ public class DiafonInputController: IMKInputController {
 
     public override func deactivateServer(_ sender: Any!) {
         hidePanel()
+        Switcher.shared.hide()
         if let client = sender as? IMKTextInput { flush(client) }
     }
 
@@ -267,8 +300,7 @@ public class DiafonInputController: IMKInputController {
             item.state = (p.enabled && !p.universal && p.language == code) ? .on : .off
             m.addItem(item)
         }
-        let other = NSMenuItem(title: "Other language…", action: #selector(openChooser(_:)), keyEquivalent: " ")
-        other.keyEquivalentModifierMask = [.shift]            // shown beside the item; handled in handle()
+        let other = NSMenuItem(title: "Other language…", action: #selector(openChooser(_:)), keyEquivalent: "")
         m.addItem(other)
         m.addItem(.separator())
         // the selection in the app, converted in place: from the source detected, to the mode in use; or chosen
