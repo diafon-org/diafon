@@ -9,7 +9,7 @@ data class Stage(val code: String, val name: String, val long: String, val forms
 
 object SpecData {
     const val GENERATED = "2026-11-18"
-    const val SOURCE = "ae9b5e9"
+    const val SOURCE = "e1f0bc5"
     val DESCENDERS: Set<Char> = setOf('g', 'j', 'p', 'q', 'y')
     val WHOLE: Map<String, String> = mapOf("tc" to "c", "dc" to "x", "tq" to "c̦", "dq" to "x̦", "kq" to "q", "ix" to "j", "ux" to "w", "icx" to "j̈", "ucx" to "ẅ", "aq" to "r̈")
     val MARKS: Map<String, Mark> = mapOf(

@@ -7,8 +7,12 @@ final class Lexicon {
     let code: String
     let kind: String, match: String
     let read: [String: String], write: [String: String], choices: [String: [String]]
-    let loans: [String], native: Set<String>, foreign: NSRegularExpression?
-    let loanwrite: [String: String], lengthen: [String: String], common: Set<String>
+    let loans: Bool, native: Set<String>, foreign: NSRegularExpression?
+    let lengthen: [String: String], common: Set<String>
+    /// The loan dictionary (loans.json) only: the hand loans (spelling -> [transport, origin]), the
+    /// dictionaries' readings (origin -> spelling -> transport), each host's own spellings.
+    let hand: [String: [String]], loanRead: [String: [String: String]]
+    let hostRead: [String: [String: [String]]], hostWrite: [String: [String: String]]
     let sample: String, output: Bool
     private(set) lazy var syllables: [String] = read.keys.sorted { $0.count > $1.count }
     private(set) lazy var stems: [String] = write.keys.sorted { $0.count > $1.count }
@@ -17,12 +21,17 @@ final class Lexicon {
         self.code = code
         kind = json["kind"] as? String ?? "word"
         match = json["match"] as? String ?? "word"
-        read = json["read"] as? [String: String] ?? [:]
+        let isLoans = json["kind"] as? String == "loans"
+        read = isLoans ? [:] : json["read"] as? [String: String] ?? [:]
+        loanRead = isLoans ? json["read"] as? [String: [String: String]] ?? [:] : [:]
+        hand = json["hand"] as? [String: [String]] ?? [:]
+        let hosts = json["hosts"] as? [String: [String: Any]] ?? [:]
+        hostRead = hosts.mapValues { $0["read"] as? [String: [String]] ?? [:] }
+        hostWrite = hosts.mapValues { $0["write"] as? [String: String] ?? [:] }
         write = json["write"] as? [String: String] ?? [:]
         choices = json["choices"] as? [String: [String]] ?? [:]
-        loans = json["loans"] as? [String] ?? []
+        loans = json["loans"] as? Bool ?? false
         native = Set(json["native"] as? [String] ?? [])
-        loanwrite = json["loanwrite"] as? [String: String] ?? [:]
         lengthen = json["lengthen"] as? [String: String] ?? [:]
         common = Set(json["common"] as? [String] ?? [])
         foreign = (json["foreign"] as? String).flatMap { $0.isEmpty ? nil : try? NSRegularExpression(pattern: $0) }
@@ -163,22 +172,28 @@ final class Lexicon {
         return .word(Lexicon.recase(sp, t) + digits)
     }
 
-    /// A host's word written back as the loan it is, unless the letters' spelling is a host word.
+    /// A host's word written back as the loan it is (how the host writes it, else its own
+    /// spelling), unless the letters' spelling is a host word.
     func writeLoan(_ tIn: String, lettersSpelling: String) -> String? {
-        if loanwrite.isEmpty || lettersSpelling.count < 3 || native.contains(lettersSpelling.lowercased()) { return nil }   // a loan from three letters, as it is read
+        guard loans, let D = Lexicon.get("loans") else { return nil }
+        if lettersSpelling.count < 3 || native.contains(lettersSpelling.lowercased()) { return nil }   // a loan from three letters, as it is read
         var t = tIn, digits = ""
         while let last = t.last, last.isASCII, last.isNumber { digits = String(last) + digits; t.removeLast() }
-        guard !t.isEmpty, let sp = loanwrite[String(t.first!).lowercased() + t.dropFirst()] else { return nil }
+        guard !t.isEmpty else { return nil }
+        let k = String(t.first!).lowercased() + t.dropFirst()
+        guard let sp = D.hostWrite[code]?[k] ?? D.write[k] else { return nil }
         return Lexicon.recase(sp, t) + digits
     }
 
-    /// A host's word that is a loan: (transport in its own sounds, source code), or nil. The longest stem a loan
-    /// lexicon reads (among its common words where it has them) against the longest native stem, native
-    /// on ties unless the stem has a foreign shape; a suffixed word whose stem has no shape is never a
-    /// loan (akinek), with the shape the rest is read by the host's letters (streamingajánló); a stem
-    /// whose final vowel the suffix lengthened (lengthen: pizzát) is looked up short too.
+    /// A host's word that is a loan: (transport in its own sounds, origin code), or nil, from the one
+    /// loan dictionary (loans.json). The longest stem the dictionaries read against the longest native
+    /// stem, native on ties unless the stem has a foreign shape, and against the host's own entries and
+    /// the hand loans (origin.yaml, and the host's spellings of them: míting), the longer wins; a
+    /// suffixed word whose stem has no shape is never a dictionary loan (akinek), with the shape the rest
+    /// is read by the host's letters (streamingajánló); a hand loan is a stem (Jamaicában); a stem whose
+    /// final vowel the suffix lengthened (lengthen: pizzát) is looked up short too.
     func loan(_ word: String) -> (String, String)? {
-        if loans.isEmpty { return nil }
+        guard loans, let D = Lexicon.get("loans") else { return nil }
         let w = Engine.nfc(word), key = w.lowercased()
         let chars = Array(key), wchars = Array(w)
         let top = min(chars.count, 24)
@@ -187,26 +202,38 @@ final class Lexicon {
             if let short = lengthen[String(chars[i - 1])] { return [pre, String(chars[0..<(i - 1)]) + short] }
             return [pre]
         }
+        func withRest(_ t: String, _ n: Int) -> String {
+            let rest = String(wchars.count == chars.count ? wchars[n...] : chars[n...])
+            let restT = rest.isEmpty ? "" : (SpecData.stages[code].map { Stages.readLetters(rest, Stages.table($0)) } ?? rest)
+            return Lexicon.recase(t, word) + restT
+        }
+        let own = D.hostRead[code] ?? [:]
         var nativeLen = 0
         if top > 2 { for i in stride(from: top, to: 2, by: -1) where stems(i).contains(where: { native.contains($0) }) { nativeLen = i; break } }
-        let spokenLen = spokenStem(chars)          // the host's own entry, if any: it wins unless a loan stem is longer
+        let spokenLen = spokenStem(chars)          // the host's own entry, if any
+        var handLen = 0, hand: [String]? = nil     // a hand loan, the host's spelling of it first
+        if top > 2 {
+            for i in stride(from: top, to: 2, by: -1) {
+                if let p = stems(i).first(where: { own[$0] != nil || D.hand[$0] != nil }) { handLen = i; hand = own[p] ?? D.hand[p]; break }
+            }
+        }
         var loanLen = 0, src: String? = nil, stem: String? = nil
         if top > 2 {
             outer: for i in stride(from: top, to: 2, by: -1) {
-                for lc in loans {
-                    if let LL = Lexicon.get(lc), let hit = stems(i).first(where: { LL.read[$0] != nil && (LL.common.isEmpty || LL.common.contains($0)) }) { loanLen = i; src = lc; stem = hit; break outer }
+                for lc in D.loanRead.keys.sorted() where lc != code {
+                    if let hit = stems(i).first(where: { D.loanRead[lc]![$0] != nil }) { loanLen = i; src = lc; stem = hit; break outer }
                 }
             }
         }
-        guard let s = src, let st = stem, spokenLen < loanLen else { return nil }
-        let head = String(chars[0..<loanLen])
-        let isForeign = foreign.map { $0.firstMatch(in: head, range: NSRange(location: 0, length: (head as NSString).length)) != nil } ?? false
-        if !isForeign && loanLen < chars.count { return nil }
-        if nativeLen > loanLen || (nativeLen == loanLen && !isForeign) { return nil }
-        let t = Lexicon.recase(Lexicon.get(s)!.read[st]!, word)
-        let rest = String(wchars.count == chars.count ? wchars[loanLen...] : chars[loanLen...])
-        let restT = rest.isEmpty ? "" : (SpecData.stages[code].map { Stages.readLetters(rest, Stages.table($0)) } ?? rest)
-        return (t + restT, s)
+        if let s = src, let st = stem, loanLen > max(spokenLen, handLen) {
+            let head = String(chars[0..<loanLen])
+            let isForeign = foreign.map { $0.firstMatch(in: head, range: NSRange(location: 0, length: (head as NSString).length)) != nil } ?? false
+            if (isForeign || loanLen == chars.count) && !(nativeLen > loanLen || (nativeLen == loanLen && !isForeign)) {
+                return (withRest(D.loanRead[s]![st]!, loanLen), s)
+            }
+        }
+        if let h = hand, h.count == 2, handLen > spokenLen { return (withRest(h[0], handLen), h[1]) }
+        return nil
     }
 
     func choose(_ key: String) -> [String] { choices[key.lowercased()] ?? [] }
