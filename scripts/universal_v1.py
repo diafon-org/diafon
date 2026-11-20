@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """universal-v1: the typing Diafon had before the split (split.md), as a
-bridge. TEMPORARY: this is the only module of the alphabet that knows a
-typed form; it keeps the build chain working through P1 and leaves for
-diafon-input in P2, where it becomes the profile universal-v1.
+bridge. TEMPORARY: it keeps the site's typing pages building until the
+site is split (split.md, P4; tests/test_no_input.py lists what is pending).
+The typing itself lives in diafon-input, as the profile universal-v1.
 
 The grammar: 20 bases, 6 operators; an operator never starts a segment, a
 base always does. A form carries at most two of c j q x y; w (length) rides
@@ -512,8 +512,7 @@ def __getattr__(name):
 
 
 def export(out_dir):
-    """The lexicons as the ports read them, in typed forms: <code>.json, and
-    en.read.tsv (word<TAB>typed form, sorted) for the iOS keyboard."""
+    """The lexicons as the site's typing engine reads them, in typed forms: <code>.json."""
     import json
     import lexicon as X
     os.makedirs(out_dir, exist_ok=True)
@@ -521,11 +520,7 @@ def export(out_dir):
         d = typed_lexicon(json.load(open(os.path.join(X.LEX, f'{code}.json'), encoding='utf-8')))
         json.dump(d, open(os.path.join(out_dir, f'{code}.json'), 'w', encoding='utf-8'),
                   ensure_ascii=False, separators=(',', ':'))
-        if code == 'en':
-            read = d['read']
-    lines = sorted((f'{w.lower()}\t{t}' for w, t in read.items()), key=lambda l: l.split('\t')[0].encode('utf-8'))
-    open(os.path.join(out_dir, 'en.read.tsv'), 'w', encoding='utf-8', newline='\n').write('\n'.join(lines) + '\n')
-    print(f'{out_dir}: {len(X.codes())} lexicons in typed forms, en.read.tsv {len(lines)} words')
+    print(f'{out_dir}: {len(X.codes())} lexicons in typed forms')
 
 
 if __name__ == '__main__':

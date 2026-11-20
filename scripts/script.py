@@ -80,7 +80,7 @@ class Tok:
     def __repr__(self):
         if self.raw is not None:
             return f'<{self.raw!r}>'
-        return f'<{self.name or "+".join((self.comp[0],) + self.comp[1:])}{"^" if self.caps else ""}{self.tones}>'
+        return f'<{self.name or "+".join((self.comp[0],) + self.comp[1])}{"^" if self.caps else ""}{self.tones}>'
 
 
 def valid(comp):

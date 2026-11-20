@@ -1,7 +1,7 @@
 # Split: the alphabet and the input
 
-Status: P0 and P1 done on the branch `split` (2026-11-20); P2 next. See
-"P1 as built" below.
+Status: P0 and P1 done, P2 done in part, on the branch `split` (2026-11-20).
+See "P1 as built" and "P2 as built" below.
 
 Diafon today is one system: the typed form is the point's identity. Stages,
 lexicons, the spec, the font tools and every port are keyed by input forms
@@ -258,6 +258,39 @@ operators); remarks.md and plan.md split.
     `heixtx`) used to leave the operator over; a letter is not cut.
   The old spec, the lessons, the playground data, the emoji table and the
   port data regenerate byte for byte (but for the date stamp).
+
+## P2 as built
+
+- **The repository**: `diafon-input`, extracted with history beside this
+  checkout (local only, no remote yet). It holds the input methods, the
+  layouts, the lessons, the emoji table, the playground, the old spec and
+  its tests, and the pre-split goldens.
+- **Profiles**: `profiles/universal-v1.yaml` is the old grammar as data: 113
+  key sequences, each naming a point or, for the 34 unnamed compositions,
+  a letter and marks. It compiles to `spec/universal-v1.json`. The Python
+  engine there is driven by that table and by `vendor/alphabet-spec.json`
+  alone, and reproduces every typing vector of the pre-split spec byte for
+  byte (117 forms, 497 vectors).
+- **Vendoring**: `scripts/sync_alphabet.py` copies the spec and the
+  lexicons and records version, commit and sha256 in `vendor/ALPHABET`.
+- **A deviation, the generators**: the generators that read a language (the
+  old spec, the lessons, the emoji table) run this repository's Python
+  reference from a checkout beside theirs, at the vendored commit. The
+  engine and the ports do not. The alternative is a second Python
+  implementation of the stages and lexicons there.
+- **Not done, the ports**: Swift, Kotlin and the site's JS still carry the
+  universal-v1 grammar in code and read the old spec's tables. They pass
+  the pre-split vectors, but they do not yet read compiled profiles. That
+  rewrite is needed before `minimal-hu-v1` can run on a device, so it opens
+  P3.
+- **Not done, the last deletions**: the input-only paths are gone from
+  here (input methods, layouts, emoji, their generators and tests, the
+  goldens). The site still shows how a point is typed (playground, lessons,
+  the master tables' form column), so the bridge and the generators behind
+  those pages stay until the site is split: `tests/test_no_input.py` passes
+  for everything else and lists those 12 files as pending. P4's work on
+  this site therefore comes before the gate of P2 can close.
+- Device checklists for macOS and iOS are not run.
 
 ## Arguments against
 

@@ -2,7 +2,7 @@
 """The long consonants in the shipping fonts. Run: python3 tests/test_font_long.py
 
 1. Every family maps ZWJ and ZWNJ to a glyph with no ink and no advance.
-2. HarfBuzz: every long consonant the engine writes joined (t ZWJ t) shapes
+2. HarfBuzz: every long consonant the script writes joined (t ZWJ t) shapes
    to its <letter>.long when the family ships that pair (drawn), and to the
    two letters with an empty ZWJ between them when it does not; the plain
    double (tt) and the ZWNJ-split pair never fuse.
@@ -22,9 +22,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 sys.path.insert(0, os.path.join(ROOT, 'fonts', 'tools'))
 import build_font as BF
-import universal_v1 as engine
+import script
 
-LONG = [f for f in engine.inventory() if f.endswith('w') and f[0] in engine.C_BASES]
+LONG = [c for c in sorted(script.compositions()) if not script.vocalic(c)]      # the long consonants
 HIDDEN = ('uni200D', 'uni200C', 'space')     # a shaper may hide a joiner as an empty space
 
 
@@ -67,7 +67,7 @@ def test_harfbuzz():
         font = hb.Font(hb.Face(hb.Blob.from_file_path(path)))
         fused = set()
         for form in LONG:
-            joined, plain = engine.render(form, join=True), engine.render(form)
+            joined, plain = script.glyph(form, True, join=True), script.glyph(form, True)
             got, adv = shape(font, joined)
             if len(got) == 1:
                 assert got[0].endswith('.long'), (key, form, got)
@@ -117,8 +117,8 @@ def test_coretext():
         hbfont = hb.Font(hb.Face(hb.Blob.from_file_path(path)))
         texts = []
         for form in LONG:
-            plain = engine.render(form)
-            texts += [engine.render(form, join=True), plain,
+            plain = script.glyph(form, True)
+            texts += [script.glyph(form, True, join=True), plain,
                       plain[:len(plain) // 2] + '‌' + plain[len(plain) // 2:]]
         res = subprocess.run([exe, path], input='\n'.join(texts) + '\n', capture_output=True, text=True)
         assert res.returncode == 0, res.stderr
