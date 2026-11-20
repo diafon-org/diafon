@@ -9,6 +9,7 @@
 #
 # Immutable: a change to this file is universal-v2.
 id: universal-v1
+name: Universal (every language)
 alphabet: 1                 # the alphabet major this profile targets
 segment:
   kind: base-operators

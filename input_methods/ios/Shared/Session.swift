@@ -37,6 +37,8 @@ final class Session {
     var render: (String) -> String
     /// A language's spelling: the word being typed stays pending (Engine.stream).
     var wordwise = false
+    /// The input profile: what the keys mean, and whether the word commits at its end (Profiles.stream).
+    var profile = Profiles.get(Profiles.fallback)
     /// What the tail shows while typed (its letters); nil shows render.
     var preview: ((String) -> String)? = nil
     /// The typed tail whose reading can still change, as typed.
@@ -67,7 +69,7 @@ final class Session {
     func type(_ ch: Character) {
         track(ch, plain: false)
         if ch.isWhitespace { run = "" } else { run.append(ch) }
-        let (committed, tail) = Engine.stream(pending + String(ch), renderer: render, wordwise: wordwise)
+        let (committed, tail) = Profiles.stream(pending + String(ch), profile, renderer: render, wordwise: wordwise)
         show(head: committed, tail: tail)
     }
 

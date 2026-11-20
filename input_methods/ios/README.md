@@ -106,8 +106,8 @@ the tail as plain text, saved like any other: it is the default since.
 | letters, digits | `Session.type`: the head becomes final, the tail stays provisional; digits (on the strip) are tones |
 | ⇧ | next letter capital; double tap locks; on at a sentence start where the field asks, if turned on in the settings (off by default) |
 | ⌫ | edits the tail first, then one grapheme of the field; repeats when held |
-| logo | a tap: the signs (two pages in the system keyboard's order, `1/2` and `2/2`), the key lit; a tap again: the letters; press and slide to a sign: that sign, then the letters again; hold: the settings |
-| space | names the mode in use (diafon, or the language code; blank when off); goes in on release; hold: the modes (Universal, the quick list, off), slide and let go, or tap; after a sign, the letters come back; two spaces after a word: a full stop and a space |
+| logo | a tap: the signs (two pages in the system keyboard's order, `1/2` and `2/2`), the key lit; a tap again: the letters; press and slide to a sign: that sign, then the letters again; hold: the settings (what is written: Universal, a language, off; the languages offered; the typing, that is the input profile; the layout) |
+| space | names the mode in use (diafon, or the language code; blank when off); goes in on release; after a sign, the letters come back; two spaces after a word: a full stop and a space |
 | 🌐 | the system's keyboard list; shown only where the system has no switcher of its own (`needsInputModeSwitchKey`) |
 | return | settles the tail, then a newline; labelled by the field's return key type |
 

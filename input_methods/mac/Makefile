@@ -8,8 +8,8 @@ ROOT  := ../..
 BUILD := build
 APP   := DiafonIM
 SWIFTC := xcrun swiftc -swift-version 5 -O
-CORE  := $(ROOT)/input_methods/apple/Core/SpecData.swift $(ROOT)/input_methods/apple/Core/Engine.swift $(ROOT)/input_methods/apple/Core/Stages.swift $(ROOT)/input_methods/apple/Core/Reading.swift $(ROOT)/input_methods/apple/Core/Lexicon.swift $(ROOT)/input_methods/apple/Core/Prefs.swift $(ROOT)/input_methods/apple/Core/Layouts.swift
-APPSRC := Sources/MacPrefs.swift Sources/main.swift Sources/Services.swift Sources/ConvertWindow.swift Sources/Hud.swift Sources/Switcher.swift Sources/LanguageChooser.swift Sources/SetupWindow.swift Sources/DiafonInputController.swift
+CORE  := $(ROOT)/input_methods/apple/Core/SpecData.swift $(ROOT)/input_methods/apple/Core/Engine.swift $(ROOT)/input_methods/apple/Core/Stages.swift $(ROOT)/input_methods/apple/Core/Reading.swift $(ROOT)/input_methods/apple/Core/Lexicon.swift $(ROOT)/input_methods/apple/Core/Profiles.swift $(ROOT)/input_methods/apple/Core/Prefs.swift $(ROOT)/input_methods/apple/Core/Layouts.swift
+APPSRC := Sources/MacPrefs.swift Sources/main.swift Sources/Services.swift Sources/ConvertWindow.swift Sources/Hud.swift Sources/LanguageChooser.swift Sources/SetupWindow.swift Sources/DiafonInputController.swift
 
 .PHONY: data check app install enable clean
 
@@ -24,11 +24,11 @@ app: check
 	$(SWIFTC) $(CORE) $(APPSRC) -framework Cocoa -framework InputMethodKit \
 		-o $(BUILD)/$(APP).app/Contents/MacOS/$(APP)
 	cp Info.plist $(BUILD)/$(APP).app/Contents/Info.plist
-	cp $(ROOT)/docs/logo/Diafon.icns $(BUILD)/$(APP).app/Contents/Resources/Diafon.icns
-	cp $(ROOT)/docs/logo/DiafonMenu.tiff $(BUILD)/$(APP).app/Contents/Resources/DiafonMenu.tiff
-	cp $(ROOT)/docs/logo/DiafonBadge.pdf $(BUILD)/$(APP).app/Contents/Resources/DiafonBadge.pdf
+	cp $(ROOT)/vendor/logo/Diafon.icns $(BUILD)/$(APP).app/Contents/Resources/Diafon.icns
+	cp $(ROOT)/vendor/logo/DiafonMenu.tiff $(BUILD)/$(APP).app/Contents/Resources/DiafonMenu.tiff
+	cp $(ROOT)/vendor/logo/DiafonBadge.pdf $(BUILD)/$(APP).app/Contents/Resources/DiafonBadge.pdf
 	mkdir -p $(BUILD)/$(APP).app/Contents/Resources/lexicon && cp $(ROOT)/docs/lexicon/*.json $(BUILD)/$(APP).app/Contents/Resources/lexicon/
-	mkdir -p $(BUILD)/$(APP).app/Contents/Resources/Fonts && cp $(ROOT)/fonts/Diafon*-Regular.ttf $(BUILD)/$(APP).app/Contents/Resources/Fonts/
+	mkdir -p $(BUILD)/$(APP).app/Contents/Resources/Fonts && cp $(ROOT)/vendor/fonts/Diafon*-Regular.ttf $(BUILD)/$(APP).app/Contents/Resources/Fonts/
 	codesign --force --sign - $(BUILD)/$(APP).app
 
 install: clean app

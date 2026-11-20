@@ -8,15 +8,14 @@ import InputMethodKit
 
 @objc(DiafonInputController)
 public class DiafonInputController: IMKInputController {
-    private var pending = ""                 // the typed tail still composing
-    private var shiftPending = false
-    private var shiftDownAt: TimeInterval = 0         // when Shift went down
-    private var lastShiftTap: TimeInterval = -1000   // when the last bare Shift tap landed
+    private var pending = ""                 // the typed tail still composing, as typed (the profile's keys)
     private let anyRange = NSRange(location: NSNotFound, length: NSNotFound)
     private var prefs: Prefs { Prefs.shared }
 
     private var candidateList: [String] = []
     private var syllable: String? = nil      // Mandarin: a completed syllable (transport + tone) awaiting its character
+    private var syllableTyped = ""           //   and the keys that typed it, for a backspace that reopens it
+    private var profile: ProfileData { prefs.profileData }
     private var mandarin: Bool { prefs.enabled && output == "stage:zh" && Lexicon.get("zh") != nil }
     private var output: String { prefs.output }
     private func render() -> (String) -> String { prefs.renderer(output) }
@@ -51,38 +50,14 @@ public class DiafonInputController: IMKInputController {
     }
 
     public override func recognizedEvents(_ sender: Any!) -> Int {
-        Int(NSEvent.EventTypeMask.keyDown.union(.flagsChanged).rawValue)
+        Int(NSEvent.EventTypeMask.keyDown.rawValue)
     }
 
     public override func handle(_ event: NSEvent!, client sender: Any!) -> Bool {
         guard let event, let client = sender as? IMKTextInput else { return false }
 
-        // a bare Shift tap (down, then up, short, with no key, other modifier or mouse between):
-        // with the switcher up, the next mode; else two in a row flip conversion on and off
-        if event.type == .flagsChanged {
-            if event.keyCode == 56 || event.keyCode == 60 {
-                if event.modifierFlags.contains(.shift) {
-                    shiftPending = event.modifierFlags.intersection([.command, .control, .option]).isEmpty
-                    shiftDownAt = event.timestamp
-                } else if shiftPending {
-                    shiftPending = false
-                    if cleanTap(held: event.timestamp - shiftDownAt) { shiftTapped(client, at: event.timestamp) }
-                }
-            } else { shiftPending = false }
-            return false
-        }
         guard event.type == .keyDown else { return false }
-        shiftPending = false
-        lastShiftTap = -1000                                    // a key between two Shift taps: no double tap
         if appliedLayout != prefs.keyLayoutID { applyLayout(client) }    // changed in Setup since this field was entered
-
-        // ⇧Space, in every mode: the switcher, open or closed
-        let mods = event.modifierFlags.intersection([.command, .control, .option, .shift])
-        if mods == [.shift], event.keyCode == 49 {
-            flush(client)
-            if Switcher.shared.isVisible { Switcher.shared.hide() } else { Hud.shared.hide(); Switcher.shared.show(near: caretRect(client)) }
-            return true
-        }
         if !prefs.enabled { return false }                     // a plain keyboard: touch nothing
 
         // the candidate window (Mandarin characters) is up: it takes arrows, Return and the digits; Escape closes it
@@ -123,33 +98,6 @@ public class DiafonInputController: IMKInputController {
         return true
     }
 
-    // MARK: Shift
-
-    /// A Shift press and release counts as a tap only when it was short and no mouse
-    /// button went down or wheel turned while Shift was held (Shift-click, Shift-scroll
-    /// select; the input method never sees the mouse, so the system's clock tells).
-    private func cleanTap(held: TimeInterval) -> Bool {
-        guard held < Prefs.tapHold, NSEvent.pressedMouseButtons == 0 else { return false }
-        let mouse: [CGEventType] = [.leftMouseDown, .rightMouseDown, .otherMouseDown, .scrollWheel]
-        return mouse.allSatisfy { CGEventSource.secondsSinceLastEventType(.combinedSessionState, eventType: $0) > held + 0.05 }
-    }
-
-    private func shiftTapped(_ client: IMKTextInput, at time: TimeInterval) {
-        if Switcher.shared.isVisible {
-            flush(client)
-            prefs.nextMode()
-            Switcher.shared.show(near: nil)
-            return
-        }
-        guard prefs.shiftToggle else { return }
-        if time - lastShiftTap < Prefs.doubleTap {
-            lastShiftTap = -1000
-            flush(client)
-            prefs.toggleOff()
-            Hud.shared.show(prefs.modeLabel, near: caretRect(client))
-        } else { lastShiftTap = time }
-    }
-
     // MARK: Mandarin: the syllable, then its character
 
     /// Mandarin mode: letters build a syllable, shown as pinyin; a tone digit
@@ -171,7 +119,7 @@ public class DiafonInputController: IMKInputController {
                 if (candidatePanelIfAny?.isVisible() ?? false) { candidatePanelIfAny?.interpretKeyEvents([event]); return true }
                 return false
             case 51:                                              // backspace reopens the syllable
-                hidePanel(); pending = syl; syllable = nil; pending.removeLast(); mark(client)
+                hidePanel(); pending = syllableTyped; syllable = nil; pending.removeLast(); mark(client)
                 return true
             default:
                 if let ch = chars.first, ch.isLetter {            // the next syllable starts: the first choice goes in
@@ -197,8 +145,9 @@ public class DiafonInputController: IMKInputController {
     }
 
     private func completeSyllable(_ client: IMKTextInput) {
-        let syl = pending
+        let syl = Profiles.syllable(pending, profile)      // in universal-v1 forms, whatever typed it
         syllable = syl
+        syllableTyped = pending
         pending = ""
         let zh = SpecData.stages["zh"]!
         let pinyin = Stages.render(syl, zh, tones: prefs.tones)
@@ -235,7 +184,7 @@ public class DiafonInputController: IMKInputController {
 
     /// One character in: the streaming rule decides what is final.
     private func type(_ client: IMKTextInput, _ ch: Character) {
-        let (committed, tail) = Engine.stream(pending + String(ch), renderer: render(), wordwise: output.hasPrefix("stage:"))
+        let (committed, tail) = Profiles.stream(pending + String(ch), profile, renderer: render(), wordwise: output.hasPrefix("stage:"))
         if !committed.isEmpty { insert(client, committed) }
         pending = tail
         mark(client)
@@ -247,7 +196,9 @@ public class DiafonInputController: IMKInputController {
     }
 
     private func mark(_ client: IMKTextInput) {
-        let shown = pending.isEmpty ? "" : (mandarin ? Stages.render(pending, SpecData.stages["zh"]!, tones: prefs.tones) : prefs.renderer(output, letters: true)(pending))
+        // Mandarin: the syllable so far as pinyin (a key-table profile types pinyin, so as typed)
+        let shown = pending.isEmpty ? "" : (mandarin ? (profile.table ? pending : Stages.render(pending, SpecData.stages["zh"]!, tones: prefs.tones))
+                                                     : prefs.renderer(output, letters: true)(pending))
         let attrs: [NSAttributedString.Key: Any] = [.underlineStyle: NSUnderlineStyle.single.rawValue]
         client.setMarkedText(NSAttributedString(string: shown, attributes: attrs),
                              selectionRange: NSRange(location: (shown as NSString).length, length: 0),
@@ -269,7 +220,6 @@ public class DiafonInputController: IMKInputController {
 
     public override func deactivateServer(_ sender: Any!) {
         hidePanel()
-        Switcher.shared.hide()
         if let client = sender as? IMKTextInput { flush(client) }
     }
 
@@ -302,6 +252,14 @@ public class DiafonInputController: IMKInputController {
         }
         let other = NSMenuItem(title: "Other language…", action: #selector(openChooser(_:)), keyEquivalent: "")
         m.addItem(other)
+        m.addItem(.separator())
+        // the input profile: what the keys mean (tags from 1000: only the tag survives the trip)
+        for (i, pr) in Profiles.all.enumerated() {
+            let item = NSMenuItem(title: "Typing: \(pr.name)", action: #selector(selectProfile(_:)), keyEquivalent: "")
+            item.tag = 1000 + i
+            item.state = p.profile == pr.id ? .on : .off
+            m.addItem(item)
+        }
         m.addItem(.separator())
         // the selection in the app, converted in place: from the source detected, to the mode in use; or chosen
         let conv = NSMenuItem(title: "Convert selection to \(p.enabled ? p.label() : "Universal")", action: #selector(convertSelection(_:)), keyEquivalent: "")
@@ -349,6 +307,12 @@ public class DiafonInputController: IMKInputController {
         guard let t = item(sender)?.tag, t >= 1, t <= Prefs.languages.count else { return }
         prefs.language = Prefs.languages[t - 1].0
         prefs.enabled = true
+    }
+
+    @objc func selectProfile(_ sender: Any!) {
+        guard let t = item(sender)?.tag, t >= 1000, t - 1000 < Profiles.all.count else { return }
+        if let client = self.client() { flush(client) }          // the tail belongs to the old profile
+        prefs.profile = Profiles.all[t - 1000].id
     }
 
     @objc func openSetup(_ sender: Any!) { SetupWindow.shared.show() }

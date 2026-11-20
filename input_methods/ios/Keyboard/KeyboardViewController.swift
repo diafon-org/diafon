@@ -47,6 +47,7 @@ final class KeyboardViewController: UIInputViewController {
     private let prefs = Prefs.shared
     private lazy var session: Session = {
         let s = Session(sink: ProxySink(self), mode: prefs.tailMode, render: prefs.renderer())
+        s.profile = prefs.profileData
         s.wordwise = !prefs.universal
         s.preview = prefs.renderer(letters: true)
         return s
@@ -54,7 +55,6 @@ final class KeyboardViewController: UIInputViewController {
     private let keys = KeyboardView()
     private let strip = StripView()
     private let panel = SettingsPanel()
-    private let menu = ModeMenu()
     private var height: NSLayoutConstraint?
     private var shifted = false, capsLock = false
     private var lastShiftTap = Date.distantPast, lastSpaceAt = Date.distantPast
@@ -75,7 +75,7 @@ final class KeyboardViewController: UIInputViewController {
         // the fonts of the apps the keyboard types into it misplaces the marks
         if prefs.join { prefs.join = false }
         view.backgroundColor = .clear                 // the system's own keyboard backdrop shows through
-        for v in [strip, keys, panel, menu] as [UIView] { v.translatesAutoresizingMaskIntoConstraints = false; view.addSubview(v) }
+        for v in [strip, keys, panel] as [UIView] { v.translatesAutoresizingMaskIntoConstraints = false; view.addSubview(v) }
         NSLayoutConstraint.activate([
             strip.topAnchor.constraint(equalTo: view.topAnchor),
             strip.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -89,22 +89,11 @@ final class KeyboardViewController: UIInputViewController {
             panel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             panel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             panel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            menu.topAnchor.constraint(equalTo: view.topAnchor),
-            menu.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            menu.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            menu.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         panel.isHidden = true
 
         keys.onKey = { [weak self] in self?.key($0) }
         keys.onLogoHold = { [weak self] _ in self?.showSettings(true) }
-        keys.onSpaceHold = { [weak self] in self?.showMenu() }
-        keys.onMenuDrag = { [weak self] p in guard let self else { return }; self.menu.drag(to: self.keys.convert(p, to: self.menu)) }
-        keys.onMenuRelease = { [weak self] p in guard let self else { return }; self.menu.release(at: self.keys.convert(p, to: self.menu)) }
-        menu.onPick = { [weak self] id in
-            guard let self else { return }
-            if id == "settings" { self.showSettings(true) } else { self.session.flush(); self.prefs.setMenuMode(id) }
-        }
         keys.globeButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         strip.onDigit = { [weak self] d in self?.key(.char(d)) }
         strip.onEmoji = { [weak self] e in self?.pickEmoji(e) }
@@ -267,7 +256,7 @@ final class KeyboardViewController: UIInputViewController {
                 // spellings): with conversion on, laza or cool typed as written finds its emoji too
                 let spellings = prefs.preferredSources.filter { $0.hasPrefix("stage:") && $0 != "stage:zh" }.map { String($0.dropFirst(6)) }
                 let plain = Emoji.plain(session.word, spellings: spellings)
-                emoji = prefs.enabled ? Array(NSOrderedSet(array: Emoji.choices(session.word) + plain).array.prefix(16)) as! [String] : plain
+                emoji = prefs.enabled ? Array(NSOrderedSet(array: Emoji.choices(Profiles.unescape(Profiles.transport(session.word, prefs.profileData))) + plain).array.prefix(16)) as! [String] : plain
             }
         }
         Trace.log("strip word \(Trace.q(session.word)) run \(Trace.q(session.run)) pending \(Trace.q(session.pending)) -> \(emoji.prefix(4).joined())")
@@ -322,14 +311,7 @@ final class KeyboardViewController: UIInputViewController {
         refresh()
     }
 
-    // MARK: the menu and settings
-
-    /// The space bar's menu: the modes.
-    private func showMenu() {
-        session.flush()
-        let items = prefs.menuModes.map { (id: $0, title: prefs.menuTitle($0)) }
-        menu.present(items, current: prefs.menuMode, anchor: keys.convert(keys.spaceFrame, to: menu))
-    }
+    // MARK: the settings
 
     private func showSettings(_ on: Bool) {
         session.flush()
@@ -341,6 +323,7 @@ final class KeyboardViewController: UIInputViewController {
     private func prefsChanged() {
         session.flush()                              // the shown tail belongs to the old renderer
         session.render = prefs.renderer()
+        session.profile = prefs.profileData
         session.wordwise = !prefs.universal
         session.preview = prefs.renderer(letters: true)
         session.mode = prefs.tailMode

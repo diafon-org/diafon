@@ -21,7 +21,7 @@ sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import compile_profile
 from engine import alphabet, profile
-from engine.engine import Engine, ParseError
+from engine.engine import Engine, ParseError, make
 
 IDS = sorted(os.path.basename(p)[:-5] for p in glob.glob(os.path.join(ROOT, 'profiles', '*.yaml')))
 
@@ -35,13 +35,23 @@ def test_current():
 def test_sound():
     for pid in IDS:
         c = profile.compiled(pid)
-        eng = Engine(c)
+        eng = make(c)
         seen = {}
         for key, v in c['keys'].items():
             comp = (v['to'][0], tuple(v['to'][1:]))
             assert comp in alphabet.COMPS, (pid, key)
             assert v['point'] == alphabet.NAME.get(comp), (pid, key)
-            assert seen.setdefault(comp, key) == key, (pid, key, seen[comp])
+            k = (comp, v['long']) if c['segment']['kind'] == 'key-table' else comp
+            assert seen.setdefault(k, key) == key, (pid, key, seen[k])
+        if c['segment']['kind'] == 'key-table':
+            uni = Engine(profile.compiled('universal-v1'))
+            for key, v in c['keys'].items():
+                toks = eng.points(key)
+                assert len(toks) == 1 and toks[0].comp == (v['to'][0], tuple(v['to'][1:])) and toks[0].long == v['long'], (pid, key)
+                assert uni.render(v['via']) == eng.render(key), (pid, key, v['via'])      # the same point in universal-v1 keys
+            for syl, via in c.get('pinyin', {}).get('via', {}).items():
+                assert uni.render(via) == c['pinyin']['syllables'][syl], (pid, syl)
+            continue
         inv = eng.inventory()
         for f in inv:
             for x in (f, f[0].upper() + f[1:]):
@@ -53,27 +63,35 @@ def test_sound():
             assert glyphs.setdefault(eng.glyph(f), f) == f, (pid, f, glyphs[eng.glyph(f)])
 
 
+def trace(eng, t):
+    return compile_profile.trace(eng, t)
+
+
 def check(eng, v):
     for t, want in v['render']:
         assert eng.render(t) == want, (t, eng.render(t), want)
-    for t, want in v['lenient']:
+    for t, want in v.get('lenient', []):
         assert eng.render(t, strict=False) == want, (t, want)
     for t, want in v['joined']:
         assert eng.render(t, join=True) == want, (t, want)
-    for t in v['invalid']:
+    for t in v.get('invalid', []):
         try:
             eng.render(t)
         except ParseError:
             continue
         raise AssertionError(f'{t!r} should be invalid')
     for t, steps in v['stream'].items():
-        assert compile_profile.trace(eng, t) == steps, t
+        assert trace(eng, t) == steps, t
 
 
 def test_vectors():
     for pid in IDS:
         c = profile.compiled(pid)
-        check(Engine(c), c['vectors'])
+        check(make(c), c['vectors'])
+    eng = make(profile.compiled('minimal-hu-v1'))
+    for typed, want in [('cyak a joq soq', 'c̦ak a jó só'), ('anyy cityy boyy', 'any city boy'), ('ssy', 'șș'),
+                        ('syy', 'sy'), ('you my by quick', 'you my by quick'), ('zhong1guo2', 'c̦uṇˉkuoˊ'), ('h2o', 'h2o')]:
+        assert eng.render(typed) == want, (typed, eng.render(typed), want)
 
 
 def test_universal_v1_is_the_old_typing():

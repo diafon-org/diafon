@@ -1,7 +1,7 @@
 // The settings, inside the keyboard: without full access a keyboard shares no
 // storage with its app, so this is where they are set (a hold on the logo
-// key). The languages the space bar's menu offers: one list, up to
-// Prefs.quickMax ticked.
+// key): what is written (Universal, a language's spelling, or plain keys), the
+// languages to choose from (up to Prefs.quickMax ticked), and the input profile.
 import UIKit
 
 final class SettingsPanel: UIView {
@@ -9,7 +9,9 @@ final class SettingsPanel: UIView {
 
     private let prefs = Prefs.shared
     private let stack = UIStackView()
+    private let modeRow = UIStackView()
     private let quickRow = UIStackView()
+    private let profilePicker = UISegmentedControl(items: Profiles.all.map(\.name))
     private let layoutPicker = UISegmentedControl(items: Layouts.all.map(\.label))
     private let sample = UILabel()
     private let tones = UISwitch(), autoCaps = UISwitch(), marked = UISwitch()
@@ -46,9 +48,19 @@ final class SettingsPanel: UIView {
         done.addAction(UIAction { [weak self] _ in self?.onDone?() }, for: .touchUpInside)
         stack.addArrangedSubview(hrow([title, UIView(), done]))
 
+        stack.addArrangedSubview(caption("Writes"))
+        stack.addArrangedSubview(scrolled(modeRow))
         stack.addArrangedSubview(caption("Languages"))
         stack.addArrangedSubview(scrolled(quickRow))
-        stack.addArrangedSubview(caption("Tick up to \(Prefs.quickMax). Hold the space bar to switch between Universal and these."))
+        stack.addArrangedSubview(caption("Tick up to \(Prefs.quickMax): the spellings offered above."))
+
+        profilePicker.addAction(UIAction { [weak self] _ in
+            guard let self else { return }
+            self.prefs.profile = Profiles.all[self.profilePicker.selectedSegmentIndex].id
+            self.refresh()
+        }, for: .valueChanged)
+        stack.addArrangedSubview(caption("Typing"))
+        stack.addArrangedSubview(profilePicker)
 
         sample.numberOfLines = 0
         sample.font = Theme.serif(17)
@@ -74,6 +86,15 @@ final class SettingsPanel: UIView {
     required init?(coder: NSCoder) { fatalError() }
 
     func refresh() {
+        modeRow.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        for m in prefs.menuModes {                      // Universal, the ticked languages, off
+            let on = prefs.menuMode == m
+            modeRow.addArrangedSubview(chip(prefs.menuTitle(m), fill: Theme.key, ink: on ? Theme.accent : Theme.ink, outline: on) { [weak self] in
+                self?.prefs.setMenuMode(m)
+                self?.refresh()
+            })
+        }
+        profilePicker.selectedSegmentIndex = Profiles.all.firstIndex { $0.id == prefs.profile } ?? 0
         quickRow.arrangedSubviews.forEach { $0.removeFromSuperview() }
         let quick = prefs.quickLanguages
         let full = quick.count >= Prefs.quickMax
@@ -98,8 +119,8 @@ final class SettingsPanel: UIView {
             quickRow.addArrangedSubview(b)
         }
         let st = SpecData.stages[prefs.language]
-        let typed = st?.sample ?? ""                    // the language's own sample, in the output in use
-        sample.text = typed.isEmpty ? "" : "\(typed)  →  \(prefs.renderer()(typed))"
+        let typed = st?.sample ?? ""                    // the language's own sample (universal-v1 forms), in the output in use
+        sample.text = typed.isEmpty ? "" : (prefs.profileData.table ? prefs.formRenderer()(typed) : "\(typed)  →  \(prefs.formRenderer()(typed))")
         layoutPicker.selectedSegmentIndex = Layouts.all.firstIndex { $0.code == prefs.layout } ?? 0
         tones.isOn = prefs.tones
         autoCaps.isOn = prefs.autoCaps

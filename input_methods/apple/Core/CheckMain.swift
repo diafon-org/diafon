@@ -10,6 +10,7 @@
 //   parse:<src>   the text in that source read back as transport
 //   convert:<src>|<target>   converted between sources
 //   detect        the source detected
+//   profile:<id>  what was typed under an input profile, in the script (pjoined: joined; pstream: the trace)
 import Foundation
 
 let FIELD = "\u{1E}"
@@ -35,6 +36,23 @@ struct Check {
                     let (c, p) = Engine.stream(buf)
                     steps.append(buf + FIELD + c + FIELD + p)
                     buf = p
+                }
+                result = steps.joined(separator: STEP)
+            }
+            else if mode.hasPrefix("profile:"), let p = SpecData.profiles[String(mode.dropFirst(8))] {
+                result = Profiles.unescape(Engine.lenient(Profiles.transport(input, p)))
+            }
+            else if mode.hasPrefix("pjoined:"), let p = SpecData.profiles[String(mode.dropFirst(8))] {
+                result = Profiles.unescape(Engine.lenient(Profiles.transport(input, p), join: true))
+            }
+            else if mode.hasPrefix("pstream:"), let p = SpecData.profiles[String(mode.dropFirst(8))] {
+                var buf = ""
+                var steps: [String] = []
+                for ch in input.unicodeScalars {
+                    buf += String(ch)
+                    let (c, pend) = Profiles.stream(buf, p, renderer: { Profiles.unescape(Engine.lenient(Profiles.transport($0, p))) })
+                    steps.append(buf + FIELD + c + FIELD + pend)
+                    buf = pend
                 }
                 result = steps.joined(separator: STEP)
             }

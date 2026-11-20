@@ -24,15 +24,17 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
   text, the last segment stays underlined until a key settles it. Backspace
   edits the underlined tail first; Escape drops the tail in as typed; Return,
   Tab, arrows and any shortcut make the tail final and pass through.
-- **Two keys.** Two quick Shift taps (within 0.4 s) switch conversion off,
-  and back on to the spelling you had; a small label near the caret names
-  the mode for a moment. ⇧Space opens the switcher beside the caret, in
-  every mode: Universal, each language on the quick list, off, the one in
-  use marked. While it is up each Shift tap puts the next one in use and
-  typing goes on; a second ⇧Space closes it, and so do 2.5 s without a
-  Shift tap. A tap counts only when Shift was down under 0.3 s with no key,
-  other modifier, click or scroll in between, so Shift-click and
-  Shift-scroll never switch.
+- **The keyboard menu switches.** Everything is chosen in Diafon's menu
+  under the input source in the menu bar: conversion off, Universal, a
+  language's spelling, and the input profile (Typing: …). No key switches
+  anything.
+- **Input profiles.** What the keys mean comes from a compiled profile
+  (`../../spec/<id>.json`). `universal-v1` is the grammar the engine
+  carries. `minimal-hu-v1` is a key table: `y` and `q` are the operators
+  (`sy` ș, `cy` c̦, `oyq` ő), a doubled consonant is long (`ssy` șș), a
+  doubled operator is the plain letter (`cityy` city), a word of pinyin
+  with tone digits is Mandarin (`zhong1guo2`), and the word stays
+  underlined until its end.
 - **Mandarin.** In the Mandarin spelling, letters build a syllable shown as
   pinyin; the tone digit (or a space, for the neutral tone) completes it and
   the candidate window lists its characters, most frequent first, the pinyin
@@ -48,8 +50,8 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
   with every language, filtered as you type by native name, English name or
   code, and on its right the quick list itself: the box beside a language
   puts it there, and Up, Down and Remove order and prune it; that order is
-  the menu's and the switcher's. No cap, but past three the chooser warns
-  that every Shift tap then has further to go. The language in use is
+  the menu's. No cap, but past three the chooser warns that the menu gets
+  long. The language in use is
   always listed, on the quick list or not. Then Setup. Flat by necessity: the menu is shown by a system
   process that returns only top-level clicks, so a submenu cannot be picked
   from.
@@ -76,26 +78,25 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
    Colemak, whatever layout the Mac had selected before.
 2. Type a sound as a base, then its operators: `sj` → ș, `tq` → c̦,
    `aw` → á; the last sound stays underlined until the next key settles it.
-3. Two quick Shift taps switch conversion off and back on. ⇧Space opens
-   the switcher; Shift taps step through Universal, your quick list and
-   off, and ⇧Space (or a pause) closes it.
+3. Diafon's menu in the menu bar switches: conversion off, Universal, a
+   language's spelling, and the typing (the input profile).
 4. Text in any spelling: select it, then Diafon menu → Convert selection
    (or right-click → Services → Convert with Diafon); the … variants let
    you set the source and the target first.
 
 ## Layout of this project
 
-    ../apple/Core/SpecData.swift       generated from docs/spec.json by scripts/gen_mac.py: script rules, marks, stages
+    ../apple/Core/SpecData.swift       generated from docs/spec.json and spec/<profile>.json by scripts/gen_mac.py: script rules, marks, stages, profiles
     ../apple/Core/Engine.swift         the engine, rule for rule from scripts/engine.py: segments, glyph, render, stream
     ../apple/Core/Stages.swift         spelling stages, from scripts/stages.py
     ../apple/Core/Reading.swift        reading back, from scripts/engine.py and stages.py: inventory, tables, parse, convert, detect
     ../apple/Core/Lexicon.swift        the lexicon layer: English, Hungarian loans, Mandarin syllables
-    ../apple/Core/Prefs.swift          the settings (output, language, quick list, tones, join, enabled, shift toggle; strict only colours the iOS strip, the Mac has none) and the renderer
+    ../apple/Core/Profiles.swift       the input profiles: what was typed, read into the engine's forms
+    ../apple/Core/Prefs.swift          the settings (output, language, quick list, tones, join, enabled, profile; strict only colours the iOS strip, the Mac has none) and the renderer
     ../apple/Core/CheckMain.swift      stdin/stdout driver used by tests/test_swift.py
     Sources/DiafonInputController.swift  IMKInputController: keystrokes in, streaming rule, insertText / setMarkedText out; the status menu
     Sources/ConvertWindow.swift        the From / To window of Convert with Diafon…
     Sources/Hud.swift                  the mode label shown for a moment after a switch
-    Sources/Switcher.swift             the switcher by the caret (⇧Space, then Shift taps)
     Sources/LanguageChooser.swift      the searchable language list (Other language…)
     Sources/SetupWindow.swift          the setup window
     Sources/MacPrefs.swift             the base layout under Diafon (overrideKeyboard), from ../apple/Core/Layouts.swift

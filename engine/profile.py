@@ -31,21 +31,35 @@ def compile(pid):
     p = load(pid)
     assert p['alphabet'] == alphabet.MAJOR, f'{pid} targets alphabet {p["alphabet"]}, vendor/ holds {alphabet.VERSION}'
     seg = p['segment']
-    bases, ops = set(seg['bases']), set(seg['operators'])
+    table = seg['kind'] == 'key-table'
+    ops = set(seg['operators'])
+    bases = set(seg['bases']) if not table else {str(k)[0] for k in p['keys']}
     keys, seen = {}, {}
     for key, value in p['keys'].items():
         key = str(key)
         to, may_long = (value, True) if isinstance(value, str) else (value['to'], value.get('long', True))
         comp, long = alphabet.target(to)
-        assert not long, f'{pid}: {key}: length is typed with the length key'
+        assert table or not long, f'{pid}: {key}: length is typed with the length key'
         assert key[0] in bases and all(ch in ops for ch in key[1:]), f'{pid}: {key} is not a base and operators'
-        assert comp not in seen, f'{pid}: {key} and {seen[comp]} both type {to}'
-        seen[comp] = key
-        keys[key] = {'to': [comp[0], *comp[1]], 'point': alphabet.NAME.get(comp), 'long': bool(may_long)}
-    return {'id': pid, 'alphabet': {'major': p['alphabet'], 'built_with': alphabet.VERSION},
-            'segment': {'kind': seg['kind'], 'bases': ''.join(sorted(bases)), 'operators': ''.join(sorted(ops)),
-                        'max_operators': seg['max_operators'], 'length': seg['length'], 'tones': seg['tones']},
-            'case': p['case'], 'commit': p['commit'], 'keys': keys}
+        assert (comp, long) not in seen, f'{pid}: {key} and {seen[comp, long]} both type {to}'
+        seen[comp, long] = key
+        keys[key] = {'to': [comp[0], *comp[1]], 'point': alphabet.NAME.get(comp), 'long': bool(long if table else may_long)}
+    out = {'id': pid, 'name': p.get('name', pid), 'alphabet': {'major': p['alphabet'], 'built_with': alphabet.VERSION},
+           'case': p['case'], 'commit': p['commit'], 'keys': keys}
+    if table:
+        vowels = alphabet.VOWELS
+        out['segment'] = {'kind': 'key-table', 'bases': ''.join(sorted(bases)), 'operators': ''.join(sorted(ops)),
+                          'double': seg['double'], 'escape': seg['escape'],
+                          'doubling': ''.join(sorted(b for b in bases if b not in vowels))}
+        if p.get('pinyin'):
+            py = p['pinyin']
+            lex = json.load(open(os.path.join(ROOT, 'vendor', 'lexicon', f'{py["lexicon"]}.json'), encoding='utf-8'))
+            out['pinyin'] = {'tones': py['tones'], 'neutral': py['neutral'], 'u_umlaut': py['u_umlaut'],
+                             'syllables': dict(sorted(lex['read'].items()))}
+    else:
+        out['segment'] = {'kind': seg['kind'], 'bases': ''.join(sorted(bases)), 'operators': ''.join(sorted(ops)),
+                          'max_operators': seg['max_operators'], 'length': seg['length'], 'tones': seg['tones']}
+    return out
 
 
 def path(pid):

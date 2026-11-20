@@ -22,7 +22,7 @@ data:
 
 # the icon is the site's, made by fonts/tools/logo.py; copied, not kept twice in git
 icon:
-	cp $(ROOT)/docs/logo/png/icon-1024.png $(ICON)
+	cp $(ROOT)/vendor/logo/icon-1024.png $(ICON)
 
 project: icon
 	xcodegen generate

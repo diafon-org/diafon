@@ -1,6 +1,6 @@
 // The settings, shared in name and default with every Diafon input method
 // (input_methods/README.md, Settings): output, language, tones, join,
-// strict, enabled, shiftToggle.
+// strict, enabled, profile.
 import Foundation
 
 final class Prefs {
@@ -13,8 +13,12 @@ final class Prefs {
 
     /// Conversion on; off is a plain keyboard.
     var enabled: Bool { get { bool("enabled", true) } set { set(newValue, "enabled") } }
-    /// A double Shift tap flips conversion on and off.
-    var shiftToggle: Bool { get { bool("shiftToggle", true) } set { set(newValue, "shiftToggle") } }
+    /// The input profile: what keys produce which points (Profiles.swift). universal-v1 by default.
+    var profile: String {
+        get { d.string(forKey: "profile").flatMap { SpecData.profiles[$0] != nil ? $0 : nil } ?? Profiles.fallback }
+        set { set(newValue, "profile") }
+    }
+    var profileData: ProfileData { Profiles.get(profile) }
     /// What is written out: "script" (Universal, the default) or "stage:<code>" (a language's
     /// spelling); "transport" only serves the escape path.
     var output: String { get { d.string(forKey: "output") ?? "script" } set { set(newValue, "output") } }
@@ -52,7 +56,7 @@ final class Prefs {
     /// The mode as the person sees it: off (a plain keyboard), Universal, or the language's
     /// spelling.
     var modeLabel: String { enabled ? label() : "Conversion off" }
-    /// Off, or back to the last spelling that was on (Mac: a double Shift tap; iOS: a toggle tap after a pause).
+    /// Off, or back to the last spelling that was on (iOS: a toggle tap after a pause).
     func toggleOff() {
         if !enabled, output == "transport" { d.set("script", forKey: "output") }
         set(!enabled, "enabled")
@@ -68,37 +72,6 @@ final class Prefs {
         else if !universal, let i = quick.firstIndex(of: language), i + 1 < quick.count { language = quick[i + 1] }
         else { set(false, "enabled") }
     }
-    /// Mac: a bare Shift tap counts only when Shift was down for less than `tapHold`; two taps
-    /// within `doubleTap` switch conversion off and on.
-    static let tapHold: TimeInterval = 0.3
-    static let doubleTap: TimeInterval = 0.4
-
-    /// The modes the switcher lists (⇧Space, then Shift taps): Universal ("script"), each
-    /// language on the quick list ("stage:<code>"), the language in use if it is off the
-    /// list, and "off".
-    var modes: [String] {
-        var langs = quickLanguages
-        if !universal, !langs.contains(language) { langs.append(language) }
-        return ["script"] + langs.map { "stage:\($0)" } + ["off"]
-    }
-    /// The mode in use, as `modes` names it.
-    var mode: String { !enabled ? "off" : universal ? "script" : output }
-    /// Put a mode in use; a language picked here stays where it is on the quick list.
-    func setMode(_ m: String) {
-        if m == "off" { set(false, "enabled"); return }
-        if m.hasPrefix("stage:") { d.set(String(m.dropFirst(6)), forKey: "language") }
-        d.set(m.hasPrefix("stage:") ? m : "script", forKey: "output")
-        set(true, "enabled")
-    }
-    /// The next mode in `modes`, round to the first after the last.
-    func nextMode() {
-        let list = modes
-        let i = list.firstIndex(of: mode) ?? -1
-        setMode(list[(i + 1) % list.count])
-    }
-    /// A mode's name in the switcher.
-    func modeName(_ m: String) -> String { m == "off" ? "Off (plain keys)" : label(m) }
-
     /// Write tones: a digit after a syllable becomes its tone sign; off, tone digits are dropped.
     var tones: Bool { get { bool("tones", true) } set { set(newValue, "tones") } }
     /// Join a long consonant's two letters with a ZWJ (the Diafon fonts draw them
@@ -107,9 +80,17 @@ final class Prefs {
     /// Flag ill-formed segments (they still pass through).
     var strict: Bool { get { bool("strict", false) } set { set(newValue, "strict") } }
 
-    /// The lenient renderer for an output.
+    /// The lenient renderer for an output: what was typed, read by the profile in use, written out.
     /// Letters only: a language's spelling without its lexicon, for a word still being typed.
     func renderer(_ out: String? = nil, letters: Bool = false) -> (String) -> String {
+        let forms = formRenderer(out, letters: letters)
+        let p = profileData
+        if !p.table { return forms }
+        return { Profiles.unescape(forms(Profiles.transport($0, p))) }
+    }
+
+    /// The same for a text already in universal-v1 forms (a syllable, a converted selection).
+    func formRenderer(_ out: String? = nil, letters: Bool = false) -> (String) -> String {
         let out = out ?? output
         let tones = self.tones, join = self.join
         if out == "transport" { return { $0 } }

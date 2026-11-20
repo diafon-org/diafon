@@ -1,5 +1,5 @@
 // What the iOS keyboard adds to the shared settings (apple/Core/Prefs.swift):
-// the base layout, how the tail is kept provisional, and the logo key's menu.
+// the base layout, how the tail is kept provisional, and the modes its settings offer.
 // Without full access a keyboard cannot share a container with its app, so
 // these live in the keyboard's own defaults and are set in its panel.
 import Foundation
@@ -25,11 +25,10 @@ extension Prefs {
         set { store(newValue.rawValue, "tailMode") }
     }
 
-    /// The most languages on the space bar's menu: the menu fits the keyboard and
-    /// stays quick to slide through.
+    /// The most languages offered in the settings: the row stays short.
     static let quickMax = 4
 
-    /// The modes on the space bar's menu: Universal, the quick list, the language in
+    /// The modes the settings offer: Universal, the quick list, the language in
     /// use if it is off the list, and off (plain keys).
     var menuModes: [String] {
         var list = ["script"] + quickLanguages.map { "stage:" + $0 }

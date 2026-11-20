@@ -18,8 +18,8 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
-from engine import profile
-from engine.engine import Engine, ParseError
+from engine import alphabet, profile
+from engine.engine import Engine, ParseError, make
 
 PRESPLIT = os.path.join(ROOT, 'tests', 'goldens', 'spec.json')     # the spec as it was before the split
 
@@ -34,31 +34,54 @@ def trace(eng, text):
     return out
 
 
+MINIMAL = ['cyak a joq soq', 'zhong1guo2', 'anyy cityy boyy', 'the cityy', 'you my by quick', 'ssy ccy nny ttq',
+           'syy tqq', 'h2o abc123 x9', 'Syok syeqp nyaqr, hossuq alma', 'Magyar, oyt, tuyz, uyq, oyq', 'SYOK Ssy SSY',
+           'ni3hao3 ma5, lv4 Zhong1', 'say sayy, they theyy', 'aqq yy qq y q', 'tyuqk gyoyngy edy ketyteoy', 'ray ry rry',
+           'tqink dqis sinq', 'dobozz, add; eddy.', 'aay aaq aa']
+
+
+def universal():
+    return Engine(profile.compile('universal-v1'))
+
+
 def vectors(eng, pid):
     """The profile's vectors. universal-v1 keeps the inputs of the spec it
     had before the split, so that spec's answers are its conformance."""
-    old = json.load(open(PRESPLIT, encoding='utf-8'))['vectors'] if pid == 'universal-v1' else None
+    if pid != 'universal-v1':
+        texts = [k for k in eng.inventory()] + [k[0].upper() + k[1:] for k in eng.inventory()] \
+            + [k[0] * 2 + k[1:] for k in eng.inventory() if k[0] in eng.doubling] + MINIMAL
+        return {'render': [[t, eng.render(t)] for t in texts],
+                'joined': [[t, eng.render(t, join=True)] for t in texts if eng.render(t, join=True) != eng.render(t)],
+                'stream': {t: trace(eng, t) for t in MINIMAL[:6]}}
+    old = json.load(open(PRESPLIT, encoding='utf-8'))['vectors']
     render = []
     for f in eng.inventory():
         for x in (f, f[0].upper() + f[1:], f.upper()):
             render.append([x, eng.render(x)])
     v = {'render': render, 'lenient': [], 'joined': [], 'invalid': [], 'stream': {}}
-    if old:
-        v['render'] += [[t, eng.render(t)] for t, _ in old['render'] if [t, eng.render(t)] not in render]
-        v['lenient'] = [[t, eng.render(t, strict=False)] for t, _ in old['lenient']]
-        v['joined'] = [[t, eng.render(t, join=True)] for t, _ in old['joined']]
-        for t in old['invalid']:
-            try:
-                eng.render(t)
-            except ParseError:
-                v['invalid'].append(t)
-        v['stream'] = {t: trace(eng, t) for t in old['stream']}
+    v['render'] += [[t, eng.render(t)] for t, _ in old['render'] if [t, eng.render(t)] not in render]
+    v['lenient'] = [[t, eng.render(t, strict=False)] for t, _ in old['lenient']]
+    v['joined'] = [[t, eng.render(t, join=True)] for t, _ in old['joined']]
+    for t in old['invalid']:
+        try:
+            eng.render(t)
+        except ParseError:
+            v['invalid'].append(t)
+    v['stream'] = {t: trace(eng, t) for t in old['stream']}
     return v
 
 
 def build(pid):
     c = profile.compile(pid)
-    c['vectors'] = vectors(Engine(c), pid)
+    eng = make(c)
+    if pid != 'universal-v1':
+        # what each key sequence, and each pinyin syllable, is in universal-v1 keys: the ports' way in
+        uni = universal()
+        for key, v in c['keys'].items():
+            v['via'] = uni.typed([eng.letters(key)[0]])
+        if c.get('pinyin'):
+            c['pinyin']['via'] = {syl: uni.typed(alphabet.read(text)) for syl, text in c['pinyin']['syllables'].items()}
+    c['vectors'] = vectors(eng, pid)
     return c
 
 

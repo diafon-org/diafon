@@ -21,7 +21,7 @@ FIELD, STEP = '\x1e', '\x1f'
 def build():
     out = tempfile.mkdtemp(prefix='diafon-swift-')
     exe = os.path.join(out, 'check')
-    files = [os.path.join(SRC, f) for f in ('SpecData.swift', 'Engine.swift', 'Stages.swift', 'Reading.swift', 'Lexicon.swift', 'CheckMain.swift')]
+    files = [os.path.join(SRC, f) for f in ('SpecData.swift', 'Engine.swift', 'Stages.swift', 'Reading.swift', 'Lexicon.swift', 'Profiles.swift', 'CheckMain.swift')]
     res = subprocess.run(['xcrun', 'swiftc', '-O', *files, '-o', exe], capture_output=True, text=True)
     assert res.returncode == 0, res.stderr
     return exe
@@ -74,6 +74,18 @@ def test_swift_vectors():
         reqs.append(('detect', t)); wants.append(want)
     for src, t, want in lv['roundtrip']:
         reqs.append((f'convert:{src}|{src}', t)); wants.append(want)
+    # the input profiles: every compiled profile's own vectors (spec/<id>.json)
+    import glob
+    for path in sorted(glob.glob(os.path.join(ROOT, 'spec', '*.json'))):
+        c = json.load(open(path, encoding='utf-8'))
+        pid, pv = c['id'], c['vectors']
+        lenient = pid != 'universal-v1'                # universal-v1's strict vectors are the old spec's, above
+        for inp, want in (pv['render'] if lenient else pv.get('lenient', [])):
+            reqs.append((f'profile:{pid}', inp)); wants.append(want)
+        for inp, want in (pv['joined'] if lenient else []):
+            reqs.append((f'pjoined:{pid}', inp)); wants.append(want)
+        for text, tr in pv['stream'].items():
+            reqs.append((f'pstream:{pid}', text)); wants.append(STEP.join(FIELD.join(step) for step in tr))
     stdin = ''.join(f'{m}\t{i}\n' for m, i in reqs)
     env = dict(os.environ, DIAFON_LEXICON_DIR=os.path.join(ROOT, 'docs', 'lexicon'))
     res = subprocess.run([exe], input=stdin, capture_output=True, text=True, env=env)

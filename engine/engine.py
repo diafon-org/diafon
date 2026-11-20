@@ -149,3 +149,121 @@ class Engine:
         else:
             head, tail = segs, ''
         return self.render(''.join(s['src'] for s in head), strict=False), tail
+
+
+class KeyEngine:
+    """The engine for the profile kind `key-table` (minimal-hu-v1): a word is
+    cut by longest match over the key table. A doubled consonant key is the
+    long point, and an operator after it applies to both; a doubled operator,
+    or one with nothing to apply to, is the plain letter. A word whose
+    syllables each end in a tone digit is pinyin; any other word with a
+    digit stays as typed. The word commits at its end."""
+
+    def __init__(self, compiled):
+        self.profile = compiled
+        seg = compiled['segment']
+        assert seg['kind'] == 'key-table', seg['kind']
+        self.ops = set(seg['operators'])
+        self.bases = set(seg['bases'])
+        self.doubling = set(seg['doubling'])
+        self.keys = {k: ((v['to'][0], tuple(v['to'][1:])), v['long']) for k, v in compiled['keys'].items()}
+        self.pinyin = compiled.get('pinyin')
+
+    @staticmethod
+    def _alnum(ch):
+        return ch.isascii() and ch.isalnum()
+
+    def words(self, text):
+        """-> [(is word, text)]: runs of ASCII letters and digits, and what lies between."""
+        out = []
+        for ch in text:
+            w = self._alnum(ch)
+            if out and out[-1][0] == w:
+                out[-1][1] += ch
+            else:
+                out.append([w, ch])
+        return [(w, t) for w, t in out]
+
+    def read_pinyin(self, word):
+        """A word of pinyin -> tokens, or None when it is not one."""
+        py = self.pinyin
+        if not py:
+            return None
+        out, i, n = [], 0, len(word)
+        while i < n:
+            j = i
+            while j < n and word[j].isalpha():
+                j += 1
+            if j == i or j >= n or word[j] not in py['tones']:
+                return None
+            syl = word[i:j].lower().replace(py['u_umlaut'], 'ü')
+            text = py['syllables'].get(syl)
+            if text is None:
+                return None
+            toks = alphabet.read(text)
+            if word[i].isupper():
+                toks[0].caps = True
+            if word[j] != py['neutral']:
+                toks[-1].tones = word[j]
+            out += toks
+            i = j + 1
+        return out
+
+    def letters(self, word):
+        """A word without digits -> tokens, by the key table."""
+        out, i, n = [], 0, len(word)
+        low = word.lower()
+        while i < n:
+            ch = low[i]
+            if ch not in self.bases:                       # an operator with nothing to apply to
+                out.append(Tok(raw=word[i]))
+                i += 1
+                continue
+            j = i + 1
+            double = ch in self.doubling and j < n and low[j] == ch
+            if double:
+                j += 1
+            key, escaped = ch, None
+            while j < n and low[j] in self.ops:
+                if j + 1 < n and low[j + 1] == low[j]:     # a doubled operator: the plain letter
+                    escaped = word[j]
+                    j += 2
+                    break
+                if key + low[j] not in self.keys:
+                    break
+                key += low[j]
+                j += 1
+            comp, long = self.keys[key]
+            out.append(Tok(comp, long or double, word[i].isupper(), src=word[i:j]))
+            if escaped:
+                out.append(Tok(raw=escaped))
+            i = j
+        return out
+
+    def points(self, text, strict=False):
+        out = []
+        for is_word, w in self.words(text):
+            if not is_word:
+                out += [Tok(raw=ch) for ch in w]
+            elif any(ch.isdigit() for ch in w):
+                out += self.read_pinyin(w) or [Tok(raw=ch) for ch in w]
+            else:
+                out += self.letters(w)
+        return out
+
+    def render(self, text, strict=False, join=False):
+        return alphabet.write(self.points(text), join)
+
+    def inventory(self):
+        return sorted(self.keys)
+
+    def stream(self, buffer):
+        """-> (committed, pending): the word being typed stays pending."""
+        i = len(buffer)
+        while i > 0 and self._alnum(buffer[i - 1]):
+            i -= 1
+        return self.render(buffer[:i]), buffer[i:]
+
+
+def make(compiled):
+    return KeyEngine(compiled) if compiled['segment']['kind'] == 'key-table' else Engine(compiled)

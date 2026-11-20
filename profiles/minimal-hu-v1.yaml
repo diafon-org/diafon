@@ -1,0 +1,86 @@
+# minimal-hu-v1: Hungarian, English and Mandarin sounds on two operators.
+#
+# Twenty-four letters are points as they stand; y and q are the operators.
+# - y marks the letter before it: s z c x t d n take the anchor (ș z̦ c̦ x̦ ț
+#   d̦ n̦), u o i e the flip (ü ö ï ë); ay is ạ, ry is r̈.
+# - q after t d n is the dot (ṭ ḍ ṇ); q after a vowel makes it long (aq á,
+#   oyq ő).
+# - A doubled consonant is the long one, and an operator after it applies
+#   to both: ssy is șș.
+# - A doubled operator is the plain letter: syy is sy, tqq is tq. An
+#   operator with nothing to apply to is the plain letter too: you, my, quick.
+# - A word whose syllables each end in a digit 1-5 is pinyin (5 the neutral
+#   tone, v for ü). Any other word with a digit stays as typed.
+# - The word stays composing until its end: only there is it known whether
+#   it was pinyin.
+#
+# Immutable: a change to this file is minimal-hu-v2.
+id: minimal-hu-v1
+name: Minimal (Hungarian)
+alphabet: 1
+segment:
+  kind: key-table
+  operators: yq
+  double: long              # a doubled consonant key: the long point
+  escape: double            # a doubled operator: the plain letter
+case: base
+commit: word
+pinyin:
+  lexicon: zh               # the syllables, from the alphabet's Mandarin lexicon
+  tones: "12345"
+  neutral: "5"              # writes no tone
+  u_umlaut: v
+
+keys:
+  # the vowels, short and long
+  a: a
+  aq: aː
+  e: e
+  eq: eː
+  i: i
+  iq: iː
+  o: o
+  oq: oː
+  u: u
+  uq: uː
+  uy: y                     # ü
+  uyq: yː                   # ű
+  oy: ø                     # ö
+  oyq: øː                   # ő
+  iy: ɯ                     # ï
+  iyq: ɯː
+  ey: ɤ                     # ë
+  eyq: ɤː
+  ay: ə                     # ạ: the one y on a vowel that is not the flip
+  ry: ɝ                     # r̈
+
+  # the consonants
+  p: p
+  b: b
+  t: t
+  ty: c                     # ț
+  tq: θ                     # ṭ
+  d: d
+  dy: ɟ                     # d̦
+  dq: ð                     # ḍ
+  k: k
+  g: g
+  f: f
+  v: v
+  s: s
+  sy: ʃ                     # ș
+  z: z
+  zy: ʒ                     # z̦
+  c: ts                     # c
+  cy: tʃ                    # c̦
+  x: dz                     # x
+  xy: dʒ                    # x̦
+  h: h
+  m: m
+  n: n
+  ny: ɲ                     # n̦
+  nq: ŋ                     # ṇ
+  l: l
+  r: r
+  j: j
+  w: w

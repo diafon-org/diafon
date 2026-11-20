@@ -1,16 +1,9 @@
 {
  "id": "universal-v1",
+ "name": "Universal (every language)",
  "alphabet": {
   "major": 1,
   "built_with": "1.0.0-pre.1"
- },
- "segment": {
-  "kind": "base-operators",
-  "bases": "abdefghiklmnoprstuvz",
-  "operators": "cjqxy",
-  "max_operators": 2,
-  "length": "w",
-  "tones": "digits"
  },
  "case": "base",
  "commit": "segment",
@@ -917,6 +910,14 @@
    "point": null,
    "long": false
   }
+ },
+ "segment": {
+  "kind": "base-operators",
+  "bases": "abdefghiklmnoprstuvz",
+  "operators": "cjqxy",
+  "max_operators": 2,
+  "length": "w",
+  "tones": "digits"
  },
  "vectors": {
   "render": [

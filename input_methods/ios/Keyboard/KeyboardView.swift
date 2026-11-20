@@ -13,13 +13,8 @@ enum Key: Equatable {
 
 final class KeyboardView: UIView {
     var onKey: ((Key) -> Void)?
-    /// A long press on the logo key: the menu, at the touch's point (in this view).
+    /// A long press on the logo key: the settings.
     var onLogoHold: ((CGPoint) -> Void)?
-    /// A long press on the space bar: the modes alone.
-    var onSpaceHold: (() -> Void)?
-    /// The held logo or space touch moving over the open menu, and let go.
-    var onMenuDrag: ((CGPoint) -> Void)?
-    var onMenuRelease: ((CGPoint) -> Void)?
 
     var layoutCode = "qwerty" { didSet { if layoutCode != oldValue { rebuild() } } }
     var showsGlobe = false { didSet { if showsGlobe != oldValue { rebuild() } } }
@@ -55,9 +50,8 @@ final class KeyboardView: UIView {
     /// key, whether its hold opened the menu.
     private var logoTouch: ObjectIdentifier?
     private var logoFromLetters = false, logoSlid = false, logoHeld = false
-    /// The space touch: space goes in on release, unless a hold opened the modes.
+    /// The space touch: space goes in on release.
     private var spaceTouch: ObjectIdentifier?
-    private var spaceHeld = false
     private let gap: CGFloat = 6
 
     override init(frame: CGRect) {
@@ -299,13 +293,6 @@ final class KeyboardView: UIView {
                 }
             case .space:
                 spaceTouch = ObjectIdentifier(t)
-                spaceHeld = false
-                holdTimer?.invalidate()
-                holdTimer = Timer.scheduledTimer(withTimeInterval: 0.45, repeats: false) { [weak self] _ in
-                    guard let self, self.spaceTouch != nil else { return }
-                    self.spaceHeld = true
-                    self.onSpaceHold?()
-                }
             case .backspace:
                 emit(key)
                 repeatTimer = Timer.scheduledTimer(withTimeInterval: 0.45, repeats: false) { [weak self] _ in
@@ -319,12 +306,9 @@ final class KeyboardView: UIView {
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let t = touches.first(where: { ObjectIdentifier($0) == spaceTouch }), spaceHeld {
-            onMenuDrag?(t.location(in: self)); return
-        }
         guard let t = touches.first(where: { ObjectIdentifier($0) == logoTouch }) else { return }
         let p = t.location(in: self)
-        if logoHeld { onMenuDrag?(p); return }
+        if logoHeld { return }
         guard let i = slot(at: p) else { return }
         let key = slots[i].key
         if key != .logo { logoSlid = true; holdTimer?.invalidate(); holdTimer = nil }
@@ -341,7 +325,7 @@ final class KeyboardView: UIView {
             if id == logoTouch {
                 logoTouch = nil
                 holdTimer?.invalidate(); holdTimer = nil
-                if logoHeld { if fire { onMenuRelease?(t.location(in: self)) }; continue }
+                if logoHeld { continue }
                 if logoSlid {
                     // a slide from the logo: the key let go on, once, then back where it started
                     if logoFromLetters { symbolsPage = false }
@@ -357,8 +341,7 @@ final class KeyboardView: UIView {
             }
             if id == spaceTouch {
                 spaceTouch = nil
-                holdTimer?.invalidate(); holdTimer = nil
-                if spaceHeld { if fire { onMenuRelease?(t.location(in: self)) } } else if fire { emit(.space) }
+                if fire { emit(.space) }
                 continue
             }
             if key == .backspace { repeatTimer?.invalidate(); repeatTimer = nil }

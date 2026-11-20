@@ -18,3 +18,4 @@ python3 tests/test_spec.py
 python3 tests/test_samples.py
 python3 tests/test_kotlin.py
 python3 tests/test_swift.py
+python3 tests/test_ios_session.py
