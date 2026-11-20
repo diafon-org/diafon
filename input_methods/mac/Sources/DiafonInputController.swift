@@ -196,8 +196,8 @@ public class DiafonInputController: IMKInputController {
     }
 
     private func mark(_ client: IMKTextInput) {
-        // Mandarin: the syllable so far as pinyin (a key-table profile types pinyin, so as typed)
-        let shown = pending.isEmpty ? "" : (mandarin ? (profile.table ? pending : Stages.render(pending, SpecData.stages["zh"]!, tones: prefs.tones))
+        // Mandarin: the syllable so far, as pinyin
+        let shown = pending.isEmpty ? "" : (mandarin ? Stages.render(Profiles.syllable(pending, profile), SpecData.stages["zh"]!, tones: prefs.tones)
                                                      : prefs.renderer(output, letters: true)(pending))
         let attrs: [NSAttributedString.Key: Any] = [.underlineStyle: NSUnderlineStyle.single.rawValue]
         client.setMarkedText(NSAttributedString(string: shown, attributes: attrs),

@@ -49,8 +49,6 @@ def test_sound():
                 toks = eng.points(key)
                 assert len(toks) == 1 and toks[0].comp == (v['to'][0], tuple(v['to'][1:])) and toks[0].long == v['long'], (pid, key)
                 assert uni.render(v['via']) == eng.render(key), (pid, key, v['via'])      # the same point in universal-v1 keys
-            for syl, via in c.get('pinyin', {}).get('via', {}).items():
-                assert uni.render(via) == c['pinyin']['syllables'][syl], (pid, syl)
             continue
         inv = eng.inventory()
         for f in inv:
@@ -90,7 +88,7 @@ def test_vectors():
         check(make(c), c['vectors'])
     eng = make(profile.compiled('minimal-hu-v1'))
     for typed, want in [('cyak a joq soq', 'c̦ak a jó só'), ('anyy cityy boyy', 'any city boy'), ('ssy', 'șș'),
-                        ('syy', 'sy'), ('you my by quick', 'you my by quick'), ('zhong1guo2', 'c̦uṇˉkuoˊ'), ('h2o', 'h2o')]:
+                        ('syy', 'sy'), ('you my by quick', 'you my by quick'), ('cyunq1kuo2', 'c̦uṇˉkuoˊ'), ('ni3 kqaw3', 'niˇ ḳawˇ'), ('2x', '2x')]:
         assert eng.render(typed) == want, (typed, eng.render(typed), want)
 
 

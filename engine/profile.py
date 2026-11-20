@@ -51,11 +51,7 @@ def compile(pid):
         out['segment'] = {'kind': 'key-table', 'bases': ''.join(sorted(bases)), 'operators': ''.join(sorted(ops)),
                           'double': seg['double'], 'escape': seg['escape'],
                           'doubling': ''.join(sorted(b for b in bases if b not in vowels))}
-        if p.get('pinyin'):
-            py = p['pinyin']
-            lex = json.load(open(os.path.join(ROOT, 'vendor', 'lexicon', f'{py["lexicon"]}.json'), encoding='utf-8'))
-            out['pinyin'] = {'tones': py['tones'], 'neutral': py['neutral'], 'u_umlaut': py['u_umlaut'],
-                             'syllables': dict(sorted(lex['read'].items()))}
+        out['tones'] = p.get('tones') == 'digits'
     else:
         out['segment'] = {'kind': seg['kind'], 'bases': ''.join(sorted(bases)), 'operators': ''.join(sorted(ops)),
                           'max_operators': seg['max_operators'], 'length': seg['length'], 'tones': seg['tones']}

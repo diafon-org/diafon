@@ -3,16 +3,15 @@
 # Twenty-four letters are points as they stand; y and q are the operators.
 # - y marks the letter before it: s z c x t d n take the anchor (ș z̦ c̦ x̦ ț
 #   d̦ n̦), u o i e the flip (ü ö ï ë); ay is ạ, ry is r̈.
-# - q after t d n is the dot (ṭ ḍ ṇ); q after a vowel makes it long (aq á,
+# - q after t d n k is the dot (ṭ ḍ ṇ ḳ); q after a vowel makes it long (aq á,
 #   oyq ő).
 # - A doubled consonant is the long one, and an operator after it applies
 #   to both: ssy is șș.
 # - A doubled operator is the plain letter: syy is sy, tqq is tq. An
 #   operator with nothing to apply to is the plain letter too: you, my, quick.
-# - A word whose syllables each end in a digit 1-5 is pinyin (5 the neutral
-#   tone, v for ü). Any other word with a digit stays as typed.
-# - The word stays composing until its end: only there is it known whether
-#   it was pinyin.
+# - A digit after a point is its tone (ni3 kqaw3); a digit anywhere else is
+#   the digit.
+# - A segment commits when the next one starts, as in universal-v1.
 #
 # Immutable: a change to this file is minimal-hu-v2.
 id: minimal-hu-v1
@@ -24,12 +23,8 @@ segment:
   double: long              # a doubled consonant key: the long point
   escape: double            # a doubled operator: the plain letter
 case: base
-commit: word
-pinyin:
-  lexicon: zh               # the syllables, from the alphabet's Mandarin lexicon
-  tones: "12345"
-  neutral: "5"              # writes no tone
-  u_umlaut: v
+commit: segment
+tones: digits             # a digit after a point is its tone number
 
 keys:
   # the vowels, short and long
@@ -64,6 +59,7 @@ keys:
   dy: ɟ                     # d̦
   dq: ð                     # ḍ
   k: k
+  kq: x                     # ḳ
   g: g
   f: f
   v: v

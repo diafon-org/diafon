@@ -40,11 +40,11 @@ A profile is data, compiled to a table. It is immutable by id: a change to
 - `minimal-hu-v1`: Hungarian, English and Mandarin sounds on two operators.
   Twenty-four letters are points as they stand; `y` marks the letter before
   it (`sy` ș, `cy` c̦, `ny` n̦, `uy` ü, `oy` ö), `q` is the dot after t d n
-  and length after a vowel (`aq` á, `oyq` ő). A doubled consonant is the
+  (and `kq` ḳ) and length after a vowel (`aq` á, `oyq` ő). A doubled consonant is the
   long one (`ssy` șș). A doubled operator is the plain letter (`cityy`
-  city), and so is one with nothing to apply to (you, my, quick). A word
-  whose syllables each end in a digit 1-5 is pinyin (`zhong1guo2`). The
-  word commits at its end.
+  city), and so is one with nothing to apply to (you, my, quick). A digit
+  after a point is its tone, so Mandarin is typed with the same keys
+  (`ni3 kqaw3`). A segment commits when the next one starts.
 
 ## The alphabet
 

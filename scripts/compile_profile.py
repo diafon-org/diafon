@@ -34,10 +34,10 @@ def trace(eng, text):
     return out
 
 
-MINIMAL = ['cyak a joq soq', 'zhong1guo2', 'anyy cityy boyy', 'the cityy', 'you my by quick', 'ssy ccy nny ttq',
-           'syy tqq', 'h2o abc123 x9', 'Syok syeqp nyaqr, hossuq alma', 'Magyar, oyt, tuyz, uyq, oyq', 'SYOK Ssy SSY',
-           'ni3hao3 ma5, lv4 Zhong1', 'say sayy, they theyy', 'aqq yy qq y q', 'tyuqk gyoyngy edy ketyteoy', 'ray ry rry',
-           'tqink dqis sinq', 'dobozz, add; eddy.', 'aay aaq aa']
+MINIMAL = ['cyak a joq soq', 'ni3 kqaw3, syiy4 cyie4', 'anyy cityy boyy', 'the cityy', 'you my by quick', 'ssy ccy nny ttq',
+           'syy tqq', 'h2o abc123 x9 2x', 'Syok syeqp nyaqr, hossuq alma', 'Magyar, oyt, tuyz, uyq, oyq', 'SYOK Ssy SSY',
+           'cyunq1kuo2 zyeyn2 ry4 luy4 ma5', 'say sayy, they theyy', 'aqq yy qq y q', 'tyuqk gyoyngy edy ketyteoy', 'ray ry rry',
+           'tqink dqis sinq kqan', 'dobozz, add; eddy.', 'aay aaq aa', 'syy1 sy1y']
 
 
 def universal():
@@ -75,12 +75,10 @@ def build(pid):
     c = profile.compile(pid)
     eng = make(c)
     if pid != 'universal-v1':
-        # what each key sequence, and each pinyin syllable, is in universal-v1 keys: the ports' way in
+        # what each key sequence is in universal-v1 keys: the ports' way in
         uni = universal()
         for key, v in c['keys'].items():
-            v['via'] = uni.typed([eng.letters(key)[0]])
-        if c.get('pinyin'):
-            c['pinyin']['via'] = {syl: uni.typed(alphabet.read(text)) for syl, text in c['pinyin']['syllables'].items()}
+            v['via'] = uni.typed(eng.points(key))
     c['vectors'] = vectors(eng, pid)
     return c
 

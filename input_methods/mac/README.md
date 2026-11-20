@@ -32,9 +32,8 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
   (`../../spec/<id>.json`). `universal-v1` is the grammar the engine
   carries. `minimal-hu-v1` is a key table: `y` and `q` are the operators
   (`sy` ș, `cy` c̦, `oyq` ő), a doubled consonant is long (`ssy` șș), a
-  doubled operator is the plain letter (`cityy` city), a word of pinyin
-  with tone digits is Mandarin (`zhong1guo2`), and the word stays
-  underlined until its end.
+  doubled operator is the plain letter (`cityy` city), and a digit after a
+  point is its tone (`ni3 kqaw3`).
 - **Mandarin.** In the Mandarin spelling, letters build a syllable shown as
   pinyin; the tone digit (or a space, for the neutral tone) completes it and
   the candidate window lists its characters, most frequent first, the pinyin
