@@ -9,7 +9,7 @@
 //     applies to both (ssy);
 //   - a doubled operator is the plain letter (syy is sy), and so is an
 //     operator with nothing to apply to (you, my, quick);
-//   - a digit after a point is its tone;
+//   - a digit after a point is its tone, a doubled digit the plain digit (h22o);
 //   - a segment commits when the next one starts.
 // A plain letter or digit must not be read again as a universal-v1 form, so
 // it travels as a private-use character (U+E000 + its code) and comes back as
@@ -69,7 +69,10 @@ enum Profiles {
             var form = p.keys[key] ?? String(ch)
             if double { form += "w" }
             if text[i].isUppercase { form = cap(form) }
-            while p.tones, escaped == nil, j < n, text[j].isASCII, text[j].isNumber { form.append(text[j]); j += 1 }
+            while p.tones, escaped == nil, j < n, text[j].isASCII, text[j].isNumber {
+                if j + 1 < n, text[j + 1] == text[j] { escaped = text[j]; break }     // a doubled digit: the plain digit
+                form.append(text[j]); j += 1
+            }
             out.append((String(text[i..<j]), form, true))
             if let e = escaped {
                 out.append((String(text[j..<j + 2]), literal(e), false))

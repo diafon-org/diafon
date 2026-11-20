@@ -156,7 +156,7 @@ class KeyEngine:
     is cut by longest match over the key table. A doubled consonant key is
     the long point, and an operator after it applies to both; a doubled
     operator, or one with nothing to apply to, is the plain letter; a digit
-    after a point is its tone. A segment commits when the next one starts."""
+    after a point is its tone, a doubled digit the plain digit. A segment commits when the next one starts."""
 
     def __init__(self, compiled):
         self.profile = compiled
@@ -194,6 +194,9 @@ class KeyEngine:
                 j += 1
             tones = ''
             while self.tones and not escaped and j < n and text[j].isdigit():
+                if j + 1 < n and text[j + 1] == text[j]:   # a doubled digit: the plain digit
+                    escaped = text[j]
+                    break
                 tones += text[j]
                 j += 1
             comp, long = self.keys[key]

@@ -9,8 +9,8 @@
 #   to both: ssy is șș.
 # - A doubled operator is the plain letter: syy is sy, tqq is tq. An
 #   operator with nothing to apply to is the plain letter too: you, my, quick.
-# - A digit after a point is its tone (ni3 kqaw3); a digit anywhere else is
-#   the digit.
+# - A digit after a point is its tone (ni3 kqaw3); doubled, it is the plain
+#   digit (h22o is h2o). A digit anywhere else is the digit.
 # - A segment commits when the next one starts, as in universal-v1.
 #
 # Immutable: a change to this file is minimal-hu-v2.

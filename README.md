@@ -44,7 +44,8 @@ A profile is data, compiled to a table. It is immutable by id: a change to
   long one (`ssy` șș). A doubled operator is the plain letter (`cityy`
   city), and so is one with nothing to apply to (you, my, quick). A digit
   after a point is its tone, so Mandarin is typed with the same keys
-  (`ni3 kqaw3`). A segment commits when the next one starts.
+  (`ni3 kqaw3`); a doubled digit is the plain digit (`h22o` h2o). A segment
+  commits when the next one starts.
 
 ## The alphabet
 

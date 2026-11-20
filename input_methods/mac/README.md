@@ -33,7 +33,7 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
   carries. `minimal-hu-v1` is a key table: `y` and `q` are the operators
   (`sy` ș, `cy` c̦, `oyq` ő), a doubled consonant is long (`ssy` șș), a
   doubled operator is the plain letter (`cityy` city), and a digit after a
-  point is its tone (`ni3 kqaw3`).
+  point is its tone (`ni3 kqaw3`), doubled the plain digit (`h22o`).
 - **Mandarin.** In the Mandarin spelling, letters build a syllable shown as
   pinyin; the tone digit (or a space, for the neutral tone) completes it and
   the candidate window lists its characters, most frequent first, the pinyin
