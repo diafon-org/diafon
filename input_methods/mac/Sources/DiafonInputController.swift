@@ -313,6 +313,7 @@ public class DiafonInputController: IMKInputController {
         guard let t = item(sender)?.tag, t >= 1000, t - 1000 < Profiles.all.count else { return }
         if let client = self.client() { flush(client) }          // the tail belongs to the old profile
         prefs.profile = Profiles.all[t - 1000].id
+        if !prefs.enabled { prefs.enabled = true }                // picking a typing means typing with it
     }
 
     @objc func openSetup(_ sender: Any!) { SetupWindow.shared.show() }
