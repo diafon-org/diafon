@@ -1,49 +1,128 @@
-# The script layer: how a form draws its glyph.
-# Combining marks are approximations until the Diafon font carries the true
-# attached anchor. Rules (docs/index.html): a consonant's mark sits below,
-# floating above on descender letters (the float rule); a vowel wears at most
-# one mark above and one below; w doubles a consonant glyph and draws the
-# acute on a vowel; a secondary x flips the mark already there; a secondary y
-# flips an anchor to the reverse (sjy tqy). Consonants have three marks:
-# anchor, dot, reverse; no double dot below.
+# The script: the letters, the marks and the points they compose.
+#
+# A point is a letter and its marks. A consonant's mark sits below, and
+# floats above on the letters that descend (the float rule); no capital
+# descends, so a capital always wears its mark below. A vowel wears at most
+# one mark above and one below, and the acute when long (the flip and the
+# acute fuse into the double acute). A long consonant doubles its letter.
+# The combining marks are approximations until the Diafon fonts carry the
+# true attached anchor.
+
+letters:
+  consonants: [b, c, d, f, g, h, j, k, l, m, n, p, q, r, s, t, v, w, x, z]
+  vowels: [a, e, i, o, u]
 
 descenders: [g, j, p, q, y]
 
-whole_letters:            # forms that are whole script letters, not compositions
-  tc: c
-  dc: x
-  tq: c̦
-  dq: x̦
-  kq: q
-  ix: j
-  ux: w
-  icx: j̈
-  ucx: ẅ
-  aq: r̈
-
 marks:
-  anchor:        {below: "̦", above: "̓"}   # j; the anchor
-  dot:           {below: "̣", above: "̇"}   # x; the fricative shift
-  reverse:       {below: "̖", above: "̔"}   # y; the back-lean: retroflex, emphatic, the weird
-  underdot:      {below: "̣"}                    # vowel j; the lax split (ɪ ʊ ɛ ɔ), and the schwa area ə
-  grave:         {above: "̀"}                    # vowel y; the special, default nasal
-  acute:         {above: "́"}                    # vowel w; long
-  double_acute:  {above: "̋"}                    # flip + long fused
-  flip:          {above: "̈"}                    # vowel c; on the partner letter; on a, the front split /æ/
+  anchor:        {below: "̦", above: "̓"}   # the anchor: the hush, the soft consonants
+  dot:           {below: "̣", above: "̇"}   # the fricative shift
+  reverse:       {below: "̖", above: "̔"}   # the back-lean: retroflex, emphatic, the weird
+  underdot:      {below: "̣"}                    # on a vowel: the lax split (ɪ ʊ ɛ ɔ), and the schwa area ə
+  grave:         {above: "̀"}                    # on a vowel: the special, default nasal
+  acute:         {above: "́"}                    # a long vowel
+  double_acute:  {above: "̋"}                    # the flip and the acute, fused
+  flip:          {above: "̈"}                    # the front rounded and back unrounded vowels; on a, the front split /æ/;
+                                                 #   on j w r, the rounded glides and the vocalic r
 
-flip_partner: {i: u, u: i, e: o, o: e, a: a}
+# The points, by name (the canonical IPA value, split.md): letter, then marks.
+# Every point has a long partner, named with ː: a vowel takes the acute, a
+# consonant doubles. A letter with marks that no point here names is still
+# script (an open composition): it reads and writes, and has no name yet.
+points:
+  # consonants
+  b: b
+  bʲ: b anchor
+  ts: c
+  tʃ: c anchor
+  tʂ: c reverse
+  d: d
+  ɟ: d anchor
+  ð: d dot
+  ɖ: d reverse
+  f: f
+  fʲ: f anchor
+  g: g
+  gʲ: g anchor
+  ɣ: g dot
+  ʕ: g reverse
+  h: h
+  ʔ: h dot
+  j: j
+  ɥ: j flip
+  k: k
+  kʲ: k anchor
+  x: k dot
+  ħ: k reverse
+  l: l
+  ʎ: l anchor
+  ɭ: l dot
+  m: m
+  mʲ: m anchor
+  n: n
+  ɲ: n anchor
+  ŋ: n dot
+  ɳ: n reverse
+  p: p
+  pʲ: p anchor
+  q: q
+  r: r
+  rʲ: r anchor
+  ɾ: r dot
+  ɝ: r flip
+  s: s
+  ʃ: s anchor
+  ʂ: s reverse
+  t: t
+  c: t anchor
+  θ: t dot
+  ʈ: t reverse
+  v: v
+  vʲ: v anchor
+  w: w
+  dz: x
+  dʒ: x anchor
+  dʐ: x reverse
+  z: z
+  ʒ: z anchor
+  ʐ: z reverse
+  # vowels
+  a: a
+  æ: a flip
+  ã: a grave
+  ə: a underdot
+  e: e
+  ɤ: e flip
+  ẽ: e grave
+  ɛ: e underdot
+  ɛ̃: e underdot grave
+  i: i
+  ɯ: i flip
+  ĩ: i grave
+  ɪ: i underdot
+  o: o
+  ø: o flip
+  õ: o grave
+  ɔ: o underdot
+  œ: o flip underdot
+  ɔ̃: o underdot grave
+  u: u
+  y: u flip
+  ũ: u grave
+  ʏ: u flip underdot
 
-# Tones: a digit in input is one contour in every language (data/README.md, the
-# standard tone vocabulary); the script draws it as a sign after the syllable,
-# the marks Bopomofo uses (mid unmarked, as in Thai and Vietnamese spelling).
-# The Diafon fonts draw the signs with a shape above the syllable (calt,
+# Tones: one contour is one sign in every language, written after the
+# syllable, the marks Bopomofo uses (mid unmarked, as in Thai and Vietnamese
+# spelling); `number` is the contour's place in the standard tone vocabulary
+# (data/README.md), which the numbered spellings write (pinyin ma3). The
+# Diafon fonts draw the signs with a shape above the syllable (calt,
 # fonts/tools/build_font.py TONE_SHAPES); the text keeps the sign after it.
 tones:
-  "1": {contour: high, sign: "ˉ"}
-  "2": {contour: rising, sign: "ˊ"}
-  "3": {contour: dipping, sign: "ˇ"}
-  "4": {contour: falling, sign: "ˋ"}
-  "5": {contour: mid, sign: ""}
-  "6": {contour: low, sign: "ˍ"}
-  "7": {contour: glottal-rising, sign: "˜"}
-  "8": {contour: glottal-low, sign: "ˀ"}
+  high: {number: 1, sign: "ˉ"}
+  rising: {number: 2, sign: "ˊ"}
+  dipping: {number: 3, sign: "ˇ"}
+  falling: {number: 4, sign: "ˋ"}
+  mid: {number: 5, sign: ""}
+  low: {number: 6, sign: "ˍ"}
+  glottal-rising: {number: 7, sign: "˜"}
+  glottal-low: {number: 8, sign: "ˀ"}

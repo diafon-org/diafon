@@ -103,7 +103,7 @@ def tone_rules(ufo):
     import yaml
     tones = yaml.safe_load(open(os.path.join(ROOT, 'data', 'script.yaml')))['tones']
     by_cp = {u: g.name for g in ufo for u in g.unicodes}
-    signs = [(by_cp[ord(t['sign'])], d) for d, t in tones.items()
+    signs = [(by_cp[ord(t['sign'])], d) for d, t in ((str(t['number']), t) for t in tones.values())
              if t['sign'] and ord(t['sign']) in by_cp and f'tone{d}.w2' in ufo]
     if not signs:
         return []

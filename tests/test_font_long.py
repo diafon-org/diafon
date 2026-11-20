@@ -22,7 +22,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 sys.path.insert(0, os.path.join(ROOT, 'fonts', 'tools'))
 import build_font as BF
-import engine
+import universal_v1 as engine
 
 LONG = [f for f in engine.inventory() if f.endswith('w') and f[0] in engine.C_BASES]
 HIDDEN = ('uni200D', 'uni200C', 'space')     # a shaper may hide a joiner as an empty space

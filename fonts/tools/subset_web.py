@@ -35,7 +35,9 @@ def needed_codepoints():
                 walk(v)
         elif isinstance(node, str):
             cps.update(ord(c) for c in node)
-    walk(yaml.safe_load(open(os.path.join(ROOT, 'data', 'script.yaml'))))
+    sc = yaml.safe_load(open(os.path.join(ROOT, 'data', 'script.yaml'), encoding='utf-8'))
+    walk(sc['marks'])
+    walk(sc['tones'])
     return {c for c in cps if c >= 0x20}
 
 

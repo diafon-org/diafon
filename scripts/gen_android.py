@@ -2,7 +2,7 @@
 """Generate the Android input method's data file from docs/spec.json:
 input_methods/android/app/src/main/java/io/diafon/ime/SpecData.kt.
 
-The Kotlin engine mirrors scripts/engine.py rule for rule and takes its
+The Kotlin engine mirrors scripts/universal_v1.py rule for rule and takes its
 tables (script rules, stages) from here, so the IME never carries a hand
 copy of any mapping. Run after gen_spec.py; tests/test_kotlin.py replays the
 spec vectors through the Kotlin port.

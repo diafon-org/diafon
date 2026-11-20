@@ -1041,8 +1041,9 @@ def _tone_glyphs(font):
     lo, hi = TONE_BAND
     tones = _yaml.safe_load(open(os.path.join(ROOT, 'data', 'script.yaml')))['tones']
     made = []
-    for d, t in tones.items():
-        shape = TONE_SHAPES.get(t['contour'])
+    for contour, t in tones.items():
+        d = str(t['number'])
+        shape = TONE_SHAPES.get(contour)
         if not shape or not t['sign']:
             continue
         full = (2 - 2 * TONE_GAP) * letter - weight         # the two-letter tone, the round caps inside
@@ -1086,7 +1087,7 @@ def long_forms(font):
     its mark, b_uni0323.long, whatever the font calls ḅ), the plain letter it
     doubles, the letter with its mark (the plain one when unmarked)."""
     sys.path.insert(0, os.path.join(ROOT, 'scripts'))
-    import engine
+    import universal_v1 as engine
     cmap, order = font.getBestCmap(), set(font.getGlyphOrder())
     out = {}
     for form in engine.inventory():
