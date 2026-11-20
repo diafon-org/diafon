@@ -1082,18 +1082,18 @@ LONG_OVERLAP_SANS = {'lhkbdnm': -40}        # sans stems have no foot to share
 
 
 def long_forms(font):
-    """The long consonants the grammar has, as glyphs of this font:
+    """The long consonants the script has, as glyphs of this font:
     [(name, plain, glyph)]: the long glyph (named for the plain letter and
     its mark, b_uni0323.long, whatever the font calls ḅ), the plain letter it
     doubles, the letter with its mark (the plain one when unmarked)."""
     sys.path.insert(0, os.path.join(ROOT, 'scripts'))
-    import universal_v1 as engine
+    import script
     cmap, order = font.getBestCmap(), set(font.getGlyphOrder())
     out = {}
-    for form in engine.inventory():
-        if not (form.endswith('w') and form[0] in engine.C_BASES):
+    for comp in sorted(script.compositions()):
+        if script.vocalic(comp):                 # the glides and r̈: not drawn long
             continue
-        g = engine.glyph(form[:-1])
+        g = script.compose(comp)
         nfd = unicodedata.normalize('NFD', g)
         plain = cmap.get(ord(nfd[0]))
         if not plain:

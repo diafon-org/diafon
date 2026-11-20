@@ -84,20 +84,28 @@ class Tok:
 
 
 def valid(comp):
-    """Whether a letter and marks compose: a consonant with at most one of
-    the anchor, the dot and the reverse, and the flip on j w r; a vowel with
-    any of the flip, the underdot and the grave."""
+    """Whether a letter and marks compose. A consonant wears at most one of
+    the anchor, the dot and the reverse: no reverse on the thin stems l r f,
+    only the dot on q j w. The flip stands on j w r, alone (and on the
+    dotted r). A vowel wears any of the flip, the underdot and the grave;
+    a takes the flip or the underdot, not both."""
     letter, marks = comp
     if len(set(marks)) != len(marks):
         return False
     if letter in VOWELS:
-        return all(m in V_MARKS for m in marks)
+        return all(m in V_MARKS for m in marks) and not (letter == 'a' and 'flip' in marks and 'underdot' in marks)
     if letter not in CONSONANTS:
         return False
     rest = [m for m in marks if m != 'flip']
-    if 'flip' in marks and letter not in 'jwr':
+    if len(rest) > 1 or not all(m in C_MARKS for m in rest):
         return False
-    return len(rest) <= 1 and all(m in C_MARKS for m in rest)
+    if 'reverse' in rest and letter in 'lrf':
+        return False
+    if rest and rest != ['dot'] and letter in 'qjw':
+        return False
+    if 'flip' in marks:
+        return letter in 'jwr' and (not rest or (letter == 'r' and rest == ['dot']))
+    return True
 
 
 def vocalic(comp):

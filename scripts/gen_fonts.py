@@ -2,10 +2,11 @@
 """Generate fonts/glyphs.js: the glyph matrix, every glyph the system can draw;
 the font tools read it (subset_web, build_font).
 
-Structure: bases across, derivations down. Every cell is one potential glyph
-with its codepoints and how many languages use it (0 = the grammar's reserve,
-drawn by the rules but not yet used); combinations the grammar does not define
-are empty. Generated from the engine + the mapping.
+Structure: letters across, marks down. Every cell is one composition
+(scripts/script.py) with its codepoints, the point it is (its name, or none
+for an open composition) and how many languages use it (0 = the script's
+reserve, drawn by the rules but not yet used); letters that do not take a
+row's marks are empty. Generated from the script + the mapping.
 """
 import json
 import os
@@ -13,68 +14,57 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
-import universal_v1 as engine
-from gen_master import aggregate
+import mapping
+import script
 
-C_BASES = list('ptkbdgfvszmnlrh')
-V_BASES = list('aeiou')
+C_LETTERS = list('ptkbdgfvszmnlrhcxqjw')
+V_LETTERS = list('aeiou')
 
-# (ops, label, restricted-to-bases or None)
+# (marks, long, label, the letters the fonts draw it on: all that take it, when None)
 C_ROWS = [
-    ('',   'base',               None),
-    ('j',  'soft',               None),
-    ('c',  'affricate · tap',    'tdr'),
-    ('q',  'hush · uvular',      'tdk'),
-    ('x',  'fricative shift',    None),
-    ('y',  'back-lean',          'tdnkg'),
-    ('jy', 'back-lean hush',     'sz'),
-    ('cx', 'dotted affricate',   'td'),
-    ('qy', 'back-lean affricate', 'td'),
+    ((),          False, 'plain',   None),
+    (('anchor',), False, 'anchor',  None),
+    (('dot',),    False, 'dot',     'ptkbdgfvszmnlrhcx'),
+    (('reverse',), False, 'reverse', 'tdnkgszcx'),
+    (('flip',),   False, 'flip',    None),
 ]
 V_ROWS = [
-    ('',   'base',            None),
-    ('c',  'flip',            None),
-    ('j',  'lowered',         None),
-    ('q',  'c+j',             'eiou'),
-    ('q',  'rhotic · vocalic r', 'a'),
-    ('y',  'nasal',           None),
-    ('w',  'long',            None),
-    ('cw', 'long flip',       None),
-    ('jw', 'long lowered',    None),
-    ('jy', 'nasal lowered',   None),
-    ('qw', 'long c+j',        'eiou'),
-    ('x',  'glide',           'iu'),
-    ('cx', 'flipped glide',   'iu'),
+    ((),                    False, 'plain',                None),
+    (('flip',),             False, 'flip',                 None),
+    (('underdot',),         False, 'underdot',             None),
+    (('flip', 'underdot'),  False, 'flip · underdot',      None),
+    (('grave',),            False, 'grave',                None),
+    ((),                    True,  'long',                 None),
+    (('flip',),             True,  'long flip',            None),
+    (('underdot',),         True,  'long underdot',        None),
+    (('underdot', 'grave'), False, 'underdot · grave',     None),
+    (('flip', 'underdot'),  True,  'long flip · underdot', None),
 ]
 
 
-def build(bases, rows, langs_of):
-    cells = []
-    for ops, label, restrict in rows:
-        row = {'ops': ops, 'label': label, 'cells': []}
-        for b in bases:
-            if restrict and b not in restrict:
+def build(letters, rows, langs_of):
+    out = []
+    for marks, long, label, drawn in rows:
+        row = {'marks': list(marks), 'long': long, 'label': label, 'cells': []}
+        for letter in letters:
+            comp = (letter, marks)
+            if not script.valid(comp) or (drawn and letter not in drawn):
                 row['cells'].append(None)
                 continue
-            form = b + ops
-            try:
-                g = engine.glyph(form)
-            except engine.ParseError:
-                row['cells'].append(None)
-                continue
-            row['cells'].append({'f': form, 'g': g,
-                                 'cps': ' '.join(f'{ord(c):04X}' for c in g),
-                                 'langs': langs_of(form)})
-        cells.append(row)
-    return cells
+            g = script.compose(comp, long)
+            row['cells'].append({'p': (script.NAME.get(comp) or '') and script.NAME[comp] + (script.LONG if long else ''),
+                                 'g': g, 'cps': ' '.join(f'{ord(c):04X}' for c in g),
+                                 'langs': langs_of(comp, long)})
+        out.append(row)
+    return out
 
 
 def main():
-    inuse = aggregate()
-    langs_of = lambda f: sum(v[0] for v in inuse.get(f, {}).values())
+    inuse = mapping.aggregate()
+    langs_of = lambda comp, long: sum(v[0] for v in inuse.get(((comp, long),), {}).values())
     data = {
-        'cons': {'bases': C_BASES, 'rows': build(C_BASES, C_ROWS, langs_of)},
-        'vows': {'bases': V_BASES, 'rows': build(V_BASES, V_ROWS, langs_of)},
+        'cons': {'letters': C_LETTERS, 'rows': build(C_LETTERS, C_ROWS, langs_of)},
+        'vows': {'letters': V_LETTERS, 'rows': build(V_LETTERS, V_ROWS, langs_of)},
     }
     import yaml
     fams = yaml.safe_load(open(os.path.join(ROOT, 'fonts', 'families.yaml')))
