@@ -3,7 +3,7 @@
 
 One source of truth: the script rules come from data/script.yaml, the
 per-language readings from data/mapping.yaml applied to data/languages/.
-The playground's JS engine mirrors scripts/engine.py.
+The playground's JS engine mirrors scripts/universal_v1.py.
 """
 import glob
 import json
@@ -23,7 +23,8 @@ def nfd(s):
 
 
 def main():
-    script = yaml.safe_load(open(os.path.join(ROOT, 'data', 'script.yaml')))
+    import universal_v1
+    script = universal_v1.legacy_script()        # the script rules as the typing ports know them
     cons, vows, over, _, _, _ = gen_master.load_mapping()     # the lax rule applied
 
     langs, default = {}, {}

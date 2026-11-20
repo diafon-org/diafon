@@ -21,7 +21,7 @@ import yaml
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
-import engine
+import universal_v1 as engine
 import gen_master
 import lexicon
 import stages
@@ -78,7 +78,7 @@ def git_sha():
 
 
 def main():
-    script = yaml.safe_load(open(os.path.join(ROOT, 'data', 'script.yaml')))
+    script = engine.legacy_script()        # the script rules as the typing ports know them
     agg = gen_master.aggregate()
     cons, vows, over, merges, review, shares = gen_master.load_mapping()
     langs = gen_master.load_languages()

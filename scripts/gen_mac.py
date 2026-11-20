@@ -2,7 +2,7 @@
 """Generate the macOS input method's data file from docs/spec.json:
 input_methods/apple/Core/SpecData.swift.
 
-The Swift engine mirrors scripts/engine.py rule for rule and takes its
+The Swift engine mirrors scripts/universal_v1.py rule for rule and takes its
 tables (script rules, stages, the forms in use) from here, so the input method
 never carries a hand copy of any mapping. Run after gen_spec.py;
 tests/test_swift.py replays the spec vectors through the Swift port.
