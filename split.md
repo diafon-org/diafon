@@ -305,7 +305,8 @@ operators); remarks.md and plan.md split.
   and reads a key-table profile into them. Android has universal-v1 only.
 - Mandarin under `minimal-hu-v1` is typed with the profile's own keys and
   tone digits (`ni3 kqaw3`), not as pinyin words: `kq` is ḳ, a digit after
-  a point is its tone, and a segment commits when the next one starts. The
+  a point is its tone (doubled, the plain digit: `h22o`), and a segment
+  commits when the next one starts. The
   zh stage of P3 and the word commit are not needed. This replaces the
   Mandarin and commit rules under "Profile: minimal-hu-v1" above.
 
