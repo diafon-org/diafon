@@ -109,6 +109,7 @@ points:
   u: u
   y: u flip
   ũ: u grave
+  ʊ: u underdot        # the lax split of the u area: named, though no language here makes the split yet
   ʏ: u flip underdot
 
 # Tones: one contour is one sign in every language, written after the

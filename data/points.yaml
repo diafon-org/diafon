@@ -823,6 +823,13 @@ yː:
   capital: Ù
   readings:
     ũ: [bn, hi, pt]
+ʊ:
+  letter: u
+  marks: [underdot]
+  long: false
+  glyph: ụ
+  capital: Ụ
+  readings: {}
 ʏ:
   letter: u
   marks: [flip, underdot]

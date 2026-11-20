@@ -53,7 +53,7 @@ def nfd(s):
 
 
 def load_mapping():
-    m = yaml.safe_load(open(os.path.join(ROOT, 'data', 'mapping.yaml')))
+    m = engine.legacy_mapping()                 # the mapping by typed form: these tables show how a point is typed
     cons = {nfd(k): v for k, v in m['consonants'].items()}
     vows = {nfd(k): v for k, v in m['vowels'].items()}
     over = {c: {nfd(k): v for k, v in d.items()} for c, d in m['overrides'].items()}

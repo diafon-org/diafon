@@ -154,7 +154,7 @@ def vowel_areas():
     """-> {area form: (covers, {split form: (reading, [languages])})}, from the
     mapping: what each area covers, and which languages write each split."""
     import gen_master
-    m = __import__('yaml').safe_load(open(os.path.join(ROOT, 'data', 'mapping.yaml')))
+    m = engine.legacy_mapping()                 # the areas by typed form: the chart shows how each is typed
     _, vows, over, _, _, _ = gen_master.load_mapping()
     langs = gen_master.load_languages()
     out = {}

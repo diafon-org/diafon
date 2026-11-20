@@ -32,6 +32,7 @@ import yaml
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import lexicon
+import mapping
 import script
 from script import Tok
 
@@ -438,17 +439,6 @@ def source_for(text, target, prefer=None, other=()):
     return ranked[0][0]
 
 
-def language_points(code):
-    """-> {(point, ...): [(ipa, frequency), ...]} for one language: what each
-    of its sounds is written with, one point or a sequence. Through the bridge
-    until data/mapping.yaml is keyed by point (split.md, P1)."""
-    import universal_v1
-    out = {}
-    for form, reads in universal_v1.language_forms(code).items():
-        out[tuple(key(t) for t in universal_v1.points(form))] = reads
-    return out
-
-
 def name(k):
     return script.NAME.get(k[0], script.compose(k[0])) + (script.LONG if k[1] else '')
 
@@ -459,7 +449,7 @@ def validate(code):
         return []                       # no letters to check; the lexicon generator checks its entries
     letters = set(stage['letters'])
     errors = []
-    pts = language_points(code)
+    pts = mapping.language_points(code)
     single = {seq[0]: reads for seq, reads in pts.items() if len(seq) == 1}
     for seq, reads in pts.items():
         for k in seq:

@@ -325,6 +325,25 @@ import re as _re
 import types as _types
 
 
+def legacy_mapping():
+    """data/mapping.yaml as it was before the split: every point name back
+    to the form that types it (a sequence to its forms, joined)."""
+    import yaml
+    m = yaml.safe_load(open(os.path.join(ROOT, 'data', 'mapping.yaml'), encoding='utf-8'))
+
+    def f(value):
+        names = value if isinstance(value, list) else [value]
+        return ''.join(form(Tok(*script.point(str(n)))) for n in names)
+    out = dict(m)
+    for sec in ('consonants', 'vowels'):
+        out[sec] = {k: f(v) for k, v in m[sec].items()}
+    out['overrides'] = {c: {k: f(v) for k, v in d.items()} for c, d in m['overrides'].items()}
+    out['areas'] = {f(a): dict(d, **({'split': {f(sf): qs for sf, qs in d['split'].items()}} if d.get('split') else {}))
+                    for a, d in (m.get('areas') or {}).items()}
+    out['shares'] = {f(k): d for k, d in (m.get('shares') or {}).items()}
+    return out
+
+
 def language_forms(code):
     """-> {form: [(ipa, frequency), ...]} for one language, from the mapping (X included)."""
     import gen_master

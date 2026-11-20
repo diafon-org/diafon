@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
 """The points of the alphabet -> data/points.yaml (generated; do not edit).
 
-One entry per point the languages use, by name (its canonical IPA value,
-split.md): the letter and marks (data/script.yaml), the glyph small and
-capital, and the readings: which sound of which language the point writes.
-A long point follows its short one.
+One entry per point, by name (its canonical IPA value, split.md): the letter
+and marks (data/script.yaml), the glyph small and capital, and the readings:
+which sound of which language the point writes (data/mapping.yaml). A long
+point follows its short one.
 
 Fails when a language uses a composition data/script.yaml does not name, or
-names one no language uses.
-
-Until data/mapping.yaml is keyed by point (split.md, P1) the readings come
-through the bridge, scripts/universal_v1.py.
+the script names a point that no language uses and no vowel area keeps as
+its split.
 """
 import os
 import sys
@@ -19,9 +17,8 @@ import yaml
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
-import gen_master
+import mapping
 import script
-import universal_v1
 
 OUT = os.path.join(ROOT, 'data', 'points.yaml')
 
@@ -30,29 +27,27 @@ def points():
     """-> {name: {letter, marks, long, glyph, capital, readings}} in the
     script's order, a long point after its short one."""
     used, errors = {}, []
-    for form, reads in gen_master.aggregate().items():
-        toks = universal_v1.points(form)
-        if len(toks) != 1:
+    for pts, reads in mapping.aggregate().items():
+        if len(pts) != 1:
             continue                                    # a sequence: its points are listed on their own
-        t = toks[0]
-        if t.name is None:
-            errors.append(f'{script.write([t])}: used ({", ".join(reads)}) and not named in data/script.yaml')
+        comp, long = pts[0]
+        if comp not in script.NAME:
+            errors.append(f'{script.glyph(comp, long)}: used ({", ".join(reads)}) and not named in data/script.yaml')
             continue
-        used[t.name] = (t, {ipa: sorted(v[2]) for ipa, v in sorted(reads.items())})
-    for name in script.POINTS:
-        if name not in used:
+        used[script.NAME[comp] + (script.LONG if long else '')] = {ipa: sorted(v[2]) for ipa, v in sorted(reads.items())}
+    for name, comp in script.POINTS.items():
+        if name not in used and (comp, False) not in mapping.SPLITS:
             errors.append(f'{name}: named in data/script.yaml and used by no language')
     if errors:
         sys.exit('POINTS INVALID:\n  ' + '\n  '.join(errors))
     out = {}
-    for name in script.POINTS:
-        for n in (name, name + script.LONG):
-            if n not in used:
+    for name, comp in script.POINTS.items():
+        for n, long in ((name, False), (name + script.LONG, True)):
+            if n not in used and (long or name in used):
                 continue
-            t, reads = used[n]
-            out[n] = {'letter': t.comp[0], 'marks': list(t.comp[1]), 'long': t.long,
-                      'glyph': script.glyph(t.comp, t.long), 'capital': script.glyph(t.comp, t.long, caps=True),
-                      'readings': reads}
+            out[n] = {'letter': comp[0], 'marks': list(comp[1]), 'long': long,
+                      'glyph': script.glyph(comp, long), 'capital': script.glyph(comp, long, caps=True),
+                      'readings': used.get(n, {})}
     return out
 
 
