@@ -15,7 +15,7 @@ import yaml
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
-import gen_master
+import forms as gen_master
 
 
 def nfd(s):
@@ -28,7 +28,7 @@ def main():
     cons, vows, over, _, _, _ = gen_master.load_mapping()     # the lax rule applied
 
     langs, default = {}, {}
-    for path in sorted(glob.glob(os.path.join(ROOT, 'data', 'languages', '*.yaml'))):
+    for path in sorted(glob.glob(os.path.join(gen_master.alphabet_ref.PATH, 'data', 'languages', '*.yaml'))):
         d = yaml.safe_load(open(path))
         code, native = d['code'], d['speakers']['native']
         readings = {}

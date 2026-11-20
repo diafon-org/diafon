@@ -44,7 +44,7 @@ import universal_v1 as engine
 from universal_v1 import lexicon
 from universal_v1 import stages
 
-SRC = os.path.join(ROOT, 'data', 'lexicon', 'sources', 'emoji')
+SRC = os.path.join(engine.alphabet_ref.PATH, 'data', 'lexicon', 'sources', 'emoji')     # CLDR, beside the alphabet's other sources
 OUT = os.path.join(ROOT, 'data', 'emoji.json')       # beside the lexicons, not one of them
 LANGS = ['en', 'hu', 'cs', 'pl', 'fi', 'tr', 'sw']
 TOP = 400               # the most used, from freq.txt (gender variants merged)

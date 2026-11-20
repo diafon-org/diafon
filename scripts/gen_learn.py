@@ -26,10 +26,10 @@ import yaml
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import universal_v1 as engine
-import gen_master
+import forms as gen_master
 from universal_v1 import stages
 
-LEX = os.path.join(ROOT, 'data', 'lexicon')
+LEX = os.path.join(engine.alphabet_ref.PATH, 'data', 'lexicon')      # the word lists, beside the alphabet's lexicons
 OUT = os.path.join(ROOT, 'docs', 'learn-data.js')
 OP_ORDER = 'jxcqy'
 TOP = 30000          # how deep into a frequency list examples may come from
