@@ -36,6 +36,7 @@ uitest: check project
 	xcrun simctl boot '$(SIM)' 2>/dev/null || true
 	xcrun simctl spawn '$(SIM)' defaults write .GlobalPreferences AppleKeyboards -array 'en_US@sw=QWERTY;hw=Automatic' 'io.diafon.app.keyboard' 'emoji@sw=Emoji'
 	defaults write com.apple.iphonesimulator ConnectHardwareKeyboard -bool false
+	xcrun simctl spawn '$(SIM)' defaults write com.apple.preferences.sounds keyboard-audio -bool false    # the test types in silence
 	rm -rf build/ui.xcresult
 	xcodebuild -project Diafon.xcodeproj -scheme Diafon -destination 'platform=iOS Simulator,name=$(SIM)' -derivedDataPath build -resultBundlePath build/ui.xcresult test
 
