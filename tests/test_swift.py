@@ -75,7 +75,7 @@ def test_swift_vectors():
     for src, t, want in lv['roundtrip']:
         reqs.append((f'convert:{src}|{src}', t)); wants.append(want)
     stdin = ''.join(f'{m}\t{i}\n' for m, i in reqs)
-    env = dict(os.environ, DIAFON_LEXICON_DIR=os.path.join(ROOT, 'data', 'lexicon'))
+    env = dict(os.environ, DIAFON_LEXICON_DIR=os.path.join(ROOT, 'docs', 'lexicon'))
     res = subprocess.run([exe], input=stdin, capture_output=True, text=True, env=env)
     assert res.returncode == 0, res.stderr
     got = res.stdout.split('\n')[:-1]

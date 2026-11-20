@@ -14,7 +14,7 @@ word's own first, then from the third letter those of the words it begins
 usually spelled, with or without accents (`kutya`, `sziv`, `home`), is read
 by your own languages' spellings too, in any mode: in full first, then on its
 base letters. English is read through its lexicon's reading, carried as sorted
-lines searched in place (data/lexicon/en.read.tsv, 2.2 MB; the parsed lexicon
+lines searched in place (docs/lexicon/en.read.tsv, 2.2 MB; the parsed lexicon
 would take 40 MB). In
 Mandarin the digits stay, since they write the tones. Select text in any
 spelling and the strip offers to convert it. The emoji table (data/emoji.json, 220 KB: 656 emoji, 11,442 words) and the

@@ -7,7 +7,7 @@ whole lexicon. Also the spelling stages the switch offers."""
 import glob, html, json, os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
-import lexicon, stages
+from universal_v1 import lexicon, stages    # the site script switch runs the typed engine
 
 WORD = re.compile(r"[A-Za-z][A-Za-z']*[A-Za-z]")       # one letter is a letter named, not a word
 

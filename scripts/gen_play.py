@@ -48,7 +48,7 @@ def main():
 
     # the stages and the forms in use, for the engine's reading back
     sys.path.insert(0, os.path.join(ROOT, 'scripts'))
-    import stages as stg
+    from universal_v1 import stages as stg
     st = {}
     for code in stg.codes():
         d = stg.load(code)

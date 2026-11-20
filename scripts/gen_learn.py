@@ -27,7 +27,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import universal_v1 as engine
 import gen_master
-import stages
+from universal_v1 import stages
 
 LEX = os.path.join(ROOT, 'data', 'lexicon')
 OUT = os.path.join(ROOT, 'docs', 'learn-data.js')
@@ -130,7 +130,8 @@ def zh_words():
         p = line.rstrip('\n').split('\t')
         if len(p) == 3 and p[1] == 'kFrequency':
             freq[chr(int(p[0][2:], 16))] = int(p[2])
-    lex = json.load(open(os.path.join(LEX, 'zh.json')))
+    from universal_v1 import lexicon as typed_lexicon
+    lex = typed_lexicon.lex('zh')                 # the syllables in typed forms
     rows = []
     for key, chars in lex['choices'].items():
         if not key[-1].isdigit() or not chars:
