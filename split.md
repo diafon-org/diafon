@@ -1,7 +1,7 @@
 # Split: the alphabet and the input
 
-Status: plan, 2026-11-20. Supersedes nothing yet; plan.md links here once
-phase 1 starts.
+Status: P0 and P1 done on the branch `split` (2026-11-20); P2 next. See
+"P1 as built" below.
 
 Diafon today is one system: the typed form is the point's identity. Stages,
 lexicons, the spec, the font tools and every port are keyed by input forms
@@ -221,6 +221,43 @@ Gate: as under the profile above.
 **P4, docs and sites.** diafon.io describes the alphabet only; input.diafon.io
 describes typing per profile. READMEs rewritten (today's opens with the
 operators); remarks.md and plan.md split.
+
+## P1 as built
+
+- **The script**: `data/script.yaml` names 79 short points as a letter and
+  marks; `scripts/script.py` composes, writes and reads them; a text is a
+  list of tokens. `data/points.yaml` (generated) lists the 97 points in use,
+  long ones included, with their readings.
+- **Open compositions**: the script allows 113 letter-and-mark compositions,
+  the ones the old grammar could type. The 34 that no point names are
+  script all the same: they read and write, the spec lists them under
+  `open`, and `universal-v1` goes on typing them. A profile names them by
+  letter and marks until a language uses one and it gets a name.
+- **Stages and lexicons**: `data/stages` by point name, lexicons in script
+  text; `stages.py`, `lexicon.py` and `mapping.py` work in points.
+  `data/mapping.yaml` values are point names, a sequence a list.
+- **Fonts**: the glyph matrix and the long consonants come from the script.
+  The glyph set is unchanged; no font was rebuilt.
+- **The spec**: `docs/alphabet-spec.json`, version 1.0.0-pre.1 (1.0.0 when
+  the split is done), with `tests/test_alphabet_spec.py`.
+- **The bridge**: `scripts/universal_v1.py` holds the typing grammar and
+  the old form-based view of the stages, lexicons and mapping. What still
+  thinks in forms reads through it, and all of it leaves in P2 or is
+  rewritten in P4: gen_spec, gen_play, gen_learn, gen_emoji, gen_layouts,
+  gen_android, gen_mac, gen_site_words, the form columns of gen_master and
+  gen_site, docs/engine.js, the ports and their tests. `docs/lexicon/` is
+  the lexicons exported in typed forms for the ports and the site's engine.
+- **The gate**: `python3 scripts/gen_goldens.py --check` recomputes all
+  370,000 frozen rows from their own inputs. All match except 226 that
+  follow from decisions here, counted by kind:
+  - 212 `doubled`: a word an English lexicon reads with two equal
+    consonants in a row (bookcase, k k) comes back typed long (decision 4);
+  - 9 `caps`: a word typed with capital operators (`SJ`) is the same text
+    as `Sj`, so a lexical stage now finds it;
+  - 5 `inside`: a Hungarian stem that ended inside a typed form (hely in
+    `heixtx`) used to leave the operator over; a letter is not cut.
+  The old spec, the lessons, the playground data, the emoji table and the
+  port data regenerate byte for byte (but for the date stamp).
 
 ## Arguments against
 

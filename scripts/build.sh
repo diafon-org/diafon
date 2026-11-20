@@ -9,6 +9,7 @@ python3 scripts/gen_fonts.py
 python3 scripts/gen_lexicon.py 2>/dev/null || echo "lexicon sources missing: data/lexicon/*.json kept as committed"
 python3 scripts/gen_emoji.py
 python3 scripts/gen_learn.py
+python3 scripts/gen_alphabet_spec.py
 python3 scripts/gen_spec.py
 python3 scripts/gen_android.py
 python3 scripts/gen_mac.py
@@ -18,6 +19,7 @@ python3 scripts/universal_v1.py export docs/lexicon    # the lexicons in typed f
 python3 fonts/tools/subset_web.py
 python3 tests/test_engine.py
 python3 tests/test_script.py
+python3 tests/test_alphabet_spec.py
 python3 tests/test_spec.py
 python3 tests/test_samples.py
 python3 tests/test_kotlin.py
