@@ -2,17 +2,17 @@
 # dictionary (loans.json) every host consults. Diafon writes a word the same in
 # every text, so a host never gives its own reading of these, whatever it
 # spells them. Keyed by the original spelling; `lang` is the origin, `t` the
-# reading in Diafon input (left out where the origin's lexicon reads the word:
+# reading in the script (left out where the origin's lexicon reads the word:
 # meeting is read by English). Per host:
 #   also   spellings the host uses for the word, read as it: Hungarian míting
 #          is meeting, one Diafon form; written back in the original spelling
 #   spell  how the host writes the word back, and reads it (Czech Jamajka)
 # Matched as a stem (jamaicai, Jamaicában), ahead of the host's dictionary.
 # Built by scripts/gen_lexicon.py into loans.json; each host builds its stems.
-jamaica: {lang: en, t: dqajmeixkaj, spell: {cs: Jamajka}}
-bach:    {lang: de, t: bakx}
-live:    {lang: en, t: laixv}         # the sense the hosts borrow (live stream)
-cudjoe:  {lang: en, t: kajdqoux}
-ocho:    {lang: es, t: otqo}
+jamaica: {lang: en, t: x̦ạmejkạ, spell: {cs: Jamajka}}
+bach:    {lang: de, t: baḳ}
+live:    {lang: en, t: lajv}         # the sense the hosts borrow (live stream)
+cudjoe:  {lang: en, t: kạx̦ow}
+ocho:    {lang: es, t: oc̦o}
 meeting: {lang: en, also: {hu: míting}}
 like:    {lang: en, spell: {hu: lájk}}  # Hungarian writes it lájk (lájkol); like reads the same

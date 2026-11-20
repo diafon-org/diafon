@@ -21,8 +21,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import universal_v1 as engine
 import gen_samples
-import lexicon
-import stages
+from universal_v1 import lexicon
+from universal_v1 import stages
 
 # the spellings that must not survive in the script, per language: the text is
 # NFD and lower case, so a marked letter (n̦ = n + comma) never matches a plain one
@@ -102,7 +102,7 @@ def test_js_parity():
     assert node, 'node is required for the JS parity test'
     data = open(os.path.join(ROOT, 'docs', 'play-data.js')).read()
     eng = open(os.path.join(ROOT, 'docs', 'engine.js')).read()
-    lexdir = os.path.join(ROOT, 'data', 'lexicon')
+    lexdir = os.path.join(ROOT, 'docs', 'lexicon')      # the lexicons in typed forms (universal_v1 export)
     prog = data + '\n' + eng + f'\nconst LEX_CODES = {json.dumps(lexicon.codes())}, LEX_DIR = {json.dumps(lexdir)};' + JS
     texts = [(code, text) for code, _, _, text in gen_samples.TEXTS]
     res = subprocess.run([node, '-e', prog], input=json.dumps(texts), text=True, capture_output=True)

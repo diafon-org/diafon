@@ -20,8 +20,8 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import universal_v1 as engine
-import lexicon
-import stages
+from universal_v1 import lexicon
+from universal_v1 import stages
 
 SPEC = json.load(open(os.path.join(ROOT, 'docs', 'spec.json')))
 VEC = SPEC['vectors']
@@ -152,7 +152,7 @@ def test_js_parity():
     assert node, 'node is required for the JS parity test'
     data = open(os.path.join(ROOT, 'docs', 'play-data.js')).read()
     eng = open(os.path.join(ROOT, 'docs', 'engine.js')).read()
-    lexdir = os.path.join(ROOT, 'data', 'lexicon')
+    lexdir = os.path.join(ROOT, 'docs', 'lexicon')      # the lexicons in typed forms (universal_v1 export)
     prog = (data + '\n' + eng + f'\nconst LEX_CODES = {json.dumps(lexicon.codes())}, LEX_DIR = {json.dumps(lexdir)};' + JS_HARNESS)
     vec = {'render': VEC['render'] + VEC['lenient'], 'joined': VEC['joined'], 'parseScript': VEC['parse']['script'],
            'parseStages': VEC['parse']['stages'], 'convert': VEC['convert'], 'detect': VEC['detect'],

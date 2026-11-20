@@ -12,21 +12,21 @@ name: Czech
 state: draft
 letters: a á b c č d ď dz dž e é f g h ch i í j k l m n ň o ó p r ř s š t ť u ú v z ž
 long: double
-before_i: {tj: t, dj: d, nj: n}    # tj + i is written ti
-sample: dobriw den, prjawtelew      # dobrý den, přátelé
+before_i: {c: t, ɟ: d, ɲ: n}    # ť + i is written ti
+sample: dobrí den, pr̦átelé      # dobrý den, přátelé
 read:                   # spellings read back but never written: etymological y, ů, and ě after d t n m
   x: ks
   w: v
   q: kv
   y: i
-  ý: iw
-  ů: uw
-  dě: dje
-  tě: tje
-  ně: nje
-  mě: mnje
-  ě: ixe
-forms:
+  ý: í
+  ů: ú
+  dě: d̦e
+  tě: țe
+  ně: n̦e
+  mě: mn̦e
+  ě: je
+points:
   p: p
   b: b
   t: t
@@ -37,30 +37,30 @@ forms:
   v: v
   s: s
   z: z
-  sj: š
-  zj: ž
-  tc: c
-  dc: dz
-  tq: č
-  dq: dž
-  tj: ť
-  dj: ď
-  nj: ň
-  kx: ch
+  ʃ: š
+  ʒ: ž
+  ts: c
+  dz: dz
+  tʃ: č
+  dʒ: dž
+  c: ť
+  ɟ: ď
+  ɲ: ň
+  x: ch
   h: h
   m: m
   n: n
   l: l
   r: r
-  rj: ř
-  ix: j
+  rʲ: ř
+  j: j
   a: a
-  aw: á
+  aː: á
   e: e
-  ew: é
+  eː: é
   i: i
-  iw: í
+  iː: í
   o: o
-  ow: ó
+  oː: ó
   u: u
-  uw: ú
+  uː: ú

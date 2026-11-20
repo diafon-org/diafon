@@ -11,12 +11,12 @@ language, in two files per code:
 
 A lexicon has:
 
-- `read`: spelling → transport, per word (English: the pronunciation
+- `read`: spelling → script text, per word (English: the pronunciation
   dictionary; Mandarin: the pinyin syllables). Consulted before the letters.
-- `write`: transport → spelling, per word or, with `match: prefix`, per stem
+- `write`: script text → spelling, per word or, with `match: prefix`, per stem
   (Hungarian: the ly stems, so folyó writes ly where the letters would write
   j). Consulted before the letters when rendering.
-- `choices`: transport + tone → the characters to choose from (Mandarin:
+- `choices`: script text + tone sign → the characters to choose from (Mandarin:
   from Unihan, ordered by frequency).
 - `loans: true`: the host catches loans, through the one loan dictionary
   every host shares (below). A loan keeps the sounds of the language it
@@ -45,12 +45,12 @@ writes a loan back.
 
 - `hand`: `origin.yaml`, the words no dictionary here reads, or reads
   otherwise than the hosts borrow them, as their own language says them, in
-  Diafon input (jamaica: dqajmeixkaj, bach: bakx). Matched as stems
+  the script (jamaica: x̦ạmejkạ, bach: baḳ). Matched as stems
   (jamaicai, Jamaicában), ahead of a host's dictionary.
 - `read`: the dictionaries, per origin: Latin (la.yaml), English (CMUdict,
   its common words only: the frequency list, not the names). A spelling
   is in one of them only: hand first, then Latin, then English.
-- `write`: Diafon form → the original spelling.
+- `write`: script text → the original spelling.
 - `hosts`: per host, its own spellings of a loan, from origin.yaml.
   `also` spellings read as the loan and write back in the original
   (Hungarian míting is mítiṇ, written meeting); `spell` is how the host

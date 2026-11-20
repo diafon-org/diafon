@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """The pre-split goldens (split.md, P0): what the system writes at the tag
 v1-presplit, frozen as the oracle for the split. Run once at the tag; never
-regenerated afterwards, and not part of scripts/build.sh. `--check` recomputes
-every row with the code as it is and compares it with the frozen files.
+regenerated afterwards. `--check` recomputes every frozen row from its own
+input with the code as it is (through the bridge, scripts/universal_v1.py).
 
 -> tests/goldens/
   spec.json            docs/spec.json as it was: every vector must reproduce
@@ -28,8 +28,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import universal_v1 as engine
 import gen_samples
-import lexicon
-import stages
+from universal_v1 import lexicon
+from universal_v1 import stages
 
 OUT = os.path.join(ROOT, 'tests', 'goldens')
 CODES = stages.codes()
@@ -99,19 +99,11 @@ def lexicon_spellings(code):
 
 
 MANIFEST = {}
-CHECK = None            # the frozen manifest, under --check
-FAILED = []
 
 
 def write(name, rows):
     text = ''.join(json.dumps(r, ensure_ascii=False, sort_keys=True) + '\n' for r in rows)
     data = text.encode('utf-8')
-    if CHECK is not None:
-        want = CHECK['files'][name]
-        ok = want['sha256'] == hashlib.sha256(data).hexdigest()
-        print(f"{name}: {len(rows)} rows, {'same' if ok else 'DIFFERS'}")
-        FAILED.extend([] if ok else [name])
-        return
     path = os.path.join(OUT, name)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     if name.endswith('.gz'):
@@ -124,17 +116,13 @@ def write(name, rows):
     print(f'{name}: {len(rows)} rows, {os.path.getsize(path)} bytes')
 
 
-def main():
-    global CHECK
-    if '--check' in sys.argv:
-        CHECK = json.load(open(os.path.join(OUT, 'MANIFEST.json'), encoding='utf-8'))
-    elif os.path.exists(os.path.join(OUT, 'MANIFEST.json')) and '--force' not in sys.argv:
+def generate():
+    if os.path.exists(os.path.join(OUT, 'MANIFEST.json')) and '--force' not in sys.argv:
         sys.exit('tests/goldens exists: the goldens are frozen (split.md, P0)')
+    os.makedirs(OUT, exist_ok=True)
     src = os.path.join(OUT, 'spec.json')
-    if CHECK is None:
-        os.makedirs(OUT, exist_ok=True)
-        shutil.copyfile(os.path.join(ROOT, 'docs', 'spec.json'), src)
-        MANIFEST['spec.json'] = {'sha256': hashlib.sha256(open(src, 'rb').read()).hexdigest()}
+    shutil.copyfile(os.path.join(ROOT, 'docs', 'spec.json'), src)
+    MANIFEST['spec.json'] = {'sha256': hashlib.sha256(open(src, 'rb').read()).hexdigest()}
     write('spec.jsonl', [row(t) for t in spec_texts(json.load(open(src, encoding='utf-8')))])
     rows = []
     for code, _, title, text in gen_samples.TEXTS:
@@ -148,12 +136,112 @@ def main():
             words = lexicon_spellings(code)
             if words:
                 write(f'read/{code}.jsonl.gz', [[w] + list(stages.read_word(w, stage)) for w in words])
-    if CHECK is not None:
-        sys.exit(f'goldens differ: {FAILED}' if FAILED else 0)
     with open(os.path.join(OUT, 'MANIFEST.json'), 'w', encoding='utf-8') as f:
         json.dump({'tag': 'v1-presplit', 'stages': CODES, 'files': MANIFEST}, f, indent=1, sort_keys=True)
         f.write('\n')
 
 
+# ---- the check: the frozen inputs through the code as it is ----
+#
+# Every frozen row is recomputed from its own input (the typed text, or the
+# spelling) and must come out the same. Two differences are the split's own
+# decisions and are counted, not failed (split.md, decision 4 and the text
+# as script):
+#   doubled   two equal consonants in a row are the long one once the text
+#             is script, so a word a lexicon reads comes back typed long
+#   caps      a word typed with capital operators (SJ) is the same script
+#             text as Sj, so a lexicon now finds it
+#   inside    a prefix lexicon's stem that ended inside a typed form (hely in
+#             heixtx) used to leave the operator over; a letter is not cut
+
+def frozen(name):
+    path = os.path.join(OUT, name)
+    data = (gzip.open(path, 'rb') if name.endswith('.gz') else open(path, 'rb')).read()
+    want = json.load(open(os.path.join(OUT, 'MANIFEST.json'), encoding='utf-8'))['files'][name]['sha256']
+    assert hashlib.sha256(data).hexdigest() == want, f'{name}: the frozen file itself has changed'
+    return [json.loads(l) for l in data.decode('utf-8').splitlines()]
+
+
+def doubled(t):
+    toks = engine.points(t, strict=False)
+    return any(a.point and b.point and a.comp == b.comp and not a.tones and not a.long and not b.long
+               and a.comp[0] not in 'aeiou' for a, b in zip(toks, toks[1:]))
+
+
+def caps_operators(t):
+    return any(s['kind'] == 'form' and s['src'][1:len(s['form'])] != s['form'][1:]
+               for s in engine.segments(t, strict=False))
+
+
+def inside(t, code):
+    """Whether the longest stem a prefix lexicon finds in a typed word ends
+    inside one of its forms (hely in heixtx, cutting tx): the old writer
+    then left the operator over; the script cannot be cut there."""
+    L = lexicon.lex(code)
+    if not L or L['match'] != 'prefix':
+        return False
+    key = t[0].lower() + t[1:]
+    best = max((s for s in L['write'] if key.startswith(s)), key=len, default=None)
+    ends, n = set(), 0
+    for seg in engine.segments(t, strict=False):
+        n += len(seg['src'])
+        ends.add(n)
+    return best is not None and len(best) not in ends
+
+
+def same_script(a, b):
+    return engine.render(a, strict=False) == engine.render(b, strict=False)
+
+
+def check():
+    show = int(os.environ.get('GOLDEN_SHOW', '5'))
+    failed = 0
+    names = json.load(open(os.path.join(OUT, 'MANIFEST.json'), encoding='utf-8'))['files']
+    for name in names:
+        if name == 'spec.json':
+            continue
+        rows = frozen(name)
+        counts, bad = {'doubled': 0, 'caps': 0, 'inside': 0}, []
+        stage = stages.load(name[5:7]) if name.startswith('read/') else None
+        for old in rows:
+            old = json.loads(json.dumps(old))
+            if name.startswith('read/'):
+                new = [old[0]] + list(stages.read_word(old[0], stage))
+                if new != old:
+                    if new[2] == old[2] and doubled(old[1]) and same_script(old[1], new[1]):
+                        counts['doubled'] += 1
+                    else:
+                        bad.append((old, new))
+                continue
+            if name == 'samples.jsonl':
+                t = stages.parse(old[2], f'stage:{old[0]}')
+                new = old[:3] + row(t)
+                if new != old:
+                    if doubled(old[3]) and same_script(old[3], new[3]) and new[4:] == old[4:]:
+                        counts['doubled'] += 1
+                    else:
+                        bad.append((old, new))
+                continue
+            new = json.loads(json.dumps(row(old[0])))
+            if new != old:
+                if caps_operators(old[0]) and new[:3] == old[:3]:
+                    counts['caps'] += 1
+                elif new[:3] == old[:3] and all(inside(old[0], c) for c in old[3] if old[3][c] != new[3][c]):
+                    counts['inside'] += 1
+                else:
+                    bad.append((old, new))
+        noted = ', '.join(f'{n} {k}' for k, n in counts.items() if n)
+        print(f'{name}: {len(rows)} rows, {"same" if not bad else f"{len(bad)} DIFFER"}' + (f' ({noted})' if noted else ''))
+        failed += len(bad)
+        for o, n in bad[:show]:
+            for k in range(min(len(o), len(n))):
+                if o[k] != n[k]:
+                    if isinstance(o[k], dict):
+                        print('   ', o[0], {c: (o[k][c], n[k].get(c)) for c in o[k] if o[k][c] != n[k].get(c)})
+                    else:
+                        print('   ', o[0], (o[k], n[k]))
+    sys.exit(f'goldens differ: {failed} rows' if failed else 0)
+
+
 if __name__ == '__main__':
-    main()
+    check() if '--check' in sys.argv else generate()

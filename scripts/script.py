@@ -56,8 +56,8 @@ for _name, _comp in POINTS.items():
 
 class Tok:
     """One token of a text: a point (comp, long, caps, tones) or a raw
-    character (raw). `tones` is a string of tone numbers; `src` the text it
-    was read from, where it was read."""
+    character (raw). `tones` is a string of tone numbers; `src` the letters
+    it was read from, where it was read."""
     __slots__ = ('comp', 'long', 'caps', 'tones', 'raw', 'src')
 
     def __init__(self, comp=None, long=False, caps=False, tones='', raw=None, src=None):
@@ -98,6 +98,20 @@ def valid(comp):
     if 'flip' in marks and letter not in 'jwr':
         return False
     return len(rest) <= 1 and all(m in C_MARKS for m in rest)
+
+
+def vocalic(comp):
+    """The vowels, and the points that stand with them: the glides on j and
+    w, and the vocalic r (r̈). A spelling's rules for consonants (a doubled
+    letter when long, soft before a vowel) leave these out."""
+    letter, marks = comp
+    return letter in VOWELS or letter in 'jw' or (letter == 'r' and 'flip' in marks)
+
+
+def point(name):
+    """A point by name -> (composition, long)."""
+    long = name.endswith(LONG)
+    return POINTS[name[:-1] if long else name], long
 
 
 def compose(comp, long=False, caps=False):
@@ -224,9 +238,25 @@ def read(text):
             continue
         comp, long, caps = t[s]
         tones, j = read_tones(text, i + len(s))
-        out.append(Tok(comp, long, caps, tones, src=text[i:j]))
+        out.append(Tok(comp, long, caps, tones, src=s))
         i = j
     return out
+
+
+def capital(text):
+    """A text with its first point capitalized: the letter's own capital (a
+    mark that floated above sits below it), a long consonant's first letter."""
+    toks = read(text)
+    for t in toks:
+        if t.point:
+            t.caps = True
+            break
+    return write(toks, join=ZWJ in text)
+
+
+def is_script(text):
+    """Whether a text is points throughout (tones allowed)."""
+    return bool(text) and all(t.point for t in read(text))
 
 
 def names(text):

@@ -9,13 +9,13 @@ name: Finnish
 state: draft
 letters: a aa ä ää b d e ee f g h i ii j k l m n ng o oo ö öö p r s š t u uu v y yy
 long: double            # a long consonant doubles its letter: tt, kk, ss
-sample: hicvaw icecta ixac kacunistac kesaw      # hyvää yötä ja kaunista kesää
+sample: hüvá üöta jä käunistä kesá      # hyvää yötä ja kaunista kesää
 read:                   # read back but never written: the loan letters
   x: ks
   w: v
   q: kv
-  z: tc
-forms:
+  z: c
+points:
   # consonants
   p: p
   b: b
@@ -26,29 +26,29 @@ forms:
   f: f
   v: v
   s: s
-  sj: š
+  ʃ: š
   h: h
   m: m
   n: n
-  nx: ng
-  nxw: ng               # ng is long: read back as nxw
+  ŋ: ng
+  ŋː: ng               # ng is long: read back as nxw
   l: l
   r: r
-  ix: j
+  j: j
   # vowels: the front a is ä, the back a is a; length doubles the letter
   a: a
-  aw: aa
-  ac: ä
-  acw: ää
+  aː: aa
+  æ: ä
+  æː: ää
   e: e
-  ew: ee
-  ec: ö
-  ecw: öö
+  eː: ee
+  ø: ö
+  øː: öö
   i: i
-  iw: ii
-  ic: y
-  icw: yy
+  iː: ii
+  y: y
+  yː: yy
   o: o
-  ow: oo
+  oː: oo
   u: u
-  uw: uu
+  uː: uu

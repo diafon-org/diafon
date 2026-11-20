@@ -14,7 +14,7 @@ python3 scripts/gen_android.py
 python3 scripts/gen_mac.py
 python3 scripts/gen_site.py
 python3 scripts/gen_samples.py
-mkdir -p docs/lexicon && cp data/lexicon/*.json docs/lexicon/
+python3 scripts/universal_v1.py export docs/lexicon    # the lexicons in typed forms, for the site's engine and the ports
 python3 fonts/tools/subset_web.py
 python3 tests/test_engine.py
 python3 tests/test_script.py

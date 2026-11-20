@@ -56,7 +56,7 @@ def test_ios_session():
     if not shutil.which('swiftc'):
         print('SKIP: swiftc not installed')
         return
-    env = dict(os.environ, DIAFON_EMOJI=os.path.join(ROOT, 'data', 'emoji.json'), DIAFON_LEXICON_DIR=os.path.join(ROOT, 'data', 'lexicon'))
+    env = dict(os.environ, DIAFON_EMOJI=os.path.join(ROOT, 'data', 'emoji.json'), DIAFON_LEXICON_DIR=os.path.join(ROOT, 'docs', 'lexicon'))
     res = subprocess.run([build(), os.path.join(ROOT, 'docs', 'spec.json')], capture_output=True, text=True, env=env)
     print(res.stdout.strip())
     assert res.returncode == 0, res.stdout + res.stderr

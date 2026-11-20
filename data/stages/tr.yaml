@@ -10,20 +10,20 @@ name: Turkish
 state: draft
 letters: a â b c ç d e f g h ı i j k l m n o ö p r s ş t u ü v y z
 long: double
-sample: gicnesjli birc gicn, iixi gicnlerc      # güneşli bir gün, iyi günler
+sample: güneșli biṛ gün, iji günleṛ      # güneşli bir gün, iyi günler
 read:                   # read back but never written: the loan letters
   x: ks
   w: v
   q: kv
-  ağ: aw                # ğ lengthens the vowel before it
-  eğ: ew
-  ığ: ucw
-  iğ: iw
-  oğ: ow
-  öğ: ecw
-  uğ: uw
-  üğ: icw
-forms:
+  ağ: á                # ğ lengthens the vowel before it
+  eğ: é
+  ığ: i̋
+  iğ: í
+  oğ: ó
+  öğ: ő
+  uğ: ú
+  üğ: ű
+points:
   p: p
   b: b
   t: t
@@ -34,22 +34,22 @@ forms:
   v: v
   s: s
   z: z
-  sj: ş
-  zj: j
-  tq: ç
-  dq: c
+  ʃ: ş
+  ʒ: j
+  tʃ: ç
+  dʒ: c
   h: h
   m: m
   n: n
   l: l
-  rc: r
-  ix: y
+  ɾ: r
+  j: y
   a: a
-  aw: â
+  aː: â
   e: e
-  ec: ö
+  ø: ö
   i: i
-  ic: ü
+  y: ü
   o: o
   u: u
-  uc: ı
+  ɯ: ı

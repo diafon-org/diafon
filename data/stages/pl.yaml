@@ -3,27 +3,27 @@
 #
 # Losses, one-way and stated: ż and rz spell the same sound (ż throughout);
 # u and ó the same vowel (u throughout); ch and h the same fricative (ch
-# throughout). The soft consonants nj sj zj tq dq (ń ś ź ć dź) are written
+# throughout). The soft consonants ɲ ʃ ʒ tʃ dʒ (ń ś ź ć dź) are written
 # ni si zi ci dzi before a vowel, as in Polish (nie, się); before i only the i
-# shows (si, ni). The soft pj bj fj vj mj kj gj are written pi bi fi wi mi ki gi
+# shows (si, ni). The soft pʲ bʲ fʲ vʲ mʲ kʲ gʲ are written pi bi fi wi mi ki gi
 # before a vowel other than i (wiara, kiedy); before i they are plain (pić, kino).
 code: pl
 name: Polish
 state: draft
 letters: a ą b c ć ch cz d dz dź dż e ę f g h i j k l ł m n ń o ó p r s ś sz t u w y z ź ż
 long: double
-before_i: {sj: s, zj: z, tq: c, dq: dz, nj: n}    # sj + i is written si
-i_softens: true                                   # sj + e is written sie
-before_vowel: {pj: p, bj: b, fj: f, vj: w, mj: m, kj: k, gj: g}    # bj + e is written bie; before i plain b
-sample: dobra notc, kokxani      # dobra noc, kochani
+before_i: {ʃ: s, ʒ: z, tʃ: c, dʒ: dz, ɲ: n}    # ś + i is written si
+i_softens: true                                   # ś + e is written sie
+before_vowel: {pʲ: p, bʲ: b, fʲ: f, vʲ: w, mʲ: m, kʲ: k, gʲ: g}    # b̦ + e is written bie; before i plain b
+sample: dobra noc, koḳani      # dobra noc, kochani
 read:                   # spellings read back but never written: ó and u, rz and ż, h and ch
   x: ks
   q: kv
   v: v
   ó: u
-  rz: zjy
-  h: kx
-forms:
+  rz: z̖
+  h: ḳ
+points:
   p: p
   b: b
   t: t
@@ -34,29 +34,29 @@ forms:
   v: w
   s: s
   z: z
-  sj: ś
-  zj: ź
-  sjy: sz
-  zjy: ż
-  tc: c
-  dc: dz
-  tq: ć
-  dq: dź
-  tqy: cz
-  dqy: dż
-  nj: ń
-  kx: ch
+  ʃ: ś
+  ʒ: ź
+  ʂ: sz
+  ʐ: ż
+  ts: c
+  dz: dz
+  tʃ: ć
+  dʒ: dź
+  tʂ: cz
+  dʐ: dż
+  ɲ: ń
+  x: ch
   m: m
   n: n
   l: l
-  ux: ł
+  w: ł
   r: r
-  ix: j
+  j: j
   a: a
   e: e
-  ey: ę
+  ẽ: ę
   i: i
   o: o
-  oy: ą
+  õ: ą
   u: u
-  uc: y
+  ɯ: y

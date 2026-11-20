@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """The lexicon layer (data/lexicon/README.md): word-level reading and
-writing above the letter stages. Loaded from data/lexicon/<code>.json.
+writing above the letter stages. Loaded from data/lexicon/<code>.json; a
+word of Diafon is stored there as script text.
 
   lex(code)                 the lexicon, or None
-  read_word(word, code)     spelling -> transport, or None
-  write_word(t, code)       transport -> spelling; prefix lexicons (hu ly
-                            stems) return (stem spelling, rest of transport)
-  choices(t_tone, code)     the characters of a toned syllable (zh)
-  recase(out, original)     the original's case laid on the output
+  read_word(word, code)     spelling -> script text, or None
+  write_word(toks, code)    a word's points -> spelling; prefix lexicons (hu ly
+                            stems) return (stem spelling, the rest of the points)
+  choices(syllable, code)   the characters of a toned syllable (zh)
+  recase(out, original)     the original's case laid on the script text
 """
 import glob
 import json
@@ -18,16 +19,15 @@ import unicodedata as ud
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
-import universal_v1 as engine
+import script
 
 LEX = os.path.join(ROOT, 'data', 'lexicon')
 _CACHE = {}
 
-WORD_T = re.compile(r'[A-Za-z]+\d*')                       # a word of transport text, tone digits after
 # a word of text: letters and combining marks (U+0300–036F, where every mark of
 # the system lives), an apostrophe inside, tone digits after; the same
 # definition in docs/engine.js and Lexicon.swift
-_L = r"(?:[^\W\d_]|[\u0300-\u036f])"
+_L = r"(?:[^\W\d_]|[̀-ͯ])"
 WORD = re.compile(_L + r"+(?:['’]" + _L + r"+)*\d*", re.U)
 
 
@@ -52,19 +52,27 @@ def lex(code):
 
 
 def recase(out, original):
-    """The original's case on the output: capitalized -> first letter up;
-    all caps (more than one letter) -> first letter up, the transport law."""
+    """The original's case on the script text: capitalized -> first point up;
+    all caps (more than one letter) -> first point up too."""
     if not out or not original:
         return out
     if original[0].isupper():
-        return ud.normalize('NFC', out[0].upper() + out[1:])
+        return script.capital(out)
     return out
 
 
+def split_tones(word):
+    """A spelling and the tone digits after it."""
+    digits = ''
+    while word and word[-1].isdigit():
+        digits, word = word[-1] + digits, word[:-1]
+    return word, digits
+
+
 def read_word(word, code):
-    """spelling (tone digits allowed after it) -> transport, or None. A
-    syllable lexicon also reads a run of syllables written together
-    (nihao), greedily, longest syllable first."""
+    """spelling (tone digits allowed after it) -> script text, the tone as
+    its sign, or None. A syllable lexicon also reads a run of syllables
+    written together (nihao), greedily, longest syllable first."""
     L = lex(code)
     if not L:
         return None
@@ -73,9 +81,7 @@ def read_word(word, code):
         parts = re.findall(r'\D+\d*', word)
         outs = [read_word(p, code) for p in parts]
         return None if None in outs else ''.join(outs)
-    digits = ''
-    while word and word[-1].isdigit():
-        digits, word = word[-1] + digits, word[:-1]
+    word, digits = split_tones(word)
     key = word.lower()
     t = L['read'].get(key)
     if t is None and re.search(r"['’]d$", key):            # poetry's elided -ed: dimm'd reads as dimmed
@@ -89,32 +95,51 @@ def read_word(word, code):
             out.append(L['read'][hit])
             i += len(hit)
         t = ''.join(out)
-    return recase(t, word) + digits if t is not None else None
+    return recase(t, word) + script.tone_signs(digits) if t is not None else None
 
 
-def write_word(t, code):
-    """transport -> spelling. Exact lexicons: the word, or None. Prefix
-    lexicons: (stem spelling, remaining transport) for the longest stem
-    the transport starts with, or None."""
+def word_key(toks):
+    """A word's points -> (its lexicon key: the script text, the first point
+    small, no tone; the tone numbers the word ends in; whether it began with
+    a capital)."""
+    if not toks:
+        return '', '', False
+    first, last = toks[0], toks[-1]
+    head = script.Tok(first.comp, first.long, False, raw=first.raw and first.raw.lower())
+    body = [script.Tok(t.comp, t.long, t.caps, raw=t.raw) for t in toks[1:]]
+    caps = first.caps if first.raw is None else first.raw.isupper()
+    return script.write([head] + body), (last.tones if last.raw is None else ''), caps
+
+
+def _cased(sp, caps):
+    return ud.normalize('NFC', sp[0].upper() + sp[1:]) if caps and sp else sp
+
+
+def write_word(toks, code):
+    """A word's points -> spelling. Exact lexicons: the word, or None. Prefix
+    lexicons: (stem spelling, the remaining points) for the longest stem the
+    word starts with, or None."""
     L = lex(code)
     if not L:
         return None
-    digits = ''
-    while t and t[-1].isdigit():                    # the tone rides along
-        digits, t = t[-1] + digits, t[:-1]
-    if not t:
+    key, tones, caps = word_key(toks)
+    if not key:
         return None
-    key = t[0].lower() + t[1:]
     if L['match'] == 'prefix':
         best = None
         for stem in L['write']:
-            if key.startswith(stem) and (best is None or len(stem) > len(best)):
+            if key.startswith(stem) and (best is None or len(stem) > len(best)) \
+                    and not (len(key) > len(stem) and ud.category(key[len(stem)]) == 'Mn'):   # never inside a letter
                 best = stem
         if best is None:
             return None
-        return recase(L['write'][best], t), t[len(best):] + digits
+        rest = script.read(key[len(best):])
+        if rest:
+            rest[-1].tones = tones
+            return _cased(L['write'][best], caps), rest
+        return _cased(L['write'][best], caps), [script.Tok(raw=d) for d in tones]
     sp = L['write'].get(key)
-    return recase(sp, t) + digits if sp is not None else None
+    return _cased(sp, caps) + tones if sp is not None else None
 
 
 def spoken_stem(key, L):
@@ -134,8 +159,8 @@ def spoken_stem(key, L):
 
 def read_stem(word, code):
     """A word, or with `match: prefix` a stem, the host's lexicon reads its
-    own way (Hungarian `spoken`: jamaica -> jamaika): (transport, the rest
-    of the spelling), or None. The stem is looked up short too (`lengthen`)."""
+    own way (Hungarian `spoken`: pech -> peh): (script text, the rest of the
+    spelling), or None. The stem is looked up short too (`lengthen`)."""
     L = lex(code)
     if not L:
         return None
@@ -157,8 +182,8 @@ def loans():
 
 
 def loan(word, code):
-    """A host's word that is a loan: (transport in its own sounds, origin code), or
-    None, from the one loan dictionary (loans.json), the same form in every host.
+    """A host's word that is a loan: (script text in its own sounds, origin code), or
+    None, from the one loan dictionary (loans.json), the same text in every host.
     The longest stem the dictionaries read (Latin; English, its common words: not
     CMUdict's names) decides against the longest native stem (the host's
     dictionary), native on ties unless the stem has a foreign letter shape (the
@@ -186,7 +211,7 @@ def loan(word, code):
         rest = w[n:]
         if rest:
             import stages                              # the rest by the host's letters
-            rest = stages.read_letters(rest, stages.table(stages.load(code)))
+            rest = script.write(stages.read_letters(rest, stages.table(stages.load(code))))
         return recase(t, word) + rest
 
     own = D['hosts'].get(code, {}).get('read', {})
@@ -218,8 +243,8 @@ def loan(word, code):
     return None
 
 
-def write_loan(t, code, letters_spelling):
-    """A host's word written back as the loan it is: the transport of a loan
+def write_loan(toks, code, letters_spelling):
+    """A host's word written back as the loan it is: the points of a loan
     word -> how the host writes it (origin.yaml `spell`, `borrowed`), else its
     own spelling, unless the letters' spelling is a word of the host (só stays
     só). None otherwise, and for a word under three letters: a loan is looked up
@@ -229,16 +254,17 @@ def write_loan(t, code, letters_spelling):
         return None
     if letters_spelling.lower() in L['native']:
         return None
-    digits = ''
-    while t and t[-1].isdigit():
-        digits, t = t[-1] + digits, t[:-1]
-    if not t:
+    key, tones, caps = word_key(toks)
+    if not key:
         return None
-    k = t[0].lower() + t[1:]
-    sp = D['hosts'].get(code, {}).get('write', {}).get(k) or D['write'].get(k)
-    return recase(sp, t) + digits if sp is not None else None
+    sp = D['hosts'].get(code, {}).get('write', {}).get(key) or D['write'].get(key)
+    return _cased(sp, caps) + tones if sp is not None else None
 
 
-def choices(t_tone, code='zh'):
+def choices(syllable, code='zh'):
+    """The characters of a syllable in script text, its tone sign after it."""
     L = lex(code)
-    return (L['choices'].get(t_tone.lower()) if L else None) or []
+    toks = script.read(syllable)
+    for t in toks:
+        t.caps = False
+    return (L['choices'].get(script.write(toks)) if L else None) or []

@@ -314,5 +314,203 @@ def legacy_script():
             'tones': {n: {'contour': script.CONTOUR[n], 'sign': s} for n, s in script.TONES.items()}}
 
 
+# ---- the stages and lexicons as they were before the split: in typed forms ----
+#
+# The alphabet's stages.py and lexicon.py work in points and script text.
+# What still thinks in forms (the old spec, the playground, the lessons, the
+# ports) reads them through these two namespaces, which keep the old names
+# and the old meaning: `transport` is typed text.
+
+import re as _re
+import types as _types
+
+
+def language_forms(code):
+    """-> {form: [(ipa, frequency), ...]} for one language, from the mapping (X included)."""
+    import gen_master
+    cons, vows, over, _, _, _ = gen_master.load_mapping()
+    d = gen_master.load_languages()[code]
+    byform = {}
+    for sec, table in (('consonants', cons), ('vowels', vows)):
+        for ipa, freq in d[sec].items():
+            k = gen_master.nfd(ipa)
+            f = over.get(code, {}).get(k) or table.get(k)
+            byform.setdefault(f, []).append((ud.normalize('NFC', ipa), freq))
+    return byform
+
+
+def _key_form(k):
+    return form(Tok(k[0], k[1]))
+
+
+def _entry_form(entry):
+    return ''.join(form(Tok(c, long, caps)) for c, long, caps in entry)
+
+
+def typed_lexicon(n):
+    """A lexicon (data/lexicon/<code>.json) with its Diafon words in typed forms."""
+    T = lambda s: typed(script.read(s))
+    pair = lambda v: [T(v[0]), v[1]]
+    d = dict(n)
+    if 'hand' in n:                                  # the loan dictionary
+        d['hand'] = {k: pair(v) for k, v in n['hand'].items()}
+        d['read'] = {lc: {k: T(v) for k, v in r.items()} for lc, r in n['read'].items()}
+        d['hosts'] = {h: {'read': {k: pair(v) for k, v in e['read'].items()},
+                          'write': {T(k): v for k, v in e['write'].items()}} for h, e in n['hosts'].items()}
+    elif 'read' in n:
+        d['read'] = {k: T(v) for k, v in n['read'].items()}
+    for name in ('write', 'choices'):
+        if name in n:
+            d[name] = {T(k): v for k, v in n[name].items()}
+    if 'sample' in n:
+        d['sample'] = T(n['sample'])
+    return d
+
+
+def _legacy_stages():
+    import stages as S
+    import lexicon as X
+    loaded, lexes, used = {}, {}, []
+
+    def load(code):
+        if code not in loaded:
+            n = S.load(code)
+            d = dict(n)
+            d['forms'] = {_key_form(k): sp for k, sp in n['spell'].items()}
+            for name in ('caps', 'before_i', 'before_vowel'):
+                d[name] = {_key_form(k): sp for k, sp in n[name].items()}
+            d['sample'] = typed(script.read(n['sample']))
+            d['read'] = {sp: typed(script.read(v)) for sp, v in n['read'].items()}
+            d['lexicon'] = lex(code)
+            for name in ('points', 'spell'):
+                d.pop(name)
+            loaded[code] = d
+        return loaded[code]
+
+    def new(stage):
+        return S.load(stage if isinstance(stage, str) else stage['code'])
+
+    def render(text, code, strict=False):
+        try:
+            return S.render(points(text, strict), new(code), strict)
+        except S.StageError as e:
+            raise ParseError(str(e))
+
+    def render_letters(text, stage, strict=False):
+        return S.render_letters(points(text, strict), new(stage), strict)
+
+    def spell(stage, f):
+        c, long, caps = comp(f)
+        return S.spell(new(stage), Tok(c, long, caps))
+
+    def table(stage, fallback=True, aliases=True):
+        return {sp: _entry_form(e) for sp, e in S.table(new(stage), fallback, aliases).items()}
+
+    def read_letters(text, tbl):
+        return ''.join(t[1] if t[0] == 'raw' else t[1] + t[2] for t in read(text, tbl))
+
+    def read_word(word, stage):
+        toks, how = S.read_word(word, new(stage))
+        return typed(toks), how
+
+    def parse(text, source):
+        return text if source == 'transport' else typed(S.parse(text, source))
+
+    def convert(text, source, target):
+        if source == target and source.startswith('stage:'):
+            return S.convert(text, source, target)
+        toks = points(text, strict=False) if source == 'transport' else S.parse(text, source)
+        return typed(toks) if target == 'transport' else S.write(toks, target)
+
+    def sources():
+        return ['transport'] + S.sources()
+
+    def _typed_score(text):
+        letters = lambda s: sum(1 for ch in s if ud.category(ch)[0] in 'LM')
+        total = letters(ud.normalize('NFC', text)) or 1
+        segs = segments(text, strict=False)
+        covered = sum(letters(s['src']) for s in segs if s['kind'] == 'form')
+        wins = covered == total and any(s['kind'] == 'form' and len(s['form']) > 1 for s in segs)
+        return [('transport', covered / total, wins)]
+
+    def detect(text, prefer=None):
+        return S.detect(text, prefer, other=_typed_score(text))
+
+    def source_for(text, target, prefer=None):
+        return S.source_for(text, target, prefer, other=_typed_score(text))
+
+    def used_forms():
+        if not used:
+            import gen_master
+            used.append(frozenset(gen_master.aggregate()))
+        return used[0]
+
+    def lex(code):
+        """A lexicon with its Diafon words in typed forms."""
+        if code not in lexes:
+            n = X.lex(code)
+            lexes[code] = None if n is None else typed_lexicon(n)
+        return lexes[code]
+
+    def lex_read_word(word, code):
+        t = X.read_word(word, code)
+        return None if t is None else typed(script.read(t))
+
+    def lex_write_word(t, code):
+        hit = X.write_word(points(t, strict=False), code)
+        return (hit[0], typed(hit[1])) if isinstance(hit, tuple) else hit
+
+    def loan(word, code):
+        hit = X.loan(word, code)
+        return None if hit is None else (typed(script.read(hit[0])), hit[1])
+
+    def choices(t_tone, code='zh'):
+        return X.choices(script.write(points(t_tone, strict=False)), code)
+
+    stages = _types.SimpleNamespace(
+        codes=S.codes, load=load, render=render, render_letters=render_letters, spell=spell, table=table,
+        read_letters=read_letters, read_word=read_word, parse=parse, convert=convert, sources=sources,
+        detect=detect, source_for=source_for, validate=S.validate, language_forms=language_forms,
+        used_forms=used_forms, script_table=lambda: script_table(used_forms()))
+    lexicon = _types.SimpleNamespace(
+        codes=X.codes, lex=lex, read_word=lex_read_word, write_word=lex_write_word, loan=loan, choices=choices,
+        recase=lambda out, original: (out[0].upper() + out[1:]) if out and original and original[0].isupper() else out,
+        WORD=X.WORD, WORD_T=_re.compile(r'[A-Za-z]+\d*'), LEX=X.LEX)
+    return stages, lexicon
+
+
+_LEGACY = None
+
+
+def __getattr__(name):
+    """universal_v1.stages and universal_v1.lexicon: built on first use."""
+    global _LEGACY
+    if name in ('stages', 'lexicon'):
+        if _LEGACY is None:
+            _LEGACY = _legacy_stages()
+        return _LEGACY[0] if name == 'stages' else _LEGACY[1]
+    raise AttributeError(name)
+
+
+def export(out_dir):
+    """The lexicons as the ports read them, in typed forms: <code>.json, and
+    en.read.tsv (word<TAB>typed form, sorted) for the iOS keyboard."""
+    import json
+    import lexicon as X
+    os.makedirs(out_dir, exist_ok=True)
+    for code in X.codes():
+        d = typed_lexicon(json.load(open(os.path.join(X.LEX, f'{code}.json'), encoding='utf-8')))
+        json.dump(d, open(os.path.join(out_dir, f'{code}.json'), 'w', encoding='utf-8'),
+                  ensure_ascii=False, separators=(',', ':'))
+        if code == 'en':
+            read = d['read']
+    lines = sorted((f'{w.lower()}\t{t}' for w, t in read.items()), key=lambda l: l.split('\t')[0].encode('utf-8'))
+    open(os.path.join(out_dir, 'en.read.tsv'), 'w', encoding='utf-8', newline='\n').write('\n'.join(lines) + '\n')
+    print(f'{out_dir}: {len(X.codes())} lexicons in typed forms, en.read.tsv {len(lines)} words')
+
+
 if __name__ == '__main__':
-    print(render(' '.join(sys.argv[1:])))
+    if sys.argv[1:2] == ['export']:
+        export(sys.argv[2])
+    else:
+        print(render(' '.join(sys.argv[1:])))

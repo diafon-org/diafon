@@ -1,7 +1,7 @@
 # English: a lexical spelling. English letters carry no reading of their own,
 # so both directions go through the pronunciation dictionary (CMUdict, BSD
-# licence, sources/cmudict.dict): read = spelling -> transport, write =
-# transport -> spelling (a homophone writes as its commonest spelling).
+# licence, sources/cmudict.dict): read = spelling -> script text, write =
+# script text -> spelling (a homophone writes as its commonest spelling).
 # Words the dictionary lacks read letter by letter as a last resort and write
 # in the script. Stress is dropped: the system carries none.
 code: en
@@ -22,46 +22,46 @@ pron:                        # words whose CMUdict readings are all off: word ->
   towards: T UH W AO R D Z   #   tu-, not the schwa tạwórdz or the clipped tórdz
   toward: T UH W AO R D
   untrimmed: AH0 N T R IH1 M D   #   not in CMUdict; Sonnet 18's untrimm'd
-arpabet:                     # ARPAbet -> transport form (stress digits stripped)
-  AA: aw
+arpabet:                     # ARPAbet -> script text (stress digits stripped)
+  AA: á
   AE: a
-  AH: aj        # ə and ʌ, merged (mapping.yaml: STRUT is the stressed schwa)
-  AO: ow
-  AW: aux
-  AY: aix
+  AH: ạ        # ə and ʌ, merged (mapping.yaml: STRUT is the stressed schwa)
+  AO: ó
+  AW: aw
+  AY: aj
   B: b
-  CH: tq
+  CH: c̦
   D: d
-  DH: dx
+  DH: ḍ
   EH: e
-  ER: aq
-  EY: eix
+  ER: r̈
+  EY: ej
   F: f
   G: g
   HH: h
   IH: i
-  IY: iw
-  JH: dq
+  IY: í
+  JH: x̦
   K: k
   L: l
   M: m
   N: n
-  NG: nx
-  OW: oux
-  OY: oix
+  NG: ṇ
+  OW: ow
+  OY: oj
   P: p
   R: r
   S: s
-  SH: sj
+  SH: ș
   T: t
-  TH: tx
+  TH: ṭ
   UH: u
-  UW: uw
+  UW: ú
   V: v
-  W: ux
-  Y: ix
+  W: w
+  Y: j
   Z: z
-  ZH: zj
+  ZH: z̦
 assimilated:                 # predictable sounds the dictionary marks, written as the phoneme
   NG:                        # ŋ before k and g: English contrasts n and ŋ nowhere there
     before: [K, G]           # (think, finger), so it is the n; sing, singer keep ŋ

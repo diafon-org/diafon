@@ -13,7 +13,7 @@ sample: habari za asubuhi, karibu sana      # habari za asubuhi, karibu sana
 read:                   # read back but never written: the loan letters
   x: ks
   q: kv
-forms:
+points:
   p: p
   b: b
   t: t
@@ -24,22 +24,22 @@ forms:
   v: v
   s: s
   z: z
-  sj: sh
-  tq: ch
-  dj: j
-  tx: th
-  dx: dh
-  kx: kh
-  gx: gh
-  nj: ny
-  nx: ng'
+  ʃ: sh
+  tʃ: ch
+  ɟ: j
+  θ: th
+  ð: dh
+  x: kh
+  ɣ: gh
+  ɲ: ny
+  ŋ: ng'
   h: h
   m: m
   n: n
   l: l
   r: r
-  ix: y
-  ux: w
+  j: y
+  w: w
   a: a
   e: e
   i: i

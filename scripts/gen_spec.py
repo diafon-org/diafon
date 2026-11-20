@@ -23,8 +23,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import universal_v1 as engine
 import gen_master
-import lexicon
-import stages
+from universal_v1 import lexicon
+from universal_v1 import stages
 
 SENTENCES = [
     'sjok sewp njawr', 'Sjan1, sjok!', 'SJAN', 'Gj Pj Gy Ty Ic Sjw Tqyh Aw',

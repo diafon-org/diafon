@@ -1,7 +1,7 @@
 # Hungarian spelling stage: the point stream rendered in today's Hungarian
-# orthography. A stage is render-only: the input stays universal, no
+# orthography. A stage is render-only: the text stays the script, no
 # shortcut ever claims a key, and a text typed for this stage reads
-# correctly in the script form and in every other stage too.
+# correctly in the script and in every other stage too.
 #
 # Losses are one-way and stated here: ly is etymological (folyó, lyuk), the
 # phonemic stream cannot tell it from j, so j is written throughout.
@@ -10,15 +10,15 @@ name: Hungarian
 state: draft            # draft · reviewed · native
 letters: a á b c cs d dz dzs e é f g gy h i í j k l ly m n ny o ó ö ő p r s sz t ty u ú ü ű v z zs
 long: first-letter      # a long consonant doubles the first letter of its spelling: tt, ssz, ccs, ggy
-sample: sjok sewp njawr, hoswuw alma      # sok szép nyár, hosszú alma
+sample: șok sép n̦ár, hossú alma      # sok szép nyár, hosszú alma
 read:                   # spellings read back but never written: the etymological ly is j
   x: ks
   w: v
   q: kv
   y: i
-  ly: ix
-  lly: ixw
-forms:
+  ly: j
+  lly: jj
+points:
   # consonants
   p: p
   b: b
@@ -26,37 +26,37 @@ forms:
   d: d
   k: k
   g: g
-  tj: ty
-  dj: gy
-  tc: c
-  dc: dz
-  tq: cs
-  dq: dzs
+  c: ty
+  ɟ: gy
+  ts: c
+  dz: dz
+  tʃ: cs
+  dʒ: dzs
   f: f
   v: v
   s: sz
   z: z
-  sj: s
-  zj: zs
+  ʃ: s
+  ʒ: zs
   h: h
   m: m
   n: n
-  nj: ny
+  ɲ: ny
   l: l
   r: r
-  ix: j
+  j: j
   # vowels; length is its own spelling, so the long forms are listed
   a: a
-  aw: á
+  aː: á
   e: e
-  ew: é
+  eː: é
   i: i
-  iw: í
+  iː: í
   o: o
-  ow: ó
-  ec: ö
-  ecw: ő
+  oː: ó
+  ø: ö
+  øː: ő
   u: u
-  uw: ú
-  ic: ü
-  icw: ű
+  uː: ú
+  y: ü
+  yː: ű

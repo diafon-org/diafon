@@ -2,12 +2,12 @@
 """Generate data/lexicon/<code>.json from the sources named in
 data/lexicon/<code>.yaml (see data/lexicon/README.md).
 
-  en  CMUdict -> read (word -> transport) and write (transport -> word, the
+  en  CMUdict -> read (word -> script text) and write (script text -> word, the
       commonest spelling of a homophone: no digits or apostrophes, shortest,
       then first in the dictionary)
   hu  Magyar Ispell stems that carry ly -> write entries by prefix
   zh  the pinyin syllables of Unihan -> read/write by rule, and choices:
-      transport + tone -> characters, most frequent first
+      script text + tone -> characters, most frequent first
   la  the hand table, copied
   loans  the one loan dictionary: origin.yaml, Latin, English's common words
 
@@ -24,9 +24,14 @@ import yaml
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
-import universal_v1 as engine
+import script
 
 LEX = os.path.join(ROOT, 'data', 'lexicon')
+
+
+def check(text):
+    """Every entry is script throughout."""
+    assert script.is_script(text), f'{text!r}: not script'
 
 
 def origin():
@@ -40,7 +45,7 @@ def origin():
             LL = lexicon.lex(e['lang'])
             assert LL and sp.lower() in LL['read'], f'origin.yaml: {sp} needs a t ({e["lang"]} does not read it)'
             e['t'] = LL['read'][sp.lower()]
-        engine.segments(e['t'])
+        check(e['t'])
         e['also'] = {h: [w] if isinstance(w, str) else list(w) for h, w in (e.get('also') or {}).items()}
         e['spell'] = dict(e.get('spell') or {})
         out[sp.lower()] = e
@@ -60,13 +65,13 @@ LOAN_SOURCES = ['la', 'en']        # dictionary loans, in priority: a spelling t
 def gen_loans():
     """data/lexicon/loans.json: every word a host may hold as a loan, with the one Diafon form its
     language of origin gives it, the same in every host.
-      hand   origin.yaml: spelling -> [transport, lang]; matched as a stem, ahead of a host's
+      hand   origin.yaml: spelling -> [script text, lang]; matched as a stem, ahead of a host's
              dictionary (jamaicai), like a host's own entries
-      read   lang -> spelling -> transport: the dictionaries (Latin; English, its common words);
+      read   lang -> spelling -> script text: the dictionaries (Latin; English, its common words);
              a spelling is in one only, hand entries in none
-      write  transport -> the origin spelling (a homophone: hand, then Latin, then the commonest English)
+      write  script text -> the origin spelling (a homophone: hand, then Latin, then the commonest English)
       hosts  code -> read (a host's own spelling of a loan, origin.yaml `also` and `spell`:
-             spelling -> [transport, lang]) and write (transport -> how the host writes the
+             spelling -> [script text, lang]) and write (script text -> how the host writes the
              loan: `spell`, the host's `borrowed`)"""
     import lexicon
     hand = origin()
@@ -118,7 +123,7 @@ def out_path(code):
 
 
 def sample(cfg, read, kind):
-    """The yaml's sample_text read through the lexicon -> transport."""
+    """The yaml's sample_text read through the lexicon -> script text."""
     import lexicon
     text = cfg.get('sample_text', '')
     out, i = [], 0
@@ -129,23 +134,10 @@ def sample(cfg, read, kind):
             digits, w = w[-1] + digits, w[:-1]
         t = read.get(w.lower())
         assert t is not None, f'{cfg["code"]}: sample word {w!r} not in the lexicon'
-        out.append(t + digits)
+        out.append(t + script.tone_signs(digits))
         i = m.end()
     out.append(text[i:])
     return ''.join(out)
-
-
-# The lexicons whose reading the iOS keyboard needs and cannot load whole (en.json
-# takes 40 MB parsed; a keyboard has about 50): the same `read` table as sorted
-# lines, `word<TAB>input form`, searched in place (ReadIndex.swift).
-READ_INDEX = ('en',)
-
-
-def write_read_index(code, read):
-    path = os.path.join(LEX, f'{code}.read.tsv')
-    lines = sorted((f'{w.lower()}\t{t}' for w, t in read.items()), key=lambda l: l.split('\t')[0].encode('utf-8'))
-    open(path, 'w', encoding='utf-8', newline='\n').write('\n'.join(lines) + '\n')
-    print(f'{path}: {len(lines)} words · {os.path.getsize(path) // 1024} KB')
 
 
 def write(code, data):
@@ -156,8 +148,6 @@ def write(code, data):
     if cfg.get('sample_text'):
         data['sample'] = sample(cfg, data['read'], data['kind'])
     json.dump(data, open(out_path(code), 'w'), ensure_ascii=False, separators=(',', ':'))
-    if code in READ_INDEX:
-        write_read_index(code, data['read'])
     kb = os.path.getsize(out_path(code)) // 1024
     print(f'{out_path(code)}: ' + ', '.join(f'{k} {len(v)}' for k, v in data.items() if isinstance(v, dict)) + f' · {kb} KB')
 
@@ -204,7 +194,7 @@ def gen_en(cfg):
                         for i, p in enumerate(phones))
         except KeyError as e:
             continue
-        engine.segments(t)                      # every entry must re-segment strictly
+        check(t)                      # every entry must re-segment strictly
         prefer = (cfg.get('prefer') or {}).get(word, 0)
         if variant == prefer or (variant == 0 and word not in read) or \
                 (word in r_split and not split and word not in (cfg.get('prefer') or {})):
@@ -212,7 +202,7 @@ def gen_en(cfg):
             r_split.discard(word)               # without the split schwa (every: evrí, not evạrí)
             if split and variant == 0:
                 r_split.add(word)
-        # the commonest spelling of a transport: no digits or apostrophes, shortest, first
+        # the commonest spelling of a word: no digits or apostrophes, shortest, first
         key = (bool(re.search(r"[\d']", word)), -freq.get(word, 0), len(word), n)
         if t not in write_cands or key < write_cands[t][0]:
             write_cands[t] = (key, word)
@@ -232,13 +222,13 @@ def gen_hu(cfg):
         word = line.split('/')[0].split('\t')[0].strip()
         if not word or not re.fullmatch(r'[a-záéíóöőúüű]+', word) or 'ly' not in word or len(word) < 4:   # a short stem (ly, oly) would prefix every j word: joga -> lyoga
             continue
-        t = stages.parse(word, 'stage:hu')            # ly -> ix, lly -> ixw
-        if 'ix' not in t:
+        t = script.write(stages.parse(word, 'stage:hu'))            # ly -> j, lly -> jj
+        if 'j' not in t:
             continue
         stems[t] = word
-    spoken = {}                                    # the hand entries (spoken, names), in Hungarian spelling -> transport, by the letters alone
+    spoken = {}                                    # the hand entries (spoken, names), in Hungarian spelling -> script text, by the letters alone
     for sp, said in list((cfg.get('spoken') or {}).items()) + list((cfg.get('names') or {}).items()):
-        spoken[sp.lower()] = stages.read_letters(said, stages.table(hu))
+        spoken[sp.lower()] = script.write(stages.read_letters(said, stages.table(hu)))
         stems.setdefault(spoken[sp.lower()], sp)
     for sp, e in origin().items():                 # the hand loans written back by stem (Jamaicában), as Hungarian writes them
         stems.setdefault(e['t'], e['spell'].get(cfg['code'], sp))
@@ -282,8 +272,8 @@ def split_pinyin(syl):
     return bare, tone
 
 
-def pinyin_to_transport(syl, cfg):
-    """bare pinyin syllable -> transport, by the tables, or None."""
+def pinyin_to_script(syl, cfg):
+    """bare pinyin syllable -> script text, by the tables, or None."""
     ini_map, fin_map = cfg['initials'], cfg['finals']
     apical, palatal = set(cfg['apical']), set(cfg['palatal'])
     ini = ''
@@ -306,7 +296,7 @@ def pinyin_to_transport(syl, cfg):
         return None
     t = fin_map[rest]
     if ini in apical and rest == 'i':
-        t = 'uc'
+        t = cfg['apical_vowel']
     return ini_map.get(ini, '') + t
 
 
@@ -326,7 +316,7 @@ def gen_zh(cfg):
             tghz[ch] = min(float(x) for v in val.split() for x in v.split(':')[0].split(','))
     standard = set(tghz) | set(pinlu)
     read, write, choices, unknown = {}, {}, {}, set()
-    scored = []                                     # (transport+tone, char, -freq, order)
+    scored = []                                     # (script text + tone, char, -freq, order)
     for ch in standard:
         readings = {}
         for r, f in pinlu.get(ch, {}).items():
@@ -337,14 +327,14 @@ def gen_zh(cfg):
             bare, tone = split_pinyin(r)
             if bare is None:
                 continue
-            t = pinyin_to_transport(bare, cfg)
+            t = pinyin_to_script(bare, cfg)
             if t is None:
                 unknown.add(bare)
                 continue
-            engine.segments(t + tone)
+            check(t + script.tone_signs(tone))
             read.setdefault(bare, t)
             write.setdefault(t, bare)
-            scored.append((t + tone, ch, -f, tghz.get(ch, 1e9), ord(ch)))
+            scored.append((t + script.tone_signs(tone), ch, -f, tghz.get(ch, 1e9), ord(ch)))
     for key, ch, *_ in sorted(scored, key=lambda s: (s[0], s[2], s[3], s[4])):
         lst = choices.setdefault(key, [])
         if ch not in lst:
@@ -358,7 +348,7 @@ def gen_zh(cfg):
 def gen_la(cfg):
     read = cfg['read']
     for t in read.values():
-        engine.segments(t)
+        check(t)
     return {'name': cfg['name'], 'kind': cfg['kind'], 'match': cfg['match'],
             'read': read, 'write': {v: k for k, v in read.items()}}
 
