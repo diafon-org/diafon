@@ -8,7 +8,9 @@ it is a typed form.
   script     the letters, the marks, the float rule's descenders, the tones
   points     every point by name (its canonical IPA value): letter, marks,
              glyphs, and the sounds it writes per language
-  open       the compositions the script allows that no point names yet
+  compositions  every letter with marks the script allows, with all its
+             glyphs (small, capital, long, joined): the whole script as a
+             table; `id` is the point's name, null for one no point names yet
   languages  each language's sounds -> the points that write them
   stages     each spelling: its tables by point name
   lexicons   the word lists, by reference (name, shape, size, sha256)
@@ -108,8 +110,15 @@ def build():
         if p['long'] and p['letter'] not in script.VOWELS:
             e['joined'] = script.glyph(name, join=True)
         points.append(e)
-    open_ = [{'letter': c[0], 'marks': list(c[1]), 'glyph': script.compose(c), 'capital': script.compose(c, caps=True)}
-             for c in script.compositions() if c not in script.NAME]
+    comps = []
+    for c in script.compositions():
+        e = {'letter': c[0], 'marks': list(c[1]), 'id': script.NAME.get(c),
+             'glyph': script.compose(c), 'capital': script.compose(c, caps=True),
+             'long': script.glyph(c, True), 'long_capital': script.glyph(c, True, caps=True)}
+        if c[0] not in script.VOWELS:
+            e['joined'] = script.glyph(c, True, join=True)
+            e['joined_capital'] = script.glyph(c, True, caps=True, join=True)
+        comps.append(e)
 
     languages = {}
     for code, d in mapping.load_languages().items():
@@ -202,7 +211,7 @@ def build():
             ],
         },
         'points': points,
-        'open': open_,
+        'compositions': comps,
         'languages': languages,
         'stages': stage_data,
         'lexicons': lexicons,
@@ -225,7 +234,7 @@ def main():
         json.dump(spec, fh, ensure_ascii=False, indent=1)
         fh.write('\n')
     v = spec['vectors']
-    print(f'{OUT}: version {spec["version"]}, {len(spec["points"])} points, {len(spec["open"])} open, '
+    print(f'{OUT}: version {spec["version"]}, {len(spec["points"])} points, {len(spec["compositions"])} compositions, '
           f'{len(spec["languages"])} languages, {len(spec["stages"])} stages, '
           f'{len(v["write"]) + len(v["joined"]) + len(v["read"])} script vectors')
 

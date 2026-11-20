@@ -2523,102 +2523,1095 @@
    }
   }
  ],
- "open": [
+ "compositions": [
+  {
+   "letter": "b",
+   "marks": [],
+   "id": "b",
+   "glyph": "b",
+   "capital": "B",
+   "long": "bb",
+   "long_capital": "Bb",
+   "joined": "b‍b",
+   "joined_capital": "B‍b"
+  },
+  {
+   "letter": "b",
+   "marks": [
+    "anchor"
+   ],
+   "id": "bʲ",
+   "glyph": "b̦",
+   "capital": "B̦",
+   "long": "b̦b̦",
+   "long_capital": "B̦b̦",
+   "joined": "b̦‍b̦",
+   "joined_capital": "B̦‍b̦"
+  },
+  {
+   "letter": "c",
+   "marks": [],
+   "id": "ts",
+   "glyph": "c",
+   "capital": "C",
+   "long": "cc",
+   "long_capital": "Cc",
+   "joined": "c‍c",
+   "joined_capital": "C‍c"
+  },
+  {
+   "letter": "c",
+   "marks": [
+    "anchor"
+   ],
+   "id": "tʃ",
+   "glyph": "c̦",
+   "capital": "C̦",
+   "long": "c̦c̦",
+   "long_capital": "C̦c̦",
+   "joined": "c̦‍c̦",
+   "joined_capital": "C̦‍c̦"
+  },
+  {
+   "letter": "c",
+   "marks": [
+    "reverse"
+   ],
+   "id": "tʂ",
+   "glyph": "c̖",
+   "capital": "C̖",
+   "long": "c̖c̖",
+   "long_capital": "C̖c̖",
+   "joined": "c̖‍c̖",
+   "joined_capital": "C̖‍c̖"
+  },
+  {
+   "letter": "d",
+   "marks": [],
+   "id": "d",
+   "glyph": "d",
+   "capital": "D",
+   "long": "dd",
+   "long_capital": "Dd",
+   "joined": "d‍d",
+   "joined_capital": "D‍d"
+  },
+  {
+   "letter": "d",
+   "marks": [
+    "anchor"
+   ],
+   "id": "ɟ",
+   "glyph": "d̦",
+   "capital": "D̦",
+   "long": "d̦d̦",
+   "long_capital": "D̦d̦",
+   "joined": "d̦‍d̦",
+   "joined_capital": "D̦‍d̦"
+  },
+  {
+   "letter": "d",
+   "marks": [
+    "dot"
+   ],
+   "id": "ð",
+   "glyph": "ḍ",
+   "capital": "Ḍ",
+   "long": "ḍḍ",
+   "long_capital": "Ḍḍ",
+   "joined": "ḍ‍ḍ",
+   "joined_capital": "Ḍ‍ḍ"
+  },
+  {
+   "letter": "d",
+   "marks": [
+    "reverse"
+   ],
+   "id": "ɖ",
+   "glyph": "d̖",
+   "capital": "D̖",
+   "long": "d̖d̖",
+   "long_capital": "D̖d̖",
+   "joined": "d̖‍d̖",
+   "joined_capital": "D̖‍d̖"
+  },
+  {
+   "letter": "f",
+   "marks": [],
+   "id": "f",
+   "glyph": "f",
+   "capital": "F",
+   "long": "ff",
+   "long_capital": "Ff",
+   "joined": "f‍f",
+   "joined_capital": "F‍f"
+  },
+  {
+   "letter": "f",
+   "marks": [
+    "anchor"
+   ],
+   "id": "fʲ",
+   "glyph": "f̦",
+   "capital": "F̦",
+   "long": "f̦f̦",
+   "long_capital": "F̦f̦",
+   "joined": "f̦‍f̦",
+   "joined_capital": "F̦‍f̦"
+  },
+  {
+   "letter": "g",
+   "marks": [],
+   "id": "g",
+   "glyph": "g",
+   "capital": "G",
+   "long": "gg",
+   "long_capital": "Gg",
+   "joined": "g‍g",
+   "joined_capital": "G‍g"
+  },
+  {
+   "letter": "g",
+   "marks": [
+    "anchor"
+   ],
+   "id": "gʲ",
+   "glyph": "g̓",
+   "capital": "G̦",
+   "long": "g̓g̓",
+   "long_capital": "G̦g̦",
+   "joined": "g̓‍g̓",
+   "joined_capital": "G̦‍g̦"
+  },
+  {
+   "letter": "g",
+   "marks": [
+    "dot"
+   ],
+   "id": "ɣ",
+   "glyph": "ġ",
+   "capital": "G̣",
+   "long": "ġġ",
+   "long_capital": "G̣g̣",
+   "joined": "ġ‍ġ",
+   "joined_capital": "G̣‍g̣"
+  },
+  {
+   "letter": "g",
+   "marks": [
+    "reverse"
+   ],
+   "id": "ʕ",
+   "glyph": "g̔",
+   "capital": "G̖",
+   "long": "g̔g̔",
+   "long_capital": "G̖g̖",
+   "joined": "g̔‍g̔",
+   "joined_capital": "G̖‍g̖"
+  },
+  {
+   "letter": "h",
+   "marks": [],
+   "id": "h",
+   "glyph": "h",
+   "capital": "H",
+   "long": "hh",
+   "long_capital": "Hh",
+   "joined": "h‍h",
+   "joined_capital": "H‍h"
+  },
+  {
+   "letter": "h",
+   "marks": [
+    "dot"
+   ],
+   "id": "ʔ",
+   "glyph": "ḥ",
+   "capital": "Ḥ",
+   "long": "ḥḥ",
+   "long_capital": "Ḥḥ",
+   "joined": "ḥ‍ḥ",
+   "joined_capital": "Ḥ‍ḥ"
+  },
+  {
+   "letter": "j",
+   "marks": [],
+   "id": "j",
+   "glyph": "j",
+   "capital": "J",
+   "long": "jj",
+   "long_capital": "Jj",
+   "joined": "j‍j",
+   "joined_capital": "J‍j"
+  },
+  {
+   "letter": "j",
+   "marks": [
+    "flip"
+   ],
+   "id": "ɥ",
+   "glyph": "j̈",
+   "capital": "J̈",
+   "long": "j̈j̈",
+   "long_capital": "J̈j̈",
+   "joined": "j̈‍j̈",
+   "joined_capital": "J̈‍j̈"
+  },
+  {
+   "letter": "k",
+   "marks": [],
+   "id": "k",
+   "glyph": "k",
+   "capital": "K",
+   "long": "kk",
+   "long_capital": "Kk",
+   "joined": "k‍k",
+   "joined_capital": "K‍k"
+  },
+  {
+   "letter": "k",
+   "marks": [
+    "anchor"
+   ],
+   "id": "kʲ",
+   "glyph": "k̦",
+   "capital": "K̦",
+   "long": "k̦k̦",
+   "long_capital": "K̦k̦",
+   "joined": "k̦‍k̦",
+   "joined_capital": "K̦‍k̦"
+  },
+  {
+   "letter": "k",
+   "marks": [
+    "dot"
+   ],
+   "id": "x",
+   "glyph": "ḳ",
+   "capital": "Ḳ",
+   "long": "ḳḳ",
+   "long_capital": "Ḳḳ",
+   "joined": "ḳ‍ḳ",
+   "joined_capital": "Ḳ‍ḳ"
+  },
+  {
+   "letter": "k",
+   "marks": [
+    "reverse"
+   ],
+   "id": "ħ",
+   "glyph": "k̖",
+   "capital": "K̖",
+   "long": "k̖k̖",
+   "long_capital": "K̖k̖",
+   "joined": "k̖‍k̖",
+   "joined_capital": "K̖‍k̖"
+  },
+  {
+   "letter": "l",
+   "marks": [],
+   "id": "l",
+   "glyph": "l",
+   "capital": "L",
+   "long": "ll",
+   "long_capital": "Ll",
+   "joined": "l‍l",
+   "joined_capital": "L‍l"
+  },
+  {
+   "letter": "l",
+   "marks": [
+    "anchor"
+   ],
+   "id": "ʎ",
+   "glyph": "l̦",
+   "capital": "L̦",
+   "long": "l̦l̦",
+   "long_capital": "L̦l̦",
+   "joined": "l̦‍l̦",
+   "joined_capital": "L̦‍l̦"
+  },
+  {
+   "letter": "l",
+   "marks": [
+    "dot"
+   ],
+   "id": "ɭ",
+   "glyph": "ḷ",
+   "capital": "Ḷ",
+   "long": "ḷḷ",
+   "long_capital": "Ḷḷ",
+   "joined": "ḷ‍ḷ",
+   "joined_capital": "Ḷ‍ḷ"
+  },
+  {
+   "letter": "m",
+   "marks": [],
+   "id": "m",
+   "glyph": "m",
+   "capital": "M",
+   "long": "mm",
+   "long_capital": "Mm",
+   "joined": "m‍m",
+   "joined_capital": "M‍m"
+  },
+  {
+   "letter": "m",
+   "marks": [
+    "anchor"
+   ],
+   "id": "mʲ",
+   "glyph": "m̦",
+   "capital": "M̦",
+   "long": "m̦m̦",
+   "long_capital": "M̦m̦",
+   "joined": "m̦‍m̦",
+   "joined_capital": "M̦‍m̦"
+  },
+  {
+   "letter": "n",
+   "marks": [],
+   "id": "n",
+   "glyph": "n",
+   "capital": "N",
+   "long": "nn",
+   "long_capital": "Nn",
+   "joined": "n‍n",
+   "joined_capital": "N‍n"
+  },
+  {
+   "letter": "n",
+   "marks": [
+    "anchor"
+   ],
+   "id": "ɲ",
+   "glyph": "n̦",
+   "capital": "N̦",
+   "long": "n̦n̦",
+   "long_capital": "N̦n̦",
+   "joined": "n̦‍n̦",
+   "joined_capital": "N̦‍n̦"
+  },
+  {
+   "letter": "n",
+   "marks": [
+    "dot"
+   ],
+   "id": "ŋ",
+   "glyph": "ṇ",
+   "capital": "Ṇ",
+   "long": "ṇṇ",
+   "long_capital": "Ṇṇ",
+   "joined": "ṇ‍ṇ",
+   "joined_capital": "Ṇ‍ṇ"
+  },
+  {
+   "letter": "n",
+   "marks": [
+    "reverse"
+   ],
+   "id": "ɳ",
+   "glyph": "n̖",
+   "capital": "N̖",
+   "long": "n̖n̖",
+   "long_capital": "N̖n̖",
+   "joined": "n̖‍n̖",
+   "joined_capital": "N̖‍n̖"
+  },
+  {
+   "letter": "p",
+   "marks": [],
+   "id": "p",
+   "glyph": "p",
+   "capital": "P",
+   "long": "pp",
+   "long_capital": "Pp",
+   "joined": "p‍p",
+   "joined_capital": "P‍p"
+  },
+  {
+   "letter": "p",
+   "marks": [
+    "anchor"
+   ],
+   "id": "pʲ",
+   "glyph": "p̓",
+   "capital": "P̦",
+   "long": "p̓p̓",
+   "long_capital": "P̦p̦",
+   "joined": "p̓‍p̓",
+   "joined_capital": "P̦‍p̦"
+  },
+  {
+   "letter": "q",
+   "marks": [],
+   "id": "q",
+   "glyph": "q",
+   "capital": "Q",
+   "long": "qq",
+   "long_capital": "Qq",
+   "joined": "q‍q",
+   "joined_capital": "Q‍q"
+  },
+  {
+   "letter": "r",
+   "marks": [],
+   "id": "r",
+   "glyph": "r",
+   "capital": "R",
+   "long": "rr",
+   "long_capital": "Rr",
+   "joined": "r‍r",
+   "joined_capital": "R‍r"
+  },
+  {
+   "letter": "r",
+   "marks": [
+    "anchor"
+   ],
+   "id": "rʲ",
+   "glyph": "r̦",
+   "capital": "R̦",
+   "long": "r̦r̦",
+   "long_capital": "R̦r̦",
+   "joined": "r̦‍r̦",
+   "joined_capital": "R̦‍r̦"
+  },
+  {
+   "letter": "r",
+   "marks": [
+    "dot"
+   ],
+   "id": "ɾ",
+   "glyph": "ṛ",
+   "capital": "Ṛ",
+   "long": "ṛṛ",
+   "long_capital": "Ṛṛ",
+   "joined": "ṛ‍ṛ",
+   "joined_capital": "Ṛ‍ṛ"
+  },
+  {
+   "letter": "r",
+   "marks": [
+    "flip"
+   ],
+   "id": "ɝ",
+   "glyph": "r̈",
+   "capital": "R̈",
+   "long": "r̈r̈",
+   "long_capital": "R̈r̈",
+   "joined": "r̈‍r̈",
+   "joined_capital": "R̈‍r̈"
+  },
+  {
+   "letter": "s",
+   "marks": [],
+   "id": "s",
+   "glyph": "s",
+   "capital": "S",
+   "long": "ss",
+   "long_capital": "Ss",
+   "joined": "s‍s",
+   "joined_capital": "S‍s"
+  },
+  {
+   "letter": "s",
+   "marks": [
+    "anchor"
+   ],
+   "id": "ʃ",
+   "glyph": "ș",
+   "capital": "Ș",
+   "long": "șș",
+   "long_capital": "Șș",
+   "joined": "ș‍ș",
+   "joined_capital": "Ș‍ș"
+  },
+  {
+   "letter": "s",
+   "marks": [
+    "reverse"
+   ],
+   "id": "ʂ",
+   "glyph": "s̖",
+   "capital": "S̖",
+   "long": "s̖s̖",
+   "long_capital": "S̖s̖",
+   "joined": "s̖‍s̖",
+   "joined_capital": "S̖‍s̖"
+  },
+  {
+   "letter": "t",
+   "marks": [],
+   "id": "t",
+   "glyph": "t",
+   "capital": "T",
+   "long": "tt",
+   "long_capital": "Tt",
+   "joined": "t‍t",
+   "joined_capital": "T‍t"
+  },
+  {
+   "letter": "t",
+   "marks": [
+    "anchor"
+   ],
+   "id": "c",
+   "glyph": "ț",
+   "capital": "Ț",
+   "long": "țț",
+   "long_capital": "Țț",
+   "joined": "ț‍ț",
+   "joined_capital": "Ț‍ț"
+  },
+  {
+   "letter": "t",
+   "marks": [
+    "dot"
+   ],
+   "id": "θ",
+   "glyph": "ṭ",
+   "capital": "Ṭ",
+   "long": "ṭṭ",
+   "long_capital": "Ṭṭ",
+   "joined": "ṭ‍ṭ",
+   "joined_capital": "Ṭ‍ṭ"
+  },
+  {
+   "letter": "t",
+   "marks": [
+    "reverse"
+   ],
+   "id": "ʈ",
+   "glyph": "t̖",
+   "capital": "T̖",
+   "long": "t̖t̖",
+   "long_capital": "T̖t̖",
+   "joined": "t̖‍t̖",
+   "joined_capital": "T̖‍t̖"
+  },
+  {
+   "letter": "v",
+   "marks": [],
+   "id": "v",
+   "glyph": "v",
+   "capital": "V",
+   "long": "vv",
+   "long_capital": "Vv",
+   "joined": "v‍v",
+   "joined_capital": "V‍v"
+  },
+  {
+   "letter": "v",
+   "marks": [
+    "anchor"
+   ],
+   "id": "vʲ",
+   "glyph": "v̦",
+   "capital": "V̦",
+   "long": "v̦v̦",
+   "long_capital": "V̦v̦",
+   "joined": "v̦‍v̦",
+   "joined_capital": "V̦‍v̦"
+  },
+  {
+   "letter": "w",
+   "marks": [],
+   "id": "w",
+   "glyph": "w",
+   "capital": "W",
+   "long": "ww",
+   "long_capital": "Ww",
+   "joined": "w‍w",
+   "joined_capital": "W‍w"
+  },
+  {
+   "letter": "x",
+   "marks": [],
+   "id": "dz",
+   "glyph": "x",
+   "capital": "X",
+   "long": "xx",
+   "long_capital": "Xx",
+   "joined": "x‍x",
+   "joined_capital": "X‍x"
+  },
+  {
+   "letter": "x",
+   "marks": [
+    "anchor"
+   ],
+   "id": "dʒ",
+   "glyph": "x̦",
+   "capital": "X̦",
+   "long": "x̦x̦",
+   "long_capital": "X̦x̦",
+   "joined": "x̦‍x̦",
+   "joined_capital": "X̦‍x̦"
+  },
+  {
+   "letter": "x",
+   "marks": [
+    "reverse"
+   ],
+   "id": "dʐ",
+   "glyph": "x̖",
+   "capital": "X̖",
+   "long": "x̖x̖",
+   "long_capital": "X̖x̖",
+   "joined": "x̖‍x̖",
+   "joined_capital": "X̖‍x̖"
+  },
+  {
+   "letter": "z",
+   "marks": [],
+   "id": "z",
+   "glyph": "z",
+   "capital": "Z",
+   "long": "zz",
+   "long_capital": "Zz",
+   "joined": "z‍z",
+   "joined_capital": "Z‍z"
+  },
+  {
+   "letter": "z",
+   "marks": [
+    "anchor"
+   ],
+   "id": "ʒ",
+   "glyph": "z̦",
+   "capital": "Z̦",
+   "long": "z̦z̦",
+   "long_capital": "Z̦z̦",
+   "joined": "z̦‍z̦",
+   "joined_capital": "Z̦‍z̦"
+  },
+  {
+   "letter": "z",
+   "marks": [
+    "reverse"
+   ],
+   "id": "ʐ",
+   "glyph": "z̖",
+   "capital": "Z̖",
+   "long": "z̖z̖",
+   "long_capital": "Z̖z̖",
+   "joined": "z̖‍z̖",
+   "joined_capital": "Z̖‍z̖"
+  },
+  {
+   "letter": "a",
+   "marks": [],
+   "id": "a",
+   "glyph": "a",
+   "capital": "A",
+   "long": "á",
+   "long_capital": "Á"
+  },
+  {
+   "letter": "a",
+   "marks": [
+    "flip"
+   ],
+   "id": "æ",
+   "glyph": "ä",
+   "capital": "Ä",
+   "long": "a̋",
+   "long_capital": "A̋"
+  },
+  {
+   "letter": "a",
+   "marks": [
+    "grave"
+   ],
+   "id": "ã",
+   "glyph": "à",
+   "capital": "À",
+   "long": "à́",
+   "long_capital": "À́"
+  },
+  {
+   "letter": "a",
+   "marks": [
+    "underdot"
+   ],
+   "id": "ə",
+   "glyph": "ạ",
+   "capital": "Ạ",
+   "long": "ạ́",
+   "long_capital": "Ạ́"
+  },
+  {
+   "letter": "e",
+   "marks": [],
+   "id": "e",
+   "glyph": "e",
+   "capital": "E",
+   "long": "é",
+   "long_capital": "É"
+  },
+  {
+   "letter": "e",
+   "marks": [
+    "flip"
+   ],
+   "id": "ɤ",
+   "glyph": "ë",
+   "capital": "Ë",
+   "long": "e̋",
+   "long_capital": "E̋"
+  },
+  {
+   "letter": "e",
+   "marks": [
+    "grave"
+   ],
+   "id": "ẽ",
+   "glyph": "è",
+   "capital": "È",
+   "long": "è́",
+   "long_capital": "È́"
+  },
+  {
+   "letter": "e",
+   "marks": [
+    "underdot"
+   ],
+   "id": "ɛ",
+   "glyph": "ẹ",
+   "capital": "Ẹ",
+   "long": "ẹ́",
+   "long_capital": "Ẹ́"
+  },
+  {
+   "letter": "e",
+   "marks": [
+    "underdot",
+    "grave"
+   ],
+   "id": "ɛ̃",
+   "glyph": "ẹ̀",
+   "capital": "Ẹ̀",
+   "long": "ẹ̀́",
+   "long_capital": "Ẹ̀́"
+  },
+  {
+   "letter": "i",
+   "marks": [],
+   "id": "i",
+   "glyph": "i",
+   "capital": "I",
+   "long": "í",
+   "long_capital": "Í"
+  },
+  {
+   "letter": "i",
+   "marks": [
+    "flip"
+   ],
+   "id": "ɯ",
+   "glyph": "ï",
+   "capital": "Ï",
+   "long": "i̋",
+   "long_capital": "I̋"
+  },
+  {
+   "letter": "i",
+   "marks": [
+    "grave"
+   ],
+   "id": "ĩ",
+   "glyph": "ì",
+   "capital": "Ì",
+   "long": "ì́",
+   "long_capital": "Ì́"
+  },
+  {
+   "letter": "i",
+   "marks": [
+    "underdot"
+   ],
+   "id": "ɪ",
+   "glyph": "ị",
+   "capital": "Ị",
+   "long": "ị́",
+   "long_capital": "Ị́"
+  },
+  {
+   "letter": "o",
+   "marks": [],
+   "id": "o",
+   "glyph": "o",
+   "capital": "O",
+   "long": "ó",
+   "long_capital": "Ó"
+  },
+  {
+   "letter": "o",
+   "marks": [
+    "flip"
+   ],
+   "id": "ø",
+   "glyph": "ö",
+   "capital": "Ö",
+   "long": "ő",
+   "long_capital": "Ő"
+  },
+  {
+   "letter": "o",
+   "marks": [
+    "grave"
+   ],
+   "id": "õ",
+   "glyph": "ò",
+   "capital": "Ò",
+   "long": "ò́",
+   "long_capital": "Ò́"
+  },
+  {
+   "letter": "o",
+   "marks": [
+    "underdot"
+   ],
+   "id": "ɔ",
+   "glyph": "ọ",
+   "capital": "Ọ",
+   "long": "ọ́",
+   "long_capital": "Ọ́"
+  },
+  {
+   "letter": "o",
+   "marks": [
+    "flip",
+    "underdot"
+   ],
+   "id": "œ",
+   "glyph": "ọ̈",
+   "capital": "Ọ̈",
+   "long": "ọ̋",
+   "long_capital": "Ọ̋"
+  },
+  {
+   "letter": "o",
+   "marks": [
+    "underdot",
+    "grave"
+   ],
+   "id": "ɔ̃",
+   "glyph": "ọ̀",
+   "capital": "Ọ̀",
+   "long": "ọ̀́",
+   "long_capital": "Ọ̀́"
+  },
+  {
+   "letter": "u",
+   "marks": [],
+   "id": "u",
+   "glyph": "u",
+   "capital": "U",
+   "long": "ú",
+   "long_capital": "Ú"
+  },
+  {
+   "letter": "u",
+   "marks": [
+    "flip"
+   ],
+   "id": "y",
+   "glyph": "ü",
+   "capital": "Ü",
+   "long": "ű",
+   "long_capital": "Ű"
+  },
+  {
+   "letter": "u",
+   "marks": [
+    "grave"
+   ],
+   "id": "ũ",
+   "glyph": "ù",
+   "capital": "Ù",
+   "long": "ù́",
+   "long_capital": "Ù́"
+  },
+  {
+   "letter": "u",
+   "marks": [
+    "underdot"
+   ],
+   "id": "ʊ",
+   "glyph": "ụ",
+   "capital": "Ụ",
+   "long": "ụ́",
+   "long_capital": "Ụ́"
+  },
+  {
+   "letter": "u",
+   "marks": [
+    "flip",
+    "underdot"
+   ],
+   "id": "ʏ",
+   "glyph": "ụ̈",
+   "capital": "Ụ̈",
+   "long": "ụ̋",
+   "long_capital": "Ụ̋"
+  },
   {
    "letter": "b",
    "marks": [
     "dot"
    ],
+   "id": null,
    "glyph": "ḅ",
-   "capital": "Ḅ"
+   "capital": "Ḅ",
+   "long": "ḅḅ",
+   "long_capital": "Ḅḅ",
+   "joined": "ḅ‍ḅ",
+   "joined_capital": "Ḅ‍ḅ"
   },
   {
    "letter": "b",
    "marks": [
     "reverse"
    ],
+   "id": null,
    "glyph": "b̖",
-   "capital": "B̖"
+   "capital": "B̖",
+   "long": "b̖b̖",
+   "long_capital": "B̖b̖",
+   "joined": "b̖‍b̖",
+   "joined_capital": "B̖‍b̖"
   },
   {
    "letter": "c",
    "marks": [
     "dot"
    ],
+   "id": null,
    "glyph": "c̣",
-   "capital": "C̣"
+   "capital": "C̣",
+   "long": "c̣c̣",
+   "long_capital": "C̣c̣",
+   "joined": "c̣‍c̣",
+   "joined_capital": "C̣‍c̣"
   },
   {
    "letter": "f",
    "marks": [
     "dot"
    ],
+   "id": null,
    "glyph": "f̣",
-   "capital": "F̣"
+   "capital": "F̣",
+   "long": "f̣f̣",
+   "long_capital": "F̣f̣",
+   "joined": "f̣‍f̣",
+   "joined_capital": "F̣‍f̣"
   },
   {
    "letter": "h",
    "marks": [
     "anchor"
    ],
+   "id": null,
    "glyph": "h̦",
-   "capital": "H̦"
+   "capital": "H̦",
+   "long": "h̦h̦",
+   "long_capital": "H̦h̦",
+   "joined": "h̦‍h̦",
+   "joined_capital": "H̦‍h̦"
   },
   {
    "letter": "h",
    "marks": [
     "reverse"
    ],
+   "id": null,
    "glyph": "h̖",
-   "capital": "H̖"
+   "capital": "H̖",
+   "long": "h̖h̖",
+   "long_capital": "H̖h̖",
+   "joined": "h̖‍h̖",
+   "joined_capital": "H̖‍h̖"
   },
   {
    "letter": "j",
    "marks": [
     "dot"
    ],
+   "id": null,
    "glyph": "j̇",
-   "capital": "J̣"
+   "capital": "J̣",
+   "long": "j̇j̇",
+   "long_capital": "J̣j̣",
+   "joined": "j̇‍j̇",
+   "joined_capital": "J̣‍j̣"
   },
   {
    "letter": "m",
    "marks": [
     "dot"
    ],
+   "id": null,
    "glyph": "ṃ",
-   "capital": "Ṃ"
+   "capital": "Ṃ",
+   "long": "ṃṃ",
+   "long_capital": "Ṃṃ",
+   "joined": "ṃ‍ṃ",
+   "joined_capital": "Ṃ‍ṃ"
   },
   {
    "letter": "m",
    "marks": [
     "reverse"
    ],
+   "id": null,
    "glyph": "m̖",
-   "capital": "M̖"
+   "capital": "M̖",
+   "long": "m̖m̖",
+   "long_capital": "M̖m̖",
+   "joined": "m̖‍m̖",
+   "joined_capital": "M̖‍m̖"
   },
   {
    "letter": "p",
    "marks": [
     "dot"
    ],
+   "id": null,
    "glyph": "ṗ",
-   "capital": "P̣"
+   "capital": "P̣",
+   "long": "ṗṗ",
+   "long_capital": "P̣p̣",
+   "joined": "ṗ‍ṗ",
+   "joined_capital": "P̣‍p̣"
   },
   {
    "letter": "p",
    "marks": [
     "reverse"
    ],
+   "id": null,
    "glyph": "p̔",
-   "capital": "P̖"
+   "capital": "P̖",
+   "long": "p̔p̔",
+   "long_capital": "P̖p̖",
+   "joined": "p̔‍p̔",
+   "joined_capital": "P̖‍p̖"
   },
   {
    "letter": "q",
    "marks": [
     "dot"
    ],
+   "id": null,
    "glyph": "q̇",
-   "capital": "Q̣"
+   "capital": "Q̣",
+   "long": "q̇q̇",
+   "long_capital": "Q̣q̣",
+   "joined": "q̇‍q̇",
+   "joined_capital": "Q̣‍q̣"
   },
   {
    "letter": "r",
@@ -2626,64 +3619,104 @@
     "dot",
     "flip"
    ],
+   "id": null,
    "glyph": "ṛ̈",
-   "capital": "Ṛ̈"
+   "capital": "Ṛ̈",
+   "long": "ṛ̈ṛ̈",
+   "long_capital": "Ṛ̈ṛ̈",
+   "joined": "ṛ̈‍ṛ̈",
+   "joined_capital": "Ṛ̈‍ṛ̈"
   },
   {
    "letter": "s",
    "marks": [
     "dot"
    ],
+   "id": null,
    "glyph": "ṣ",
-   "capital": "Ṣ"
+   "capital": "Ṣ",
+   "long": "ṣṣ",
+   "long_capital": "Ṣṣ",
+   "joined": "ṣ‍ṣ",
+   "joined_capital": "Ṣ‍ṣ"
   },
   {
    "letter": "v",
    "marks": [
     "dot"
    ],
+   "id": null,
    "glyph": "ṿ",
-   "capital": "Ṿ"
+   "capital": "Ṿ",
+   "long": "ṿṿ",
+   "long_capital": "Ṿṿ",
+   "joined": "ṿ‍ṿ",
+   "joined_capital": "Ṿ‍ṿ"
   },
   {
    "letter": "v",
    "marks": [
     "reverse"
    ],
+   "id": null,
    "glyph": "v̖",
-   "capital": "V̖"
+   "capital": "V̖",
+   "long": "v̖v̖",
+   "long_capital": "V̖v̖",
+   "joined": "v̖‍v̖",
+   "joined_capital": "V̖‍v̖"
   },
   {
    "letter": "w",
    "marks": [
     "flip"
    ],
+   "id": null,
    "glyph": "ẅ",
-   "capital": "Ẅ"
+   "capital": "Ẅ",
+   "long": "ẅẅ",
+   "long_capital": "Ẅẅ",
+   "joined": "ẅ‍ẅ",
+   "joined_capital": "Ẅ‍ẅ"
   },
   {
    "letter": "w",
    "marks": [
     "dot"
    ],
+   "id": null,
    "glyph": "ẉ",
-   "capital": "Ẉ"
+   "capital": "Ẉ",
+   "long": "ẉẉ",
+   "long_capital": "Ẉẉ",
+   "joined": "ẉ‍ẉ",
+   "joined_capital": "Ẉ‍ẉ"
   },
   {
    "letter": "x",
    "marks": [
     "dot"
    ],
+   "id": null,
    "glyph": "x̣",
-   "capital": "X̣"
+   "capital": "X̣",
+   "long": "x̣x̣",
+   "long_capital": "X̣x̣",
+   "joined": "x̣‍x̣",
+   "joined_capital": "X̣‍x̣"
   },
   {
    "letter": "z",
    "marks": [
     "dot"
    ],
+   "id": null,
    "glyph": "ẓ",
-   "capital": "Ẓ"
+   "capital": "Ẓ",
+   "long": "ẓẓ",
+   "long_capital": "Ẓẓ",
+   "joined": "ẓ‍ẓ",
+   "joined_capital": "Ẓ‍ẓ"
   },
   {
    "letter": "a",
@@ -2691,8 +3724,11 @@
     "flip",
     "grave"
    ],
+   "id": null,
    "glyph": "ä̀",
-   "capital": "Ä̀"
+   "capital": "Ä̀",
+   "long": "a̋̀",
+   "long_capital": "A̋̀"
   },
   {
    "letter": "a",
@@ -2700,8 +3736,11 @@
     "underdot",
     "grave"
    ],
+   "id": null,
    "glyph": "ạ̀",
-   "capital": "Ạ̀"
+   "capital": "Ạ̀",
+   "long": "ạ̀́",
+   "long_capital": "Ạ̀́"
   },
   {
    "letter": "e",
@@ -2709,8 +3748,11 @@
     "flip",
     "underdot"
    ],
+   "id": null,
    "glyph": "ẹ̈",
-   "capital": "Ẹ̈"
+   "capital": "Ẹ̈",
+   "long": "ẹ̋",
+   "long_capital": "Ẹ̋"
   },
   {
    "letter": "e",
@@ -2718,8 +3760,11 @@
     "flip",
     "grave"
    ],
+   "id": null,
    "glyph": "ë̀",
-   "capital": "Ë̀"
+   "capital": "Ë̀",
+   "long": "e̋̀",
+   "long_capital": "E̋̀"
   },
   {
    "letter": "e",
@@ -2728,8 +3773,11 @@
     "underdot",
     "grave"
    ],
+   "id": null,
    "glyph": "ẹ̈̀",
-   "capital": "Ẹ̈̀"
+   "capital": "Ẹ̈̀",
+   "long": "ẹ̋̀",
+   "long_capital": "Ẹ̋̀"
   },
   {
    "letter": "i",
@@ -2737,8 +3785,11 @@
     "flip",
     "underdot"
    ],
+   "id": null,
    "glyph": "ị̈",
-   "capital": "Ị̈"
+   "capital": "Ị̈",
+   "long": "ị̋",
+   "long_capital": "Ị̋"
   },
   {
    "letter": "i",
@@ -2746,8 +3797,11 @@
     "flip",
     "grave"
    ],
+   "id": null,
    "glyph": "ï̀",
-   "capital": "Ï̀"
+   "capital": "Ï̀",
+   "long": "i̋̀",
+   "long_capital": "I̋̀"
   },
   {
    "letter": "i",
@@ -2755,8 +3809,11 @@
     "underdot",
     "grave"
    ],
+   "id": null,
    "glyph": "ị̀",
-   "capital": "Ị̀"
+   "capital": "Ị̀",
+   "long": "ị̀́",
+   "long_capital": "Ị̀́"
   },
   {
    "letter": "i",
@@ -2765,8 +3822,11 @@
     "underdot",
     "grave"
    ],
+   "id": null,
    "glyph": "ị̈̀",
-   "capital": "Ị̈̀"
+   "capital": "Ị̈̀",
+   "long": "ị̋̀",
+   "long_capital": "Ị̋̀"
   },
   {
    "letter": "o",
@@ -2774,8 +3834,11 @@
     "flip",
     "grave"
    ],
+   "id": null,
    "glyph": "ö̀",
-   "capital": "Ö̀"
+   "capital": "Ö̀",
+   "long": "ő̀",
+   "long_capital": "Ő̀"
   },
   {
    "letter": "o",
@@ -2784,8 +3847,11 @@
     "underdot",
     "grave"
    ],
+   "id": null,
    "glyph": "ọ̈̀",
-   "capital": "Ọ̈̀"
+   "capital": "Ọ̈̀",
+   "long": "ọ̋̀",
+   "long_capital": "Ọ̋̀"
   },
   {
    "letter": "u",
@@ -2793,8 +3859,11 @@
     "flip",
     "grave"
    ],
+   "id": null,
    "glyph": "ǜ",
-   "capital": "Ǜ"
+   "capital": "Ǜ",
+   "long": "ű̀",
+   "long_capital": "Ű̀"
   },
   {
    "letter": "u",
@@ -2802,8 +3871,11 @@
     "underdot",
     "grave"
    ],
+   "id": null,
    "glyph": "ụ̀",
-   "capital": "Ụ̀"
+   "capital": "Ụ̀",
+   "long": "ụ̀́",
+   "long_capital": "Ụ̀́"
   },
   {
    "letter": "u",
@@ -2812,8 +3884,11 @@
     "underdot",
     "grave"
    ],
+   "id": null,
    "glyph": "ụ̈̀",
-   "capital": "Ụ̈̀"
+   "capital": "Ụ̈̀",
+   "long": "ụ̋̀",
+   "long_capital": "Ụ̋̀"
   }
  ],
  "languages": {

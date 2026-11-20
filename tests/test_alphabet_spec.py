@@ -60,9 +60,14 @@ def test_one_reading():
                     assert glyphs.setdefault(g, (comp, long, caps)) == (comp, long, caps), g
                     t = script.read(g)
                     assert len(t) == 1 and (t[0].comp, t[0].long, t[0].caps) == (comp, long, caps), (g, t)
-    named = {(p['letter'], tuple(p['marks'])) for p in SPEC['points']}
-    opened = {(p['letter'], tuple(p['marks'])) for p in SPEC['open']}
-    assert not named & opened and named | opened == set(script.compositions())
+    listed = {(c['letter'], tuple(c['marks'])): c for c in SPEC['compositions']}
+    assert set(listed) == set(script.compositions())
+    for comp, c in listed.items():
+        assert c['id'] == script.NAME.get(comp)
+        for long, caps, join, field in ((0, 0, 0, 'glyph'), (0, 1, 0, 'capital'), (1, 0, 0, 'long'), (1, 1, 0, 'long_capital'),
+                                        (1, 0, 1, 'joined'), (1, 1, 1, 'joined_capital')):
+            if field in c:
+                assert script.glyph(comp, bool(long), bool(caps), bool(join)) == c[field], (comp, field)
 
 
 def toks(xs):

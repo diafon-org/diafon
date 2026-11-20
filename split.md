@@ -230,8 +230,8 @@ operators); remarks.md and plan.md split.
   long ones included, with their readings.
 - **Open compositions**: the script allows 113 letter-and-mark compositions,
   the ones the old grammar could type. The 34 that no point names are
-  script all the same: they read and write, the spec lists them under
-  `open`, and `universal-v1` goes on typing them. A profile names them by
+  script all the same: they read and write, the spec lists every
+  composition with its glyphs (`compositions`, `id` null for these), and `universal-v1` goes on typing them. A profile names them by
   letter and marks until a language uses one and it gets a name.
 - **Stages and lexicons**: `data/stages` by point name, lexicons in script
   text; `stages.py`, `lexicon.py` and `mapping.py` work in points.
