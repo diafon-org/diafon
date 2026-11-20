@@ -180,8 +180,8 @@ Targets the alphabet as it is; it adds no points and changes no glyph.
 - Mandarin: a token whose syllables each end in a digit 1–5 (5 neutral, `v`
   for ü) is read as pinyin through the alphabet's zh stage. Any other token
   with digits passes through.
-- Commit per segment, as in universal-v1; a token that may still be pinyin
-  (letters, then digits) stays composing until its boundary.
+- Commit per word: only at its end is it known whether a word was pinyin,
+  so the word being typed stays composing.
 
 Examples: `cyak a joq soq` → c̦ak a jó só; `zhong1guo2` → the zh stage's
 reading; `the cityy` → the city.
@@ -291,6 +291,20 @@ operators); remarks.md and plan.md split.
   for everything else and lists those 12 files as pending. P4's work on
   this site therefore comes before the gate of P2 can close.
 - Device checklists for macOS and iOS are not run.
+
+## After P2 (2026-11-21)
+
+- `diafon-input` publishes no site for now: its README is its page. The
+  typing pages of diafon.io (Learning, the playground) stay where they are
+  until that changes, and with them the bridge here.
+- `minimal-hu-v1` exists there as data and in the Python reference, and
+  runs in the Mac input method and the iOS keyboard: the profile is a
+  setting, chosen in the keyboard menu on the Mac and in the keyboard's
+  settings on iOS. The Shift shortcuts, the switcher and the space-bar menu
+  are gone. Inside, the Swift core still holds a text in universal-v1 forms
+  and reads a key-table profile into them. Android has universal-v1 only.
+- The zh stage of P3 was not needed: the profile reads pinyin through the
+  syllables of the alphabet's Mandarin lexicon, compiled into its table.
 
 ## Arguments against
 
