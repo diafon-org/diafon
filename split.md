@@ -303,8 +303,11 @@ operators); remarks.md and plan.md split.
   settings on iOS. The Shift shortcuts, the switcher and the space-bar menu
   are gone. Inside, the Swift core still holds a text in universal-v1 forms
   and reads a key-table profile into them. Android has universal-v1 only.
-- The zh stage of P3 was not needed: the profile reads pinyin through the
-  syllables of the alphabet's Mandarin lexicon, compiled into its table.
+- Mandarin under `minimal-hu-v1` is typed with the profile's own keys and
+  tone digits (`ni3 kqaw3`), not as pinyin words: `kq` is ḳ, a digit after
+  a point is its tone, and a segment commits when the next one starts. The
+  zh stage of P3 and the word commit are not needed. This replaces the
+  Mandarin and commit rules under "Profile: minimal-hu-v1" above.
 
 ## Arguments against
 
