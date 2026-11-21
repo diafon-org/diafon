@@ -68,11 +68,15 @@ consonants:
   # shares on marked points
   χ: x
   ʁ: ɣ
+  # the hush in all its places is the anchor: one series in a language is ș z̦ c̦ x̦, whatever
+  #   its exact sound (Mandarin, Japanese, Russian ш ж); the soft series of a language with
+  #   two takes the dot (Polish below, and sʲ zʲ tsʲ)
   ɕ: ʃ
   ʑ: ʒ
-  ʂ: ʂ        # the flipped anchor
-  ʐ: ʐ
-  tʂ: tʂ
+  ʂ: ʃ
+  ʐ: ʒ
+  tʂ: tʃ
+  dʐ: dʒ
   tɕ: tʃ
   dʑ: dʒ
   # soft (j)
@@ -88,9 +92,9 @@ consonants:
   rʲ: rʲ
   fʲ: fʲ
   vʲ: vʲ
-  sʲ: ʃ         # soft s z on the anchor, beside the hush, where the language has
-  zʲ: ʒ         #   no plain hush to contrast (ru uk: ш ж ride the back-lean)
-  tsʲ: tʃ
+  sʲ: ɕ         # soft s z ts on the dot (ṣ ẓ c̣), beside the hush on the anchor
+  zʲ: ʑ
+  tsʲ: tɕ
   ɲ: ɲ
   ʎ: ʎ
   c: c
@@ -111,7 +115,7 @@ consonants:
   tsʰ: [ts, h]
   tʃʰ: [tʃ, h]
   tɕʰ: [tʃ, h]
-  tʂʰ: [tʂ, h]
+  tʂʰ: [tʃ, h]
   t̪ʰ: [t, h]
   ʈʰ: [ʈ, h]   # a sequence: ʈ + h; the special cannot stack on the anti-anchor
   bʱ: [b, h]
@@ -126,7 +130,7 @@ consonants:
   k͈: kː
   s͈: sː
   t͈ɕ: tʃː
-  ɕː: ʃː        # Russian щ, the long hush
+  ɕː: ɕː        # Russian щ, the long soft hush (ṣṣ)
   # glides
   j: j
   w: w
@@ -234,15 +238,10 @@ overrides:
   ar:            # the emphatics: the back-lean, the tongue root drawn back
     tˤ: ʈ
     dˤ: ɖ
-    sˤ: ʂ
-    ðˤ: ʐ
-  # ru: none. ш ж are retroflex, on the back-lean (the global ʂ ʐ) as Polish sz ż;
-  #   the anchor is the soft s z, as on every other soft consonant; щ is long (șș)
-  uk:            # ш ж ч дж on the back-lean, as Russian; the anchor is soft s z ts
-    ʃ: ʂ
-    ʒ: ʐ
-    tʃ: tʂ
-    dʒ: dʐ
+    sˤ: sˤ
+    ðˤ: ðˤ
+  # ru, uk: none. ш ж (ч дж) are the hush, on the anchor; the soft сь зь ць take the dot,
+  #   and Russian щ is the long soft one (ṣṣ)
   pt:            # ɐ: the a area (its contrast with a is marginal, European only)
     ɐ: a
   ko:            # ㅐ ㅔ have merged for most speakers: one e (merges below)
@@ -252,17 +251,12 @@ overrides:
   zh:            # one mid vowel (pinyin e): ë alone and before n ŋ, [ɤ] [ə]; after u it is [o],
                  #   and the lexicon writes it o there (guo kuo, wo uo)
     ə: ɤ
-                 # the retroflexes are the hush: no plain hush to contrast
-    ʂ: ʃ        #   (j q x share it before i ü), so the back-lean is unsigned
-    ʐ: ʒ
-    tʂ: tʃ
-    tʂʰ: [tʃ, h]
-
-  pl:            # three-way sibilants: plain / anchored / flipped
-    ʂ: ʂ
-    ʐ: ʐ
-    tʂ: tʂ
-    dʐ: dʐ
+                 # the retroflexes are the hush, as everywhere (j q x share it before i ü)
+  pl:            # three-way sibilants: plain s, the hush sz on the anchor, the soft ś on the dot
+    ɕ: ɕ
+    ʑ: ʑ
+    tɕ: tɕ
+    dʑ: dʑ
 
 merges:
   # reviewed within-language identifications: two symbols, one phoneme
@@ -315,42 +309,52 @@ shares:
       ka: the ejective; the bare letter is the licensed approximation
     tʂ:
       zh: zh; retroflex, before all but i ü
+      pl: cz; the hush, retroflex; the soft ć takes the dot (c̣)
     tɕ:
       zh: j; alveolo-palatal, before i ü only
       ja: the sole hush affricate, alveolo-palatal
       ko: the sole hush affricate, alveolo-palatal
-      pl: ć; its second hush cz takes the flip (c̖)
       ru: ч; the sole hush affricate, soft
-    tsʲ:
-      uk: ць; the soft ts on the anchor, ч riding the back-lean (c̖)
       th: the sole hush affricate
       vi: ch; the sole hush affricate
   dʒ:
     dʒ: primary
     dʑ:
       ja: the sole voiced hush affricate, alveolo-palatal
-      pl: dź; its second hush dż takes the flip (x̖)
+    dʐ:
+      pl: dż; the hush, retroflex; the soft dź takes the dot (x̣)
   ʃ:
     ʃ: primary
     ɕ:
       ja: the sole hush, alveolo-palatal
       zh: x; before i ü only
-      pl: ś; its second hush sz takes the flip (s̖)
     ʂ:
       zh: sh; retroflex, before all but i ü
-    sʲ:
-      et: the soft s; ʃ is marginal
-      ru: сь; the soft s, ш riding the back-lean (s̖)
-      uk: сь; the soft s, ш riding the back-lean (s̖)
+      pl: sz; the hush, retroflex; the soft ś takes the dot (ṣ)
+      ru: ш; the hush, retroflex; the soft сь takes the dot (ṣ)
   ʒ:
     ʒ: primary
     ʑ:
-      pl: ź; its second hush ż takes the flip (z̖)
+      ja: the voiced hush, alveolo-palatal
     ʐ:
       zh: r; the sole voiced hush, retroflex
+      pl: ż; the hush, retroflex; the soft ź takes the dot (ẓ)
+      ru: ж; the hush, retroflex; the soft зь takes the dot (ẓ)
+  ɕ:
+    ɕ: primary
+    sʲ:
+      et: the soft s; its marginal ʃ is the hush (ș)
+      ru: сь; the soft s, beside the hush ш (ș)
+      uk: сь; the soft s, beside the hush ш (ș)
+  ʑ:
+    ʑ: primary
     zʲ:
-      ru: зь; the soft z, ж riding the back-lean (z̖)
-      uk: зь; the soft z, ж riding the back-lean (z̖)
+      ru: зь; the soft z, beside the hush ж (z̦)
+      uk: зь; the soft z, beside the hush ж (z̦)
+  tɕ:
+    tɕ: primary
+    tsʲ:
+      uk: ць; the soft ts, beside the hush ч (c̦)
   x:
     x: primary
     χ:

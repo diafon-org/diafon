@@ -74,13 +74,10 @@ def glyph(pts, caps=False):
     return script.write([Tok(c, long, caps and k == 0) for k, (c, long) in enumerate(pts)])
 
 
-MESSY = ('<b>Where it gets messy.</b> The reverse anchor marks the further-back partner of a sound, and only '
-         'languages that have both sounds write it: Polish /ɕ/ and /ʂ/ are <span class="ug">ș</span> and '
-         '<span class="ug">s̖</span>, Hindi /t/ and /ʈ/ are <span class="ug">t</span> and <span class="ug">t̖</span>, '
-         'Arabic /s/ and /sˤ/ are <span class="ug">s</span> and <span class="ug">s̖</span>. A language with one sound '
-         'of the pair writes it with the plain letter or the anchor, whatever its exact sound: Mandarin /ʂ/ is '
-         '<span class="ug">ș</span>. Russian and Ukrainian write ш as <span class="ug">s̖</span>, as their anchor marks '
-         'the soft /sʲ/ (сь). This is <a href="#rule-1">rule 1</a> below the tables.')
+MESSY = ('<b>Where it gets messy.</b> The reverse anchor marks a language\'s own further-back variant of a '
+         'sound, and only languages that have both sounds write it: Hindi /t/ and /ʈ/ are '
+         '<span class="ug">t</span> and <span class="ug">t̖</span>, Arabic /s/ and /sˤ/ are '
+         '<span class="ug">s</span> and <span class="ug">s̖</span>.')
 
 
 @functools.lru_cache(None)
@@ -100,13 +97,13 @@ def written_as():
     return out
 
 
-RULE_HUSH = {nfd(s) for s in ('ʂ', 'ʐ', 'tʂ', 'dʐ', 'ʃ', 'ʒ', 'tʃ', 'dʒ')}
+RULE_HUSH = {nfd(s) for s in ('ɕ', 'ʑ', 'tɕ', 'dʑ', 'ʂ', 'ʐ', 'tʂ', 'dʐ', 'ʃ', 'ʒ', 'tʃ', 'dʒ')}
 RULE_MERGED = {nfd(s) for s in ('ə', 'ʌ')}
 
 
 def rule_of(ipa):
-    """Which spelling rule (reference.md, below the tables) gives a sound two letters: 1 the two hush
-    series, 3 one phoneme one letter, 2 the vowel areas' split."""
+    """Which spelling rule (reference.md, below the tables) gives a sound two letters: 1 the hush
+    and the soft series, 3 one phoneme one letter, 2 the vowel areas' split."""
     key = nfd(ipa)
     return 1 if key in RULE_HUSH else 3 if key in RULE_MERGED else 2
 
@@ -142,7 +139,7 @@ def note_row(pts, state, cols):
 GROUPS = [
     ((False, ()), 'consonants', 'plain letters'),
     ((False, ('anchor',)), 'consonants', 'the anchor: hushed or soft'),
-    ((False, ('dot',)), 'consonants', 'the dot: a fixed nearby sound'),
+    ((False, ('dot',)), 'consonants', 'the dot: a fixed nearby sound; on s z c x, the soft one'),
     ((False, ('reverse',)), 'consonants', "the reverse anchor: the language's own variant, further back"),
     ((False, ('flip',)), 'consonants', 'the double dot: the rounded glide, the vocalic r'),
     ((True, ()), 'vowels', 'plain letters'),

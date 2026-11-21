@@ -35,7 +35,7 @@ points:
   bʲ: b anchor
   ts: c
   tʃ: c anchor
-  tʂ: c reverse
+  tɕ: c dot
   d: d
   ɟ: d anchor
   ð: d dot
@@ -72,7 +72,8 @@ points:
   ɝ: r flip
   s: s
   ʃ: s anchor
-  ʂ: s reverse
+  ɕ: s dot
+  sˤ: s reverse
   t: t
   c: t anchor
   θ: t dot
@@ -82,10 +83,11 @@ points:
   w: w
   dz: x
   dʒ: x anchor
-  dʐ: x reverse
+  dʑ: x dot
   z: z
   ʒ: z anchor
-  ʐ: z reverse
+  ʑ: z dot
+  ðˤ: z reverse
   # vowels
   a: a
   æ: a flip

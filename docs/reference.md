@@ -19,12 +19,13 @@ different letter in two languages. Three rules cover every such row in the
 tables; the row names its rule.
 
 <div class="rules" markdown="0">
-<p id="rule-1"><b>1. Two hush series.</b> A language's hushing sounds take the anchor:
-<span class="ug">ș z̦ c̦ x̦</span>. A language with two series writes the softer, more
-forward one with the anchor and the harder, further-back one with the reverse anchor:
-Polish /ɕ/ and /ʂ/ are <span class="ug">ș</span> and <span class="ug">s̖</span>, Russian
-сь and ш are <span class="ug">ș</span> and <span class="ug">s̖</span>. With one series
-the anchor stands for it, whatever its exact sound: Mandarin /ʂ/ is <span class="ug">ș</span>.</p>
+<p id="rule-1"><b>1. The hush and the soft series.</b> A language's hushing sounds take the anchor,
+<span class="ug">ș z̦ c̦ x̦</span>, whatever their exact place: English /ʃ/, Mandarin /ʂ/ and
+Japanese /ɕ/ are all <span class="ug">ș</span>. A language with a second, softer series beside
+them writes that one with the dot, <span class="ug">ṣ ẓ c̣ x̣</span>: Polish sz and ś are
+<span class="ug">ș</span> and <span class="ug">ṣ</span>, Russian ш and сь are
+<span class="ug">ș</span> and <span class="ug">ṣ</span>, Ukrainian ч and ць are
+<span class="ug">c̦</span> and <span class="ug">c̣</span>.</p>
 <p id="rule-2"><b>2. A vowel area splits only where a language needs it.</b> Each plain
 vowel covers an area. A language with two vowels in one area marks the more open one
 with a dot below, <span class="ug">ẹ ọ ị</span>, and on a the front one,

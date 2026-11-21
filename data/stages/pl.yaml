@@ -3,7 +3,7 @@
 #
 # Losses, one-way and stated: ż and rz spell the same sound (ż throughout);
 # u and ó the same vowel (u throughout); ch and h the same fricative (ch
-# throughout). The soft consonants ɲ ʃ ʒ tʃ dʒ (ń ś ź ć dź) are written
+# throughout). The soft consonants ɲ ɕ ʑ tɕ dʑ (ń ś ź ć dź) are written
 # ni si zi ci dzi before a vowel, as in Polish (nie, się); before i only the i
 # shows (si, ni). The soft pʲ bʲ fʲ vʲ mʲ kʲ gʲ are written pi bi fi wi mi ki gi
 # before a vowel other than i (wiara, kiedy); before i they are plain (pić, kino).
@@ -12,7 +12,7 @@ name: Polish
 state: draft
 letters: a ą b c ć ch cz d dz dź dż e ę f g h i j k l ł m n ń o ó p r s ś sz t u w y z ź ż
 long: double
-before_i: {ʃ: s, ʒ: z, tʃ: c, dʒ: dz, ɲ: n}    # ś + i is written si
+before_i: {ɕ: s, ʑ: z, tɕ: c, dʑ: dz, ɲ: n}    # ś + i is written si
 i_softens: true                                   # ś + e is written sie
 before_vowel: {pʲ: p, bʲ: b, fʲ: f, vʲ: w, mʲ: m, kʲ: k, gʲ: g}    # b̦ + e is written bie; before i plain b
 sample: dobra noc, koḳani      # dobra noc, kochani
@@ -21,7 +21,7 @@ read:                   # spellings read back but never written: ó and u, rz an
   q: kv
   v: v
   ó: u
-  rz: z̖
+  rz: z̦
   h: ḳ
 points:
   p: p
@@ -34,16 +34,16 @@ points:
   v: w
   s: s
   z: z
-  ʃ: ś
-  ʒ: ź
-  ʂ: sz
-  ʐ: ż
+  ɕ: ś
+  ʑ: ź
+  ʃ: sz
+  ʒ: ż
   ts: c
   dz: dz
-  tʃ: ć
-  dʒ: dź
-  tʂ: cz
-  dʐ: dż
+  tɕ: ć
+  dʑ: dź
+  tʃ: cz
+  dʒ: dż
   ɲ: ń
   x: ch
   m: m

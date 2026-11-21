@@ -320,6 +320,16 @@ the try-out and every typed form are gone, and with them the bridge
 the typing engine in JavaScript. `tests/test_no_input.py` has nothing
 pending and scans the pages too. This closes the gate of P2 on this side.
 
+## The hush on the anchor, the soft series on the dot (2026-11-21)
+
+On s z c x the anchor is the hush in every language (ș z̦ c̦ x̦), and a
+language with a second, softer series writes that one with the dot (ṣ ẓ c̣
+x̣): Polish sz ż cz dż and ś ź ć dź, Russian ш ж and сь зь (щ is ṣṣ),
+Ukrainian ш ж ч дж and сь зь ць, Estonian's soft s. The reverse anchor no
+longer writes any of them; it stays on t̖ d̖ n̖ (Hindi, Bengali, Tamil) and on
+Arabic's s̖ z̖ t̖ d̖ k̖ g̔. Four points are new (ɕ ʑ tɕ dʑ, on the dot), two are
+renamed (s̖ is sˤ, z̖ is ðˤ) and two are gone (c̖ x̖).
+
 ## Arguments against
 
 - Two repos double CI, releases and the sync step. A monorepo with two

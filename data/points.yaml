@@ -33,10 +33,9 @@ tʃ:
   glyph: c̦
   capital: C̦
   readings:
-    tsʲ: [uk]
-    tɕ: [ja, ko, pl, ru, th, vi]
-    tʂ: [zh]
-    tʃ: [bn, cs, de, en, es, fa, hi, hu, id, it, ro, sw, ta, tr]
+    tɕ: [ja, ko, ru, th, vi]
+    tʂ: [pl, zh]
+    tʃ: [bn, cs, de, en, es, fa, hi, hu, id, it, ro, sw, ta, tr, uk]
     tʃʼ: [ka]
 tʃː:
   letter: c
@@ -46,15 +45,15 @@ tʃː:
   capital: C̦c̦
   readings:
     t͈ɕ: [ko]
-tʂ:
+tɕ:
   letter: c
-  marks: [reverse]
+  marks: [dot]
   long: false
-  glyph: c̖
-  capital: C̖
+  glyph: c̣
+  capital: C̣
   readings:
-    tʂ: [pl]
-    tʃ: [uk]
+    tsʲ: [uk]
+    tɕ: [pl]
 d:
   letter: d
   marks: []
@@ -385,19 +384,27 @@ sː:
   glyph: ș
   capital: Ș
   readings:
-    sʲ: [et, ru, uk]
-    ɕ: [ja, pl]
-    ʂ: [zh]
-    ʃ: [ar, bn, cs, de, en, fa, fr, he, hi, hu, it, ka, pt, ro, sw, tr]
-ʃː:
+    ɕ: [ja]
+    ʂ: [pl, ru, zh]
+    ʃ: [ar, bn, cs, de, en, fa, fr, he, hi, hu, it, ka, pt, ro, sw, tr, uk]
+ɕ:
   letter: s
-  marks: [anchor]
+  marks: [dot]
+  long: false
+  glyph: ṣ
+  capital: Ṣ
+  readings:
+    sʲ: [et, ru, uk]
+    ɕ: [pl]
+ɕː:
+  letter: s
+  marks: [dot]
   long: true
-  glyph: șș
-  capital: Șș
+  glyph: ṣṣ
+  capital: Ṣṣ
   readings:
     ɕː: [ru]
-ʂ:
+sˤ:
   letter: s
   marks: [reverse]
   long: false
@@ -405,8 +412,6 @@ sː:
   capital: S̖
   readings:
     sˤ: [ar]
-    ʂ: [pl, ru]
-    ʃ: [uk]
 t:
   letter: t
   marks: []
@@ -491,17 +496,17 @@ dʒ:
   glyph: x̦
   capital: X̦
   readings:
-    dʑ: [ja, pl]
-    dʒ: [ar, bn, en, fa, hi, id, it, ka, ro, tr]
-dʐ:
-  letter: x
-  marks: [reverse]
-  long: false
-  glyph: x̖
-  capital: X̖
-  readings:
     dʐ: [pl]
-    dʒ: [uk]
+    dʑ: [ja]
+    dʒ: [ar, bn, en, fa, hi, id, it, ka, ro, tr, uk]
+dʑ:
+  letter: x
+  marks: [dot]
+  long: false
+  glyph: x̣
+  capital: X̣
+  readings:
+    dʑ: [pl]
 z:
   letter: z
   marks: []
@@ -517,11 +522,18 @@ z:
   glyph: z̦
   capital: Z̦
   readings:
+    ʐ: [pl, ru, zh]
+    ʒ: [cs, en, fa, fr, hu, ka, pt, ro, tr, uk]
+ʑ:
+  letter: z
+  marks: [dot]
+  long: false
+  glyph: ẓ
+  capital: Ẓ
+  readings:
     zʲ: [ru, uk]
-    ʐ: [zh]
     ʑ: [pl]
-    ʒ: [cs, en, fa, fr, hu, ka, pt, ro, tr]
-ʐ:
+ðˤ:
   letter: z
   marks: [reverse]
   long: false
@@ -529,8 +541,6 @@ z:
   capital: Z̖
   readings:
     ðˤ: [ar]
-    ʐ: [pl, ru]
-    ʒ: [uk]
 a:
   letter: a
   marks: []
