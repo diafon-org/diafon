@@ -19,8 +19,10 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install mkdocs-material pyyaml
-      - run: python3 tests/test_engine.py   # the spec vectors: Python, streaming, stages and JS
-      - run: python3 tests/test_spec.py
+      - run: python3 tests/test_script.py          # the script layer and the points
+      - run: python3 tests/test_alphabet_spec.py   # the published alphabet-spec.json is the generated one
+      - run: python3 tests/test_samples.py
+      - run: python3 tests/test_no_input.py        # the alphabet knows no keyboard
       - run: mkdocs build --strict
       - uses: actions/upload-pages-artifact@v3
         with:

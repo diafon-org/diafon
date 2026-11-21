@@ -179,7 +179,8 @@
   .md-header:has(.md-header__title--active) .md-header__title{visibility:hidden}
   .md-header:has(.md-header__title--active) .md-tabs{position:absolute;top:0;left:0;right:0;height:2.4rem;
     background:transparent;pointer-events:none}
-  .md-header:has(.md-header__title--active) .md-tabs__list{margin-left:3.4rem;pointer-events:auto}
+  .md-header:has(.md-header__title--active) .md-tabs__list{margin-left:3.4rem}
+  .md-header:has(.md-header__title--active) .md-tabs__link{pointer-events:auto}   /* the links only: the list spans the bar and would cover the search and the repository link */
   .md-header:has(.md-header__title--active) .md-tabs__item{height:2.4rem;padding-top:0;display:inline-flex;align-items:center}
   .md-header:has(.md-header__title--active) .md-tabs__link{margin-top:0}
   body:has(.md-header__title--active) .md-typeset .mt-bar{top:2.4rem}
