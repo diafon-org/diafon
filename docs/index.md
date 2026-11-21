@@ -82,19 +82,16 @@ made at the teeth in Hungarian and a little further back in English. r covers th
 English /ɹ/. <span class="ug">ṛ</span> covers both the tap and the flap,
 /ɾ ɽ/, as languages hardly ever tell them apart.
 
-The double dot below marks a language's own variant of a consonant, such as
-the retroflex <span class="ug">t̤ d̤</span> of Hindi or the emphatics of
-Arabic. The plain letter is a fair approximation of it. The sounds made
-furthest back are written the same way: <span class="ug">k̤</span> is /q/, the
-k further back, and <span class="ug">h̤</span> is /ħ/, the h further back.
+The chart shows the letters that stand for the same sound in every language.
 
 --8<-- "sounds-consonants.html"
 
-Two groups are left off the chart, as each is one idea and not a place in
-the mouth. The soft consonants wear the anchor:
-<span class="ug">p̓ b̦ f̦ v̦ m̦ r̦ l̦ k̦ g̓</span>. Arabic's emphatic
-<span class="ug">s̤ z̤</span> wear the double dot below, and its emphatic
-<span class="ug">t̤ d̤</span> are the retroflex letters of the chart.
+Some languages add letters of their own with the marks. These are off the
+chart, and a letter can serve two languages differently:
+<span class="ug">t̤ d̤</span> are retroflex in Hindi and emphatic in Arabic.
+The plain letter is a fair approximation of each.
+
+--8<-- "sounds-added.html"
 
 ### Vowels
 
