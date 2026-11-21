@@ -52,7 +52,7 @@ final class SettingsPanel: UIView {
         stack.addArrangedSubview(scrolled(modeRow))
         stack.addArrangedSubview(caption("Languages"))
         stack.addArrangedSubview(scrolled(quickRow))
-        stack.addArrangedSubview(caption("Tick up to \(Prefs.quickMax): the spellings offered above."))
+        stack.addArrangedSubview(caption("Tick up to \(Prefs.quickMax). Hold the space bar to switch between Universal and those the typing below can write."))
 
         profilePicker.addAction(UIAction { [weak self] _ in
             guard let self else { return }
@@ -115,7 +115,7 @@ final class SettingsPanel: UIView {
                 }
                 self.refresh()
             }
-            b.alpha = !inMenu && full ? 0.4 : 1
+            b.alpha = (!inMenu && full) || !prefs.offers(code) ? 0.4 : 1    // dim: the list is full, or the typing in use cannot write it
             quickRow.addArrangedSubview(b)
         }
         let st = SpecData.stages[prefs.language]

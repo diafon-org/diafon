@@ -439,6 +439,17 @@
   "doubling": "bcdfghjklmnprstvwxz"
  },
  "tones": true,
+ "languages": [
+  "en",
+  "hu",
+  "id",
+  "ja",
+  "ko",
+  "la",
+  "ro",
+  "sw",
+  "zh"
+ ],
  "vectors": {
   "render": [
    [

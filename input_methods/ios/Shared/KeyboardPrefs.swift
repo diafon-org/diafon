@@ -25,14 +25,15 @@ extension Prefs {
         set { store(newValue.rawValue, "tailMode") }
     }
 
-    /// The most languages offered in the settings: the row stays short.
+    /// The most languages on the quick list: the space bar's menu fits the keyboard and stays quick to slide through.
     static let quickMax = 4
 
-    /// The modes the settings offer: Universal, the quick list, the language in
+    /// The modes on the space bar's menu and in the settings: Universal, the quick list as far
+    /// as the typing in use can write it, the language in
     /// use if it is off the list, and off (plain keys).
     var menuModes: [String] {
-        var list = ["script"] + quickLanguages.map { "stage:" + $0 }
-        if !list.contains("stage:" + language), !universal, list.count <= Prefs.quickMax { list.append("stage:" + language) }
+        var list = ["script"] + offeredLanguages.map { "stage:" + $0 }
+        if !list.contains("stage:" + language), !universal, offers(language), list.count <= Prefs.quickMax { list.append("stage:" + language) }
         return list + ["off"]
     }
     /// The mode in use, as the menu names it.

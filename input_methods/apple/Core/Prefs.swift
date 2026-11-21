@@ -19,12 +19,16 @@ final class Prefs {
         set { set(newValue, "profile") }
     }
     var profileData: ProfileData { Profiles.get(profile) }
+    /// A language is offered when it has letters of its own and the typing in use can write it in full.
+    func offers(_ code: String) -> Bool { Prefs.spelled(code) && profileData.languages.contains(code) }
+    /// The quick list, as far as the typing in use can write it: what the menus show, in the list's order.
+    var offeredLanguages: [String] { quickLanguages.filter { offers($0) } }
     /// What is written out: "script" (Universal, the default) or "stage:<code>" (a language's
     /// spelling); "transport" only serves the escape path.
     var output: String {
         get {
             let o = d.string(forKey: "output") ?? "script"
-            return o.hasPrefix("stage:") && !Prefs.spelled(String(o.dropFirst(6))) ? "script" : o
+            return o.hasPrefix("stage:") && !offers(String(o.dropFirst(6))) ? "script" : o
         }
         set { set(newValue, "output") }
     }
@@ -72,7 +76,7 @@ final class Prefs {
     static let tapWindow: TimeInterval = 1.5
     /// Quick taps: off → Universal → each language on the quick list → off.
     func cycleMode() {
-        let quick = quickLanguages
+        let quick = offeredLanguages
         if !enabled { d.set("script", forKey: "output"); set(true, "enabled") }
         else if universal, let first = quick.first { language = first }
         else if !universal, let i = quick.firstIndex(of: language), i + 1 < quick.count { language = quick[i + 1] }

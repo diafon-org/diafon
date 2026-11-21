@@ -71,6 +71,20 @@ def vectors(eng, pid):
     return v
 
 
+def languages(c):
+    """The languages a profile can write in full: every sound of the language (the marginal ones
+    aside) is written with points the profile types."""
+    typable = {v['point'] for v in c['keys'].values() if v['point']}
+    table = c['segment']['kind'] == 'key-table'
+    long_ok = (lambda name: True) if table else (lambda name: True)
+    out = []
+    for code, lang in alphabet.SPEC['languages'].items():
+        need = {n for s in lang['sounds'].values() if s['frequency'] != 'X' for n in s['points']}
+        if all(n.rstrip(alphabet.LONG) in typable for n in need):
+            out.append(code)
+    return sorted(out)
+
+
 def build(pid):
     c = profile.compile(pid)
     eng = make(c)
@@ -79,6 +93,7 @@ def build(pid):
         uni = universal()
         for key, v in c['keys'].items():
             v['via'] = uni.typed(eng.points(key))
+    c['languages'] = languages(c)
     c['vectors'] = vectors(eng, pid)
     return c
 

@@ -23,7 +23,7 @@ app: check
 	@mkdir -p $(BUILD)/$(APP).app/Contents/MacOS $(BUILD)/$(APP).app/Contents/Resources
 	$(SWIFTC) $(CORE) $(APPSRC) -framework Cocoa -framework InputMethodKit \
 		-o $(BUILD)/$(APP).app/Contents/MacOS/$(APP)
-	cp Info.plist $(BUILD)/$(APP).app/Contents/Info.plist
+	python3 tools/modes.py Info.plist $(BUILD)/$(APP).app/Contents      # Info.plist with one input mode per output
 	cp $(ROOT)/vendor/logo/Diafon.icns $(BUILD)/$(APP).app/Contents/Resources/Diafon.icns
 	cp $(ROOT)/vendor/logo/DiafonMenu.tiff $(BUILD)/$(APP).app/Contents/Resources/DiafonMenu.tiff
 	cp $(ROOT)/vendor/logo/DiafonBadge.pdf $(BUILD)/$(APP).app/Contents/Resources/DiafonBadge.pdf

@@ -3,6 +3,7 @@
 // change; it shows as underlined marked text in the app. Everything before it
 // is inserted as final text the moment the keystroke stream can no longer
 // change it.
+import Carbon
 import Cocoa
 import InputMethodKit
 
@@ -21,6 +22,22 @@ public class DiafonInputController: IMKInputController {
         var rect = NSRect.zero
         _ = client.attributes(forCharacterIndex: 0, lineHeightRectangle: &rect)
         return rect.width > 0 || rect.height > 0 ? rect : nil
+    }
+
+    // MARK: the input modes: each output is an input source of its own (tools/modes.py)
+
+    /// The system tells which mode was picked (the input menu, the Globe key, Control-Space):
+    /// org.diafon.inputmethod.Diafon.universal is the script, ….<code> a language's spelling.
+    public override func setValue(_ value: Any!, forTag tag: Int, client sender: Any!) {
+        guard tag == Int(kTextServiceInputModePropertyTag), let id = value as? String,
+              let mode = id.split(separator: ".").last.map(String.init) else {
+            super.setValue(value, forTag: tag, client: sender)
+            return
+        }
+        if let client = sender as? IMKTextInput { flush(client) }      // the tail belongs to the mode before
+        if mode == "universal" { prefs.output = "script" }
+        else if Prefs.spelled(mode) { prefs.language = mode }
+        if !prefs.enabled { prefs.enabled = true }
     }
 
     public override func activateServer(_ sender: Any!) {
@@ -110,31 +127,11 @@ public class DiafonInputController: IMKInputController {
     public override func menu() -> NSMenu! {
         // Shown by a system process, which sends back only top-level clicks (a
         // submenu's never arrive) and greys every item unless enabling is by
-        // hand. So: flat and short. The modes, then the quick list of languages
-        // (the chooser window has them all), the current choice ticked.
+        // hand. So: flat and short. What is written (Universal, a language's
+        // spelling) is not here: each is an input mode, picked like any keyboard.
         let m = NSMenu()
         m.autoenablesItems = false
         let p = prefs
-        let off = NSMenuItem(title: "Passthrough (conversion off)", action: #selector(selectPassthrough(_:)), keyEquivalent: "")
-        off.state = p.enabled ? .off : .on
-        m.addItem(off)
-        let uni = NSMenuItem(title: "Universal", action: #selector(selectUniversal(_:)), keyEquivalent: "")
-        uni.state = (p.enabled && p.universal) ? .on : .off
-        m.addItem(uni)
-        m.addItem(.separator())
-        var listed = p.quickLanguages                          // the quick list, and the language in use if it is off the list
-        if !p.universal, !listed.contains(p.language) { listed.append(p.language) }
-        for code in listed {
-            guard let i = Prefs.languages.firstIndex(where: { $0.0 == code }) else { continue }
-            let native = Locale(identifier: code).localizedString(forLanguageCode: code) ?? Prefs.languages[i].1
-            let item = NSMenuItem(title: "\(native) (\(code))", action: #selector(selectLanguage(_:)), keyEquivalent: "")
-            item.tag = i + 1                // only the tag survives the trip to the system process
-            item.state = (p.enabled && !p.universal && p.language == code) ? .on : .off
-            m.addItem(item)
-        }
-        let other = NSMenuItem(title: "Other language…", action: #selector(openChooser(_:)), keyEquivalent: "")
-        m.addItem(other)
-        m.addItem(.separator())
         // the input profile: what the keys mean (tags from 1000: only the tag survives the trip)
         for (i, pr) in Profiles.all.enumerated() {
             let item = NSMenuItem(title: "Typing: \(pr.name)", action: #selector(selectProfile(_:)), keyEquivalent: "")
@@ -181,16 +178,6 @@ public class DiafonInputController: IMKInputController {
         (sender as? NSMenuItem) ?? ((sender as? [String: Any])?["IMKCommandMenuItem"] as? NSMenuItem)
     }
 
-    @objc func selectPassthrough(_ sender: Any!) { prefs.enabled = false }
-
-    @objc func selectUniversal(_ sender: Any!) { prefs.output = "script"; prefs.enabled = true }
-
-    @objc func selectLanguage(_ sender: Any!) {
-        guard let t = item(sender)?.tag, t >= 1, t <= Prefs.languages.count else { return }
-        prefs.language = Prefs.languages[t - 1].0
-        prefs.enabled = true
-    }
-
     @objc func selectProfile(_ sender: Any!) {
         guard let t = item(sender)?.tag, t >= 1000, t - 1000 < Profiles.all.count else { return }
         if let client = self.client() { flush(client) }          // the tail belongs to the old profile
@@ -200,5 +187,4 @@ public class DiafonInputController: IMKInputController {
 
     @objc func openSetup(_ sender: Any!) { SetupWindow.shared.show() }
 
-    @objc func openChooser(_ sender: Any!) { LanguageChooser.shared.show() }
 }
