@@ -117,7 +117,9 @@ def legacy_script():
     letters and the flip partners by form, the tones by digit."""
     S = alphabet.SPEC['script']
     whole = {f: alphabet.glyph(c) for f, c in WHOLE.items()}
-    return {'descenders': S['descenders'], 'whole_letters': whole, 'marks': S['marks'],
+    # the ports call the third consonant mark `reverse`, as it was before it became the double dot below
+    marks = {('reverse' if k == 'twodots' else k): v for k, v in S['marks'].items()}
+    return {'descenders': S['descenders'], 'whole_letters': whole, 'marks': marks,
             'flip_partner': dict(PARTNER),
             'tones': {str(t['number']): {'contour': name, 'sign': t['sign']} for name, t in S['tones'].items()}}
 

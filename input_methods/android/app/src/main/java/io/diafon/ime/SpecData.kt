@@ -9,13 +9,13 @@ data class Stage(val code: String, val name: String, val long: String, val forms
 
 object SpecData {
     const val GENERATED = "2026-11-21"
-    const val SOURCE = "ceaa706"
+    const val SOURCE = "f5201a6"
     val DESCENDERS: Set<Char> = setOf('g', 'j', 'p', 'q', 'y')
     val WHOLE: Map<String, String> = mapOf("tc" to "c", "dc" to "x", "tq" to "c̦", "dq" to "x̦", "kq" to "q", "ix" to "j", "ux" to "w", "icx" to "j̈", "ucx" to "ẅ", "aq" to "r̈")
     val MARKS: Map<String, Mark> = mapOf(
         "anchor" to Mark("̦", "̓"),
         "dot" to Mark("̣", "̇"),
-        "reverse" to Mark("̖", "̔"),
+        "reverse" to Mark("̤", "̈"),
         "underdot" to Mark("̣", null),
         "grave" to Mark(null, "̀"),
         "acute" to Mark(null, "́"),

@@ -143,7 +143,7 @@ and selects Diafon, opens a contact form and types `sj tq aw`
 through the IME. Screenshots from that pass are in `screenshots/`:
 
 - `script.png`: the panel and `ș c̦ á` in the field
-- `strip.png`: `Tqy` pending, the strip showing `C̖`
+- `strip.png`: `Tqy` pending, the strip showing `C̤`
 - `settings.png`: the setup and settings screen
 
 Checked on the emulator: soft keys, hardware key path (`adb shell input

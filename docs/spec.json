@@ -1,7 +1,7 @@
 {
  "name": "Diafon",
  "generated": "2026-11-21",
- "source": "ceaa706",
+ "source": "f5201a6",
  "alphabet": {
   "consonant_bases": [
    "b",
@@ -85,8 +85,8 @@
     "above": "̇"
    },
    "reverse": {
-    "below": "̖",
-    "above": "̔"
+    "below": "̤",
+    "above": "̈"
    },
    "underdot": {
     "below": "̣"
@@ -2191,8 +2191,8 @@
   },
   {
    "form": "ty",
-   "glyph": "t̖",
-   "capital": "T̖",
+   "glyph": "t̤",
+   "capital": "T̤",
    "type": "retro",
    "segments": 1,
    "readings": {
@@ -2215,8 +2215,8 @@
   },
   {
    "form": "ky",
-   "glyph": "k̖",
-   "capital": "K̖",
+   "glyph": "k̤",
+   "capital": "K̤",
    "type": "point",
    "segments": 1,
    "readings": {
@@ -2231,8 +2231,8 @@
   },
   {
    "form": "dy",
-   "glyph": "d̖",
-   "capital": "D̖",
+   "glyph": "d̤",
+   "capital": "D̤",
    "type": "retro",
    "segments": 1,
    "readings": {
@@ -2254,8 +2254,8 @@
   },
   {
    "form": "gy",
-   "glyph": "g̔",
-   "capital": "G̖",
+   "glyph": "g̈",
+   "capital": "G̤",
    "type": "point",
    "segments": 1,
    "readings": {
@@ -2270,8 +2270,8 @@
   },
   {
    "form": "ny",
-   "glyph": "n̖",
-   "capital": "N̖",
+   "glyph": "n̤",
+   "capital": "N̤",
    "type": "retro",
    "segments": 1,
    "readings": {
@@ -2800,8 +2800,8 @@
   },
   {
    "form": "sjy",
-   "glyph": "s̖",
-   "capital": "S̖",
+   "glyph": "s̤",
+   "capital": "S̤",
    "type": "retro",
    "segments": 1,
    "readings": {
@@ -2816,8 +2816,8 @@
   },
   {
    "form": "zjy",
-   "glyph": "z̖",
-   "capital": "Z̖",
+   "glyph": "z̤",
+   "capital": "Z̤",
    "type": "retro",
    "segments": 1,
    "readings": {
@@ -3195,8 +3195,8 @@
   },
   {
    "form": "tyh",
-   "glyph": "t̖h",
-   "capital": "T̖h",
+   "glyph": "t̤h",
+   "capital": "T̤h",
    "type": "sequence",
    "segments": 2,
    "readings": {
@@ -3212,8 +3212,8 @@
   },
   {
    "form": "dyh",
-   "glyph": "d̖h",
-   "capital": "D̖h",
+   "glyph": "d̤h",
+   "capital": "D̤h",
    "type": "sequence",
    "segments": 2,
    "readings": {
@@ -11532,63 +11532,63 @@
    ],
    [
     "ty",
-    "t̖"
+    "t̤"
    ],
    [
     "Ty",
-    "T̖"
+    "T̤"
    ],
    [
     "TY",
-    "T̖"
+    "T̤"
    ],
    [
     "ky",
-    "k̖"
+    "k̤"
    ],
    [
     "Ky",
-    "K̖"
+    "K̤"
    ],
    [
     "KY",
-    "K̖"
+    "K̤"
    ],
    [
     "dy",
-    "d̖"
+    "d̤"
    ],
    [
     "Dy",
-    "D̖"
+    "D̤"
    ],
    [
     "DY",
-    "D̖"
+    "D̤"
    ],
    [
     "gy",
-    "g̔"
+    "g̈"
    ],
    [
     "Gy",
-    "G̖"
+    "G̤"
    ],
    [
     "GY",
-    "G̖"
+    "G̤"
    ],
    [
     "ny",
-    "n̖"
+    "n̤"
    ],
    [
     "Ny",
-    "N̖"
+    "N̤"
    ],
    [
     "NY",
-    "N̖"
+    "N̤"
    ],
    [
     "ay",
@@ -11796,27 +11796,27 @@
    ],
    [
     "sjy",
-    "s̖"
+    "s̤"
    ],
    [
     "Sjy",
-    "S̖"
+    "S̤"
    ],
    [
     "SJY",
-    "S̖"
+    "S̤"
    ],
    [
     "zjy",
-    "z̖"
+    "z̤"
    ],
    [
     "Zjy",
-    "Z̖"
+    "Z̤"
    ],
    [
     "ZJY",
-    "Z̖"
+    "Z̤"
    ],
    [
     "ejy",
@@ -12016,11 +12016,11 @@
    ],
    [
     "tyh",
-    "t̖h"
+    "t̤h"
    ],
    [
     "dyh",
-    "d̖h"
+    "d̤h"
    ],
    [
     "oicx",
@@ -12048,7 +12048,7 @@
    ],
    [
     "Gj Pj Gy Ty Ic Sjw Tqyh Aw",
-    "G̦ P̦ G̖ T̖ Ü Șș C̖h Á"
+    "G̦ P̦ G̤ T̤ Ü Șș C̤h Á"
    ],
    [
     "ma1 ma2 ma3 ma4",
@@ -12068,11 +12068,11 @@
    ],
    [
     "ky gy lj rj fj vj Lj Rj",
-    "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦"
+    "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
    ],
    [
     "ty dy ny sjy zjy tqy dqy",
-    "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+    "t̤ d̤ n̤ s̤ z̤ c̤ x̤"
    ],
    [
     "tcx dcx",
@@ -12088,7 +12088,7 @@
    ],
    [
     "tyh dyh rch pf th kh",
-    "t̖h d̖h ṛh pf th kh"
+    "t̤h d̤h ṛh pf th kh"
    ]
   ],
   "lenient": [
@@ -12126,7 +12126,7 @@
    ],
    [
     "qwerty",
-    "qwert̖"
+    "qwert̤"
    ],
    [
     "Hello, world!",
@@ -12156,7 +12156,7 @@
    ],
    [
     "byw",
-    "b̖‍b̖"
+    "b̤‍b̤"
    ],
    [
     "dw",
@@ -12180,7 +12180,7 @@
    ],
    [
     "dyw",
-    "d̖‍d̖"
+    "d̤‍d̤"
    ],
    [
     "dcxw",
@@ -12188,7 +12188,7 @@
    ],
    [
     "dqyw",
-    "x̖‍x̖"
+    "x̤‍x̤"
    ],
    [
     "fw",
@@ -12216,7 +12216,7 @@
    ],
    [
     "gyw",
-    "g̔‍g̔"
+    "g̈‍g̈"
    ],
    [
     "hw",
@@ -12232,7 +12232,7 @@
    ],
    [
     "hyw",
-    "h̖‍h̖"
+    "h̤‍h̤"
    ],
    [
     "kw",
@@ -12252,7 +12252,7 @@
    ],
    [
     "kyw",
-    "k̖‍k̖"
+    "k̤‍k̤"
    ],
    [
     "kqxw",
@@ -12284,7 +12284,7 @@
    ],
    [
     "myw",
-    "m̖‍m̖"
+    "m̤‍m̤"
    ],
    [
     "nw",
@@ -12300,7 +12300,7 @@
    ],
    [
     "nyw",
-    "n̖‍n̖"
+    "n̤‍n̤"
    ],
    [
     "pw",
@@ -12316,7 +12316,7 @@
    ],
    [
     "pyw",
-    "p̔‍p̔"
+    "p̈‍p̈"
    ],
    [
     "rw",
@@ -12344,7 +12344,7 @@
    ],
    [
     "sjyw",
-    "s̖‍s̖"
+    "s̤‍s̤"
    ],
    [
     "tw",
@@ -12368,7 +12368,7 @@
    ],
    [
     "tyw",
-    "t̖‍t̖"
+    "t̤‍t̤"
    ],
    [
     "tcxw",
@@ -12376,7 +12376,7 @@
    ],
    [
     "tqyw",
-    "c̖‍c̖"
+    "c̤‍c̤"
    ],
    [
     "vw",
@@ -12392,7 +12392,7 @@
    ],
    [
     "vyw",
-    "v̖‍v̖"
+    "v̤‍v̤"
    ],
    [
     "zw",
@@ -12408,7 +12408,7 @@
    ],
    [
     "zjyw",
-    "z̖‍z̖"
+    "z̤‍z̤"
    ],
    [
     "Bw",
@@ -12424,7 +12424,7 @@
    ],
    [
     "Byw",
-    "B̖‍b̖"
+    "B̤‍b̤"
    ],
    [
     "Dw",
@@ -12448,7 +12448,7 @@
    ],
    [
     "Dyw",
-    "D̖‍d̖"
+    "D̤‍d̤"
    ],
    [
     "Dcxw",
@@ -12456,7 +12456,7 @@
    ],
    [
     "Dqyw",
-    "X̖‍x̖"
+    "X̤‍x̤"
    ],
    [
     "Fw",
@@ -12484,7 +12484,7 @@
    ],
    [
     "Gyw",
-    "G̖‍g̖"
+    "G̤‍g̤"
    ],
    [
     "Hw",
@@ -12500,7 +12500,7 @@
    ],
    [
     "Hyw",
-    "H̖‍h̖"
+    "H̤‍h̤"
    ],
    [
     "Kw",
@@ -12520,7 +12520,7 @@
    ],
    [
     "Kyw",
-    "K̖‍k̖"
+    "K̤‍k̤"
    ],
    [
     "Kqxw",
@@ -12552,7 +12552,7 @@
    ],
    [
     "Myw",
-    "M̖‍m̖"
+    "M̤‍m̤"
    ],
    [
     "Nw",
@@ -12568,7 +12568,7 @@
    ],
    [
     "Nyw",
-    "N̖‍n̖"
+    "N̤‍n̤"
    ],
    [
     "Pw",
@@ -12584,7 +12584,7 @@
    ],
    [
     "Pyw",
-    "P̖‍p̖"
+    "P̤‍p̤"
    ],
    [
     "Rw",
@@ -12612,7 +12612,7 @@
    ],
    [
     "Sjyw",
-    "S̖‍s̖"
+    "S̤‍s̤"
    ],
    [
     "Tw",
@@ -12636,7 +12636,7 @@
    ],
    [
     "Tyw",
-    "T̖‍t̖"
+    "T̤‍t̤"
    ],
    [
     "Tcxw",
@@ -12644,7 +12644,7 @@
    ],
    [
     "Tqyw",
-    "C̖‍c̖"
+    "C̤‍c̤"
    ],
    [
     "Vw",
@@ -12660,7 +12660,7 @@
    ],
    [
     "Vyw",
-    "V̖‍v̖"
+    "V̤‍v̤"
    ],
    [
     "Zw",
@@ -12676,7 +12676,7 @@
    ],
    [
     "Zjyw",
-    "Z̖‍z̖"
+    "Z̤‍z̤"
    ],
    [
     "sjok sewp njawr",
@@ -12684,7 +12684,7 @@
    ],
    [
     "Gj Pj Gy Ty Ic Sjw Tqyh Aw",
-    "G̦ P̦ G̖ T̖ Ü Ș‍ș C̖h Á"
+    "G̦ P̦ G̤ T̤ Ü Ș‍ș C̤h Á"
    ],
    [
     "hoswuw aclmac",
@@ -13146,7 +13146,7 @@
     ],
     [
      "Gj Pj Gy Ty Ic Sjw Tqyh Aw",
-     "G̦ P̦ G̖ T̖ Ü Šš C̖h Á"
+     "G̦ P̦ G̤ T̤ Ü Šš C̤h Á"
     ],
     [
      "ma1 ma2 ma3 ma4",
@@ -13166,11 +13166,11 @@
     ],
     [
      "ky gy lj rj fj vj Lj Rj",
-     "k̖ g̔ l̦ ř f̦ v̦ L̦ Ř"
+     "k̤ g̈ l̦ ř f̦ v̦ L̦ Ř"
     ],
     [
      "ty dy ny sjy zjy tqy dqy",
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤"
     ],
     [
      "tcx dcx",
@@ -13186,7 +13186,7 @@
     ],
     [
      "tyh dyh rch pf th kh",
-     "t̖h d̖h ṛh pf th kh"
+     "t̤h d̤h ṛh pf th kh"
     ]
    ],
    "en": [
@@ -13364,7 +13364,7 @@
     ],
     [
      "Gj Pj Gy Ty Ic Sjw Tqyh Aw",
-     "G̦ P̦ G̖ T̖ Ü Șș C̖h Ah"
+     "G̦ P̦ G̤ T̤ Ü Șș C̤h Ah"
     ],
     [
      "ma1 ma2 ma3 ma4",
@@ -13384,11 +13384,11 @@
     ],
     [
      "ky gy lj rj fj vj Lj Rj",
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      "ty dy ny sjy zjy tqy dqy",
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤"
     ],
     [
      "tcx dcx",
@@ -13404,7 +13404,7 @@
     ],
     [
      "tyh dyh rch pf th kh",
-     "t̖h d̖h ṛh pf th kh"
+     "t̤h d̤h ṛh pf th kh"
     ]
    ],
    "fi": [
@@ -13622,7 +13622,7 @@
     ],
     [
      "Gj Pj Gy Ty Ic Sjw Tqyh Aw",
-     "G̦ P̦ G̖ T̖ Y Šš C̖h Aa"
+     "G̦ P̦ G̤ T̤ Y Šš C̤h Aa"
     ],
     [
      "ma1 ma2 ma3 ma4",
@@ -13642,11 +13642,11 @@
     ],
     [
      "ky gy lj rj fj vj Lj Rj",
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      "ty dy ny sjy zjy tqy dqy",
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤"
     ],
     [
      "tcx dcx",
@@ -13662,7 +13662,7 @@
     ],
     [
      "tyh dyh rch pf th kh",
-     "t̖h d̖h ṛh pf th kh"
+     "t̤h d̤h ṛh pf th kh"
     ]
    ],
    "hu": [
@@ -13932,7 +13932,7 @@
     ],
     [
      "Gj Pj Gy Ty Ic Sjw Tqyh Aw",
-     "G̦ P̦ G̖ T̖ Ü Ss C̖h Á"
+     "G̦ P̦ G̤ T̤ Ü Ss C̤h Á"
     ],
     [
      "ma1 ma2 ma3 ma4",
@@ -13952,11 +13952,11 @@
     ],
     [
      "ky gy lj rj fj vj Lj Rj",
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      "ty dy ny sjy zjy tqy dqy",
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤"
     ],
     [
      "tcx dcx",
@@ -13972,7 +13972,7 @@
     ],
     [
      "tyh dyh rch pf th kh",
-     "t̖h d̖h ṛh pf th kh"
+     "t̤h d̤h ṛh pf th kh"
     ]
    ],
    "pl": [
@@ -14266,7 +14266,7 @@
     ],
     [
      "Gj Pj Gy Ty Ic Sjw Tqyh Aw",
-     "G̦ P̦ G̖ T̖ Ü Szsz C̖h Á"
+     "G̦ P̦ G̤ T̤ Ü Szsz C̤h Á"
     ],
     [
      "ma1 ma2 ma3 ma4",
@@ -14286,11 +14286,11 @@
     ],
     [
      "ky gy lj rj fj vj Lj Rj",
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      "ty dy ny sjy zjy tqy dqy",
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤"
     ],
     [
      "tcx dcx",
@@ -14306,7 +14306,7 @@
     ],
     [
      "tyh dyh rch pf th kh",
-     "t̖h d̖h ṛh pf th kh"
+     "t̤h d̤h ṛh pf th kh"
     ]
    ],
    "sw": [
@@ -14544,7 +14544,7 @@
     ],
     [
      "Gj Pj Gy Ty Ic Sjw Tqyh Aw",
-     "G̦ P̦ G̖ T̖ Ü Shsh C̖h Á"
+     "G̦ P̦ G̤ T̤ Ü Shsh C̤h Á"
     ],
     [
      "ma1 ma2 ma3 ma4",
@@ -14564,11 +14564,11 @@
     ],
     [
      "ky gy lj rj fj vj Lj Rj",
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      "ty dy ny sjy zjy tqy dqy",
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤"
     ],
     [
      "tcx dcx",
@@ -14584,7 +14584,7 @@
     ],
     [
      "tyh dyh rch pf th kh",
-     "t̖h d̖h ṛh pf th kh"
+     "t̤h d̤h ṛh pf th kh"
     ]
    ],
    "tr": [
@@ -14794,7 +14794,7 @@
     ],
     [
      "Gj Pj Gy Ty Ic Sjw Tqyh Aw",
-     "G̦ P̦ G̖ T̖ Ü Şş C̖h Â"
+     "G̦ P̦ G̤ T̤ Ü Şş C̤h Â"
     ],
     [
      "ma1 ma2 ma3 ma4",
@@ -14814,11 +14814,11 @@
     ],
     [
      "ky gy lj rj fj vj Lj Rj",
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      "ty dy ny sjy zjy tqy dqy",
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤"
     ],
     [
      "tcx dcx",
@@ -14834,7 +14834,7 @@
     ],
     [
      "tyh dyh rch pf th kh",
-     "t̖h d̖h rh pf th kh"
+     "t̤h d̤h rh pf th kh"
     ]
    ],
    "zh": [
@@ -14972,7 +14972,7 @@
     ],
     [
      "Gj Pj Gy Ty Ic Sjw Tqyh Aw",
-     "G̦ P̦ G̖ T̖ Yu Șș C̖h Á"
+     "G̦ P̦ G̤ T̤ Yu Șș C̤h Á"
     ],
     [
      "ma1 ma2 ma3 ma4",
@@ -14992,11 +14992,11 @@
     ],
     [
      "ky gy lj rj fj vj Lj Rj",
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      "ty dy ny sjy zjy tqy dqy",
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤"
     ],
     [
      "tcx dcx",
@@ -15012,7 +15012,7 @@
     ],
     [
      "tyh dyh rch pf th kh",
-     "t̖h d̖h ṛh pf th kh"
+     "t̤h d̤h ṛh pf th kh"
     ]
    ]
   },
@@ -15523,43 +15523,43 @@
      "Ux"
     ],
     [
-     "t̖",
+     "t̤",
      "ty"
     ],
     [
-     "T̖",
+     "T̤",
      "Ty"
     ],
     [
-     "k̖",
+     "k̤",
      "ky"
     ],
     [
-     "K̖",
+     "K̤",
      "Ky"
     ],
     [
-     "d̖",
+     "d̤",
      "dy"
     ],
     [
-     "D̖",
+     "D̤",
      "Dy"
     ],
     [
-     "g̔",
+     "g̈",
      "gy"
     ],
     [
-     "G̖",
+     "G̤",
      "Gy"
     ],
     [
-     "n̖",
+     "n̤",
      "ny"
     ],
     [
-     "N̖",
+     "N̤",
      "Ny"
     ],
     [
@@ -15699,19 +15699,19 @@
      "Icx"
     ],
     [
-     "s̖",
+     "s̤",
      "sjy"
     ],
     [
-     "S̖",
+     "S̤",
      "Sjy"
     ],
     [
-     "z̖",
+     "z̤",
      "zjy"
     ],
     [
-     "Z̖",
+     "Z̤",
      "Zjy"
     ],
     [
@@ -15815,7 +15815,7 @@
      "SjAN"
     ],
     [
-     "G̦ P̦ G̖ T̖ Ü Șș C̖h Á",
+     "G̦ P̦ G̤ T̤ Ü Șș C̤h Á",
      "Gj Pj Gy Ty Ic Sjw Tqyh Aw"
     ],
     [
@@ -15835,11 +15835,11 @@
      "Diafon: ix i ux."
     ],
     [
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦",
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
      "ky gy lj rj fj vj Lj Rj"
     ],
     [
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤",
      "ty dy ny sjy zjy tqy dqy"
     ],
     [
@@ -15855,7 +15855,7 @@
      "aj ej ij oj uj ay ey iy oy uy"
     ],
     [
-     "t̖h d̖h ṛh pf th kh",
+     "t̤h d̤h ṛh pf th kh",
      "tyh dyh rch pf th kh"
     ],
     [
@@ -15871,7 +15871,7 @@
      "bxw"
     ],
     [
-     "b̖‍b̖",
+     "b̤‍b̤",
      "byw"
     ],
     [
@@ -15895,7 +15895,7 @@
      "dxw"
     ],
     [
-     "d̖‍d̖",
+     "d̤‍d̤",
      "dyw"
     ],
     [
@@ -15903,7 +15903,7 @@
      "dcxw"
     ],
     [
-     "x̖‍x̖",
+     "x̤‍x̤",
      "dqyw"
     ],
     [
@@ -15931,7 +15931,7 @@
      "gxw"
     ],
     [
-     "g̔‍g̔",
+     "g̈‍g̈",
      "gyw"
     ],
     [
@@ -15947,7 +15947,7 @@
      "hxw"
     ],
     [
-     "h̖‍h̖",
+     "h̤‍h̤",
      "hyw"
     ],
     [
@@ -15967,7 +15967,7 @@
      "kxw"
     ],
     [
-     "k̖‍k̖",
+     "k̤‍k̤",
      "kyw"
     ],
     [
@@ -15999,7 +15999,7 @@
      "mxw"
     ],
     [
-     "m̖‍m̖",
+     "m̤‍m̤",
      "myw"
     ],
     [
@@ -16015,7 +16015,7 @@
      "nxw"
     ],
     [
-     "n̖‍n̖",
+     "n̤‍n̤",
      "nyw"
     ],
     [
@@ -16031,7 +16031,7 @@
      "pxw"
     ],
     [
-     "p̔‍p̔",
+     "p̈‍p̈",
      "pyw"
     ],
     [
@@ -16059,7 +16059,7 @@
      "sxw"
     ],
     [
-     "s̖‍s̖",
+     "s̤‍s̤",
      "sjyw"
     ],
     [
@@ -16083,7 +16083,7 @@
      "txw"
     ],
     [
-     "t̖‍t̖",
+     "t̤‍t̤",
      "tyw"
     ],
     [
@@ -16091,7 +16091,7 @@
      "tcxw"
     ],
     [
-     "c̖‍c̖",
+     "c̤‍c̤",
      "tqyw"
     ],
     [
@@ -16107,7 +16107,7 @@
      "vxw"
     ],
     [
-     "v̖‍v̖",
+     "v̤‍v̤",
      "vyw"
     ],
     [
@@ -16123,7 +16123,7 @@
      "zxw"
     ],
     [
-     "z̖‍z̖",
+     "z̤‍z̤",
      "zjyw"
     ],
     [
@@ -16139,7 +16139,7 @@
      "Bxw"
     ],
     [
-     "B̖‍b̖",
+     "B̤‍b̤",
      "Byw"
     ],
     [
@@ -16163,7 +16163,7 @@
      "Dxw"
     ],
     [
-     "D̖‍d̖",
+     "D̤‍d̤",
      "Dyw"
     ],
     [
@@ -16171,7 +16171,7 @@
      "Dcxw"
     ],
     [
-     "X̖‍x̖",
+     "X̤‍x̤",
      "Dqyw"
     ],
     [
@@ -16199,7 +16199,7 @@
      "Gxw"
     ],
     [
-     "G̖‍g̖",
+     "G̤‍g̤",
      "Gyw"
     ],
     [
@@ -16215,7 +16215,7 @@
      "Hxw"
     ],
     [
-     "H̖‍h̖",
+     "H̤‍h̤",
      "Hyw"
     ],
     [
@@ -16235,7 +16235,7 @@
      "Kxw"
     ],
     [
-     "K̖‍k̖",
+     "K̤‍k̤",
      "Kyw"
     ],
     [
@@ -16267,7 +16267,7 @@
      "Mxw"
     ],
     [
-     "M̖‍m̖",
+     "M̤‍m̤",
      "Myw"
     ],
     [
@@ -16283,7 +16283,7 @@
      "Nxw"
     ],
     [
-     "N̖‍n̖",
+     "N̤‍n̤",
      "Nyw"
     ],
     [
@@ -16299,7 +16299,7 @@
      "Pxw"
     ],
     [
-     "P̖‍p̖",
+     "P̤‍p̤",
      "Pyw"
     ],
     [
@@ -16327,7 +16327,7 @@
      "Sxw"
     ],
     [
-     "S̖‍s̖",
+     "S̤‍s̤",
      "Sjyw"
     ],
     [
@@ -16351,7 +16351,7 @@
      "Txw"
     ],
     [
-     "T̖‍t̖",
+     "T̤‍t̤",
      "Tyw"
     ],
     [
@@ -16359,7 +16359,7 @@
      "Tcxw"
     ],
     [
-     "C̖‍c̖",
+     "C̤‍c̤",
      "Tqyw"
     ],
     [
@@ -16375,7 +16375,7 @@
      "Vxw"
     ],
     [
-     "V̖‍v̖",
+     "V̤‍v̤",
      "Vyw"
     ],
     [
@@ -16391,7 +16391,7 @@
      "Zxw"
     ],
     [
-     "Z̖‍z̖",
+     "Z̤‍z̤",
      "Zjyw"
     ],
     [
@@ -16399,7 +16399,7 @@
      "sjok sewp njawr"
     ],
     [
-     "G̦ P̦ G̖ T̖ Ü Ș‍ș C̖h Á",
+     "G̦ P̦ G̤ T̤ Ü Ș‍ș C̤h Á",
      "Gj Pj Gy Ty Ic Sjw Tqyh Aw"
     ],
     [
@@ -16570,7 +16570,7 @@
       "SjAN"
      ],
      [
-      "G̦ P̦ G̖ T̖ Ü Šš C̖h Á",
+      "G̦ P̦ G̤ T̤ Ü Šš C̤h Á",
       "Gj Pj Gy Ty Ic Sjw Tqyh Aw"
      ],
      [
@@ -16590,11 +16590,11 @@
       "Djiafon: ix i v."
      ],
      [
-      "k̖ g̔ l̦ ř f̦ v̦ L̦ Ř",
+      "k̤ g̈ l̦ ř f̦ v̦ L̦ Ř",
       "ky gy lj rj fj vj Lj Rj"
      ],
      [
-      "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+      "t̤ d̤ n̤ s̤ z̤ c̤ x̤",
       "ty dy ny sjy zjy tqy dqy"
      ],
      [
@@ -16610,7 +16610,7 @@
       "aj ej ij oj uj ay ey iy oy uy"
      ],
      [
-      "t̖h d̖h ṛh pf th kh",
+      "t̤h d̤h ṛh pf th kh",
       "tyh dyh rch pf th kh"
      ],
      [
@@ -16708,7 +16708,7 @@
       "SjAN"
      ],
      [
-      "G̦ P̦ G̖ T̖ Ü Șș C̖h Ah",
+      "G̦ P̦ G̤ T̤ Ü Șș C̤h Ah",
       "Gj Pj Gy Ty Ic Sjw Tqyh Aw"
      ],
      [
@@ -16728,11 +16728,11 @@
       "Diafon: dqeix aix dajbajlixuw."
      ],
      [
-      "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦",
+      "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
       "ky gy lj rj fj vj Lj Rj"
      ],
      [
-      "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+      "t̤ d̤ n̤ s̤ z̤ c̤ x̤",
       "ty dy ny sjy zjy tqy dqy"
      ],
      [
@@ -16748,7 +16748,7 @@
       "aj ej ij oj uj ay ey iy oy uy"
      ],
      [
-      "t̖h d̖h ṛh pf th kh",
+      "t̤h d̤h ṛh pf th kh",
       "tyh dyh rch pf tiweixtq kh"
      ],
      [
@@ -16906,7 +16906,7 @@
       "SjAN"
      ],
      [
-      "G̦ P̦ G̖ T̖ Y Šš C̖h Aa",
+      "G̦ P̦ G̤ T̤ Y Šš C̤h Aa",
       "Gj Pj Gy Ty Ic Sjw Tqyh Aw"
      ],
      [
@@ -16926,11 +16926,11 @@
       "Diafon: ix i v."
      ],
      [
-      "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦",
+      "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
       "ky gy lj rj fj vj Lj Rj"
      ],
      [
-      "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+      "t̤ d̤ n̤ s̤ z̤ c̤ x̤",
       "ty dy ny sjy zjy tqy dqy"
      ],
      [
@@ -16946,7 +16946,7 @@
       "aj ej ij oj uj ay ey iy oy uy"
      ],
      [
-      "t̖h d̖h ṛh pf th kh",
+      "t̤h d̤h ṛh pf th kh",
       "tyh dyh rch pf th kh"
      ],
      [
@@ -17172,7 +17172,7 @@
       "SjAN"
      ],
      [
-      "G̦ P̦ G̖ T̖ Ü Ss C̖h Á",
+      "G̦ P̦ G̤ T̤ Ü Ss C̤h Á",
       "Gj Pj Gy Ty Ic Sjw Tqyh Aw"
      ],
      [
@@ -17192,11 +17192,11 @@
       "Diafon: ix i v."
      ],
      [
-      "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦",
+      "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
       "ky gy lj rj fj vj Lj Rj"
      ],
      [
-      "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+      "t̤ d̤ n̤ s̤ z̤ c̤ x̤",
       "ty dy ny sjy zjy tqy dqy"
      ],
      [
@@ -17212,7 +17212,7 @@
       "aj ej ij oj uj ay ey iy oy uy"
      ],
      [
-      "t̖h d̖h ṛh pf th kh",
+      "t̤h d̤h ṛh pf th kh",
       "tyh dyh rch pf th kh"
      ],
      [
@@ -17434,7 +17434,7 @@
       "SjAN"
      ],
      [
-      "G̦ P̦ G̖ T̖ Ü Szsz C̖h Á",
+      "G̦ P̦ G̤ T̤ Ü Szsz C̤h Á",
       "Gj Pj Gy Ty Ic Sjw Tqykx Aw"
      ],
      [
@@ -17454,11 +17454,11 @@
       "Diafon: ix i ux."
      ],
      [
-      "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦",
+      "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
       "ky gy lj rj fj vj Lj Rj"
      ],
      [
-      "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+      "t̤ d̤ n̤ s̤ z̤ c̤ x̤",
       "ty dy ny sjy zjy tqy dqy"
      ],
      [
@@ -17474,7 +17474,7 @@
       "aj ej ij oj uj ay ey iy oy uy"
      ],
      [
-      "t̖h d̖h ṛh pf th kh",
+      "t̤h d̤h ṛh pf th kh",
       "tykx dykx rckx pf tkx kkx"
      ],
      [
@@ -17676,7 +17676,7 @@
       "SjAN"
      ],
      [
-      "G̦ P̦ G̖ T̖ Ü Shsh C̖h Á",
+      "G̦ P̦ G̤ T̤ Ü Shsh C̤h Á",
       "Gj Pj Gy Ty Ic Sjw Tqyh Aw"
      ],
      [
@@ -17696,11 +17696,11 @@
       "Diafon: ix i ux."
      ],
      [
-      "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦",
+      "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
       "ky gy lj rj fj vj Lj Rj"
      ],
      [
-      "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+      "t̤ d̤ n̤ s̤ z̤ c̤ x̤",
       "ty dy ny sjy zjy tqy dqy"
      ],
      [
@@ -17716,7 +17716,7 @@
       "aj ej ij oj uj ay ey iy oy uy"
      ],
      [
-      "t̖h d̖h ṛh pf th kh",
+      "t̤h d̤h ṛh pf th kh",
       "tyh dyh rch pf tx kx"
      ],
      [
@@ -17894,7 +17894,7 @@
       "SjAN"
      ],
      [
-      "G̦ P̦ G̖ T̖ Ü Şş C̖h Â",
+      "G̦ P̦ G̤ T̤ Ü Şş C̤h Â",
       "Gj Pj Gy Ty Ic Sjw Tqyh Aw"
      ],
      [
@@ -17914,11 +17914,11 @@
       "Diafon: ix i v."
      ],
      [
-      "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦",
+      "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
       "ky gy lj rj fj vj Lj Rj"
      ],
      [
-      "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+      "t̤ d̤ n̤ s̤ z̤ c̤ x̤",
       "ty dy ny sjy zjy tqy dqy"
      ],
      [
@@ -17934,7 +17934,7 @@
       "aj ej ij oj uj ay ey iy oy uy"
      ],
      [
-      "t̖h d̖h rh pf th kh",
+      "t̤h d̤h rh pf th kh",
       "tyh dyh rch pf th kh"
      ],
      [
@@ -18032,7 +18032,7 @@
       "SjAN"
      ],
      [
-      "G̦ P̦ G̖ T̖ Yu Șș C̖h Á",
+      "G̦ P̦ G̤ T̤ Yu Șș C̤h Á",
       "Gj Pj Gy Ty Ic Sjw Tqyh Aw"
      ],
      [
@@ -18052,11 +18052,11 @@
       "Diafon: ix i ux."
      ],
      [
-      "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦",
+      "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
       "ky gy lj rj fj vj Lj Rj"
      ],
      [
-      "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+      "t̤ d̤ n̤ s̤ z̤ c̤ x̤",
       "ty dy ny sjy zjy tqy dqy"
      ],
      [
@@ -18072,7 +18072,7 @@
       "aj ej ij oj uj ay ey iy oy uy"
      ],
      [
-      "t̖h d̖h ṛh pf th kh",
+      "t̤h d̤h ṛh pf th kh",
       "tyh dyh rch pf th kh"
      ],
      [
@@ -18534,10 +18534,10 @@
     "SAN"
    ],
    [
-    "G̦ P̦ G̖ T̖ Ü Șș C̖h Á",
+    "G̦ P̦ G̤ T̤ Ü Șș C̤h Á",
     "script",
     "stage:hu",
-    "G̦ P̦ G̖ T̖ Ü Ss C̖h Á"
+    "G̦ P̦ G̤ T̤ Ü Ss C̤h Á"
    ]
   ],
   "detect": [
@@ -18578,7 +18578,7 @@
     "stage:zh"
    ],
    [
-    "K̖ Ẹ̀",
+    "K̤ Ẹ̀",
     "script"
    ]
   ],

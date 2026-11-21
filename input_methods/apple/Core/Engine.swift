@@ -171,7 +171,7 @@ enum Engine {
         let o = Array(opsS)
         let op1 = o[0]
         if op1 == "y" && "lrf".contains(base) { throw ParseError(message: "\(base)\(opsS): no reverse anchor on the thin stems l r f") }
-        // one typed form per letter: the dot is x, but the tap is rc; s̖ z̖ are sjy zjy
+        // one typed form per letter: the dot is x, but the tap is rc; s̤ z̤ are sjy zjy
         if op1 == "c" && base != "r" { throw ParseError(message: "\(base)\(opsS): c on a consonant only in the tap rc and the whole letters (tc dc)") }
         if op1 == "x" && base == "r" { throw ParseError(message: "\(base)\(opsS): the tap is typed rc") }
         if op1 == "y" && "sz".contains(base) { throw ParseError(message: "\(base)\(opsS): the reverse anchor on \(base) is typed \(base)jy") }

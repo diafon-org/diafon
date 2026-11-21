@@ -8,7 +8,8 @@
 3. The profile's own vectors hold.
 4. universal-v1 is the typing Diafon had before the split: every typing
    vector of the spec as it was then (tests/goldens/spec.json: render,
-   lenient, joined, invalid, the streaming traces) reproduces byte for byte,
+   lenient, joined, invalid, the streaming traces) reproduces byte for byte
+   (the reverse anchor read as the double dot below it has become),
    and every form that spec lists draws the glyph it lists.
 """
 import glob
@@ -93,7 +94,7 @@ def test_vectors():
 
 
 def test_universal_v1_is_the_old_typing():
-    old = json.load(open(compile_profile.PRESPLIT, encoding='utf-8'))
+    old = compile_profile.today(json.load(open(compile_profile.PRESPLIT, encoding='utf-8')))      # with the mark as it is now
     eng = Engine(profile.compiled('universal-v1'))
     check(eng, old['vectors'])
     for f in old['forms']:

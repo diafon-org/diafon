@@ -2,8 +2,8 @@
 // two panes. Left: every language with a spelling, filtered as you type by
 // native name, English name or code; the box beside each keeps it on the
 // quick list, Return or a double click picks it (turns conversion on in that
-// spelling). Right: the quick list itself, the languages the keyboard menu
-// shows, in the order you give them there (drag, or the buttons). Opened from the menu's "Other language…". The model holds every action, so it can be driven without
+// spelling). Right: the quick list itself: the languages that are keyboards
+// of their own in the system's list (Keyboards.swift), beside Diafon itself. Opened from the menu's "Keyboards…". The model holds every action, so it can be driven without
 // the window.
 import Cocoa
 import SwiftUI
@@ -72,8 +72,8 @@ final class ChooserModel: ObservableObject {
 
 struct LanguageChooserView: View {
     @ObservedObject var model: ChooserModel
-    private let hintText = "Return picks a language. The box keeps it on the quick list: the keyboard menu, in the order on the right."
-    private var longText: String { "More than \(Prefs.quickComfort) languages on the quick list make the keyboard menu long. Fewer is quicker." }
+    private let hintText = "The box makes a language one of your keyboards: Diafon – Magyar and the like, switched as any keyboard. Return picks a language now."
+    private var longText: String { "More than \(Prefs.quickComfort) keyboards make switching long. Fewer is quicker." }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -171,7 +171,7 @@ final class LanguageChooser {
         let host = NSHostingController(rootView: LanguageChooserView(model: model))
         let w = NSWindow(contentViewController: host)
         w.styleMask = [.titled, .closable]
-        w.title = "Language-specific spellings"
+        w.title = "Diafon keyboards"
         w.isReleasedWhenClosed = false
         window = w
     }

@@ -71,7 +71,7 @@ overwrite it).
 
 **Simulator, the app's own field (SwiftUI TextField), 2026-10-02:** both
 modes pass items 1 and 3 below and the capitals-and-tones case
-(`Sjan1 Tqy` → `Șanˉ C̖`). One `deleteBackward` takes `n̦` whole.
+(`Sjan1 Tqy` → `Șanˉ C̤`). One `deleteBackward` takes `n̦` whole.
 
 To check on a device, per app (Notes, Messages, Safari textarea and
 contenteditable, Mail, WhatsApp, Telegram, a search field), in both modes:
@@ -106,7 +106,7 @@ the tail as plain text, saved like any other: it is the default since.
 | ⇧ | next letter capital; double tap locks; on at a sentence start where the field asks, if turned on in the settings (off by default) |
 | ⌫ | edits the tail first, then one grapheme of the field; repeats when held |
 | logo | a tap: the signs (two pages in the system keyboard's order, `1/2` and `2/2`), the key lit; a tap again: the letters; press and slide to a sign: that sign, then the letters again; hold: the settings (what is written: Universal, a language, off; the languages offered; the typing, that is the input profile; the layout) |
-| space | names the mode in use (diafon, or the language code; blank when off); goes in on release; after a sign, the letters come back; two spaces after a word: a full stop and a space |
+| space | names the mode in use (diafon, or the language code; blank when off); goes in on release; hold: the modes (Universal, the ticked languages the typing in use can write, off), slide and let go, or tap; after a sign, the letters come back; two spaces after a word: a full stop and a space |
 | 🌐 | the system's keyboard list; shown only where the system has no switcher of its own (`needsInputModeSwitchKey`) |
 | return | settles the tail, then a newline; labelled by the field's return key type |
 

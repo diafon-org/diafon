@@ -5,7 +5,7 @@
 # long point, then tone digits. An operator never starts a segment. Each key
 # sequence types one letter of the script, and each letter is typed one way.
 # A target is a point of the alphabet by name (ʃ), or, for a letter no
-# language uses yet, its letter and marks (b+reverse).
+# language uses yet, its letter and marks (b+twodots).
 #
 # Immutable: a change to this file is universal-v2.
 id: universal-v1
@@ -25,42 +25,42 @@ keys:
   p: p                            # p
   pj: pʲ                          # p̓
   px: p+dot                       # ṗ
-  py: p+reverse                   # p̔
+  py: p+twodots                   # p̈
 
   t: t                            # t
   tc: ts                          # c
   tj: c                           # ț
   tq: tʃ                          # c̦
   tx: θ                           # ṭ
-  ty: ʈ                           # t̖
+  ty: ʈ                           # t̤
   tcx: tɕ                         # c̣
-  tqy: c+reverse                  # c̖
+  tqy: c+twodots                  # c̤
 
   k: k                            # k
   kj: kʲ                          # k̦
   kq: q                           # q
   kx: x                           # ḳ
-  ky: ħ                           # k̖
+  ky: ħ                           # k̤
   kqx: q+dot                      # q̇
 
   b: b                            # b
   bj: bʲ                          # b̦
   bx: b+dot                       # ḅ
-  by: b+reverse                   # b̖
+  by: b+twodots                   # b̤
 
   d: d                            # d
   dc: dz                          # x
   dj: ɟ                           # d̦
   dq: dʒ                          # x̦
   dx: ð                           # ḍ
-  dy: ɖ                           # d̖
+  dy: ɖ                           # d̤
   dcx: dʑ                         # x̣
-  dqy: x+reverse                  # x̖
+  dqy: x+twodots                  # x̤
 
   g: g                            # g
   gj: gʲ                          # g̓
   gx: ɣ                           # ġ
-  gy: ʕ                           # g̔
+  gy: ʕ                           # g̈
 
   f: f                            # f
   fj: fʲ                          # f̦
@@ -69,27 +69,27 @@ keys:
   v: v                            # v
   vj: vʲ                          # v̦
   vx: v+dot                       # ṿ
-  vy: v+reverse                   # v̖
+  vy: v+twodots                   # v̤
 
   s: s                            # s
   sj: ʃ                           # ș
   sx: ɕ                           # ṣ
-  sjy: sˤ                         # s̖
+  sjy: sˤ                         # s̤
 
   z: z                            # z
   zj: ʒ                           # z̦
   zx: ʑ                           # ẓ
-  zjy: ðˤ                         # z̖
+  zjy: ðˤ                         # z̤
 
   m: m                            # m
   mj: mʲ                          # m̦
   mx: m+dot                       # ṃ
-  my: m+reverse                   # m̖
+  my: m+twodots                   # m̤
 
   n: n                            # n
   nj: ɲ                           # n̦
   nx: ŋ                           # ṇ
-  ny: ɳ                           # n̖
+  ny: ɳ                           # n̤
 
   l: l                            # l
   lj: ʎ                           # l̦
@@ -102,7 +102,7 @@ keys:
   h: h                            # h
   hj: h+anchor                    # h̦
   hx: ʔ                           # ḥ
-  hy: h+reverse                   # h̖
+  hy: h+twodots                   # h̤
 
   a: a                            # a
   ac: æ                           # ä

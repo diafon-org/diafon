@@ -159,6 +159,18 @@ def generate():
 CHANGED = {'pl'}      # 2026-11-21: the hush on the anchor, the soft series on the dot
 
 
+def today(x):
+    """A frozen row with the mark the alphabet has since changed (the reverse anchor, now the double
+    dot below): U+0316 is U+0324, and above a letter U+0314 is U+0308."""
+    if isinstance(x, str):
+        return x.replace('\u0316', '\u0324').replace('\u0314', '\u0308')
+    if isinstance(x, list):
+        return [today(v) for v in x]
+    if isinstance(x, dict):
+        return {k: today(v) for k, v in x.items()}
+    return x
+
+
 def frozen(name):
     path = os.path.join(OUT, name)
     data = (gzip.open(path, 'rb') if name.endswith('.gz') else open(path, 'rb')).read()
@@ -209,7 +221,7 @@ def check():
         counts, bad = {'doubled': 0, 'caps': 0, 'inside': 0, 'alphabet': 0}, []
         stage = stages.load(name[5:7]) if name.startswith('read/') else None
         for old in rows:
-            old = json.loads(json.dumps(old))
+            old = today(json.loads(json.dumps(old)))        # the reverse anchor is the double dot below now
             if name.startswith('read/'):
                 new = [old[0]] + list(stages.read_word(old[0], stage))
                 if new != old:

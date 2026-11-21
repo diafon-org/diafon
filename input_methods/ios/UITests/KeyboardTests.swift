@@ -84,7 +84,7 @@ final class KeyboardTests: XCTestCase {
         start()
         type("Sjan1 Tqy")                                 // shift, a tone digit, two operators
         shot("\(mode): Sjan1 Tqy")
-        XCTAssertEqual(value, "Șanˉ C̖", "\(mode): capitals and tones")
+        XCTAssertEqual(value, "Șanˉ C̤", "\(mode): capitals and tones")
 
         start()
         type("ok hawrt")                                  // heart: its emoji offered on the strip

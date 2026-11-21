@@ -35,7 +35,7 @@ SENTENCES = [
 LENIENT = ['Sjan1, jok!', 'jok', '1ma', 'tqyx', 'tww', 'twx', 'ly ry fy txy', 'bq ax txx', 'qwerty',
            'Hello, world!', 'x-ray', 'sj+ok']
 DETECT = ['sjok sewp njawr', 'Șok sép n̦ár, hossú älmä', 'sok szép nyár, hosszú alma', 'dobrý den, přátelé',
-          'hyvää yötä kaikille', 'Dobra noc, kochani', 'günaydın', 'habari za asubuhi', 'ma1 ma2 ma3', 'K̖ Ẹ̀']
+          'hyvää yötä kaikille', 'Dobra noc, kochani', 'günaydın', 'habari za asubuhi', 'ma1 ma2 ma3', 'K̤ Ẹ̀']
 LEX_READ = {'en': ['the', 'quick', 'Shakespeare', 'meeting', 'facebook', 'nosuchword'],
             'zh': ['ni', 'hao3', 'Ni3hao3', 'nihao', 'you', 'lü4', 'zhong1', 'xi1', 'shi4', 'si1'],
             'la': ['hoc', 'vitae', 'quo'],

@@ -28,6 +28,9 @@ func candidatePanelMake() -> IMKCandidates {
     if candidatePanelIfAny == nil { candidatePanelIfAny = IMKCandidates(server: server, panelType: kIMKSingleColumnScrollingCandidatePanel) }
     return candidatePanelIfAny!
 }
+// the keyboards the system shows follow the quick list (Keyboards.swift): once now, then on every change
+DispatchQueue.main.asyncAfter(deadline: .now() + 1) { Keyboards.sync() }
+NotificationCenter.default.addObserver(forName: Prefs.changed, object: nil, queue: .main) { _ in Keyboards.sync() }
 let services = Services()
 NSApplication.shared.servicesProvider = services
 NSUpdateDynamicServices()

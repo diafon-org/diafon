@@ -86,8 +86,8 @@ def test_case():
     """Capitals: base case carries the point; marks keep the small side,
     except that no capital descends, so a capital's mark sits below."""
     cases = [('Sjan1', 'Șanˉ'), ('SJAN', 'ȘAN'), ('sjan', 'șan'), ('ma2 ma5 ma8', 'maˊ ma maˀ'),
-             ('Gj', 'G̦'), ('Pj', 'P̦'), ('Gy', 'G̖'), ('Ty', 'T̖'), ('Lj', 'L̦'), ('Hj', 'H̦'),
-             ('Ic', 'Ü'), ('Sjw', 'Șș'), ('Tqyh', 'C̖h'), ('Aw', 'Á')]
+             ('Gj', 'G̦'), ('Pj', 'P̦'), ('Gy', 'G̤'), ('Ty', 'T̤'), ('Lj', 'L̦'), ('Hj', 'H̦'),
+             ('Ic', 'Ü'), ('Sjw', 'Șș'), ('Tqyh', 'C̤h'), ('Aw', 'Á')]
     for inp, want in cases:
         got = engine.render(inp)
         assert got == want, f'{inp}: {got!r} != {want!r}'

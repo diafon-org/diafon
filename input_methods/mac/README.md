@@ -24,10 +24,13 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
   text, the last segment stays underlined until a key settles it. Backspace
   edits the underlined tail first; Escape drops the tail in as typed; Return,
   Tab, arrows and any shortcut make the tail final and pass through.
-- **The keyboard menu switches.** Everything is chosen in Diafon's menu
-  under the input source in the menu bar: conversion off, Universal, a
-  language's spelling, and the input profile (Typing: …). No key switches
-  anything.
+- **Each output is a keyboard.** Diafon (the script) and one keyboard per
+  language written by its letters (Diafon – Magyar, Diafon – Polski, …) are
+  input modes of the one input method, so the system's own switching picks
+  them: the input menu, the Globe key, ⌃Space. Only a chosen few are shown:
+  Diafon, and the languages ticked under Keyboards… in Diafon's menu
+  (`Sources/Keyboards.swift` switches the modes on and off in the system's
+  input sources). The typing (the input profile) is chosen in the same menu.
 - **Input profiles.** What the keys mean comes from a compiled profile
   (`../../spec/<id>.json`). `universal-v1` is the grammar the engine
   carries. `minimal-hu-v1` is a key table: `y` and `q` are the operators
@@ -76,8 +79,9 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
    Colemak, whatever layout the Mac had selected before.
 2. Type a sound as a base, then its operators: `sj` → ș, `tq` → c̦,
    `aw` → á; the last sound stays underlined until the next key settles it.
-3. Diafon's menu in the menu bar switches: conversion off, Universal, a
-   language's spelling, and the typing (the input profile).
+3. Switch between Diafon and your language keyboards as between any
+   keyboards. Diafon's menu has Keyboards… (which languages are keyboards)
+   and the typing (the input profile).
 4. Text in any spelling: select it, then Diafon menu → Convert selection
    (or right-click → Services → Convert with Diafon); the … variants let
    you set the source and the target first.
@@ -95,7 +99,9 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
     Sources/DiafonInputController.swift  IMKInputController: keystrokes in, streaming rule, insertText / setMarkedText out; the status menu
     Sources/ConvertWindow.swift        the From / To window of Convert with Diafon…
     Sources/Hud.swift                  the mode label shown for a moment after a switch
-    Sources/LanguageChooser.swift      the searchable language list (Other language…)
+    Sources/Keyboards.swift            which input modes the system shows: Diafon and the chosen languages
+    Sources/LanguageChooser.swift      the searchable language list (Keyboards…)
+    tools/modes.py                     the Info.plist with one input mode per output
     Sources/SetupWindow.swift          the setup window
     Sources/MacPrefs.swift             the base layout under Diafon (overrideKeyboard), from ../apple/Core/Layouts.swift
     Sources/Services.swift             the text service

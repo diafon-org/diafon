@@ -24,6 +24,18 @@ from engine.engine import Engine, ParseError, make
 PRESPLIT = os.path.join(ROOT, 'tests', 'goldens', 'spec.json')     # the spec as it was before the split
 
 
+def today(x):
+    """A text (or a nest of them) of the spec before the split, with the mark the alphabet has since
+    changed: the reverse anchor (U+0316, above U+0314) is the double dot below (U+0324, above U+0308)."""
+    if isinstance(x, str):
+        return x.replace('\u0316', '\u0324').replace('\u0314', '\u0308')
+    if isinstance(x, list):
+        return [today(v) for v in x]
+    if isinstance(x, dict):
+        return {today(k): today(v) for k, v in x.items()}
+    return x
+
+
 def trace(eng, text):
     out, buf = [], ''
     for ch in text:

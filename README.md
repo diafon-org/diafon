@@ -65,7 +65,11 @@ python3 scripts/gen_goldens.py --check  # every pre-split row, about three minut
 ```
 
 The Mac input method and the iOS keyboard take the profile as a setting
-(the keyboard menu on the Mac, the keyboard's settings on iOS). Inside, the
+(Diafon's menu on the Mac, the keyboard's settings on iOS). What is written
+is chosen like a keyboard: on the Mac each output is an input mode of its
+own, on iOS the space bar's menu has them. A profile lists the languages it
+can write in full (`languages` in `spec/<id>.json`), and only those are
+offered. Inside, the
 Swift core still holds a text in `universal-v1` forms: a key-table profile
 is read into those forms (`input_methods/apple/Core/Profiles.swift`), and
 `universal-v1` itself is still the grammar in code. Android has

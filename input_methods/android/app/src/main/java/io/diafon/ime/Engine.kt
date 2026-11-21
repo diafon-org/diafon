@@ -137,7 +137,7 @@ object Engine {
         if (ops.isEmpty()) return g
         val op1 = ops[0]
         if (op1 == 'y' && base in "lrf") throw ParseError("$base$ops: no reverse anchor on the thin stems l r f")
-        // one typed form per letter: the dot is x, but the tap is rc; s̖ z̖ are sjy zjy
+        // one typed form per letter: the dot is x, but the tap is rc; s̤ z̤ are sjy zjy
         if (op1 == 'c' && base != 'r') throw ParseError("$base$ops: c on a consonant only in the tap rc and the whole letters (tc dc)")
         if (op1 == 'x' && base == 'r') throw ParseError("$base$ops: the tap is typed rc")
         if (op1 == 'y' && base in "sz") throw ParseError("$base$ops: the reverse anchor on $base is typed ${base}jy")

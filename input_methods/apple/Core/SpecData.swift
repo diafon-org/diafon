@@ -29,13 +29,13 @@ struct ProfileData {
 
 enum SpecData {
     static let generated = "2026-11-21"
-    static let source = "ceaa706"
+    static let source = "f5201a6"
     static let descenders: Set<Character> = ["g", "j", "p", "q", "y"]
     static let whole: [String: String] = ["tc": "c", "dc": "x", "tq": "c̦", "dq": "x̦", "kq": "q", "ix": "j", "ux": "w", "icx": "j̈", "ucx": "ẅ", "aq": "r̈"]
     static let marks: [String: Mark] = [
         "anchor": Mark(below: "̦", above: "̓"),
         "dot": Mark(below: "̣", above: "̇"),
-        "reverse": Mark(below: "̖", above: "̔"),
+        "reverse": Mark(below: "̤", above: "̈"),
         "underdot": Mark(below: "̣", above: nil),
         "grave": Mark(below: nil, above: "̀"),
         "acute": Mark(below: nil, above: "́"),

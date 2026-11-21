@@ -87,7 +87,7 @@ function consonant(base, ops, caps){
   if (!ops) return g;
   const op1 = ops[0];
   if (op1 === 'y' && 'lrf'.includes(base)) return null;
-  // one typed form per letter: the dot is x, but the tap is rc; s̖ z̖ are sjy zjy
+  // one typed form per letter: the dot is x, but the tap is rc; s̤ z̤ are sjy zjy
   if ((op1 === 'c' && base !== 'r') || (op1 === 'x' && base === 'r') || (op1 === 'y' && 'sz'.includes(base))) return null;
   if (op1 === 'j') g = mark(g, base, 'anchor', caps);
   else if (op1 === 'x') g = mark(g, base, 'dot', caps);
