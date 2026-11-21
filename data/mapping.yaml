@@ -69,8 +69,8 @@ consonants:
   χ: x
   ʁ: ɣ
   # the hush in all its places is the anchor: one series in a language is ș z̦ c̦ x̦, whatever
-  #   its exact sound (Mandarin, Japanese, Russian ш ж); the soft series of a language with
-  #   two takes the dot (Polish below, and sʲ zʲ tsʲ)
+  #   its exact sound (Japanese, Russian ш ж); the soft series of a language with
+  #   two takes the dot (Polish and Mandarin below, and sʲ zʲ tsʲ)
   ɕ: ʃ
   ʑ: ʒ
   ʂ: ʃ
@@ -251,7 +251,11 @@ overrides:
   zh:            # one mid vowel (pinyin e): ë alone and before n ŋ, [ɤ] [ə]; after u it is [o],
                  #   and the lexicon writes it o there (guo kuo, wo uo)
     ə: ɤ
-                 # the retroflexes are the hush, as everywhere (j q x share it before i ü)
+                 # two series, as Polish: zh ch sh the hush on the anchor, j q x the soft one on
+                 #   the dot (c̣ c̣h ṣ), though the vowel alone would tell them apart
+    ɕ: ɕ
+    tɕ: tɕ
+    tɕʰ: [tɕ, h]
   pl:            # three-way sibilants: plain s, the hush sz on the anchor, the soft ś on the dot
     ɕ: ɕ
     ʑ: ʑ
@@ -308,10 +312,9 @@ shares:
     tʃʼ:
       ka: the ejective; the bare letter is the licensed approximation
     tʂ:
-      zh: zh; retroflex, before all but i ü
+      zh: zh; the hush, retroflex; the soft j takes the dot (c̣)
       pl: cz; the hush, retroflex; the soft ć takes the dot (c̣)
     tɕ:
-      zh: j; alveolo-palatal, before i ü only
       ja: the sole hush affricate, alveolo-palatal
       ko: the sole hush affricate, alveolo-palatal
       ru: ч; the sole hush affricate, soft
@@ -327,9 +330,8 @@ shares:
     ʃ: primary
     ɕ:
       ja: the sole hush, alveolo-palatal
-      zh: x; before i ü only
     ʂ:
-      zh: sh; retroflex, before all but i ü
+      zh: sh; the hush, retroflex; the soft x takes the dot (ṣ)
       pl: sz; the hush, retroflex; the soft ś takes the dot (ṣ)
       ru: ш; the hush, retroflex; the soft сь takes the dot (ṣ)
   ʒ:

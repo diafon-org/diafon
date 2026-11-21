@@ -30,6 +30,9 @@ consonants:
   kʰ: M
   tsʰ: M
   tʂʰ: M
+  tɕ: M       # j q x: alveolo-palatal, before i ü only
+  tɕʰ: M
+  ɕ: M
 vowels:
   i: L
   ɨ: L

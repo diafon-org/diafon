@@ -271,7 +271,8 @@
      "uk"
     ],
     "tɕ": [
-     "pl"
+     "pl",
+     "zh"
     ]
    }
   },
@@ -1307,7 +1308,8 @@
      "uk"
     ],
     "ɕ": [
-     "pl"
+     "pl",
+     "zh"
     ]
    }
   },
@@ -10622,6 +10624,25 @@
      ],
      "frequency": "M"
     },
+    "tɕ": {
+     "points": [
+      "tɕ"
+     ],
+     "frequency": "M"
+    },
+    "tɕʰ": {
+     "points": [
+      "tɕ",
+      "h"
+     ],
+     "frequency": "M"
+    },
+    "ɕ": {
+     "points": [
+      "ɕ"
+     ],
+     "frequency": "M"
+    },
     "i": {
      "points": [
       "i"
@@ -11297,7 +11318,7 @@
    "long": "double",
    "points": {},
    "caps": {},
-   "sample": "niˇ ḳawˇ, șïˋ c̦ieˋ",
+   "sample": "niˇ ḳawˇ, șïˋ c̣ieˋ",
    "read": {},
    "before_i": {},
    "i_softens": false,
@@ -11381,7 +11402,7 @@
    "loans": false,
    "foreign": null,
    "lengthen": {},
-   "sample": "niˇ ḳawˇ, șïˋ c̦ieˋ",
+   "sample": "niˇ ḳawˇ, șïˋ c̣ieˋ",
    "output": true,
    "sizes": {
     "read": 404,
@@ -11389,7 +11410,7 @@
     "choices": 1384
    },
    "file": "data/lexicon/zh.json",
-   "sha256": "61026a7b2a8931ef8e8df42b6bf2e933d0f85b61666c4be543dd2ab9f08df1da"
+   "sha256": "089a40f04b98593bca56041de3b9b2a7c1ee1ad08fdf139e96ef6618806976fa"
   }
  },
  "vectors": {
@@ -24463,7 +24484,7 @@
        "tones": "1"
       }
      ],
-     "ji3 shi3 zhi1"
+     "c̦i3 shi3 zhi1"
     ],
     [
      [
@@ -24726,7 +24747,7 @@
       {
        "raw": " "
       },
-      "tʃ",
+      "tɕ",
       "i",
       {
        "p": "e",
@@ -28722,7 +28743,7 @@
     [
      "zh",
      "xi1",
-     "șiˉ"
+     "ṣiˉ"
     ],
     [
      "zh",
@@ -29134,7 +29155,7 @@
     [
      "stage:zh",
      "Ni3 hao3, shi4 jie4!",
-     "Niˇ ḳawˇ, șïˋ c̦ieˋ!"
+     "Niˇ ḳawˇ, șïˋ c̣ieˋ!"
     ],
     [
      "stage:zh",

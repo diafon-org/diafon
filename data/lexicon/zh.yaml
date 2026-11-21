@@ -7,8 +7,8 @@
 # each toned syllable, most frequent first (kHanyuPinlu counts, then the
 # 2013 standard list's order), for the input method's chooser.
 #
-# The phonemic analysis follows the zh table: j q x share the hush with zh
-# ch sh before the high front vowels (the vowel tells them apart), pinyin o after b p m f is
+# The analysis follows the zh table: j q x are the soft series on the dot (c̣ c̣h ṣ), zh ch sh
+# the hush on the anchor (c̦ c̦h ș), as in Polish; pinyin o after b p m f is
 # uo (written uo, as it sounds), e is ɤ (ë), the i of zi ci si zhi chi shi ri is ɨ (ï), ü is y (ü).
 code: zh
 name: Mandarin
@@ -28,9 +28,9 @@ initials:
   g: k
   k: kh
   h: ḳ
-  j: c̦                 # the alveolo-palatals take the anchor, as the mapping writes tɕ tɕʰ ɕ everywhere
-  q: c̦h                #   (Polish ć ś): j q x before i ü, zh ch sh before the rest, so neither needs its own mark
-  x: ș
+  j: c̣                 # the alveolo-palatals take the dot, the soft series as in Polish (ć ś);
+  q: c̣h                #   zh ch sh are the hush on the anchor
+  x: ṣ
   zh: c̦
   ch: c̦h
   sh: ș
