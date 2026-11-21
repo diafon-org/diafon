@@ -157,6 +157,14 @@ h:
   capital: Ḥ
   readings:
     ʔ: [ar, fa, he, th, vi]
+ħ:
+  letter: h
+  marks: [twodots]
+  long: false
+  glyph: h̤
+  capital: H̤
+  readings:
+    ħ: [ar]
 j:
   letter: j
   marks: []
@@ -207,14 +215,15 @@ x:
   readings:
     x: [ar, cs, de, el, es, fa, he, nl, pl, ru, uk, vi, zh]
     χ: [ka]
-ħ:
+q:
   letter: k
   marks: [twodots]
   long: false
   glyph: k̤
   capital: K̤
   readings:
-    ħ: [ar]
+    q: [ar, fa]
+    qʼ: [ka]
 l:
   letter: l
   marks: []
@@ -315,15 +324,6 @@ pʲ:
   capital: P̦
   readings:
     pʲ: [pl, ru]
-q:
-  letter: q
-  marks: []
-  long: false
-  glyph: q
-  capital: Q
-  readings:
-    q: [ar, fa]
-    qʼ: [ka]
 r:
   letter: r
   marks: []

@@ -86,7 +86,7 @@ class Tok:
 def valid(comp):
     """Whether a letter and marks compose. A consonant wears at most one of
     the anchor, the dot and the double dot below: no double dot on the thin stems l r f,
-    only the dot on q j w. The flip stands on j w r, alone (and on the
+    only the dot on j w. The flip stands on j w r, alone (and on the
     dotted r). A vowel wears any of the flip, the underdot and the grave;
     a takes the flip or the underdot, not both."""
     letter, marks = comp

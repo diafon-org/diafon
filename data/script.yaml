@@ -9,10 +9,10 @@
 # true attached anchor.
 
 letters:
-  consonants: [b, c, d, f, g, h, j, k, l, m, n, p, q, r, s, t, v, w, x, z]
+  consonants: [b, c, d, f, g, h, j, k, l, m, n, p, r, s, t, v, w, x, z]
   vowels: [a, e, i, o, u]
 
-descenders: [g, j, p, q, y]
+descenders: [g, j, p, y]
 
 marks:
   anchor:        {below: "̦", above: "̓"}   # the anchor: the hush, the soft consonants
@@ -48,12 +48,13 @@ points:
   ʕ: g twodots
   h: h
   ʔ: h dot
+  ħ: h twodots
   j: j
   ɥ: j flip
   k: k
   kʲ: k anchor
   x: k dot
-  ħ: k twodots
+  q: k twodots
   l: l
   ʎ: l anchor
   ɭ: l dot
@@ -65,7 +66,6 @@ points:
   ɳ: n twodots
   p: p
   pʲ: p anchor
-  q: q
   r: r
   rʲ: r anchor
   ɾ: r dot

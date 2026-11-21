@@ -63,8 +63,8 @@ consonants:
   ð: ð
   ŋ: ŋ
   pf: [p, f]         # a sequence: German never contrasts pf with p+f
-  ħ: ħ          # the pharyngeals join the emphatics on the double dot below:
-  ʕ: ʕ          #   Arabic's back quality across the board; k̤ is one step behind ḳ /x/
+  ħ: ħ          # the back sounds join the emphatics on the double dot below, each on the letter
+  ʕ: ʕ          #   it sounds like: k̤ /q/ is the k further back, h̤ /ħ/ the h further back, g̈ /ʕ/
   # shares on marked points
   χ: x
   ʁ: ɣ

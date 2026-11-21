@@ -16,7 +16,6 @@
     "m",
     "n",
     "p",
-    "q",
     "r",
     "s",
     "t",
@@ -37,7 +36,6 @@
    "g",
    "j",
    "p",
-   "q",
    "y"
   ],
   "marks": {
@@ -108,7 +106,7 @@
   "rules": [
    "A point is a letter and its marks; its text is the composition, NFC.",
    "A consonant wears at most one of the anchor, the dot and the double dot below (twodots), below; above on a small letter that descends. No capital descends: a capital wears its mark below.",
-   "No double dot on the thin stems l r f; only the dot on q j w; the flip stands on j w r, alone, and on the dotted r.",
+   "No double dot on the thin stems l r f; only the dot on j w; the flip stands on j w r, alone, and on the dotted r.",
    "A vowel wears any of the flip, the underdot and the grave (a: the flip or the underdot, not both); long, the acute; the flip and the acute fuse into the double acute.",
    "A long consonant doubles its letter; only the first is capitalized, and the second is the first one small. A joiner (U+200D) between the two marks the fused drawing and nothing else.",
    "Two equal consonant letters in a row are the long point.",
@@ -574,6 +572,21 @@
    }
   },
   {
+   "id": "ħ",
+   "letter": "h",
+   "marks": [
+    "twodots"
+   ],
+   "long": false,
+   "glyph": "h̤",
+   "capital": "H̤",
+   "readings": {
+    "ħ": [
+     "ar"
+    ]
+   }
+  },
+  {
    "id": "j",
    "letter": "j",
    "marks": [],
@@ -734,7 +747,7 @@
    }
   },
   {
-   "id": "ħ",
+   "id": "q",
    "letter": "k",
    "marks": [
     "twodots"
@@ -743,8 +756,12 @@
    "glyph": "k̤",
    "capital": "K̤",
    "readings": {
-    "ħ": [
-     "ar"
+    "q": [
+     "ar",
+     "fa"
+    ],
+    "qʼ": [
+     "ka"
     ]
    }
   },
@@ -1076,23 +1093,6 @@
     "pʲ": [
      "pl",
      "ru"
-    ]
-   }
-  },
-  {
-   "id": "q",
-   "letter": "q",
-   "marks": [],
-   "long": false,
-   "glyph": "q",
-   "capital": "Q",
-   "readings": {
-    "q": [
-     "ar",
-     "fa"
-    ],
-    "qʼ": [
-     "ka"
     ]
    }
   },
@@ -2750,6 +2750,19 @@
    "joined_capital": "Ḥ‍ḥ"
   },
   {
+   "letter": "h",
+   "marks": [
+    "twodots"
+   ],
+   "id": "ħ",
+   "glyph": "h̤",
+   "capital": "H̤",
+   "long": "h̤h̤",
+   "long_capital": "H̤h̤",
+   "joined": "h̤‍h̤",
+   "joined_capital": "H̤‍h̤"
+  },
+  {
    "letter": "j",
    "marks": [],
    "id": "j",
@@ -2815,7 +2828,7 @@
    "marks": [
     "twodots"
    ],
-   "id": "ħ",
+   "id": "q",
    "glyph": "k̤",
    "capital": "K̤",
    "long": "k̤k̤",
@@ -2957,17 +2970,6 @@
    "long_capital": "P̦p̦",
    "joined": "p̓‍p̓",
    "joined_capital": "P̦‍p̦"
-  },
-  {
-   "letter": "q",
-   "marks": [],
-   "id": "q",
-   "glyph": "q",
-   "capital": "Q",
-   "long": "qq",
-   "long_capital": "Qq",
-   "joined": "q‍q",
-   "joined_capital": "Q‍q"
   },
   {
    "letter": "r",
@@ -3565,19 +3567,6 @@
    "joined_capital": "H̦‍h̦"
   },
   {
-   "letter": "h",
-   "marks": [
-    "twodots"
-   ],
-   "id": null,
-   "glyph": "h̤",
-   "capital": "H̤",
-   "long": "h̤h̤",
-   "long_capital": "H̤h̤",
-   "joined": "h̤‍h̤",
-   "joined_capital": "H̤‍h̤"
-  },
-  {
    "letter": "j",
    "marks": [
     "dot"
@@ -3641,19 +3630,6 @@
    "long_capital": "P̤p̤",
    "joined": "p̈‍p̈",
    "joined_capital": "P̤‍p̤"
-  },
-  {
-   "letter": "q",
-   "marks": [
-    "dot"
-   ],
-   "id": null,
-   "glyph": "q̇",
-   "capital": "Q̣",
-   "long": "q̇q̇",
-   "long_capital": "Q̣q̣",
-   "joined": "q̇‍q̇",
-   "joined_capital": "Q̣‍q̣"
   },
   {
    "letter": "r",
@@ -11690,6 +11666,21 @@
    ],
    [
     [
+     "ħ"
+    ],
+    "h̤"
+   ],
+   [
+    [
+     {
+      "p": "ħ",
+      "caps": true
+     }
+    ],
+    "H̤"
+   ],
+   [
+    [
      "j"
     ],
     "j"
@@ -11780,14 +11771,14 @@
    ],
    [
     [
-     "ħ"
+     "q"
     ],
     "k̤"
    ],
    [
     [
      {
-      "p": "ħ",
+      "p": "q",
       "caps": true
      }
     ],
@@ -11972,21 +11963,6 @@
      }
     ],
     "P̦"
-   ],
-   [
-    [
-     "q"
-    ],
-    "q"
-   ],
-   [
-    [
-     {
-      "p": "q",
-      "caps": true
-     }
-    ],
-    "Q"
    ],
    [
     [
@@ -13022,29 +12998,6 @@
     [
      {
       "c": [
-       "h",
-       "twodots"
-      ]
-     }
-    ],
-    "h̤"
-   ],
-   [
-    [
-     {
-      "c": [
-       "h",
-       "twodots"
-      ],
-      "caps": true
-     }
-    ],
-    "H̤"
-   ],
-   [
-    [
-     {
-      "c": [
        "j",
        "dot"
       ]
@@ -13155,29 +13108,6 @@
      }
     ],
     "P̤"
-   ],
-   [
-    [
-     {
-      "c": [
-       "q",
-       "dot"
-      ]
-     }
-    ],
-    "q̇"
-   ],
-   [
-    [
-     {
-      "c": [
-       "q",
-       "dot"
-      ],
-      "caps": true
-     }
-    ],
-    "Q̣"
    ],
    [
     [
@@ -13912,6 +13842,10 @@
    ],
    [
     [
+     "q",
+     {
+      "raw": " "
+     },
      "ħ",
      {
       "raw": " "
@@ -13948,7 +13882,7 @@
       "caps": true
      }
     ],
-    "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
+    "k̤ h̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
    ],
    [
     [
@@ -14364,6 +14298,21 @@
    ],
    [
     [
+     "ħː"
+    ],
+    "h̤‍h̤"
+   ],
+   [
+    [
+     {
+      "p": "ħː",
+      "caps": true
+     }
+    ],
+    "H̤‍h̤"
+   ],
+   [
+    [
      "jː"
     ],
     "j‍j"
@@ -14439,14 +14388,14 @@
    ],
    [
     [
-     "ħː"
+     "qː"
     ],
     "k̤‍k̤"
    ],
    [
     [
      {
-      "p": "ħː",
+      "p": "qː",
       "caps": true
      }
     ],
@@ -14616,21 +14565,6 @@
      }
     ],
     "P̦‍p̦"
-   ],
-   [
-    [
-     "qː"
-    ],
-    "q‍q"
-   ],
-   [
-    [
-     {
-      "p": "qː",
-      "caps": true
-     }
-    ],
-    "Q‍q"
    ],
    [
     [
@@ -15091,31 +15025,6 @@
     [
      {
       "c": [
-       "h",
-       "twodots"
-      ],
-      "long": true
-     }
-    ],
-    "h̤‍h̤"
-   ],
-   [
-    [
-     {
-      "c": [
-       "h",
-       "twodots"
-      ],
-      "long": true,
-      "caps": true
-     }
-    ],
-    "H̤‍h̤"
-   ],
-   [
-    [
-     {
-      "c": [
        "j",
        "dot"
       ],
@@ -15236,31 +15145,6 @@
      }
     ],
     "P̤‍p̤"
-   ],
-   [
-    [
-     {
-      "c": [
-       "q",
-       "dot"
-      ],
-      "long": true
-     }
-    ],
-    "q̇‍q̇"
-   ],
-   [
-    [
-     {
-      "c": [
-       "q",
-       "dot"
-      ],
-      "long": true,
-      "caps": true
-     }
-    ],
-    "Q̣‍q̣"
    ],
    [
     [
@@ -15650,8 +15534,12 @@
     ]
    ],
    [
-    "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
+    "k̤ h̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
     [
+     "q",
+     {
+      "raw": " "
+     },
      "ħ",
      {
       "raw": " "
@@ -17126,6 +17014,10 @@
     ],
     [
      [
+      "q",
+      {
+       "raw": " "
+      },
       "ħ",
       {
        "raw": " "
@@ -17162,7 +17054,7 @@
        "caps": true
       }
      ],
-     "k̤ g̈ l̦ ř f̦ v̦ L̦ Ř"
+     "k̤ h̤ g̈ l̦ ř f̦ v̦ L̦ Ř"
     ],
     [
      [
@@ -17585,6 +17477,10 @@
     ],
     [
      [
+      "q",
+      {
+       "raw": " "
+      },
       "ħ",
       {
        "raw": " "
@@ -17621,7 +17517,7 @@
        "caps": true
       }
      ],
-     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ h̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      [
@@ -18822,6 +18718,10 @@
     ],
     [
      [
+      "q",
+      {
+       "raw": " "
+      },
       "ħ",
       {
        "raw": " "
@@ -18858,7 +18758,7 @@
        "caps": true
       }
      ],
-     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ h̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      [
@@ -20236,6 +20136,10 @@
     ],
     [
      [
+      "q",
+      {
+       "raw": " "
+      },
       "ħ",
       {
        "raw": " "
@@ -20272,7 +20176,7 @@
        "caps": true
       }
      ],
-     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ h̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      [
@@ -21633,6 +21537,10 @@
     ],
     [
      [
+      "q",
+      {
+       "raw": " "
+      },
       "ħ",
       {
        "raw": " "
@@ -21669,7 +21577,7 @@
        "caps": true
       }
      ],
-     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ h̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      [
@@ -22916,6 +22824,10 @@
     ],
     [
      [
+      "q",
+      {
+       "raw": " "
+      },
       "ħ",
       {
        "raw": " "
@@ -22952,7 +22864,7 @@
        "caps": true
       }
      ],
-     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ h̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      [
@@ -24111,6 +24023,10 @@
     ],
     [
      [
+      "q",
+      {
+       "raw": " "
+      },
       "ħ",
       {
        "raw": " "
@@ -24147,7 +24063,7 @@
        "caps": true
       }
      ],
-     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ h̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      [
@@ -24583,6 +24499,10 @@
     ],
     [
      [
+      "q",
+      {
+       "raw": " "
+      },
       "ħ",
       {
        "raw": " "
@@ -24619,7 +24539,7 @@
        "caps": true
       }
      ],
-     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ h̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      [
@@ -25053,8 +24973,12 @@
      ]
     ],
     [
-     "k̤ g̈ l̦ ř f̦ v̦ L̦ Ř",
+     "k̤ h̤ g̈ l̦ ř f̦ v̦ L̦ Ř",
      [
+      "q",
+      {
+       "raw": " "
+      },
       "ħ",
       {
        "raw": " "
@@ -25658,8 +25582,12 @@
      ]
     ],
     [
-     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
+     "k̤ h̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
      [
+      "q",
+      {
+       "raw": " "
+      },
       "ħ",
       {
        "raw": " "
@@ -26225,8 +26153,12 @@
      ]
     ],
     [
-     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
+     "k̤ h̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
      [
+      "q",
+      {
+       "raw": " "
+      },
       "ħ",
       {
        "raw": " "
@@ -26803,8 +26735,12 @@
      ]
     ],
     [
-     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
+     "k̤ h̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
      [
+      "q",
+      {
+       "raw": " "
+      },
       "ħ",
       {
        "raw": " "
@@ -27371,8 +27307,12 @@
      ]
     ],
     [
-     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
+     "k̤ h̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
      [
+      "q",
+      {
+       "raw": " "
+      },
       "ħ",
       {
        "raw": " "
@@ -27930,8 +27870,12 @@
      ]
     ],
     [
-     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
+     "k̤ h̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
      [
+      "q",
+      {
+       "raw": " "
+      },
       "ħ",
       {
        "raw": " "

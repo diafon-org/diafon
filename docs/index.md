@@ -18,12 +18,12 @@ changes the other letters of the same family in the same way:
 
 ## The letters
 
-Diafon uses twenty-five Latin letters, every one but y: five vowels,
-a e i o u, and twenty consonants. Each letter stands for one sound.
+Diafon uses twenty-four Latin letters, every one but q and y: five vowels,
+a e i o u, and nineteen consonants. Each letter stands for one sound.
 
-Most consonants sound as English writes them. Five do not: c is /t͡s/, x is
-/d͡z/, q is /q/, j is /j/ and w is /w/. These are the letters Latin spelling
-wastes: c and q repeat k or s, x is only k plus s, and j and w are i and u
+Most consonants sound as English writes them. Four do not: c is /t͡s/, x is
+/d͡z/, j is /j/ and w is /w/. These are the letters Latin spelling
+wastes: c repeats k or s, x is only k plus s, and j and w are i and u
 in another role.
 
 ## The marks
@@ -84,7 +84,9 @@ English /ɹ/. <span class="ug">ṛ</span> covers both the tap and the flap,
 
 The double dot below marks a language's own variant of a consonant, such as
 the retroflex <span class="ug">t̤ d̤</span> of Hindi or the emphatics of
-Arabic. The plain letter is a fair approximation of it.
+Arabic. The plain letter is a fair approximation of it. The sounds made
+furthest back are written the same way: <span class="ug">k̤</span> is /q/, the
+k further back, and <span class="ug">h̤</span> is /ħ/, the h further back.
 
 --8<-- "sounds-consonants.html"
 
