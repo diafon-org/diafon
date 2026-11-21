@@ -36,6 +36,17 @@ def today(x):
     return x
 
 
+def presplit():
+    """The spec from before the split, as it holds today: the mark as it is now, and without the
+    inputs that typed the letter q (kq): q left the alphabet, /q/ is k̤, typed ky."""
+    old = today(json.load(open(PRESPLIT, encoding='utf-8')))
+    gone = lambda t: 'kq' in t.lower()
+    old['forms'] = [f for f in old['forms'] if not gone(f['form'])]
+    old['vectors'] = {k: ([x for x in v if not gone(x if isinstance(x, str) else x[0])] if isinstance(v, list)
+                          else {t: s for t, s in v.items() if not gone(t)}) for k, v in old['vectors'].items()}
+    return old
+
+
 def trace(eng, text):
     out, buf = [], ''
     for ch in text:
@@ -65,7 +76,7 @@ def vectors(eng, pid):
         return {'render': [[t, eng.render(t)] for t in texts],
                 'joined': [[t, eng.render(t, join=True)] for t in texts if eng.render(t, join=True) != eng.render(t)],
                 'stream': {t: trace(eng, t) for t in MINIMAL[:6]}}
-    old = json.load(open(PRESPLIT, encoding='utf-8'))['vectors']
+    old = presplit()['vectors']
     render = []
     for f in eng.inventory():
         for x in (f, f[0].upper() + f[1:], f.upper()):

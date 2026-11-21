@@ -1,9 +1,10 @@
 # minimal-hu-v1: Hungarian, English and Mandarin sounds on two operators.
 #
-# Twenty-four letters are points as they stand; y and q are the operators.
+# The alphabet's twenty-four letters are points as they stand; y and q, the
+# two letters it leaves out, are the operators.
 # - y marks the letter before it: s z c x t d n take the anchor (ș z̦ c̦ x̦ ț
 #   d̦ n̦), u o i e the flip (ü ö ï ë); ay is ạ, ry is r̈.
-# - q after t d n k is the dot (ṭ ḍ ṇ ḳ); q after a vowel makes it long (aq á,
+# - q after t d n k s z c x is the dot (ṭ ḍ ṇ ḳ, and the soft ṣ ẓ c̣ x̣); q after a vowel makes it long (aq á,
 #   oyq ő).
 # - A doubled consonant is the long one, and an operator after it applies
 #   to both: ssy is șș.
@@ -65,12 +66,16 @@ keys:
   v: v
   s: s
   sy: ʃ                     # ș
+  sq: ɕ                     # ṣ
   z: z
   zy: ʒ                     # z̦
+  zq: ʑ                     # ẓ
   c: ts                     # c
   cy: tʃ                    # c̦
+  cq: tɕ                    # c̣
   x: dz                     # x
   xy: dʒ                    # x̦
+  xq: dʑ                    # x̣
   h: h
   m: m
   n: n

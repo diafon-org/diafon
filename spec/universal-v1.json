@@ -116,13 +116,6 @@
    "point": "kʲ",
    "long": true
   },
-  "kq": {
-   "to": [
-    "q"
-   ],
-   "point": "q",
-   "long": true
-  },
   "kx": {
    "to": [
     "k",
@@ -136,15 +129,7 @@
     "k",
     "twodots"
    ],
-   "point": "ħ",
-   "long": true
-  },
-  "kqx": {
-   "to": [
-    "q",
-    "dot"
-   ],
-   "point": null,
+   "point": "q",
    "long": true
   },
   "b": {
@@ -523,7 +508,7 @@
     "h",
     "twodots"
    ],
-   "point": null,
+   "point": "ħ",
    "long": true
   },
   "a": {
@@ -2178,54 +2163,6 @@
    [
     "KJW",
     "K̦k̦"
-   ],
-   [
-    "kq",
-    "q"
-   ],
-   [
-    "Kq",
-    "Q"
-   ],
-   [
-    "KQ",
-    "Q"
-   ],
-   [
-    "kqw",
-    "qq"
-   ],
-   [
-    "Kqw",
-    "Qq"
-   ],
-   [
-    "KQW",
-    "Qq"
-   ],
-   [
-    "kqx",
-    "q̇"
-   ],
-   [
-    "Kqx",
-    "Q̣"
-   ],
-   [
-    "KQX",
-    "Q̣"
-   ],
-   [
-    "kqxw",
-    "q̇q̇"
-   ],
-   [
-    "Kqxw",
-    "Q̣q̣"
-   ],
-   [
-    "KQXW",
-    "Q̣q̣"
    ],
    [
     "kx",
@@ -3924,20 +3861,12 @@
     "k̦‍k̦"
    ],
    [
-    "kqw",
-    "q‍q"
-   ],
-   [
     "kxw",
     "ḳ‍ḳ"
    ],
    [
     "kyw",
     "k̤‍k̤"
-   ],
-   [
-    "kqxw",
-    "q̇‍q̇"
    ],
    [
     "lw",
@@ -4192,20 +4121,12 @@
     "K̦‍k̦"
    ],
    [
-    "Kqw",
-    "Q‍q"
-   ],
-   [
     "Kxw",
     "Ḳ‍ḳ"
    ],
    [
     "Kyw",
     "K̤‍k̤"
-   ],
-   [
-    "Kqxw",
-    "Q̣‍q̣"
    ],
    [
     "Lw",
@@ -4393,8 +4314,7 @@
    "sxy",
    "lxy",
    "tcy",
-   "dcy",
-   "kqy"
+   "dcy"
   ],
   "stream": {
    "sjok sewp njawr": [

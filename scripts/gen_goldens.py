@@ -152,11 +152,17 @@ def generate():
 #   caps      a word typed with capital operators (SJ) is the same script
 #             text as Sj, so a lexicon now finds it
 #   alphabet  a spelling the alphabet changed on purpose since (CHANGED), in that stage's column only
+#   letterq   a text typed with kq, the letter q the alphabet no longer has
 #   inside    a prefix lexicon's stem that ended inside a typed form (hely in
 #             heixtx) used to leave the operator over; a letter is not cut
 
 # spellings the alphabet has changed since the split, on purpose: their rows no longer bind
-CHANGED = {'pl'}      # 2026-11-21: the hush on the anchor, the soft series on the dot
+CHANGED = {'pl', 'zh'}      # 2026-11-21: the hush on the anchor, the soft series on the dot (Polish; Mandarin's j q x)
+
+
+def letter_q(t):
+    """A typed text with the old form of the letter q (kq): q left the alphabet, /q/ is k̤, typed ky."""
+    return 'kq' in t.lower()
 
 
 def today(x):
@@ -218,7 +224,7 @@ def check():
         if name == 'spec.json':
             continue
         rows = frozen(name)
-        counts, bad = {'doubled': 0, 'caps': 0, 'inside': 0, 'alphabet': 0}, []
+        counts, bad = {'doubled': 0, 'caps': 0, 'inside': 0, 'alphabet': 0, 'letterq': 0}, []
         stage = stages.load(name[5:7]) if name.startswith('read/') else None
         for old in rows:
             old = today(json.loads(json.dumps(old)))        # the reverse anchor is the double dot below now
@@ -227,6 +233,8 @@ def check():
                 if new != old:
                     if new[2] == old[2] and doubled(old[1]) and same_script(old[1], new[1]):
                         counts['doubled'] += 1
+                    elif name[5:7] in CHANGED:
+                        counts['alphabet'] += 1     # a spelling the alphabet reads differently now
                     else:
                         bad.append((old, new))
                 continue
@@ -243,7 +251,9 @@ def check():
                 continue
             new = json.loads(json.dumps(row(old[0])))
             if new != old:
-                if caps_operators(old[0]) and new[:3] == old[:3]:
+                if letter_q(old[0]):
+                    counts['letterq'] += 1
+                elif caps_operators(old[0]) and new[:3] == old[:3]:
                     counts['caps'] += 1
                 elif new[:3] == old[:3] and all(inside(old[0], c) for c in old[3] if old[3][c] != new[3][c]):
                     counts['inside'] += 1

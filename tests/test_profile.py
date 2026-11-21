@@ -94,7 +94,7 @@ def test_vectors():
 
 
 def test_universal_v1_is_the_old_typing():
-    old = compile_profile.today(json.load(open(compile_profile.PRESPLIT, encoding='utf-8')))      # with the mark as it is now
+    old = compile_profile.presplit()      # with the mark as it is now, without the letter q
     eng = Engine(profile.compiled('universal-v1'))
     check(eng, old['vectors'])
     for f in old['forms']:

@@ -38,10 +38,8 @@ keys:
 
   k: k                            # k
   kj: kʲ                          # k̦
-  kq: q                           # q
   kx: x                           # ḳ
-  ky: ħ                           # k̤
-  kqx: q+dot                      # q̇
+  ky: q                           # k̤
 
   b: b                            # b
   bj: bʲ                          # b̦
@@ -102,7 +100,7 @@ keys:
   h: h                            # h
   hj: h+anchor                    # h̦
   hx: ʔ                           # ḥ
-  hy: h+twodots                   # h̤
+  hy: ħ                           # h̤
 
   a: a                            # a
   ac: æ                           # ä

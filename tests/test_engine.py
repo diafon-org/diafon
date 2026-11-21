@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(
 import universal_v1 as engine
 from forms import aggregate
 
-SEQS = {'aix', 'aux', 'ojix', 'oix', 'oicx', 'ecicx', 'ocux', 'eix', 'oux', 'ojicx', 'ejix', 'eqicx', 'ajux', 'tyh', 'dyh', 'rch', 'pf', 'ph', 'th', 'kh', 'bh', 'dh', 'gh', 'tch', 'tqh', 'dqh', 'tqyh'}
+SEQS = {'aix', 'aux', 'ojix', 'oix', 'oicx', 'ecicx', 'ocux', 'eix', 'oux', 'ojicx', 'ejix', 'eqicx', 'ajux', 'tyh', 'dyh', 'rch', 'pf', 'ph', 'th', 'kh', 'bh', 'dh', 'gh', 'tch', 'tqh', 'dqh', 'tqyh', 'tcxh'}
 
 
 def in_use_forms():

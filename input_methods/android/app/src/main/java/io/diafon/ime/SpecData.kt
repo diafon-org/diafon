@@ -9,9 +9,9 @@ data class Stage(val code: String, val name: String, val long: String, val forms
 
 object SpecData {
     const val GENERATED = "2026-11-21"
-    const val SOURCE = "f5201a6"
-    val DESCENDERS: Set<Char> = setOf('g', 'j', 'p', 'q', 'y')
-    val WHOLE: Map<String, String> = mapOf("tc" to "c", "dc" to "x", "tq" to "c̦", "dq" to "x̦", "kq" to "q", "ix" to "j", "ux" to "w", "icx" to "j̈", "ucx" to "ẅ", "aq" to "r̈")
+    const val SOURCE = "8a9141d"
+    val DESCENDERS: Set<Char> = setOf('g', 'j', 'p', 'y')
+    val WHOLE: Map<String, String> = mapOf("tc" to "c", "dc" to "x", "tq" to "c̦", "dq" to "x̦", "ix" to "j", "ux" to "w", "icx" to "j̈", "ucx" to "ẅ", "aq" to "r̈")
     val MARKS: Map<String, Mark> = mapOf(
         "anchor" to Mark("̦", "̓"),
         "dot" to Mark("̣", "̇"),
@@ -32,5 +32,5 @@ object SpecData {
         "pl" to Stage("pl", "Polish", "double", mapOf("p" to "p", "b" to "b", "t" to "t", "d" to "d", "k" to "k", "g" to "g", "f" to "f", "v" to "w", "s" to "s", "z" to "z", "sx" to "ś", "zx" to "ź", "sj" to "sz", "zj" to "ż", "tc" to "c", "dc" to "dz", "tcx" to "ć", "dcx" to "dź", "tq" to "cz", "dq" to "dż", "nj" to "ń", "kx" to "ch", "m" to "m", "n" to "n", "l" to "l", "ux" to "ł", "r" to "r", "ix" to "j", "a" to "a", "e" to "e", "ey" to "ę", "i" to "i", "o" to "o", "oy" to "ą", "u" to "u", "uc" to "y"), mapOf(), "dobra notc, kokxani", mapOf("sx" to "s", "zx" to "z", "tcx" to "c", "dcx" to "dz", "nj" to "n"), true, mapOf("pj" to "p", "bj" to "b", "fj" to "f", "vj" to "w", "mj" to "m", "kj" to "k", "gj" to "g")),
         "sw" to Stage("sw", "Swahili", "double", mapOf("p" to "p", "b" to "b", "t" to "t", "d" to "d", "k" to "k", "g" to "g", "f" to "f", "v" to "v", "s" to "s", "z" to "z", "sj" to "sh", "tq" to "ch", "dj" to "j", "tx" to "th", "dx" to "dh", "kx" to "kh", "gx" to "gh", "nj" to "ny", "nx" to "ng'", "h" to "h", "m" to "m", "n" to "n", "l" to "l", "r" to "r", "ix" to "y", "ux" to "w", "a" to "a", "e" to "e", "i" to "i", "o" to "o", "u" to "u"), mapOf(), "habari za asubuhi, karibu sana", mapOf(), false, mapOf()),
         "tr" to Stage("tr", "Turkish", "double", mapOf("p" to "p", "b" to "b", "t" to "t", "d" to "d", "k" to "k", "g" to "g", "f" to "f", "v" to "v", "s" to "s", "z" to "z", "sj" to "ş", "zj" to "j", "tq" to "ç", "dq" to "c", "h" to "h", "m" to "m", "n" to "n", "l" to "l", "rc" to "r", "ix" to "y", "a" to "a", "aw" to "â", "e" to "e", "ec" to "ö", "i" to "i", "ic" to "ü", "o" to "o", "u" to "u", "uc" to "ı"), mapOf(), "gicnesjli birc gicn, iixi gicnlerc", mapOf(), false, mapOf()),
-        "zh" to Stage("zh", "Mandarin", "double", mapOf(), mapOf(), "ni3 kxaux3, sjuc4 tqie4", mapOf(), false, mapOf()))
+        "zh" to Stage("zh", "Mandarin", "double", mapOf(), mapOf(), "ni3 kxaux3, sjuc4 tcxie4", mapOf(), false, mapOf()))
 }

@@ -36,11 +36,12 @@ A profile is data, compiled to a table. It is immutable by id: a change to
   plain ASCII. Twenty base letters, the operators `c j q x y`, `w` for
   length, digits for tones. Its conformance is the spec as it was before
   the split (`tests/goldens/spec.json`): every typing vector reproduces
-  byte for byte.
+  byte for byte. The one form gone since is `kq`: the alphabet has no
+  letter q now, /q/ is k̤, typed `ky`.
 - `minimal-hu-v1`: Hungarian, English and Mandarin sounds on two operators.
   Twenty-four letters are points as they stand; `y` marks the letter before
-  it (`sy` ș, `cy` c̦, `ny` n̦, `uy` ü, `oy` ö), `q` is the dot after t d n
-  (and `kq` ḳ) and length after a vowel (`aq` á, `oyq` ő). A doubled consonant is the
+  it (`sy` ș, `cy` c̦, `ny` n̦, `uy` ü, `oy` ö), `q` is the dot after t d n k
+  (`kq` ḳ) and after s z c x (the soft `sq` ṣ, `cq` c̣) and length after a vowel (`aq` á, `oyq` ő). A doubled consonant is the
   long one (`ssy` șș). A doubled operator is the plain letter (`cityy`
   city), and so is one with nothing to apply to (you, my, quick). A digit
   after a point is its tone, so Mandarin is typed with the same keys

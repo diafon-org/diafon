@@ -1,7 +1,7 @@
 {
  "name": "Diafon",
  "generated": "2026-11-21",
- "source": "f5201a6",
+ "source": "8a9141d",
  "alphabet": {
   "consonant_bases": [
    "b",
@@ -60,7 +60,6 @@
    "g",
    "j",
    "p",
-   "q",
    "y"
   ],
   "whole_letters": {
@@ -68,7 +67,6 @@
    "dc": "x",
    "tq": "c̦",
    "dq": "x̦",
-   "kq": "q",
    "ix": "j",
    "ux": "w",
    "icx": "j̈",
@@ -1784,29 +1782,6 @@
    "primary": "tʃ"
   },
   {
-   "form": "kq",
-   "glyph": "q",
-   "capital": "Q",
-   "type": "point",
-   "segments": 1,
-   "readings": {
-    "q": {
-     "languages": [
-      "ar",
-      "fa"
-     ],
-     "native": 460.0
-    },
-    "qʼ": {
-     "languages": [
-      "ka"
-     ],
-     "native": 3.8
-    }
-   },
-   "primary": "q"
-  },
-  {
    "form": "dq",
    "glyph": "x̦",
    "capital": "X̦",
@@ -2020,9 +1995,10 @@
     },
     "ɕ": {
      "languages": [
-      "pl"
+      "pl",
+      "zh"
      ],
-     "native": 40.0
+     "native": 980.0
     }
    },
    "primary": "ɕ"
@@ -2220,14 +2196,21 @@
    "type": "point",
    "segments": 1,
    "readings": {
-    "ħ": {
+    "q": {
      "languages": [
-      "ar"
+      "ar",
+      "fa"
      ],
-     "native": 380.0
+     "native": 460.0
+    },
+    "qʼ": {
+     "languages": [
+      "ka"
+     ],
+     "native": 3.8
     }
    },
-   "primary": null
+   "primary": "q"
   },
   {
    "form": "dy",
@@ -2281,6 +2264,22 @@
       "ta"
      ],
      "native": 579.0
+    }
+   },
+   "primary": null
+  },
+  {
+   "form": "hy",
+   "glyph": "h̤",
+   "capital": "H̤",
+   "type": "nasal",
+   "segments": 1,
+   "readings": {
+    "ħ": {
+     "languages": [
+      "ar"
+     ],
+     "native": 380.0
     }
    },
    "primary": null
@@ -2753,9 +2752,10 @@
    "readings": {
     "tɕ": {
      "languages": [
-      "pl"
+      "pl",
+      "zh"
      ],
-     "native": 40.0
+     "native": 980.0
     },
     "tsʲ": {
      "languages": [
@@ -3228,6 +3228,22 @@
    "primary": null
   },
   {
+   "form": "tcxh",
+   "glyph": "c̣h",
+   "capital": "C̣h",
+   "type": "?",
+   "segments": 2,
+   "readings": {
+    "tɕʰ": {
+     "languages": [
+      "zh"
+     ],
+     "native": 940.0
+    }
+   },
+   "primary": null
+  },
+  {
    "form": "oicx",
    "glyph": "oj̈",
    "capital": "Oj̈",
@@ -3356,6 +3372,12 @@
       "freq": "M"
      }
     ],
+    "hy": [
+     {
+      "ipa": "ħ",
+      "freq": "M"
+     }
+    ],
     "i": [
      {
       "ipa": "i",
@@ -3380,12 +3402,6 @@
       "freq": "L"
      }
     ],
-    "kq": [
-     {
-      "ipa": "q",
-      "freq": "M"
-     }
-    ],
     "kx": [
      {
       "ipa": "x",
@@ -3394,7 +3410,7 @@
     ],
     "ky": [
      {
-      "ipa": "ħ",
+      "ipa": "q",
       "freq": "M"
      }
     ],
@@ -5146,15 +5162,15 @@
       "freq": "L"
      }
     ],
-    "kq": [
-     {
-      "ipa": "q",
-      "freq": "M"
-     }
-    ],
     "kx": [
      {
       "ipa": "x",
+      "freq": "M"
+     }
+    ],
+    "ky": [
+     {
+      "ipa": "q",
       "freq": "M"
      }
     ],
@@ -6020,15 +6036,15 @@
       "freq": "M"
      }
     ],
-    "kq": [
-     {
-      "ipa": "q",
-      "freq": "X"
-     }
-    ],
     "kx": [
      {
       "ipa": "x",
+      "freq": "X"
+     }
+    ],
+    "ky": [
+     {
+      "ipa": "q",
       "freq": "X"
      }
     ],
@@ -7067,15 +7083,15 @@
       "freq": "L"
      }
     ],
-    "kq": [
-     {
-      "ipa": "qʼ",
-      "freq": "M"
-     }
-    ],
     "kx": [
      {
       "ipa": "χ",
+      "freq": "M"
+     }
+    ],
+    "ky": [
+     {
+      "ipa": "qʼ",
       "freq": "M"
      }
     ],
@@ -10103,6 +10119,12 @@
       "freq": "L"
      }
     ],
+    "sx": [
+     {
+      "ipa": "ɕ",
+      "freq": "M"
+     }
+    ],
     "t": [
      {
       "ipa": "t",
@@ -10118,6 +10140,18 @@
     "tch": [
      {
       "ipa": "tsʰ",
+      "freq": "M"
+     }
+    ],
+    "tcx": [
+     {
+      "ipa": "tɕ",
+      "freq": "M"
+     }
+    ],
+    "tcxh": [
+     {
+      "ipa": "tɕʰ",
       "freq": "M"
      }
     ],
@@ -10763,7 +10797,7 @@
    "long": "double",
    "forms": {},
    "caps": {},
-   "sample": "ni3 kxaux3, sjuc4 tqie4",
+   "sample": "ni3 kxaux3, sjuc4 tcxie4",
    "read": {},
    "before_i": {},
    "i_softens": false,
@@ -11339,18 +11373,6 @@
     "C̦"
    ],
    [
-    "kq",
-    "q"
-   ],
-   [
-    "Kq",
-    "Q"
-   ],
-   [
-    "KQ",
-    "Q"
-   ],
-   [
     "dq",
     "x̦"
    ],
@@ -11589,6 +11611,18 @@
    [
     "NY",
     "N̤"
+   ],
+   [
+    "hy",
+    "h̤"
+   ],
+   [
+    "Hy",
+    "H̤"
+   ],
+   [
+    "HY",
+    "H̤"
    ],
    [
     "ay",
@@ -12023,6 +12057,10 @@
     "d̤h"
    ],
    [
+    "tcxh",
+    "c̣h"
+   ],
+   [
     "oicx",
     "oj̈"
    ],
@@ -12243,20 +12281,12 @@
     "k̦‍k̦"
    ],
    [
-    "kqw",
-    "q‍q"
-   ],
-   [
     "kxw",
     "ḳ‍ḳ"
    ],
    [
     "kyw",
     "k̤‍k̤"
-   ],
-   [
-    "kqxw",
-    "q̇‍q̇"
    ],
    [
     "lw",
@@ -12511,20 +12541,12 @@
     "K̦‍k̦"
    ],
    [
-    "Kqw",
-    "Q‍q"
-   ],
-   [
     "Kxw",
     "Ḳ‍ḳ"
    ],
    [
     "Kyw",
     "K̤‍k̤"
-   ],
-   [
-    "Kqxw",
-    "Q̣‍q̣"
    ],
    [
     "Lw",
@@ -14923,6 +14945,10 @@
      "ș"
     ],
     [
+     "sx",
+     "ṣ"
+    ],
+    [
      "t",
      "t"
     ],
@@ -14933,6 +14959,14 @@
     [
      "tch",
      "ch"
+    ],
+    [
+     "tcx",
+     "c̣"
+    ],
+    [
+     "tcxh",
+     "c̣h"
     ],
     [
      "th",
@@ -14984,7 +15018,7 @@
     ],
     [
      "tqi3 sjuc3 tquc1",
-     "ji3 shi3 zhi1"
+     "c̦i3 shi3 zhi1"
     ],
     [
      "Diafon: ix i ux.",
@@ -15395,14 +15429,6 @@
      "Tq"
     ],
     [
-     "q",
-     "kq"
-    ],
-    [
-     "Q",
-     "Kq"
-    ],
-    [
      "x̦",
      "dq"
     ],
@@ -15561,6 +15587,14 @@
     [
      "N̤",
      "Ny"
+    ],
+    [
+     "h̤",
+     "hy"
+    ],
+    [
+     "H̤",
+     "Hy"
     ],
     [
      "à",
@@ -15959,20 +15993,12 @@
      "kjw"
     ],
     [
-     "q‍q",
-     "kqw"
-    ],
-    [
      "ḳ‍ḳ",
      "kxw"
     ],
     [
      "k̤‍k̤",
      "kyw"
-    ],
-    [
-     "q̇‍q̇",
-     "kqxw"
     ],
     [
      "l‍l",
@@ -16227,20 +16253,12 @@
      "Kjw"
     ],
     [
-     "Q‍q",
-     "Kqw"
-    ],
-    [
      "Ḳ‍ḳ",
      "Kxw"
     ],
     [
      "K̤‍k̤",
      "Kyw"
-    ],
-    [
-     "Q̣‍q̣",
-     "Kqxw"
     ],
     [
      "L‍l",
@@ -18044,7 +18062,7 @@
       "hoswuw aclmac"
      ],
      [
-      "ji3 shi3 zhi1",
+      "c̦i3 shi3 zhi1",
       "tqi3 sjuc3 tquc1"
      ],
      [
@@ -18077,7 +18095,7 @@
      ],
      [
       "ni3 hao3, shi4 jie4",
-      "ni3 kxaux3, sjuc4 tqie4"
+      "ni3 kxaux3, sjuc4 tcxie4"
      ]
     ]
    }
@@ -18465,55 +18483,55 @@
     "ni3 hao3, shi4 jie4",
     "stage:zh",
     "script",
-    "niˇ ḳawˇ, șïˋ c̦ieˋ"
+    "niˇ ḳawˇ, șïˋ c̣ieˋ"
    ],
    [
     "ni3 hao3, shi4 jie4",
     "stage:zh",
     "transport",
-    "ni3 kxaux3, sjuc4 tqie4"
+    "ni3 kxaux3, sjuc4 tcxie4"
    ],
    [
     "ni3 hao3, shi4 jie4",
     "stage:zh",
     "stage:cs",
-    "ni3 chaw3, šï4 čie4"
+    "ni3 chaw3, šï4 c̣ie4"
    ],
    [
     "ni3 hao3, shi4 jie4",
     "stage:zh",
     "stage:en",
-    "ni3 ḳaw3, șï4 c̦ie4"
+    "ni3 ḳaw3, șï4 c̣ie4"
    ],
    [
     "ni3 hao3, shi4 jie4",
     "stage:zh",
     "stage:fi",
-    "ni3 ḳaw3, šï4 c̦ie4"
+    "ni3 ḳaw3, šï4 c̣ie4"
    ],
    [
     "ni3 hao3, shi4 jie4",
     "stage:zh",
     "stage:hu",
-    "ni3 ḳaw3, sï4 csie4"
+    "ni3 ḳaw3, sï4 c̣ie4"
    ],
    [
     "ni3 hao3, shi4 jie4",
     "stage:zh",
     "stage:pl",
-    "ni3 chał3, szy4 czie4"
+    "ni3 chał3, szy4 cie4"
    ],
    [
     "ni3 hao3, shi4 jie4",
     "stage:zh",
     "stage:sw",
-    "ni3 khaw3, shï4 chie4"
+    "ni3 khaw3, shï4 c̣ie4"
    ],
    [
     "ni3 hao3, shi4 jie4",
     "stage:zh",
     "stage:tr",
-    "ni3 ḳaw3, şı4 çie4"
+    "ni3 ḳaw3, şı4 c̣ie4"
    ],
    [
     "șok sép n̦ár",
@@ -18652,7 +18670,7 @@
     [
      "zh",
      "xi1",
-     "sji1"
+     "sxi1"
     ],
     [
      "zh",
@@ -19069,7 +19087,7 @@
     [
      "stage:zh",
      "Ni3 hao3, shi4 jie4!",
-     "Ni3 kxaux3, sjuc4 tqie4!"
+     "Ni3 kxaux3, sjuc4 tcxie4!"
     ],
     [
      "stage:zh",
@@ -19120,7 +19138,7 @@
     ],
     [
      "stage:zh",
-     "Ni3 kxaux3, sjuc4 tqie4!",
+     "Ni3 kxaux3, sjuc4 tcxie4!",
      "Ni3 hao3, shi4 jie4!"
     ],
     [
@@ -19298,7 +19316,7 @@
    "fold": null,
    "foreign": null,
    "lengthen": {},
-   "sample": "ni3 kxaux3, sjuc4 tqie4",
+   "sample": "ni3 kxaux3, sjuc4 tcxie4",
    "output": true,
    "sizes": {
     "read": 404,

@@ -38,7 +38,7 @@ OPS = set('cjqxwy')
 
 # the grammar as the ports still carry it: forms that type a whole letter of
 # the script, and the partner letter the flip is drawn on
-WHOLE = {'tc': ('c', ()), 'dc': ('x', ()), 'tq': ('c', ('anchor',)), 'dq': ('x', ('anchor',)), 'kq': ('q', ()),
+WHOLE = {'tc': ('c', ()), 'dc': ('x', ()), 'tq': ('c', ('anchor',)), 'dq': ('x', ('anchor',)),
          'ix': ('j', ()), 'ux': ('w', ()), 'icx': ('j', ('flip',)), 'ucx': ('w', ('flip',)), 'aq': ('r', ('flip',))}
 PARTNER = {'i': 'u', 'u': 'i', 'e': 'o', 'o': 'e', 'a': 'a'}
 
