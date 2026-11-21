@@ -337,8 +337,9 @@ double dot below instead (U+0324; on g it floats above as U+0308): t̤ d̤ n̤
 for the retroflexes of Hindi, Bengali and Tamil, t̤ d̤ s̤ z̤ for Arabic's
 emphatics, k̤ g̈ for its pharyngeals. One dot is a nearby sound, two dots
 the one further back. The consonant marks are the anchor, the dot and the
-double dot below. The Diafon fonts do not draw the new mark yet: they
-still carry the reverse anchor's shapes and have no U+0324.
+double dot below. The Diafon fonts show the new mark as Noto draws it
+(U+0324), not yet fitted to each letter; the reverse anchor's shapes are
+still in them, unused.
 
 ## Arguments against
 
