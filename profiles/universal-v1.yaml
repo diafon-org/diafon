@@ -33,8 +33,8 @@ keys:
   tq: tʃ                          # c̦
   tx: θ                           # ṭ
   ty: ʈ                           # t̖
-  tcx: c+dot                      # c̣
-  tqy: tʂ                         # c̖
+  tcx: tɕ                         # c̣
+  tqy: c+reverse                  # c̖
 
   k: k                            # k
   kj: kʲ                          # k̦
@@ -54,8 +54,8 @@ keys:
   dq: dʒ                          # x̦
   dx: ð                           # ḍ
   dy: ɖ                           # d̖
-  dcx: x+dot                      # x̣
-  dqy: dʐ                         # x̖
+  dcx: dʑ                         # x̣
+  dqy: x+reverse                  # x̖
 
   g: g                            # g
   gj: gʲ                          # g̓
@@ -73,13 +73,13 @@ keys:
 
   s: s                            # s
   sj: ʃ                           # ș
-  sx: s+dot                       # ṣ
-  sjy: ʂ                          # s̖
+  sx: ɕ                           # ṣ
+  sjy: sˤ                         # s̖
 
   z: z                            # z
   zj: ʒ                           # z̦
-  zx: z+dot                       # ẓ
-  zjy: ʐ                          # z̖
+  zx: ʑ                           # ẓ
+  zjy: ðˤ                         # z̖
 
   m: m                            # m
   mj: mʲ                          # m̦

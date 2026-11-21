@@ -151,8 +151,13 @@ def generate():
 #             is script, so a word a lexicon reads comes back typed long
 #   caps      a word typed with capital operators (SJ) is the same script
 #             text as Sj, so a lexicon now finds it
+#   alphabet  a spelling the alphabet changed on purpose since (CHANGED), in that stage's column only
 #   inside    a prefix lexicon's stem that ended inside a typed form (hely in
 #             heixtx) used to leave the operator over; a letter is not cut
+
+# spellings the alphabet has changed since the split, on purpose: their rows no longer bind
+CHANGED = {'pl'}      # 2026-11-21: the hush on the anchor, the soft series on the dot
+
 
 def frozen(name):
     path = os.path.join(OUT, name)
@@ -201,7 +206,7 @@ def check():
         if name == 'spec.json':
             continue
         rows = frozen(name)
-        counts, bad = {'doubled': 0, 'caps': 0, 'inside': 0}, []
+        counts, bad = {'doubled': 0, 'caps': 0, 'inside': 0, 'alphabet': 0}, []
         stage = stages.load(name[5:7]) if name.startswith('read/') else None
         for old in rows:
             old = json.loads(json.dumps(old))
@@ -219,6 +224,8 @@ def check():
                 if new != old:
                     if doubled(old[3]) and same_script(old[3], new[3]) and new[4:] == old[4:]:
                         counts['doubled'] += 1
+                    elif old[0] in CHANGED or (new[:6] == old[:6] and all(c in CHANGED for c in old[6] if old[6][c] != new[6][c])):
+                        counts['alphabet'] += 1     # a text in a changed spelling, or its column of another text
                     else:
                         bad.append((old, new))
                 continue
@@ -228,6 +235,8 @@ def check():
                     counts['caps'] += 1
                 elif new[:3] == old[:3] and all(inside(old[0], c) for c in old[3] if old[3][c] != new[3][c]):
                     counts['inside'] += 1
+                elif new[:3] == old[:3] and all(c in CHANGED for c in old[3] if old[3][c] != new[3][c]):
+                    counts['alphabet'] += 1
                 else:
                     bad.append((old, new))
         noted = ', '.join(f'{n} {k}' for k, n in counts.items() if n)

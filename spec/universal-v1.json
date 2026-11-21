@@ -90,7 +90,7 @@
     "c",
     "dot"
    ],
-   "point": null,
+   "point": "tɕ",
    "long": true
   },
   "tqy": {
@@ -98,7 +98,7 @@
     "c",
     "reverse"
    ],
-   "point": "tʂ",
+   "point": null,
    "long": true
   },
   "k": {
@@ -229,7 +229,7 @@
     "x",
     "dot"
    ],
-   "point": null,
+   "point": "dʑ",
    "long": true
   },
   "dqy": {
@@ -237,7 +237,7 @@
     "x",
     "reverse"
    ],
-   "point": "dʐ",
+   "point": null,
    "long": true
   },
   "g": {
@@ -345,7 +345,7 @@
     "s",
     "dot"
    ],
-   "point": null,
+   "point": "ɕ",
    "long": true
   },
   "sjy": {
@@ -353,7 +353,7 @@
     "s",
     "reverse"
    ],
-   "point": "ʂ",
+   "point": "sˤ",
    "long": true
   },
   "z": {
@@ -376,7 +376,7 @@
     "z",
     "dot"
    ],
-   "point": null,
+   "point": "ʑ",
    "long": true
   },
   "zjy": {
@@ -384,7 +384,7 @@
     "z",
     "reverse"
    ],
-   "point": "ʐ",
+   "point": "ðˤ",
    "long": true
   },
   "m": {
