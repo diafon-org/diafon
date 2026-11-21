@@ -13,13 +13,12 @@ word's own first, then from the third letter those of the words it begins
 `:D` `<3`) offers its emoji too, read from the keys themselves, not the field. A tap puts the emoji in place of the word or the emoticon. A word typed as
 usually spelled, with or without accents (`kutya`, `sziv`, `home`), is read
 by your own languages' spellings too, in any mode: in full first, then on its
-base letters. English is read through its lexicon's reading, carried as sorted
-lines searched in place (docs/lexicon/en.read.tsv, 2.2 MB; the parsed lexicon
-would take 40 MB). In
+base letters, by the letters of those spellings alone (no dictionary: an
+English word in English spelling finds nothing). In
 Mandarin the digits stay, since they write the tones. Select text in any
-spelling and the strip offers to convert it. The emoji table (data/emoji.json, 220 KB: 656 emoji, 11,442 words) and the
-English reading are the only word lists the keyboard carries: no
-prediction, no network, no full access.
+spelling and the strip offers to convert it. The emoji table (data/emoji.json, 220 KB: 656 emoji, 11,442 words) is the
+only word list the keyboard carries: no dictionary, no prediction, no
+network, no full access.
 
 **State:** the keystroke logic is checked on a Mac. The app and the keyboard
 build for iOS, and a UI test types on the keyboard in the simulator (iPhone
@@ -154,10 +153,6 @@ Keyboard… → Diafon, and in a field pick it with the globe or the switcher.
 ## Not yet
 
 - The device pass above, and the default tail mode it decides.
-- The lexicon (English and Mandarin render in the script, as on Android).
-  The JSON lexicons are too large to parse inside an extension's memory
-  limit. A memory-mapped format generated next to the JSON is the route.
-- Mandarin's character choices on the strip.
 - A Shortcuts action (App Intent) and a share-sheet action for converting text.
 - Key previews on press; haptics (these need full access, so probably never).
 - Release: privacy label (Data Not Collected), screenshots, the listing at

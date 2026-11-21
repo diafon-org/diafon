@@ -24,6 +24,8 @@ final class KeyboardView: UIView {
     var shifted = false { didSet { if shifted != oldValue { setNeedsDisplay() } } }
     var capsLock = false { didSet { if capsLock != oldValue { setNeedsDisplay() } } }
     var enabledMode = true { didSet { if enabledMode != oldValue { setNeedsDisplay() } } }
+    /// The operator keys of the input profile in use: the ones tinted.
+    var operatorKeys: Set<Character> = Engine.ops { didSet { if operatorKeys != oldValue { setNeedsDisplay() } } }
     var returnLabel = "return" { didSet { if returnLabel != oldValue { setNeedsDisplay() } } }
     /// The return key's symbol, for the field's return key type.
     var returnSymbol = "return.left" { didSet { if returnSymbol != oldValue { setNeedsDisplay() } } }
@@ -250,7 +252,7 @@ final class KeyboardView: UIView {
             }
             var font = UIFont.systemFont(ofSize: functional ? 16 : 22)
             if case .char(let c) = s.key {
-                if let op = Theme.operators[c], enabledMode, !symbolsPage { color = op; font = .systemFont(ofSize: 22, weight: .semibold) }
+                if operatorKeys.contains(c), let op = Theme.operators[c], enabledMode, !symbolsPage { color = op; font = .systemFont(ofSize: 22, weight: .semibold) }
             }
             if s.key == .more { font = .systemFont(ofSize: 15) }
             if s.key == .space { font = .systemFont(ofSize: 13); color = Theme.muted }

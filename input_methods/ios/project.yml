@@ -75,7 +75,6 @@ targets:
         buildPhase: resources
       - path: ../../data/emoji.json              # the word -> emoji choices, 220 KB; no lexicon
         buildPhase: resources
-      - path: ../../docs/lexicon/en.read.tsv     # English words -> input forms, 2.2 MB, searched mapped (ReadIndex)
         buildPhase: resources
     settings:
       base:

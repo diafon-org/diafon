@@ -21,14 +21,20 @@ final class Prefs {
     var profileData: ProfileData { Profiles.get(profile) }
     /// What is written out: "script" (Universal, the default) or "stage:<code>" (a language's
     /// spelling); "transport" only serves the escape path.
-    var output: String { get { d.string(forKey: "output") ?? "script" } set { set(newValue, "output") } }
+    var output: String {
+        get {
+            let o = d.string(forKey: "output") ?? "script"
+            return o.hasPrefix("stage:") && !Prefs.spelled(String(o.dropFirst(6))) ? "script" : o
+        }
+        set { set(newValue, "output") }
+    }
     /// Universal, or a language's spelling.
     var universal: Bool { !output.hasPrefix("stage:") }
     /// The language whose spelling is written when the output is a language's; remembered
     /// apart from the choice between Universal and a spelling, so the switch back keeps it.
     /// Picking a language puts it on the quick list.
     var language: String {
-        get { d.string(forKey: "language") ?? Prefs.defaultLanguage }
+        get { d.string(forKey: "language").flatMap { Prefs.spelled($0) ? $0 : nil } ?? Prefs.defaultLanguage }
         set {
             d.set(newValue, forKey: "language")
             if !quickLanguages.contains(newValue) { setQuick(newValue, true) }
@@ -41,7 +47,7 @@ final class Prefs {
     static let quickComfort = 3
     var quickLanguages: [String] {
         get {
-            let list = (d.stringArray(forKey: "quickLanguages") ?? []).filter { SpecData.stages[$0] != nil }
+            let list = (d.stringArray(forKey: "quickLanguages") ?? []).filter { Prefs.spelled($0) }
             return list.isEmpty ? [language] : list
         }
         set { set(newValue, "quickLanguages") }
@@ -108,9 +114,13 @@ final class Prefs {
     }
 
     /// The languages with a spelling, in the order every screen lists them: (code, name).
+    /// The input methods carry no dictionary, so a language whose spelling is one (English,
+    /// Mandarin) is not offered: it would only come out in the script.
     static let languages: [(String, String)] = SpecData.stageOrder.compactMap { code in
-        SpecData.stages[code].map { (code, $0.name) }
+        SpecData.stages[code].flatMap { $0.lexical ? nil : (code, $0.name) }
     }
+    /// A language with letters of its own.
+    static func spelled(_ code: String) -> Bool { SpecData.stages[code].map { !$0.lexical } ?? false }
 
     /// The person's own sources, for detection's ties: the mode in use, the language
     /// in use, the quick list, the system's languages.
@@ -121,7 +131,7 @@ final class Prefs {
         out += quickLanguages.map { "stage:" + $0 }
         for l in Locale.preferredLanguages {
             let c = String(l.prefix(2)).lowercased()
-            if SpecData.stages[c] != nil { out.append("stage:" + c) }
+            if Prefs.spelled(c) { out.append("stage:" + c) }
         }
         var seen = Set<String>()
         return out.filter { seen.insert($0).inserted }
@@ -131,7 +141,7 @@ final class Prefs {
     static let defaultLanguage: String = {
         for l in Locale.preferredLanguages {
             let code = String(l.prefix(2)).lowercased()
-            if SpecData.stages[code] != nil { return code }
+            if Prefs.spelled(code) { return code }
         }
         return languages.first?.0 ?? "hu"
     }()

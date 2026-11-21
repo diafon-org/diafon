@@ -328,6 +328,7 @@ final class KeyboardViewController: UIInputViewController {
         session.preview = prefs.renderer(letters: true)
         session.mode = prefs.tailMode
         keys.layoutCode = prefs.layout
+        keys.operatorKeys = prefs.profileData.table ? prefs.profileData.operators : Engine.ops
         refresh()
     }
 }

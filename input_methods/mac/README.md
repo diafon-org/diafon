@@ -34,12 +34,11 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
   (`sy` ș, `cy` c̦, `oyq` ő), a doubled consonant is long (`ssy` șș), a
   doubled operator is the plain letter (`cityy` city), and a digit after a
   point is its tone (`ni3 kqaw3`), doubled the plain digit (`h22o`).
-- **Mandarin.** In the Mandarin spelling, letters build a syllable shown as
-  pinyin; the tone digit (or a space, for the neutral tone) completes it and
-  the candidate window lists its characters, most frequent first, the pinyin
-  last. Return or space takes the selection, the next letter takes the first
-  choice and starts the next syllable, Escape keeps the pinyin. The
-  characters come from data/lexicon/zh.json (Unihan).
+- **No dictionaries.** The input method carries no word list. A language
+  is offered when its spelling is written by its letters alone; English and
+  Mandarin, whose spellings are dictionaries, are not, and come out in the
+  script. Hungarian is written by its letters: every /j/ is j, and a loan is
+  spelled as it sounds.
 - **The output**: Universal (one letter per sound, the same in every
   language; the default) or one language's spelling.
 - **The status menu**, under the input source in the menu bar: Passthrough
@@ -89,7 +88,7 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
     ../apple/Core/Engine.swift         the engine, rule for rule from scripts/engine.py: segments, glyph, render, stream
     ../apple/Core/Stages.swift         spelling stages, from scripts/stages.py
     ../apple/Core/Reading.swift        reading back, from scripts/engine.py and stages.py: inventory, tables, parse, convert, detect
-    ../apple/Core/Lexicon.swift        the lexicon layer: English, Hungarian loans, Mandarin syllables
+    ../apple/Core/Lexicon.swift        the lexicon layer, for the vector check only: the apps bundle no lexicon
     ../apple/Core/Profiles.swift       the input profiles: what was typed, read into the engine's forms
     ../apple/Core/Prefs.swift          the settings (output, language, quick list, tones, join, enabled, profile; strict only colours the iOS strip, the Mac has none) and the renderer
     ../apple/Core/CheckMain.swift      stdin/stdout driver used by tests/test_swift.py

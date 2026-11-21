@@ -185,10 +185,6 @@ enum SessionCheck {
             expect(Emoji.plain("kutya", spellings: mine).first == "🐶", "plain kutya: \(Emoji.plain("kutya", spellings: mine))")
             expect(Emoji.plain("sziv", spellings: mine).first == "❤️", "plain sziv: \(Emoji.plain("sziv", spellings: mine))")
             expect(Emoji.plain("napszem", spellings: mine).contains("😎"), "plain napszem: \(Emoji.plain("napszem", spellings: mine))")
-            let en = ReadIndex.get("en")
-            expect(en?.read("home") == "houxm" && en?.read("'bout") == "bauxt" && en?.read("zywicki") == "ziuxikiw" && en?.read("homx") == nil,
-                   "en reading from its index: \(String(describing: en?.read("home")))")
-            expect(Emoji.plain("home", spellings: ["hu", "en"]).first == "🏠", "plain home (English): \(Emoji.plain("home", spellings: ["hu", "en"]))")
             expect(Emoji.plain("kutya", spellings: mine).prefix(2) == ["🐶", "🐕"], "plain kutya, read in full first: \(Emoji.plain("kutya", spellings: mine))")
             expect(Emoji.plain("napszemuveg", spellings: mine).contains("😎"), "plain napszemuveg (u for ü): \(Emoji.plain("napszemuveg", spellings: mine))")
         }

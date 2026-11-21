@@ -9,14 +9,10 @@ import InputMethodKit
 @objc(DiafonInputController)
 public class DiafonInputController: IMKInputController {
     private var pending = ""                 // the typed tail still composing, as typed (the profile's keys)
+    private var profile: ProfileData { prefs.profileData }
     private let anyRange = NSRange(location: NSNotFound, length: NSNotFound)
     private var prefs: Prefs { Prefs.shared }
 
-    private var candidateList: [String] = []
-    private var syllable: String? = nil      // Mandarin: a completed syllable (transport + tone) awaiting its character
-    private var syllableTyped = ""           //   and the keys that typed it, for a backspace that reopens it
-    private var profile: ProfileData { prefs.profileData }
-    private var mandarin: Bool { prefs.enabled && output == "stage:zh" && Lexicon.get("zh") != nil }
     private var output: String { prefs.output }
     private func render() -> (String) -> String { prefs.renderer(output) }
 
@@ -25,15 +21,6 @@ public class DiafonInputController: IMKInputController {
         var rect = NSRect.zero
         _ = client.attributes(forCharacterIndex: 0, lineHeightRectangle: &rect)
         return rect.width > 0 || rect.height > 0 ? rect : nil
-    }
-
-    // MARK: the candidate window
-
-    public override func candidates(_ sender: Any!) -> [Any]! { candidateList }
-
-    public override func candidateSelected(_ candidateString: NSAttributedString!) {
-        guard let client = self.client() else { return }
-        if syllable != nil { takeCandidate(client, candidateString.string) }      // Mandarin: the syllable's character
     }
 
     public override func activateServer(_ sender: Any!) {
@@ -60,23 +47,6 @@ public class DiafonInputController: IMKInputController {
         if appliedLayout != prefs.keyLayoutID { applyLayout(client) }    // changed in Setup since this field was entered
         if !prefs.enabled { return false }                     // a plain keyboard: touch nothing
 
-        // the candidate window (Mandarin characters) is up: it takes arrows, Return and the digits; Escape closes it
-        if (candidatePanelIfAny?.isVisible() ?? false) {
-            switch event.keyCode {
-            case 53: hidePanel(); return true
-            case 125, 126, 36, 76, 116, 121: candidatePanelIfAny?.interpretKeyEvents([event]); return true
-            case 48:                                           // Tab steps down the list
-                if let down = NSEvent.keyEvent(with: .keyDown, location: .zero, modifierFlags: [], timestamp: 0, windowNumber: 0,
-                                               context: nil, characters: "", charactersIgnoringModifiers: "", isARepeat: false, keyCode: 125) {
-                    candidatePanelIfAny?.interpretKeyEvents([down])
-                }
-                return true
-            default:
-                hidePanel()                                        // any other key, digits included (they are tones): typing goes on
-            }
-        }
-        if mandarin { if handleMandarin(event, client) { return true } }
-
         // shortcuts and navigation: make the tail final, let the app have the key
         if !event.modifierFlags.intersection([.command, .control, .option]).isEmpty { flush(client); return false }
         switch event.keyCode {
@@ -98,90 +68,6 @@ public class DiafonInputController: IMKInputController {
         return true
     }
 
-    // MARK: Mandarin: the syllable, then its character
-
-    /// Mandarin mode: letters build a syllable, shown as pinyin; a tone digit
-    /// (or a space, for the neutral tone) completes it and the candidate
-    /// window offers its characters, most frequent first, with the pinyin
-    /// last. Return or space takes the selection; the next letter takes the
-    /// first candidate and starts the next syllable; Escape keeps the pinyin.
-    private func handleMandarin(_ event: NSEvent, _ client: IMKTextInput) -> Bool {
-        let chars = event.characters ?? ""
-        if let syl = syllable {
-            switch event.keyCode {
-            case 36, 76, 49:                                      // return, enter, space: take the selection
-                takeCandidate(client, selectedCandidate() ?? firstChoice(syl))
-                return true
-            case 53:                                              // escape: the pinyin stands
-                takeCandidate(client, Stages.render(syl, SpecData.stages["zh"]!, tones: prefs.tones))
-                return true
-            case 125, 126, 116, 121, 48:                          // arrows, page, tab: move in the window
-                if (candidatePanelIfAny?.isVisible() ?? false) { candidatePanelIfAny?.interpretKeyEvents([event]); return true }
-                return false
-            case 51:                                              // backspace reopens the syllable
-                hidePanel(); pending = syllableTyped; syllable = nil; pending.removeLast(); mark(client)
-                return true
-            default:
-                if let ch = chars.first, ch.isLetter {            // the next syllable starts: the first choice goes in
-                    takeCandidate(client, selectedCandidate() ?? firstChoice(syl))
-                    type(client, ch)
-                    return true
-                }
-                return false
-            }
-        }
-        // a syllable in progress
-        if event.keyCode == 51 { if !pending.isEmpty { pending.removeLast(); mark(client); return true }; return false }
-        guard let ch = chars.first else { return false }
-        if ch.isLetter { pending.append(ch); mark(client); return true }
-        if ch.isNumber || ch == " " {
-            if pending.isEmpty { return false }
-            if ch.isNumber { pending.append(ch) }
-            completeSyllable(client)
-            return true
-        }
-        if !pending.isEmpty { completeSyllable(client); takeCandidate(client, firstChoice(syllable!)) }
-        return false                                              // punctuation goes to the app
-    }
-
-    private func completeSyllable(_ client: IMKTextInput) {
-        let syl = Profiles.syllable(pending, profile)      // in universal-v1 forms, whatever typed it
-        syllable = syl
-        syllableTyped = pending
-        pending = ""
-        let zh = SpecData.stages["zh"]!
-        let pinyin = Stages.render(syl, zh, tones: prefs.tones)
-        var list = Lexicon.get("zh")?.choose(syl) ?? []
-        if list.isEmpty && syl.last!.isNumber { list = Lexicon.get("zh")?.choose(String(syl.dropLast())) ?? [] }
-        list.append(pinyin)
-        candidateList = list
-        client.setMarkedText(NSAttributedString(string: list[0], attributes: [.underlineStyle: NSUnderlineStyle.thick.rawValue]),
-                             selectionRange: NSRange(location: (list[0] as NSString).length, length: 0), replacementRange: anyRange)
-        let panel = candidatePanelMake()                   // the default selection keys stay set: handle() takes every
-        //   digit before the panel sees it (digits are tones); an empty key list crashes the client-side
-        //   candidate UI (TextInputUIMacHelper) in Electron apps such as Teams
-        panel.update()
-        panel.show(kIMKLocateCandidatesBelowHint)
-    }
-
-    /// Hide the candidate window only if it is up: hiding one that was never
-    /// shown still reaches the client app's candidate UI.
-    private func hidePanel() { if let p = candidatePanelIfAny, p.isVisible() { p.hide() } }
-
-    private func firstChoice(_ syl: String) -> String { candidateList.first ?? Stages.render(syl, SpecData.stages["zh"]!, tones: prefs.tones) }
-
-    private func selectedCandidate() -> String? {
-        guard let p = candidatePanelIfAny, p.isVisible(), let a = p.selectedCandidateString() else { return nil }
-        return a.string
-    }
-
-    private func takeCandidate(_ client: IMKTextInput, _ text: String) {
-        hidePanel()
-        syllable = nil
-        insert(client, text)
-        mark(client)
-    }
-
     /// One character in: the streaming rule decides what is final.
     private func type(_ client: IMKTextInput, _ ch: Character) {
         let (committed, tail) = Profiles.stream(pending + String(ch), profile, renderer: render(), wordwise: output.hasPrefix("stage:"))
@@ -196,9 +82,7 @@ public class DiafonInputController: IMKInputController {
     }
 
     private func mark(_ client: IMKTextInput) {
-        // Mandarin: the syllable so far, as pinyin
-        let shown = pending.isEmpty ? "" : (mandarin ? Stages.render(Profiles.syllable(pending, profile), SpecData.stages["zh"]!, tones: prefs.tones)
-                                                     : prefs.renderer(output, letters: true)(pending))
+        let shown = pending.isEmpty ? "" : prefs.renderer(output, letters: true)(pending)
         let attrs: [NSAttributedString.Key: Any] = [.underlineStyle: NSUnderlineStyle.single.rawValue]
         client.setMarkedText(NSAttributedString(string: shown, attributes: attrs),
                              selectionRange: NSRange(location: (shown as NSString).length, length: 0),
@@ -207,7 +91,6 @@ public class DiafonInputController: IMKInputController {
 
     /// Make the composing tail final as it stands.
     private func flush(_ client: IMKTextInput) {
-        if let syl = syllable { takeCandidate(client, firstChoice(syl)) }
         guard !pending.isEmpty else { return }
         insert(client, render()(pending))
         pending = ""
@@ -219,7 +102,6 @@ public class DiafonInputController: IMKInputController {
     }
 
     public override func deactivateServer(_ sender: Any!) {
-        hidePanel()
         if let client = sender as? IMKTextInput { flush(client) }
     }
 

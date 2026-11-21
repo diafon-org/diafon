@@ -27,7 +27,6 @@ app: check
 	cp $(ROOT)/vendor/logo/Diafon.icns $(BUILD)/$(APP).app/Contents/Resources/Diafon.icns
 	cp $(ROOT)/vendor/logo/DiafonMenu.tiff $(BUILD)/$(APP).app/Contents/Resources/DiafonMenu.tiff
 	cp $(ROOT)/vendor/logo/DiafonBadge.pdf $(BUILD)/$(APP).app/Contents/Resources/DiafonBadge.pdf
-	mkdir -p $(BUILD)/$(APP).app/Contents/Resources/lexicon && cp $(ROOT)/docs/lexicon/*.json $(BUILD)/$(APP).app/Contents/Resources/lexicon/
 	mkdir -p $(BUILD)/$(APP).app/Contents/Resources/Fonts && cp $(ROOT)/vendor/fonts/Diafon*-Regular.ttf $(BUILD)/$(APP).app/Contents/Resources/Fonts/
 	codesign --force --sign - $(BUILD)/$(APP).app
 
