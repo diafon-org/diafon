@@ -37,19 +37,6 @@ language share the letter of its main value: English /ʌ/ is its stressed schwa,
 <span class="ug">ạ</span>; Mandarin /ə/ and /ɤ/ are one vowel, <span class="ug">ë</span>.</p>
 </div>
 
-## Try it
-
-<div class="tryout" markdown="0">
-  <textarea id="try-in" spellcheck="false" rows="3" placeholder="Type in Diafon, for example: sjip, tqokolawda, ni3kxaux3" aria-label="Diafon typing"></textarea>
-  <div class="tryout-out" id="try-out"></div>
-  <div class="tryout-row tryout-opts">
-    <label><input type="checkbox" id="try-orig"> usual spelling</label>
-    <label><input type="checkbox" id="try-tones" checked> tones above the syllable</label>
-    <label><input type="checkbox" id="try-join"> joined long consonants</label>
-  </div>
-</div>
-
-
 <div class="mt-samples" id="mt-samples" markdown="1">
 
 ## Sample texts
@@ -62,6 +49,4 @@ translation.
 
 </div>
 
-<script src="../play-data.js"></script>
-<script src="../engine.js"></script>
 <script src="../assets/master.js"></script>

@@ -1,30 +1,25 @@
 #!/usr/bin/env python3
 """The site layer around MkDocs (mkdocs.yml builds docs/ into site/).
 
-Writes the home page's figures into docs/.include (home-*.html, and the two
-charts: sounds-consonants.html, sounds-vowels.html), every glyph computed by the engine and the stages,
-never typed by hand.
+Writes the home page's figures into docs/.include (home-hero.html, and the two
+charts: sounds-consonants.html, sounds-vowels.html), every glyph computed by the
+script and the stages, never written by hand.
 """
 import html
-import json
 import os
-import re
 import sys
 import unicodedata as ud
 
+import yaml
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
-import universal_v1 as engine
+import mapping
+import script
 import stages
 
 INC = os.path.join(ROOT, 'docs', '.include')
 esc = html.escape
-
-
-def readings():
-    """The most common reading of every form, as the try-out shows it."""
-    src = open(os.path.join(ROOT, 'docs', 'play-data.js'), encoding='utf-8').read()
-    return json.loads(re.search(r'const DIA = (.*);\n', src).group(1))['default']
 
 
 def nfc(s):
@@ -43,12 +38,11 @@ def write(name, body):
 HERO = [('stage:cs', 'Czech', 'čokoláda', 'č'), ('stage:tr', 'Turkish', 'çikolata', 'ç'),
         ('stage:hu', 'Hungarian', 'csokoládé', 'cs'), ('stage:sw', 'Swahili', 'chokoleti', 'ch'),
         ('stage:en', 'English', 'chocolate', 'ch')]
-USES = [('Typed on a normal keyboard', 'Everything is typed with the plain Latin letters, without dead keys. '
-         'There are a few letter combinations to learn.'),
+USES = [('One sound, one letter', 'A sound is written with the same letter in every language that has it.'),
         ('Converts to and from usual spelling', 'Text can be converted to and from the usual spelling of the supported '
          'languages, Pinyin included.'),
-        ('One layout for all of them', 'The supported languages can all be typed '
-         'on one layout, without switching between keyboards.')]
+        ('Ordinary text', 'Diafon is plain Unicode: Latin letters with standard marks, which any app, file or '
+         'message can carry.')]
 
 
 def hero():
@@ -73,111 +67,76 @@ def hero():
   </div>
   <div class="uses">{uses}</div>
   <div class="hero-go">
-    <a class="md-button md-button--primary" href="learn/">Start learning</a>
-    <a class="md-button" href="reference/">Reference</a>
+    <a class="md-button md-button--primary" href="reference/">Reference</a>
   </div>
 </div>'''
 
 
-# ---- the keyboard: twenty sounds, six modifiers
-KEYS = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm']
-
-
-def keyboard():
-    rows = []
-    for row in KEYS:
-        keys = ''.join(
-            f'<span class="key {"op op-" + k if k in "cjqxwy" else "vowel" if k in "aeiou" else "cons"}">{k}</span>'
-            for k in row)
-        rows.append(f'<div class="kb-row">{keys}</div>')
-    return f'''
-<div class="kb" markdown="0">
-  {"".join(rows)}
-</div>
-<div class="kb-legend" markdown="0">
-  <span><span class="key vowel">a</span> 5 vowels</span>
-  <span><span class="key cons">t</span> 15 consonants</span>
-  <span><span class="key op op-any">j</span> 6 operators, which change the sound before them</span>
-</div>'''
-
-
-# ---- the operators: what each does, with its marks
-OP_ORDER = 'jxcqyw'          # the operators' fixed order, everywhere on the site
-OPS = {                      # operator: (on a consonant: gloss, examples), (on a vowel: gloss, examples)
-    'j': (('hushed or soft', ['sj', 'zj', 'tj', 'nj']), ('more open; on a, the schwa', ['ij', 'ej', 'oj', 'aj'])),
-    'x': (('a fixed nearby sound', ['tx', 'dx', 'kx', 'nx', 'hx']), ('the glide: i to j, u to w', ['ix', 'ux'])),
-    'c': (('adds a hiss', ['tc', 'dc']), ('lip rounding swapped; on a, the front a', ['ic', 'ec', 'uc', 'ac'])),
-    'q': (('c and j together', ['tq', 'dq']), ('c and j together: rounding swapped and more open; on a, the vocalic r', ['eq', 'iq', 'aq'])),
-    'y': (("the language's own variant", ['ty', 'dy', 'ny']), ('nasal', ['ay', 'ey', 'oy'])),
-    'w': (('long: written double', ['sjw']), ('long', ['aw', 'iw', 'ew'])),
-}
-
-
-def operators(read):
-    read = dict(read, aj='ə', aq='ɝ')     # the areas' own values (mapping.yaml areas), not the commonest reading
-    read.update(IPA)                      # consonants: the chart's values, so the tables agree (z̦ /ʒ/, c /t͡s/)
-    read.update({f + 'w': IPA[f] + 'ː' for f in IPA})
-    def side(use):
-        if use is None:
-            return '<div class="opside none">no vowel use</div>'
-        gloss, forms = use
-        ex = ''.join(
-            f'<span class="opx"><span class="opx-g ug">{esc(nfc(engine.render(f)))}</span>'
-            f'<code>{f}</code><span class="opx-r">/{esc(read[f])}/</span></span>'
-            for f in forms if f in read)
-        return f'<div class="opside"><span class="opside-g">{esc(gloss)}</span><div class="opcard-x">{ex}</div></div>'
-    head = ('<div class="optab-h"><span></span><span>after a consonant</span><span>after a vowel</span></div>')
-    rows = ''.join(f'<div class="optab-r"><span class="key op op-{o}">{o}</span>{side(OPS[o][0])}{side(OPS[o][1])}</div>'
-                   for o in OP_ORDER)
-    return f'<div class="optab" markdown="0">{head}{rows}</div>'
-
-
 # ---- the points: consonants and vowels as one kind of table. A tile is
-# glyph · input · /reading/, coloured by the operator that makes it; a cell
-# holding a pair puts voiceless (unrounded) left, voiced (rounded) right
-IPA = {'p': 'p', 'b': 'b', 't': 't', 'd': 'd', 'tj': 'c', 'dj': 'ɟ', 'k': 'k', 'g': 'g', 'kq': 'q',
-       'hx': 'ʔ', 'tc': 't͡s', 'dc': 'd͡z', 'tq': 't͡ʃ', 'dq': 'd͡ʒ', 'f': 'f', 'v': 'v', 'tx': 'θ',
-       'dx': 'ð', 's': 's', 'z': 'z', 'sj': 'ʃ', 'zj': 'ʒ', 'kx': 'x', 'gx': 'ɣ', 'h': 'h', 'm': 'm',
-       'n': 'n', 'nj': 'ɲ', 'nx': 'ŋ', 'r': 'r', 'rc': 'ɾ', 'l': 'l', 'ix': 'j', 'ux': 'w'}   # vowels: from the areas
-COMPOSED = {'tj', 'dj', 'nj'}     # compositions, shown for orientation
+# glyph · /reading/, coloured by the mark it wears; a cell holding a pair puts
+# voiceless (unrounded) left, voiced (rounded) right. Points are named as in
+# data/script.yaml; the chart writes the affricates with a tie.
+TIE = {'ts': 't͡s', 'dz': 'd͡z', 'tʃ': 't͡ʃ', 'dʒ': 'd͡ʒ'}
+COMPOSED = {'c', 'ɟ', 'ɲ'}        # letters with a mark, shown where their sound sits, for orientation
 CONSONANTS = (['labial', 'dental', 'alveolar', 'postalveolar', 'palatal', 'velar', 'uvular', 'glottal'], [   # lips to throat
-    ('stop', {'labial': 'p b', 'alveolar': 't d', 'palatal': 'tj dj', 'velar': 'k g',
-              'uvular': 'kq', 'glottal': 'hx'}),
-    ('affricate', {'alveolar': 'tc dc', 'postalveolar': 'tq dq'}),
-    ('fricative', {'labial': 'f v', 'dental': 'tx dx', 'alveolar': 's z', 'postalveolar': 'sj zj',
-                   'velar': 'kx gx', 'glottal': 'h'}),
-    ('nasal', {'labial': 'm', 'alveolar': 'n', 'palatal': 'nj', 'velar': 'nx'}),
-    ('trill · tap', {'dental': (3, 'r | rc')}),                       # r ṛ side by side, centred under n
-    ('approximant', {'labial': 'ux', 'alveolar': 'l', 'palatal': 'ix'}),   # the glides w j (i u with x) and the lateral l
+    ('stop', {'labial': 'p b', 'alveolar': 't d', 'palatal': 'c ɟ', 'velar': 'k g',
+              'uvular': 'q', 'glottal': 'ʔ'}),
+    ('affricate', {'alveolar': 'ts dz', 'postalveolar': 'tʃ dʒ'}),
+    ('fricative', {'labial': 'f v', 'dental': 'θ ð', 'alveolar': 's z', 'postalveolar': 'ʃ ʒ',
+                   'velar': 'x ɣ', 'glottal': 'h'}),
+    ('nasal', {'labial': 'm', 'alveolar': 'n', 'palatal': 'ɲ', 'velar': 'ŋ'}),
+    ('trill · tap', {'dental': (3, 'r | ɾ')}),                        # r ṛ side by side, centred under n
+    ('approximant', {'labial': 'w', 'alveolar': 'l', 'palatal': 'j'}),     # the glides w j and the lateral l
 ])
+# the mark a point wears -> the colour class of its edge
+MARK_CLASS = {(): 'base', ('anchor',): 'j', ('dot',): 'x', ('reverse',): 'y', ('flip',): 'c', ('underdot',): 'j',
+              ('flip', 'underdot'): 'q', ('grave',): 'y'}
+MARK_GLOSS = [   # (class, on a consonant, on a vowel)
+    ('base', 'no mark', 'no mark'),
+    ('j', 'the anchor: hushed or soft', 'the dot below: more open; on a, the schwa'),
+    ('x', 'the dot: a fixed nearby sound', None),
+    ('c', None, 'the double dot: lip rounding swapped; on a, the front a'),
+    ('q', None, 'the double dot and the dot below together'),
+    ('y', "the reverse anchor: the language's own variant", 'the grave: nasal'),
+]
+
+
+def kind(name):
+    return MARK_CLASS[script.POINTS[name][1]]
+
+
+def glyph(name):
+    return nfc(script.glyph(name))
+
+
+def sound(name):
+    return TIE.get(name, name)
+
+
 def vowel_areas():
-    """-> {area form: (covers, {split form: (reading, [languages])})}, from the
+    """-> {area point: (covers, {split point: (reading, [languages])})}, from the
     mapping: what each area covers, and which languages write each split."""
-    import gen_master
-    m = engine.legacy_mapping()                 # the areas by typed form: the chart shows how each is typed
-    _, vows, over, _, _, _ = gen_master.load_mapping()
-    langs = gen_master.load_languages()
+    m = yaml.safe_load(open(os.path.join(ROOT, 'data', 'mapping.yaml'), encoding='utf-8'))
+    _, vows, over, _, _, _ = mapping.load()
+    langs = mapping.load_languages()
     out = {}
     for area, a in m['areas'].items():
-        covers = [nfc(i) for i, f in vows.items() if f == area]
+        area = str(area)
+        pt = script.point(area)
+        covers = [nfc(i) for i, pts in vows.items() if pts == (pt,)]
         splits = {}
         for sf, qs in (a.get('split') or {}).items():
+            sp = script.point(str(sf))
             users = sorted(c for c, d in langs.items() for i, q in d['vowels'].items()
-                           if q != 'X' and (over.get(c, {}).get(gen_master.nfd(i)) or '').startswith(sf))
-            splits[sf] = (' '.join(qs), sorted(set(users)))
+                           if q != 'X' and mapping.nfd(i) in over.get(c, {})
+                           and mapping.within(over[c][mapping.nfd(i)][0], sp))
+            splits[str(sf)] = (' '.join(qs), sorted(set(users)))
         out[area] = (covers, splits)
     return out
 
 
 # a card's edge: an SVG outline, as the vowel chips draw theirs, so both are drawn the same way
 EDGE = '<svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg>'
-
-
-def tile(form):
-    kind = form[-1] if len(form) > 1 else 'base'
-    return (f'<div class="pt k-{kind}{" cmp" if form in COMPOSED else ""}">{EDGE}'
-            f'<span class="nat">{esc(nfc(engine.render(form)))}</span>'
-            f'<span class="lab">{form}</span><span class="ipa">/{IPA[form]}/</span></div>')
 
 
 # ---- the mouth, side view, lips on the left: the consonant columns run from
@@ -201,34 +160,33 @@ def mouth(place):
 # ---- the vowel triangle: front on the left (the lips' side), close at the
 # top; each area a chip where its reference vowel sits, its split a small
 # dashed chip where the split vowel sits, a soft band between the two
-VT_POS = {   # area or split form -> (x, y) in the 840 x 600 figure
-    'i': (114, 76), 'ic': (208, 76), 'uc': (632, 76), 'u': (726, 76),
-    'ij': (152, 158), 'iq': (244, 158), 'uj': (700, 158),
-    'e': (218, 306), 'ec': (312, 306), 'aj': (420, 336), 'oc': (528, 306), 'o': (622, 306),
-    'ej': (266, 392), 'eq': (346, 396), 'oj': (590, 392),
-    'a': (382, 530), 'ac': (460, 530),
+VT_POS = {   # area or split point -> (x, y) in the 840 x 600 figure
+    'i': (114, 76), 'y': (208, 76), 'ɯ': (632, 76), 'u': (726, 76),
+    'ɪ': (152, 158), 'ʏ': (244, 158), 'ʊ': (700, 158),
+    'e': (218, 306), 'ø': (312, 306), 'ə': (420, 336), 'ɤ': (528, 306), 'o': (622, 306),
+    'ɛ': (266, 392), 'œ': (346, 396), 'ɔ': (590, 392),
+    'a': (382, 530), 'æ': (460, 530),
 }
 
 
-def chip(glyphs, typed, sounds, kind, cls=''):
-    """A chip: the letters, what you type, the sounds, edged in the operator's colour. Both charts draw
-    every card with this, so they look the same; a split (small) or a composition (dashed) adds a class.
+def chip(glyphs, sounds, kind, cls=''):
+    """A chip: the letters and the sounds, edged in the colour of the mark. Both charts draw every card
+    with this, so they look the same; a split (small) or a composition (dashed) adds a class.
     The outline sits half a stroke (0.6) inside the box."""
     small = 'split' in cls
     rect = ('<rect x="-26.4" y="-24.4" width="52.8" height="49.8" rx="9"/>' if small else
             '<rect x="-43.4" y="-35.4" width="86.8" height="72.8" rx="13"/>')
-    y = (-4, 9, 20) if small else (-6, 14, 30)
+    y = (0, 17) if small else (2, 26)
     return (f'<g class="chip k-{kind}{" " + cls if cls else ""}">{rect}'
-            f'<text class="nat" y="{y[0]}">{esc(glyphs)}</text><text class="lab" y="{y[1]}">{esc(typed)}</text>'
-            f'<text class="ipa" y="{y[2]}">/{esc(sounds)}/</text></g>')
+            f'<text class="nat" y="{y[0]}">{esc(glyphs)}</text>'
+            f'<text class="ipa" y="{y[1]}">/{esc(sounds)}/</text></g>')
 
 
-def chip_svg(forms, cls=''):
+def chip_svg(names, cls=''):
     """One consonant cell as a chip of its own svg, the vowel chips' size."""
-    kinds = {f[-1] if len(f) > 1 else 'base' for f in forms}
-    assert len(kinds) == 1, f'a cell mixes operators: {forms}'
-    g = chip(' '.join(nfc(engine.render(f)) for f in forms), ' '.join(forms), ' '.join(IPA[f] for f in forms),
-             kinds.pop(), cls)
+    kinds = {kind(n) for n in names}
+    assert len(kinds) == 1, f'a cell mixes marks: {names}'
+    g = chip(' '.join(glyph(n) for n in names), ' '.join(sound(n) for n in names), kinds.pop(), cls)
     return f'<svg class="chips card" viewBox="-44.6 -36.6 89.2 75.2" width="89" height="75" aria-hidden="true">{g}</svg>'
 
 
@@ -243,17 +201,17 @@ def vowel_triangle(areas):
     for area, (covers, splits) in areas.items():
         if area not in VT_POS:
             continue
-        kind = area[-1] if len(area) > 1 else 'base'
+        k = kind(area)
         ax, ay = VT_POS[area]
         for sf, (reading, users) in splits.items():
             sx, sy = VT_POS[sf]
             if not users:
                 continue                                   # a split no language writes is left out
-            out.append(f'<line class="band k-{kind}" x1="{ax}" y1="{ay}" x2="{sx}" y2="{sy}"/>')
+            out.append(f'<line class="band k-{k}" x1="{ax}" y1="{ay}" x2="{sx}" y2="{sy}"/>')
             chips.append(f'<g transform="translate({sx},{sy})">'
-                         + chip(nfc(engine.render(sf)), sf, reading, sf[-1], 'split') + '</g>')
+                         + chip(glyph(sf), reading, kind(sf), 'split') + '</g>')
         chips.append(f'<g transform="translate({ax},{ay})">'
-                     + chip(nfc(engine.render(area)), area, ' '.join(covers), kind) + '</g>')
+                     + chip(glyph(area), ' '.join(covers), k) + '</g>')
     out += chips
     out.append('</svg></figure></div>')
     return ''.join(out)
@@ -263,8 +221,8 @@ def point_table(spec, caption):
     cols, rows = spec
 
     def cards(spec):
-        groups = [g.split() for g in spec.split('|')]          # 'r | rc': a card each
-        return ''.join(chip_svg(forms, 'cmp' if set(forms) <= COMPOSED else '') for forms in groups)
+        groups = [g.split() for g in spec.split('|')]          # 'r | ɾ': a card each
+        return ''.join(chip_svg(names, 'cmp' if set(names) <= COMPOSED else '') for names in groups)
     shy = lambda c: c.replace('postalveolar', 'post\u00adalveolar')          # breaks as post-alveolar, if at all
     head = (lambda c: f'<th title="{c}">{mouth(c)}<span>{shy(c)}</span></th>') if caption == 'consonants' else (lambda c: f'<th>{c}</th>')
     out = [f'<div class="scroll" markdown="0"><table class="grid pts"><caption>{caption}</caption>'
@@ -279,7 +237,7 @@ def point_table(spec, caption):
                 tds.append('<td></td>')
                 continue
             span, spec = cells[c] if isinstance(cells[c], tuple) else (1, cells[c])
-            skip = span - 1                                   # (3, 'r | rc'): across three columns, centred on the middle one
+            skip = span - 1                                   # (3, 'r | ɾ'): across three columns, centred on the middle one
             cls = 'cell cluster' if '|' in spec else 'cell'
             tds.append(f'<td{f" colspan={span}" if span > 1 else ""}><div class="{cls}">{cards(spec)}</div></td>')
         label = name.replace('approximant', 'approx\u00adimant')        # can break on a phone
@@ -289,10 +247,9 @@ def point_table(spec, caption):
 
 
 def colours(vowels=False):
-    """The operator colours: a swatch, the key and what it does, one per line."""
-    names = [('base', '', 'no operator')] + [(o, o, OPS[o][1 if vowels else 0][0]) for o in 'jxcqy']
-    return '<ul class="ops">' + ''.join(
-        f'<li><i class="sw k-{k}"></i>{f"<code>{o}</code> " if o else ""}{t}</li>' for k, o, t in names) + '</ul>'
+    """The edge colours: a swatch and the mark it stands for, one per line."""
+    rows = [(k, v if vowels else c) for k, c, v in MARK_GLOSS if (v if vowels else c)]
+    return '<ul class="ops">' + ''.join(f'<li><i class="sw k-{k}"></i>{t}</li>' for k, t in rows) + '</ul>'
 
 
 def key(rows, cls=''):
@@ -303,11 +260,11 @@ def key(rows, cls=''):
 
 def consonant_chart():
     return '<div class="chart" markdown="0">' + point_table(CONSONANTS, 'consonants') + key([
-        (chip_svg(['p', 'b']), 'a card: the letters, what you type, the sounds; voiceless first, then voiced'),
+        (chip_svg(['p', 'b']), 'a card: the letters and their sounds; voiceless first, then voiced'),
         ('lips → throat', 'the columns: where the sound is made, marked in each profile'),
-        ('edge colour', 'the operator that makes it' + colours()),
-        (chip_svg(['tj', 'dj'], 'cmp'), 'dashed: letters with a mark, shown where their sound sits '
-         f'({ug(" ".join(engine.render(f) for f in sorted(COMPOSED)))})'),
+        ('edge colour', 'the mark the letter wears' + colours()),
+        (chip_svg(['c', 'ɟ'], 'cmp'), 'dashed: letters with a mark, shown where their sound sits '
+         f'({ug(" ".join(glyph(n) for n in sorted(COMPOSED, key=lambda n: script.POINTS[n])))})'),
     ]) + '</div>'
 
 
@@ -317,18 +274,15 @@ def vowel_chart():
         (f'<span class="chipkey area k-base">{EDGE}a</span>', 'an area: the plain letter, and every sound it covers'),
         (f'<span class="chipkey split cmp k-j">{EDGE}ẹ</span>', 'a split: written only by a language with two vowels in that area '
          '(rule 2 on the Reference page)'),
-        ('edge colour', 'the operator that makes it' + colours(vowels=True)),
+        ('edge colour', 'the mark the letter wears' + colours(vowels=True)),
     ], cls='vt-key') + '</div>'
 
 
 def main():
-    read = readings()
     write('sounds-consonants.html', consonant_chart())
     write('sounds-vowels.html', vowel_chart())
     write('home-hero.html', hero())
-    write('home-keys.html', keyboard())
-    write('home-ops.html', operators(read))
-    print('home figures in docs/.include: home-*.html, sounds-consonants.html, sounds-vowels.html')
+    print('home figures in docs/.include: home-hero.html, sounds-consonants.html, sounds-vowels.html')
 
 
 if __name__ == '__main__':

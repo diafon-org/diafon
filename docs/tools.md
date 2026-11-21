@@ -8,28 +8,8 @@ search:
 
 # Tools
 
-Diafon text is ordinary Unicode, so any app can show it and store it. These
-tools type it and draw it. All of them are early: they
-work, but none is in an app store yet, so each is built from the
-[repository](https://github.com/diafon-org/diafon).
-
-## Keyboards
-
-Each keyboard types the Diafon input on the 26 letters and converts as you
-type. A sound is written the moment the next key can no longer change it;
-only the last sound stays underlined until then.
-
-| Platform | What it does | State |
-|---|---|---|
-| macOS 13+ | An input method for every app. A double Shift tap turns conversion off and on; ⇧Space opens a switcher by the cursor. Mandarin offers the characters of each syllable. Two text Services convert selected text. | Works. [Build and install](https://github.com/diafon-org/diafon/tree/main/input_methods/mac) |
-| iOS 16+ | A keyboard with a strip above the keys that shows the sound being typed; no full access and no network. Typing a word in any of seven languages, or its first three letters, offers the emoji it names. | Tested in the simulator and on an iPhone. [Build](https://github.com/diafon-org/diafon/tree/main/input_methods/ios) |
-| Android 8+ | A keyboard on QWERTY, QWERTZ, AZERTY, Dvorak or Colemak, with the digits for tones. The strip above the keys shows the sound being typed. Selected text converts from the text menu. | Builds; next after macOS and iOS. [Build](https://github.com/diafon-org/diafon/tree/main/input_methods/android) |
-| Windows | A Text Services Framework service. | Planned, after Android |
-| Linux | A table for IBus and fcitx5. | Planned, after Android |
-
-On macOS, after `make install` in `input_methods/mac`, add Diafon under
-System Settings → Keyboard → Input Sources, pick it from the input menu and
-type `sj tq aw` to get <span class="ug">ș c̦ á</span>.
+Diafon text is ordinary Unicode, so any app can show it and store it. The
+fonts draw it as designed.
 
 ## Fonts
 
@@ -82,11 +62,8 @@ check below shows how any installed font does.
 
 ## Building your own
 
-Everything that types or shows Diafon reads one file,
-[spec.json](spec.json), and must pass its test cases. The
-[input methods overview](https://github.com/diafon-org/diafon/tree/main/input_methods)
-describes how conversion works on each platform.
+Everything that reads or writes Diafon can work from one file,
+[alphabet-spec.json](alphabet-spec.json): every letter with its marks and
+glyphs, the languages, the spellings, and test cases to pass.
 
-<script src="../play-data.js"></script>
-<script src="../engine.js"></script>
 <script src="../assets/fontcheck.js"></script>

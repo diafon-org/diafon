@@ -1,8 +1,8 @@
 // The site-wide switch in the header: the site's language (English for now).
-// The script the text is shown in (the usual spelling, Diafon, or another
-// language's spelling) has its switch hidden for now; ?script= still shows it. The text is converted in place from
-// the English reading of each word (site-words.js); examples, glyphs, IPA,
-// code and the tables stay as they are.
+// The script the text is shown in (the usual spelling, or Diafon) has its switch
+// hidden for now; ?script=diafon still shows it. The text is converted in place
+// from the Diafon spelling of each English word (site-words.js); examples,
+// glyphs, IPA, code and the tables stay as they are.
 (function(){
 'use strict';
 const BASE = document.currentScript.src.replace(/assets\/site\.js.*$/, '');
@@ -11,7 +11,7 @@ const store = {
   set(k, v){ try { localStorage.setItem('diafon-' + k, v); } catch (e) {} }
 };
 const SKIP = 'code, pre, kbd, script, style, textarea, select, option, svg, em, i, mark, .ug, .key, .md-search, ' +
-  '.headerlink, .same-nat, .same-dia, .sample, .tryout, .mt-wrap, section[id^="sec-"], .pt, .opx, ' +
+  '.headerlink, .same-nat, .same-dia, .sample, .mt-wrap, section[id^="sec-"], .pt, ' +
   '.chips, .tile, .site-switch';
 const ROOTS = '.md-content, .md-tabs, .md-sidebar--secondary';
 const TOKEN = /\/[^\/\s][^\/]*?\/|[A-Za-z][A-Za-z']*[A-Za-z]/g;   // IPA between slashes stays; one letter is a letter named
@@ -27,28 +27,29 @@ function load(src){
 }
 let ready = null;
 function needs(){
-  if (!ready){
-    const steps = [];
-    if (typeof SITE_WORDS === 'undefined') steps.push(() => load('assets/site-words.js'));
-    if (typeof DIA === 'undefined') steps.push(() => load('play-data.js'));
-    if (typeof render === 'undefined') steps.push(() => load('engine.js'));
-    ready = steps.reduce((p, f) => p.then(f), Promise.resolve());
-  }
+  if (!ready) ready = typeof SITE_WORDS === 'undefined' ? load('assets/site-words.js') : Promise.resolve();
   return ready;
 }
 
-// a possessive the list lacks: the word's reading plus the s it adds (/ɪz/ after a hiss, /s/ after a voiceless sound)
-function reading(k){
+// a possessive the list lacks: the word plus the s it adds (/ɪz/ after a hiss, /s/ after a voiceless sound)
+function spelled(k){
   if (SITE_WORDS[k] !== undefined) return SITE_WORDS[k];
   const m = k.match(/^(.+)'s$/), t = m && SITE_WORDS[m[1]];
   if (t === undefined || t === null) return undefined;
-  return t + (/(s|z|sj|zj|tq|dq)$/.test(t) ? 'iz' : /(p|t|k|f|tx)$/.test(t) ? 's' : 'z');
+  return t + (/(s|z|ș|z̦|c̦|x̦)$/.test(t) ? 'iz' : /(p|t|k|f|ṭ)$/.test(t) ? 's' : 'z');
+}
+// a capital: the first letter up; a mark that floated above a small g or p sits below its capital
+const BELOW = {'\u0313': '\u0326', '\u0314': '\u0316', '\u0307': '\u0323'};
+function capital(t){
+  const d = t.normalize('NFD');
+  let rest = d.slice(1);
+  if ('gpqj'.includes(d[0]) && BELOW[rest[0]]) rest = BELOW[rest[0]] + rest.slice(1);
+  return (d[0].toUpperCase() + rest).normalize('NFC');
 }
 function word(w){
-  const t = reading(w.toLowerCase());
+  const t = spelled(w.toLowerCase());
   if (t === undefined) return w;
-  const cased = w[0] !== w[0].toLowerCase() ? t[0].toUpperCase() + t.slice(1) : t;
-  return mode === 'diafon' ? render(cased) : renderStage(cased, DIA.stages[mode.slice(6)]);
+  return w[0] !== w[0].toLowerCase() ? capital(t) : t;
 }
 function convertNode(n){
   if (!original.has(n)) original.set(n, n.nodeValue);
@@ -68,7 +69,7 @@ function apply(){
   const go = () => document.querySelectorAll(ROOTS).forEach(walk);
   if (mode === 'latin') go(); else needs().then(go);
 }
-// pages that write text later (the lessons, the try-out) are followed
+// pages that write text later are followed
 new MutationObserver(recs => {
   if (mode === 'latin') return;
   for (const r of recs) for (const n of r.addedNodes){

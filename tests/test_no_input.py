@@ -1,20 +1,16 @@
 #!/usr/bin/env python3
 """The alphabet knows no keyboard (split.md). Run: python3 tests/test_no_input.py  (or pytest tests/)
 
-1. No script, test, font tool or data file of the alphabet names a typed
-   form, an operator table, the old transport form or the typing bridge.
+1. No script, test, font tool, data file or page of the alphabet names a
+   typed form, an operator, the old transport form or the typing bridge.
 2. The data is in points: every stage table is keyed by point names, the
    mapping's values are point names, every Diafon word a lexicon stores is
    script text.
-3. Nothing refers to the input repository.
+3. Nothing refers to the input repository, and nothing that types is left:
+   no engine, no playground, no lessons.
 
-PENDING lists what still types and has not left yet: the bridge, and the
-generators and tests behind the site's pages that show how a point is typed
-(the playground, the lessons, the form columns of the master tables). They
-are in diafon-input already; they go from here when the site is split
-(split.md, P4). The list may only shrink: a file in it must still exist,
-and nothing outside it may type. The site's prose (docs/, the READMEs,
-plan.md, remarks.md) is not scanned until then.
+The plan and the notes (split.md, plan.md, remarks.md, publish.md) tell the
+story of the split and are not scanned.
 """
 import glob
 import json
@@ -28,41 +24,33 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import script
 
-PENDING = {
-    'scripts/universal_v1.py',      # the bridge
-    'scripts/gen_spec.py',          # the old spec, for the site's typing engine
-    'scripts/gen_play.py',          # the playground
-    'scripts/gen_learn.py',         # the lessons
-    'scripts/gen_site_words.py',    # the script switch runs the typing engine
-    'scripts/gen_master.py',        # the master tables' form column
-    'scripts/gen_site.py',          # the charts' form labels
-    'tests/test_engine.py',
-    'tests/test_spec.py',
-    'tests/test_samples.py',
-    'data/learn.yaml',
-    'data/README.md',
-}
-TYPING = re.compile(r'universal_v1|\btransport\b|input form|legacy_(?:script|mapping)|\boperators?\b|diafon-input')
+GONE = ['scripts/universal_v1.py', 'scripts/engine.py', 'scripts/gen_spec.py', 'scripts/gen_play.py', 'scripts/gen_learn.py',
+        'docs/engine.js', 'docs/play-data.js', 'docs/learn-data.js', 'docs/learn.md', 'docs/spec.json', 'docs/lexicon',
+        'data/learn.yaml', 'data/layouts.yaml', 'data/emoji.json', 'input_methods/README.md']
+TYPING = re.compile(r'universal_v1|\btransport\b|input form|legacy_(?:script|mapping)|\boperators?\b|diafon-input|play-data|engine\.js')
 SELF = {'tests/test_no_input.py', 'tests/test_alphabet_spec.py'}      # they name the words they forbid
 
 
 def files():
     for pattern in ('scripts/*.py', 'scripts/*.sh', 'tests/*.py', 'fonts/tools/*.py', 'data/*.yaml', 'data/*.md',
-                    'data/*/*.yaml', 'data/*/*.md'):
+                    'data/*/*.yaml', 'data/*/*.md', 'docs/*.md', 'docs/.include/*.html', 'docs/assets/*.js',
+                    'README.md', 'mkdocs.yml'):
         for p in sorted(glob.glob(os.path.join(ROOT, pattern))):
             yield os.path.relpath(p, ROOT)
 
 
 def test_no_typing():
-    found = set(files())
-    for p in PENDING:
-        assert p in found, f'{p} is gone: take it off PENDING'
-    for p in found - PENDING - SELF:
+    for p in GONE:
+        assert not os.path.exists(os.path.join(ROOT, p)), f'{p} is back'
+    scanned = 0
+    for p in set(files()) - SELF:
+        if p == 'docs/assets/site-words.js':
+            continue                                  # generated: the site's English words in Diafon
         for n, line in enumerate(open(os.path.join(ROOT, p), encoding='utf-8'), 1):
-            if p == 'scripts/build.sh' and any(q.split('/')[-1] in line for q in PENDING):
-                continue                              # the build still runs what is pending
             m = TYPING.search(line)
             assert not m, f'{p}:{n}: {m.group(0)!r}: {line.strip()[:90]}'
+        scanned += 1
+    return scanned
 
 
 def test_data_in_points():
@@ -98,6 +86,6 @@ def test_data_in_points():
 
 
 if __name__ == '__main__':
-    test_no_typing()
+    scanned = test_no_typing()
     words = test_data_in_points()
-    print(f'the alphabet knows no keyboard: {words} lexicon words are script text; {len(PENDING)} files still pending (the site, P4)')
+    print(f'the alphabet knows no keyboard: {scanned} files name no typed form, {words} lexicon words are script text')

@@ -4,14 +4,15 @@ Two layers, strictly separated:
 
 - `languages/<code>.yaml`, **metadata only**: what each language contrasts,
   per the standard descriptive literature. No system analysis in here.
-- `mapping.yaml`, **the mapping**: phoneme → input form, the explicit,
+- `mapping.yaml`, **the mapping**: phoneme → point (`script.yaml` names the
+  points, each a letter and its marks), the explicit,
   reviewable layer between the metadata and everything generated. Global map
   plus per-language `overrides`, reviewed within-language `merges`, and the
   per-language `review` state: not reviewed, or reviewed (checked against
   the sources).
 
-`scripts/gen_master.py` validates the mapping (full coverage; no
-within-language form collision outside `merges`) and renders the master
+`scripts/mapping.py` validates the mapping (full coverage; no two sounds of
+a language on one point outside `merges`) and `scripts/gen_master.py` renders the master
 tables (`docs/.include/master-tables.html`, shown by `docs/reference.md`): the
 universal table plus every language's own table, each stamped with its
 review state.
@@ -24,7 +25,7 @@ name: Hungarian
 speakers: {native: 13, total: 13}   # millions, rough 2025 estimates
 geminates: true       # only where consonant length is contrastive
 tones:                # only where the language is tonal:
-  1: high             # input digit -> standard contour, from the vocabulary below
+  1: high             # tone number -> standard contour, from the vocabulary below
 consonants:           # the phonemes the language contrasts, as IPA
   p: M                # value = coarse frequency, see below
 vowels:
@@ -44,11 +45,11 @@ Per-phoneme T-shirt sizing of how often the phoneme occurs in running text:
 ## Standard tone vocabulary
 
 Every tonal language writes its tones with one canonical contour set, and a
-digit means the same contour in every language (data/script.yaml `tones`;
-Mandarin's own numbers kept); the script draws each as a sign after the
-syllable:
+tone number means the same contour in every language (data/script.yaml
+`tones`; Mandarin's own numbers kept); the script writes each as a sign after
+the syllable:
 
-| Digit | Contour | Sign |
+| Number | Contour | Sign |
 |---|---|---|
 | 1 | high | ˉ |
 | 2 | rising | ˊ |

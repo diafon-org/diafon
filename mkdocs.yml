@@ -1,5 +1,5 @@
 site_name: Diafon
-site_description: One keyboard, one script, many languages. A universal phonemic writing and input system.
+site_description: One alphabet for the sounds of many languages.
 site_url: https://diafon.io/
 repo_url: https://github.com/diafon-org/diafon
 edit_uri: ""
@@ -39,7 +39,6 @@ theme:
 
 nav:                      # tools.md builds at its URL, out of the nav until reviewed
   - Diafon: index.md
-  - Learning: learn.md
   - Reference: reference.md
 
 markdown_extensions:

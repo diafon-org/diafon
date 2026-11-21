@@ -1,22 +1,13 @@
 // The font check on the Tools page: every Diafon letter in use, small and capital, in a
 // grid set in the chosen font, each probed for a missing mark or another font stepping
-// in. Only the grid changes font. Needs DIA (play-data.js) and the engine (engine.js).
+// in. Only the grid changes font. The letters come from the alphabet's spec (alphabet-spec.json).
 (function(){
 'use strict';
 const $ = id => document.getElementById(id);
 const $font = $('fc-font'), $custom = $('fc-custom'), $summary = $('fc-summary'), $grid = $('fc-grid');
 const esc = s => s.replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 
-// the letters: each form in use, small and capital, once each
-const letters = [];
-for (const form of DIA.used){
-  for (const f of [form, form[0].toUpperCase() + form.slice(1)]){
-    const g = glyphCased(f);
-    if (g && !letters.includes(g)) letters.push(g);
-  }
-}
-$grid.innerHTML = letters.map(g => `<span>${esc(g)}</span>`).join('');
-const spans = [...$grid.children];
+let spans = [];
 
 const GENERIC = /^(serif|sans-serif|monospace|system-ui)$/;
 function family(){ return $custom.value.trim() || $font.value; }
@@ -68,6 +59,14 @@ function check(){
 }
 $font.addEventListener('change', () => { $custom.value = ''; check(); });
 $custom.addEventListener('change', check);
-check();
-if (document.fonts && document.fonts.ready) document.fonts.ready.then(check);
+// the letters: each point in use, small and capital, once each
+fetch(new URL('../alphabet-spec.json', document.currentScript ? document.currentScript.src : location.href))
+  .then(r => r.json()).then(spec => {
+    const letters = [];
+    for (const p of spec.points) if (!p.long) for (const g of [p.glyph, p.capital]) if (!letters.includes(g)) letters.push(g);
+    $grid.innerHTML = letters.map(g => `<span>${esc(g)}</span>`).join('');
+    spans = [...$grid.children];
+    check();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(check);
+  });
 })();

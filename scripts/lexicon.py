@@ -25,8 +25,7 @@ LEX = os.path.join(ROOT, 'data', 'lexicon')
 _CACHE = {}
 
 # a word of text: letters and combining marks (U+0300–036F, where every mark of
-# the system lives), an apostrophe inside, tone digits after; the same
-# definition in docs/engine.js and Lexicon.swift
+# the system lives), an apostrophe inside, tone digits after
 _L = r"(?:[^\W\d_]|[̀-ͯ])"
 WORD = re.compile(_L + r"+(?:['’]" + _L + r"+)*\d*", re.U)
 

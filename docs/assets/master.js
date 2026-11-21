@@ -1,16 +1,13 @@
-// The Reference page: the table switch, the example and samples of the picked
-// language, and the try-out. Needs DIA (play-data.js) and the engine (engine.js).
+// The Reference page: the table switch and the samples of the picked language.
 (function(){
 'use strict';
 const $ = id => document.getElementById(id);
-const $table = $('mt-table'), $in = $('try-in'), $out = $('try-out'), $tones = $('try-tones'), $orig = $('try-orig'),
-      $join = $('try-join');
+const $table = $('mt-table');
 const secs = [...document.querySelectorAll('section[id^=sec-]')];
 const esc = s => s.replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 
-// ---- state in the address: ?table=hu, so the hash stays free for a section (?table=zh#try-it links
-// a flavour and a block together); an 'also written' link (#table=pl&form=sjy), an older #table=hu
-// and a bare #hu still read, and are written back as ?table=
+// ---- state in the address: ?table=hu, so the hash stays free for a section; an 'also written'
+// link (#table=pl&letter=s̖), an older #table=hu and a bare #hu still read, and are written back as ?table=
 function urlState(){
   const st = Object.fromEntries(new URLSearchParams(location.search));
   const h = location.hash.slice(1);
@@ -30,34 +27,11 @@ function saveState(){
 // ---- tables
 $table.innerHTML = secs.map(x => `<option value="${x.id.slice(4)}">${esc(x.dataset.name)}</option>`).join('');
 function current(){ return document.getElementById('sec-' + $table.value); }
-function showTable(){
-  for (const x of secs) x.hidden = x !== current();
-  showOptions();
-}
+function showTable(){ for (const x of secs) x.hidden = x !== current(); }
 
-// ---- the try-out, below the tables: Diafon typed (or Diafon pasted) shown word by word, each word in
-// the script with what was typed under it
-const OWN_MARKS = /[̦̖̓̔]|[a-z]̣/;     // Diafon's own marks: the text is already script
-const articles = [...document.querySelectorAll('.samples .sample')];
-// the example, typed in the try-out: the first sentence of the picked language's text, read back from
-// the Diafon the page was built with (English for the all-languages table). Text typed over it stays
-const firstSentence = el => {
-  const t = el.innerHTML.replace(/<br\s*\/?>/g, ' ').replace(/<[^>]+>/g, '');
-  const box = document.createElement('div'); box.innerHTML = (t.match(/^.*?[.!?。](?=\s|$)/) || [t])[0];
-  return box.textContent.trim();
-};
-let example = '';
-function showSample(){
-  const tops = articles.filter(x => x.hasAttribute('data-top'));
-  const lang = $table.value === 'universal' ? 'en' : $table.value;
-  const a = tops.find(x => x.dataset.lang === lang);
-  if ($in.value && $in.value !== example) return;
-  example = a ? parse(firstSentence(a.querySelector('.sample-text')).replace(/[.!?。]$/, ''), 'script') : '';   // no full stop
-  $in.value = example;
-  update();
-}
 // the sample texts: only the picked language's own (English for the Diafon table, as the site's language);
 // a language without texts hides the section
+const articles = [...document.querySelectorAll('.samples .sample')];
 function showSamples(){
   const lang = $table.value === 'universal' ? 'en' : $table.value;
   let any = false;
@@ -65,102 +39,29 @@ function showSamples(){
   $('mt-samples').hidden = !any;
 }
 
-// the result in the picked language's usual spelling, where the site has it (pinyin for Mandarin):
-// the stage writes it, through the language's lexicon, fetched the first time. A Mandarin tone rides
-// above the syllable as the fonts draw it, or, with that off, as pinyin's own mark on the vowel
-const PINYIN_MARK = {1: '\u0304', 2: '\u0301', 3: '\u030C', 4: '\u0300'};
-function pinyinMarks(text){
-  return text.replace(/([A-Za-zÜü]+)([1-5])/g, (_, syl, d) => {
-    const low = syl.toLowerCase();
-    let i = low.search(/[ae]/);                                  // a or e takes it, then the o of ou,
-    if (i < 0) i = low.indexOf('ou');                            //   else the last vowel
-    if (i < 0) for (let j = low.length - 1; j >= 0 && i < 0; j--) if ('iouü'.includes(low[j])) i = j;
-    if (i < 0 || !PINYIN_MARK[d]) return syl;
-    return (syl.slice(0, i + 1) + PINYIN_MARK[d] + syl.slice(i + 1)).normalize('NFC');
-  });
-}
-const stage = () => (DIA.stages || {})[$table.value] || null;
-const lexReady = {};
-function usual(t, st){
-  const p = renderStage(t, st);
-  if (st.code !== 'zh') return p;
-  return $tones.checked ? p.replace(/\d+/g, toneSigns) : pinyinMarks(p);
-}
-// the options under the try-out follow the table: usual spelling where the language has one,
-// tones where it has them (or all languages are shown)
-function showOptions(){
-  const st = stage(), L = DIA.langs[$table.value];
-  $orig.closest('label').hidden = !st;
-  $tones.closest('label').hidden = !(!L || L.tonal);
-  if (st && st.lexicon && !lex(st.code) && !lexReady[st.code])
-    lexReady[st.code] = fetch(`../lexicon/${st.code}.json`).then(r => r.json()).then(d => {
-      setLexicon(st.code, d);
-      if (d.loans && !lex('loans'))                 // a host that catches loans: the one loan dictionary too
-        return fetch('../lexicon/loans.json').then(r => r.json()).then(l => setLexicon('loans', l));
-    }).then(update, update);
-  update();
-}
-
-function update(){
-  const typed = OWN_MARKS.test($in.value.normalize('NFD')) ? parse($in.value, 'script') : $in.value;
-  let html = '', g = '', t = '';
-  const st = $orig.checked ? stage() : null;
-  const flush = () => {
-    if (g) html += `<span class="w"><span class="wg">${st && !g.includes('class="err"') ? esc(usual(t, st)) : g}</span><code>${esc(t)}</code></span>`;
-    g = t = '';
-  };
-  for (const tok of tokenize(typed)){
-    if (tok.t === 'raw'){ flush(); html += esc(tok.ch); continue; }
-    const gl = tok.t === 'err' ? null : glyph(tok.form, tok.caps, $join.checked);
-    if (gl === null){ g += `<span class="err">${esc(tok.t === 'err' ? tok.ch : tok.form)}</span>`; t += tok.t === 'err' ? tok.ch : tok.form; continue; }
-    g += esc(tok.caps ? capFirst(gl) : gl) + toneSigns(tok.tones);
-    t += (tok.caps ? tok.form[0].toUpperCase() + tok.form.slice(1) : tok.form) + tok.tones;
-  }
-  flush();
-  $out.innerHTML = html;
-}
-
 // the languages overview: a row opens that language's table
 document.getElementById('sec-universal').addEventListener('click', e => {
   const tr = e.target.closest('tr[data-goto]');
   if (!tr) return;
   $table.value = tr.dataset.goto;
-  showTable(); showSample(); showSamples(); saveState();
+  showTable(); showSamples(); saveState();
   $table.scrollIntoView({block: 'nearest'});
 });
 
 // ---- wiring
-$in.addEventListener('input', update);
-// tones above the syllable (the fonts' calt), on by default; off, the sign follows it (site.js applies it)
-try { $tones.checked = localStorage.getItem('diafon-tones') !== 'after'; } catch (e) {}
-$tones.addEventListener('change', () => {
-  const v = $tones.checked ? 'above' : 'after';
-  document.documentElement.dataset.tones = v;
-  try { localStorage.setItem('diafon-tones', v); } catch (e) {}
-  update();
-});
-$orig.addEventListener('change', update);
-// long consonants joined (t ZWJ t), which the Diafon fonts draw as one; off by default, kept per reader
-try { $join.checked = localStorage.getItem('diafon-join') === 'on'; } catch (e) {}
-$join.addEventListener('change', () => {
-  try { localStorage.setItem('diafon-join', $join.checked ? 'on' : 'off'); } catch (e) {}
-  update();
-});
-$table.addEventListener('change', () => {
-  showTable(); showSample(); showSamples(); saveState();
-  if ($table.value !== 'universal') try { localStorage.setItem('diafon-lang', $table.value); } catch (e) {}  // shared with Learning
-});
+$table.addEventListener('change', () => { showTable(); showSamples(); saveState(); });
 
-function fromHash(){             // all languages, unless the address names a flavour (?table=hu)
+function fromHash(){             // all languages, unless the address names a language (?table=hu)
   const st = urlState();
   $table.value = st.table && $('sec-' + st.table) ? st.table : 'universal';
 }
-// an 'also written' link (#table=pl&form=sjy): that language's table, at that row
+// an 'also written' link (#table=pl&letter=s̖): that language's table, at that row
 function goRow(){
   const st = urlState();
   if (!st.table || !$('sec-' + st.table)) return;
-  if ($table.value !== st.table){ $table.value = st.table; showTable(); showSample(); showSamples(); }
-  const tr = st.form && document.querySelector(`#sec-${st.table} tr[data-form="${CSS.escape(st.form)}"]`);
+  if ($table.value !== st.table){ $table.value = st.table; showTable(); showSamples(); }
+  const tr = st.letter && [...document.querySelectorAll(`#sec-${st.table} tr[data-letter]`)]
+    .find(r => r.dataset.letter.normalize('NFC') === st.letter.normalize('NFC'));
   saveState();
   if (!tr) return;
   tr.scrollIntoView({block: 'center'});
@@ -170,7 +71,6 @@ window.addEventListener('hashchange', goRow);
 
 fromHash();
 showTable();
-showSample();
 showSamples();
 goRow();
 })();

@@ -1,7 +1,7 @@
 # Split: the alphabet and the input
 
-Status: P0 and P1 done, P2 done in part, on the branch `split` (2026-11-20).
-See "P1 as built" and "P2 as built" below.
+Status: P0, P1 and P2 done on the branch `split`, and the site carries no
+typing (2026-11-21). See the "as built" sections below.
 
 Diafon today is one system: the typed form is the point's identity. Stages,
 lexicons, the spec, the font tools and every port are keyed by input forms
@@ -309,6 +309,16 @@ operators); remarks.md and plan.md split.
   commits when the next one starts. The
   zh stage of P3 and the word commit are not needed. This replaces the
   Mandarin and commit rules under "Profile: minimal-hu-v1" above.
+
+## The site without typing (2026-11-21)
+
+diafon.io now describes the alphabet only: the home page (letters, marks,
+areas, length, capitals, tones, text and fonts) and the Reference (the
+tables by letter and mark, the rules, the sample texts). The Learning page,
+the try-out and every typed form are gone, and with them the bridge
+(`universal_v1.py`), the old spec, the playground and lesson generators and
+the typing engine in JavaScript. `tests/test_no_input.py` has nothing
+pending and scans the pages too. This closes the gate of P2 on this side.
 
 ## Arguments against
 

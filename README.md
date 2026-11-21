@@ -1,14 +1,18 @@
 # Diafon
 
-**One keyboard, one script, many languages.**
+**One alphabet for the sounds of many languages.**
 
-Diafon is a phonemic alphabet with a matching way to type it. Twenty Latin
-letters stand for sounds; the other six change the sound before them and
-show as small marks. A sound is written the same way in each language that
-has it, so one script and one keyboard layout serve many languages. The
-text is ordinary Unicode.
+Diafon is a phonemic alphabet. Twenty-five Latin letters stand for sounds,
+and a small mark on a letter changes its sound in a set way. A sound is
+written the same way in each language that has it, so one script serves
+many languages. The text is ordinary Unicode.
 
-Documentation, lessons and tools: **[diafon.io](https://diafon.io)**
+This repository is the alphabet: its letters and marks, the languages, the
+spellings it converts to and from, the fonts, and one machine-readable file
+of all of it, `docs/alphabet-spec.json`. It knows no keyboard: ways of
+typing Diafon are separate projects that read that file.
+
+Documentation: **[diafon.io](https://diafon.io)**
 
 ## How Diafon is made
 
