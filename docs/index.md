@@ -90,6 +90,12 @@ k further back, and <span class="ug">h̤</span> is /ħ/, the h further back.
 
 --8<-- "sounds-consonants.html"
 
+Two groups are left off the chart, as each is one idea and not a place in
+the mouth. The soft consonants wear the anchor:
+<span class="ug">p̓ b̦ f̦ v̦ m̦ r̦ l̦ k̦ g̓</span>. Arabic's emphatic
+<span class="ug">s̤ z̤</span> wear the double dot below, and its emphatic
+<span class="ug">t̤ d̤</span> are the retroflex letters of the chart.
+
 ### Vowels
 
 Vowel areas are wide. e is any front mid vowel, close or open. a is any open

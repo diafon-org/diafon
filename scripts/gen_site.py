@@ -78,15 +78,16 @@ def hero():
 # data/script.yaml; the chart writes the affricates with a tie.
 TIE = {'ts': 't͡s', 'dz': 'd͡z', 'tʃ': 't͡ʃ', 'dʒ': 'd͡ʒ'}
 COMPOSED = {'c', 'ɟ', 'ɲ'}        # letters with a mark, shown where their sound sits, for orientation
-CONSONANTS = (['labial', 'dental', 'alveolar', 'postalveolar', 'palatal', 'velar', 'uvular · pharyngeal', 'glottal'], [   # lips to throat
-    ('stop', {'labial': 'p b', 'alveolar': 't d', 'palatal': 'c ɟ', 'velar': 'k g',
+CONSONANTS = (['labial', 'dental', 'alveolar', 'retroflex', 'postalveolar', 'alveolo-palatal', 'palatal', 'velar',
+               'uvular · pharyngeal', 'glottal'], [   # lips to throat
+    ('stop', {'labial': 'p b', 'alveolar': 't d', 'retroflex': 'ʈ ɖ', 'palatal': 'c ɟ', 'velar': 'k g',
               'uvular · pharyngeal': 'q', 'glottal': 'ʔ'}),
-    ('affricate', {'alveolar': 'ts dz', 'postalveolar': 'tʃ dʒ'}),
-    ('fricative', {'labial': 'f v', 'dental': 'θ ð', 'alveolar': 's z', 'postalveolar': 'ʃ ʒ',
+    ('affricate', {'alveolar': 'ts dz', 'postalveolar': 'tʃ dʒ', 'alveolo-palatal': 'tɕ dʑ'}),
+    ('fricative', {'labial': 'f v', 'dental': 'θ ð', 'alveolar': 's z', 'postalveolar': 'ʃ ʒ', 'alveolo-palatal': 'ɕ ʑ',
                    'velar': 'x ɣ', 'uvular · pharyngeal': 'ħ ʕ', 'glottal': 'h'}),
-    ('nasal', {'labial': 'm', 'alveolar': 'n', 'palatal': 'ɲ', 'velar': 'ŋ'}),
-    ('trill · tap', {'dental': (3, 'r | ɾ')}),                        # r ṛ side by side, centred under n
-    ('approximant', {'labial': 'w', 'alveolar': 'l', 'palatal': 'j'}),     # the glides w j and the lateral l
+    ('nasal', {'labial': 'm', 'alveolar': 'n', 'retroflex': 'ɳ', 'palatal': 'ɲ', 'velar': 'ŋ'}),
+    ('trill · tap', {'alveolar': 'r | ɾ'}),                           # r ṛ side by side
+    ('approximant', {'labial': 'w', 'alveolar': 'l', 'retroflex': 'ɭ', 'palatal': 'j'}),     # the glides w j and the laterals
 ])
 # the mark a point wears -> the colour class of its edge
 MARK_CLASS = {(): 'base', ('anchor',): 'j', ('dot',): 'x', ('twodots',): 'y', ('flip',): 'c', ('underdot',): 'j',
@@ -147,7 +148,7 @@ MOUTH_JAW = 'M10 50 Q6 51 6 55 Q8 61 14 62 L19 62 L19 55'                  # low
 MOUTH_TONGUE = 'M19 55 Q20 50 25 48 Q40 38 58 35 Q76 34 84 44 Q90 54 90 70 L90 84 L30 84 Q22 76 19 62 Z'
 MOUTH_BACK = 'M94 22 Q99 30 98 50 L98 86'                                  # the back of the throat
 PLACE = {'labial': (8, 46), 'dental': (19, 38), 'alveolar': (27, 26), 'postalveolar': (37, 20), 'palatal': (52, 15),
-         'velar': (76, 17), 'uvular · pharyngeal': (91, 46), 'glottal': (94, 78)}
+         'velar': (76, 17), 'retroflex': (33, 22), 'alveolo-palatal': (44, 17), 'uvular · pharyngeal': (91, 46), 'glottal': (94, 78)}
 
 
 def mouth(place):
@@ -223,7 +224,7 @@ def point_table(spec, caption):
     def cards(spec):
         groups = [g.split() for g in spec.split('|')]          # 'r | ɾ': a card each
         return ''.join(chip_svg(names, 'cmp' if set(names) <= COMPOSED else '') for names in groups)
-    shy = lambda c: c.replace('postalveolar', 'post\u00adalveolar')          # breaks as post-alveolar, if at all
+    shy = lambda c: c.replace('postalveolar', 'post\u00adalveolar').replace('alveolo-palatal', 'alveolo-\u200bpalatal')          # breaks as post-alveolar, if at all
     head = (lambda c: f'<th title="{c}">{mouth(c)}<span>{shy(c)}</span></th>') if caption == 'consonants' else (lambda c: f'<th>{c}</th>')
     out = [f'<div class="scroll" markdown="0"><table class="grid pts"><caption>{caption}</caption>'
            '<thead><tr><th></th>' + ''.join(head(c) for c in cols) + '</tr></thead><tbody>']
