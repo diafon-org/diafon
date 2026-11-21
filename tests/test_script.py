@@ -5,7 +5,7 @@
    combining marks and nothing else; the marks are those data/script.yaml
    defines, each with one meaning on every letter.
 2. Normalized: every glyph is NFC, so a pair Unicode precomposes (ș ṭ ä á)
-   appears as that letter, and a pair it does not (t̖ k̦ ȁ) stays a sequence;
+   appears as that letter, and a pair it does not (t̤ k̦ ȁ) stays a sequence;
    both are the same text to Unicode, and there is exactly one spelling.
 3. Capitals follow the float rule: no capital in the system descends, so a
    capital wears its mark below (G̦, P̦), and the base letter of a capital is
@@ -53,7 +53,7 @@ def test_normalized():
         assert g == ud.normalize('NFC', g), (comp, g)
         assert cap == ud.normalize('NFC', cap), (comp, cap)
     assert script.glyph('ʃ') == 'ș' and len(script.glyph('ʃ')) == 1         # precomposed by NFC
-    assert script.glyph('ʈ') == 't̖' and len(script.glyph('ʈ')) == 2          # a sequence: none exists
+    assert script.glyph('ʈ') == 't̤' and len(script.glyph('ʈ')) == 2          # a sequence: none exists
     assert script.glyph('kʲ') == 'k̦' and script.glyph('ə') == 'ạ'
     assert script.glyph('yː') == 'ű' and script.glyph('aː') == 'á' and script.glyph('ʃː') == 'șș'
 
@@ -61,7 +61,7 @@ def test_normalized():
 def test_capitals_float_below():
     assert script.glyph('gʲ') == 'g̓' and script.glyph('gʲ', caps=True) == 'G̦'
     assert script.glyph('pʲ', caps=True) == 'P̦' and script.glyph('ɣ', caps=True) == 'G̣'
-    assert script.glyph('ʕ', caps=True) == 'G̖' and script.glyph('cː', caps=True) == 'Țț'
+    assert script.glyph('ʕ', caps=True) == 'G̤' and script.glyph('cː', caps=True) == 'Țț'
     for comp, long, g, cap in glyphs():
         assert ud.normalize('NFD', cap)[0].lower() == ud.normalize('NFD', g)[0], (comp, g, cap)
         assert cap != g, comp

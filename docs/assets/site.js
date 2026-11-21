@@ -39,11 +39,12 @@ function spelled(k){
   return t + (/(s|z|ș|z̦|c̦|x̦)$/.test(t) ? 'iz' : /(p|t|k|f|ṭ)$/.test(t) ? 's' : 'z');
 }
 // a capital: the first letter up; a mark that floated above a small g or p sits below its capital
-const BELOW = {'\u0313': '\u0326', '\u0314': '\u0316', '\u0307': '\u0323'};
+const BELOW = {'\u0313': '\u0326', '\u0307': '\u0323'};
 function capital(t){
   const d = t.normalize('NFD');
   let rest = d.slice(1);
   if ('gpqj'.includes(d[0]) && BELOW[rest[0]]) rest = BELOW[rest[0]] + rest.slice(1);
+  else if ('gp'.includes(d[0]) && rest[0] === '\u0308') rest = '\u0324' + rest.slice(1);     // the double dot below, floated
   return (d[0].toUpperCase() + rest).normalize('NFC');
 }
 function word(w){

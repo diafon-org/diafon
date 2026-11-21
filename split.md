@@ -330,6 +330,16 @@ longer writes any of them; it stays on t̖ d̖ n̖ (Hindi, Bengali, Tamil) and o
 Arabic's s̖ z̖ t̖ d̖ k̖ g̔. Four points are new (ɕ ʑ tɕ dʑ, on the dot), two are
 renamed (s̖ is sˤ, z̖ is ðˤ) and two are gone (c̖ x̖).
 
+## No reverse anchor: the double dot below (2026-11-21)
+
+The reverse anchor is gone from the alphabet. Its seven letters wear the
+double dot below instead (U+0324; on g it floats above as U+0308): t̤ d̤ n̤
+for the retroflexes of Hindi, Bengali and Tamil, t̤ d̤ s̤ z̤ for Arabic's
+emphatics, k̤ g̈ for its pharyngeals. One dot is a nearby sound, two dots
+the one further back. The consonant marks are the anchor, the dot and the
+double dot below. The Diafon fonts do not draw the new mark yet: they
+still carry the reverse anchor's shapes and have no U+0324.
+
 ## Arguments against
 
 - Two repos double CI, releases and the sync step. A monorepo with two

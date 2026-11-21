@@ -74,10 +74,10 @@ def glyph(pts, caps=False):
     return script.write([Tok(c, long, caps and k == 0) for k, (c, long) in enumerate(pts)])
 
 
-MESSY = ('<b>Where it gets messy.</b> The reverse anchor marks a language\'s own further-back variant of a '
+MESSY = ('<b>Where it gets messy.</b> The double dot below marks a language\'s own further-back variant of a '
          'sound, and only languages that have both sounds write it: Hindi /t/ and /ʈ/ are '
-         '<span class="ug">t</span> and <span class="ug">t̖</span>, Arabic /s/ and /sˤ/ are '
-         '<span class="ug">s</span> and <span class="ug">s̖</span>.')
+         '<span class="ug">t</span> and <span class="ug">t̤</span>, Arabic /s/ and /sˤ/ are '
+         '<span class="ug">s</span> and <span class="ug">s̤</span>.')
 
 
 @functools.lru_cache(None)
@@ -109,7 +109,7 @@ def rule_of(ipa):
 
 
 def also(ipa, pts, here=None):
-    """'rule 1 · s̖ in Polish, Russian': the rule that gives this sound another letter elsewhere,
+    """'rule 1 · s̤ in Polish, Russian': the rule that gives this sound another letter elsewhere,
     and that letter with its languages, each a link to its own table at that row."""
     langs = load_languages()
     parts = []
@@ -128,8 +128,8 @@ def also(ipa, pts, here=None):
 
 
 def note_row(pts, state, cols):
-    """The reverse anchor's explanation, once a table, above its first reverse-anchor row."""
-    if state.get('noted') or 'reverse' not in pts[0][0][1]:
+    """The double dot below explained, once a table, above its first row."""
+    if state.get('noted') or 'twodots' not in pts[0][0][1]:
         return []
     state['noted'] = True
     return [f'<tr class="note"><td colspan="{cols}">{MESSY}</td></tr>']
@@ -140,7 +140,7 @@ GROUPS = [
     ((False, ()), 'consonants', 'plain letters'),
     ((False, ('anchor',)), 'consonants', 'the anchor: hushed or soft'),
     ((False, ('dot',)), 'consonants', 'the dot: a fixed nearby sound; on s z c x, the soft one'),
-    ((False, ('reverse',)), 'consonants', "the reverse anchor: the language's own variant, further back"),
+    ((False, ('twodots',)), 'consonants', "the double dot below: the language's own variant, further back"),
     ((False, ('flip',)), 'consonants', 'the double dot: the rounded glide, the vocalic r'),
     ((True, ()), 'vowels', 'plain letters'),
     ((True, ('flip',)), 'vowels', 'the double dot: lip rounding swapped; on a, the front a'),

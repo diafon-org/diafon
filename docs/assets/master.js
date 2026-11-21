@@ -7,7 +7,7 @@ const secs = [...document.querySelectorAll('section[id^=sec-]')];
 const esc = s => s.replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 
 // ---- state in the address: ?table=hu, so the hash stays free for a section; an 'also written'
-// link (#table=pl&letter=s̖), an older #table=hu and a bare #hu still read, and are written back as ?table=
+// link (#table=pl&letter=s̤), an older #table=hu and a bare #hu still read, and are written back as ?table=
 function urlState(){
   const st = Object.fromEntries(new URLSearchParams(location.search));
   const h = location.hash.slice(1);
@@ -55,7 +55,7 @@ function fromHash(){             // all languages, unless the address names a la
   const st = urlState();
   $table.value = st.table && $('sec-' + st.table) ? st.table : 'universal';
 }
-// an 'also written' link (#table=pl&letter=s̖): that language's table, at that row
+// an 'also written' link (#table=pl&letter=s̤): that language's table, at that row
 function goRow(){
   const st = urlState();
   if (!st.table || !$('sec-' + st.table)) return;

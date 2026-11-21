@@ -17,7 +17,7 @@ descenders: [g, j, p, q, y]
 marks:
   anchor:        {below: "̦", above: "̓"}   # the anchor: the hush, the soft consonants
   dot:           {below: "̣", above: "̇"}   # the fricative shift
-  reverse:       {below: "̖", above: "̔"}   # the back-lean: retroflex, emphatic, the weird
+  twodots:       {below: "̤", above: "̈"}   # the double dot below: the tongue pulled back (retroflex, emphatic, pharyngeal)
   underdot:      {below: "̣"}                    # on a vowel: the lax split (ɪ ʊ ɛ ɔ), and the schwa area ə
   grave:         {above: "̀"}                    # on a vowel: the special, default nasal
   acute:         {above: "́"}                    # a long vowel
@@ -39,13 +39,13 @@ points:
   d: d
   ɟ: d anchor
   ð: d dot
-  ɖ: d reverse
+  ɖ: d twodots
   f: f
   fʲ: f anchor
   g: g
   gʲ: g anchor
   ɣ: g dot
-  ʕ: g reverse
+  ʕ: g twodots
   h: h
   ʔ: h dot
   j: j
@@ -53,7 +53,7 @@ points:
   k: k
   kʲ: k anchor
   x: k dot
-  ħ: k reverse
+  ħ: k twodots
   l: l
   ʎ: l anchor
   ɭ: l dot
@@ -62,7 +62,7 @@ points:
   n: n
   ɲ: n anchor
   ŋ: n dot
-  ɳ: n reverse
+  ɳ: n twodots
   p: p
   pʲ: p anchor
   q: q
@@ -73,11 +73,11 @@ points:
   s: s
   ʃ: s anchor
   ɕ: s dot
-  sˤ: s reverse
+  sˤ: s twodots
   t: t
   c: t anchor
   θ: t dot
-  ʈ: t reverse
+  ʈ: t twodots
   v: v
   vʲ: v anchor
   w: w
@@ -87,7 +87,7 @@ points:
   z: z
   ʒ: z anchor
   ʑ: z dot
-  ðˤ: z reverse
+  ðˤ: z twodots
   # vowels
   a: a
   æ: a flip

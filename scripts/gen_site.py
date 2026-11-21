@@ -89,7 +89,7 @@ CONSONANTS = (['labial', 'dental', 'alveolar', 'postalveolar', 'palatal', 'velar
     ('approximant', {'labial': 'w', 'alveolar': 'l', 'palatal': 'j'}),     # the glides w j and the lateral l
 ])
 # the mark a point wears -> the colour class of its edge
-MARK_CLASS = {(): 'base', ('anchor',): 'j', ('dot',): 'x', ('reverse',): 'y', ('flip',): 'c', ('underdot',): 'j',
+MARK_CLASS = {(): 'base', ('anchor',): 'j', ('dot',): 'x', ('twodots',): 'y', ('flip',): 'c', ('underdot',): 'j',
               ('flip', 'underdot'): 'q', ('grave',): 'y'}
 MARK_GLOSS = [   # (class, on a consonant, on a vowel)
     ('base', 'no mark', 'no mark'),
@@ -97,7 +97,7 @@ MARK_GLOSS = [   # (class, on a consonant, on a vowel)
     ('x', 'the dot: a fixed nearby sound', None),
     ('c', None, 'the double dot: lip rounding swapped; on a, the front a'),
     ('q', None, 'the double dot and the dot below together'),
-    ('y', "the reverse anchor: the language's own variant", 'the grave: nasal'),
+    ('y', "the double dot below: the language's own variant, further back", 'the grave: nasal'),
 ]
 
 

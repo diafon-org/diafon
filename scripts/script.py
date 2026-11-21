@@ -5,7 +5,7 @@ A composition is a letter and its marks, (letter, marks); a point is a
 composition with a name, its canonical IPA value (split.md). The text is
 the composition itself, normalized (NFC): where Unicode has a precomposed
 letter for the pair (ș ṭ ä á) it appears, elsewhere the sequence stands
-(t̖ k̦ ȁ).
+(t̤ k̦ ȁ).
 
 - A consonant's mark sits below, floating above on the small letters that
   descend; no capital descends, so a capital wears its mark below (p̓ P̦).
@@ -36,7 +36,7 @@ CONSONANTS = set(_S['letters']['consonants'])
 VOWELS = set(_S['letters']['vowels'])
 DESC = set(_S['descenders'])
 MARKS = _S['marks']
-C_MARKS = ('anchor', 'dot', 'reverse')                 # a consonant wears one of these
+C_MARKS = ('anchor', 'dot', 'twodots')                 # a consonant wears one of these
 V_MARKS = ('flip', 'underdot', 'grave')                # a vowel any of these, in this order
 ZWJ = '‍'
 LONG = 'ː'
@@ -85,7 +85,7 @@ class Tok:
 
 def valid(comp):
     """Whether a letter and marks compose. A consonant wears at most one of
-    the anchor, the dot and the reverse: no reverse on the thin stems l r f,
+    the anchor, the dot and the double dot below: no double dot on the thin stems l r f,
     only the dot on q j w. The flip stands on j w r, alone (and on the
     dotted r). A vowel wears any of the flip, the underdot and the grave;
     a takes the flip or the underdot, not both."""
@@ -99,7 +99,7 @@ def valid(comp):
     rest = [m for m in marks if m != 'flip']
     if len(rest) > 1 or not all(m in C_MARKS for m in rest):
         return False
-    if 'reverse' in rest and letter in 'lrf':
+    if 'twodots' in rest and letter in 'lrf':
         return False
     if rest and rest != ['dot'] and letter in 'qjw':
         return False

@@ -25,7 +25,7 @@ C_ROWS = [
     ((),          False, 'plain',   None),
     (('anchor',), False, 'anchor',  None),
     (('dot',),    False, 'dot',     'ptkbdgfvszmnlrhcx'),
-    (('reverse',), False, 'reverse', 'tdnkgszcx'),
+    (('twodots',), False, 'double dot below', 'tdnkgsz'),
     (('flip',),   False, 'flip',    None),
 ]
 V_ROWS = [

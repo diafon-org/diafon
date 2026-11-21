@@ -179,10 +179,10 @@ def language_points(code):
 
 
 def special(points):
-    """The points that carry a reading per language by design: the back-lean
+    """The points that carry a reading per language by design: the double dot below
     and the vowel grave."""
     return len(points) == 1 and not points[0][1] and \
-        ('reverse' in points[0][0][1] or 'grave' in points[0][0][1])
+        ('twodots' in points[0][0][1] or 'grave' in points[0][0][1])
 
 
 _AGG = None
@@ -216,7 +216,7 @@ def aggregate():
                 e[0] += 1
                 e[1] += native
                 e[2].append(code)
-    # one reading per regular point: more belong to the back-lean and the grave
+    # one reading per regular point: more belong to the double dot below and the grave
     for pts, reads in agg.items():
         if len(reads) < 2 or special(pts) or len(pts) > 1:
             continue

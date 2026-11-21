@@ -39,24 +39,24 @@ from script import Tok
 VERSION = '1.0.0-pre.1'         # 1.0.0 once the split is done and the names are frozen (split.md)
 OUT = os.path.join(ROOT, 'docs', 'alphabet-spec.json')
 
-SENTENCES = ['șok sép n̦ár', 'Șanˉ, șok!', 'ȘAN', 'G̦ P̦ G̖ T̖ Ü Șș C̖h Á', 'maˉ maˊ maˇ maˋ', 'hossú älmä',
-             'c̦iˇ șïˇ c̦ïˉ', 'Diafon: j i w.', 'k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦', 't̖ d̖ n̖ s̖ z̖ c̖ x̖', 'c̣ x̣', 'r̈ r j w j̈ ẅ',
-             'ạ ẹ ị ọ ụ à è ì ò ù', 't̖h d̖h ṛh pf th kh']
+SENTENCES = ['șok sép n̦ár', 'Șanˉ, șok!', 'ȘAN', 'G̦ P̦ G̤ T̤ Ü Șș C̤h Á', 'maˉ maˊ maˇ maˋ', 'hossú älmä',
+             'c̦iˇ șïˇ c̦ïˉ', 'Diafon: j i w.', 'k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦', 't̤ d̤ n̤ s̤ z̤ c̤ x̤', 'c̣ x̣', 'r̈ r j w j̈ ẅ',
+             'ạ ẹ ị ọ ụ à è ì ò ù', 't̤h d̤h ṛh pf th kh']
 READ_ONLY = ['dd̦', 'kkk', 'tt', 't‍t', 'Șș', 'Ș‍ș', 'jj', 'x-ray: y', 'ma5 ma9', 'ǵ']    # read, not always written back the same
 DETECT = ['Șok sép n̦ár, hossú älmä', 'sok szép nyár, hosszú alma', 'dobrý den, přátelé', 'hyvää yötä kaikille',
-          'Dobra noc, kochani', 'günaydın', 'habari za asubuhi', 'ma1 ma2 ma3', 'K̖ Ẹ̀']
+          'Dobra noc, kochani', 'günaydın', 'habari za asubuhi', 'ma1 ma2 ma3', 'K̤ Ẹ̀']
 LEX_READ = {'en': ['the', 'quick', 'Shakespeare', 'meeting', 'facebook', 'nosuchword'],
             'zh': ['ni', 'hao3', 'Ni3hao3', 'nihao', 'you', 'lü4', 'zhong1', 'xi1', 'shi4', 'si1'],
             'la': ['hoc', 'vitae', 'quo'],
             'hu': ['jamaica', 'Bach', 'tea', 'Cudjoe', 'nosuchword']}
 LEX_WRITE = {'en': ['ḍạ', 'kwịk', 'rid', 'rẹd', 'Șejkspir', 'zzz'],
              'hu': ['fojók', 'gäjj', 'hẹjẹș', 'fọt', 'Hẹjẹs'],
-             'zh': ['ni', 'ḳaw', 'c̖uṇ', 's̖ï']}
+             'zh': ['ni', 'ḳaw', 'c̤uṇ', 's̤ï']}
 LEX_LOAN = {'hu': ['meeting', 'like', 'house', 'taxi', 'team', 'tagja', 'meetingen', 'Facebook', 'show', 'think', 'alma',
                    'hoc', 'sok', 'traumái', 'traumát', 'jamaicai', 'hazai', 'pizzát', 'Jamaicában', 'akinek', 'amiket',
                    'franchise', 'chat', 'technika', 'streamingajánlójában', 'meetingjén', 'Bela', 'felkerült', 'vele',
                    'teamek', 'teaház', 'onlinera', 'míting', 'Mítingen', 'lájk', 'lájkol', 'Bach', 'ocho']}
-LEX_CHOICES = ['niˇ', 'ḳawˇ', 'c̖uṇˉ', 'kuoˊ', 's̖ïˋ', 'zzzˉ']
+LEX_CHOICES = ['niˇ', 'ḳawˇ', 'c̤uṇˉ', 'kuoˊ', 's̤ïˋ', 'zzzˉ']
 LEX_TEXTS = {'stage:hu': ['Sok szép nyár. Folyó, gally, hely; helyes.', 'Meeting, like, house, taxi, ad hoc, team, tagja, Facebook.',
                           'Jamaicai franchise-ba, akinek traumái; Bach, pech, technika, chat.',
                           'Streamingajánlójában online teaház, felkerült; tea, team.', 'Cudjoe East, Ocho Rios.',
@@ -201,8 +201,8 @@ def build():
             'tones': S['tones'], 'long': script.LONG, 'joiner': script.ZWJ,
             'rules': [
                 'A point is a letter and its marks; its text is the composition, NFC.',
-                'A consonant wears at most one of the anchor, the dot and the reverse, below; above on a small letter that descends. No capital descends: a capital wears its mark below.',
-                'No reverse on the thin stems l r f; only the dot on q j w; the flip stands on j w r, alone, and on the dotted r.',
+                'A consonant wears at most one of the anchor, the dot and the double dot below (twodots), below; above on a small letter that descends. No capital descends: a capital wears its mark below.',
+                'No double dot on the thin stems l r f; only the dot on q j w; the flip stands on j w r, alone, and on the dotted r.',
                 'A vowel wears any of the flip, the underdot and the grave (a: the flip or the underdot, not both); long, the acute; the flip and the acute fuse into the double acute.',
                 'A long consonant doubles its letter; only the first is capitalized, and the second is the first one small. A joiner (U+200D) between the two marks the fused drawing and nothing else.',
                 'Two equal consonant letters in a row are the long point.',

@@ -46,7 +46,8 @@ written in one movement by hand. It sits on the thin letters too:
 
 On g and p the mark goes above, because the tail below is already taken:
 <span class="ug">p̓ g̓</span>. Capitals have no tail, so the mark stays below:
-<span class="ug">P̦ G̦</span>. This is the **float rule**.
+<span class="ug">P̦ G̦</span>. This is the **float rule**. The double dot below
+floats the same way: <span class="ug">g̈</span>, <span class="ug">G̤</span>.
 
 ### On vowels
 
@@ -81,8 +82,8 @@ made at the teeth in Hungarian and a little further back in English. r covers th
 English /ɹ/. <span class="ug">ṛ</span> covers both the tap and the flap,
 /ɾ ɽ/, as languages hardly ever tell them apart.
 
-The reverse anchor marks a language's own variant of a consonant, such as
-the retroflex <span class="ug">t̖ d̖</span> of Hindi or the emphatics of
+The double dot below marks a language's own variant of a consonant, such as
+the retroflex <span class="ug">t̤ d̤</span> of Hindi or the emphatics of
 Arabic. The plain letter is a fair approximation of it.
 
 --8<-- "sounds-consonants.html"
@@ -169,7 +170,7 @@ Each letter is a plain Latin letter plus standard combining marks:
 |---|---|---|
 | anchor | U+0326 comma below | U+0313 comma above |
 | dot | U+0323 dot below | U+0307 dot above |
-| reverse anchor | U+0316 grave accent below | U+0314 reversed comma above |
+| double dot below | U+0324 diaeresis below | U+0308 diaeresis above |
 | acute, grave, double acute | U+0301, U+0300, U+030B | |
 | double dot | U+0308 | |
 | dot below a vowel | U+0323 | |
@@ -177,7 +178,7 @@ Each letter is a plain Latin letter plus standard combining marks:
 
 Text is stored in the standard composed form (NFC). Where Unicode has a
 ready-made letter (<span class="ug">ș ṭ ä á</span>) that letter is used.
-Elsewhere the letter and its mark stay a pair (<span class="ug">t̖ k̦ a̋</span>).
+Elsewhere the letter and its mark stay a pair (<span class="ug">t̤ k̦ a̋</span>).
 Both count as the same text.
 
 The Diafon fonts (Serif, Sans and Mono) draw the marks as designed, with the
@@ -191,7 +192,7 @@ font does.
 |---|---|
 | mark | a small sign on a letter that changes its sound in a set way |
 | anchor | the comma-like mark joined below a consonant |
-| reverse anchor | the anchor turned the other way: a language's own variant |
+| double dot below | two dots under a consonant: a language's own variant, further back |
 | float rule | on g and p the mark goes above |
 | area | the range of sounds one letter covers |
 | split | a second vowel inside an area, written only by languages that have both |

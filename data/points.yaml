@@ -84,10 +84,10 @@ d:
     ð: [ar, el, en]
 ɖ:
   letter: d
-  marks: [reverse]
+  marks: [twodots]
   long: false
-  glyph: d̖
-  capital: D̖
+  glyph: d̤
+  capital: D̤
   readings:
     dˤ: [ar]
     ɖ: [bn, hi]
@@ -134,10 +134,10 @@ gʲ:
     ʁ: [ar, de, fr, he, ka, pt]
 ʕ:
   letter: g
-  marks: [reverse]
+  marks: [twodots]
   long: false
-  glyph: g̔
-  capital: G̖
+  glyph: g̈
+  capital: G̤
   readings:
     ʕ: [ar]
 h:
@@ -209,10 +209,10 @@ x:
     χ: [ka]
 ħ:
   letter: k
-  marks: [reverse]
+  marks: [twodots]
   long: false
-  glyph: k̖
-  capital: K̖
+  glyph: k̤
+  capital: K̤
   readings:
     ħ: [ar]
 l:
@@ -284,10 +284,10 @@ n:
     ɴ: [ja]
 ɳ:
   letter: n
-  marks: [reverse]
+  marks: [twodots]
   long: false
-  glyph: n̖
-  capital: N̖
+  glyph: n̤
+  capital: N̤
   readings:
     ɳ: [hi, ta]
 p:
@@ -406,10 +406,10 @@ sː:
     ɕː: [ru]
 sˤ:
   letter: s
-  marks: [reverse]
+  marks: [twodots]
   long: false
-  glyph: s̖
-  capital: S̖
+  glyph: s̤
+  capital: S̤
   readings:
     sˤ: [ar]
 t:
@@ -449,10 +449,10 @@ c:
     θ: [ar, el, en, es]
 ʈ:
   letter: t
-  marks: [reverse]
+  marks: [twodots]
   long: false
-  glyph: t̖
-  capital: T̖
+  glyph: t̤
+  capital: T̤
   readings:
     tˤ: [ar]
     ʈ: [bn, hi, ta]
@@ -535,10 +535,10 @@ z:
     ʑ: [pl]
 ðˤ:
   letter: z
-  marks: [reverse]
+  marks: [twodots]
   long: false
-  glyph: z̖
-  capital: Z̖
+  glyph: z̤
+  capital: Z̤
   readings:
     ðˤ: [ar]
 a:

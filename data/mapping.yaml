@@ -63,8 +63,8 @@ consonants:
   ð: ð
   ŋ: ŋ
   pf: [p, f]         # a sequence: German never contrasts pf with p+f
-  ħ: ħ          # the pharyngeals join the emphatics on the back-lean:
-  ʕ: ʕ          #   Arabic's back quality across the board; k̖ approximates ḳ /x/
+  ħ: ħ          # the pharyngeals join the emphatics on the double dot below:
+  ʕ: ʕ          #   Arabic's back quality across the board; k̤ is one step behind ḳ /x/
   # shares on marked points
   χ: x
   ʁ: ɣ
@@ -101,7 +101,7 @@ consonants:
   ɟ: ɟ
   ʝ: ɟ
   r̝: rʲ        # Czech ř, its soft r
-  # retroflex (y); the back-lean
+  # retroflex: the double dot below
   ʈ: ʈ
   ɖ: ɖ
   ɳ: ɳ
@@ -235,7 +235,7 @@ overrides:
     qʼ: q
     tsʼ: ts
     tʃʼ: tʃ
-  ar:            # the emphatics: the back-lean, the tongue root drawn back
+  ar:            # the emphatics: the double dot below, the tongue root drawn back
     tˤ: ʈ
     dˤ: ɖ
     sˤ: sˤ
@@ -266,7 +266,7 @@ merges:
   pt: [[ɐ, a]]   # unstressed or nasal a; the falámos ~ falamos contrast is marginal
   zh: [[ɤ, ə]]   # one phoneme: [ɤ] open, [ə] before nasals
 
-# Multiple readings belong to the back-lean family and to the vowel grave. A REGULAR point carries one reading; every
+# Multiple readings belong to the double dot below and to the vowel grave. A REGULAR point carries one reading; every
 # other reading of any point is justified below, language by language. The
 # reading marked `primary` is the point's canonical value (shown aggregated);
 # the special has no canonical value, so its first reading is simply its
@@ -278,13 +278,13 @@ shares:
       ka: the ejective; the bare letter is the licensed approximation
     t̪:
       bn: the dental series on the plain slot; retroflex rides y
-      hi: the dental series; ʈ is carried by t̖
-      ta: dental t̪ against retroflex ʈ (t̖); the plain slot is the dental
+      hi: the dental series; ʈ is carried by t̤
+      ta: dental t̪ against retroflex ʈ (t̤); the plain slot is the dental
   d:
     d: primary
     d̪:
       bn: the dental series on the plain slot
-      hi: the dental series; ɖ is carried by d̖
+      hi: the dental series; ɖ is carried by d̤
     ɗ:
       vi: implosive realisation of its only voiced coronal stop; the exotic licence
   b:
@@ -432,4 +432,4 @@ shares:
       zh: er (儿/二); the same rhotacized schwa
     ɻ:
       ta: ழ; the vocalic r, the most vowel-like rhotic
-  # the back-lean: per-language readings by design (none listed)
+  # the double dot below: per-language readings by design (none listed)

@@ -49,9 +49,9 @@
     "below": "̣",
     "above": "̇"
    },
-   "reverse": {
-    "below": "̖",
-    "above": "̔"
+   "twodots": {
+    "below": "̤",
+    "above": "̈"
    },
    "underdot": {
     "below": "̣"
@@ -107,8 +107,8 @@
   "joiner": "‍",
   "rules": [
    "A point is a letter and its marks; its text is the composition, NFC.",
-   "A consonant wears at most one of the anchor, the dot and the reverse, below; above on a small letter that descends. No capital descends: a capital wears its mark below.",
-   "No reverse on the thin stems l r f; only the dot on q j w; the flip stands on j w r, alone, and on the dotted r.",
+   "A consonant wears at most one of the anchor, the dot and the double dot below (twodots), below; above on a small letter that descends. No capital descends: a capital wears its mark below.",
+   "No double dot on the thin stems l r f; only the dot on q j w; the flip stands on j w r, alone, and on the dotted r.",
    "A vowel wears any of the flip, the underdot and the grave (a: the flip or the underdot, not both); long, the acute; the flip and the acute fuse into the double acute.",
    "A long consonant doubles its letter; only the first is capitalized, and the second is the first one small. A joiner (U+200D) between the two marks the fused drawing and nothing else.",
    "Two equal consonant letters in a row are the long point.",
@@ -365,11 +365,11 @@
    "id": "ɖ",
    "letter": "d",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "long": false,
-   "glyph": "d̖",
-   "capital": "D̖",
+   "glyph": "d̤",
+   "capital": "D̤",
    "readings": {
     "dˤ": [
      "ar"
@@ -506,11 +506,11 @@
    "id": "ʕ",
    "letter": "g",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "long": false,
-   "glyph": "g̔",
-   "capital": "G̖",
+   "glyph": "g̈",
+   "capital": "G̤",
    "readings": {
     "ʕ": [
      "ar"
@@ -737,11 +737,11 @@
    "id": "ħ",
    "letter": "k",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "long": false,
-   "glyph": "k̖",
-   "capital": "K̖",
+   "glyph": "k̤",
+   "capital": "K̤",
    "readings": {
     "ħ": [
      "ar"
@@ -993,11 +993,11 @@
    "id": "ɳ",
    "letter": "n",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "long": false,
-   "glyph": "n̖",
-   "capital": "N̖",
+   "glyph": "n̤",
+   "capital": "N̤",
    "readings": {
     "ɳ": [
      "hi",
@@ -1331,11 +1331,11 @@
    "id": "sˤ",
    "letter": "s",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "long": false,
-   "glyph": "s̖",
-   "capital": "S̖",
+   "glyph": "s̤",
+   "capital": "S̤",
    "readings": {
     "sˤ": [
      "ar"
@@ -1447,11 +1447,11 @@
    "id": "ʈ",
    "letter": "t",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "long": false,
-   "glyph": "t̖",
-   "capital": "T̖",
+   "glyph": "t̤",
+   "capital": "T̤",
    "readings": {
     "tˤ": [
      "ar"
@@ -1691,11 +1691,11 @@
    "id": "ðˤ",
    "letter": "z",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "long": false,
-   "glyph": "z̖",
-   "capital": "Z̖",
+   "glyph": "z̤",
+   "capital": "Z̤",
    "readings": {
     "ðˤ": [
      "ar"
@@ -2641,15 +2641,15 @@
   {
    "letter": "d",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "id": "ɖ",
-   "glyph": "d̖",
-   "capital": "D̖",
-   "long": "d̖d̖",
-   "long_capital": "D̖d̖",
-   "joined": "d̖‍d̖",
-   "joined_capital": "D̖‍d̖"
+   "glyph": "d̤",
+   "capital": "D̤",
+   "long": "d̤d̤",
+   "long_capital": "D̤d̤",
+   "joined": "d̤‍d̤",
+   "joined_capital": "D̤‍d̤"
   },
   {
    "letter": "f",
@@ -2715,15 +2715,15 @@
   {
    "letter": "g",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "id": "ʕ",
-   "glyph": "g̔",
-   "capital": "G̖",
-   "long": "g̔g̔",
-   "long_capital": "G̖g̖",
-   "joined": "g̔‍g̔",
-   "joined_capital": "G̖‍g̖"
+   "glyph": "g̈",
+   "capital": "G̤",
+   "long": "g̈g̈",
+   "long_capital": "G̤g̤",
+   "joined": "g̈‍g̈",
+   "joined_capital": "G̤‍g̤"
   },
   {
    "letter": "h",
@@ -2813,15 +2813,15 @@
   {
    "letter": "k",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "id": "ħ",
-   "glyph": "k̖",
-   "capital": "K̖",
-   "long": "k̖k̖",
-   "long_capital": "K̖k̖",
-   "joined": "k̖‍k̖",
-   "joined_capital": "K̖‍k̖"
+   "glyph": "k̤",
+   "capital": "K̤",
+   "long": "k̤k̤",
+   "long_capital": "K̤k̤",
+   "joined": "k̤‍k̤",
+   "joined_capital": "K̤‍k̤"
   },
   {
    "letter": "l",
@@ -2924,15 +2924,15 @@
   {
    "letter": "n",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "id": "ɳ",
-   "glyph": "n̖",
-   "capital": "N̖",
-   "long": "n̖n̖",
-   "long_capital": "N̖n̖",
-   "joined": "n̖‍n̖",
-   "joined_capital": "N̖‍n̖"
+   "glyph": "n̤",
+   "capital": "N̤",
+   "long": "n̤n̤",
+   "long_capital": "N̤n̤",
+   "joined": "n̤‍n̤",
+   "joined_capital": "N̤‍n̤"
   },
   {
    "letter": "p",
@@ -3059,15 +3059,15 @@
   {
    "letter": "s",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "id": "sˤ",
-   "glyph": "s̖",
-   "capital": "S̖",
-   "long": "s̖s̖",
-   "long_capital": "S̖s̖",
-   "joined": "s̖‍s̖",
-   "joined_capital": "S̖‍s̖"
+   "glyph": "s̤",
+   "capital": "S̤",
+   "long": "s̤s̤",
+   "long_capital": "S̤s̤",
+   "joined": "s̤‍s̤",
+   "joined_capital": "S̤‍s̤"
   },
   {
    "letter": "t",
@@ -3109,15 +3109,15 @@
   {
    "letter": "t",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "id": "ʈ",
-   "glyph": "t̖",
-   "capital": "T̖",
-   "long": "t̖t̖",
-   "long_capital": "T̖t̖",
-   "joined": "t̖‍t̖",
-   "joined_capital": "T̖‍t̖"
+   "glyph": "t̤",
+   "capital": "T̤",
+   "long": "t̤t̤",
+   "long_capital": "T̤t̤",
+   "joined": "t̤‍t̤",
+   "joined_capital": "T̤‍t̤"
   },
   {
    "letter": "v",
@@ -3231,15 +3231,15 @@
   {
    "letter": "z",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "id": "ðˤ",
-   "glyph": "z̖",
-   "capital": "Z̖",
-   "long": "z̖z̖",
-   "long_capital": "Z̖z̖",
-   "joined": "z̖‍z̖",
-   "joined_capital": "Z̖‍z̖"
+   "glyph": "z̤",
+   "capital": "Z̤",
+   "long": "z̤z̤",
+   "long_capital": "Z̤z̤",
+   "joined": "z̤‍z̤",
+   "joined_capital": "Z̤‍z̤"
   },
   {
    "letter": "a",
@@ -3515,28 +3515,28 @@
   {
    "letter": "b",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "id": null,
-   "glyph": "b̖",
-   "capital": "B̖",
-   "long": "b̖b̖",
-   "long_capital": "B̖b̖",
-   "joined": "b̖‍b̖",
-   "joined_capital": "B̖‍b̖"
+   "glyph": "b̤",
+   "capital": "B̤",
+   "long": "b̤b̤",
+   "long_capital": "B̤b̤",
+   "joined": "b̤‍b̤",
+   "joined_capital": "B̤‍b̤"
   },
   {
    "letter": "c",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "id": null,
-   "glyph": "c̖",
-   "capital": "C̖",
-   "long": "c̖c̖",
-   "long_capital": "C̖c̖",
-   "joined": "c̖‍c̖",
-   "joined_capital": "C̖‍c̖"
+   "glyph": "c̤",
+   "capital": "C̤",
+   "long": "c̤c̤",
+   "long_capital": "C̤c̤",
+   "joined": "c̤‍c̤",
+   "joined_capital": "C̤‍c̤"
   },
   {
    "letter": "f",
@@ -3567,15 +3567,15 @@
   {
    "letter": "h",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "id": null,
-   "glyph": "h̖",
-   "capital": "H̖",
-   "long": "h̖h̖",
-   "long_capital": "H̖h̖",
-   "joined": "h̖‍h̖",
-   "joined_capital": "H̖‍h̖"
+   "glyph": "h̤",
+   "capital": "H̤",
+   "long": "h̤h̤",
+   "long_capital": "H̤h̤",
+   "joined": "h̤‍h̤",
+   "joined_capital": "H̤‍h̤"
   },
   {
    "letter": "j",
@@ -3606,15 +3606,15 @@
   {
    "letter": "m",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "id": null,
-   "glyph": "m̖",
-   "capital": "M̖",
-   "long": "m̖m̖",
-   "long_capital": "M̖m̖",
-   "joined": "m̖‍m̖",
-   "joined_capital": "M̖‍m̖"
+   "glyph": "m̤",
+   "capital": "M̤",
+   "long": "m̤m̤",
+   "long_capital": "M̤m̤",
+   "joined": "m̤‍m̤",
+   "joined_capital": "M̤‍m̤"
   },
   {
    "letter": "p",
@@ -3632,15 +3632,15 @@
   {
    "letter": "p",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "id": null,
-   "glyph": "p̔",
-   "capital": "P̖",
-   "long": "p̔p̔",
-   "long_capital": "P̖p̖",
-   "joined": "p̔‍p̔",
-   "joined_capital": "P̖‍p̖"
+   "glyph": "p̈",
+   "capital": "P̤",
+   "long": "p̈p̈",
+   "long_capital": "P̤p̤",
+   "joined": "p̈‍p̈",
+   "joined_capital": "P̤‍p̤"
   },
   {
    "letter": "q",
@@ -3685,15 +3685,15 @@
   {
    "letter": "v",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "id": null,
-   "glyph": "v̖",
-   "capital": "V̖",
-   "long": "v̖v̖",
-   "long_capital": "V̖v̖",
-   "joined": "v̖‍v̖",
-   "joined_capital": "V̖‍v̖"
+   "glyph": "v̤",
+   "capital": "V̤",
+   "long": "v̤v̤",
+   "long_capital": "V̤v̤",
+   "joined": "v̤‍v̤",
+   "joined_capital": "V̤‍v̤"
   },
   {
    "letter": "w",
@@ -3724,15 +3724,15 @@
   {
    "letter": "x",
    "marks": [
-    "reverse"
+    "twodots"
    ],
    "id": null,
-   "glyph": "x̖",
-   "capital": "X̖",
-   "long": "x̖x̖",
-   "long_capital": "X̖x̖",
-   "joined": "x̖‍x̖",
-   "joined_capital": "X̖‍x̖"
+   "glyph": "x̤",
+   "capital": "X̤",
+   "long": "x̤x̤",
+   "long_capital": "X̤x̤",
+   "joined": "x̤‍x̤",
+   "joined_capital": "X̤‍x̤"
   },
   {
    "letter": "a",
@@ -11557,7 +11557,7 @@
     [
      "ɖ"
     ],
-    "d̖"
+    "d̤"
    ],
    [
     [
@@ -11566,7 +11566,7 @@
       "caps": true
      }
     ],
-    "D̖"
+    "D̤"
    ],
    [
     [
@@ -11647,7 +11647,7 @@
     [
      "ʕ"
     ],
-    "g̔"
+    "g̈"
    ],
    [
     [
@@ -11656,7 +11656,7 @@
       "caps": true
      }
     ],
-    "G̖"
+    "G̤"
    ],
    [
     [
@@ -11782,7 +11782,7 @@
     [
      "ħ"
     ],
-    "k̖"
+    "k̤"
    ],
    [
     [
@@ -11791,7 +11791,7 @@
       "caps": true
      }
     ],
-    "K̖"
+    "K̤"
    ],
    [
     [
@@ -11917,7 +11917,7 @@
     [
      "ɳ"
     ],
-    "n̖"
+    "n̤"
    ],
    [
     [
@@ -11926,7 +11926,7 @@
       "caps": true
      }
     ],
-    "N̖"
+    "N̤"
    ],
    [
     [
@@ -12127,7 +12127,7 @@
     [
      "sˤ"
     ],
-    "s̖"
+    "s̤"
    ],
    [
     [
@@ -12136,7 +12136,7 @@
       "caps": true
      }
     ],
-    "S̖"
+    "S̤"
    ],
    [
     [
@@ -12202,7 +12202,7 @@
     [
      "ʈ"
     ],
-    "t̖"
+    "t̤"
    ],
    [
     [
@@ -12211,7 +12211,7 @@
       "caps": true
      }
     ],
-    "T̖"
+    "T̤"
    ],
    [
     [
@@ -12352,7 +12352,7 @@
     [
      "ðˤ"
     ],
-    "z̖"
+    "z̤"
    ],
    [
     [
@@ -12361,7 +12361,7 @@
       "caps": true
      }
     ],
-    "Z̖"
+    "Z̤"
    ],
    [
     [
@@ -12931,46 +12931,46 @@
      {
       "c": [
        "b",
-       "reverse"
+       "twodots"
       ]
      }
     ],
-    "b̖"
+    "b̤"
    ],
    [
     [
      {
       "c": [
        "b",
-       "reverse"
+       "twodots"
       ],
       "caps": true
      }
     ],
-    "B̖"
+    "B̤"
    ],
    [
     [
      {
       "c": [
        "c",
-       "reverse"
+       "twodots"
       ]
      }
     ],
-    "c̖"
+    "c̤"
    ],
    [
     [
      {
       "c": [
        "c",
-       "reverse"
+       "twodots"
       ],
       "caps": true
      }
     ],
-    "C̖"
+    "C̤"
    ],
    [
     [
@@ -13023,23 +13023,23 @@
      {
       "c": [
        "h",
-       "reverse"
+       "twodots"
       ]
      }
     ],
-    "h̖"
+    "h̤"
    ],
    [
     [
      {
       "c": [
        "h",
-       "reverse"
+       "twodots"
       ],
       "caps": true
      }
     ],
-    "H̖"
+    "H̤"
    ],
    [
     [
@@ -13092,23 +13092,23 @@
      {
       "c": [
        "m",
-       "reverse"
+       "twodots"
       ]
      }
     ],
-    "m̖"
+    "m̤"
    ],
    [
     [
      {
       "c": [
        "m",
-       "reverse"
+       "twodots"
       ],
       "caps": true
      }
     ],
-    "M̖"
+    "M̤"
    ],
    [
     [
@@ -13138,23 +13138,23 @@
      {
       "c": [
        "p",
-       "reverse"
+       "twodots"
       ]
      }
     ],
-    "p̔"
+    "p̈"
    ],
    [
     [
      {
       "c": [
        "p",
-       "reverse"
+       "twodots"
       ],
       "caps": true
      }
     ],
-    "P̖"
+    "P̤"
    ],
    [
     [
@@ -13232,23 +13232,23 @@
      {
       "c": [
        "v",
-       "reverse"
+       "twodots"
       ]
      }
     ],
-    "v̖"
+    "v̤"
    ],
    [
     [
      {
       "c": [
        "v",
-       "reverse"
+       "twodots"
       ],
       "caps": true
      }
     ],
-    "V̖"
+    "V̤"
    ],
    [
     [
@@ -13301,23 +13301,23 @@
      {
       "c": [
        "x",
-       "reverse"
+       "twodots"
       ]
      }
     ],
-    "x̖"
+    "x̤"
    ],
    [
     [
      {
       "c": [
        "x",
-       "reverse"
+       "twodots"
       ],
       "caps": true
      }
     ],
-    "X̖"
+    "X̤"
    ],
    [
     [
@@ -13787,7 +13787,7 @@
      {
       "c": [
        "c",
-       "reverse"
+       "twodots"
       ],
       "caps": true
      },
@@ -13800,7 +13800,7 @@
       "caps": true
      }
     ],
-    "G̦ P̦ G̖ T̖ Ü Șș C̖h Á"
+    "G̦ P̦ G̤ T̤ Ü Șș C̤h Á"
    ],
    [
     [
@@ -13948,7 +13948,7 @@
       "caps": true
      }
     ],
-    "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦"
+    "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
    ],
    [
     [
@@ -13975,7 +13975,7 @@
      {
       "c": [
        "c",
-       "reverse"
+       "twodots"
       ]
      },
      {
@@ -13984,11 +13984,11 @@
      {
       "c": [
        "x",
-       "reverse"
+       "twodots"
       ]
      }
     ],
-    "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+    "t̤ d̤ n̤ s̤ z̤ c̤ x̤"
    ],
    [
     [
@@ -14103,7 +14103,7 @@
      "k",
      "h"
     ],
-    "t̖h d̖h ṛh pf th kh"
+    "t̤h d̤h ṛh pf th kh"
    ]
   ],
   "joined": [
@@ -14231,7 +14231,7 @@
     [
      "ɖː"
     ],
-    "d̖‍d̖"
+    "d̤‍d̤"
    ],
    [
     [
@@ -14240,7 +14240,7 @@
       "caps": true
      }
     ],
-    "D̖‍d̖"
+    "D̤‍d̤"
    ],
    [
     [
@@ -14321,7 +14321,7 @@
     [
      "ʕː"
     ],
-    "g̔‍g̔"
+    "g̈‍g̈"
    ],
    [
     [
@@ -14330,7 +14330,7 @@
       "caps": true
      }
     ],
-    "G̖‍g̖"
+    "G̤‍g̤"
    ],
    [
     [
@@ -14441,7 +14441,7 @@
     [
      "ħː"
     ],
-    "k̖‍k̖"
+    "k̤‍k̤"
    ],
    [
     [
@@ -14450,7 +14450,7 @@
       "caps": true
      }
     ],
-    "K̖‍k̖"
+    "K̤‍k̤"
    ],
    [
     [
@@ -14576,7 +14576,7 @@
     [
      "ɳː"
     ],
-    "n̖‍n̖"
+    "n̤‍n̤"
    ],
    [
     [
@@ -14585,7 +14585,7 @@
       "caps": true
      }
     ],
-    "N̖‍n̖"
+    "N̤‍n̤"
    ],
    [
     [
@@ -14741,7 +14741,7 @@
     [
      "sˤː"
     ],
-    "s̖‍s̖"
+    "s̤‍s̤"
    ],
    [
     [
@@ -14750,7 +14750,7 @@
       "caps": true
      }
     ],
-    "S̖‍s̖"
+    "S̤‍s̤"
    ],
    [
     [
@@ -14801,7 +14801,7 @@
     [
      "ʈː"
     ],
-    "t̖‍t̖"
+    "t̤‍t̤"
    ],
    [
     [
@@ -14810,7 +14810,7 @@
       "caps": true
      }
     ],
-    "T̖‍t̖"
+    "T̤‍t̤"
    ],
    [
     [
@@ -14951,7 +14951,7 @@
     [
      "ðˤː"
     ],
-    "z̖‍z̖"
+    "z̤‍z̤"
    ],
    [
     [
@@ -14960,7 +14960,7 @@
       "caps": true
      }
     ],
-    "Z̖‍z̖"
+    "Z̤‍z̤"
    ],
    [
     [
@@ -14992,50 +14992,50 @@
      {
       "c": [
        "b",
-       "reverse"
+       "twodots"
       ],
       "long": true
      }
     ],
-    "b̖‍b̖"
+    "b̤‍b̤"
    ],
    [
     [
      {
       "c": [
        "b",
-       "reverse"
+       "twodots"
       ],
       "long": true,
       "caps": true
      }
     ],
-    "B̖‍b̖"
+    "B̤‍b̤"
    ],
    [
     [
      {
       "c": [
        "c",
-       "reverse"
+       "twodots"
       ],
       "long": true
      }
     ],
-    "c̖‍c̖"
+    "c̤‍c̤"
    ],
    [
     [
      {
       "c": [
        "c",
-       "reverse"
+       "twodots"
       ],
       "long": true,
       "caps": true
      }
     ],
-    "C̖‍c̖"
+    "C̤‍c̤"
    ],
    [
     [
@@ -15092,25 +15092,25 @@
      {
       "c": [
        "h",
-       "reverse"
+       "twodots"
       ],
       "long": true
      }
     ],
-    "h̖‍h̖"
+    "h̤‍h̤"
    ],
    [
     [
      {
       "c": [
        "h",
-       "reverse"
+       "twodots"
       ],
       "long": true,
       "caps": true
      }
     ],
-    "H̖‍h̖"
+    "H̤‍h̤"
    ],
    [
     [
@@ -15167,25 +15167,25 @@
      {
       "c": [
        "m",
-       "reverse"
+       "twodots"
       ],
       "long": true
      }
     ],
-    "m̖‍m̖"
+    "m̤‍m̤"
    ],
    [
     [
      {
       "c": [
        "m",
-       "reverse"
+       "twodots"
       ],
       "long": true,
       "caps": true
      }
     ],
-    "M̖‍m̖"
+    "M̤‍m̤"
    ],
    [
     [
@@ -15217,25 +15217,25 @@
      {
       "c": [
        "p",
-       "reverse"
+       "twodots"
       ],
       "long": true
      }
     ],
-    "p̔‍p̔"
+    "p̈‍p̈"
    ],
    [
     [
      {
       "c": [
        "p",
-       "reverse"
+       "twodots"
       ],
       "long": true,
       "caps": true
      }
     ],
-    "P̖‍p̖"
+    "P̤‍p̤"
    ],
    [
     [
@@ -15319,25 +15319,25 @@
      {
       "c": [
        "v",
-       "reverse"
+       "twodots"
       ],
       "long": true
      }
     ],
-    "v̖‍v̖"
+    "v̤‍v̤"
    ],
    [
     [
      {
       "c": [
        "v",
-       "reverse"
+       "twodots"
       ],
       "long": true,
       "caps": true
      }
     ],
-    "V̖‍v̖"
+    "V̤‍v̤"
    ],
    [
     [
@@ -15394,25 +15394,25 @@
      {
       "c": [
        "x",
-       "reverse"
+       "twodots"
       ],
       "long": true
      }
     ],
-    "x̖‍x̖"
+    "x̤‍x̤"
    ],
    [
     [
      {
       "c": [
        "x",
-       "reverse"
+       "twodots"
       ],
       "long": true,
       "caps": true
      }
     ],
-    "X̖‍x̖"
+    "X̤‍x̤"
    ]
   ],
   "read": [
@@ -15480,7 +15480,7 @@
     ]
    ],
    [
-    "G̦ P̦ G̖ T̖ Ü Șș C̖h Á",
+    "G̦ P̦ G̤ T̤ Ü Șș C̤h Á",
     [
      {
       "p": "gʲ",
@@ -15527,7 +15527,7 @@
      {
       "c": [
        "c",
-       "reverse"
+       "twodots"
       ],
       "caps": true
      },
@@ -15650,7 +15650,7 @@
     ]
    ],
    [
-    "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦",
+    "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
     [
      "ħ",
      {
@@ -15690,7 +15690,7 @@
     ]
    ],
    [
-    "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+    "t̤ d̤ n̤ s̤ z̤ c̤ x̤",
     [
      "ʈ",
      {
@@ -15715,7 +15715,7 @@
      {
       "c": [
        "c",
-       "reverse"
+       "twodots"
       ]
      },
      {
@@ -15724,7 +15724,7 @@
      {
       "c": [
        "x",
-       "reverse"
+       "twodots"
       ]
      }
     ]
@@ -15813,7 +15813,7 @@
     ]
    ],
    [
-    "t̖h d̖h ṛh pf th kh",
+    "t̤h d̤h ṛh pf th kh",
     [
      "ʈ",
      "h",
@@ -17001,7 +17001,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ],
        "caps": true
       },
@@ -17014,7 +17014,7 @@
        "caps": true
       }
      ],
-     "G̦ P̦ G̖ T̖ Ü Šš C̖h Á"
+     "G̦ P̦ G̤ T̤ Ü Šš C̤h Á"
     ],
     [
      [
@@ -17162,7 +17162,7 @@
        "caps": true
       }
      ],
-     "k̖ g̔ l̦ ř f̦ v̦ L̦ Ř"
+     "k̤ g̈ l̦ ř f̦ v̦ L̦ Ř"
     ],
     [
      [
@@ -17189,7 +17189,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ]
       },
       {
@@ -17198,11 +17198,11 @@
       {
        "c": [
         "x",
-        "reverse"
+        "twodots"
        ]
       }
      ],
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤"
     ],
     [
      [
@@ -17317,7 +17317,7 @@
       "k",
       "h"
      ],
-     "t̖h d̖h ṛh pf th kh"
+     "t̤h d̤h ṛh pf th kh"
     ],
     [
      [
@@ -17460,7 +17460,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ],
        "caps": true
       },
@@ -17473,7 +17473,7 @@
        "caps": true
       }
      ],
-     "G̦ P̦ G̖ T̖ Ü Șș C̖h Ah"
+     "G̦ P̦ G̤ T̤ Ü Șș C̤h Ah"
     ],
     [
      [
@@ -17621,7 +17621,7 @@
        "caps": true
       }
      ],
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      [
@@ -17648,7 +17648,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ]
       },
       {
@@ -17657,11 +17657,11 @@
       {
        "c": [
         "x",
-        "reverse"
+        "twodots"
        ]
       }
      ],
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤"
     ],
     [
      [
@@ -17776,7 +17776,7 @@
       "k",
       "h"
      ],
-     "t̖h d̖h ṛh pf th kh"
+     "t̤h d̤h ṛh pf th kh"
     ],
     [
      [
@@ -18697,7 +18697,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ],
        "caps": true
       },
@@ -18710,7 +18710,7 @@
        "caps": true
       }
      ],
-     "G̦ P̦ G̖ T̖ Y Šš C̖h Aa"
+     "G̦ P̦ G̤ T̤ Y Šš C̤h Aa"
     ],
     [
      [
@@ -18858,7 +18858,7 @@
        "caps": true
       }
      ],
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      [
@@ -18885,7 +18885,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ]
       },
       {
@@ -18894,11 +18894,11 @@
       {
        "c": [
         "x",
-        "reverse"
+        "twodots"
        ]
       }
      ],
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤"
     ],
     [
      [
@@ -19013,7 +19013,7 @@
       "k",
       "h"
      ],
-     "t̖h d̖h ṛh pf th kh"
+     "t̤h d̤h ṛh pf th kh"
     ],
     [
      [
@@ -20111,7 +20111,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ],
        "caps": true
       },
@@ -20124,7 +20124,7 @@
        "caps": true
       }
      ],
-     "G̦ P̦ G̖ T̖ Ü Ss C̖h Á"
+     "G̦ P̦ G̤ T̤ Ü Ss C̤h Á"
     ],
     [
      [
@@ -20272,7 +20272,7 @@
        "caps": true
       }
      ],
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      [
@@ -20299,7 +20299,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ]
       },
       {
@@ -20308,11 +20308,11 @@
       {
        "c": [
         "x",
-        "reverse"
+        "twodots"
        ]
       }
      ],
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤"
     ],
     [
      [
@@ -20427,7 +20427,7 @@
       "k",
       "h"
      ],
-     "t̖h d̖h ṛh pf th kh"
+     "t̤h d̤h ṛh pf th kh"
     ],
     [
      [
@@ -21508,7 +21508,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ],
        "caps": true
       },
@@ -21521,7 +21521,7 @@
        "caps": true
       }
      ],
-     "G̦ P̦ G̖ T̖ Ü Szsz C̖h Á"
+     "G̦ P̦ G̤ T̤ Ü Szsz C̤h Á"
     ],
     [
      [
@@ -21669,7 +21669,7 @@
        "caps": true
       }
      ],
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      [
@@ -21696,7 +21696,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ]
       },
       {
@@ -21705,11 +21705,11 @@
       {
        "c": [
         "x",
-        "reverse"
+        "twodots"
        ]
       }
      ],
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤"
     ],
     [
      [
@@ -21824,7 +21824,7 @@
       "k",
       "h"
      ],
-     "t̖h d̖h ṛh pf th kh"
+     "t̤h d̤h ṛh pf th kh"
     ],
     [
      [
@@ -22791,7 +22791,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ],
        "caps": true
       },
@@ -22804,7 +22804,7 @@
        "caps": true
       }
      ],
-     "G̦ P̦ G̖ T̖ Ü Shsh C̖h Á"
+     "G̦ P̦ G̤ T̤ Ü Shsh C̤h Á"
     ],
     [
      [
@@ -22952,7 +22952,7 @@
        "caps": true
       }
      ],
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      [
@@ -22979,7 +22979,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ]
       },
       {
@@ -22988,11 +22988,11 @@
       {
        "c": [
         "x",
-        "reverse"
+        "twodots"
        ]
       }
      ],
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤"
     ],
     [
      [
@@ -23107,7 +23107,7 @@
       "k",
       "h"
      ],
-     "t̖h d̖h ṛh pf th kh"
+     "t̤h d̤h ṛh pf th kh"
     ],
     [
      [
@@ -23986,7 +23986,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ],
        "caps": true
       },
@@ -23999,7 +23999,7 @@
        "caps": true
       }
      ],
-     "G̦ P̦ G̖ T̖ Ü Şş C̖h Â"
+     "G̦ P̦ G̤ T̤ Ü Şş C̤h Â"
     ],
     [
      [
@@ -24147,7 +24147,7 @@
        "caps": true
       }
      ],
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      [
@@ -24174,7 +24174,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ]
       },
       {
@@ -24183,11 +24183,11 @@
       {
        "c": [
         "x",
-        "reverse"
+        "twodots"
        ]
       }
      ],
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤"
     ],
     [
      [
@@ -24302,7 +24302,7 @@
       "k",
       "h"
      ],
-     "t̖h d̖h rh pf th kh"
+     "t̤h d̤h rh pf th kh"
     ],
     [
      [
@@ -24458,7 +24458,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ],
        "caps": true
       },
@@ -24471,7 +24471,7 @@
        "caps": true
       }
      ],
-     "G̦ P̦ G̖ T̖ Yu Șș C̖h Á"
+     "G̦ P̦ G̤ T̤ Yu Șș C̤h Á"
     ],
     [
      [
@@ -24619,7 +24619,7 @@
        "caps": true
       }
      ],
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦"
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦"
     ],
     [
      [
@@ -24646,7 +24646,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ]
       },
       {
@@ -24655,11 +24655,11 @@
       {
        "c": [
         "x",
-        "reverse"
+        "twodots"
        ]
       }
      ],
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖"
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤"
     ],
     [
      [
@@ -24774,7 +24774,7 @@
       "k",
       "h"
      ],
-     "t̖h d̖h ṛh pf th kh"
+     "t̤h d̤h ṛh pf th kh"
     ],
     [
      [
@@ -24883,7 +24883,7 @@
      ]
     ],
     [
-     "G̦ P̦ G̖ T̖ Ü Šš C̖h Á",
+     "G̦ P̦ G̤ T̤ Ü Šš C̤h Á",
      [
       {
        "p": "gʲ",
@@ -24930,7 +24930,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ],
        "caps": true
       },
@@ -25053,7 +25053,7 @@
      ]
     ],
     [
-     "k̖ g̔ l̦ ř f̦ v̦ L̦ Ř",
+     "k̤ g̈ l̦ ř f̦ v̦ L̦ Ř",
      [
       "ħ",
       {
@@ -25093,7 +25093,7 @@
      ]
     ],
     [
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤",
      [
       "ʈ",
       {
@@ -25118,7 +25118,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ]
       },
       {
@@ -25127,7 +25127,7 @@
       {
        "c": [
         "x",
-        "reverse"
+        "twodots"
        ]
       }
      ]
@@ -25216,7 +25216,7 @@
      ]
     ],
     [
-     "t̖h d̖h ṛh pf th kh",
+     "t̤h d̤h ṛh pf th kh",
      [
       "ʈ",
       "h",
@@ -25488,7 +25488,7 @@
      ]
     ],
     [
-     "G̦ P̦ G̖ T̖ Y Šš C̖h Aa",
+     "G̦ P̦ G̤ T̤ Y Šš C̤h Aa",
      [
       {
        "p": "gʲ",
@@ -25535,7 +25535,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ],
        "caps": true
       },
@@ -25658,7 +25658,7 @@
      ]
     ],
     [
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦",
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
      [
       "ħ",
       {
@@ -25698,7 +25698,7 @@
      ]
     ],
     [
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤",
      [
       "ʈ",
       {
@@ -25723,7 +25723,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ]
       },
       {
@@ -25732,7 +25732,7 @@
       {
        "c": [
         "x",
-        "reverse"
+        "twodots"
        ]
       }
      ]
@@ -25821,7 +25821,7 @@
      ]
     ],
     [
-     "t̖h d̖h ṛh pf th kh",
+     "t̤h d̤h ṛh pf th kh",
      [
       "ʈ",
       "h",
@@ -26055,7 +26055,7 @@
      ]
     ],
     [
-     "G̦ P̦ G̖ T̖ Ü Ss C̖h Á",
+     "G̦ P̦ G̤ T̤ Ü Ss C̤h Á",
      [
       {
        "p": "gʲ",
@@ -26102,7 +26102,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ],
        "caps": true
       },
@@ -26225,7 +26225,7 @@
      ]
     ],
     [
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦",
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
      [
       "ħ",
       {
@@ -26265,7 +26265,7 @@
      ]
     ],
     [
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤",
      [
       "ʈ",
       {
@@ -26290,7 +26290,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ]
       },
       {
@@ -26299,7 +26299,7 @@
       {
        "c": [
         "x",
-        "reverse"
+        "twodots"
        ]
       }
      ]
@@ -26388,7 +26388,7 @@
      ]
     ],
     [
-     "t̖h d̖h ṛh pf th kh",
+     "t̤h d̤h ṛh pf th kh",
      [
       "ʈ",
       "h",
@@ -26633,7 +26633,7 @@
      ]
     ],
     [
-     "G̦ P̦ G̖ T̖ Ü Szsz C̖h Á",
+     "G̦ P̦ G̤ T̤ Ü Szsz C̤h Á",
      [
       {
        "p": "gʲ",
@@ -26680,7 +26680,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ],
        "caps": true
       },
@@ -26803,7 +26803,7 @@
      ]
     ],
     [
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦",
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
      [
       "ħ",
       {
@@ -26843,7 +26843,7 @@
      ]
     ],
     [
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤",
      [
       "ʈ",
       {
@@ -26868,7 +26868,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ]
       },
       {
@@ -26877,7 +26877,7 @@
       {
        "c": [
         "x",
-        "reverse"
+        "twodots"
        ]
       }
      ]
@@ -26966,7 +26966,7 @@
      ]
     ],
     [
-     "t̖h d̖h ṛh pf th kh",
+     "t̤h d̤h ṛh pf th kh",
      [
       "ʈ",
       "x",
@@ -27201,7 +27201,7 @@
      ]
     ],
     [
-     "G̦ P̦ G̖ T̖ Ü Shsh C̖h Á",
+     "G̦ P̦ G̤ T̤ Ü Shsh C̤h Á",
      [
       {
        "p": "gʲ",
@@ -27248,7 +27248,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ],
        "caps": true
       },
@@ -27371,7 +27371,7 @@
      ]
     ],
     [
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦",
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
      [
       "ħ",
       {
@@ -27411,7 +27411,7 @@
      ]
     ],
     [
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤",
      [
       "ʈ",
       {
@@ -27436,7 +27436,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ]
       },
       {
@@ -27445,7 +27445,7 @@
       {
        "c": [
         "x",
-        "reverse"
+        "twodots"
        ]
       }
      ]
@@ -27534,7 +27534,7 @@
      ]
     ],
     [
-     "t̖h d̖h ṛh pf th kh",
+     "t̤h d̤h ṛh pf th kh",
      [
       "ʈ",
       "h",
@@ -27760,7 +27760,7 @@
      ]
     ],
     [
-     "G̦ P̦ G̖ T̖ Ü Şş C̖h Â",
+     "G̦ P̦ G̤ T̤ Ü Şş C̤h Â",
      [
       {
        "p": "gʲ",
@@ -27807,7 +27807,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ],
        "caps": true
       },
@@ -27930,7 +27930,7 @@
      ]
     ],
     [
-     "k̖ g̔ l̦ r̦ f̦ v̦ L̦ R̦",
+     "k̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦",
      [
       "ħ",
       {
@@ -27970,7 +27970,7 @@
      ]
     ],
     [
-     "t̖ d̖ n̖ s̖ z̖ c̖ x̖",
+     "t̤ d̤ n̤ s̤ z̤ c̤ x̤",
      [
       "ʈ",
       {
@@ -27995,7 +27995,7 @@
       {
        "c": [
         "c",
-        "reverse"
+        "twodots"
        ]
       },
       {
@@ -28004,7 +28004,7 @@
       {
        "c": [
         "x",
-        "reverse"
+        "twodots"
        ]
       }
      ]
@@ -28093,7 +28093,7 @@
      ]
     ],
     [
-     "t̖h d̖h rh pf th kh",
+     "t̤h d̤h rh pf th kh",
      [
       "ʈ",
       "h",
@@ -28652,10 +28652,10 @@
     "SAN"
    ],
    [
-    "G̦ P̦ G̖ T̖ Ü Șș C̖h Á",
+    "G̦ P̦ G̤ T̤ Ü Șș C̤h Á",
     "script",
     "stage:hu",
-    "G̦ P̦ G̖ T̖ Ü Ss C̖h Á"
+    "G̦ P̦ G̤ T̤ Ü Ss C̤h Á"
    ],
    [
     "maˉ maˊ maˇ maˋ",
@@ -28704,7 +28704,7 @@
     "stage:zh"
    ],
    [
-    "K̖ Ẹ̀",
+    "K̤ Ẹ̀",
     "script"
    ]
   ],
@@ -28902,12 +28902,12 @@
     ],
     [
      "zh",
-     "c̖uṇ",
+     "c̤uṇ",
      null
     ],
     [
      "zh",
-     "s̖ï",
+     "s̤ï",
      null
     ]
    ],
@@ -29123,7 +29123,7 @@
      ]
     ],
     [
-     "c̖uṇˉ",
+     "c̤uṇˉ",
      []
     ],
     [
@@ -29138,7 +29138,7 @@
      ]
     ],
     [
-     "s̖ïˋ",
+     "s̤ïˋ",
      []
     ],
     [
