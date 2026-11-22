@@ -106,7 +106,7 @@
   "rules": [
    "A point is a letter and its marks; its text is the composition, NFC.",
    "A consonant wears at most one of the anchor, the dot and the double dot below (twodots), below; above on a small letter that descends. No capital descends: a capital wears its mark below.",
-   "No double dot on the thin stems l r f; only the dot on j w; the flip stands on j w r, alone, and on the dotted r.",
+   "No double dot on the thin stems l r f; only the dot on j w; the flip stands on w r, alone, and on the dotted r.",
    "A vowel wears any of the flip, the underdot and the grave (a: the flip or the underdot, not both); long, the acute; the flip and the acute fuse into the double acute.",
    "A long consonant doubles its letter; only the first is capitalized, and the second is the first one small. A joiner (U+200D) between the two marks the fused drawing and nothing else.",
    "Two equal consonant letters in a row are the long point.",
@@ -3567,19 +3567,6 @@
    "long_capital": "H̦h̦",
    "joined": "h̦‍h̦",
    "joined_capital": "H̦‍h̦"
-  },
-  {
-   "letter": "j",
-   "marks": [
-    "flip"
-   ],
-   "id": null,
-   "glyph": "j̈",
-   "capital": "J̈",
-   "long": "j̈j̈",
-   "long_capital": "J̈j̈",
-   "joined": "j̈‍j̈",
-   "joined_capital": "J̈‍j̈"
   },
   {
    "letter": "j",
@@ -13020,29 +13007,6 @@
      {
       "c": [
        "j",
-       "flip"
-      ]
-     }
-    ],
-    "j̈"
-   ],
-   [
-    [
-     {
-      "c": [
-       "j",
-       "flip"
-      ],
-      "caps": true
-     }
-    ],
-    "J̈"
-   ],
-   [
-    [
-     {
-      "c": [
-       "j",
        "dot"
       ]
      }
@@ -13973,18 +13937,9 @@
      {
       "raw": " "
      },
-     {
-      "c": [
-       "j",
-       "flip"
-      ]
-     },
-     {
-      "raw": " "
-     },
      "ɥ"
     ],
-    "r̈ r j w j̈ ẅ"
+    "r̈ r j w ẅ"
    ],
    [
     [
@@ -15047,31 +15002,6 @@
      {
       "c": [
        "j",
-       "flip"
-      ],
-      "long": true
-     }
-    ],
-    "j̈‍j̈"
-   ],
-   [
-    [
-     {
-      "c": [
-       "j",
-       "flip"
-      ],
-      "long": true,
-      "caps": true
-     }
-    ],
-    "J̈‍j̈"
-   ],
-   [
-    [
-     {
-      "c": [
-       "j",
        "dot"
       ],
       "long": true
@@ -15649,7 +15579,7 @@
     ]
    ],
    [
-    "r̈ r j w j̈ ẅ",
+    "r̈ r j w ẅ",
     [
      "ɝ",
      {
@@ -15664,15 +15594,6 @@
       "raw": " "
      },
      "w",
-     {
-      "raw": " "
-     },
-     {
-      "c": [
-       "j",
-       "flip"
-      ]
-     },
      {
       "raw": " "
      },
@@ -17145,18 +17066,9 @@
       {
        "raw": " "
       },
-      {
-       "c": [
-        "j",
-        "flip"
-       ]
-      },
-      {
-       "raw": " "
-      },
       "ɥ"
      ],
-     "r̈ r j w j̈ ẅ"
+     "r̈ r j w ẅ"
     ],
     [
      [
@@ -17608,18 +17520,9 @@
       {
        "raw": " "
       },
-      {
-       "c": [
-        "j",
-        "flip"
-       ]
-      },
-      {
-       "raw": " "
-      },
       "ɥ"
      ],
-     "are r j w j̈ ẅ"
+     "are r j w ẅ"
     ],
     [
      [
@@ -18849,18 +18752,9 @@
       {
        "raw": " "
       },
-      {
-       "c": [
-        "j",
-        "flip"
-       ]
-      },
-      {
-       "raw": " "
-      },
       "ɥ"
      ],
-     "r̈ r j w j̈ ẅ"
+     "r̈ r j w ẅ"
     ],
     [
      [
@@ -20267,18 +20161,9 @@
       {
        "raw": " "
       },
-      {
-       "c": [
-        "j",
-        "flip"
-       ]
-      },
-      {
-       "raw": " "
-      },
       "ɥ"
      ],
-     "r̈ r j w j̈ ẅ"
+     "r̈ r j w ẅ"
     ],
     [
      [
@@ -21668,18 +21553,9 @@
       {
        "raw": " "
       },
-      {
-       "c": [
-        "j",
-        "flip"
-       ]
-      },
-      {
-       "raw": " "
-      },
       "ɥ"
      ],
-     "r̈ r j ł j̈ ẅ"
+     "r̈ r j ł ẅ"
     ],
     [
      [
@@ -22955,18 +22831,9 @@
       {
        "raw": " "
       },
-      {
-       "c": [
-        "j",
-        "flip"
-       ]
-      },
-      {
-       "raw": " "
-      },
       "ɥ"
      ],
-     "r̈ r y w j̈ ẅ"
+     "r̈ r y w ẅ"
     ],
     [
      [
@@ -24154,18 +24021,9 @@
       {
        "raw": " "
       },
-      {
-       "c": [
-        "j",
-        "flip"
-       ]
-      },
-      {
-       "raw": " "
-      },
       "ɥ"
      ],
-     "r̈ r y w j̈ ẅ"
+     "r̈ r y w ẅ"
     ],
     [
      [
@@ -24630,18 +24488,9 @@
       {
        "raw": " "
       },
-      {
-       "c": [
-        "j",
-        "flip"
-       ]
-      },
-      {
-       "raw": " "
-      },
       "ɥ"
      ],
-     "er r j w j̈ ẅ"
+     "er r j w ẅ"
     ],
     [
      [
@@ -25088,7 +24937,7 @@
      ]
     ],
     [
-     "r̈ r j w j̈ ẅ",
+     "r̈ r j w ẅ",
      [
       "ɝ",
       {
@@ -25103,15 +24952,6 @@
        "raw": " "
       },
       "v",
-      {
-       "raw": " "
-      },
-      {
-       "c": [
-        "j",
-        "flip"
-       ]
-      },
       {
        "raw": " "
       },
@@ -25697,7 +25537,7 @@
      ]
     ],
     [
-     "r̈ r j w j̈ ẅ",
+     "r̈ r j w ẅ",
      [
       "ɝ",
       {
@@ -25712,15 +25552,6 @@
        "raw": " "
       },
       "v",
-      {
-       "raw": " "
-      },
-      {
-       "c": [
-        "j",
-        "flip"
-       ]
-      },
       {
        "raw": " "
       },
@@ -26268,7 +26099,7 @@
      ]
     ],
     [
-     "r̈ r j w j̈ ẅ",
+     "r̈ r j w ẅ",
      [
       "ɝ",
       {
@@ -26283,15 +26114,6 @@
        "raw": " "
       },
       "v",
-      {
-       "raw": " "
-      },
-      {
-       "c": [
-        "j",
-        "flip"
-       ]
-      },
       {
        "raw": " "
       },
@@ -26850,7 +26672,7 @@
      ]
     ],
     [
-     "r̈ r j ł j̈ ẅ",
+     "r̈ r j ł ẅ",
      [
       "ɝ",
       {
@@ -26865,15 +26687,6 @@
        "raw": " "
       },
       "w",
-      {
-       "raw": " "
-      },
-      {
-       "c": [
-        "j",
-        "flip"
-       ]
-      },
       {
        "raw": " "
       },
@@ -27422,7 +27235,7 @@
      ]
     ],
     [
-     "r̈ r y w j̈ ẅ",
+     "r̈ r y w ẅ",
      [
       "ɝ",
       {
@@ -27437,15 +27250,6 @@
        "raw": " "
       },
       "w",
-      {
-       "raw": " "
-      },
-      {
-       "c": [
-        "j",
-        "flip"
-       ]
-      },
       {
        "raw": " "
       },
@@ -27985,7 +27789,7 @@
      ]
     ],
     [
-     "r̈ r y w j̈ ẅ",
+     "r̈ r y w ẅ",
      [
       "ɝ",
       {
@@ -28000,15 +27804,6 @@
        "raw": " "
       },
       "v",
-      {
-       "raw": " "
-      },
-      {
-       "c": [
-        "j",
-        "flip"
-       ]
-      },
       {
        "raw": " "
       },

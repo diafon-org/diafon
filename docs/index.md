@@ -57,8 +57,12 @@ Marks combine, at most one above and one below. The double dot and length
 together make the double acute, <span class="ug">ű</span>. The dot below
 takes one mark above: <span class="ug">ẹ́</span> /ɛː/,
 <span class="ug">ẹ̀</span> /ɛ̃/. The double dot and the dot below together
-give <span class="ug">ọ̈</span> /œ/. On r the double dot gives the vocalic r,
-<span class="ug">r̈</span> /ɝ/.
+give <span class="ug">ọ̈</span> /œ/.
+
+Two consonant letters take the double dot too. On r it gives the vocalic r,
+<span class="ug">r̈</span> /ɝ/, the vowel of English *bird*. On w it gives
+<span class="ug">ẅ</span> /ɥ/, the glide of ü, as j is the glide of i and
+w the glide of u.
 
 ## Each letter covers an area
 
