@@ -62,6 +62,12 @@ def languages(c):
 
 def build(pid):
     c = profile.compile(pid)
+    # what each key writes, so a port needs no other table: small and capital, and the long forms
+    for v in c['keys'].values():
+        comp = (v['to'][0], tuple(v['to'][1:]))
+        v['writes'] = {f: g for f, g in alphabet.COMPS[comp].items()
+                       if f in ('glyph', 'capital', 'long', 'long_capital', 'joined', 'joined_capital')}
+    c['tone_signs'] = dict(alphabet.TONES)
     c['languages'] = languages(c)
     c['vectors'] = vectors(make(c))
     return c

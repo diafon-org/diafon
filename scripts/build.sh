@@ -7,3 +7,4 @@ set -e
 cd "$(dirname "$0")/.."
 python3 scripts/compile_profile.py
 python3 tests/test_profile.py
+python3 tests/test_keys_js.py
