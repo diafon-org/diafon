@@ -20,6 +20,7 @@ transport, script, script joined, {stage: spelling}]. A row of read/*:
 import gzip
 import hashlib
 import json
+import re
 import os
 import shutil
 import sys
@@ -169,6 +170,10 @@ def today(x):
     """A frozen row with the mark the alphabet has since changed (the reverse anchor, now the double
     dot below): U+0316 is U+0324, and above a letter U+0314 is U+0308."""
     if isinstance(x, str):
+        # the glide of ü moved from j to w (j̈ and ẅ change places), before the mark that became U+0308
+        swap = {'j\u0308': '\u1e85', 'J\u0308': '\u1e84', '\u1e85': 'j\u0308', '\u1e84': 'J\u0308',
+                'w\u0308': 'j\u0308', 'W\u0308': 'J\u0308'}
+        x = re.sub('[jJwW]\u0308|[\u1e84\u1e85]', lambda m: swap[m.group()], x)
         return x.replace('\u0316', '\u0324').replace('\u0314', '\u0308')
     if isinstance(x, list):
         return [today(v) for v in x]

@@ -8,10 +8,10 @@ data class Stage(val code: String, val name: String, val long: String, val forms
                  val beforeVowel: Map<String, String> = emptyMap())     // soft only before a vowel other than i (Polish bie)
 
 object SpecData {
-    const val GENERATED = "2026-11-21"
-    const val SOURCE = "8a9141d"
+    const val GENERATED = "2026-11-22"
+    const val SOURCE = "b155d66"
     val DESCENDERS: Set<Char> = setOf('g', 'j', 'p', 'y')
-    val WHOLE: Map<String, String> = mapOf("tc" to "c", "dc" to "x", "tq" to "c̦", "dq" to "x̦", "ix" to "j", "ux" to "w", "icx" to "j̈", "ucx" to "ẅ", "aq" to "r̈")
+    val WHOLE: Map<String, String> = mapOf("tc" to "c", "dc" to "x", "tq" to "c̦", "dq" to "x̦", "ix" to "j", "ux" to "w", "icx" to "ẅ", "ucx" to "j̈", "aq" to "r̈")
     val MARKS: Map<String, Mark> = mapOf(
         "anchor" to Mark("̦", "̓"),
         "dot" to Mark("̣", "̇"),

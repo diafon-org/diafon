@@ -126,7 +126,7 @@ keys:
   iq: ʏ                           # ụ̈
   ix: j                           # j
   iy: ĩ                           # ì
-  icx: ɥ                          # j̈
+  icx: ɥ                          # ẅ: the glide of ü (ic), drawn on w as ü is on u
   icy: u+flip+grave               # ǜ
   ijy: i+underdot+grave           # ị̀
   iqy: u+flip+underdot+grave      # ụ̈̀
@@ -147,7 +147,7 @@ keys:
   uq: i+flip+underdot             # ị̈
   ux: w                           # w
   uy: ũ                           # ù
-  ucx: w+flip                     # ẅ
+  ucx: j+flip                     # j̈
   ucy: i+flip+grave               # ï̀
   ujy: u+underdot+grave           # ụ̀
   uqy: i+flip+underdot+grave      # ị̈̀

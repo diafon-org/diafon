@@ -1,7 +1,7 @@
 {
  "name": "Diafon",
- "generated": "2026-11-21",
- "source": "8a9141d",
+ "generated": "2026-11-22",
+ "source": "b155d66",
  "alphabet": {
   "consonant_bases": [
    "b",
@@ -69,8 +69,8 @@
    "dq": "x̦",
    "ix": "j",
    "ux": "w",
-   "icx": "j̈",
-   "ucx": "ẅ",
+   "icx": "ẅ",
+   "ucx": "j̈",
    "aq": "r̈"
   },
   "marks": {
@@ -2784,8 +2784,8 @@
   },
   {
    "form": "icx",
-   "glyph": "j̈",
-   "capital": "J̈",
+   "glyph": "ẅ",
+   "capital": "Ẅ",
    "type": "glide",
    "segments": 1,
    "readings": {
@@ -3245,8 +3245,8 @@
   },
   {
    "form": "oicx",
-   "glyph": "oj̈",
-   "capital": "Oj̈",
+   "glyph": "oẅ",
+   "capital": "Oẅ",
    "type": "sequence",
    "segments": 2,
    "readings": {
@@ -3277,8 +3277,8 @@
   },
   {
    "form": "ecicx",
-   "glyph": "öj̈",
-   "capital": "Öj̈",
+   "glyph": "öẅ",
+   "capital": "Öẅ",
    "type": "sequence",
    "segments": 2,
    "readings": {
@@ -11818,15 +11818,15 @@
    ],
    [
     "icx",
-    "j̈"
+    "ẅ"
    ],
    [
     "Icx",
-    "J̈"
+    "Ẅ"
    ],
    [
     "ICX",
-    "J̈"
+    "Ẅ"
    ],
    [
     "sjy",
@@ -12062,7 +12062,7 @@
    ],
    [
     "oicx",
-    "oj̈"
+    "oẅ"
    ],
    [
     "ocux",
@@ -12070,7 +12070,7 @@
    ],
    [
     "ecicx",
-    "öj̈"
+    "öẅ"
    ],
    [
     "sjok sewp njawr",
@@ -12118,7 +12118,7 @@
    ],
    [
     "aq r ix ux icx ucx",
-    "r̈ r j w j̈ ẅ"
+    "r̈ r j w ẅ j̈"
    ],
    [
     "aj ej ij oj uj ay ey iy oy uy",
@@ -13200,7 +13200,7 @@
     ],
     [
      "aq r ix ux icx ucx",
-     "r̈ r j w j̈ ẅ"
+     "r̈ r j w ẅ j̈"
     ],
     [
      "aj ej ij oj uj ay ey iy oy uy",
@@ -13418,7 +13418,7 @@
     ],
     [
      "aq r ix ux icx ucx",
-     "are r j w j̈ ẅ"
+     "are r j w ẅ j̈"
     ],
     [
      "aj ej ij oj uj ay ey iy oy uy",
@@ -13676,7 +13676,7 @@
     ],
     [
      "aq r ix ux icx ucx",
-     "r̈ r j w j̈ ẅ"
+     "r̈ r j w ẅ j̈"
     ],
     [
      "aj ej ij oj uj ay ey iy oy uy",
@@ -13986,7 +13986,7 @@
     ],
     [
      "aq r ix ux icx ucx",
-     "r̈ r j w j̈ ẅ"
+     "r̈ r j w ẅ j̈"
     ],
     [
      "aj ej ij oj uj ay ey iy oy uy",
@@ -14320,7 +14320,7 @@
     ],
     [
      "aq r ix ux icx ucx",
-     "r̈ r j ł j̈ ẅ"
+     "r̈ r j ł ẅ j̈"
     ],
     [
      "aj ej ij oj uj ay ey iy oy uy",
@@ -14598,7 +14598,7 @@
     ],
     [
      "aq r ix ux icx ucx",
-     "r̈ r y w j̈ ẅ"
+     "r̈ r y w ẅ j̈"
     ],
     [
      "aj ej ij oj uj ay ey iy oy uy",
@@ -14848,7 +14848,7 @@
     ],
     [
      "aq r ix ux icx ucx",
-     "r̈ r y w j̈ ẅ"
+     "r̈ r y w ẅ j̈"
     ],
     [
      "aj ej ij oj uj ay ey iy oy uy",
@@ -15038,7 +15038,7 @@
     ],
     [
      "aq r ix ux icx ucx",
-     "er r j w j̈ ẅ"
+     "er r j w ẅ j̈"
     ],
     [
      "aj ej ij oj uj ay ey iy oy uy",
@@ -15725,11 +15725,11 @@
      "Dcx"
     ],
     [
-     "j̈",
+     "ẅ",
      "icx"
     ],
     [
-     "J̈",
+     "Ẅ",
      "Icx"
     ],
     [
@@ -15881,7 +15881,7 @@
      "tcx dcx"
     ],
     [
-     "r̈ r j w j̈ ẅ",
+     "r̈ r j w ẅ j̈",
      "aq r ix ux icx ucx"
     ],
     [
@@ -16620,7 +16620,7 @@
       "tcx dcx"
      ],
      [
-      "r̈ r j w j̈ ẅ",
+      "r̈ r j w ẅ j̈",
       "aq r ix v icx ucx"
      ],
      [
@@ -16758,7 +16758,7 @@
       "tcx dcx"
      ],
      [
-      "are r j w j̈ ẅ",
+      "are r j w ẅ j̈",
       "awr awr dqeix dajbajlixuw icx ucx"
      ],
      [
@@ -16956,7 +16956,7 @@
       "tcx dcx"
      ],
      [
-      "r̈ r j w j̈ ẅ",
+      "r̈ r j w ẅ j̈",
       "aq r ix v icx ucx"
      ],
      [
@@ -17222,7 +17222,7 @@
       "tcx dcx"
      ],
      [
-      "r̈ r j w j̈ ẅ",
+      "r̈ r j w ẅ j̈",
       "aq r ix v icx ucx"
      ],
      [
@@ -17484,7 +17484,7 @@
       "tcx dcx"
      ],
      [
-      "r̈ r j ł j̈ ẅ",
+      "r̈ r j ł ẅ j̈",
       "aq r ix ux icx ucx"
      ],
      [
@@ -17726,7 +17726,7 @@
       "tcx dcx"
      ],
      [
-      "r̈ r y w j̈ ẅ",
+      "r̈ r y w ẅ j̈",
       "aq r ix ux icx ucx"
      ],
      [
@@ -17944,7 +17944,7 @@
       "tcx dcx"
      ],
      [
-      "r̈ r y w j̈ ẅ",
+      "r̈ r y w ẅ j̈",
       "aq rc ix v icx ucx"
      ],
      [
@@ -18082,7 +18082,7 @@
       "tcx dcx"
      ],
      [
-      "er r j w j̈ ẅ",
+      "er r j w ẅ j̈",
       "aq r ix ux icx ucx"
      ],
      [

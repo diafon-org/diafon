@@ -28,10 +28,10 @@ struct ProfileData {
 }
 
 enum SpecData {
-    static let generated = "2026-11-21"
-    static let source = "8a9141d"
+    static let generated = "2026-11-22"
+    static let source = "b155d66"
     static let descenders: Set<Character> = ["g", "j", "p", "y"]
-    static let whole: [String: String] = ["tc": "c", "dc": "x", "tq": "c̦", "dq": "x̦", "ix": "j", "ux": "w", "icx": "j̈", "ucx": "ẅ", "aq": "r̈"]
+    static let whole: [String: String] = ["tc": "c", "dc": "x", "tq": "c̦", "dq": "x̦", "ix": "j", "ux": "w", "icx": "ẅ", "ucx": "j̈", "aq": "r̈"]
     static let marks: [String: Mark] = [
         "anchor": Mark(below: "̦", above: "̓"),
         "dot": Mark(below: "̣", above: "̇"),
