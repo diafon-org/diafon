@@ -204,7 +204,7 @@ vowels:
 # `split` takes the split point, which also means the same everywhere: ẹ is
 # the open-mid ɛ. Only those languages write it, and once a language makes
 # the split it writes that vowel split everywhere: long, nasal and in
-# diphthongs (German ɔ is ọ in Gott and in Leute, ọj̈). No point is ever read
+# diphthongs (German ɔ is ọ in Gott and in Leute, ọẅ). No point is ever read
 # two ways. `core` is the area's reference value.
 areas:
   i:  {core: i, split: {ɪ: [ɪ]}}

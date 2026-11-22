@@ -173,14 +173,6 @@ j:
   capital: J
   readings:
     j: [ar, bn, cs, de, en, et, fa, fi, fr, he, hi, hu, id, ja, ko, la, nl, pl, pt, ro, ru, sw, ta, th, tr, uk, vi]
-ɥ:
-  letter: j
-  marks: [flip]
-  long: false
-  glyph: j̈
-  capital: J̈
-  readings:
-    ɥ: [fr]
 k:
   letter: k
   marks: []
@@ -481,6 +473,14 @@ w:
   capital: W
   readings:
     w: [ar, en, fr, id, ja, ko, la, nl, pl, pt, ro, sw, th, vi]
+ɥ:
+  letter: w
+  marks: [flip]
+  long: false
+  glyph: ẅ
+  capital: Ẅ
+  readings:
+    ɥ: [fr]
 dz:
   letter: x
   marks: []

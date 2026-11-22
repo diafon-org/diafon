@@ -144,7 +144,7 @@ def _areas(areas, vows, over, merges, shares):
                 assert within(pts[0], area), f'{code}: {k} on {name(pts)}, outside its area {name((area,))}'
                 lang[k] = resplit(pts, area, sf)
         # a split, once the language makes it, is how it writes that vowel
-        # everywhere: German ɔ is ọ in Gott and in Leute (ọj̈) alike
+        # everywhere: German ɔ is ọ in Gott and in Leute (ọẅ) alike
         splitq = {quality(k) for k, pts in lang.items() if quality(k) in split
                   and within(pts[0], split[quality(k)][1])}
         for ipa in d['vowels']:

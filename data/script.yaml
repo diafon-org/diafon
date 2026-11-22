@@ -50,7 +50,6 @@ points:
   ʔ: h dot
   ħ: h twodots
   j: j
-  ɥ: j flip
   k: k
   kʲ: k anchor
   x: k dot
@@ -81,6 +80,7 @@ points:
   v: v
   vʲ: v anchor
   w: w
+  ɥ: w flip         # the glide of ü, on the consonant of the letter ü is drawn on (i j, u w, ü ẅ)
   dz: x
   dʒ: x anchor
   dʑ: x dot
