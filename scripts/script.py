@@ -87,13 +87,13 @@ def valid(comp):
     """Whether a letter and marks compose. A consonant wears at most one of
     the anchor, the dot and the double dot below: no double dot on the thin stems l r f,
     only the dot on j w. The flip stands on w r, alone (and on the
-    dotted r). A vowel wears any of the flip, the underdot and the grave;
-    a takes the flip or the underdot, not both."""
+    dotted r). A vowel wears the flip or the underdot, not both, and the grave
+    with either."""
     letter, marks = comp
     if len(set(marks)) != len(marks):
         return False
     if letter in VOWELS:
-        return all(m in V_MARKS for m in marks) and not (letter == 'a' and 'flip' in marks and 'underdot' in marks)
+        return all(m in V_MARKS for m in marks) and not ('flip' in marks and 'underdot' in marks)
     if letter not in CONSONANTS:
         return False
     rest = [m for m in marks if m != 'flip']

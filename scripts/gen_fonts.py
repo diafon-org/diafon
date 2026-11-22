@@ -32,13 +32,11 @@ V_ROWS = [
     ((),                    False, 'plain',                None),
     (('flip',),             False, 'flip',                 None),
     (('underdot',),         False, 'underdot',             None),
-    (('flip', 'underdot'),  False, 'flip · underdot',      None),
     (('grave',),            False, 'grave',                None),
     ((),                    True,  'long',                 None),
     (('flip',),             True,  'long flip',            None),
     (('underdot',),         True,  'long underdot',        None),
     (('underdot', 'grave'), False, 'underdot · grave',     None),
-    (('flip', 'underdot'),  True,  'long flip · underdot', None),
 ]
 
 

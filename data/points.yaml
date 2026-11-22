@@ -639,7 +639,7 @@ eː:
   glyph: è
   capital: È
   readings:
-    ɛ̃: [pl]
+    ɛ̃: [fr, pl]
     ẽ: [bn, hi, pt]
 ɛ:
   letter: e
@@ -664,7 +664,7 @@ eː:
   glyph: ẹ̀
   capital: Ẹ̀
   readings:
-    ɛ̃: [fr, hi]
+    ɛ̃: [hi]
 i:
   letter: i
   marks: []
@@ -741,7 +741,8 @@ oː:
   capital: Ö
   readings:
     ø: [et, fi, fr, hu, tr]
-    œ: [de]
+    œ: [de, fr]
+    ʏ: [nl]
 øː:
   letter: o
   marks: [flip]
@@ -758,7 +759,7 @@ oː:
   capital: Ò
   readings:
     õ: [bn, hi, pt]
-    ɔ̃: [pl]
+    ɔ̃: [fr, pl]
 ɔ:
   letter: o
   marks: [underdot]
@@ -775,14 +776,6 @@ oː:
   capital: Ọ́
   readings:
     ɔː: [hi, th]
-œ:
-  letter: o
-  marks: [flip, underdot]
-  long: false
-  glyph: ọ̈
-  capital: Ọ̈
-  readings:
-    œ: [fr]
 ɔ̃:
   letter: o
   marks: [underdot, grave]
@@ -790,7 +783,7 @@ oː:
   glyph: ọ̀
   capital: Ọ̀
   readings:
-    ɔ̃: [fr, hi]
+    ɔ̃: [hi]
 u:
   letter: u
   marks: []
@@ -833,18 +826,3 @@ yː:
   capital: Ù
   readings:
     ũ: [bn, hi, pt]
-ʊ:
-  letter: u
-  marks: [underdot]
-  long: false
-  glyph: ụ
-  capital: Ụ
-  readings: {}
-ʏ:
-  letter: u
-  marks: [flip, underdot]
-  long: false
-  glyph: ụ̈
-  capital: Ụ̈
-  readings:
-    ʏ: [nl]

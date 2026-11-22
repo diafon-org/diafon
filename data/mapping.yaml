@@ -208,12 +208,12 @@ vowels:
 # two ways. `core` is the area's reference value.
 areas:
   i:  {core: i, split: {ɪ: [ɪ]}}
-  u:  {core: u, split: {ʊ: [ʊ]}}
+  u:  {core: u}                          # ʊ keeps the area: no language here contrasts it with u at one length
   e:  {core: e, split: {ɛ: [ɛ]}}
   o:  {core: o, split: {ɔ: [ɔ]}}
   a:  {core: a, split: {æ: [æ]}}         # the front vowel; ɑ ɒ keep the area (Finnish and Estonian a ä)
-  y: {core: y, split: {ʏ: [ʏ]}}
-  ø: {core: ø, split: {œ: [œ]}}
+  y: {core: y}                           # no splits on the rounded front vowels: French œ is ö with ø,
+  ø: {core: ø}                           #   Dutch ʏ is the short ö beside the long ő (overrides, merges)
   ɯ: {core: ɯ}
   ɤ: {core: ɤ}
   ə: {core: ə}
@@ -256,6 +256,11 @@ overrides:
     ɕ: ɕ
     tɕ: tɕ
     tɕʰ: [tɕ, h]
+  fr:            # the nasals take no dot below: French has no plain è ò to tell them from
+    ɛ̃: ẽ
+    ɔ̃: õ
+  nl:            # hut: the short partner of the long ő (neus), not a second ü
+    ʏ: ø
   pl:            # three-way sibilants: plain s, the hush sz on the anchor, the soft ś on the dot
     ɕ: ɕ
     ʑ: ʑ
@@ -265,6 +270,7 @@ overrides:
 merges:
   # reviewed within-language identifications: two symbols, one phoneme
   en: [[ʌ, ə]]   # STRUT is the stressed schwa
+  fr: [[ø, œ]]   # jeûne ~ jeune: one ö; the contrast is marginal and fading
   de: [[ɛː, eː]] # Ähre ~ Ehre: merged by most speakers; length marks the tense vowel
   ko: [[ɛ, e]]   # ㅐ ~ ㅔ: merged in today's speech
   pt: [[ɐ, a]]   # unstressed or nasal a; the falámos ~ falamos contrast is marginal

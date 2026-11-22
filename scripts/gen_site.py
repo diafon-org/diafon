@@ -89,13 +89,12 @@ CONSONANTS = (['labial', 'dental', 'alveolar', 'postalveolar', 'palatal', 'velar
 ])
 # the mark a point wears -> the colour class of its edge
 MARK_CLASS = {(): 'base', ('anchor',): 'j', ('dot',): 'x', ('twodots',): 'y', ('flip',): 'c', ('underdot',): 'j',
-              ('flip', 'underdot'): 'q', ('grave',): 'y'}
+              ('grave',): 'y'}
 MARK_GLOSS = [   # (class, on a consonant, on a vowel)
     ('base', 'no mark', 'no mark'),
     ('j', 'the anchor: hushed or soft', 'the dot below: more open; on a, the schwa'),
     ('x', 'the dot: a fixed nearby sound', None),
     ('c', None, 'the double dot: lip rounding swapped; on a, the front a'),
-    ('q', None, 'the double dot and the dot below together'),
     ('y', "the double dot below: the language's own variant, further back", 'the grave: nasal'),
 ]
 
@@ -161,9 +160,9 @@ def mouth(place):
 # dashed chip where the split vowel sits, a soft band between the two
 VT_POS = {   # area or split point -> (x, y) in the 840 x 600 figure
     'i': (114, 76), 'y': (208, 76), 'ɯ': (632, 76), 'u': (726, 76),
-    'ɪ': (152, 158), 'ʏ': (244, 158), 'ʊ': (700, 158),
+    'ɪ': (152, 158),
     'e': (218, 306), 'ø': (312, 306), 'ə': (420, 336), 'ɤ': (528, 306), 'o': (622, 306),
-    'ɛ': (266, 392), 'œ': (346, 396), 'ɔ': (590, 392),
+    'ɛ': (266, 392), 'ɔ': (590, 392),
     'a': (382, 530), 'æ': (460, 530),
 }
 
