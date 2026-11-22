@@ -24,7 +24,6 @@ they put its mark on.
 |---|---|---|---|---|
 | a consonant | the anchor: `sy` <span class="ug">ș</span> | the dot: `tq` <span class="ug">ṭ</span> | the double dot below: `tyq` <span class="ug">t̤</span> | |
 | a vowel | the double dot: `uy` <span class="ug">ü</span> | long: `aq` <span class="ug">á</span> | both: `oyq` <span class="ug">ő</span> | the dot below: `eqy` <span class="ug">ẹ</span> |
-{: .keys-codes }
 
 - On r and w the `y` is the double dot above: `ry` is <span class="ug">r̈</span>, `wy` is <span class="ug">ẅ</span>. The soft <span class="ug">r̦</span> is `ryq`.
 - On a, `ay` is the schwa <span class="ug">ạ</span> and `aqy` the front <span class="ug">ä</span>.
