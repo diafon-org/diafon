@@ -1,4 +1,4 @@
-# The Learning page (scripts/gen_learn.py -> docs/learn-data.js): where each
+# The lessons of the Input page (scripts/gen_lessons.py -> web/lessons-data.js): where each
 # language's example words come from. A source is a word frequency list
 # ("word count" per line) under data/lexicon/, read through the language's
 # spelling stage; a word is used only if it reads back to its own spelling

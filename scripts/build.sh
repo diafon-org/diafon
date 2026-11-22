@@ -8,3 +8,6 @@ cd "$(dirname "$0")/.."
 python3 scripts/compile_profile.py
 python3 tests/test_profile.py
 python3 tests/test_keys_js.py
+python3 scripts/gen_lessons.py     # needs the alphabet checkout
+python3 scripts/gen_page.py
+python3 tests/test_lessons.py
