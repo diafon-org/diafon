@@ -90,7 +90,7 @@ $in.addEventListener('input', soon);
 function dictionaries(){
   const rows = Object.entries(spec.lexicons).filter(([c]) => c !== 'loans').map(([c, L]) => {
     const how = L.kind === 'syllable' ? 'every syllable of pinyin, with its tone' : L.match === 'prefix' ? 'word stems, beside the rules' : 'whole words';
-    return `<tr><td>${esc(L.name)}</td><td>${how}</td><td class="num">${Math.max(L.sizes.read || 0, L.sizes.write || 0).toLocaleString('en')}</td>` +
+    return `<tr><td>${esc(L.name)}</td><td>${how}</td><td class="num">${Math.max(L.sizes.read || 0, L.sizes.write || 0, L.sizes.native || 0).toLocaleString('en')}</td>` +
       `<td><span class="ug">${esc(L.sample || '')}</span></td></tr>`;
   }).join('');
   $('dicts').innerHTML = `<table><thead><tr><th>Language</th><th>What it holds</th><th>Entries</th><th>A sample</th></tr></thead><tbody>${rows}</tbody></table>`;
