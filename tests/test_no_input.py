@@ -10,7 +10,10 @@
    no engine, no playground, no lessons.
 
 The plan and the notes (split.md, plan.md, remarks.md, publish.md) tell the
-story of the split and are not scanned.
+story of the split and are not scanned. The site carries one page on typing,
+docs/input/, copied in as its own repository built it
+(scripts/sync_input_page.py): that folder and that script are not the
+alphabet's and are not scanned either.
 """
 import glob
 import json
@@ -28,7 +31,8 @@ GONE = ['scripts/universal_v1.py', 'scripts/engine.py', 'scripts/gen_spec.py', '
         'docs/engine.js', 'docs/play-data.js', 'docs/learn-data.js', 'docs/learn.md', 'docs/spec.json', 'docs/lexicon',
         'data/learn.yaml', 'data/layouts.yaml', 'data/emoji.json', 'input_methods/README.md']
 TYPING = re.compile(r'universal_v1|\btransport\b|input form|legacy_(?:script|mapping)|\boperators?\b|diafon-input|play-data|engine\.js')
-SELF = {'tests/test_no_input.py', 'tests/test_alphabet_spec.py'}      # they name the words they forbid
+SELF = {'tests/test_no_input.py', 'tests/test_alphabet_spec.py',      # they name the words they forbid
+        'scripts/sync_input_page.py'}                                 # the one script that copies the typing's page in
 
 
 def files():

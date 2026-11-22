@@ -37,9 +37,12 @@ theme:
     - search.suggest
     - content.code.copy
 
-nav:                      # tools.md builds at its URL, out of the nav until reviewed
-  - Diafon: index.md
-  - Reference: reference.md
+nav:
+  - Diafon:                 # the alphabet: the overview and the reference
+    - Diafon: index.md
+    - Reference: reference.md
+  - Font: font.md           # the fonts, the font check, the converter and the dictionaries
+  - Input: input/index.md   # the typing: copied in by scripts/sync_input_page.py, not the alphabet's
 
 markdown_extensions:
   - attr_list
@@ -52,6 +55,9 @@ markdown_extensions:
       base_path:
         - docs/.include
       check_paths: true
+
+hooks:
+  - scripts/site_hooks.py    # copies the dictionaries beside the site for the converter
 
 extra_css:
   - assets/diafon.css

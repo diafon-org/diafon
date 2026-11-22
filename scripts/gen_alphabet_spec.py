@@ -137,7 +137,10 @@ def build():
         stage_data[code] = {'name': st['name'], 'state': st['state'], 'letters': st['letters'], 'long': st['long'],
                             'points': named(st['spell']), 'caps': named(st['caps']), 'sample': st['sample'],
                             'read': dict(st['read']), 'before_i': named(st['before_i']), 'i_softens': st['i_softens'],
-                            'before_vowel': named(st['before_vowel']), 'lexical': st['lexical']}
+                            'before_vowel': named(st['before_vowel']),
+                            # two letters of the script written as one of the language: {script text: spelling}
+                            'pairs': {script.write([Tok(*k) for k in pair]): v for pair, v in st['pairs'].items()},
+                            'lexical': st['lexical']}
         vec = []
         for k in st['spell']:
             for long in ((k[1],) if k[1] or script.vocalic(k[0]) else (False, True)):

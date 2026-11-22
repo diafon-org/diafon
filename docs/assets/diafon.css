@@ -503,3 +503,23 @@ html{font-size:115%}     /* at GitHub's scale and steady on wide screens: body ~
   .md-typeset #sec-universal table.mt tr[data-form] td:last-child:not(:empty)::before{content:"other readings";display:block;
     font:600 .55rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
 }
+/* the Font page: the font try-out, the converter, the dictionaries, the loanword registry */
+.md-typeset .tf-text{min-height:5rem;margin:.4rem 0 0;padding:.8rem 1rem;border:1px solid var(--line);border-radius:.7rem;background:var(--card);
+  font-family:var(--serif);font-size:30px;line-height:1.45;outline:none;word-break:break-word}
+.md-typeset .tf-text:focus{border-color:var(--accent)}
+.md-typeset .fontbar input[type=range]{width:9rem;padding:0;border:0;background:none}
+.md-typeset .convert button,.md-typeset .loans button{font:600 .7rem var(--md-text-font-family,sans-serif);color:var(--ink);background:var(--card);
+  border:1px solid var(--line);border-radius:.45rem;padding:.35rem .6rem;cursor:pointer}
+.md-typeset .convert button:hover,.md-typeset .loans button:hover{border-color:var(--accent)}
+.md-typeset .cv-panes{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+@media (max-width:52em){.md-typeset .cv-panes{grid-template-columns:1fr}}
+.md-typeset .cv-panes textarea,.md-typeset .cv-out{min-height:14rem;max-height:32rem;overflow:auto;margin:0;padding:.7rem .8rem;border:1px solid var(--line);
+  border-radius:.7rem;background:var(--card);color:var(--ink);font-size:.85rem;line-height:1.55;white-space:pre-wrap;word-break:break-word}
+.md-typeset .cv-panes textarea{font-family:var(--md-text-font-family,sans-serif);resize:vertical;width:100%}
+.md-typeset .cv-out{background:var(--sunken)}
+.md-typeset .cv-out.ug{font-family:var(--serif);font-size:1.15rem}
+.md-typeset .cv-out:empty::before{content:attr(data-empty);color:var(--muted);font-family:var(--md-text-font-family,sans-serif);font-size:.8rem}
+.md-typeset .cv-actions{display:flex;gap:.5rem;margin:.5rem 0 0}
+.md-typeset .dicts td.num{text-align:right;font-variant-numeric:tabular-nums}
+.md-typeset .lw-list table,.md-typeset .dicts table{width:100%}
+.md-typeset .lw-list .ug,.md-typeset .dicts .ug{font-size:1.1rem}

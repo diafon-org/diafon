@@ -10395,6 +10395,7 @@
    },
    "i_softens": false,
    "before_vowel": {},
+   "pairs": {},
    "lexical": false
   },
   "en": {
@@ -10409,6 +10410,7 @@
    "before_i": {},
    "i_softens": false,
    "before_vowel": {},
+   "pairs": {},
    "lexical": true
   },
   "fi": {
@@ -10497,6 +10499,7 @@
    "before_i": {},
    "i_softens": false,
    "before_vowel": {},
+   "pairs": {},
    "lexical": false
   },
   "hu": {
@@ -10599,6 +10602,7 @@
    "before_i": {},
    "i_softens": false,
    "before_vowel": {},
+   "pairs": {},
    "lexical": false
   },
   "pl": {
@@ -10708,6 +10712,10 @@
     "kʲ": "k",
     "gʲ": "g"
    },
+   "pairs": {
+    "eṃ": "ę",
+    "oṃ": "ą"
+   },
    "lexical": false
   },
   "sw": {
@@ -10789,6 +10797,7 @@
    "before_i": {},
    "i_softens": false,
    "before_vowel": {},
+   "pairs": {},
    "lexical": false
   },
   "tr": {
@@ -10875,6 +10884,7 @@
    "before_i": {},
    "i_softens": false,
    "before_vowel": {},
+   "pairs": {},
    "lexical": false
   },
   "zh": {
@@ -10889,6 +10899,7 @@
    "before_i": {},
    "i_softens": false,
    "before_vowel": {},
+   "pairs": {},
    "lexical": true
   }
  },

@@ -22,6 +22,10 @@ jobs:
       - run: python3 tests/test_script.py          # the script layer and the points
       - run: python3 tests/test_alphabet_spec.py   # the published alphabet-spec.json is the generated one
       - run: python3 tests/test_samples.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: python3 tests/test_core_js.py         # the converter in JavaScript is the reference
       - run: python3 tests/test_site.py            # the home page shows every point
       - run: python3 tests/test_no_input.py        # the alphabet knows no keyboard
       - run: mkdocs build --strict
