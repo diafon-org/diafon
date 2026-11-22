@@ -1,0 +1,3333 @@
+{
+ "id": "diafon-v1",
+ "name": "Diafon",
+ "alphabet": {
+  "major": 1,
+  "built_with": "1.0.0-pre.1"
+ },
+ "case": "base",
+ "commit": "segment",
+ "keys": {
+  "p": {
+   "to": [
+    "p"
+   ],
+   "point": "p",
+   "long": false
+  },
+  "py": {
+   "to": [
+    "p",
+    "anchor"
+   ],
+   "point": "pʲ",
+   "long": false
+  },
+  "pq": {
+   "to": [
+    "p",
+    "dot"
+   ],
+   "point": null,
+   "long": false
+  },
+  "pyq": {
+   "to": [
+    "p",
+    "twodots"
+   ],
+   "point": null,
+   "long": false
+  },
+  "b": {
+   "to": [
+    "b"
+   ],
+   "point": "b",
+   "long": false
+  },
+  "by": {
+   "to": [
+    "b",
+    "anchor"
+   ],
+   "point": "bʲ",
+   "long": false
+  },
+  "bq": {
+   "to": [
+    "b",
+    "dot"
+   ],
+   "point": null,
+   "long": false
+  },
+  "byq": {
+   "to": [
+    "b",
+    "twodots"
+   ],
+   "point": null,
+   "long": false
+  },
+  "t": {
+   "to": [
+    "t"
+   ],
+   "point": "t",
+   "long": false
+  },
+  "ty": {
+   "to": [
+    "t",
+    "anchor"
+   ],
+   "point": "c",
+   "long": false
+  },
+  "tq": {
+   "to": [
+    "t",
+    "dot"
+   ],
+   "point": "θ",
+   "long": false
+  },
+  "tyq": {
+   "to": [
+    "t",
+    "twodots"
+   ],
+   "point": "ʈ",
+   "long": false
+  },
+  "d": {
+   "to": [
+    "d"
+   ],
+   "point": "d",
+   "long": false
+  },
+  "dy": {
+   "to": [
+    "d",
+    "anchor"
+   ],
+   "point": "ɟ",
+   "long": false
+  },
+  "dq": {
+   "to": [
+    "d",
+    "dot"
+   ],
+   "point": "ð",
+   "long": false
+  },
+  "dyq": {
+   "to": [
+    "d",
+    "twodots"
+   ],
+   "point": "ɖ",
+   "long": false
+  },
+  "k": {
+   "to": [
+    "k"
+   ],
+   "point": "k",
+   "long": false
+  },
+  "ky": {
+   "to": [
+    "k",
+    "anchor"
+   ],
+   "point": "kʲ",
+   "long": false
+  },
+  "kq": {
+   "to": [
+    "k",
+    "dot"
+   ],
+   "point": "x",
+   "long": false
+  },
+  "kyq": {
+   "to": [
+    "k",
+    "twodots"
+   ],
+   "point": "q",
+   "long": false
+  },
+  "g": {
+   "to": [
+    "g"
+   ],
+   "point": "g",
+   "long": false
+  },
+  "gy": {
+   "to": [
+    "g",
+    "anchor"
+   ],
+   "point": "gʲ",
+   "long": false
+  },
+  "gq": {
+   "to": [
+    "g",
+    "dot"
+   ],
+   "point": "ɣ",
+   "long": false
+  },
+  "gyq": {
+   "to": [
+    "g",
+    "twodots"
+   ],
+   "point": "ʕ",
+   "long": false
+  },
+  "f": {
+   "to": [
+    "f"
+   ],
+   "point": "f",
+   "long": false
+  },
+  "fy": {
+   "to": [
+    "f",
+    "anchor"
+   ],
+   "point": "fʲ",
+   "long": false
+  },
+  "fq": {
+   "to": [
+    "f",
+    "dot"
+   ],
+   "point": null,
+   "long": false
+  },
+  "v": {
+   "to": [
+    "v"
+   ],
+   "point": "v",
+   "long": false
+  },
+  "vy": {
+   "to": [
+    "v",
+    "anchor"
+   ],
+   "point": "vʲ",
+   "long": false
+  },
+  "vq": {
+   "to": [
+    "v",
+    "dot"
+   ],
+   "point": null,
+   "long": false
+  },
+  "vyq": {
+   "to": [
+    "v",
+    "twodots"
+   ],
+   "point": null,
+   "long": false
+  },
+  "s": {
+   "to": [
+    "s"
+   ],
+   "point": "s",
+   "long": false
+  },
+  "sy": {
+   "to": [
+    "s",
+    "anchor"
+   ],
+   "point": "ʃ",
+   "long": false
+  },
+  "sq": {
+   "to": [
+    "s",
+    "dot"
+   ],
+   "point": "ɕ",
+   "long": false
+  },
+  "syq": {
+   "to": [
+    "s",
+    "twodots"
+   ],
+   "point": "sˤ",
+   "long": false
+  },
+  "z": {
+   "to": [
+    "z"
+   ],
+   "point": "z",
+   "long": false
+  },
+  "zy": {
+   "to": [
+    "z",
+    "anchor"
+   ],
+   "point": "ʒ",
+   "long": false
+  },
+  "zq": {
+   "to": [
+    "z",
+    "dot"
+   ],
+   "point": "ʑ",
+   "long": false
+  },
+  "zyq": {
+   "to": [
+    "z",
+    "twodots"
+   ],
+   "point": "ðˤ",
+   "long": false
+  },
+  "c": {
+   "to": [
+    "c"
+   ],
+   "point": "ts",
+   "long": false
+  },
+  "cy": {
+   "to": [
+    "c",
+    "anchor"
+   ],
+   "point": "tʃ",
+   "long": false
+  },
+  "cq": {
+   "to": [
+    "c",
+    "dot"
+   ],
+   "point": "tɕ",
+   "long": false
+  },
+  "cyq": {
+   "to": [
+    "c",
+    "twodots"
+   ],
+   "point": null,
+   "long": false
+  },
+  "x": {
+   "to": [
+    "x"
+   ],
+   "point": "dz",
+   "long": false
+  },
+  "xy": {
+   "to": [
+    "x",
+    "anchor"
+   ],
+   "point": "dʒ",
+   "long": false
+  },
+  "xq": {
+   "to": [
+    "x",
+    "dot"
+   ],
+   "point": "dʑ",
+   "long": false
+  },
+  "xyq": {
+   "to": [
+    "x",
+    "twodots"
+   ],
+   "point": null,
+   "long": false
+  },
+  "h": {
+   "to": [
+    "h"
+   ],
+   "point": "h",
+   "long": false
+  },
+  "hy": {
+   "to": [
+    "h",
+    "anchor"
+   ],
+   "point": null,
+   "long": false
+  },
+  "hq": {
+   "to": [
+    "h",
+    "dot"
+   ],
+   "point": "ʔ",
+   "long": false
+  },
+  "hyq": {
+   "to": [
+    "h",
+    "twodots"
+   ],
+   "point": "ħ",
+   "long": false
+  },
+  "m": {
+   "to": [
+    "m"
+   ],
+   "point": "m",
+   "long": false
+  },
+  "my": {
+   "to": [
+    "m",
+    "anchor"
+   ],
+   "point": "mʲ",
+   "long": false
+  },
+  "mq": {
+   "to": [
+    "m",
+    "dot"
+   ],
+   "point": "ⁿ",
+   "long": false
+  },
+  "myq": {
+   "to": [
+    "m",
+    "twodots"
+   ],
+   "point": null,
+   "long": false
+  },
+  "n": {
+   "to": [
+    "n"
+   ],
+   "point": "n",
+   "long": false
+  },
+  "ny": {
+   "to": [
+    "n",
+    "anchor"
+   ],
+   "point": "ɲ",
+   "long": false
+  },
+  "nq": {
+   "to": [
+    "n",
+    "dot"
+   ],
+   "point": "ŋ",
+   "long": false
+  },
+  "nyq": {
+   "to": [
+    "n",
+    "twodots"
+   ],
+   "point": "ɳ",
+   "long": false
+  },
+  "l": {
+   "to": [
+    "l"
+   ],
+   "point": "l",
+   "long": false
+  },
+  "ly": {
+   "to": [
+    "l",
+    "anchor"
+   ],
+   "point": "ʎ",
+   "long": false
+  },
+  "lq": {
+   "to": [
+    "l",
+    "dot"
+   ],
+   "point": "ɭ",
+   "long": false
+  },
+  "r": {
+   "to": [
+    "r"
+   ],
+   "point": "r",
+   "long": false
+  },
+  "ry": {
+   "to": [
+    "r",
+    "flip"
+   ],
+   "point": "ɝ",
+   "long": false
+  },
+  "rq": {
+   "to": [
+    "r",
+    "dot"
+   ],
+   "point": "ɾ",
+   "long": false
+  },
+  "ryq": {
+   "to": [
+    "r",
+    "anchor"
+   ],
+   "point": "rʲ",
+   "long": false
+  },
+  "j": {
+   "to": [
+    "j"
+   ],
+   "point": "j",
+   "long": false
+  },
+  "jq": {
+   "to": [
+    "j",
+    "dot"
+   ],
+   "point": null,
+   "long": false
+  },
+  "w": {
+   "to": [
+    "w"
+   ],
+   "point": "w",
+   "long": false
+  },
+  "wy": {
+   "to": [
+    "w",
+    "flip"
+   ],
+   "point": "ɥ",
+   "long": false
+  },
+  "wq": {
+   "to": [
+    "w",
+    "dot"
+   ],
+   "point": null,
+   "long": false
+  },
+  "a": {
+   "to": [
+    "a"
+   ],
+   "point": "a",
+   "long": false
+  },
+  "aq": {
+   "to": [
+    "a"
+   ],
+   "point": "a",
+   "long": true
+  },
+  "aqy": {
+   "to": [
+    "a",
+    "flip"
+   ],
+   "point": "æ",
+   "long": false
+  },
+  "ay": {
+   "to": [
+    "a",
+    "underdot"
+   ],
+   "point": "ə",
+   "long": false
+  },
+  "aqyq": {
+   "to": [
+    "a",
+    "flip"
+   ],
+   "point": "æ",
+   "long": true
+  },
+  "ayq": {
+   "to": [
+    "a",
+    "underdot"
+   ],
+   "point": "ə",
+   "long": true
+  },
+  "e": {
+   "to": [
+    "e"
+   ],
+   "point": "e",
+   "long": false
+  },
+  "eq": {
+   "to": [
+    "e"
+   ],
+   "point": "e",
+   "long": true
+  },
+  "ey": {
+   "to": [
+    "e",
+    "flip"
+   ],
+   "point": "ɤ",
+   "long": false
+  },
+  "eqy": {
+   "to": [
+    "e",
+    "underdot"
+   ],
+   "point": "ɛ",
+   "long": false
+  },
+  "eyq": {
+   "to": [
+    "e",
+    "flip"
+   ],
+   "point": "ɤ",
+   "long": true
+  },
+  "eqyq": {
+   "to": [
+    "e",
+    "underdot"
+   ],
+   "point": "ɛ",
+   "long": true
+  },
+  "i": {
+   "to": [
+    "i"
+   ],
+   "point": "i",
+   "long": false
+  },
+  "iq": {
+   "to": [
+    "i"
+   ],
+   "point": "i",
+   "long": true
+  },
+  "iy": {
+   "to": [
+    "i",
+    "flip"
+   ],
+   "point": "ɯ",
+   "long": false
+  },
+  "iqy": {
+   "to": [
+    "i",
+    "underdot"
+   ],
+   "point": "ɪ",
+   "long": false
+  },
+  "iyq": {
+   "to": [
+    "i",
+    "flip"
+   ],
+   "point": "ɯ",
+   "long": true
+  },
+  "iqyq": {
+   "to": [
+    "i",
+    "underdot"
+   ],
+   "point": "ɪ",
+   "long": true
+  },
+  "o": {
+   "to": [
+    "o"
+   ],
+   "point": "o",
+   "long": false
+  },
+  "oq": {
+   "to": [
+    "o"
+   ],
+   "point": "o",
+   "long": true
+  },
+  "oy": {
+   "to": [
+    "o",
+    "flip"
+   ],
+   "point": "ø",
+   "long": false
+  },
+  "oqy": {
+   "to": [
+    "o",
+    "underdot"
+   ],
+   "point": "ɔ",
+   "long": false
+  },
+  "oyq": {
+   "to": [
+    "o",
+    "flip"
+   ],
+   "point": "ø",
+   "long": true
+  },
+  "oqyq": {
+   "to": [
+    "o",
+    "underdot"
+   ],
+   "point": "ɔ",
+   "long": true
+  },
+  "u": {
+   "to": [
+    "u"
+   ],
+   "point": "u",
+   "long": false
+  },
+  "uq": {
+   "to": [
+    "u"
+   ],
+   "point": "u",
+   "long": true
+  },
+  "uy": {
+   "to": [
+    "u",
+    "flip"
+   ],
+   "point": "y",
+   "long": false
+  },
+  "uqy": {
+   "to": [
+    "u",
+    "underdot"
+   ],
+   "point": null,
+   "long": false
+  },
+  "uyq": {
+   "to": [
+    "u",
+    "flip"
+   ],
+   "point": "y",
+   "long": true
+  },
+  "uqyq": {
+   "to": [
+    "u",
+    "underdot"
+   ],
+   "point": null,
+   "long": true
+  }
+ },
+ "segment": {
+  "kind": "key-table",
+  "bases": "abcdefghijklmnoprstuvwxz",
+  "operators": "qy",
+  "double": "long",
+  "escape": "double",
+  "doubling": "bcdfghjklmnprstvwxz"
+ },
+ "tones": true,
+ "languages": [
+  "ar",
+  "bn",
+  "cs",
+  "de",
+  "el",
+  "en",
+  "es",
+  "et",
+  "fa",
+  "fi",
+  "fr",
+  "he",
+  "hi",
+  "hu",
+  "id",
+  "it",
+  "ja",
+  "ka",
+  "ko",
+  "la",
+  "nl",
+  "pl",
+  "pt",
+  "ro",
+  "ru",
+  "sw",
+  "ta",
+  "th",
+  "tr",
+  "uk",
+  "vi",
+  "zh"
+ ],
+ "vectors": {
+  "render": [
+   [
+    "a",
+    "a"
+   ],
+   [
+    "aq",
+    "á"
+   ],
+   [
+    "aqy",
+    "ä"
+   ],
+   [
+    "aqyq",
+    "a̋"
+   ],
+   [
+    "ay",
+    "ạ"
+   ],
+   [
+    "ayq",
+    "ạ́"
+   ],
+   [
+    "b",
+    "b"
+   ],
+   [
+    "bq",
+    "ḅ"
+   ],
+   [
+    "by",
+    "b̦"
+   ],
+   [
+    "byq",
+    "b̤"
+   ],
+   [
+    "c",
+    "c"
+   ],
+   [
+    "cq",
+    "c̣"
+   ],
+   [
+    "cy",
+    "c̦"
+   ],
+   [
+    "cyq",
+    "c̤"
+   ],
+   [
+    "d",
+    "d"
+   ],
+   [
+    "dq",
+    "ḍ"
+   ],
+   [
+    "dy",
+    "d̦"
+   ],
+   [
+    "dyq",
+    "d̤"
+   ],
+   [
+    "e",
+    "e"
+   ],
+   [
+    "eq",
+    "é"
+   ],
+   [
+    "eqy",
+    "ẹ"
+   ],
+   [
+    "eqyq",
+    "ẹ́"
+   ],
+   [
+    "ey",
+    "ë"
+   ],
+   [
+    "eyq",
+    "e̋"
+   ],
+   [
+    "f",
+    "f"
+   ],
+   [
+    "fq",
+    "f̣"
+   ],
+   [
+    "fy",
+    "f̦"
+   ],
+   [
+    "g",
+    "g"
+   ],
+   [
+    "gq",
+    "ġ"
+   ],
+   [
+    "gy",
+    "g̓"
+   ],
+   [
+    "gyq",
+    "g̈"
+   ],
+   [
+    "h",
+    "h"
+   ],
+   [
+    "hq",
+    "ḥ"
+   ],
+   [
+    "hy",
+    "h̦"
+   ],
+   [
+    "hyq",
+    "h̤"
+   ],
+   [
+    "i",
+    "i"
+   ],
+   [
+    "iq",
+    "í"
+   ],
+   [
+    "iqy",
+    "ị"
+   ],
+   [
+    "iqyq",
+    "ị́"
+   ],
+   [
+    "iy",
+    "ï"
+   ],
+   [
+    "iyq",
+    "i̋"
+   ],
+   [
+    "j",
+    "j"
+   ],
+   [
+    "jq",
+    "j̇"
+   ],
+   [
+    "k",
+    "k"
+   ],
+   [
+    "kq",
+    "ḳ"
+   ],
+   [
+    "ky",
+    "k̦"
+   ],
+   [
+    "kyq",
+    "k̤"
+   ],
+   [
+    "l",
+    "l"
+   ],
+   [
+    "lq",
+    "ḷ"
+   ],
+   [
+    "ly",
+    "l̦"
+   ],
+   [
+    "m",
+    "m"
+   ],
+   [
+    "mq",
+    "ṃ"
+   ],
+   [
+    "my",
+    "m̦"
+   ],
+   [
+    "myq",
+    "m̤"
+   ],
+   [
+    "n",
+    "n"
+   ],
+   [
+    "nq",
+    "ṇ"
+   ],
+   [
+    "ny",
+    "n̦"
+   ],
+   [
+    "nyq",
+    "n̤"
+   ],
+   [
+    "o",
+    "o"
+   ],
+   [
+    "oq",
+    "ó"
+   ],
+   [
+    "oqy",
+    "ọ"
+   ],
+   [
+    "oqyq",
+    "ọ́"
+   ],
+   [
+    "oy",
+    "ö"
+   ],
+   [
+    "oyq",
+    "ő"
+   ],
+   [
+    "p",
+    "p"
+   ],
+   [
+    "pq",
+    "ṗ"
+   ],
+   [
+    "py",
+    "p̓"
+   ],
+   [
+    "pyq",
+    "p̈"
+   ],
+   [
+    "r",
+    "r"
+   ],
+   [
+    "rq",
+    "ṛ"
+   ],
+   [
+    "ry",
+    "r̈"
+   ],
+   [
+    "ryq",
+    "r̦"
+   ],
+   [
+    "s",
+    "s"
+   ],
+   [
+    "sq",
+    "ṣ"
+   ],
+   [
+    "sy",
+    "ș"
+   ],
+   [
+    "syq",
+    "s̤"
+   ],
+   [
+    "t",
+    "t"
+   ],
+   [
+    "tq",
+    "ṭ"
+   ],
+   [
+    "ty",
+    "ț"
+   ],
+   [
+    "tyq",
+    "t̤"
+   ],
+   [
+    "u",
+    "u"
+   ],
+   [
+    "uq",
+    "ú"
+   ],
+   [
+    "uqy",
+    "ụ"
+   ],
+   [
+    "uqyq",
+    "ụ́"
+   ],
+   [
+    "uy",
+    "ü"
+   ],
+   [
+    "uyq",
+    "ű"
+   ],
+   [
+    "v",
+    "v"
+   ],
+   [
+    "vq",
+    "ṿ"
+   ],
+   [
+    "vy",
+    "v̦"
+   ],
+   [
+    "vyq",
+    "v̤"
+   ],
+   [
+    "w",
+    "w"
+   ],
+   [
+    "wq",
+    "ẉ"
+   ],
+   [
+    "wy",
+    "ẅ"
+   ],
+   [
+    "x",
+    "x"
+   ],
+   [
+    "xq",
+    "x̣"
+   ],
+   [
+    "xy",
+    "x̦"
+   ],
+   [
+    "xyq",
+    "x̤"
+   ],
+   [
+    "z",
+    "z"
+   ],
+   [
+    "zq",
+    "ẓ"
+   ],
+   [
+    "zy",
+    "z̦"
+   ],
+   [
+    "zyq",
+    "z̤"
+   ],
+   [
+    "A",
+    "A"
+   ],
+   [
+    "Aq",
+    "Á"
+   ],
+   [
+    "Aqy",
+    "Ä"
+   ],
+   [
+    "Aqyq",
+    "A̋"
+   ],
+   [
+    "Ay",
+    "Ạ"
+   ],
+   [
+    "Ayq",
+    "Ạ́"
+   ],
+   [
+    "B",
+    "B"
+   ],
+   [
+    "Bq",
+    "Ḅ"
+   ],
+   [
+    "By",
+    "B̦"
+   ],
+   [
+    "Byq",
+    "B̤"
+   ],
+   [
+    "C",
+    "C"
+   ],
+   [
+    "Cq",
+    "C̣"
+   ],
+   [
+    "Cy",
+    "C̦"
+   ],
+   [
+    "Cyq",
+    "C̤"
+   ],
+   [
+    "D",
+    "D"
+   ],
+   [
+    "Dq",
+    "Ḍ"
+   ],
+   [
+    "Dy",
+    "D̦"
+   ],
+   [
+    "Dyq",
+    "D̤"
+   ],
+   [
+    "E",
+    "E"
+   ],
+   [
+    "Eq",
+    "É"
+   ],
+   [
+    "Eqy",
+    "Ẹ"
+   ],
+   [
+    "Eqyq",
+    "Ẹ́"
+   ],
+   [
+    "Ey",
+    "Ë"
+   ],
+   [
+    "Eyq",
+    "E̋"
+   ],
+   [
+    "F",
+    "F"
+   ],
+   [
+    "Fq",
+    "F̣"
+   ],
+   [
+    "Fy",
+    "F̦"
+   ],
+   [
+    "G",
+    "G"
+   ],
+   [
+    "Gq",
+    "G̣"
+   ],
+   [
+    "Gy",
+    "G̦"
+   ],
+   [
+    "Gyq",
+    "G̤"
+   ],
+   [
+    "H",
+    "H"
+   ],
+   [
+    "Hq",
+    "Ḥ"
+   ],
+   [
+    "Hy",
+    "H̦"
+   ],
+   [
+    "Hyq",
+    "H̤"
+   ],
+   [
+    "I",
+    "I"
+   ],
+   [
+    "Iq",
+    "Í"
+   ],
+   [
+    "Iqy",
+    "Ị"
+   ],
+   [
+    "Iqyq",
+    "Ị́"
+   ],
+   [
+    "Iy",
+    "Ï"
+   ],
+   [
+    "Iyq",
+    "I̋"
+   ],
+   [
+    "J",
+    "J"
+   ],
+   [
+    "Jq",
+    "J̣"
+   ],
+   [
+    "K",
+    "K"
+   ],
+   [
+    "Kq",
+    "Ḳ"
+   ],
+   [
+    "Ky",
+    "K̦"
+   ],
+   [
+    "Kyq",
+    "K̤"
+   ],
+   [
+    "L",
+    "L"
+   ],
+   [
+    "Lq",
+    "Ḷ"
+   ],
+   [
+    "Ly",
+    "L̦"
+   ],
+   [
+    "M",
+    "M"
+   ],
+   [
+    "Mq",
+    "Ṃ"
+   ],
+   [
+    "My",
+    "M̦"
+   ],
+   [
+    "Myq",
+    "M̤"
+   ],
+   [
+    "N",
+    "N"
+   ],
+   [
+    "Nq",
+    "Ṇ"
+   ],
+   [
+    "Ny",
+    "N̦"
+   ],
+   [
+    "Nyq",
+    "N̤"
+   ],
+   [
+    "O",
+    "O"
+   ],
+   [
+    "Oq",
+    "Ó"
+   ],
+   [
+    "Oqy",
+    "Ọ"
+   ],
+   [
+    "Oqyq",
+    "Ọ́"
+   ],
+   [
+    "Oy",
+    "Ö"
+   ],
+   [
+    "Oyq",
+    "Ő"
+   ],
+   [
+    "P",
+    "P"
+   ],
+   [
+    "Pq",
+    "P̣"
+   ],
+   [
+    "Py",
+    "P̦"
+   ],
+   [
+    "Pyq",
+    "P̤"
+   ],
+   [
+    "R",
+    "R"
+   ],
+   [
+    "Rq",
+    "Ṛ"
+   ],
+   [
+    "Ry",
+    "R̈"
+   ],
+   [
+    "Ryq",
+    "R̦"
+   ],
+   [
+    "S",
+    "S"
+   ],
+   [
+    "Sq",
+    "Ṣ"
+   ],
+   [
+    "Sy",
+    "Ș"
+   ],
+   [
+    "Syq",
+    "S̤"
+   ],
+   [
+    "T",
+    "T"
+   ],
+   [
+    "Tq",
+    "Ṭ"
+   ],
+   [
+    "Ty",
+    "Ț"
+   ],
+   [
+    "Tyq",
+    "T̤"
+   ],
+   [
+    "U",
+    "U"
+   ],
+   [
+    "Uq",
+    "Ú"
+   ],
+   [
+    "Uqy",
+    "Ụ"
+   ],
+   [
+    "Uqyq",
+    "Ụ́"
+   ],
+   [
+    "Uy",
+    "Ü"
+   ],
+   [
+    "Uyq",
+    "Ű"
+   ],
+   [
+    "V",
+    "V"
+   ],
+   [
+    "Vq",
+    "Ṿ"
+   ],
+   [
+    "Vy",
+    "V̦"
+   ],
+   [
+    "Vyq",
+    "V̤"
+   ],
+   [
+    "W",
+    "W"
+   ],
+   [
+    "Wq",
+    "Ẉ"
+   ],
+   [
+    "Wy",
+    "Ẅ"
+   ],
+   [
+    "X",
+    "X"
+   ],
+   [
+    "Xq",
+    "X̣"
+   ],
+   [
+    "Xy",
+    "X̦"
+   ],
+   [
+    "Xyq",
+    "X̤"
+   ],
+   [
+    "Z",
+    "Z"
+   ],
+   [
+    "Zq",
+    "Ẓ"
+   ],
+   [
+    "Zy",
+    "Z̦"
+   ],
+   [
+    "Zyq",
+    "Z̤"
+   ],
+   [
+    "bb",
+    "bb"
+   ],
+   [
+    "bbq",
+    "ḅḅ"
+   ],
+   [
+    "bby",
+    "b̦b̦"
+   ],
+   [
+    "bbyq",
+    "b̤b̤"
+   ],
+   [
+    "cc",
+    "cc"
+   ],
+   [
+    "ccq",
+    "c̣c̣"
+   ],
+   [
+    "ccy",
+    "c̦c̦"
+   ],
+   [
+    "ccyq",
+    "c̤c̤"
+   ],
+   [
+    "dd",
+    "dd"
+   ],
+   [
+    "ddq",
+    "ḍḍ"
+   ],
+   [
+    "ddy",
+    "d̦d̦"
+   ],
+   [
+    "ddyq",
+    "d̤d̤"
+   ],
+   [
+    "ff",
+    "ff"
+   ],
+   [
+    "ffq",
+    "f̣f̣"
+   ],
+   [
+    "ffy",
+    "f̦f̦"
+   ],
+   [
+    "gg",
+    "gg"
+   ],
+   [
+    "ggq",
+    "ġġ"
+   ],
+   [
+    "ggy",
+    "g̓g̓"
+   ],
+   [
+    "ggyq",
+    "g̈g̈"
+   ],
+   [
+    "hh",
+    "hh"
+   ],
+   [
+    "hhq",
+    "ḥḥ"
+   ],
+   [
+    "hhy",
+    "h̦h̦"
+   ],
+   [
+    "hhyq",
+    "h̤h̤"
+   ],
+   [
+    "jj",
+    "jj"
+   ],
+   [
+    "jjq",
+    "j̇j̇"
+   ],
+   [
+    "kk",
+    "kk"
+   ],
+   [
+    "kkq",
+    "ḳḳ"
+   ],
+   [
+    "kky",
+    "k̦k̦"
+   ],
+   [
+    "kkyq",
+    "k̤k̤"
+   ],
+   [
+    "ll",
+    "ll"
+   ],
+   [
+    "llq",
+    "ḷḷ"
+   ],
+   [
+    "lly",
+    "l̦l̦"
+   ],
+   [
+    "mm",
+    "mm"
+   ],
+   [
+    "mmq",
+    "ṃṃ"
+   ],
+   [
+    "mmy",
+    "m̦m̦"
+   ],
+   [
+    "mmyq",
+    "m̤m̤"
+   ],
+   [
+    "nn",
+    "nn"
+   ],
+   [
+    "nnq",
+    "ṇṇ"
+   ],
+   [
+    "nny",
+    "n̦n̦"
+   ],
+   [
+    "nnyq",
+    "n̤n̤"
+   ],
+   [
+    "pp",
+    "pp"
+   ],
+   [
+    "ppq",
+    "ṗṗ"
+   ],
+   [
+    "ppy",
+    "p̓p̓"
+   ],
+   [
+    "ppyq",
+    "p̈p̈"
+   ],
+   [
+    "rr",
+    "rr"
+   ],
+   [
+    "rrq",
+    "ṛṛ"
+   ],
+   [
+    "rry",
+    "r̈r̈"
+   ],
+   [
+    "rryq",
+    "r̦r̦"
+   ],
+   [
+    "ss",
+    "ss"
+   ],
+   [
+    "ssq",
+    "ṣṣ"
+   ],
+   [
+    "ssy",
+    "șș"
+   ],
+   [
+    "ssyq",
+    "s̤s̤"
+   ],
+   [
+    "tt",
+    "tt"
+   ],
+   [
+    "ttq",
+    "ṭṭ"
+   ],
+   [
+    "tty",
+    "țț"
+   ],
+   [
+    "ttyq",
+    "t̤t̤"
+   ],
+   [
+    "vv",
+    "vv"
+   ],
+   [
+    "vvq",
+    "ṿṿ"
+   ],
+   [
+    "vvy",
+    "v̦v̦"
+   ],
+   [
+    "vvyq",
+    "v̤v̤"
+   ],
+   [
+    "ww",
+    "ww"
+   ],
+   [
+    "wwq",
+    "ẉẉ"
+   ],
+   [
+    "wwy",
+    "ẅẅ"
+   ],
+   [
+    "xx",
+    "xx"
+   ],
+   [
+    "xxq",
+    "x̣x̣"
+   ],
+   [
+    "xxy",
+    "x̦x̦"
+   ],
+   [
+    "xxyq",
+    "x̤x̤"
+   ],
+   [
+    "zz",
+    "zz"
+   ],
+   [
+    "zzq",
+    "ẓẓ"
+   ],
+   [
+    "zzy",
+    "z̦z̦"
+   ],
+   [
+    "zzyq",
+    "z̤z̤"
+   ],
+   [
+    "cyak a joq soq",
+    "c̦ak a jó só"
+   ],
+   [
+    "ni3 kqaw3, syiy4 cqie4",
+    "niˇ ḳawˇ, șïˋ c̣ieˋ"
+   ],
+   [
+    "anyy cityy boyy",
+    "any city boy"
+   ],
+   [
+    "the cityy",
+    "the city"
+   ],
+   [
+    "you my by quick",
+    "you m̦ b̦ quick"
+   ],
+   [
+    "ssy ccy nny ttq",
+    "șș c̦c̦ n̦n̦ ṭṭ"
+   ],
+   [
+    "syy tqq",
+    "sy tq"
+   ],
+   [
+    "h2o abc123 x9 2x",
+    "hˊo abcˉˊˇ x9 2x"
+   ],
+   [
+    "Syok syeqp nyaqr, hossuq alma",
+    "Șok șép n̦ár, hossú alma"
+   ],
+   [
+    "Magyar, oyt, tuyz, uyq, oyq",
+    "Mag̓ar, öt, tüz, ű, ő"
+   ],
+   [
+    "SYOK Ssy SSY",
+    "ȘOK Șș Șș"
+   ],
+   [
+    "cyunq1kuo2 zyeyn2 ry4 luy4 ma5",
+    "c̦uṇˉkuoˊ z̦ënˊ r̈ˋ lüˋ ma"
+   ],
+   [
+    "say sayy, they theyy",
+    "sạ say, thë they"
+   ],
+   [
+    "aqq yy qq y q",
+    "aq yy qq y q"
+   ],
+   [
+    "tyuqk gyoyngy edy ketyteoy",
+    "țúk g̓öng̓ ed̦ kețteö"
+   ],
+   [
+    "ray ry rry",
+    "rạ r̈ r̈r̈"
+   ],
+   [
+    "tqink dqis sinq kqan",
+    "ṭink ḍis siṇ ḳan"
+   ],
+   [
+    "dobozz, add; eddy.",
+    "dobozz, add; ed̦d̦."
+   ],
+   [
+    "aay aaq aa",
+    "aạ aá aa"
+   ],
+   [
+    "syy1 sy1y",
+    "sy1 șˉy"
+   ],
+   [
+    "h22o abc1123 x99 ni33 ma3 a2233",
+    "h2o abc123 x9 ni3 maˇ a233"
+   ],
+   [
+    "bomq vemq blamq, simq",
+    "boṃ veṃ blaṃ, siṃ"
+   ],
+   [
+    "tyqak kyqalb hyqubb gyqajn",
+    "t̤ak k̤alb h̤ubb g̈ajn"
+   ],
+   [
+    "eqy oqy oqyq aqy aqyq, pqyq",
+    "ẹ ọ ọ́ ä a̋, ṗyq"
+   ],
+   [
+    "ryqeka wyit, bry-d",
+    "r̦eka ẅit, br̈-d"
+   ],
+   [
+    "sqiemq somq",
+    "ṣieṃ soṃ"
+   ]
+  ],
+  "joined": [
+   [
+    "bb",
+    "b‍b"
+   ],
+   [
+    "bbq",
+    "ḅ‍ḅ"
+   ],
+   [
+    "bby",
+    "b̦‍b̦"
+   ],
+   [
+    "bbyq",
+    "b̤‍b̤"
+   ],
+   [
+    "cc",
+    "c‍c"
+   ],
+   [
+    "ccq",
+    "c̣‍c̣"
+   ],
+   [
+    "ccy",
+    "c̦‍c̦"
+   ],
+   [
+    "ccyq",
+    "c̤‍c̤"
+   ],
+   [
+    "dd",
+    "d‍d"
+   ],
+   [
+    "ddq",
+    "ḍ‍ḍ"
+   ],
+   [
+    "ddy",
+    "d̦‍d̦"
+   ],
+   [
+    "ddyq",
+    "d̤‍d̤"
+   ],
+   [
+    "ff",
+    "f‍f"
+   ],
+   [
+    "ffq",
+    "f̣‍f̣"
+   ],
+   [
+    "ffy",
+    "f̦‍f̦"
+   ],
+   [
+    "gg",
+    "g‍g"
+   ],
+   [
+    "ggq",
+    "ġ‍ġ"
+   ],
+   [
+    "ggy",
+    "g̓‍g̓"
+   ],
+   [
+    "ggyq",
+    "g̈‍g̈"
+   ],
+   [
+    "hh",
+    "h‍h"
+   ],
+   [
+    "hhq",
+    "ḥ‍ḥ"
+   ],
+   [
+    "hhy",
+    "h̦‍h̦"
+   ],
+   [
+    "hhyq",
+    "h̤‍h̤"
+   ],
+   [
+    "jj",
+    "j‍j"
+   ],
+   [
+    "jjq",
+    "j̇‍j̇"
+   ],
+   [
+    "kk",
+    "k‍k"
+   ],
+   [
+    "kkq",
+    "ḳ‍ḳ"
+   ],
+   [
+    "kky",
+    "k̦‍k̦"
+   ],
+   [
+    "kkyq",
+    "k̤‍k̤"
+   ],
+   [
+    "ll",
+    "l‍l"
+   ],
+   [
+    "llq",
+    "ḷ‍ḷ"
+   ],
+   [
+    "lly",
+    "l̦‍l̦"
+   ],
+   [
+    "mm",
+    "m‍m"
+   ],
+   [
+    "mmq",
+    "ṃ‍ṃ"
+   ],
+   [
+    "mmy",
+    "m̦‍m̦"
+   ],
+   [
+    "mmyq",
+    "m̤‍m̤"
+   ],
+   [
+    "nn",
+    "n‍n"
+   ],
+   [
+    "nnq",
+    "ṇ‍ṇ"
+   ],
+   [
+    "nny",
+    "n̦‍n̦"
+   ],
+   [
+    "nnyq",
+    "n̤‍n̤"
+   ],
+   [
+    "pp",
+    "p‍p"
+   ],
+   [
+    "ppq",
+    "ṗ‍ṗ"
+   ],
+   [
+    "ppy",
+    "p̓‍p̓"
+   ],
+   [
+    "ppyq",
+    "p̈‍p̈"
+   ],
+   [
+    "rr",
+    "r‍r"
+   ],
+   [
+    "rrq",
+    "ṛ‍ṛ"
+   ],
+   [
+    "rry",
+    "r̈‍r̈"
+   ],
+   [
+    "rryq",
+    "r̦‍r̦"
+   ],
+   [
+    "ss",
+    "s‍s"
+   ],
+   [
+    "ssq",
+    "ṣ‍ṣ"
+   ],
+   [
+    "ssy",
+    "ș‍ș"
+   ],
+   [
+    "ssyq",
+    "s̤‍s̤"
+   ],
+   [
+    "tt",
+    "t‍t"
+   ],
+   [
+    "ttq",
+    "ṭ‍ṭ"
+   ],
+   [
+    "tty",
+    "ț‍ț"
+   ],
+   [
+    "ttyq",
+    "t̤‍t̤"
+   ],
+   [
+    "vv",
+    "v‍v"
+   ],
+   [
+    "vvq",
+    "ṿ‍ṿ"
+   ],
+   [
+    "vvy",
+    "v̦‍v̦"
+   ],
+   [
+    "vvyq",
+    "v̤‍v̤"
+   ],
+   [
+    "ww",
+    "w‍w"
+   ],
+   [
+    "wwq",
+    "ẉ‍ẉ"
+   ],
+   [
+    "wwy",
+    "ẅ‍ẅ"
+   ],
+   [
+    "xx",
+    "x‍x"
+   ],
+   [
+    "xxq",
+    "x̣‍x̣"
+   ],
+   [
+    "xxy",
+    "x̦‍x̦"
+   ],
+   [
+    "xxyq",
+    "x̤‍x̤"
+   ],
+   [
+    "zz",
+    "z‍z"
+   ],
+   [
+    "zzq",
+    "ẓ‍ẓ"
+   ],
+   [
+    "zzy",
+    "z̦‍z̦"
+   ],
+   [
+    "zzyq",
+    "z̤‍z̤"
+   ],
+   [
+    "ssy ccy nny ttq",
+    "ș‍ș c̦‍c̦ n̦‍n̦ ṭ‍ṭ"
+   ],
+   [
+    "Syok syeqp nyaqr, hossuq alma",
+    "Șok șép n̦ár, hos‍sú alma"
+   ],
+   [
+    "SYOK Ssy SSY",
+    "ȘOK Ș‍ș Ș‍ș"
+   ],
+   [
+    "ray ry rry",
+    "rạ r̈ r̈‍r̈"
+   ],
+   [
+    "dobozz, add; eddy.",
+    "doboz‍z, ad‍d; ed̦‍d̦."
+   ],
+   [
+    "tyqak kyqalb hyqubb gyqajn",
+    "t̤ak k̤alb h̤ub‍b g̈ajn"
+   ]
+  ],
+  "stream": {
+   "cyak a joq soq": [
+    [
+     "c",
+     "",
+     "c"
+    ],
+    [
+     "cy",
+     "",
+     "cy"
+    ],
+    [
+     "cya",
+     "c̦",
+     "a"
+    ],
+    [
+     "ak",
+     "a",
+     "k"
+    ],
+    [
+     "k ",
+     "k ",
+     ""
+    ],
+    [
+     "a",
+     "",
+     "a"
+    ],
+    [
+     "a ",
+     "a ",
+     ""
+    ],
+    [
+     "j",
+     "",
+     "j"
+    ],
+    [
+     "jo",
+     "j",
+     "o"
+    ],
+    [
+     "oq",
+     "",
+     "oq"
+    ],
+    [
+     "oq ",
+     "ó ",
+     ""
+    ],
+    [
+     "s",
+     "",
+     "s"
+    ],
+    [
+     "so",
+     "s",
+     "o"
+    ],
+    [
+     "oq",
+     "",
+     "oq"
+    ]
+   ],
+   "ni3 kqaw3, syiy4 cqie4": [
+    [
+     "n",
+     "",
+     "n"
+    ],
+    [
+     "ni",
+     "n",
+     "i"
+    ],
+    [
+     "i3",
+     "",
+     "i3"
+    ],
+    [
+     "i3 ",
+     "iˇ ",
+     ""
+    ],
+    [
+     "k",
+     "",
+     "k"
+    ],
+    [
+     "kq",
+     "",
+     "kq"
+    ],
+    [
+     "kqa",
+     "ḳ",
+     "a"
+    ],
+    [
+     "aw",
+     "a",
+     "w"
+    ],
+    [
+     "w3",
+     "",
+     "w3"
+    ],
+    [
+     "w3,",
+     "wˇ,",
+     ""
+    ],
+    [
+     " ",
+     " ",
+     ""
+    ],
+    [
+     "s",
+     "",
+     "s"
+    ],
+    [
+     "sy",
+     "",
+     "sy"
+    ],
+    [
+     "syi",
+     "ș",
+     "i"
+    ],
+    [
+     "iy",
+     "",
+     "iy"
+    ],
+    [
+     "iy4",
+     "",
+     "iy4"
+    ],
+    [
+     "iy4 ",
+     "ïˋ ",
+     ""
+    ],
+    [
+     "c",
+     "",
+     "c"
+    ],
+    [
+     "cq",
+     "",
+     "cq"
+    ],
+    [
+     "cqi",
+     "c̣",
+     "i"
+    ],
+    [
+     "ie",
+     "i",
+     "e"
+    ],
+    [
+     "e4",
+     "",
+     "e4"
+    ]
+   ],
+   "anyy cityy boyy": [
+    [
+     "a",
+     "",
+     "a"
+    ],
+    [
+     "an",
+     "a",
+     "n"
+    ],
+    [
+     "ny",
+     "",
+     "ny"
+    ],
+    [
+     "nyy",
+     "ny",
+     ""
+    ],
+    [
+     " ",
+     " ",
+     ""
+    ],
+    [
+     "c",
+     "",
+     "c"
+    ],
+    [
+     "ci",
+     "c",
+     "i"
+    ],
+    [
+     "it",
+     "i",
+     "t"
+    ],
+    [
+     "ty",
+     "",
+     "ty"
+    ],
+    [
+     "tyy",
+     "ty",
+     ""
+    ],
+    [
+     " ",
+     " ",
+     ""
+    ],
+    [
+     "b",
+     "",
+     "b"
+    ],
+    [
+     "bo",
+     "b",
+     "o"
+    ],
+    [
+     "oy",
+     "",
+     "oy"
+    ],
+    [
+     "oyy",
+     "oy",
+     ""
+    ]
+   ],
+   "the cityy": [
+    [
+     "t",
+     "",
+     "t"
+    ],
+    [
+     "th",
+     "t",
+     "h"
+    ],
+    [
+     "he",
+     "h",
+     "e"
+    ],
+    [
+     "e ",
+     "e ",
+     ""
+    ],
+    [
+     "c",
+     "",
+     "c"
+    ],
+    [
+     "ci",
+     "c",
+     "i"
+    ],
+    [
+     "it",
+     "i",
+     "t"
+    ],
+    [
+     "ty",
+     "",
+     "ty"
+    ],
+    [
+     "tyy",
+     "ty",
+     ""
+    ]
+   ],
+   "you my by quick": [
+    [
+     "y",
+     "y",
+     ""
+    ],
+    [
+     "o",
+     "",
+     "o"
+    ],
+    [
+     "ou",
+     "o",
+     "u"
+    ],
+    [
+     "u ",
+     "u ",
+     ""
+    ],
+    [
+     "m",
+     "",
+     "m"
+    ],
+    [
+     "my",
+     "",
+     "my"
+    ],
+    [
+     "my ",
+     "m̦ ",
+     ""
+    ],
+    [
+     "b",
+     "",
+     "b"
+    ],
+    [
+     "by",
+     "",
+     "by"
+    ],
+    [
+     "by ",
+     "b̦ ",
+     ""
+    ],
+    [
+     "q",
+     "q",
+     ""
+    ],
+    [
+     "u",
+     "",
+     "u"
+    ],
+    [
+     "ui",
+     "u",
+     "i"
+    ],
+    [
+     "ic",
+     "i",
+     "c"
+    ],
+    [
+     "ck",
+     "c",
+     "k"
+    ]
+   ],
+   "ssy ccy nny ttq": [
+    [
+     "s",
+     "",
+     "s"
+    ],
+    [
+     "ss",
+     "",
+     "ss"
+    ],
+    [
+     "ssy",
+     "",
+     "ssy"
+    ],
+    [
+     "ssy ",
+     "șș ",
+     ""
+    ],
+    [
+     "c",
+     "",
+     "c"
+    ],
+    [
+     "cc",
+     "",
+     "cc"
+    ],
+    [
+     "ccy",
+     "",
+     "ccy"
+    ],
+    [
+     "ccy ",
+     "c̦c̦ ",
+     ""
+    ],
+    [
+     "n",
+     "",
+     "n"
+    ],
+    [
+     "nn",
+     "",
+     "nn"
+    ],
+    [
+     "nny",
+     "",
+     "nny"
+    ],
+    [
+     "nny ",
+     "n̦n̦ ",
+     ""
+    ],
+    [
+     "t",
+     "",
+     "t"
+    ],
+    [
+     "tt",
+     "",
+     "tt"
+    ],
+    [
+     "ttq",
+     "",
+     "ttq"
+    ]
+   ],
+   "bomq vemq blamq, simq": [
+    [
+     "b",
+     "",
+     "b"
+    ],
+    [
+     "bo",
+     "b",
+     "o"
+    ],
+    [
+     "om",
+     "o",
+     "m"
+    ],
+    [
+     "mq",
+     "",
+     "mq"
+    ],
+    [
+     "mq ",
+     "ṃ ",
+     ""
+    ],
+    [
+     "v",
+     "",
+     "v"
+    ],
+    [
+     "ve",
+     "v",
+     "e"
+    ],
+    [
+     "em",
+     "e",
+     "m"
+    ],
+    [
+     "mq",
+     "",
+     "mq"
+    ],
+    [
+     "mq ",
+     "ṃ ",
+     ""
+    ],
+    [
+     "b",
+     "",
+     "b"
+    ],
+    [
+     "bl",
+     "b",
+     "l"
+    ],
+    [
+     "la",
+     "l",
+     "a"
+    ],
+    [
+     "am",
+     "a",
+     "m"
+    ],
+    [
+     "mq",
+     "",
+     "mq"
+    ],
+    [
+     "mq,",
+     "ṃ,",
+     ""
+    ],
+    [
+     " ",
+     " ",
+     ""
+    ],
+    [
+     "s",
+     "",
+     "s"
+    ],
+    [
+     "si",
+     "s",
+     "i"
+    ],
+    [
+     "im",
+     "i",
+     "m"
+    ],
+    [
+     "mq",
+     "",
+     "mq"
+    ]
+   ],
+   "tyqak kyqalb hyqubb gyqajn": [
+    [
+     "t",
+     "",
+     "t"
+    ],
+    [
+     "ty",
+     "",
+     "ty"
+    ],
+    [
+     "tyq",
+     "",
+     "tyq"
+    ],
+    [
+     "tyqa",
+     "t̤",
+     "a"
+    ],
+    [
+     "ak",
+     "a",
+     "k"
+    ],
+    [
+     "k ",
+     "k ",
+     ""
+    ],
+    [
+     "k",
+     "",
+     "k"
+    ],
+    [
+     "ky",
+     "",
+     "ky"
+    ],
+    [
+     "kyq",
+     "",
+     "kyq"
+    ],
+    [
+     "kyqa",
+     "k̤",
+     "a"
+    ],
+    [
+     "al",
+     "a",
+     "l"
+    ],
+    [
+     "lb",
+     "l",
+     "b"
+    ],
+    [
+     "b ",
+     "b ",
+     ""
+    ],
+    [
+     "h",
+     "",
+     "h"
+    ],
+    [
+     "hy",
+     "",
+     "hy"
+    ],
+    [
+     "hyq",
+     "",
+     "hyq"
+    ],
+    [
+     "hyqu",
+     "h̤",
+     "u"
+    ],
+    [
+     "ub",
+     "u",
+     "b"
+    ],
+    [
+     "bb",
+     "",
+     "bb"
+    ],
+    [
+     "bb ",
+     "bb ",
+     ""
+    ],
+    [
+     "g",
+     "",
+     "g"
+    ],
+    [
+     "gy",
+     "",
+     "gy"
+    ],
+    [
+     "gyq",
+     "",
+     "gyq"
+    ],
+    [
+     "gyqa",
+     "g̈",
+     "a"
+    ],
+    [
+     "aj",
+     "a",
+     "j"
+    ],
+    [
+     "jn",
+     "j",
+     "n"
+    ]
+   ],
+   "eqy oqy oqyq aqy aqyq, pqyq": [
+    [
+     "e",
+     "",
+     "e"
+    ],
+    [
+     "eq",
+     "",
+     "eq"
+    ],
+    [
+     "eqy",
+     "",
+     "eqy"
+    ],
+    [
+     "eqy ",
+     "ẹ ",
+     ""
+    ],
+    [
+     "o",
+     "",
+     "o"
+    ],
+    [
+     "oq",
+     "",
+     "oq"
+    ],
+    [
+     "oqy",
+     "",
+     "oqy"
+    ],
+    [
+     "oqy ",
+     "ọ ",
+     ""
+    ],
+    [
+     "o",
+     "",
+     "o"
+    ],
+    [
+     "oq",
+     "",
+     "oq"
+    ],
+    [
+     "oqy",
+     "",
+     "oqy"
+    ],
+    [
+     "oqyq",
+     "",
+     "oqyq"
+    ],
+    [
+     "oqyq ",
+     "ọ́ ",
+     ""
+    ],
+    [
+     "a",
+     "",
+     "a"
+    ],
+    [
+     "aq",
+     "",
+     "aq"
+    ],
+    [
+     "aqy",
+     "",
+     "aqy"
+    ],
+    [
+     "aqy ",
+     "ä ",
+     ""
+    ],
+    [
+     "a",
+     "",
+     "a"
+    ],
+    [
+     "aq",
+     "",
+     "aq"
+    ],
+    [
+     "aqy",
+     "",
+     "aqy"
+    ],
+    [
+     "aqyq",
+     "",
+     "aqyq"
+    ],
+    [
+     "aqyq,",
+     "a̋,",
+     ""
+    ],
+    [
+     " ",
+     " ",
+     ""
+    ],
+    [
+     "p",
+     "",
+     "p"
+    ],
+    [
+     "pq",
+     "",
+     "pq"
+    ],
+    [
+     "pqy",
+     "ṗy",
+     ""
+    ],
+    [
+     "q",
+     "q",
+     ""
+    ]
+   ],
+   "ryqeka wyit, bry-d": [
+    [
+     "r",
+     "",
+     "r"
+    ],
+    [
+     "ry",
+     "",
+     "ry"
+    ],
+    [
+     "ryq",
+     "",
+     "ryq"
+    ],
+    [
+     "ryqe",
+     "r̦",
+     "e"
+    ],
+    [
+     "ek",
+     "e",
+     "k"
+    ],
+    [
+     "ka",
+     "k",
+     "a"
+    ],
+    [
+     "a ",
+     "a ",
+     ""
+    ],
+    [
+     "w",
+     "",
+     "w"
+    ],
+    [
+     "wy",
+     "",
+     "wy"
+    ],
+    [
+     "wyi",
+     "ẅ",
+     "i"
+    ],
+    [
+     "it",
+     "i",
+     "t"
+    ],
+    [
+     "t,",
+     "t,",
+     ""
+    ],
+    [
+     " ",
+     " ",
+     ""
+    ],
+    [
+     "b",
+     "",
+     "b"
+    ],
+    [
+     "br",
+     "b",
+     "r"
+    ],
+    [
+     "ry",
+     "",
+     "ry"
+    ],
+    [
+     "ry-",
+     "r̈-",
+     ""
+    ],
+    [
+     "d",
+     "",
+     "d"
+    ]
+   ],
+   "sqiemq somq": [
+    [
+     "s",
+     "",
+     "s"
+    ],
+    [
+     "sq",
+     "",
+     "sq"
+    ],
+    [
+     "sqi",
+     "ṣ",
+     "i"
+    ],
+    [
+     "ie",
+     "i",
+     "e"
+    ],
+    [
+     "em",
+     "e",
+     "m"
+    ],
+    [
+     "mq",
+     "",
+     "mq"
+    ],
+    [
+     "mq ",
+     "ṃ ",
+     ""
+    ],
+    [
+     "s",
+     "",
+     "s"
+    ],
+    [
+     "so",
+     "s",
+     "o"
+    ],
+    [
+     "om",
+     "o",
+     "m"
+    ],
+    [
+     "mq",
+     "",
+     "mq"
+    ]
+   ]
+  }
+ }
+}

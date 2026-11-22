@@ -14,67 +14,65 @@ a point of the alphabet.
 ```
 vendor/            the alphabet, vendored: alphabet-spec.json, the lexicons,
                    and ALPHABET (version, commit, sha256 of what was taken)
-profiles/          the input profiles, as data: universal-v1.yaml, minimal-hu-v1.yaml
+profiles/          the input profiles, as data: diafon-v1.yaml
 spec/              the compiled profiles, with their vectors
 engine/            the Python reference: alphabet.py (the script, from the
                    vendored spec), profile.py (compile), engine.py (segment,
-                   points, stream)
-input_methods/     macOS, iOS, Android, and the Swift core they share
-data/              the keyboard layouts, the lessons' plan, the emoji table
-docs/              the typing engine in JavaScript, the playground and the lessons
-                   (files only: this repository publishes no site yet)
-scripts/           the generators
-tests/             the profiles, the engine, the ports, the pre-split goldens
+                   letters, stream)
+input_methods/     macOS, iOS, Android, and the Swift core they share (asleep, see below)
+legacy/            the typing from before the split and everything built on its
+                   key strings; kept, not built
+scripts/           sync_alphabet.py, compile_profile.py, build.sh
+tests/             the profiles
 ```
 
-## Profiles
+## The typing: diafon-v1
 
-A profile is data, compiled to a table. It is immutable by id: a change to
-`universal-v1` is `universal-v2`. It names the alphabet major it targets.
+Every letter of the alphabet on a plain keyboard, with two operator keys:
+`y` and `q`, the two letters the alphabet leaves out. It writes every
+language of the alphabet in full.
 
-- `universal-v1`: the typing Diafon had before the split, every language,
-  plain ASCII. Twenty base letters, the operators `c j q x y`, `w` for
-  length, digits for tones. Its conformance is the spec as it was before
-  the split (`tests/goldens/spec.json`): every typing vector reproduces
-  byte for byte. The one form gone since is `kq`: the alphabet has no
-  letter q now, /q/ is k̤, typed `ky`.
-- `minimal-hu-v1`: Hungarian, English and Mandarin sounds on two operators.
-  Twenty-four letters are points as they stand; `y` marks the letter before
-  it (`sy` ș, `cy` c̦, `ny` n̦, `uy` ü, `oy` ö), `q` is the dot after t d n k
-  (`kq` ḳ) and after s z c x (the soft `sq` ṣ, `cq` c̣) and length after a vowel (`aq` á, `oyq` ő). A doubled consonant is the
-  long one (`ssy` șș). A doubled operator is the plain letter (`cityy`
-  city), and so is one with nothing to apply to (you, my, quick). A digit
-  after a point is its tone, so Mandarin is typed with the same keys
-  (`ni3 kqaw3`); a doubled digit is the plain digit (`h22o` h2o). A segment
-  commits when the next one starts.
+| | `y` | `q` | `yq` | `qy` | `qyq` |
+|---|---|---|---|---|---|
+| consonant | anchor: `sy` ș | dot: `tq` ṭ | double dot below: `tyq` t̤ | | |
+| vowel | double dot: `uy` ü | long: `aq` á | both: `oyq` ő | dot below: `eqy` ẹ | dot below, long: `oqyq` ọ́ |
+
+- On r and w the `y` is the double dot above: `ry` r̈, `wy` ẅ. The soft r̦ is `ryq`.
+- On a the two vowel codes trade places: `ay` is the schwa ạ, `aqy` the front ä.
+- A nasal vowel is the vowel and `mq`: `bomq` boṃ.
+- A doubled consonant is the long one, and an operator after it applies to
+  both: `ssy` șș.
+- A doubled operator is the plain letter: `cityy` city, `tqq` tq. An
+  operator with nothing to apply to is plain too: you, quick.
+- A digit after a letter is its tone: `ni3 kqaw3` niˇ ḳawˇ. Doubled, it is
+  the plain digit: `h22o` h2o.
+
+The profile is data (`profiles/diafon-v1.yaml`); compiled
+(`spec/diafon-v1.json`) it carries its key table, the languages it writes
+and its vectors, which a port must reproduce.
+
+## What is asleep
+
+The typing Diafon had before the split, `universal-v1` (twenty base letters,
+five operators), and the first two-operator table, `minimal-hu-v1`, are in
+`legacy/` with their generators, tests and frozen data. The Mac, iOS and
+Android input methods still hold their text in `universal-v1` key strings
+and still carry the alphabet as it was when they were last generated; they
+build from the files committed here, and are due a rewrite that works on
+the letters directly and reads `spec/diafon-v1.json`.
 
 ## The alphabet
 
 `scripts/sync_alphabet.py` copies the alphabet's spec and lexicons from a
 checkout of diafon-org/diafon into `vendor/` and records the version. The
-dependency runs one way. The engine and the ports read `vendor/` only. The
-generators that need a language read or written (the old spec, the lessons,
-the emoji table) also run the alphabet's Python reference from that
-checkout (`$DIAFON_ALPHABET`, or `../diafon`).
+dependency runs one way: the engine reads `vendor/` only.
 
 ## Build and test
 
 ```
 python3 scripts/sync_alphabet.py        # after the alphabet changes
-sh scripts/build.sh                     # compile, generate, test
-python3 scripts/gen_goldens.py --check  # every pre-split row, about three minutes
+sh scripts/build.sh                     # compile the profiles, test them
 ```
-
-The Mac input method and the iOS keyboard take the profile as a setting
-(Diafon's menu on the Mac, the keyboard's settings on iOS). What is written
-is chosen like a keyboard: on the Mac each output is an input mode of its
-own, on iOS the space bar's menu has them. A profile lists the languages it
-can write in full (`languages` in `spec/<id>.json`), and only those are
-offered. Inside, the
-Swift core still holds a text in `universal-v1` forms: a key-table profile
-is read into those forms (`input_methods/apple/Core/Profiles.swift`), and
-`universal-v1` itself is still the grammar in code. Android has
-`universal-v1` only.
 
 ## How it is made
 

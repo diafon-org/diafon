@@ -2,54 +2,24 @@
 """Compile the profiles: profiles/<id>.yaml -> spec/<id>.json, the table the
 engine and the ports read, with the profile's vectors:
 
-  render   [typed, script]: every key sequence, small, capitalized and all
-           caps, short and long, and sentences
-  lenient  [typed, script] with ill-formed input passed through
+  render   [typed, script]: every key sequence, small and capitalized, a
+           doubled consonant, and sentences
   joined   [typed, script] with the long consonants joined
-  invalid  typed text the strict reading rejects
   stream   {typed: [[buffer, committed, pending], ...]} key by key
+
+and `languages`, the languages the profile writes in full.
 
 Usage: compile_profile.py [id ...]   (default: every profile)
 """
 import glob
 import json
-import re
 import os
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 from engine import alphabet, profile
-from engine.engine import Engine, ParseError, make
-
-PRESPLIT = os.path.join(ROOT, 'tests', 'goldens', 'spec.json')     # the spec as it was before the split
-
-
-def today(x):
-    """A text (or a nest of them) of the spec before the split, with the mark the alphabet has since
-    changed: the reverse anchor (U+0316, above U+0314) is the double dot below (U+0324, above U+0308)."""
-    if isinstance(x, str):
-        # the glide of ü moved from j to w (j̈ and ẅ change places), before the mark that became U+0308
-        swap = {'j\u0308': '\u1e85', 'J\u0308': '\u1e84', '\u1e85': 'j\u0308', '\u1e84': 'J\u0308',
-                'w\u0308': 'j\u0308', 'W\u0308': 'J\u0308'}
-        x = re.sub('[jJwW]\u0308|[\u1e84\u1e85]', lambda m: swap[m.group()], x)
-        return x.replace('\u0316', '\u0324').replace('\u0314', '\u0308')
-    if isinstance(x, list):
-        return [today(v) for v in x]
-    if isinstance(x, dict):
-        return {today(k): today(v) for k, v in x.items()}
-    return x
-
-
-def presplit():
-    """The spec from before the split, as it holds today: the mark as it is now, and without the
-    inputs that typed the letter q (kq): q left the alphabet, /q/ is k̤, typed ky."""
-    old = today(json.load(open(PRESPLIT, encoding='utf-8')))
-    gone = lambda t: 'kq' in t.lower()
-    old['forms'] = [f for f in old['forms'] if not gone(f['form'])]
-    old['vectors'] = {k: ([x for x in v if not gone(x if isinstance(x, str) else x[0])] if isinstance(v, list)
-                          else {t: s for t, s in v.items() if not gone(t)}) for k, v in old['vectors'].items()}
-    return old
+from engine.engine import make
 
 
 def trace(eng, text):
@@ -62,49 +32,26 @@ def trace(eng, text):
     return out
 
 
-MINIMAL = ['cyak a joq soq', 'ni3 kqaw3, syiy4 cyie4', 'anyy cityy boyy', 'the cityy', 'you my by quick', 'ssy ccy nny ttq',
-           'syy tqq', 'h2o abc123 x9 2x', 'Syok syeqp nyaqr, hossuq alma', 'Magyar, oyt, tuyz, uyq, oyq', 'SYOK Ssy SSY',
-           'cyunq1kuo2 zyeyn2 ry4 luy4 ma5', 'say sayy, they theyy', 'aqq yy qq y q', 'tyuqk gyoyngy edy ketyteoy', 'ray ry rry',
-           'tqink dqis sinq kqan', 'dobozz, add; eddy.', 'aay aaq aa', 'syy1 sy1y', 'h22o abc1123 x99 ni33 ma3 a2233']
+# sentences: Hungarian, Mandarin, the escapes, the doubled letters, the digits, every mark
+TEXTS = ['cyak a joq soq', 'ni3 kqaw3, syiy4 cqie4', 'anyy cityy boyy', 'the cityy', 'you my by quick', 'ssy ccy nny ttq',
+         'syy tqq', 'h2o abc123 x9 2x', 'Syok syeqp nyaqr, hossuq alma', 'Magyar, oyt, tuyz, uyq, oyq', 'SYOK Ssy SSY',
+         'cyunq1kuo2 zyeyn2 ry4 luy4 ma5', 'say sayy, they theyy', 'aqq yy qq y q', 'tyuqk gyoyngy edy ketyteoy', 'ray ry rry',
+         'tqink dqis sinq kqan', 'dobozz, add; eddy.', 'aay aaq aa', 'syy1 sy1y', 'h22o abc1123 x99 ni33 ma3 a2233',
+         'bomq vemq blamq, simq', 'tyqak kyqalb hyqubb gyqajn', 'eqy oqy oqyq aqy aqyq, pqyq', 'ryqeka wyit, bry-d', 'sqiemq somq']
 
 
-def universal():
-    return Engine(profile.compile('universal-v1'))
-
-
-def vectors(eng, pid):
-    """The profile's vectors. universal-v1 keeps the inputs of the spec it
-    had before the split, so that spec's answers are its conformance."""
-    if pid != 'universal-v1':
-        texts = [k for k in eng.inventory()] + [k[0].upper() + k[1:] for k in eng.inventory()] \
-            + [k[0] * 2 + k[1:] for k in eng.inventory() if k[0] in eng.doubling] + MINIMAL
-        return {'render': [[t, eng.render(t)] for t in texts],
-                'joined': [[t, eng.render(t, join=True)] for t in texts if eng.render(t, join=True) != eng.render(t)],
-                'stream': {t: trace(eng, t) for t in MINIMAL[:6]}}
-    old = presplit()['vectors']
-    render = []
-    for f in eng.inventory():
-        for x in (f, f[0].upper() + f[1:], f.upper()):
-            render.append([x, eng.render(x)])
-    v = {'render': render, 'lenient': [], 'joined': [], 'invalid': [], 'stream': {}}
-    v['render'] += [[t, eng.render(t)] for t, _ in old['render'] if [t, eng.render(t)] not in render]
-    v['lenient'] = [[t, eng.render(t, strict=False)] for t, _ in old['lenient']]
-    v['joined'] = [[t, eng.render(t, join=True)] for t, _ in old['joined']]
-    for t in old['invalid']:
-        try:
-            eng.render(t)
-        except ParseError:
-            v['invalid'].append(t)
-    v['stream'] = {t: trace(eng, t) for t in old['stream']}
-    return v
+def vectors(eng):
+    inv = eng.inventory()
+    texts = inv + [k[0].upper() + k[1:] for k in inv] + [k[0] * 2 + k[1:] for k in inv if k[0] in eng.doubling] + TEXTS
+    return {'render': [[t, eng.render(t)] for t in texts],
+            'joined': [[t, eng.render(t, join=True)] for t in texts if eng.render(t, join=True) != eng.render(t)],
+            'stream': {t: trace(eng, t) for t in TEXTS[:6] + TEXTS[-5:]}}
 
 
 def languages(c):
     """The languages a profile can write in full: every sound of the language (the marginal ones
-    aside) is written with points the profile types."""
+    aside) is written with letters the profile types."""
     typable = {v['point'] for v in c['keys'].values() if v['point']}
-    table = c['segment']['kind'] == 'key-table'
-    long_ok = (lambda name: True) if table else (lambda name: True)
     out = []
     for code, lang in alphabet.SPEC['languages'].items():
         need = {n for s in lang['sounds'].values() if s['frequency'] != 'X' for n in s['points']}
@@ -115,14 +62,8 @@ def languages(c):
 
 def build(pid):
     c = profile.compile(pid)
-    eng = make(c)
-    if pid != 'universal-v1':
-        # what each key sequence is in universal-v1 keys: the ports' way in
-        uni = universal()
-        for key, v in c['keys'].items():
-            v['via'] = uni.typed(eng.points(key))
     c['languages'] = languages(c)
-    c['vectors'] = vectors(eng, pid)
+    c['vectors'] = vectors(make(c))
     return c
 
 
@@ -133,7 +74,8 @@ def main():
         with open(profile.path(pid), 'w', encoding='utf-8') as f:
             json.dump(c, f, ensure_ascii=False, indent=1)
             f.write('\n')
-        print(f'{profile.path(pid)}: {len(c["keys"])} keys, ' + ', '.join(f'{k} {len(x)}' for k, x in c['vectors'].items()))
+        print(f'{profile.path(pid)}: {len(c["keys"])} keys, {len(c["languages"])} languages, '
+              + ', '.join(f'{k} {len(x)}' for k, x in c['vectors'].items()))
 
 
 if __name__ == '__main__':
