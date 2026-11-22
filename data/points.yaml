@@ -257,6 +257,13 @@ mʲ:
   capital: M̦
   readings:
     mʲ: [pl, ru]
+ⁿ:
+  letter: m
+  marks: [dot]
+  long: false
+  glyph: ṃ
+  capital: Ṃ
+  readings: {}
 n:
   letter: n
   marks: []
@@ -570,6 +577,7 @@ aː:
   capital: Ä
   readings:
     æ: [et, fa, fi]
+    ɛ: [th]
 æː:
   letter: a
   marks: [flip]
@@ -578,15 +586,7 @@ aː:
   capital: A̋
   readings:
     æː: [et, fi]
-ã:
-  letter: a
-  marks: [grave]
-  long: false
-  glyph: à
-  capital: À
-  readings:
-    ã: [bn, pt]
-    ɑ̃: [fr, hi]
+    ɛː: [th]
 ə:
   letter: a
   marks: [underdot]
@@ -632,15 +632,6 @@ eː:
   capital: E̋
   readings:
     ɤː: [et, th]
-ẽ:
-  letter: e
-  marks: [grave]
-  long: false
-  glyph: è
-  capital: È
-  readings:
-    ɛ̃: [fr, pl]
-    ẽ: [bn, hi, pt]
 ɛ:
   letter: e
   marks: [underdot]
@@ -648,23 +639,7 @@ eː:
   glyph: ẹ
   capital: Ẹ
   readings:
-    ɛ: [bn, fr, it, pt, th, vi]
-ɛː:
-  letter: e
-  marks: [underdot]
-  long: true
-  glyph: ẹ́
-  capital: Ẹ́
-  readings:
-    ɛː: [hi, th]
-ɛ̃:
-  letter: e
-  marks: [underdot, grave]
-  long: false
-  glyph: ẹ̀
-  capital: Ẹ̀
-  readings:
-    ɛ̃: [hi]
+    ɛ: [bn, fr, it, pt, vi]
 i:
   letter: i
   marks: []
@@ -699,14 +674,6 @@ iː:
   capital: I̋
   readings:
     ɯː: [ja, th]
-ĩ:
-  letter: i
-  marks: [grave]
-  long: false
-  glyph: ì
-  capital: Ì
-  readings:
-    ĩ: [bn, hi, pt]
 ɪ:
   letter: i
   marks: [underdot]
@@ -751,15 +718,6 @@ oː:
   capital: Ő
   readings:
     øː: [de, et, fi, hu, nl]
-õ:
-  letter: o
-  marks: [grave]
-  long: false
-  glyph: ò
-  capital: Ò
-  readings:
-    õ: [bn, hi, pt]
-    ɔ̃: [fr, pl]
 ɔ:
   letter: o
   marks: [underdot]
@@ -775,15 +733,7 @@ oː:
   glyph: ọ́
   capital: Ọ́
   readings:
-    ɔː: [hi, th]
-ɔ̃:
-  letter: o
-  marks: [underdot, grave]
-  long: false
-  glyph: ọ̀
-  capital: Ọ̀
-  readings:
-    ɔ̃: [hi]
+    ɔː: [th]
 u:
   letter: u
   marks: []
@@ -818,11 +768,3 @@ yː:
   capital: Ű
   readings:
     yː: [de, et, fi, hu]
-ũ:
-  letter: u
-  marks: [grave]
-  long: false
-  glyph: ù
-  capital: Ù
-  readings:
-    ũ: [bn, hi, pt]

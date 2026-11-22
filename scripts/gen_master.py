@@ -145,9 +145,6 @@ GROUPS = [
     ((True, ()), 'vowels', 'plain letters'),
     ((True, ('flip',)), 'vowels', 'the double dot: lip rounding swapped; on a, the front a'),
     ((True, ('underdot',)), 'vowels', 'the dot below: more open, only in languages with both; on a, the schwa'),
-    ((True, ('grave',)), 'vowels', 'the grave: nasal'),
-    ((True, ('underdot', 'grave')), 'vowels', 'the dot below and the grave: nasal and more open'),
-    ((True, ('flip', 'grave')), 'vowels', 'the double dot and the grave'),
 ]
 _GROUP = {k: i for i, (k, _, _) in enumerate(GROUPS)}
 _LETTERS = 'ptkbdgfvszcxqmnlrhjw' + 'aeiou'

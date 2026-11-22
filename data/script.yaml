@@ -19,7 +19,6 @@ marks:
   dot:           {below: "̣", above: "̇"}   # the fricative shift
   twodots:       {below: "̤", above: "̈"}   # the double dot below: the tongue pulled back (retroflex, emphatic, pharyngeal)
   underdot:      {below: "̣"}                    # on a vowel: the lax split (ɪ ɛ ɔ), and the schwa area ə
-  grave:         {above: "̀"}                    # on a vowel: the special, default nasal
   acute:         {above: "́"}                    # a long vowel
   double_acute:  {above: "̋"}                    # the flip and the acute, fused
   flip:          {above: "̈"}                    # the front rounded and back unrounded vowels; on a, the front split /æ/;
@@ -59,6 +58,7 @@ points:
   ɭ: l dot
   m: m
   mʲ: m anchor
+  ⁿ: m dot            # the nasal letter: after a vowel (and its glide) it makes the vowel nasal, as h aspirates
   n: n
   ɲ: n anchor
   ŋ: n dot
@@ -91,25 +91,18 @@ points:
   # vowels
   a: a
   æ: a flip
-  ã: a grave
   ə: a underdot
   e: e
   ɤ: e flip
-  ẽ: e grave
   ɛ: e underdot
-  ɛ̃: e underdot grave
   i: i
   ɯ: i flip
-  ĩ: i grave
   ɪ: i underdot
   o: o
   ø: o flip
-  õ: o grave
   ɔ: o underdot
-  ɔ̃: o underdot grave
   u: u
   y: u flip
-  ũ: u grave
 
 # Tones: one contour is one sign in every language, written after the
 # syllable, the marks Bopomofo uses (mid unmarked, as in Thai and Vietnamese

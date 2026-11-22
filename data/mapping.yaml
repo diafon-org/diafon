@@ -177,16 +177,16 @@ vowels:
   øː: øː
   ɯː: ɯː
   ɤː: ɤː
-  # nasal (y)
-  ĩ: ĩ
-  ẽ: ẽ
-  ɛ̃: ẽ
-  œ̃: ẽ          # recessive, merged into ɛ̃ for modern speakers
-  ã: ã
-  ɑ̃: ã
-  õ: õ
-  ɔ̃: õ
-  ũ: ũ
+  # nasal
+  ĩ: [i, ⁿ]       # a nasal vowel is the vowel and the nasal letter ṃ (m with the dot), as aspiration is h
+  ẽ: [e, ⁿ]
+  ɛ̃: [e, ⁿ]
+  œ̃: [e, ⁿ]       # recessive, merged into ɛ̃ for modern speakers
+  ã: [a, ⁿ]
+  ɑ̃: [a, ⁿ]
+  õ: [o, ⁿ]
+  ɔ̃: [o, ⁿ]
+  ũ: [u, ⁿ]
   # sequences: nucleus + glide
   aɪ: [a, j]
   aʊ: [a, w]
@@ -256,9 +256,17 @@ overrides:
     ɕ: ɕ
     tɕ: tɕ
     tɕʰ: [tɕ, h]
-  fr:            # the nasals take no dot below: French has no plain è ò to tell them from
-    ɛ̃: ẽ
-    ɔ̃: õ
+  fr:            # the nasals take no dot below: French has no close nasal to tell them from
+    ɛ̃: [e, ⁿ]
+    ɔ̃: [o, ⁿ]
+  hi:            # ऐ औ are the diphthongs they were and still are in much of the Hindi area (hai, aur)
+    ɛː: [a, j]
+    ɔː: [a, w]
+    ɛ̃: [a, j, ⁿ]
+    ɔ̃: [a, w, ⁿ]
+  th:            # แ is very open (romanised ae): the front a, short and long, not a dotted e
+    ɛ: æ
+    ɛː: æː
   nl:            # hut: the short partner of the long ő (neus), not a second ü
     ʏ: ø
   pl:            # three-way sibilants: plain s, the hush sz on the anchor, the soft ś on the dot
@@ -276,7 +284,7 @@ merges:
   pt: [[ɐ, a]]   # unstressed or nasal a; the falámos ~ falamos contrast is marginal
   zh: [[ɤ, ə]]   # one phoneme: [ɤ] open, [ə] before nasals
 
-# Multiple readings belong to the double dot below and to the vowel grave. A REGULAR point carries one reading; every
+# Multiple readings belong to the double dot below. A REGULAR point carries one reading; every
 # other reading of any point is justified below, language by language. The
 # reading marked `primary` is the point's canonical value (shown aggregated);
 # the special has no canonical value, so its first reading is simply its

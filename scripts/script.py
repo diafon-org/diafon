@@ -9,7 +9,7 @@ letter for the pair (ș ṭ ä á) it appears, elsewhere the sequence stands
 
 - A consonant's mark sits below, floating above on the small letters that
   descend; no capital descends, so a capital wears its mark below (p̓ P̦).
-- A vowel wears the flip, the underdot and the grave; long, the acute (the
+- A vowel wears the flip or the underdot; long, the acute (the
   flip and the acute fuse into the double acute).
 - A long consonant doubles its letter, and only the first is capitalized
   (Șș); with join=True a zero width joiner sits between the two, which the
@@ -37,7 +37,7 @@ VOWELS = set(_S['letters']['vowels'])
 DESC = set(_S['descenders'])
 MARKS = _S['marks']
 C_MARKS = ('anchor', 'dot', 'twodots')                 # a consonant wears one of these
-V_MARKS = ('flip', 'underdot', 'grave')                # a vowel any of these, in this order
+V_MARKS = ('flip', 'underdot')                         # a vowel one of these
 ZWJ = '‍'
 LONG = 'ː'
 
@@ -87,8 +87,7 @@ def valid(comp):
     """Whether a letter and marks compose. A consonant wears at most one of
     the anchor, the dot and the double dot below: no double dot on the thin stems l r f,
     only the dot on j w. The flip stands on w r, alone (and on the
-    dotted r). A vowel wears the flip or the underdot, not both, and the grave
-    with either."""
+    dotted r). A vowel wears the flip or the underdot, not both."""
     letter, marks = comp
     if len(set(marks)) != len(marks):
         return False
@@ -131,8 +130,6 @@ def compose(comp, long=False, caps=False):
             g += MARKS['double_acute' if long else 'flip']['above']
         if 'underdot' in marks:
             g += MARKS['underdot']['below']
-        if 'grave' in marks:
-            g += MARKS['grave']['above']
         if long and 'flip' not in marks:
             g += MARKS['acute']['above']
     else:

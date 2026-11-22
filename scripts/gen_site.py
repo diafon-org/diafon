@@ -88,14 +88,13 @@ CONSONANTS = (['labial', 'dental', 'alveolar', 'postalveolar', 'palatal', 'velar
     ('approximant', {'labial': 'w', 'alveolar': 'l', 'palatal': 'j'}),     # the glides w j and the lateral l
 ])
 # the mark a point wears -> the colour class of its edge
-MARK_CLASS = {(): 'base', ('anchor',): 'j', ('dot',): 'x', ('twodots',): 'y', ('flip',): 'c', ('underdot',): 'j',
-              ('grave',): 'y'}
+MARK_CLASS = {(): 'base', ('anchor',): 'j', ('dot',): 'x', ('twodots',): 'y', ('flip',): 'c', ('underdot',): 'j'}
 MARK_GLOSS = [   # (class, on a consonant, on a vowel)
     ('base', 'no mark', 'no mark'),
     ('j', 'the anchor: hushed or soft', 'the dot below: more open; on a, the schwa'),
     ('x', 'the dot: a fixed nearby sound', None),
     ('c', None, 'the double dot: lip rounding swapped; on a, the front a'),
-    ('y', "the double dot below: the language's own variant, further back", 'the grave: nasal'),
+    ('y', "the double dot below: the language's own variant, further back", None),
 ]
 
 
@@ -302,6 +301,10 @@ def added_table():
         sounds = ' '.join(dict.fromkeys(i for c in cs for i in sorted(comps[c])))        # in the letters' order
         out.append(f'<tr><td class="ex">{ug(letters)}</td><td>{label}</td><td>/{esc(sounds)}/</td>'
                    f'<td>{", ".join(sorted(where))}</td></tr>')
+    nasal = sorted({langs[c]['name'].split(' (')[0].replace('Hindi-Urdu', 'Hindi') for c in langs
+                    for pts in mapping.language_points(c) if any(comp == script.POINTS['ⁿ'] for comp, _ in pts)})
+    out.append(f'<tr><td class="ex">{ug(nfc(script.glyph("ⁿ")))}</td><td>the nasal letter: the vowel before it is nasal</td>'
+               f'<td>/◌̃/</td><td>{", ".join(nasal)}</td></tr>')
     out.append('</table></div>')
     return '\n'.join(out)
 

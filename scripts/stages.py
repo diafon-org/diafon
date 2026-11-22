@@ -81,6 +81,8 @@ def load(code):
     d['before_i'] = _keyed(d.get('before_i'))          # a soft consonant before i is written plain: Czech ti, Polish si
     d.setdefault('i_softens', False)                   # before another vowel it is written plain + i: Polish się, nie
     d['before_vowel'] = _keyed(d.get('before_vowel'))  # soft only before a vowel other than i, written plain + i: Polish bie
+    # two letters of the script written as one of the language: Polish eṃ is ę ({(point, point): spelling})
+    d['pairs'] = {tuple((t.comp, t.long) for t in script.read(k)): v for k, v in (d.get('pairs') or {}).items()}
     d['lexical'] = not d['points']
     d['lexicon'] = L
     _LOADED[code] = d
@@ -140,10 +142,19 @@ def render_letters(text, stage, strict=False):
     """Points (or script text) in the stage's letters, a point the stage does
     not spell in the script; the tone as its number."""
     toks = tokens(text)
-    out = []
+    out, skip = [], False
     for k, t in enumerate(toks):
+        if skip:
+            skip = False
+            continue
         if t.raw is not None:
             out.append(t.raw)
+            continue
+        nxt = toks[k + 1] if k + 1 < len(toks) else None
+        pair = stage['pairs'].get((key(t), key(nxt))) if nxt is not None and nxt.raw is None else None
+        if pair is not None:                              # the pair as one letter; the tones of both after it
+            out.append((pair[0].upper() + pair[1:] if t.caps else pair) + t.tones + nxt.tones)
+            skip = True
             continue
         sp = soft_spelling(stage, t, toks[k + 1] if k + 1 < len(toks) else None) or spell(stage, t)
         if sp is None:
@@ -238,6 +249,10 @@ def table(stage, fallback=True, aliases=True):
             up = sp.upper()
             if up not in (sp, cap):
                 t[up] = ((comp, long, True),)
+    for pair, sp in stage['pairs'].items():
+        t[sp] = tuple(k + (False,) for k in pair)
+        for cap in {sp[0].upper() + sp[1:], sp.upper()}:
+            t[ud.normalize('NFC', cap)] = (pair[0] + (True,),) + tuple(k + (False,) for k in pair[1:])
     for sp, toks in (dict(soft_reads(stage), **{s: _entry(v) for s, v in stage['read'].items()}).items()
                      if aliases else ()):
         up = (toks[0][:2] + (True,),) + toks[1:]
@@ -451,8 +466,11 @@ def validate(code):
     errors = []
     pts = mapping.language_points(code)
     single = {seq[0]: reads for seq, reads in pts.items() if len(seq) == 1}
+    paired = {k for pair in stage['pairs'] for k in pair}
     for seq, reads in pts.items():
         for k in seq:
+            if k in paired and any(pair == seq[i:i + 2] for pair in stage['pairs'] for i in range(len(seq))):
+                continue                                    # written with its neighbour as one letter
             if stage['spell'].get(k) is None and k not in stage['before_vowel'] \
                     and (len(seq) == 1 or spell(stage, Tok(*k)) is None):   # pl b̦: only bie, bia…
                 errors.append(f'{code}: {name(k)} ({", ".join(i for i, _ in reads)}) not spelled')

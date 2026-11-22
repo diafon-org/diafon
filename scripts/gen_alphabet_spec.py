@@ -41,7 +41,7 @@ OUT = os.path.join(ROOT, 'docs', 'alphabet-spec.json')
 
 SENTENCES = ['șok sép n̦ár', 'Șanˉ, șok!', 'ȘAN', 'G̦ P̦ G̤ T̤ Ü Șș C̤h Á', 'maˉ maˊ maˇ maˋ', 'hossú älmä',
              'c̦iˇ șïˇ c̦ïˉ', 'Diafon: j i w.', 'k̤ h̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦', 't̤ d̤ n̤ s̤ z̤ c̤ x̤', 'c̣ x̣', 'r̈ r j w ẅ',
-             'ạ ẹ ị ọ ụ à è ì ò ù', 't̤h d̤h ṛh pf th kh']
+             'ạ ẹ ị ọ ụ aṃ eṃ', 't̤h d̤h ṛh pf th kh']
 READ_ONLY = ['dd̦', 'kkk', 'tt', 't‍t', 'Șș', 'Ș‍ș', 'jj', 'x-ray: y', 'ma5 ma9', 'ǵ']    # read, not always written back the same
 DETECT = ['Șok sép n̦ár, hossú älmä', 'sok szép nyár, hosszú alma', 'dobrý den, přátelé', 'hyvää yötä kaikille',
           'Dobra noc, kochani', 'günaydın', 'habari za asubuhi', 'ma1 ma2 ma3', 'K̤ Ẹ̀']
@@ -203,7 +203,7 @@ def build():
                 'A point is a letter and its marks; its text is the composition, NFC.',
                 'A consonant wears at most one of the anchor, the dot and the double dot below (twodots), below; above on a small letter that descends. No capital descends: a capital wears its mark below.',
                 'No double dot on the thin stems l r f; only the dot on j w; the flip stands on w r, alone, and on the dotted r.',
-                'A vowel wears the flip or the underdot, not both, and the grave with either; long, the acute; the flip and the acute fuse into the double acute.',
+                'A vowel wears the flip or the underdot, not both; long, the acute; the flip and the acute fuse into the double acute.',
                 'A long consonant doubles its letter; only the first is capitalized, and the second is the first one small. A joiner (U+200D) between the two marks the fused drawing and nothing else.',
                 'Two equal consonant letters in a row are the long point.',
                 'A tone is a sign after the syllable; the unmarked contour writes nothing. A digit after a point reads as a tone number.',

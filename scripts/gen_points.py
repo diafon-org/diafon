@@ -35,6 +35,10 @@ def points():
             errors.append(f'{script.glyph(comp, long)}: used ({", ".join(reads)}) and not named in data/script.yaml')
             continue
         used[script.NAME[comp] + (script.LONG if long else '')] = {ipa: sorted(v[2]) for ipa, v in sorted(reads.items())}
+    for pts in mapping.aggregate():                     # a point met only inside sequences (the nasal letter) is used too
+        for comp, long in pts:
+            if len(pts) > 1 and comp in script.NAME:
+                used.setdefault(script.NAME[comp] + (script.LONG if long else ''), {})
     for name, comp in script.POINTS.items():
         if name not in used and (comp, False) not in mapping.SPLITS:
             errors.append(f'{name}: named in data/script.yaml and used by no language')

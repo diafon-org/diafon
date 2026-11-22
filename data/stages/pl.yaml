@@ -23,6 +23,9 @@ read:                   # spellings read back but never written: ó and u, rz an
   ó: u
   rz: z̦
   h: ḳ
+pairs:                  # a nasal vowel, two letters of the script, is one letter of Polish
+  eṃ: ę
+  oṃ: ą
 points:
   p: p
   b: b
@@ -54,9 +57,7 @@ points:
   j: j
   a: a
   e: e
-  ẽ: ę
   i: i
   o: o
-  õ: ą
   u: u
   ɯ: y

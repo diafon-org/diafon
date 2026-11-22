@@ -54,9 +54,6 @@
    "underdot": {
     "below": "̣"
    },
-   "grave": {
-    "above": "̀"
-   },
    "acute": {
     "above": "́"
    },
@@ -107,7 +104,7 @@
    "A point is a letter and its marks; its text is the composition, NFC.",
    "A consonant wears at most one of the anchor, the dot and the double dot below (twodots), below; above on a small letter that descends. No capital descends: a capital wears its mark below.",
    "No double dot on the thin stems l r f; only the dot on j w; the flip stands on w r, alone, and on the dotted r.",
-   "A vowel wears the flip or the underdot, not both, and the grave with either; long, the acute; the flip and the acute fuse into the double acute.",
+   "A vowel wears the flip or the underdot, not both; long, the acute; the flip and the acute fuse into the double acute.",
    "A long consonant doubles its letter; only the first is capitalized, and the second is the first one small. A joiner (U+200D) between the two marks the fused drawing and nothing else.",
    "Two equal consonant letters in a row are the long point.",
    "A tone is a sign after the syllable; the unmarked contour writes nothing. A digit after a point reads as a tone number.",
@@ -889,6 +886,17 @@
      "ru"
     ]
    }
+  },
+  {
+   "id": "ⁿ",
+   "letter": "m",
+   "marks": [
+    "dot"
+   ],
+   "long": false,
+   "glyph": "ṃ",
+   "capital": "Ṃ",
+   "readings": {}
   },
   {
    "id": "n",
@@ -1798,6 +1806,9 @@
      "et",
      "fa",
      "fi"
+    ],
+    "ɛ": [
+     "th"
     ]
    }
   },
@@ -1814,26 +1825,9 @@
     "æː": [
      "et",
      "fi"
-    ]
-   }
-  },
-  {
-   "id": "ã",
-   "letter": "a",
-   "marks": [
-    "grave"
-   ],
-   "long": false,
-   "glyph": "à",
-   "capital": "À",
-   "readings": {
-    "ã": [
-     "bn",
-     "pt"
     ],
-    "ɑ̃": [
-     "fr",
-     "hi"
+    "ɛː": [
+     "th"
     ]
    }
   },
@@ -1973,27 +1967,6 @@
    }
   },
   {
-   "id": "ẽ",
-   "letter": "e",
-   "marks": [
-    "grave"
-   ],
-   "long": false,
-   "glyph": "è",
-   "capital": "È",
-   "readings": {
-    "ɛ̃": [
-     "fr",
-     "pl"
-    ],
-    "ẽ": [
-     "bn",
-     "hi",
-     "pt"
-    ]
-   }
-  },
-  {
    "id": "ɛ",
    "letter": "e",
    "marks": [
@@ -2008,40 +1981,7 @@
      "fr",
      "it",
      "pt",
-     "th",
      "vi"
-    ]
-   }
-  },
-  {
-   "id": "ɛː",
-   "letter": "e",
-   "marks": [
-    "underdot"
-   ],
-   "long": true,
-   "glyph": "ẹ́",
-   "capital": "Ẹ́",
-   "readings": {
-    "ɛː": [
-     "hi",
-     "th"
-    ]
-   }
-  },
-  {
-   "id": "ɛ̃",
-   "letter": "e",
-   "marks": [
-    "underdot",
-    "grave"
-   ],
-   "long": false,
-   "glyph": "ẹ̀",
-   "capital": "Ẹ̀",
-   "readings": {
-    "ɛ̃": [
-     "hi"
     ]
    }
   },
@@ -2152,23 +2092,6 @@
     "ɯː": [
      "ja",
      "th"
-    ]
-   }
-  },
-  {
-   "id": "ĩ",
-   "letter": "i",
-   "marks": [
-    "grave"
-   ],
-   "long": false,
-   "glyph": "ì",
-   "capital": "Ì",
-   "readings": {
-    "ĩ": [
-     "bn",
-     "hi",
-     "pt"
     ]
    }
   },
@@ -2302,27 +2225,6 @@
    }
   },
   {
-   "id": "õ",
-   "letter": "o",
-   "marks": [
-    "grave"
-   ],
-   "long": false,
-   "glyph": "ò",
-   "capital": "Ò",
-   "readings": {
-    "õ": [
-     "bn",
-     "hi",
-     "pt"
-    ],
-    "ɔ̃": [
-     "fr",
-     "pl"
-    ]
-   }
-  },
-  {
    "id": "ɔ",
    "letter": "o",
    "marks": [
@@ -2353,24 +2255,7 @@
    "capital": "Ọ́",
    "readings": {
     "ɔː": [
-     "hi",
      "th"
-    ]
-   }
-  },
-  {
-   "id": "ɔ̃",
-   "letter": "o",
-   "marks": [
-    "underdot",
-    "grave"
-   ],
-   "long": false,
-   "glyph": "ọ̀",
-   "capital": "Ọ̀",
-   "readings": {
-    "ɔ̃": [
-     "hi"
     ]
    }
   },
@@ -2481,23 +2366,6 @@
      "et",
      "fi",
      "hu"
-    ]
-   }
-  },
-  {
-   "id": "ũ",
-   "letter": "u",
-   "marks": [
-    "grave"
-   ],
-   "long": false,
-   "glyph": "ù",
-   "capital": "Ù",
-   "readings": {
-    "ũ": [
-     "bn",
-     "hi",
-     "pt"
     ]
    }
   }
@@ -2846,6 +2714,19 @@
    "long_capital": "M̦m̦",
    "joined": "m̦‍m̦",
    "joined_capital": "M̦‍m̦"
+  },
+  {
+   "letter": "m",
+   "marks": [
+    "dot"
+   ],
+   "id": "ⁿ",
+   "glyph": "ṃ",
+   "capital": "Ṃ",
+   "long": "ṃṃ",
+   "long_capital": "Ṃṃ",
+   "joined": "ṃ‍ṃ",
+   "joined_capital": "Ṃ‍ṃ"
   },
   {
    "letter": "n",
@@ -3229,17 +3110,6 @@
   {
    "letter": "a",
    "marks": [
-    "grave"
-   ],
-   "id": "ã",
-   "glyph": "à",
-   "capital": "À",
-   "long": "à́",
-   "long_capital": "À́"
-  },
-  {
-   "letter": "a",
-   "marks": [
     "underdot"
    ],
    "id": "ə",
@@ -3271,17 +3141,6 @@
   {
    "letter": "e",
    "marks": [
-    "grave"
-   ],
-   "id": "ẽ",
-   "glyph": "è",
-   "capital": "È",
-   "long": "è́",
-   "long_capital": "È́"
-  },
-  {
-   "letter": "e",
-   "marks": [
     "underdot"
    ],
    "id": "ɛ",
@@ -3289,18 +3148,6 @@
    "capital": "Ẹ",
    "long": "ẹ́",
    "long_capital": "Ẹ́"
-  },
-  {
-   "letter": "e",
-   "marks": [
-    "underdot",
-    "grave"
-   ],
-   "id": "ɛ̃",
-   "glyph": "ẹ̀",
-   "capital": "Ẹ̀",
-   "long": "ẹ̀́",
-   "long_capital": "Ẹ̀́"
   },
   {
    "letter": "i",
@@ -3321,17 +3168,6 @@
    "capital": "Ï",
    "long": "i̋",
    "long_capital": "I̋"
-  },
-  {
-   "letter": "i",
-   "marks": [
-    "grave"
-   ],
-   "id": "ĩ",
-   "glyph": "ì",
-   "capital": "Ì",
-   "long": "ì́",
-   "long_capital": "Ì́"
   },
   {
    "letter": "i",
@@ -3367,17 +3203,6 @@
   {
    "letter": "o",
    "marks": [
-    "grave"
-   ],
-   "id": "õ",
-   "glyph": "ò",
-   "capital": "Ò",
-   "long": "ò́",
-   "long_capital": "Ò́"
-  },
-  {
-   "letter": "o",
-   "marks": [
     "underdot"
    ],
    "id": "ɔ",
@@ -3385,18 +3210,6 @@
    "capital": "Ọ",
    "long": "ọ́",
    "long_capital": "Ọ́"
-  },
-  {
-   "letter": "o",
-   "marks": [
-    "underdot",
-    "grave"
-   ],
-   "id": "ɔ̃",
-   "glyph": "ọ̀",
-   "capital": "Ọ̀",
-   "long": "ọ̀́",
-   "long_capital": "Ọ̀́"
   },
   {
    "letter": "u",
@@ -3417,17 +3230,6 @@
    "capital": "Ü",
    "long": "ű",
    "long_capital": "Ű"
-  },
-  {
-   "letter": "u",
-   "marks": [
-    "grave"
-   ],
-   "id": "ũ",
-   "glyph": "ù",
-   "capital": "Ù",
-   "long": "ù́",
-   "long_capital": "Ù́"
   },
   {
    "letter": "b",
@@ -3506,19 +3308,6 @@
    "long_capital": "J̣j̣",
    "joined": "j̇‍j̇",
    "joined_capital": "J̣‍j̣"
-  },
-  {
-   "letter": "m",
-   "marks": [
-    "dot"
-   ],
-   "id": null,
-   "glyph": "ṃ",
-   "capital": "Ṃ",
-   "long": "ṃṃ",
-   "long_capital": "Ṃṃ",
-   "joined": "ṃ‍ṃ",
-   "joined_capital": "Ṃ‍ṃ"
   },
   {
    "letter": "m",
@@ -3626,78 +3415,6 @@
    "joined_capital": "X̤‍x̤"
   },
   {
-   "letter": "a",
-   "marks": [
-    "flip",
-    "grave"
-   ],
-   "id": null,
-   "glyph": "ä̀",
-   "capital": "Ä̀",
-   "long": "a̋̀",
-   "long_capital": "A̋̀"
-  },
-  {
-   "letter": "a",
-   "marks": [
-    "underdot",
-    "grave"
-   ],
-   "id": null,
-   "glyph": "ạ̀",
-   "capital": "Ạ̀",
-   "long": "ạ̀́",
-   "long_capital": "Ạ̀́"
-  },
-  {
-   "letter": "e",
-   "marks": [
-    "flip",
-    "grave"
-   ],
-   "id": null,
-   "glyph": "ë̀",
-   "capital": "Ë̀",
-   "long": "e̋̀",
-   "long_capital": "E̋̀"
-  },
-  {
-   "letter": "i",
-   "marks": [
-    "flip",
-    "grave"
-   ],
-   "id": null,
-   "glyph": "ï̀",
-   "capital": "Ï̀",
-   "long": "i̋̀",
-   "long_capital": "I̋̀"
-  },
-  {
-   "letter": "i",
-   "marks": [
-    "underdot",
-    "grave"
-   ],
-   "id": null,
-   "glyph": "ị̀",
-   "capital": "Ị̀",
-   "long": "ị̀́",
-   "long_capital": "Ị̀́"
-  },
-  {
-   "letter": "o",
-   "marks": [
-    "flip",
-    "grave"
-   ],
-   "id": null,
-   "glyph": "ö̀",
-   "capital": "Ö̀",
-   "long": "ő̀",
-   "long_capital": "Ő̀"
-  },
-  {
    "letter": "u",
    "marks": [
     "underdot"
@@ -3707,30 +3424,6 @@
    "capital": "Ụ",
    "long": "ụ́",
    "long_capital": "Ụ́"
-  },
-  {
-   "letter": "u",
-   "marks": [
-    "flip",
-    "grave"
-   ],
-   "id": null,
-   "glyph": "ǜ",
-   "capital": "Ǜ",
-   "long": "ű̀",
-   "long_capital": "Ű̀"
-  },
-  {
-   "letter": "u",
-   "marks": [
-    "underdot",
-    "grave"
-   ],
-   "id": null,
-   "glyph": "ụ̀",
-   "capital": "Ụ̀",
-   "long": "ụ̀́",
-   "long_capital": "Ụ̀́"
   }
  ],
  "languages": {
@@ -4186,31 +3879,36 @@
     },
     "ĩ": {
      "points": [
-      "ĩ"
+      "i",
+      "ⁿ"
      ],
      "frequency": "M"
     },
     "ẽ": {
      "points": [
-      "ẽ"
+      "e",
+      "ⁿ"
      ],
      "frequency": "M"
     },
     "ã": {
      "points": [
-      "ã"
+      "a",
+      "ⁿ"
      ],
      "frequency": "M"
     },
     "õ": {
      "points": [
-      "õ"
+      "o",
+      "ⁿ"
      ],
      "frequency": "M"
     },
     "ũ": {
      "points": [
-      "ũ"
+      "u",
+      "ⁿ"
      ],
      "frequency": "M"
     }
@@ -6106,25 +5804,29 @@
     },
     "ɛ̃": {
      "points": [
-      "ẽ"
+      "e",
+      "ⁿ"
      ],
      "frequency": "M"
     },
     "œ̃": {
      "points": [
-      "ẽ"
+      "e",
+      "ⁿ"
      ],
      "frequency": "X"
     },
     "ɑ̃": {
      "points": [
-      "ã"
+      "a",
+      "ⁿ"
      ],
      "frequency": "L"
     },
     "ɔ̃": {
      "points": [
-      "õ"
+      "o",
+      "ⁿ"
      ],
      "frequency": "M"
     }
@@ -6583,7 +6285,8 @@
     },
     "ɛː": {
      "points": [
-      "ɛː"
+      "a",
+      "j"
      ],
      "frequency": "M"
     },
@@ -6595,49 +6298,59 @@
     },
     "ɔː": {
      "points": [
-      "ɔː"
+      "a",
+      "w"
      ],
      "frequency": "M"
     },
     "ɑ̃": {
      "points": [
-      "ã"
+      "a",
+      "ⁿ"
      ],
      "frequency": "M"
     },
     "ĩ": {
      "points": [
-      "ĩ"
+      "i",
+      "ⁿ"
      ],
      "frequency": "M"
     },
     "ũ": {
      "points": [
-      "ũ"
+      "u",
+      "ⁿ"
      ],
      "frequency": "M"
     },
     "ẽ": {
      "points": [
-      "ẽ"
+      "e",
+      "ⁿ"
      ],
      "frequency": "M"
     },
     "ɛ̃": {
      "points": [
-      "ɛ̃"
+      "a",
+      "j",
+      "ⁿ"
      ],
      "frequency": "M"
     },
     "õ": {
      "points": [
-      "õ"
+      "o",
+      "ⁿ"
      ],
      "frequency": "M"
     },
     "ɔ̃": {
      "points": [
-      "ɔ̃"
+      "a",
+      "w",
+      "ⁿ"
      ],
      "frequency": "M"
     }
@@ -8476,13 +8189,15 @@
     },
     "ɛ̃": {
      "points": [
-      "ẽ"
+      "e",
+      "ⁿ"
      ],
      "frequency": "M"
     },
     "ɔ̃": {
      "points": [
-      "õ"
+      "o",
+      "ⁿ"
      ],
      "frequency": "M"
     }
@@ -8667,31 +8382,36 @@
     },
     "ĩ": {
      "points": [
-      "ĩ"
+      "i",
+      "ⁿ"
      ],
      "frequency": "M"
     },
     "ẽ": {
      "points": [
-      "ẽ"
+      "e",
+      "ⁿ"
      ],
      "frequency": "M"
     },
     "ã": {
      "points": [
-      "ã"
+      "a",
+      "ⁿ"
      ],
      "frequency": "M"
     },
     "õ": {
      "points": [
-      "õ"
+      "o",
+      "ⁿ"
      ],
      "frequency": "M"
     },
     "ũ": {
      "points": [
-      "ũ"
+      "u",
+      "ⁿ"
      ],
      "frequency": "M"
     }
@@ -9644,7 +9364,7 @@
     },
     "ɛ": {
      "points": [
-      "ɛ"
+      "æ"
      ],
      "frequency": "M"
     },
@@ -9698,7 +9418,7 @@
     },
     "ɛː": {
      "points": [
-      "ɛː"
+      "æː"
      ],
      "frequency": "M"
     },
@@ -10956,10 +10676,8 @@
     "j": "j",
     "a": "a",
     "e": "e",
-    "ẽ": "ę",
     "i": "i",
     "o": "o",
-    "õ": "ą",
     "u": "u",
     "ɯ": "y"
    },
@@ -11715,6 +11433,21 @@
    ],
    [
     [
+     "ⁿ"
+    ],
+    "ṃ"
+   ],
+   [
+    [
+     {
+      "p": "ⁿ",
+      "caps": true
+     }
+    ],
+    "Ṃ"
+   ],
+   [
+    [
      "n"
     ],
     "n"
@@ -12270,21 +12003,6 @@
    ],
    [
     [
-     "ã"
-    ],
-    "à"
-   ],
-   [
-    [
-     {
-      "p": "ã",
-      "caps": true
-     }
-    ],
-    "À"
-   ],
-   [
-    [
      "ə"
     ],
     "ạ"
@@ -12360,21 +12078,6 @@
    ],
    [
     [
-     "ẽ"
-    ],
-    "è"
-   ],
-   [
-    [
-     {
-      "p": "ẽ",
-      "caps": true
-     }
-    ],
-    "È"
-   ],
-   [
-    [
      "ɛ"
     ],
     "ẹ"
@@ -12387,36 +12090,6 @@
      }
     ],
     "Ẹ"
-   ],
-   [
-    [
-     "ɛː"
-    ],
-    "ẹ́"
-   ],
-   [
-    [
-     {
-      "p": "ɛː",
-      "caps": true
-     }
-    ],
-    "Ẹ́"
-   ],
-   [
-    [
-     "ɛ̃"
-    ],
-    "ẹ̀"
-   ],
-   [
-    [
-     {
-      "p": "ɛ̃",
-      "caps": true
-     }
-    ],
-    "Ẹ̀"
    ],
    [
     [
@@ -12477,21 +12150,6 @@
      }
     ],
     "I̋"
-   ],
-   [
-    [
-     "ĩ"
-    ],
-    "ì"
-   ],
-   [
-    [
-     {
-      "p": "ĩ",
-      "caps": true
-     }
-    ],
-    "Ì"
    ],
    [
     [
@@ -12570,21 +12228,6 @@
    ],
    [
     [
-     "õ"
-    ],
-    "ò"
-   ],
-   [
-    [
-     {
-      "p": "õ",
-      "caps": true
-     }
-    ],
-    "Ò"
-   ],
-   [
-    [
      "ɔ"
     ],
     "ọ"
@@ -12612,21 +12255,6 @@
      }
     ],
     "Ọ́"
-   ],
-   [
-    [
-     "ɔ̃"
-    ],
-    "ọ̀"
-   ],
-   [
-    [
-     {
-      "p": "ɔ̃",
-      "caps": true
-     }
-    ],
-    "Ọ̀"
    ],
    [
     [
@@ -12687,21 +12315,6 @@
      }
     ],
     "Ű"
-   ],
-   [
-    [
-     "ũ"
-    ],
-    "ù"
-   ],
-   [
-    [
-     {
-      "p": "ũ",
-      "caps": true
-     }
-    ],
-    "Ù"
    ],
    [
     [
@@ -12840,29 +12453,6 @@
      }
     ],
     "J̣"
-   ],
-   [
-    [
-     {
-      "c": [
-       "m",
-       "dot"
-      ]
-     }
-    ],
-    "ṃ"
-   ],
-   [
-    [
-     {
-      "c": [
-       "m",
-       "dot"
-      ],
-      "caps": true
-     }
-    ],
-    "Ṃ"
    ],
    [
     [
@@ -13054,156 +12644,6 @@
     [
      {
       "c": [
-       "a",
-       "flip",
-       "grave"
-      ]
-     }
-    ],
-    "ä̀"
-   ],
-   [
-    [
-     {
-      "c": [
-       "a",
-       "flip",
-       "grave"
-      ],
-      "caps": true
-     }
-    ],
-    "Ä̀"
-   ],
-   [
-    [
-     {
-      "c": [
-       "a",
-       "underdot",
-       "grave"
-      ]
-     }
-    ],
-    "ạ̀"
-   ],
-   [
-    [
-     {
-      "c": [
-       "a",
-       "underdot",
-       "grave"
-      ],
-      "caps": true
-     }
-    ],
-    "Ạ̀"
-   ],
-   [
-    [
-     {
-      "c": [
-       "e",
-       "flip",
-       "grave"
-      ]
-     }
-    ],
-    "ë̀"
-   ],
-   [
-    [
-     {
-      "c": [
-       "e",
-       "flip",
-       "grave"
-      ],
-      "caps": true
-     }
-    ],
-    "Ë̀"
-   ],
-   [
-    [
-     {
-      "c": [
-       "i",
-       "flip",
-       "grave"
-      ]
-     }
-    ],
-    "ï̀"
-   ],
-   [
-    [
-     {
-      "c": [
-       "i",
-       "flip",
-       "grave"
-      ],
-      "caps": true
-     }
-    ],
-    "Ï̀"
-   ],
-   [
-    [
-     {
-      "c": [
-       "i",
-       "underdot",
-       "grave"
-      ]
-     }
-    ],
-    "ị̀"
-   ],
-   [
-    [
-     {
-      "c": [
-       "i",
-       "underdot",
-       "grave"
-      ],
-      "caps": true
-     }
-    ],
-    "Ị̀"
-   ],
-   [
-    [
-     {
-      "c": [
-       "o",
-       "flip",
-       "grave"
-      ]
-     }
-    ],
-    "ö̀"
-   ],
-   [
-    [
-     {
-      "c": [
-       "o",
-       "flip",
-       "grave"
-      ],
-      "caps": true
-     }
-    ],
-    "Ö̀"
-   ],
-   [
-    [
-     {
-      "c": [
        "u",
        "underdot"
       ]
@@ -13222,56 +12662,6 @@
      }
     ],
     "Ụ"
-   ],
-   [
-    [
-     {
-      "c": [
-       "u",
-       "flip",
-       "grave"
-      ]
-     }
-    ],
-    "ǜ"
-   ],
-   [
-    [
-     {
-      "c": [
-       "u",
-       "flip",
-       "grave"
-      ],
-      "caps": true
-     }
-    ],
-    "Ǜ"
-   ],
-   [
-    [
-     {
-      "c": [
-       "u",
-       "underdot",
-       "grave"
-      ]
-     }
-    ],
-    "ụ̀"
-   ],
-   [
-    [
-     {
-      "c": [
-       "u",
-       "underdot",
-       "grave"
-      ],
-      "caps": true
-     }
-    ],
-    "Ụ̀"
    ],
    [
     [
@@ -13649,25 +13039,15 @@
      {
       "raw": " "
      },
-     "ã",
+     "a",
+     "ⁿ",
      {
       "raw": " "
      },
-     "ẽ",
-     {
-      "raw": " "
-     },
-     "ĩ",
-     {
-      "raw": " "
-     },
-     "õ",
-     {
-      "raw": " "
-     },
-     "ũ"
+     "e",
+     "ⁿ"
     ],
-    "ạ ẹ ị ọ ụ à è ì ò ù"
+    "ạ ẹ ị ọ ụ aṃ eṃ"
    ],
    [
     [
@@ -14122,6 +13502,21 @@
      }
     ],
     "M̦‍m̦"
+   ],
+   [
+    [
+     "ⁿː"
+    ],
+    "ṃ‍ṃ"
+   ],
+   [
+    [
+     {
+      "p": "ⁿː",
+      "caps": true
+     }
+    ],
+    "Ṃ‍ṃ"
    ],
    [
     [
@@ -14713,31 +14108,6 @@
      {
       "c": [
        "m",
-       "dot"
-      ],
-      "long": true
-     }
-    ],
-    "ṃ‍ṃ"
-   ],
-   [
-    [
-     {
-      "c": [
-       "m",
-       "dot"
-      ],
-      "long": true,
-      "caps": true
-     }
-    ],
-    "Ṃ‍ṃ"
-   ],
-   [
-    [
-     {
-      "c": [
-       "m",
        "twodots"
       ],
       "long": true
@@ -15287,7 +14657,7 @@
     ]
    ],
    [
-    "ạ ẹ ị ọ ụ à è ì ò ù",
+    "ạ ẹ ị ọ ụ aṃ eṃ",
     [
      "ə",
      {
@@ -15314,23 +14684,13 @@
      {
       "raw": " "
      },
-     "ã",
+     "a",
+     "ⁿ",
      {
       "raw": " "
      },
-     "ẽ",
-     {
-      "raw": " "
-     },
-     "ĩ",
-     {
-      "raw": " "
-     },
-     "õ",
-     {
-      "raw": " "
-     },
-     "ũ"
+     "e",
+     "ⁿ"
     ]
    ],
    [
@@ -16788,25 +16148,15 @@
       {
        "raw": " "
       },
-      "ã",
+      "a",
+      "ⁿ",
       {
        "raw": " "
       },
-      "ẽ",
-      {
-       "raw": " "
-      },
-      "ĩ",
-      {
-       "raw": " "
-      },
-      "õ",
-      {
-       "raw": " "
-      },
-      "ũ"
+      "e",
+      "ⁿ"
      ],
-     "ạ ẹ ị ọ ụ à è ì ò ù"
+     "ạ ẹ ị ọ ụ aṃ eṃ"
     ],
     [
      [
@@ -17247,25 +16597,15 @@
       {
        "raw": " "
       },
-      "ã",
+      "a",
+      "ⁿ",
       {
        "raw": " "
       },
-      "ẽ",
-      {
-       "raw": " "
-      },
-      "ĩ",
-      {
-       "raw": " "
-      },
-      "õ",
-      {
-       "raw": " "
-      },
-      "ũ"
+      "e",
+      "ⁿ"
      ],
-     "a ẹ ị ọ ụ à è ì ò ù"
+     "a ẹ ị ọ ụ aṃ eṃ"
     ],
     [
      [
@@ -18484,25 +17824,15 @@
       {
        "raw": " "
       },
-      "ã",
+      "a",
+      "ⁿ",
       {
        "raw": " "
       },
-      "ẽ",
-      {
-       "raw": " "
-      },
-      "ĩ",
-      {
-       "raw": " "
-      },
-      "õ",
-      {
-       "raw": " "
-      },
-      "ũ"
+      "e",
+      "ⁿ"
      ],
-     "ạ ẹ ị ọ ụ à è ì ò ù"
+     "ạ ẹ ị ọ ụ aṃ eṃ"
     ],
     [
      [
@@ -19898,25 +19228,15 @@
       {
        "raw": " "
       },
-      "ã",
+      "a",
+      "ⁿ",
       {
        "raw": " "
       },
-      "ẽ",
-      {
-       "raw": " "
-      },
-      "ĩ",
-      {
-       "raw": " "
-      },
-      "õ",
-      {
-       "raw": " "
-      },
-      "ũ"
+      "e",
+      "ⁿ"
      ],
-     "ạ ẹ ị ọ ụ à è ì ò ù"
+     "ạ ẹ ị ọ ụ aṃ eṃ"
     ],
     [
      [
@@ -20831,21 +20151,6 @@
     ],
     [
      [
-      "ẽ"
-     ],
-     "ę"
-    ],
-    [
-     [
-      {
-       "p": "ẽ",
-       "caps": true
-      }
-     ],
-     "Ę"
-    ],
-    [
-     [
       "i"
      ],
      "i"
@@ -20873,21 +20178,6 @@
       }
      ],
      "O"
-    ],
-    [
-     [
-      "õ"
-     ],
-     "ą"
-    ],
-    [
-     [
-      {
-       "p": "õ",
-       "caps": true
-      }
-     ],
-     "Ą"
     ],
     [
      [
@@ -21295,25 +20585,15 @@
       {
        "raw": " "
       },
-      "ã",
+      "a",
+      "ⁿ",
       {
        "raw": " "
       },
-      "ẽ",
-      {
-       "raw": " "
-      },
-      "ĩ",
-      {
-       "raw": " "
-      },
-      "õ",
-      {
-       "raw": " "
-      },
-      "ũ"
+      "e",
+      "ⁿ"
      ],
-     "ạ ẹ ị ọ ụ à ę ì ą ù"
+     "ạ ẹ ị ọ ụ aṃ ę"
     ],
     [
      [
@@ -22578,25 +21858,15 @@
       {
        "raw": " "
       },
-      "ã",
+      "a",
+      "ⁿ",
       {
        "raw": " "
       },
-      "ẽ",
-      {
-       "raw": " "
-      },
-      "ĩ",
-      {
-       "raw": " "
-      },
-      "õ",
-      {
-       "raw": " "
-      },
-      "ũ"
+      "e",
+      "ⁿ"
      ],
-     "ạ ẹ ị ọ ụ à è ì ò ù"
+     "ạ ẹ ị ọ ụ aṃ eṃ"
     ],
     [
      [
@@ -23773,25 +23043,15 @@
       {
        "raw": " "
       },
-      "ã",
+      "a",
+      "ⁿ",
       {
        "raw": " "
       },
-      "ẽ",
-      {
-       "raw": " "
-      },
-      "ĩ",
-      {
-       "raw": " "
-      },
-      "õ",
-      {
-       "raw": " "
-      },
-      "ũ"
+      "e",
+      "ⁿ"
      ],
-     "ạ ẹ ị ọ ụ à è ì ò ù"
+     "ạ ẹ ị ọ ụ aṃ eṃ"
     ],
     [
      [
@@ -24245,25 +23505,15 @@
       {
        "raw": " "
       },
-      "ã",
+      "a",
+      "ⁿ",
       {
        "raw": " "
       },
-      "ẽ",
-      {
-       "raw": " "
-      },
-      "ĩ",
-      {
-       "raw": " "
-      },
-      "õ",
-      {
-       "raw": " "
-      },
-      "ũ"
+      "e",
+      "ⁿ"
      ],
-     "ạ ẹ ị ọ ụ à è ì ò ù"
+     "ạ ẹ ị ọ ụ aṃ eṃ"
     ],
     [
      [
@@ -24690,7 +23940,7 @@
      ]
     ],
     [
-     "ạ ẹ ị ọ ụ à è ì ò ù",
+     "ạ ẹ ị ọ ụ aṃ eṃ",
      [
       "ə",
       {
@@ -24717,23 +23967,13 @@
       {
        "raw": " "
       },
-      "ã",
+      "a",
+      "ⁿ",
       {
        "raw": " "
       },
-      "ẽ",
-      {
-       "raw": " "
-      },
-      "ĩ",
-      {
-       "raw": " "
-      },
-      "õ",
-      {
-       "raw": " "
-      },
-      "ũ"
+      "e",
+      "ⁿ"
      ]
     ],
     [
@@ -25295,7 +24535,7 @@
      ]
     ],
     [
-     "ạ ẹ ị ọ ụ à è ì ò ù",
+     "ạ ẹ ị ọ ụ aṃ eṃ",
      [
       "ə",
       {
@@ -25322,23 +24562,13 @@
       {
        "raw": " "
       },
-      "ã",
+      "a",
+      "ⁿ",
       {
        "raw": " "
       },
-      "ẽ",
-      {
-       "raw": " "
-      },
-      "ĩ",
-      {
-       "raw": " "
-      },
-      "õ",
-      {
-       "raw": " "
-      },
-      "ũ"
+      "e",
+      "ⁿ"
      ]
     ],
     [
@@ -25862,7 +25092,7 @@
      ]
     ],
     [
-     "ạ ẹ ị ọ ụ à è ì ò ù",
+     "ạ ẹ ị ọ ụ aṃ eṃ",
      [
       "ə",
       {
@@ -25889,23 +25119,13 @@
       {
        "raw": " "
       },
-      "ã",
+      "a",
+      "ⁿ",
       {
        "raw": " "
       },
-      "ẽ",
-      {
-       "raw": " "
-      },
-      "ĩ",
-      {
-       "raw": " "
-      },
-      "õ",
-      {
-       "raw": " "
-      },
-      "ũ"
+      "e",
+      "ⁿ"
      ]
     ],
     [
@@ -26440,7 +25660,7 @@
      ]
     ],
     [
-     "ạ ẹ ị ọ ụ à ę ì ą ù",
+     "ạ ẹ ị ọ ụ aṃ ę",
      [
       "ə",
       {
@@ -26467,23 +25687,13 @@
       {
        "raw": " "
       },
-      "ã",
+      "a",
+      "ⁿ",
       {
        "raw": " "
       },
-      "ẽ",
-      {
-       "raw": " "
-      },
-      "ĩ",
-      {
-       "raw": " "
-      },
-      "õ",
-      {
-       "raw": " "
-      },
-      "ũ"
+      "e",
+      "ⁿ"
      ]
     ],
     [
@@ -27008,7 +26218,7 @@
      ]
     ],
     [
-     "ạ ẹ ị ọ ụ à è ì ò ù",
+     "ạ ẹ ị ọ ụ aṃ eṃ",
      [
       "ə",
       {
@@ -27035,23 +26245,13 @@
       {
        "raw": " "
       },
-      "ã",
+      "a",
+      "ⁿ",
       {
        "raw": " "
       },
-      "ẽ",
-      {
-       "raw": " "
-      },
-      "ĩ",
-      {
-       "raw": " "
-      },
-      "õ",
-      {
-       "raw": " "
-      },
-      "ũ"
+      "e",
+      "ⁿ"
      ]
     ],
     [
@@ -27567,7 +26767,7 @@
      ]
     ],
     [
-     "ạ ẹ ị ọ ụ à è ì ò ù",
+     "ạ ẹ ị ọ ụ aṃ eṃ",
      [
       "ə",
       {
@@ -27594,23 +26794,13 @@
       {
        "raw": " "
       },
-      "ã",
+      "a",
+      "ⁿ",
       {
        "raw": " "
       },
-      "ẽ",
-      {
-       "raw": " "
-      },
-      "ĩ",
-      {
-       "raw": " "
-      },
-      "õ",
-      {
-       "raw": " "
-      },
-      "ũ"
+      "e",
+      "ⁿ"
      ]
     ],
     [

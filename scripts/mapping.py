@@ -180,9 +180,9 @@ def language_points(code):
 
 def special(points):
     """The points that carry a reading per language by design: the double dot below
-    and the vowel grave."""
+    alone."""
     return len(points) == 1 and not points[0][1] and \
-        ('twodots' in points[0][0][1] or 'grave' in points[0][0][1])
+        'twodots' in points[0][0][1]
 
 
 _AGG = None
