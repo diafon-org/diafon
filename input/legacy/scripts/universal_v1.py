@@ -125,7 +125,7 @@ def legacy_script():
 
 
 # everything below reads languages through the alphabet's Python reference
-import alphabet_ref     # noqa: E402  (puts the alphabet checkout's scripts on the path)
+import alphabet_ref     # noqa: E402  (puts the alphabet's scripts on the path)
 import script           # noqa: E402
 
 

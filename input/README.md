@@ -2,28 +2,30 @@
 
 **Ways of typing the Diafon alphabet.**
 
-[Diafon](https://github.com/diafon-org/diafon) is a phonemic alphabet: its
-points, their glyphs, the languages, the spellings, the fonts. It knows no
-keyboard. This repository is the other half: input profiles (what keys
-produce which points), the engine that reads them, and the input methods
-for each platform. It owns no sound decision: every target of every key is
-a point of the alphabet.
+The alphabet (everything above this folder) is the points, their glyphs,
+the languages, the spellings, the fonts. It knows no keyboard. This folder
+is the other half: input profiles (what keys produce which points), the
+engine that reads them, and the input methods for each platform. It owns no
+sound decision: every target of every key is a point of the alphabet.
+
+Until 2026-11-23 this was a repository of its own, diafon-org/diafon-input;
+its history came along.
 
 ## Layout
 
 ```
-vendor/            the alphabet, vendored: alphabet-spec.json, the lexicons,
-                   and ALPHABET (version, commit, sha256 of what was taken)
 profiles/          the input profiles, as data: diafon-v1.yaml
 spec/              the compiled profiles, with their vectors
 engine/            the Python reference: alphabet.py (the script, from the
-                   vendored spec), profile.py (compile), engine.py (segment,
+                   alphabet's spec), profile.py (compile), engine.py (segment,
                    letters, stream)
 input_methods/     macOS, iOS, Android, and the Swift core they share (asleep, see below)
 legacy/            the typing from before the split and everything built on its
                    key strings; kept, not built
-scripts/           sync_alphabet.py, compile_profile.py, build.sh
-tests/             the profiles
+web/               the site's Input page: the typing in JavaScript, the
+                   try-out and the lessons (docs/input links here)
+scripts/           compile_profile.py, gen_lessons.py, gen_page.py, build.sh
+tests/             the profiles, the JavaScript, the lessons
 ```
 
 ## The typing: diafon-v1
@@ -63,15 +65,16 @@ the letters directly and reads `spec/diafon-v1.json`.
 
 ## The alphabet
 
-`scripts/sync_alphabet.py` copies the alphabet's spec and lexicons from a
-checkout of diafon-org/diafon into `vendor/` and records the version. The
-dependency runs one way: the engine reads `vendor/` only.
+The dependency runs one way. The engine and the ports read the published
+`docs/alphabet-spec.json` and nothing else of the alphabet; the apps bundle
+its fonts and its mark from `fonts/` and `docs/logo/`. The generators of the
+lessons also use the alphabet's Python reference (`scripts/alphabet_ref.py`).
+Nothing of the alphabet reads this folder.
 
 ## Build and test
 
 ```
-python3 scripts/sync_alphabet.py        # after the alphabet changes
-sh scripts/build.sh                     # compile the profiles, test them
+sh input/scripts/build.sh               # compile the profile, build the page, test
 ```
 
 ## How it is made
@@ -83,5 +86,4 @@ project's name.
 
 ## Licence
 
-Code is MIT (`LICENSE`). The vendored lexicons and the generated tables
-keep their sources' terms (`NOTICE.md`).
+As the rest of the repository: see the README one folder up.

@@ -29,7 +29,7 @@ def load(pid):
 
 def compile(pid):
     p = load(pid)
-    assert p['alphabet'] == alphabet.MAJOR, f'{pid} targets alphabet {p["alphabet"]}, vendor/ holds {alphabet.VERSION}'
+    assert p['alphabet'] == alphabet.MAJOR, f'{pid} targets alphabet {p["alphabet"]}, the spec is {alphabet.VERSION}'
     seg = p['segment']
     table = seg['kind'] == 'key-table'
     ops = set(seg['operators'])

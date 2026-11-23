@@ -42,7 +42,7 @@ nav:
     - Diafon: index.md
     - Reference: reference.md
   - Font: font.md           # the fonts, the font check, the converter and the dictionaries
-  - Input: input/index.md   # the typing: copied in by scripts/sync_input_page.py, not the alphabet's
+  - Input: input/index.md   # the typing's page: docs/input links to input/web
 
 markdown_extensions:
   - attr_list

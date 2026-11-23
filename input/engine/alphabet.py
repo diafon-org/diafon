@@ -1,5 +1,5 @@
-"""The alphabet, as this repository knows it: vendor/alphabet-spec.json and
-nothing else. The script is a table there: every letter with marks the
+"""The alphabet, as the typing knows it: the published docs/alphabet-spec.json
+and nothing else. The script is a table there: every letter with marks the
 alphabet allows, with its glyphs small and capital, long and joined.
 
 A composition is (letter, marks); a point is a composition with a name. A
@@ -11,7 +11,7 @@ import os
 import unicodedata as ud
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SPEC = json.load(open(os.path.join(ROOT, 'vendor', 'alphabet-spec.json'), encoding='utf-8'))
+SPEC = json.load(open(os.path.join(os.path.dirname(ROOT), 'docs', 'alphabet-spec.json'), encoding='utf-8'))
 VERSION = SPEC['version']
 MAJOR = int(VERSION.split('.')[0])
 

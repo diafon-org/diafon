@@ -6,14 +6,14 @@
 2. The data is in points: every stage table is keyed by point names, the
    mapping's values are point names, every Diafon word a lexicon stores is
    script text.
-3. Nothing refers to the input repository, and nothing that types is left:
-   no engine, no playground, no lessons.
+3. Nothing that types is left in the alphabet: no engine, no playground, no
+   lessons. The typing lives in input/, and no script, test or font tool of
+   the alphabet reads that folder.
 
-The plan and the notes (split.md, plan.md, remarks.md, publish.md) tell the
-story of the split and are not scanned. The site carries one page on typing,
-docs/input/, copied in as its own repository built it
-(scripts/sync_input_page.py): that folder and that script are not the
-alphabet's and are not scanned either.
+The alphabet is everything outside input/. The plan and the notes (split.md,
+plan.md, remarks.md, publish.md) tell the story of the split and are not
+scanned. The site carries one page on typing, docs/input, a link to
+input/web: it is the typing's and is not scanned either.
 """
 import glob
 import json
@@ -29,10 +29,11 @@ import script
 
 GONE = ['scripts/universal_v1.py', 'scripts/engine.py', 'scripts/gen_spec.py', 'scripts/gen_play.py', 'scripts/gen_learn.py',
         'docs/engine.js', 'docs/play-data.js', 'docs/learn-data.js', 'docs/learn.md', 'docs/spec.json', 'docs/lexicon',
-        'data/learn.yaml', 'data/layouts.yaml', 'data/emoji.json', 'input_methods/README.md']
+        'data/learn.yaml', 'data/layouts.yaml', 'data/emoji.json', 'input_methods/README.md',
+        'scripts/sync_input_page.py', 'input/vendor']
 TYPING = re.compile(r'universal_v1|\btransport\b|input form|legacy_(?:script|mapping)|\boperators?\b|diafon-input|play-data|engine\.js')
-SELF = {'tests/test_no_input.py', 'tests/test_alphabet_spec.py',      # they name the words they forbid
-        'scripts/sync_input_page.py'}                                 # the one script that copies the typing's page in
+SELF = {'tests/test_no_input.py', 'tests/test_alphabet_spec.py'}      # they name the words they forbid
+READS_INPUT = re.compile(r'''['"/]input['"/]''')                       # a path into the typing's folder
 
 
 def files():
@@ -53,6 +54,8 @@ def test_no_typing():
         for n, line in enumerate(open(os.path.join(ROOT, p), encoding='utf-8'), 1):
             m = TYPING.search(line)
             assert not m, f'{p}:{n}: {m.group(0)!r}: {line.strip()[:90]}'
+            if p.endswith(('.py', '.sh')):
+                assert not READS_INPUT.search(line), f'{p}:{n}: reads the typing: {line.strip()[:90]}'
         scanned += 1
     return scanned
 

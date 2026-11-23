@@ -24,10 +24,10 @@ app: check
 	$(SWIFTC) $(CORE) $(APPSRC) -framework Cocoa -framework InputMethodKit \
 		-o $(BUILD)/$(APP).app/Contents/MacOS/$(APP)
 	python3 tools/modes.py Info.plist $(BUILD)/$(APP).app/Contents      # Info.plist with one input mode per output
-	cp $(ROOT)/vendor/logo/Diafon.icns $(BUILD)/$(APP).app/Contents/Resources/Diafon.icns
-	cp $(ROOT)/vendor/logo/DiafonMenu.tiff $(BUILD)/$(APP).app/Contents/Resources/DiafonMenu.tiff
-	cp $(ROOT)/vendor/logo/DiafonBadge.pdf $(BUILD)/$(APP).app/Contents/Resources/DiafonBadge.pdf
-	mkdir -p $(BUILD)/$(APP).app/Contents/Resources/Fonts && cp $(ROOT)/vendor/fonts/Diafon*-Regular.ttf $(BUILD)/$(APP).app/Contents/Resources/Fonts/
+	cp $(ROOT)/../docs/logo/Diafon.icns $(BUILD)/$(APP).app/Contents/Resources/Diafon.icns
+	cp $(ROOT)/../docs/logo/DiafonMenu.tiff $(BUILD)/$(APP).app/Contents/Resources/DiafonMenu.tiff
+	cp $(ROOT)/../docs/logo/DiafonBadge.pdf $(BUILD)/$(APP).app/Contents/Resources/DiafonBadge.pdf
+	mkdir -p $(BUILD)/$(APP).app/Contents/Resources/Fonts && cp $(ROOT)/../fonts/Diafon*-Regular.ttf $(BUILD)/$(APP).app/Contents/Resources/Fonts/
 	codesign --force --sign - $(BUILD)/$(APP).app
 
 install: clean app

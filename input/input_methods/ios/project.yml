@@ -32,7 +32,7 @@ targets:
       - Shared
       - path: ../apple/Core
         excludes: [CheckMain.swift]
-      - path: ../../vendor/fonts/DiafonSerif-Regular.ttf
+      - path: ../../../fonts/DiafonSerif-Regular.ttf
         buildPhase: resources
     dependencies:
       - target: DiafonKeyboard
@@ -71,7 +71,7 @@ targets:
       - Shared
       - path: ../apple/Core
         excludes: [CheckMain.swift]
-      - path: ../../vendor/fonts/DiafonSerif-Regular.ttf
+      - path: ../../../fonts/DiafonSerif-Regular.ttf
         buildPhase: resources
       - path: ../../data/emoji.json              # the word -> emoji choices, 220 KB; no lexicon
         buildPhase: resources

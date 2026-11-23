@@ -3,7 +3,7 @@
 
 1. spec/<id>.json is what scripts/compile_profile.py writes now.
 2. A profile is sound: every key is a letter and operators, every prefix of
-   a key is a key, every target is a composition of the vendored alphabet,
+   a key is a key, every target is a composition of the alphabet,
    no two keys type the same letter, and each key types exactly its letter.
 3. The profile's own vectors hold, and a few sentences by hand.
 4. diafon-v1 types every named point of the alphabet, short and long, and

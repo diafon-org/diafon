@@ -14,7 +14,7 @@ with that language's own sounds:
 Example words come from data/lessons.yaml's sources, read through the
 language's spelling in the alphabet's reference; a word appears in the
 first lesson by which every letter in it has been taught, and only if it
-writes back to its own spelling. Needs the alphabet checkout
+writes back to its own spelling. Needs the alphabet's scripts
 (scripts/alphabet_ref.py) for the languages, the spellings and the word
 lists.
 """
@@ -30,7 +30,7 @@ sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 from engine import alphabet, profile
 from engine.engine import make
-import alphabet_ref           # noqa: E402  (puts the alphabet checkout's scripts on the path)
+import alphabet_ref           # noqa: E402  (puts the alphabet's scripts on the path)
 import lexicon                # noqa: E402
 import mapping                # noqa: E402
 import script                 # noqa: E402

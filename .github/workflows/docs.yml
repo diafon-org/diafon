@@ -28,6 +28,9 @@ jobs:
       - run: python3 tests/test_core_js.py         # the converter in JavaScript is the reference
       - run: python3 tests/test_site.py            # the home page shows every point
       - run: python3 tests/test_no_input.py        # the alphabet knows no keyboard
+      - run: python3 input/tests/test_profile.py   # the typing: every key, every letter, every language
+      - run: python3 input/tests/test_keys_js.py   # the typing in JavaScript
+      - run: python3 input/tests/test_lessons.py   # the Input page's lessons type as shown
       - run: mkdocs build --strict
       - uses: actions/upload-pages-artifact@v3
         with:
