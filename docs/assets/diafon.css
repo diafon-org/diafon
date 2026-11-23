@@ -523,6 +523,6 @@ html{font-size:115%}     /* at GitHub's scale and steady on wide screens: body ~
 .md-typeset .dicts td.num{text-align:right;font-variant-numeric:tabular-nums}
 .md-typeset .lw-list table,.md-typeset .dicts table{width:100%}
 .md-typeset .lw-list .ug,.md-typeset .dicts .ug{font-size:1.1rem}
-/* the vowel chart: the rows of vowels only some languages write are quieter */
-.md-typeset table.pts.vowels tr.sub th{font-weight:400;font-style:italic;color:var(--muted)}
-.md-typeset table.pts.vowels tr.sub td{padding-top:0}
+/* the vowel triangle: a guide line under each row, a thin tie from a letter to its more open one */
+.md-typeset figure.vt .guide{stroke:var(--line);stroke-width:1;stroke-dasharray:2 5}
+.md-typeset figure.vt .tie{stroke:var(--j-c);stroke-width:1.5;opacity:.7}
