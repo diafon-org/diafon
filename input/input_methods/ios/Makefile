@@ -1,8 +1,8 @@
 # Diafon keyboard for iOS. Needs Xcode (the iOS SDK) and XcodeGen for the
 # project and builds; `make check` needs only the Command Line Tools.
-#   make check     the keystroke logic and the spec vectors on the Mac, and a
-#                  UIKit typecheck through Mac Catalyst (tests/test_ios_session.py)
-#   make data      regenerate the shared tables (SpecData.swift, Layouts.swift)
+#   make check     the shared core's vectors and the keystroke logic, on the Mac
+#                  (tests/test_apple.py, tests/test_ios_session.py)
+#   make data      the alphabet and the typing the app bundles (../apple/Resources)
 #   make project   write Diafon.xcodeproj from project.yml (TEAM=<team id> to sign)
 #   make sim       build for the simulator
 #   make uitest    type on the keyboard in a simulator (UITests/KeyboardTests.swift); SIM=<device name>
@@ -15,16 +15,16 @@ ICON  := App/Assets.xcassets/AppIcon.appiconset/icon-1024.png
 .PHONY: check data icon project sim uitest open clean
 
 check:
-	cd $(ROOT) && python3 tests/test_swift.py && python3 tests/test_ios_session.py
+	cd $(ROOT) && python3 tests/test_apple.py && python3 tests/test_ios_session.py
 
 data:
-	cd $(ROOT) && python3 scripts/gen_mac.py && python3 scripts/gen_layouts.py
+	cd $(ROOT) && python3 scripts/gen_apple.py
 
 # the icon is the site's, made by fonts/tools/logo.py; copied, not kept twice in git
 icon:
 	cp $(ROOT)/../docs/logo/png/icon-1024.png $(ICON)
 
-project: icon
+project: icon data
 	xcodegen generate
 	@if [ -n "$(TEAM)" ]; then sed -i '' 's/DEVELOPMENT_TEAM = "";/DEVELOPMENT_TEAM = $(TEAM);/' Diafon.xcodeproj/project.pbxproj; fi
 

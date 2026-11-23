@@ -35,10 +35,10 @@ final class Session {
     var mode: TailMode
     /// The renderer of the output in use (KeyboardPrefs.renderer).
     var render: (String) -> String
-    /// A language's spelling: the word being typed stays pending (Engine.stream).
-    var wordwise = false
-    /// The input profile: what the keys mean, and whether the word commits at its end (Profiles.stream).
-    var profile = Profiles.get(Profiles.fallback)
+    /// The streaming rule of the output in use: the keys so far -> (what is final,
+    /// written out; the keys still open). Prefs.stream; a language's spelling keeps
+    /// the whole word open.
+    var stream: (String) -> (String, String)
     /// What the tail shows while typed (its letters); nil shows render.
     var preview: ((String) -> String)? = nil
     /// The typed tail whose reading can still change, as typed.
@@ -61,20 +61,20 @@ final class Session {
     private(set) var run = ""
     private var runText = ""
 
-    init(sink: TextSink, mode: TailMode, render: @escaping (String) -> String) {
-        self.sink = sink; self.mode = mode; self.render = render
+    init(sink: TextSink, mode: TailMode, render: @escaping (String) -> String, stream: @escaping (String) -> (String, String)) {
+        self.sink = sink; self.mode = mode; self.render = render; self.stream = stream
     }
 
     /// One character in: the streaming rule decides what is final.
     func type(_ ch: Character) {
         track(ch, plain: false)
         if ch.isWhitespace { run = "" } else { run.append(ch) }
-        let (committed, tail) = Profiles.stream(pending + String(ch), profile, renderer: render, wordwise: wordwise)
+        let (committed, tail) = stream(pending + String(ch))
         show(head: committed, tail: tail)
     }
 
     /// One character in as it is, conversion off; the word is still tracked, so its
-    /// emoji are offered (typed in a language's usual letters, or in input forms).
+    /// emoji are offered (typed in a language's usual letters).
     func typePlain(_ ch: Character) {
         lastEdit = Date()
         flush()

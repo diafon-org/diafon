@@ -71,14 +71,16 @@ overwrite it).
 
 **Simulator, the app's own field (SwiftUI TextField), 2026-10-02:** both
 modes pass items 1 and 3 below and the capitals-and-tones case
-(`Sjan1 Tqy` → `Șanˉ C̤`). One `deleteBackward` takes `n̦` whole.
+(`Zo1 Tyq` → `Zoˉ T̤`). One `deleteBackward` takes `n̦` whole.
 
 To check on a device, per app (Notes, Messages, Safari textarea and
 contenteditable, Mail, WhatsApp, Telegram, a search field), in both modes:
 
-1. `sj tq aw` streams to `ș c̦ á`; nothing is doubled or dropped.
-2. Fast typing (overlapping taps) loses no letter.
-3. Backspace after `nj` + `a` leaves `n̦`; one more removes the whole `n̦`
+1. `sy cy aq` streams to `ș c̦ á`; nothing is doubled or dropped.
+2. Fast typing (overlapping taps) loses no letter and keeps the order: the space
+   bar writes on release, but a key pressed while it is still down sends the
+   space first.
+3. Backspace after `ny` + `a` leaves `n̦`; one more removes the whole `n̦`
    (one `deleteBackward` must take a letter with its combining mark).
 4. Whether `documentContextBeforeInput` includes marked text. If it doesn't,
    marked mode settles a tail on every host callback, and that callback
@@ -106,7 +108,7 @@ the tail as plain text, saved like any other: it is the default since.
 | ⇧ | next letter capital; double tap locks; on at a sentence start where the field asks, if turned on in the settings (off by default) |
 | ⌫ | edits the tail first, then one grapheme of the field; repeats when held |
 | logo | a tap: the signs (two pages in the system keyboard's order, `1/2` and `2/2`), the key lit; a tap again: the letters; press and slide to a sign: that sign, then the letters again; hold: the settings (what is written: Universal, a language, off; the languages offered; the typing, that is the input profile; the layout) |
-| space | names the mode in use (diafon, or the language code; blank when off); goes in on release; hold: the modes (Universal, the ticked languages the typing in use can write, off), slide and let go, or tap; after a sign, the letters come back; two spaces after a word: a full stop and a space |
+| space | names the mode in use (diafon, or the language code; blank when off); goes in on release; hold: the modes (Diafon, the ticked languages the typing in use can write, off), slide and let go, or tap; after a sign, the letters come back; two spaces after a word: a full stop and a space |
 | 🌐 | the system's keyboard list; shown only where the system has no switcher of its own (`needsInputModeSwitchKey`) |
 | return | settles the tail, then a newline; labelled by the field's return key type |
 
@@ -131,12 +133,12 @@ it; the UI test taps it by its id, `key:s`, `key:space`, `key:delete`).
     check/SessionCheck.swift          the Mac check of Session, driven by tests/test_ios_session.py
     UITests/KeyboardTests.swift       the keyboard in a simulator: keys tapped by accessibility id, the field read back
 
-The shared core is `../apple/Core` (SpecData, Engine, Stages, Reading,
-Lexicon, Prefs), compiled into the macOS input method as well.
+The shared core is `../apple/Core` (Diafon, Prefs, Emoji, Layouts), compiled
+into the macOS input method as well; it runs the site's JavaScript.
 
 ## Build
 
-    make check                         # Command Line Tools only: spec vectors, Session, UIKit typecheck
+    make check                         # Command Line Tools only: the core's vectors, Session, UIKit typecheck
     brew install xcodegen               # once
     make project TEAM=<your team id>    # Diafon.xcodeproj
     make sim                           # simulator build

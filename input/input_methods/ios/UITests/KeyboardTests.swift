@@ -18,7 +18,7 @@ final class KeyboardTests: XCTestCase {
 
     private var value: String {
         let v = field.value as? String ?? ""
-        return v == "type sj tq aw" ? "" : v      // the placeholder
+        return v == "type sy cy aq" ? "" : v      // the placeholder
     }
 
     /// A fresh app with Diafon up in the Try field.
@@ -67,12 +67,12 @@ final class KeyboardTests: XCTestCase {
 
     private func cases(_ mode: String) {
         start()
-        type("sj tq aw")
-        shot("\(mode): sj tq aw")
+        type("sy cy aq")
+        shot("\(mode): sy cy aq")
         XCTAssertEqual(value, "ș c̦ á", "\(mode): stream")
 
         start()
-        type("njanj")
+        type("nyany")
         XCTAssertEqual(value, "n̦an̦", "\(mode): before backspace")
         type("⌫⌫")
         XCTAssertEqual(value, "n̦a", "\(mode): backspace through the tail")
@@ -82,15 +82,15 @@ final class KeyboardTests: XCTestCase {
         XCTAssertEqual(value, "", "\(mode): backspace takes the letter with its mark")
 
         start()
-        type("Sjan1 Tqy")                                 // shift, a tone digit, two operators
-        shot("\(mode): Sjan1 Tqy")
-        XCTAssertEqual(value, "Șanˉ C̤", "\(mode): capitals and tones")
+        type("Zo1 Tyq")                                   // shift, a tone digit, two mark keys
+        shot("\(mode): Zo1 Tyq")
+        XCTAssertEqual(value, "Zoˉ T̤", "\(mode): capitals and tones")
 
         start()
-        type("ok hawrt")                                  // heart: its emoji offered on the strip
+        type("ok haqrt")                                  // heart: its emoji offered on the strip
         let heart = app.buttons["❤️"].firstMatch
-        XCTAssertTrue(heart.waitForExistence(timeout: 5), "\(mode): no ❤️ offered for hawrt")
-        shot("\(mode): emoji for hawrt")
+        XCTAssertTrue(heart.waitForExistence(timeout: 5), "\(mode): no ❤️ offered for haqrt")
+        shot("\(mode): emoji for haqrt")
         heart.tap()
         XCTAssertEqual(value, "ok ❤️", "\(mode): the emoji takes the word's place")
 

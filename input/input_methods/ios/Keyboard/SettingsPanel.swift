@@ -1,7 +1,7 @@
 // The settings, inside the keyboard: without full access a keyboard shares no
 // storage with its app, so this is where they are set (a hold on the logo
-// key): what is written (Universal, a language's spelling, or plain keys), the
-// languages to choose from (up to Prefs.quickMax ticked), and the input profile.
+// key): what is written (Diafon, a language's spelling, or plain keys) and the
+// languages to choose from (up to Prefs.quickMax ticked).
 import UIKit
 
 final class SettingsPanel: UIView {
@@ -11,7 +11,6 @@ final class SettingsPanel: UIView {
     private let stack = UIStackView()
     private let modeRow = UIStackView()
     private let quickRow = UIStackView()
-    private let profilePicker = UISegmentedControl(items: Profiles.all.map(\.name))
     private let layoutPicker = UISegmentedControl(items: Layouts.all.map(\.label))
     private let sample = UILabel()
     private let tones = UISwitch(), autoCaps = UISwitch(), marked = UISwitch()
@@ -52,15 +51,7 @@ final class SettingsPanel: UIView {
         stack.addArrangedSubview(scrolled(modeRow))
         stack.addArrangedSubview(caption("Languages"))
         stack.addArrangedSubview(scrolled(quickRow))
-        stack.addArrangedSubview(caption("Tick up to \(Prefs.quickMax). Hold the space bar to switch between Universal and those the typing below can write."))
-
-        profilePicker.addAction(UIAction { [weak self] _ in
-            guard let self else { return }
-            self.prefs.profile = Profiles.all[self.profilePicker.selectedSegmentIndex].id
-            self.refresh()
-        }, for: .valueChanged)
-        stack.addArrangedSubview(caption("Typing"))
-        stack.addArrangedSubview(profilePicker)
+        stack.addArrangedSubview(caption("Tick up to \(Prefs.quickMax). Hold the space bar to switch between Diafon and these."))
 
         sample.numberOfLines = 0
         sample.font = Theme.serif(17)
@@ -87,14 +78,13 @@ final class SettingsPanel: UIView {
 
     func refresh() {
         modeRow.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        for m in prefs.menuModes {                      // Universal, the ticked languages, off
+        for m in prefs.menuModes {                      // Diafon, the ticked languages, off
             let on = prefs.menuMode == m
             modeRow.addArrangedSubview(chip(prefs.menuTitle(m), fill: Theme.key, ink: on ? Theme.accent : Theme.ink, outline: on) { [weak self] in
                 self?.prefs.setMenuMode(m)
                 self?.refresh()
             })
         }
-        profilePicker.selectedSegmentIndex = Profiles.all.firstIndex { $0.id == prefs.profile } ?? 0
         quickRow.arrangedSubviews.forEach { $0.removeFromSuperview() }
         let quick = prefs.quickLanguages
         let full = quick.count >= Prefs.quickMax
@@ -115,12 +105,11 @@ final class SettingsPanel: UIView {
                 }
                 self.refresh()
             }
-            b.alpha = (!inMenu && full) || !prefs.offers(code) ? 0.4 : 1    // dim: the list is full, or the typing in use cannot write it
+            b.alpha = !inMenu && full ? 0.4 : 1                   // dim: the list is full
             quickRow.addArrangedSubview(b)
         }
-        let st = SpecData.stages[prefs.language]
-        let typed = st?.sample ?? ""                    // the language's own sample (universal-v1 forms), in the output in use
-        sample.text = typed.isEmpty ? "" : (prefs.profileData.table ? prefs.formRenderer()(typed) : "\(typed)  →  \(prefs.formRenderer()(typed))")
+        let text = Diafon.shared.stages[prefs.language]?.sample ?? ""    // the language's own sample: the keys for it, and what they write
+        sample.text = text.isEmpty ? "" : "\(Diafon.shared.keys(for: text))  →  \(prefs.writer()(text))"
         layoutPicker.selectedSegmentIndex = Layouts.all.firstIndex { $0.code == prefs.layout } ?? 0
         tones.isOn = prefs.tones
         autoCaps.isOn = prefs.autoCaps

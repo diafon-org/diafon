@@ -1,4 +1,4 @@
-// The setup window: what is written out (Universal or one language's spelling), a live pane that shows a
+// The setup window: what is written out (Diafon or one language's spelling), a live pane that shows a
 // typed line both ways, the options, and how to use it. Built in code, framework controls only. Diafon text
 // is set in the Diafon fonts, which the app carries (Resources/Fonts), so its marks draw as they should.
 import Cocoa
@@ -16,7 +16,7 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
     private var languageSample: NSTextField!
     private var layoutPopup: NSPopUpButton!
     private var checkActions: [ObjectIdentifier: (Bool) -> Void] = [:]
-    private let example = "sj tq aw"                  // sounds, not a word: no word is the same in every language
+    private let example = "sy cy aq"                  // sounds, not a word: no word is the same in every language
     private var prefilled = ""                         // what Try it was given, replaced while untouched
     private let width: CGFloat = 520
     private let accent = NSColor(red: 0.055, green: 0.486, blue: 0.525, alpha: 1)
@@ -56,7 +56,7 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         // what is written out
         root.addArrangedSubview(gap(10))
         root.addArrangedSubview(heading("Output"))
-        universalRadio = NSButton(radioButtonWithTitle: "Universal", target: self, action: #selector(pickUniversal(_:)))
+        universalRadio = NSButton(radioButtonWithTitle: "Diafon", target: self, action: #selector(pickUniversal(_:)))
         universalRadio.toolTip = "One letter per sound, the same in every language."
         universalSample = sample("")
         root.addArrangedSubview(line([universalRadio, universalSample]))
@@ -108,7 +108,7 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         root.addArrangedSubview(option("Tones", p.tones,
             "A digit after a syllable writes its tone, which the Diafon fonts draw above it. Off, tone digits are left out.") { Prefs.shared.tones = $0 })
         root.addArrangedSubview(option("Joined long consonants", p.join,
-            "In Universal, a long consonant is written as one joined pair, which the Diafon fonts draw fused; other fonts show the letter twice.") { Prefs.shared.join = $0 })
+            "In Diafon, a long consonant is written as one joined pair, which the Diafon fonts draw fused; other fonts show the letter twice.") { Prefs.shared.join = $0 })
 
         // how to, once
         root.addArrangedSubview(gap(10))
@@ -119,7 +119,7 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
             "To convert text already written: select it, then Diafon menu → Convert selection, or right-click → Services → Convert with Diafon.",
         ]))
         root.addArrangedSubview(gap(6))
-        root.addArrangedSubview(note("Spec \(SpecData.generated) · \(SpecData.source)", size: 11))
+        root.addArrangedSubview(note("Alphabet \(Diafon.shared.version) · typing \(Diafon.shared.typing)", size: 11))
 
         let w = NSWindow(contentRect: NSRect(x: 0, y: 0, width: width + 48, height: 600),
                          styleMask: [.titled, .closable, .miniaturizable], backing: .buffered, defer: false)
@@ -147,7 +147,7 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
 
     func controlTextDidChange(_ obj: Notification) { refresh() }
 
-    /// The window follows the settings: the radios, the popup, a sample in Universal and in the chosen
+    /// The window follows the settings: the radios, the popup, a sample in Diafon and in the chosen
     /// spelling (the language's own sample, its first clause), and the typed line both ways.
     private func refresh() {
         guard let previews = previews else { return }
@@ -160,8 +160,9 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
             languagePopup.selectItem(at: i)
         }
         // the chosen language's own sample, written both ways; Try it starts on it
-        let st = SpecData.stages[code]
-        let src = (st != nil && !st!.sample.isEmpty) ? st!.sample : example
+        let st = Diafon.shared.stages[code]
+        // the sample is Diafon text: the keys that type it go into Try it
+        let src = (st != nil && !st!.sample.isEmpty) ? Diafon.shared.keys(for: st!.sample) : example
         let clause = src.split(separator: ",").first.map(String.init) ?? src
         universalSample.stringValue = p.renderer("script")(clause)
         languageSample.stringValue = p.renderer("stage:\(code)")(clause)
@@ -169,7 +170,7 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
 
         previews.arrangedSubviews.forEach { $0.removeFromSuperview() }
         let typed = input.stringValue
-        for (value, label) in [("script", "Universal"), ("stage:\(code)", st?.name ?? code)] {
+        for (value, label) in [("script", "Diafon"), ("stage:\(code)", st?.name ?? code)] {
             let l = NSTextField(labelWithString: label)
             l.font = NSFont.systemFont(ofSize: 11)
             l.textColor = .secondaryLabelColor

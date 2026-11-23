@@ -35,7 +35,7 @@ struct SetupView: View {
                     }
                 }
                 Section("Try it") {
-                    TextField("type sj tq aw", text: $trial, axis: .vertical)
+                    TextField("type sy cy aq", text: $trial, axis: .vertical)
                         .font(.custom("DiafonSerif-Regular", size: 22, relativeTo: .title2))
                         .lineLimit(3...8)
                         .autocorrectionDisabled()
@@ -44,11 +44,11 @@ struct SetupView: View {
                 }
                 Section("Each language's spelling, from the same keys") {
                     ForEach(Prefs.languages, id: \.0) { code, name in
-                        if let st = SpecData.stages[code], !st.sample.isEmpty {
+                        if let st = Diafon.shared.stages[code], !st.sample.isEmpty {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text("\(name) · \(code)").font(.caption).foregroundStyle(.secondary)
-                                Text(st.sample).font(.system(.body, design: .monospaced))
-                                Text(Stages.render(st.sample, st)).font(.custom("DiafonSerif-Regular", size: 19))
+                                Text(Diafon.shared.keys(for: st.sample)).font(.system(.body, design: .monospaced))
+                                Text(Diafon.shared.convert(st.sample, "script", "stage:" + code)).font(.custom("DiafonSerif-Regular", size: 19))
                             }
                         }
                     }
@@ -63,9 +63,9 @@ struct ConvertView: View {
     @State private var text = ""
     @State private var source = "auto"
     @State private var target = "script"
-    private var outputs: [(String, String)] { [("script", "Universal")] + Prefs.languages.map { ("stage:" + $0.0, $0.1) } + [("transport", "As typed")] }
-    private var detected: String { Stages.sourceFor(text, target: target, prefer: Prefs.shared.preferredSources) }
-    private var result: String { text.isEmpty ? "" : Stages.convert(text, source == "auto" ? detected : source, target) }
+    private var outputs: [(String, String)] { [("script", "Diafon")] + Prefs.languages.map { ("stage:" + $0.0, $0.1) } }
+    private var detected: String { Diafon.shared.sourceFor(text, target: target, prefer: Prefs.shared.preferredSources) }
+    private var result: String { text.isEmpty ? "" : Diafon.shared.convert(text, source == "auto" ? detected : source, target) }
 
     var body: some View {
         NavigationStack {
@@ -98,9 +98,11 @@ struct HowToView: View {
     var body: some View {
         NavigationStack {
             List {
-                Text("Type a sound as a base, then up to two operators, then w if it is long: sj → ș, tq → c̦, aw → á.")
-                Text("The letter being typed stays provisional until the next key settles it; the strip above the keys shows it in every spelling, and a tap writes that one.")
-                Text("Dia switches conversion off and on. Quick taps walk the cycle: off → Universal → your language. Hold it for the settings.")
+                Text("Twenty-four keys are Diafon's letters. The other two, y and q, are not letters: typed after a letter, they put its mark on. sy → ș, tq → ṭ, uy → ü, aq → á.")
+                Text("After a consonant y is the anchor and q the dot. After a vowel y is the double dot, q makes it long, yq is both, and qy is the dot below.")
+                Text("A doubled consonant is the long one. For a plain y or q after a letter, type it twice.")
+                Text("The letter being typed stays provisional until the next key settles it.")
+                Text("Hold the space bar to switch between Diafon, your languages' spellings and plain keys. Hold the Diafon key for the settings.")
                 Text("A digit after a syllable is its tone, which the Diafon fonts draw above it. Turn tones off in the settings to leave them out.")
                 Text("Select text in any spelling and the strip offers to convert it to the spelling in use.")
             }

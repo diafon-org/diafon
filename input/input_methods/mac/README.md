@@ -8,14 +8,14 @@ compose step and no network.
 
 ## Build and install (the Command Line Tools are enough, no Xcode)
 
-    make check     # replay the spec vectors through the Swift engine (tests/test_swift.py)
+    make check     # replay the vectors through the shared core (tests/test_apple.py)
     make install   # build, ad-hoc sign, copy to ~/Library/Input Methods
 
 Then, once: **System Settings → Keyboard → Input Sources → Edit… → +** →
 search **Diafon** (listed under English) → Add; or `make enable`, which
 enables and selects it from the command line (and disables the old
 Diaphone input source if that is still installed). Pick it from the input menu
-in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
+in the menu bar and type `sy cy aq`: it streams out as `ș c̦ á`.
 
 ## What it does
 
@@ -30,22 +30,21 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
   them: the input menu, the Globe key, ⌃Space. Only a chosen few are shown:
   Diafon, and the languages ticked under Keyboards… in Diafon's menu
   (`Sources/Keyboards.swift` switches the modes on and off in the system's
-  input sources). The typing (the input profile) is chosen in the same menu.
-- **Input profiles.** What the keys mean comes from a compiled profile
-  (`../../spec/<id>.json`). `universal-v1` is the grammar the engine
-  carries. `minimal-hu-v1` is a key table: `y` and `q` are the operators
+  input sources).
+- **The typing.** What the keys mean comes from the compiled profile
+  (`../../spec/diafon-v1.json`): `y` and `q` mark the letter before them
   (`sy` ș, `cy` c̦, `oyq` ő), a doubled consonant is long (`ssy` șș), a
-  doubled operator is the plain letter (`cityy` city), and a digit after a
-  point is its tone (`ni3 kqaw3`), doubled the plain digit (`h22o`).
+  doubled `y` or `q` is the plain letter (`cityy` city), and a digit after a
+  letter is its tone (`ni3 kqaw3`), doubled the plain digit (`h22o`).
 - **No dictionaries.** The input method carries no word list. A language
   is offered when its spelling is written by its letters alone; English and
   Mandarin, whose spellings are dictionaries, are not, and come out in the
   script. Hungarian is written by its letters: every /j/ is j, and a loan is
   spelled as it sounds.
-- **The output**: Universal (one letter per sound, the same in every
+- **The output**: Diafon (one letter per sound, the same in every
   language; the default) or one language's spelling.
 - **The status menu**, under the input source in the menu bar: Passthrough
-  (conversion off), Universal, then the quick list of language-specific
+  (conversion off), Diafon, then the quick list of language-specific
   spellings (by their own names and codes: magyar (hu), suomi (fi)…), the
   current choice ticked, and **Other language…**, the chooser
   with every language, filtered as you type by native name, English name or
@@ -56,7 +55,7 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
   always listed, on the quick list or not. Then Setup. Flat by necessity: the menu is shown by a system
   process that returns only top-level clicks, so a submenu cannot be picked
   from.
-- **Setup…** opens a window: Universal or a language's spelling (the
+- **Setup…** opens a window: Diafon or a language's spelling (the
   language in a popup, its sample beside it), Try it (a typed line in
   both), the options with a line on each, and How to. It is set in the
   Diafon fonts, which the app carries.
@@ -77,25 +76,20 @@ in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
 1. Pick Diafon in the input menu (or ⌃Space). The letters sit as Setup's
    base layout puts them: QWERTY by default, or QWERTZ, AZERTY, Dvorak,
    Colemak, whatever layout the Mac had selected before.
-2. Type a sound as a base, then its operators: `sj` → ș, `tq` → c̦,
-   `aw` → á; the last sound stays underlined until the next key settles it.
+2. Type a letter, then `y` or `q` for its mark: `sy` → ș, `cy` → c̦,
+   `aq` → á; the last sound stays underlined until the next key settles it.
 3. Switch between Diafon and your language keyboards as between any
-   keyboards. Diafon's menu has Keyboards… (which languages are keyboards)
-   and the typing (the input profile).
+   keyboards. Diafon's menu has Keyboards… (which languages are keyboards).
 4. Text in any spelling: select it, then Diafon menu → Convert selection
    (or right-click → Services → Convert with Diafon); the … variants let
    you set the source and the target first.
 
 ## Layout of this project
 
-    ../apple/Core/SpecData.swift       generated from docs/spec.json and spec/<profile>.json by scripts/gen_mac.py: script rules, marks, stages, profiles
-    ../apple/Core/Engine.swift         the engine, rule for rule from scripts/engine.py: segments, glyph, render, stream
-    ../apple/Core/Stages.swift         spelling stages, from scripts/stages.py
-    ../apple/Core/Reading.swift        reading back, from scripts/engine.py and stages.py: inventory, tables, parse, convert, detect
-    ../apple/Core/Lexicon.swift        the lexicon layer, for the vector check only: the apps bundle no lexicon
-    ../apple/Core/Profiles.swift       the input profiles: what was typed, read into the engine's forms
-    ../apple/Core/Prefs.swift          the settings (output, language, quick list, tones, join, enabled, profile; strict only colours the iOS strip, the Mac has none) and the renderer
-    ../apple/Core/CheckMain.swift      stdin/stdout driver used by tests/test_swift.py
+    ../apple/Core/Diafon.swift         the alphabet and the typing: the site's JavaScript, run in JavaScriptCore
+    ../apple/Core/diafon-glue.js       what the apps ask of it, as plain functions
+    ../apple/Core/Prefs.swift          the settings (output, language, quick list, tones, join, enabled) and the renderer
+    ../apple/Check/main.swift          stdin/stdout driver used by tests/test_apple.py
     Sources/DiafonInputController.swift  IMKInputController: keystrokes in, streaming rule, insertText / setMarkedText out; the status menu
     Sources/ConvertWindow.swift        the From / To window of Convert with Diafon…
     Sources/Hud.swift                  the mode label shown for a moment after a switch

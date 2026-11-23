@@ -14,11 +14,11 @@ final class ConvertModel: ObservableObject {
         self.text = text
         let p = Prefs.shared
         let current = p.enabled ? p.output : "script"
-        detected = Stages.detect(text, prefer: Prefs.shared.preferredSources)
-        source = Stages.sourceFor(text, target: current, prefer: Prefs.shared.preferredSources)
+        detected = Diafon.shared.detect(text, prefer: Prefs.shared.preferredSources)
+        source = Diafon.shared.sourceFor(text, target: current, prefer: Prefs.shared.preferredSources)
         target = current
     }
-    var result: String { Stages.convert(text, source, target, tones: Prefs.shared.tones, join: Prefs.shared.join) }
+    var result: String { Diafon.shared.convert(text, source, target, tones: Prefs.shared.tones, join: Prefs.shared.join) }
     var confidence: String {
         guard let top = detected.first else { return "" }
         let pct = Int((top.1 * 100).rounded())

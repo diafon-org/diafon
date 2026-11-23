@@ -9,8 +9,7 @@ import InputMethodKit
 
 @objc(DiafonInputController)
 public class DiafonInputController: IMKInputController {
-    private var pending = ""                 // the typed tail still composing, as typed (the profile's keys)
-    private var profile: ProfileData { prefs.profileData }
+    private var pending = ""                 // the typed tail still composing, as typed
     private let anyRange = NSRange(location: NSNotFound, length: NSNotFound)
     private var prefs: Prefs { Prefs.shared }
 
@@ -87,7 +86,7 @@ public class DiafonInputController: IMKInputController {
 
     /// One character in: the streaming rule decides what is final.
     private func type(_ client: IMKTextInput, _ ch: Character) {
-        let (committed, tail) = Profiles.stream(pending + String(ch), profile, renderer: render(), wordwise: output.hasPrefix("stage:"))
+        let (committed, tail) = prefs.stream(pending + String(ch))
         if !committed.isEmpty { insert(client, committed) }
         pending = tail
         mark(client)
@@ -99,7 +98,7 @@ public class DiafonInputController: IMKInputController {
     }
 
     private func mark(_ client: IMKTextInput) {
-        let shown = pending.isEmpty ? "" : prefs.renderer(output, letters: true)(pending)
+        let shown = pending.isEmpty ? "" : render()(pending)
         let attrs: [NSAttributedString.Key: Any] = [.underlineStyle: NSUnderlineStyle.single.rawValue]
         client.setMarkedText(NSAttributedString(string: shown, attributes: attrs),
                              selectionRange: NSRange(location: (shown as NSString).length, length: 0),
@@ -127,21 +126,13 @@ public class DiafonInputController: IMKInputController {
     public override func menu() -> NSMenu! {
         // Shown by a system process, which sends back only top-level clicks (a
         // submenu's never arrive) and greys every item unless enabling is by
-        // hand. So: flat and short. What is written (Universal, a language's
+        // hand. So: flat and short. What is written (Diafon, a language's
         // spelling) is not here: each is an input mode, picked like any keyboard.
         let m = NSMenu()
         m.autoenablesItems = false
         let p = prefs
-        // the input profile: what the keys mean (tags from 1000: only the tag survives the trip)
-        for (i, pr) in Profiles.all.enumerated() {
-            let item = NSMenuItem(title: "Typing: \(pr.name)", action: #selector(selectProfile(_:)), keyEquivalent: "")
-            item.tag = 1000 + i
-            item.state = p.profile == pr.id ? .on : .off
-            m.addItem(item)
-        }
-        m.addItem(.separator())
         // the selection in the app, converted in place: from the source detected, to the mode in use; or chosen
-        let conv = NSMenuItem(title: "Convert selection to \(p.enabled ? p.label() : "Universal")", action: #selector(convertSelection(_:)), keyEquivalent: "")
+        let conv = NSMenuItem(title: "Convert selection to \(p.enabled ? p.label() : "Diafon")", action: #selector(convertSelection(_:)), keyEquivalent: "")
         m.addItem(conv)
         m.addItem(NSMenuItem(title: "Convert selection…", action: #selector(convertSelectionChoosing(_:)), keyEquivalent: ""))
         m.addItem(.separator())
@@ -166,24 +157,13 @@ public class DiafonInputController: IMKInputController {
         guard let (client, range, text) = selection() else { return }
         let p = prefs
         let target = p.enabled ? p.output : "script"
-        let source = Stages.sourceFor(text, target: target, prefer: p.preferredSources)
-        client.insertText(Stages.convert(text, source, target, tones: p.tones, join: p.join), replacementRange: range)
+        let source = Diafon.shared.sourceFor(text, target: target, prefer: p.preferredSources)
+        client.insertText(Diafon.shared.convert(text, source, target, tones: p.tones, join: p.join), replacementRange: range)
     }
 
     @objc func convertSelectionChoosing(_ sender: Any!) {
         guard let (client, range, text) = selection() else { return }
         if let result = ConvertWindow.run(text) { client.insertText(result, replacementRange: range) }
-    }
-
-    private func item(_ sender: Any!) -> NSMenuItem? {
-        (sender as? NSMenuItem) ?? ((sender as? [String: Any])?["IMKCommandMenuItem"] as? NSMenuItem)
-    }
-
-    @objc func selectProfile(_ sender: Any!) {
-        guard let t = item(sender)?.tag, t >= 1000, t - 1000 < Profiles.all.count else { return }
-        if let client = self.client() { flush(client) }          // the tail belongs to the old profile
-        prefs.profile = Profiles.all[t - 1000].id
-        if !prefs.enabled { prefs.enabled = true }                // picking a typing means typing with it
     }
 
     @objc func openSetup(_ sender: Any!) { SetupWindow.shared.show() }

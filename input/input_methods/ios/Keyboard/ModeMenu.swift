@@ -1,4 +1,4 @@
-// The menu a hold on the space bar opens: Universal, the languages on the
+// The menu a hold on the space bar opens: Diafon, the languages on the
 // quick list, and off (plain keys). Slide to an item and let go, or let
 // go anywhere and tap one; a tap outside the menu closes it.
 import UIKit

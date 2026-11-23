@@ -151,17 +151,24 @@ final class DigitRow: UIView {
         var activate: (() -> Void)?
         override func accessibilityActivate() -> Bool { activate?(); return true }
     }
+    // kept between calls and rebuilt only when the row is laid out anew: a list made afresh on
+    // every call is freed before the system reads it (the UI test then finds only the last digit)
+    private var axCache: [Any] = [], axWidth: CGFloat = -1
     override var accessibilityElements: [Any]? {
         get {
-            digits.enumerated().map { i, d in
-                let e = DigitElement(accessibilityContainer: self)
-                e.accessibilityLabel = String(d)
-                e.accessibilityIdentifier = "key:\(d)"
-                e.accessibilityTraits = .keyboardKey
-                e.accessibilityFrameInContainerSpace = cell(i)
-                e.activate = { [weak self] in self?.onDigit?(d) }
-                return e
+            if axWidth != bounds.width || axCache.isEmpty {
+                axWidth = bounds.width
+                axCache = digits.enumerated().map { i, d in
+                    let e = DigitElement(accessibilityContainer: self)
+                    e.accessibilityLabel = String(d)
+                    e.accessibilityIdentifier = "key:\(d)"
+                    e.accessibilityTraits = .keyboardKey
+                    e.accessibilityFrameInContainerSpace = cell(i)
+                    e.activate = { [weak self] in self?.onDigit?(d) }
+                    return e
+                }
             }
+            return axCache
         }
         set {}
     }

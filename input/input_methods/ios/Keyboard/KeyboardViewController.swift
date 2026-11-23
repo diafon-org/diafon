@@ -46,11 +46,8 @@ final class ProxySink: TextSink {
 final class KeyboardViewController: UIInputViewController {
     private let prefs = Prefs.shared
     private lazy var session: Session = {
-        let s = Session(sink: ProxySink(self), mode: prefs.tailMode, render: prefs.renderer())
-        s.profile = prefs.profileData
-        s.wordwise = !prefs.universal
-        s.preview = prefs.renderer(letters: true)
-        return s
+        let prefs = self.prefs
+        return Session(sink: ProxySink(self), mode: prefs.tailMode, render: prefs.renderer(), stream: { prefs.stream($0) })
     }()
     private let keys = KeyboardView()
     private let strip = StripView()
@@ -264,11 +261,11 @@ final class KeyboardViewController: UIInputViewController {
             if let list = Emoji.emoticons[session.run] {
                 emoticon = true; emoji = list
             } else if !keys.symbolsPage {
-                // the word as input form, then as usually spelled (read by the person's own
+                // the word as typed for Diafon, then as usually spelled (read by the person's own
                 // spellings): with conversion on, laza or cool typed as written finds its emoji too
-                let spellings = prefs.preferredSources.filter { $0.hasPrefix("stage:") && $0 != "stage:zh" }.map { String($0.dropFirst(6)) }
+                let spellings = prefs.preferredSources.filter { $0.hasPrefix("stage:") }.map { String($0.dropFirst(6)) }
                 let plain = Emoji.plain(session.word, spellings: spellings)
-                emoji = prefs.enabled ? Array(NSOrderedSet(array: Emoji.choices(Profiles.unescape(Profiles.transport(session.word, prefs.profileData))) + plain).array.prefix(16)) as! [String] : plain
+                emoji = prefs.enabled ? Array(NSOrderedSet(array: Emoji.choices(Diafon.shared.render(session.word, tones: false)) + plain).array.prefix(16)) as! [String] : plain
             }
         }
         Trace.log("strip word \(Trace.q(session.word)) run \(Trace.q(session.run)) pending \(Trace.q(session.pending)) -> \(emoji.prefix(4).joined())")
@@ -318,14 +315,14 @@ final class KeyboardViewController: UIInputViewController {
     private func convertSelection() {
         guard let text = textDocumentProxy.selectedText, !text.isEmpty else { return }
         let target = prefs.output
-        let source = Stages.sourceFor(text, target: target, prefer: prefs.preferredSources)
-        textDocumentProxy.insertText(Stages.convert(text, source, target, tones: prefs.tones, join: prefs.join))
+        let source = Diafon.shared.sourceFor(text, target: target, prefer: prefs.preferredSources)
+        textDocumentProxy.insertText(Diafon.shared.convert(text, source, target, tones: prefs.tones, join: prefs.join))
         refresh()
     }
 
     // MARK: the menu and settings
 
-    /// The space bar's menu: Universal, the languages the typing in use can write, off.
+    /// The space bar's menu: Diafon, the languages on the quick list, off.
     private func showMenu() {
         session.flush()
         let items = prefs.menuModes.map { (id: $0, title: prefs.menuTitle($0)) }
@@ -343,12 +340,9 @@ final class KeyboardViewController: UIInputViewController {
     private func prefsChanged() {
         session.flush()                              // the shown tail belongs to the old renderer
         session.render = prefs.renderer()
-        session.profile = prefs.profileData
-        session.wordwise = !prefs.universal
-        session.preview = prefs.renderer(letters: true)
         session.mode = prefs.tailMode
         keys.layoutCode = prefs.layout
-        keys.operatorKeys = prefs.profileData.table ? prefs.profileData.operators : Engine.ops
+        keys.operatorKeys = Diafon.shared.operators
         refresh()
     }
 }

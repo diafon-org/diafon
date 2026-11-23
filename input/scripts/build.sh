@@ -11,3 +11,6 @@ python3 tests/test_keys_js.py
 python3 scripts/gen_lessons.py     # reads the alphabet's scripts and word lists
 python3 scripts/gen_page.py
 python3 tests/test_lessons.py
+python3 scripts/gen_emoji.py       # reads the alphabet's scripts; keeps the file where the sources are missing
+python3 tests/test_apple.py        # the Mac and iOS core, where there is a Swift compiler
+python3 tests/test_ios_session.py

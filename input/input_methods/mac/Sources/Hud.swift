@@ -1,5 +1,5 @@
 // A small floating label that names the mode for a moment after a switch
-// (off · Universal · a language), near the caret when the app tells us where
+// (off · Diafon · a language), near the caret when the app tells us where
 // it is, else at the bottom middle of the screen. Non-activating: focus stays.
 import Cocoa
 

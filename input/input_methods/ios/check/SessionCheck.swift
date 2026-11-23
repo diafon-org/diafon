@@ -4,7 +4,7 @@
 // deleteBackward takes one grapheme). Prints "session holds N checks", or
 // each failure and exits 1.
 //
-//   stream    every spec stream trace, in both tail modes: after each key
+//   stream    every stream trace of the typing (spec/diafon-v1.json), in both tail modes: after each key
 //             the editor shows the trace's committed text so far plus the
 //             render of its pending tail, and the session's tail is the trace's
 //   fuzz      seeded random keys and backspaces in every output and both
@@ -26,6 +26,13 @@ final class StringEditor: TextSink {
 /// A small seeded generator, so a failure replays.
 struct Rng { var s: UInt64; mutating func next(_ n: Int) -> Int { s = s &* 6364136223846793005 &+ 1442695040888963407; return Int((s >> 33) % UInt64(n)) } }
 
+let D = Diafon.shared
+/// A session writing an output, as the keyboard makes it (Prefs.renderer, Prefs.stream).
+func session(_ ed: TextSink, _ mode: TailMode, _ out: String = "script") -> Session {
+    Session(sink: ed, mode: mode, render: { D.render($0, output: out) },
+            stream: { D.stream($0, output: out, wordwise: out.hasPrefix("stage:")) })
+}
+
 @main
 enum SessionCheck {
     static var checks = 0, failures: [String] = []
@@ -44,30 +51,30 @@ enum SessionCheck {
         // stream: the spec traces, key by key
         for (text, trace) in traces.sorted(by: { $0.key < $1.key }) {
             for mode in modes {
-                let ed = StringEditor(), s = Session(sink: ed, mode: mode, render: { Engine.lenient($0) })
+                let ed = StringEditor(), s = session(ed, mode)
                 var head = ""
                 for (ch, step) in zip(text, trace) {
                     s.type(ch)
                     head += step[1]
-                    let want = head + (step[2].isEmpty ? "" : Engine.lenient(step[2]))
+                    let want = head + (step[2].isEmpty ? "" : D.render(step[2]))
                     expect(ed.display == want && s.pending == step[2],
                            "stream \(mode) \(text.debugDescription) at \(String(ch).debugDescription): shows \(ed.display.debugDescription), want \(want.debugDescription); pending \(s.pending.debugDescription), want \(step[2].debugDescription)")
                 }
                 s.flush()
-                expect(ed.marked.isEmpty && ed.text == head + (trace.last![2].isEmpty ? "" : Engine.lenient(trace.last![2])),
+                expect(ed.marked.isEmpty && ed.text == head + (trace.last![2].isEmpty ? "" : D.render(trace.last![2])),
                        "stream \(mode) \(text.debugDescription): after flush \(ed.text.debugDescription) marked \(ed.marked.debugDescription)")
             }
         }
 
         // fuzz: random keys in every output, both modes, against a model
-        let outputs = ["script", "transport"] + SpecData.stageOrder.map { "stage:" + $0 }
-        let keys = Array("sjnzwaeouiqtkcxlrhy1234 ,.SJN") + ["⌫", "⌫"]
+        let outputs = ["script", "transport"] + D.stageOrder.filter { !(D.stages[$0]?.lexical ?? true) }.map { "stage:" + $0 }
+        let keys = Array("synzwaeouiqtkcxlrhy1234 ,.SYN") + ["⌫", "⌫"]
         var rng = Rng(s: 0x5eed)
         for out in outputs {
-            let render = Prefs.shared.renderer(out)
+            let render: (String) -> String = { D.render($0, output: out) }
             for mode in modes {
                 for run in 0..<40 {
-                    let ed = StringEditor(), s = Session(sink: ed, mode: mode, render: render)
+                    let ed = StringEditor(), s = session(ed, mode, out)
                     var final = "", pending = "", typed = ""
                     for _ in 0..<(8 + rng.next(24)) {
                         let k = keys[rng.next(keys.count)]
@@ -77,7 +84,7 @@ enum SessionCheck {
                             if !pending.isEmpty { pending.removeLast() } else if !final.isEmpty { final.removeLast() }
                         } else {
                             s.type(k)
-                            let (h, t) = Engine.stream(pending + String(k), renderer: render)
+                            let (h, t) = D.stream(pending + String(k), output: out, wordwise: out.hasPrefix("stage:"))
                             final += h; pending = t
                         }
                         let want = final + (pending.isEmpty ? "" : render(pending))
@@ -93,24 +100,23 @@ enum SessionCheck {
 
         // cases
         for mode in modes {
-            let lenient: (String) -> String = { Engine.lenient($0) }
             do {   // take: a picked spelling replaces the tail and is final
-                let ed = StringEditor(), s = Session(sink: ed, mode: mode, render: lenient)
-                for c in "ok nj" { s.type(c) }
+                let ed = StringEditor(), s = session(ed, mode)
+                for c in "ok ny" { s.type(c) }
                 s.take("ny")
                 expect(ed.display == "ok ny" && ed.marked.isEmpty && s.pending.isEmpty, "take \(mode): \(ed.display.debugDescription)")
                 s.type("a")
                 expect(ed.display == "ok nya", "take \(mode) then a: \(ed.display.debugDescription)")
             }
             do {   // insertFinal settles the tail first
-                let ed = StringEditor(), s = Session(sink: ed, mode: mode, render: lenient)
-                for c in "sj" { s.type(c) }
+                let ed = StringEditor(), s = session(ed, mode)
+                for c in "sy" { s.type(c) }
                 s.insertFinal("\n")
                 expect(ed.display == "ș\n" && ed.marked.isEmpty, "insertFinal \(mode): \(ed.display.debugDescription)")
             }
             do {   // backspace through the tail and on into final text, a whole grapheme at a time
-                let ed = StringEditor(), s = Session(sink: ed, mode: mode, render: lenient)
-                for c in "njanj" { s.type(c) }
+                let ed = StringEditor(), s = session(ed, mode)
+                for c in "nyany" { s.type(c) }
                 expect(ed.display == "n̦an̦", "backspace \(mode) setup: \(ed.display.debugDescription)")
                 s.backspace(); s.backspace()
                 expect(ed.display == "n̦a" && s.pending.isEmpty, "backspace \(mode) tail: \(ed.display.debugDescription)")
@@ -120,34 +126,34 @@ enum SessionCheck {
         }
         for mode in modes {
             do {   // a tail still before the cursor stays the session's
-                let ed = StringEditor(), s = Session(sink: ed, mode: mode, render: { Engine.lenient($0) })
-                for c in "nj" { s.type(c) }
+                let ed = StringEditor(), s = session(ed, mode)
+                for c in "ny" { s.type(c) }
                 s.editorChanged()
                 s.type("a")
                 expect(ed.display == "n̦a", "kept tail \(mode): \(ed.display.debugDescription)")
             }
             do {   // the cursor moved away: the tail is orphaned and stays final, unmarked
-                let ed = StringEditor(), s = Session(sink: ed, mode: mode, render: { Engine.lenient($0) })
-                for c in "nj" { s.type(c) }
+                let ed = StringEditor(), s = session(ed, mode)
+                for c in "ny" { s.type(c) }
                 ed.unmarkText(); ed.text += " x"    // the person tapped elsewhere and typed
                 s.editorChanged()
-                s.type("a"); s.type("w")
-                expect(ed.display == "n̦ x" + Engine.lenient("aw") && s.pending == "aw",
+                s.type("a"); s.type("q")
+                expect(ed.display == "n̦ x" + D.render("aq") && s.pending == "aq",
                        "orphaned tail \(mode): \(ed.display.debugDescription)")
             }
         }
         for mode in modes {   // emoji: the word typed is tracked, and a picked emoji takes its place
-            let ed = StringEditor(), s = Session(sink: ed, mode: mode, render: { Engine.lenient($0) })
-            for c in "ok hawrt" { s.type(c) }
-            expect(s.word == "hawrt", "word \(mode): \(s.word.debugDescription)")
+            let ed = StringEditor(), s = session(ed, mode)
+            for c in "ok haqrt" { s.type(c) }
+            expect(s.word == "haqrt", "word \(mode): \(s.word.debugDescription)")
             s.backspace()
-            expect(s.word == "hawr", "word after backspace \(mode): \(s.word.debugDescription)")
+            expect(s.word == "haqr", "word after backspace \(mode): \(s.word.debugDescription)")
             s.type("t")
             s.pick("❤️")
             expect(ed.display == "ok ❤️" && ed.marked.isEmpty && s.pending.isEmpty && s.word.isEmpty,
                    "pick \(mode): \(ed.display.debugDescription)")
-            s.type(" "); for c in "sjok" { s.type(c) }
-            expect(s.word == "sjok", "word after space \(mode): \(s.word.debugDescription)")
+            s.type(" "); for c in "syok" { s.type(c) }
+            expect(s.word == "syok", "word after space \(mode): \(s.word.debugDescription)")
             ed.unmarkText(); ed.text += " x"                // the person moved and typed: the word is not ours
             s.editorChanged()
             expect(s.word.isEmpty, "word dropped on an outside edit \(mode): \(s.word.debugDescription)")
@@ -155,26 +161,26 @@ enum SessionCheck {
             expect(ed.display.hasSuffix(" x🔥"), "pick with no word \(mode): \(ed.display.debugDescription)")
         }
         for mode in modes {   // the field cleared under the tail (a search field's ✕): flush writes nothing back
-            let ed = StringEditor(), s = Session(sink: ed, mode: mode, render: { Engine.lenient($0) })
-            for c in "ok nj" { s.type(c) }
+            let ed = StringEditor(), s = session(ed, mode)
+            for c in "ok ny" { s.type(c) }
             ed.text = ""; ed.marked = ""
             s.flush()
             expect(ed.display.isEmpty && s.pending.isEmpty, "cleared field, flush \(mode): \(ed.display.debugDescription)")
-            for c in "nj" { s.type(c) }
+            for c in "ny" { s.type(c) }
             s.forget()
             expect(s.pending.isEmpty && s.word.isEmpty, "forget \(mode)")
         }
         do {   // a lagging context right after our own edit does not orphan the tail
             Session.settle = 10
-            let ed = StringEditor(), s = Session(sink: ed, mode: .marked, render: { Engine.lenient($0) })
-            for c in "nj" { s.type(c) }
+            let ed = StringEditor(), s = session(ed, .marked)
+            for c in "ny" { s.type(c) }
             ed.marked = ""                                  // the host has not caught up
             s.editorChanged()
-            expect(s.pending == "nj", "settle window keeps the tail")
+            expect(s.pending == "ny", "settle window keeps the tail")
             Session.settle = 0
         }
         do {   // conversion off: the word is still tracked, and a picked emoji replaces it as typed
-            let ed = StringEditor(), s = Session(sink: ed, mode: .marked, render: { Engine.lenient($0) })
+            let ed = StringEditor(), s = session(ed, .marked)
             for c in "ok kutya" { s.typePlain(c) }
             expect(s.word == "kutya" && ed.display == "ok kutya", "plain word: \(s.word.debugDescription)")
             s.backspace(); s.typePlain("a")
@@ -188,24 +194,25 @@ enum SessionCheck {
             expect(Emoji.plain("kutya", spellings: mine).prefix(2) == ["🐶", "🐕"], "plain kutya, read in full first: \(Emoji.plain("kutya", spellings: mine))")
             expect(Emoji.plain("napszemuveg", spellings: mine).contains("😎"), "plain napszemuveg (u for ü): \(Emoji.plain("napszemuveg", spellings: mine))")
         }
-        do {   // the emoji table: a word in any language, most used first, then its prefixes
-            expect(Emoji.choices("hawrt").first == "❤️", "emoji hawrt: \(Emoji.choices("hawrt"))")
-            expect(Emoji.choices("Siwv").first == "❤️", "emoji Siwv (szív, any case): \(Emoji.choices("Siwv"))")
-            expect(Emoji.choices("kutja").prefix(2) == ["🐶", "🐕"], "emoji kutja: \(Emoji.choices("kutja"))")
-            expect(Emoji.choices("dowg").first == "🐶", "emoji dowg (English dog): \(Emoji.choices("dowg"))")
-            expect(Emoji.choices("pjes").first == "🐶", "emoji pjes (Polish pies): \(Emoji.choices("pjes"))")
-            expect(Emoji.choices("haw").contains("❤️"), "emoji haw, a prefix of hawrt: \(Emoji.choices("haw"))")
+        do {   // the emoji table: a word in Diafon letters, from any language, most used first, then its prefixes
+            expect(Emoji.choices("hárt").first == "❤️", "emoji hárt: \(Emoji.choices("hárt"))")
+            expect(Emoji.choices("Sív").first == "❤️", "emoji Sív (szív, any case): \(Emoji.choices("Sív"))")
+            expect(Emoji.choices("kuța").prefix(2) == ["🐶", "🐕"], "emoji kuța: \(Emoji.choices("kuța"))")
+            expect(Emoji.choices("dóg").first == "🐶", "emoji dóg (English dog): \(Emoji.choices("dóg"))")
+            expect(Emoji.choices("p̓es").first == "🐶", "emoji p̓es (Polish pies): \(Emoji.choices("p̓es"))")
+            expect(Emoji.choices("hár").contains("❤️"), "emoji hár, a prefix of hárt: \(Emoji.choices("hár"))")
             expect(Emoji.choices("ha", prefixFrom: 3).allSatisfy { Emoji.choices("ha").contains($0) }, "emoji ha: exact only")
-            expect(Emoji.choices("qqqq").isEmpty, "emoji qqqq: none")
-            expect(Emoji.choices("kutjawval").first == "🐶", "emoji kutjawval, the stem kutja: \(Emoji.choices("kutjawval"))")
-            expect(Emoji.choices("tqigawt").first == "🐌", "emoji tqigawt, the stem tqiga: \(Emoji.choices("tqigawt"))")
-            expect(Emoji.choices("madjarorsawg").first == "🇭🇺", "emoji madjarorsawg: \(Emoji.choices("madjarorsawg"))")
+            expect(Emoji.choices("ẅẅẅẅ").isEmpty, "emoji ẅẅẅẅ: none")
+            expect(Emoji.choices("kuțával").first == "🐶", "emoji kuțával, the stem kuța: \(Emoji.choices("kuțával"))")
+            expect(Emoji.choices("c̦igát").first == "🐌", "emoji c̦igát, the stem c̦iga: \(Emoji.choices("c̦igát"))")
+            expect(Emoji.choices("mad̦arorság").first == "🇭🇺", "emoji mad̦arorság: \(Emoji.choices("mad̦arorság"))")
+            expect(Emoji.choices(D.render("kutya")).first == "🐶", "emoji for the keys kutya: \(Emoji.choices(D.render("kutya")))")
             expect(Emoji.plain("kutyaval", spellings: ["hu"]).first == "🐶", "plain kutyaval: \(Emoji.plain("kutyaval", spellings: ["hu"]))")
         }
         for mode in modes {   // emoticons: read from the keys typed since the space, the marked D included
             for (keys, want, left) in [("ok :D", "😃", "ok "), (":)", "🙂", ""), ("a <3", "❤️", "a "), ("x :P", "😛", "x "), ("xD", "😆", "")] {
                 for plain in [false, true] {
-                    let ed = StringEditor(), s = Session(sink: ed, mode: mode, render: { Engine.lenient($0) })
+                    let ed = StringEditor(), s = session(ed, mode)
                     for c in keys { if plain { s.typePlain(c) } else { s.type(c) } }
                     let list = Emoji.emoticons[s.run]
                     expect(list?.first == want, "emoticon \(keys.debugDescription) \(mode) plain \(plain): run \(s.run.debugDescription)")
@@ -213,18 +220,18 @@ enum SessionCheck {
                     expect(ed.display == left + want && ed.marked.isEmpty, "emoticon pick \(keys.debugDescription) \(mode) plain \(plain): \(ed.display.debugDescription)")
                 }
             }
-            let ed = StringEditor(), s = Session(sink: ed, mode: mode, render: { Engine.lenient($0) })
+            let ed = StringEditor(), s = session(ed, mode)
             for c in "f(:)" { s.type(c) }
             expect(Emoji.emoticons[s.run] == nil, "emoticon inside a word: none")
             for c in " :" { s.type(c) }; s.backspace(); s.type("(")
             expect(s.run == "(", "run after a backspace: \(s.run.debugDescription)")
             Session.settle = 10                              // a lagging host: the marked D not in its context yet
-            let lag = StringEditor(), t = Session(sink: lag, mode: mode, render: { Engine.lenient($0) })
+            let lag = StringEditor(), t = session(lag, mode)
             for c in "hi :D" { t.type(c) }
             t.replaceRun(with: "😃")
             expect(lag.display == "hi 😃", "emoticon pick while settling \(mode): \(lag.display.debugDescription)")
             Session.settle = 0
-            let moved = StringEditor(), u = Session(sink: moved, mode: mode, render: { Engine.lenient($0) })
+            let moved = StringEditor(), u = session(moved, mode)
             for c in ":D" { u.type(c) }
             u.flush(); moved.text += " z"                    // the person typed elsewhere: the run is not there
             u.replaceRun(with: "😃")
@@ -239,10 +246,10 @@ enum SessionCheck {
                 func unmarkText() { ed.unmarkText() }
                 var contextBefore: String? { nil }
             }
-            let b = Blind(), s = Session(sink: b, mode: .replace, render: { Engine.lenient($0) })
-            for c in "nj" { s.type(c) }
+            let b = Blind(), s = session(b, .replace)
+            for c in "ny" { s.type(c) }
             s.editorChanged()
-            expect(s.pending == "nj", "blind context kept the tail")
+            expect(s.pending == "ny", "blind context kept the tail")
         }
 
         if failures.isEmpty { print("session holds \(checks) checks"); exit(0) }

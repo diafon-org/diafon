@@ -19,13 +19,15 @@ spec/              the compiled profiles, with their vectors
 engine/            the Python reference: alphabet.py (the script, from the
                    alphabet's spec), profile.py (compile), engine.py (segment,
                    letters, stream)
-input_methods/     macOS, iOS, Android, and the Swift core they share (asleep, see below)
+input_methods/     macOS and iOS on diafon-v1, with the core they share; Android asleep (see below)
 legacy/            the typing from before the split and everything built on its
                    key strings; kept, not built
 web/               the site's Input page: the typing in JavaScript, the
                    try-out and the lessons (docs/input links here)
-scripts/           compile_profile.py, gen_lessons.py, gen_page.py, build.sh
-tests/             the profiles, the JavaScript, the lessons
+scripts/           compile_profile.py, gen_lessons.py, gen_page.py, gen_apple.py,
+                   gen_emoji.py, build.sh
+tests/             the profiles, the JavaScript, the lessons, the Apple core,
+                   the iOS keystroke logic
 ```
 
 ## The typing: diafon-v1
@@ -52,15 +54,23 @@ The profile is data (`profiles/diafon-v1.yaml`); compiled
 (`spec/diafon-v1.json`) it carries its key table, the languages it writes
 and its vectors, which a port must reproduce.
 
+## The input methods
+
+The Mac input method and the iOS keyboard type `diafon-v1`. They port
+nothing: they run the site's own JavaScript, `docs/assets/diafon-core.js`
+(the alphabet) and `web/diafon-keys.js` (the typing), in JavaScriptCore, on
+the alphabet's spec and the compiled profile
+(`input_methods/apple/Core/Diafon.swift`). A change to the alphabet reaches
+them with the next build, and `tests/test_apple.py` replays the vectors
+through the Swift side.
+
 ## What is asleep
 
 The typing Diafon had before the split, `universal-v1` (twenty base letters,
 five operators), and the first two-operator table, `minimal-hu-v1`, are in
-`legacy/` with their generators, tests and frozen data. The Mac, iOS and
-Android input methods still hold their text in `universal-v1` key strings
-and still carry the alphabet as it was when they were last generated; they
-build from the files committed here, and are due a rewrite that works on
-the letters directly and reads `spec/diafon-v1.json`.
+`legacy/` with their generators, tests and frozen data. The Android input
+method still holds its text in `universal-v1` key strings and carries the
+alphabet as it was when it was last generated; it is due the same rewrite.
 
 ## The alphabet
 

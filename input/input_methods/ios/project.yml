@@ -1,7 +1,8 @@
 # The Xcode project, as text: `make project` (XcodeGen) writes Diafon.xcodeproj,
 # which is not committed. Two targets: the app (setup, try, convert, how-to)
 # and the keyboard extension it carries. Both compile the shared core
-# (../apple/Core) and Shared/; neither asks for full access.
+# (../apple/Core) and Shared/, and bundle the alphabet's files (../apple/Resources);
+# neither asks for full access.
 name: Diafon
 options:
   bundleIdPrefix: io.diafon
@@ -31,8 +32,8 @@ targets:
       - App
       - Shared
       - path: ../apple/Core
-        excludes: [CheckMain.swift]
-      - path: ../../../fonts/DiafonSerif-Regular.ttf
+        excludes: ["*.js"]
+      - path: ../apple/Resources                 # the alphabet, the typing, the font (scripts/gen_apple.py)
         buildPhase: resources
     dependencies:
       - target: DiafonKeyboard
@@ -70,11 +71,8 @@ targets:
       - Keyboard
       - Shared
       - path: ../apple/Core
-        excludes: [CheckMain.swift]
-      - path: ../../../fonts/DiafonSerif-Regular.ttf
-        buildPhase: resources
-      - path: ../../data/emoji.json              # the word -> emoji choices, 220 KB; no lexicon
-        buildPhase: resources
+        excludes: ["*.js"]
+      - path: ../apple/Resources                 # the alphabet, the typing, the font, the emoji words
         buildPhase: resources
     settings:
       base:

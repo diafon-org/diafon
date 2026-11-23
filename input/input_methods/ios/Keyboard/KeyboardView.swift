@@ -15,7 +15,7 @@ final class KeyboardView: UIView {
     var onKey: ((Key) -> Void)?
     /// A long press on the logo key: the settings.
     var onLogoHold: ((CGPoint) -> Void)?
-    /// A long press on the space bar: the modes (Universal, the languages, off).
+    /// A long press on the space bar: the modes (Diafon, the languages, off).
     var onSpaceHold: (() -> Void)?
     /// The held space touch moving over the open menu, and let go.
     var onMenuDrag: ((CGPoint) -> Void)?
@@ -30,7 +30,7 @@ final class KeyboardView: UIView {
     var capsLock = false { didSet { if capsLock != oldValue { setNeedsDisplay() } } }
     var enabledMode = true { didSet { if enabledMode != oldValue { setNeedsDisplay() } } }
     /// The operator keys of the input profile in use: the ones tinted.
-    var operatorKeys: Set<Character> = Engine.ops { didSet { if operatorKeys != oldValue { setNeedsDisplay() } } }
+    var operatorKeys: Set<Character> = [] { didSet { if operatorKeys != oldValue { setNeedsDisplay() } } }
     var returnLabel = "return" { didSet { if returnLabel != oldValue { setNeedsDisplay() } } }
     /// The return key's symbol, for the field's return key type.
     var returnSymbol = "return.left" { didSet { if returnSymbol != oldValue { setNeedsDisplay() } } }
@@ -283,6 +283,15 @@ final class KeyboardView: UIView {
         for t in touches {
             guard let i = slot(at: t.location(in: self)) else { continue }
             let key = slots[i].key
+            // The space bar writes its space when the finger lifts (a hold opens the menu
+            // instead). A key pressed while that finger is still down came after the space:
+            // the space goes in now, first, so two thumbs typing fast keep their order.
+            if let st = spaceTouch, st != ObjectIdentifier(t), !spaceHeld {
+                spaceTouch = nil
+                holdTimer?.invalidate(); holdTimer = nil
+                down.removeValue(forKey: st)
+                emit(.space)
+            }
             down[ObjectIdentifier(t)] = key
             switch key {
             case .logo:

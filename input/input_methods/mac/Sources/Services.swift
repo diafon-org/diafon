@@ -11,8 +11,8 @@ import Cocoa
         guard let text = selected(pboard, error) else { return }
         let p = Prefs.shared
         let target = p.enabled ? p.output : "script"
-        let source = Stages.sourceFor(text, target: target, prefer: Prefs.shared.preferredSources)
-        write(pboard, Stages.convert(text, source, target, tones: p.tones, join: p.join))
+        let source = Diafon.shared.sourceFor(text, target: target, prefer: Prefs.shared.preferredSources)
+        write(pboard, Diafon.shared.convert(text, source, target, tones: p.tones, join: p.join))
     }
 
     @objc func convertSelectionChoosing(_ pboard: NSPasteboard, userData: String, error: AutoreleasingUnsafeMutablePointer<NSString>) {
@@ -37,7 +37,7 @@ import Cocoa
 
 /// The names every screen gives the sources and targets.
 enum Modes {
-    static let all: [(String, String)] = [("transport", "As typed (input form)"), ("script", "Universal")]
+    static let all: [(String, String)] = [("script", "Diafon")]
         + Prefs.languages.map { code, name in ("stage:\(code)", "\(Locale(identifier: code).localizedString(forLanguageCode: code) ?? name) (\(code))") }
     static func label(_ mode: String) -> String { all.first { $0.0 == mode }?.1 ?? mode }
 }
