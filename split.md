@@ -1,7 +1,8 @@
 # Split: the alphabet and the input
 
-Status: P0, P1 and P2 done on the branch `split`, and the site carries no
-typing (2026-11-21). See the "as built" sections below.
+Status: done. The separation holds; the two repositories are one again
+since 2026-11-23 (see "One repository" at the end). The text below is the
+plan as it was written and built, and names the layout of that time.
 
 Diafon today is one system: the typed form is the point's identity. Stages,
 lexicons, the spec, the font tools and every port are keyed by input forms
@@ -340,6 +341,27 @@ the one further back. The consonant marks are the anchor, the dot and the
 double dot below. The Diafon fonts show the new mark as Noto draws it
 (U+0324), not yet fitted to each letter; the reverse anchor's shapes are
 still in them, unused.
+
+## One repository (2026-11-23)
+
+The alphabet and the typing are separate, in one repository: the typing is
+the folder `input/` (the former diafon-org/diafon-input, with its history),
+the alphabet everything outside it.
+
+- The typing reads the published `docs/alphabet-spec.json` in place; the
+  vendored copy and the two copy scripts are gone. The apps bundle the fonts
+  and the mark from `fonts/` and `docs/logo/`.
+- The site's Input page is `input/web`, linked as `docs/input`.
+- `tests/test_no_input.py` holds both directions of the rule: the alphabet
+  names no typed form, and none of its scripts reads `input/`.
+- The typing is one profile, `diafon-v1` (two keys, y and q); `universal-v1`
+  and `minimal-hu-v1` sleep in `input/legacy/`, and the Mac, iOS and Android
+  input methods with them until they are rewritten on the letters.
+
+Why: with one maintainer, every change to the alphabet was made twice, and
+copies went stale in both directions. Two repositories become right again
+when others build keyboards on the alphabet or the apps get their own
+releases.
 
 ## Arguments against
 

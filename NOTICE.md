@@ -12,8 +12,7 @@ from it carry the same terms.
 ## Lexicons
 
 The sources are downloaded to `data/lexicon/sources/` and are not committed.
-The generated tables (`data/lexicon/*.json` and their copies under `docs/` and
-`extensions/`) are derived from them.
+The generated tables (`data/lexicon/*.json`) are derived from them.
 
 | Material | Used for | Licence |
 |---|---|---|
@@ -21,7 +20,7 @@ The generated tables (`data/lexicon/*.json` and their copies under `docs/` and
 | [FrequencyWords](https://github.com/hermitdave/FrequencyWords) | ranking spellings that sound alike (`en.json`) | CC BY-SA 4.0 |
 | [LibreOffice hu_HU dictionary](https://github.com/LibreOffice/dictionaries/tree/master/hu_HU) | Hungarian stems (`hu.json`) | MPL 2.0 or LGPL 3.0+ |
 | [Unihan database](https://www.unicode.org/charts/unihan.html) | Mandarin readings (`zh.json`) | Unicode License v3 |
-| [CLDR annotations](https://cldr.unicode.org) | emoji names (`data/emoji.json`) | Unicode License v3 |
+| [CLDR annotations](https://cldr.unicode.org) | emoji names (`input/data/emoji.json`) | Unicode License v3 |
 
 Because of FrequencyWords, `en.json` is shared under CC BY-SA 4.0.
 
