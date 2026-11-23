@@ -1,0 +1,137 @@
+# Diafon for macOS
+
+An input method for macOS 13 and later. Pick it in the input menu and type
+the input form in any app; it converts as you type, by the streaming rule:
+each segment is inserted the moment the keystroke stream can no longer change
+it, and only the undecidable tail shows as underlined text in place. No
+compose step and no network.
+
+## Build and install (the Command Line Tools are enough, no Xcode)
+
+    make check     # replay the spec vectors through the Swift engine (tests/test_swift.py)
+    make install   # build, ad-hoc sign, copy to ~/Library/Input Methods
+
+Then, once: **System Settings → Keyboard → Input Sources → Edit… → +** →
+search **Diafon** (listed under English) → Add; or `make enable`, which
+enables and selects it from the command line (and disables the old
+Diaphone input source if that is still installed). Pick it from the input menu
+in the menu bar and type `sj tq aw`: it streams out as `ș c̦ á`.
+
+## What it does
+
+- **Streaming conversion.** Letters, digits, space and punctuation go through
+  `Engine.stream`: everything before the last segment is inserted as final
+  text, the last segment stays underlined until a key settles it. Backspace
+  edits the underlined tail first; Escape drops the tail in as typed; Return,
+  Tab, arrows and any shortcut make the tail final and pass through.
+- **Each output is a keyboard.** Diafon (the script) and one keyboard per
+  language written by its letters (Diafon – Magyar, Diafon – Polski, …) are
+  input modes of the one input method, so the system's own switching picks
+  them: the input menu, the Globe key, ⌃Space. Only a chosen few are shown:
+  Diafon, and the languages ticked under Keyboards… in Diafon's menu
+  (`Sources/Keyboards.swift` switches the modes on and off in the system's
+  input sources). The typing (the input profile) is chosen in the same menu.
+- **Input profiles.** What the keys mean comes from a compiled profile
+  (`../../spec/<id>.json`). `universal-v1` is the grammar the engine
+  carries. `minimal-hu-v1` is a key table: `y` and `q` are the operators
+  (`sy` ș, `cy` c̦, `oyq` ő), a doubled consonant is long (`ssy` șș), a
+  doubled operator is the plain letter (`cityy` city), and a digit after a
+  point is its tone (`ni3 kqaw3`), doubled the plain digit (`h22o`).
+- **No dictionaries.** The input method carries no word list. A language
+  is offered when its spelling is written by its letters alone; English and
+  Mandarin, whose spellings are dictionaries, are not, and come out in the
+  script. Hungarian is written by its letters: every /j/ is j, and a loan is
+  spelled as it sounds.
+- **The output**: Universal (one letter per sound, the same in every
+  language; the default) or one language's spelling.
+- **The status menu**, under the input source in the menu bar: Passthrough
+  (conversion off), Universal, then the quick list of language-specific
+  spellings (by their own names and codes: magyar (hu), suomi (fi)…), the
+  current choice ticked, and **Other language…**, the chooser
+  with every language, filtered as you type by native name, English name or
+  code, and on its right the quick list itself: the box beside a language
+  puts it there, and Up, Down and Remove order and prune it; that order is
+  the menu's. No cap, but past three the chooser warns that the menu gets
+  long. The language in use is
+  always listed, on the quick list or not. Then Setup. Flat by necessity: the menu is shown by a system
+  process that returns only top-level clicks, so a submenu cannot be picked
+  from.
+- **Setup…** opens a window: Universal or a language's spelling (the
+  language in a popup, its sample beside it), Try it (a typed line in
+  both), the options with a line on each, and How to. It is set in the
+  Diafon fonts, which the app carries.
+- **Convert selection.** Text in any app, any spelling: select it, then in
+  the Diafon menu **Convert selection to …** converts it in place, from the
+  source detected in the text (your own languages preferred when the text
+  reads in several) to the mode in use; **Convert selection…** opens a
+  window first: the source, detected and changeable, the target, a
+  preview. The same two are text Services, **Convert with Diafon** and
+  **Convert with Diafon…**, in the selection's right-click menu under
+  Services and in the app menu's Services submenu, which work with any
+  input source selected; no key combination, those are taken or shadowed
+  app by app (assign one under System Settings → Keyboard → Keyboard
+  Shortcuts → Services if you want one).
+
+## How to (also in Setup…)
+
+1. Pick Diafon in the input menu (or ⌃Space). The letters sit as Setup's
+   base layout puts them: QWERTY by default, or QWERTZ, AZERTY, Dvorak,
+   Colemak, whatever layout the Mac had selected before.
+2. Type a sound as a base, then its operators: `sj` → ș, `tq` → c̦,
+   `aw` → á; the last sound stays underlined until the next key settles it.
+3. Switch between Diafon and your language keyboards as between any
+   keyboards. Diafon's menu has Keyboards… (which languages are keyboards)
+   and the typing (the input profile).
+4. Text in any spelling: select it, then Diafon menu → Convert selection
+   (or right-click → Services → Convert with Diafon); the … variants let
+   you set the source and the target first.
+
+## Layout of this project
+
+    ../apple/Core/SpecData.swift       generated from docs/spec.json and spec/<profile>.json by scripts/gen_mac.py: script rules, marks, stages, profiles
+    ../apple/Core/Engine.swift         the engine, rule for rule from scripts/engine.py: segments, glyph, render, stream
+    ../apple/Core/Stages.swift         spelling stages, from scripts/stages.py
+    ../apple/Core/Reading.swift        reading back, from scripts/engine.py and stages.py: inventory, tables, parse, convert, detect
+    ../apple/Core/Lexicon.swift        the lexicon layer, for the vector check only: the apps bundle no lexicon
+    ../apple/Core/Profiles.swift       the input profiles: what was typed, read into the engine's forms
+    ../apple/Core/Prefs.swift          the settings (output, language, quick list, tones, join, enabled, profile; strict only colours the iOS strip, the Mac has none) and the renderer
+    ../apple/Core/CheckMain.swift      stdin/stdout driver used by tests/test_swift.py
+    Sources/DiafonInputController.swift  IMKInputController: keystrokes in, streaming rule, insertText / setMarkedText out; the status menu
+    Sources/ConvertWindow.swift        the From / To window of Convert with Diafon…
+    Sources/Hud.swift                  the mode label shown for a moment after a switch
+    Sources/Keyboards.swift            which input modes the system shows: Diafon and the chosen languages
+    Sources/LanguageChooser.swift      the searchable language list (Keyboards…)
+    tools/modes.py                     the Info.plist with one input mode per output
+    Sources/SetupWindow.swift          the setup window
+    Sources/MacPrefs.swift             the base layout under Diafon (overrideKeyboard), from ../apple/Core/Layouts.swift
+    Sources/Services.swift             the text service
+    Sources/main.swift                 IMKServer bootstrap, services registration
+    Info.plist                         the input source, the services, the app icon (docs/logo/Diafon.icns) and
+                                       the input-menu icon (docs/logo/DiafonMenu.tiff, a template the system tints)
+                                       and the cursor badge shown on a switch (TISIconLabels → docs/logo/DiafonBadge.pdf,
+                                       vector, from docs/logo/icon-badge.svg)
+    tools/enable.swift                 enable + select the input source (make enable)
+
+The files in ../apple/Core are pure Swift with no AppKit dependency; that is
+deliberate: they compile on their own, so the engine is verified against the
+spec vectors before the app is built (`make app` runs the check first), and
+the iOS keyboard (../ios) compiles the same files.
+
+## Known limits
+
+- Ad-hoc signed: fine on this machine; distribution needs a Developer ID.
+- A second entry in Input Sources (an old Diaphone, or Diafon twice) is a
+  stale LaunchServices registration of a bundle built elsewhere. List them
+  with `lsregister -dump | grep -E '^path:.*Dia[a-z]*IM'` and drop the
+  extras with `lsregister -u <path>` (`lsregister` lives in
+  /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/).
+  `make install` already unregisters its own build copy.
+- Microsoft Teams sometimes quits (exit code 5, no crash report) while input
+  sources are being cycled in a chat box. In every case seen so far, Teams
+  had just connected to Apple's Pinyin (SCIM), and Diafon was not shown to
+  be involved. That is not yet confirmed: Diafon writes nothing to the system
+  log. To tell, cycle without Pinyin enabled, or with Diafon off. To read the
+  evidence, use `/usr/bin/log` (in zsh a bare `log` is a builtin). runningboardd's
+  `termination reported by launchd` gives the exit, and distnoted's
+  `inputmethodkit.abnormaldeath ... pid:` lines show which input method the
+  app connected to just before.

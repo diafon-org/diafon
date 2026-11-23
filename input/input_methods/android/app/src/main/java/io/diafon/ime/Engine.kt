@@ -1,0 +1,213 @@
+// The engine, ported rule for rule from scripts/engine.py; tables come from
+// SpecData.kt (generated from docs/spec.json). tests/test_kotlin.py replays
+// every spec vector through this file; run it after any change here.
+package io.diafon.ime
+
+import java.text.Normalizer
+
+class ParseError(msg: String) : Exception(msg)
+
+/** One segment of typed text: a form (base letter + operators + tones), a
+ *  raw character outside the alphabet, or an ill-formed chunk. */
+sealed class Seg(val src: String) {
+    class Raw(src: String) : Seg(src)
+    class Err(src: String) : Seg(src)
+    class Form(src: String, val form: String, val tones: String) : Seg(src)
+}
+
+object Engine {
+    val C_BASES: Set<Char> = "bdfghklmnprstvz".toSet()
+    val V_BASES: Set<Char> = "aeiou".toSet()
+    val BASES: Set<Char> = C_BASES + V_BASES
+    val OPS: Set<Char> = "cjqxwy".toSet()
+
+    private val WHOLE = SpecData.WHOLE
+    private val MARKS = SpecData.MARKS
+    private val DESC = SpecData.DESCENDERS
+    private val PARTNER = SpecData.PARTNER
+    const val ZWJ = "\u200D"                          // joins a long consonant's letters (join = true)
+    private val BELOWS = MARKS.values.mapNotNull { it.below }
+
+    fun nfc(s: String): String = Normalizer.normalize(s, Normalizer.Form.NFC)
+
+    /** Segmentation: greedy, left to right. strict=true throws on ill-formed
+     *  input (the reference reading); strict=false marks it Err and goes on
+     *  (the input-method reading: such text passes through as typed). */
+    fun segments(text: String, strict: Boolean = true): List<Seg> {
+        val out = ArrayList<Seg>()
+        var i = 0
+        val n = text.length
+        while (i < n) {
+            val raw = text[i]
+            val ch = raw.lowercaseChar()
+            if (ch !in BASES) {
+                if (ch in OPS || ch.isDigit()) {
+                    if (strict) throw ParseError("position $i: '$raw' cannot start a segment")
+                    out.add(Seg.Err(raw.toString()))
+                } else out.add(Seg.Raw(raw.toString()))
+                i++
+                continue
+            }
+            var j = i + 1
+            val ops = StringBuilder()
+            while (j < n && text[j].lowercaseChar() in OPS) { ops.append(text[j].lowercaseChar()); j++ }
+            val opsS = ops.toString()
+            val w = 'w' in opsS
+            val core = opsS.replace("w", "")
+            var bad: String? = null
+            if (core.length > 2) bad = "${text.substring(i, j)}: more than two operators"
+            else if (opsS.count { it == 'w' } > 1 || (w && !opsS.endsWith("w")))
+                bad = "${text.substring(i, j)}: w must come last, once"
+            val tones = StringBuilder()
+            while (j < n && text[j].isDigit()) { tones.append(text[j]); j++ }
+            val src = text.substring(i, j)
+            if (bad != null) {
+                if (strict) throw ParseError(bad)
+                out.add(Seg.Err(src))
+            } else out.add(Seg.Form(src, raw + core + (if (w) "w" else ""), tones.toString()))
+            i = j
+        }
+        return out
+    }
+
+    private fun hasBelow(g: String) = BELOWS.any { it in g }
+
+    /** Attach a mark by the float rule and one-per-side: below unless the
+     *  rendered letter has a descender (capitals never do). */
+    private fun mark(g: String, base: Char, kind: String, caps: Boolean): String {
+        val m = MARKS.getValue(kind)
+        if (m.below != null && (caps || base !in DESC) && !hasBelow(g)) return g + m.below
+        if (m.above != null) return g + m.above
+        return g + (m.below ?: "")
+    }
+
+    /** Script glyph of one form; an uppercase base letter capitalizes it, and
+     *  the float rule reads the capital's own shape; join puts a ZWJ between
+     *  a long consonant's two letters. */
+    fun glyph(formIn: String, join: Boolean = false): String {
+        val caps = formIn[0].isUpperCase()
+        val form = if (caps) formIn[0].lowercaseChar() + formIn.substring(1) else formIn
+        val w = form.endsWith("w")
+        val core = if (w) form.dropLast(1) else form
+        val base = core[0]
+        val longVowel = w && base in V_BASES && core !in WHOLE
+        fun compose(cap: Boolean): String {
+            var g = composeCore(core, cap)
+            if (longVowel) {
+                val flip = MARKS.getValue("flip").above!!
+                g = if (flip in g) g.replace(flip, MARKS.getValue("double_acute").above!!)
+                    else g + MARKS.getValue("acute").above!!
+            }
+            return nfc(g)
+        }
+        var g = compose(caps)
+        if (w && !longVowel) g += (if (join) ZWJ else "") + g   // long consonant doubles its letter
+        g = nfc(g)
+        if (caps) g = nfc(g[0].uppercaseChar() + g.substring(1))
+        return g
+    }
+
+    /** The composed glyph of a core form (no length): marks as combining characters. */
+    private fun composeCore(core: String, caps: Boolean): String {
+        val base = core[0]
+        val ops = core.substring(1)
+        var g: String
+        if (core in WHOLE) g = WHOLE.getValue(core)
+        else if (core.length == 3 && core.substring(0, 2) in WHOLE) {
+            g = WHOLE.getValue(core.substring(0, 2))
+            when (core[2]) {
+                'x' -> {                                   // the dot on an unmarked whole letter
+                    if (hasBelow(g)) throw ParseError("$core: the dot cannot stack on a marked form")
+                    g = mark(g, g[0], "dot", caps)
+                }
+                'y' -> {
+                    val a = MARKS.getValue("anchor").below!!
+                    if (a in g) g = g.replace(a, MARKS.getValue("reverse").below!!)   // y flips the anchored affricate
+                    else throw ParseError("$core: y flips only an anchor")
+                }
+                else -> throw ParseError("$core: ${core[2]} cannot be secondary")
+            }
+        } else if (base in V_BASES) g = vowel(base, ops)
+        else g = consonant(base, ops, caps)
+        return g
+    }
+
+    private fun consonant(base: Char, ops: String, caps: Boolean): String {
+        var g = base.toString()
+        if (ops.isEmpty()) return g
+        val op1 = ops[0]
+        if (op1 == 'y' && base in "lrf") throw ParseError("$base$ops: no reverse anchor on the thin stems l r f")
+        // one typed form per letter: the dot is x, but the tap is rc; s̤ z̤ are sjy zjy
+        if (op1 == 'c' && base != 'r') throw ParseError("$base$ops: c on a consonant only in the tap rc and the whole letters (tc dc)")
+        if (op1 == 'x' && base == 'r') throw ParseError("$base$ops: the tap is typed rc")
+        if (op1 == 'y' && base in "sz") throw ParseError("$base$ops: the reverse anchor on $base is typed ${base}jy")
+        when (op1) {
+            'j' -> g = mark(g, base, "anchor", caps)
+            'x' -> g = mark(g, base, "dot", caps)
+            'y' -> g = mark(g, base, "reverse", caps)
+            'c' -> g = mark(g, base, "dot", caps)          // the tap rc; other affricates are whole letters
+            'q' -> throw ParseError("$base$ops: no such form")
+        }
+        if (ops.length == 1) return g
+        val op2 = ops[1]
+        if (op2 == 'x') throw ParseError("$base$ops: x cannot follow $op1")
+        if (op2 == 'y') {
+            if (op1 == 'j' && base in "sz")                              // y flips the anchored hush
+                return g.replace(MARKS.getValue("anchor").below!!, MARKS.getValue("reverse").below!!)
+            throw ParseError("$base$ops: y flips only the anchor on s z")
+        }
+        throw ParseError("$base$ops: $op2 cannot be secondary")
+    }
+
+    private val VOWEL_OPS = setOf("", "j", "c", "q", "y", "jy", "cy", "qy")   // one of j c q, then y
+
+    private fun vowel(base: Char, ops: String): String {
+        if (ops !in VOWEL_OPS && 'x' !in ops) throw ParseError("$base$ops: on a vowel, one of j c q, then y (c and j together is q)")
+        var g = base.toString()
+        for (op in ops) {
+            when (op) {
+                'c' -> g = PARTNER.getValue(base) + MARKS.getValue("flip").above!!
+                'j' -> g += MARKS.getValue("underdot").below!!
+                'q' -> g = PARTNER.getValue(base) + MARKS.getValue("flip").above!! + MARKS.getValue("underdot").below!!
+                'y' -> g += MARKS.getValue("grave").above!!
+                'x' -> throw ParseError("$base$ops: x composes only in the glides")
+                else -> throw ParseError("$base$ops: bad vowel operator $op")
+            }
+        }
+        return g
+    }
+
+    /** Script form of a text. strict=false passes ill-formed characters and
+     *  formless segments through as typed; tones=false drops tone digits;
+     *  join=true joins long consonants with a ZWJ. */
+    /** the script's tone signs for a run of tone digits (a digit outside the table stays a digit) */
+    fun toneSigns(digits: String): String = digits.map { SpecData.TONES[it] ?: it.toString() }.joinToString("")
+
+    fun render(text: String, strict: Boolean = true, tones: Boolean = true, join: Boolean = false): String {
+        val out = StringBuilder()
+        for (seg in segments(text, strict)) {
+            if (seg !is Seg.Form) { out.append(seg.src); continue }
+            try {
+                out.append(glyph(seg.form, join)).append(if (tones) toneSigns(seg.tones) else "")
+            } catch (e: ParseError) {
+                if (strict) throw e
+                out.append(seg.src)
+            }
+        }
+        return out.toString()
+    }
+
+    /** The streaming commit rule: everything before the last segment is
+     *  final; a last segment that is a form may still grow, so it stays
+     *  pending. Returns (committed, pending); the caller commits the first,
+     *  shows the second as composing text, and calls again with
+     *  pending + the next key. `renderer` is the lenient render of the
+     *  chosen output (script, transport, or a stage). */
+    fun stream(buffer: String, renderer: (String) -> String = { render(it, false) }): Pair<String, String> {
+        val segs = segments(buffer, false)
+        if (segs.isEmpty()) return Pair("", "")
+        val last = segs.last()
+        val (head, tail) = if (last is Seg.Form) Pair(segs.dropLast(1), last.src) else Pair(segs, "")
+        return Pair(renderer(head.joinToString("") { it.src }), tail)
+    }
+}

@@ -1,0 +1,159 @@
+# Diafon for iOS
+
+A custom keyboard for iOS 16 and later, with the app that carries it. It shows
+four rows: the strip on top, the 26 letters on the base layout of your
+choice, and a bottom row of three keys: the Diafon logo, space and return.
+It converts by the streaming rule and writes the result into whatever field
+has focus. The strip is the digit row between words; inside a word that
+names something in any of seven languages (English, Hungarian, Czech,
+Polish, Finnish, Turkish, Swahili), its emoji take the digits' place: the
+word's own first, then from the third letter those of the words it begins
+(`haw` ❤️, `kutja` 🐶, `dowg` 🐶), and failing both those of its longest stem
+(`kutjawval` 🐶, `tqigawt` 🐌). A classic emoticon typed after a space (`:)`
+`:D` `<3`) offers its emoji too, read from the keys themselves, not the field. A tap puts the emoji in place of the word or the emoticon. A word typed as
+usually spelled, with or without accents (`kutya`, `sziv`, `home`), is read
+by your own languages' spellings too, in any mode: in full first, then on its
+base letters, by the letters of those spellings alone (no dictionary: an
+English word in English spelling finds nothing). In
+Mandarin the digits stay, since they write the tones. Select text in any
+spelling and the strip offers to convert it. The emoji table (data/emoji.json, 220 KB: 656 emoji, 11,442 words) is the
+only word list the keyboard carries: no dictionary, no prediction, no
+network, no full access.
+
+**State:** the keystroke logic is checked on a Mac. The app and the keyboard
+build for iOS, and a UI test types on the keyboard in the simulator (iPhone
+17, iOS 26.5) in both tail modes; every case passes. Not yet run on a device
+or in other apps.
+
+## How an iOS keyboard works
+
+iOS has no input-method layer; third-party text input is a **keyboard
+extension**, a `UIInputViewController` the system loads into the app being
+typed in. It gets:
+
+- **its view**, the panel under the text (our strip, keys and settings),
+- **`textDocumentProxy`**, a handle into the field: `insertText`,
+  `deleteBackward`, `setMarkedText` / `unmarkText` (provisional text, iOS
+  13+), `documentContextBeforeInput`, `selectedText`, and the field's
+  `returnKeyType` and `autocapitalizationType`,
+- **`textDidChange` / `selectionDidChange`**, when the field or the cursor
+  changed, by us or by the person,
+- **no hardware key events**: with a hardware keyboard attached, iOS
+  bypasses extensions. Diafon on an iPad keyboard is not possible.
+
+Extensions run under a tight memory limit (tens of megabytes), and without
+**full access** a keyboard has no network and no storage shared with its
+app. Diafon needs neither, so it does not ask, and the system shows no
+warning when it is turned on. As a result, its settings live in the
+keyboard (hold the logo key), not in the app.
+
+## The text path, and the device pass that settles it
+
+`Shared/Session.swift` holds the streaming rule against a `TextSink`. It has
+no UIKit dependency, so the whole keystroke logic is checked on a Mac. The
+editor always shows the render of everything typed, and only the last
+segment is provisional. There are two ways to keep that segment provisional,
+because iOS apps honour marked text unevenly:
+
+- **marked**: the tail is marked text. `insertText` replaces
+  it with the settled head, which is final; then the new tail is marked.
+  Text is never made final with `unmarkText`, except for an orphaned tail:
+  in the simulator, a setMarkedText, unmarkText, setMarkedText sequence
+  garbled the field (letters came out dropped and doubled).
+- **replace** (the default): the tail is plain text the keyboard remembers. The next key
+  deletes back only the graphemes that differ and types the rest.
+
+The settings panel switches between them ("Underline what is being
+typed"). A changed field (`textDidChange`, `selectionDidChange`) keeps the
+tail only if the text before the cursor still ends with it. Otherwise the
+tail is left where it is, final (unmarked first, so the next key cannot
+overwrite it).
+
+**Simulator, the app's own field (SwiftUI TextField), 2026-10-02:** both
+modes pass items 1 and 3 below and the capitals-and-tones case
+(`Sjan1 Tqy` → `Șanˉ C̤`). One `deleteBackward` takes `n̦` whole.
+
+To check on a device, per app (Notes, Messages, Safari textarea and
+contenteditable, Mail, WhatsApp, Telegram, a search field), in both modes:
+
+1. `sj tq aw` streams to `ș c̦ á`; nothing is doubled or dropped.
+2. Fast typing (overlapping taps) loses no letter.
+3. Backspace after `nj` + `a` leaves `n̦`; one more removes the whole `n̦`
+   (one `deleteBackward` must take a letter with its combining mark).
+4. Whether `documentContextBeforeInput` includes marked text. If it doesn't,
+   marked mode settles a tail on every host callback, and that callback
+   needs a different test.
+5. Tapping elsewhere mid-segment leaves the tail where it was.
+6. Return, the globe and dismissing the keyboard settle the tail.
+
+Record the results here. The outcome decides the default mode, or a
+per-app choice if the apps disagree.
+
+**Device, Contacts (new contact, a name field), Hungarian, marked mode,
+2026-11-18** (a debug build's trace, `Trace` in KeyboardViewController):
+`documentContextBeforeInput` leaves the marked text out (item 4 fails: after
+`D` is marked the context still ends `Boronyák `), and Done saves the field
+without the marked word: `Dóra` was lost. The keyboard gets no call before
+the save, so nothing can settle it in time. In a language's spelling the whole
+word stays marked, so the loss is a word, not a letter. Replace mode keeps
+the tail as plain text, saved like any other: it is the default since.
+
+## The keyboard, key by key
+
+| Key | Does |
+|---|---|
+| letters, digits | `Session.type`: the head becomes final, the tail stays provisional; digits (on the strip) are tones |
+| ⇧ | next letter capital; double tap locks; on at a sentence start where the field asks, if turned on in the settings (off by default) |
+| ⌫ | edits the tail first, then one grapheme of the field; repeats when held |
+| logo | a tap: the signs (two pages in the system keyboard's order, `1/2` and `2/2`), the key lit; a tap again: the letters; press and slide to a sign: that sign, then the letters again; hold: the settings (what is written: Universal, a language, off; the languages offered; the typing, that is the input profile; the layout) |
+| space | names the mode in use (diafon, or the language code; blank when off); goes in on release; hold: the modes (Universal, the ticked languages the typing in use can write, off), slide and let go, or tap; after a sign, the letters come back; two spaces after a word: a full stop and a space |
+| 🌐 | the system's keyboard list; shown only where the system has no switcher of its own (`needsInputModeSwitchKey`) |
+| return | settles the tail, then a newline; labelled by the field's return key type |
+
+Characters are sent on touch down, as on Android. Touches between keys go
+to the nearest key. Each key is an accessibility element (VoiceOver reads
+it; the UI test taps it by its id, `key:s`, `key:space`, `key:delete`).
+
+## Layout of this project
+
+    project.yml                       the Xcode project as text (XcodeGen); Diafon.xcodeproj is generated
+    Makefile                          check, data, icon, project, sim, uitest, open
+    Shared/Session.swift              the streaming rule against a TextSink; no UIKit
+    Shared/KeyboardPrefs.swift        what iOS adds to the shared settings: layout, tail mode, the logo key's menu
+    Keyboard/KeyboardViewController.swift  UIInputViewController: proxy ↔ Session, keys, strip, convert selection
+    Keyboard/KeyboardView.swift       the keys, drawn in one view; touch down emits; the globe button
+    Keyboard/StripView.swift          the digit row, or a word's emoji, or convert selection
+    Keyboard/ModeMenu.swift           the logo key's menu
+    Keyboard/SettingsPanel.swift      the space menu's languages (up to four), layout, capitals, tones, tail mode (no join: other apps' fonts misplace the marks around the joiner)
+    Keyboard/Theme.swift              the palette (light and dark), operator tints, Diafon Serif
+    App/DiafonApp.swift               the app: setup, try, convert, how-to
+    App/Assets.xcassets               the icon (copied from docs/logo/png by `make icon`)
+    check/SessionCheck.swift          the Mac check of Session, driven by tests/test_ios_session.py
+    UITests/KeyboardTests.swift       the keyboard in a simulator: keys tapped by accessibility id, the field read back
+
+The shared core is `../apple/Core` (SpecData, Engine, Stages, Reading,
+Lexicon, Prefs), compiled into the macOS input method as well.
+
+## Build
+
+    make check                         # Command Line Tools only: spec vectors, Session, UIKit typecheck
+    brew install xcodegen               # once
+    make project TEAM=<your team id>    # Diafon.xcodeproj
+    make sim                           # simulator build
+    make uitest                        # type on the keyboard in a simulator, both tail modes
+    make open                          # Xcode: pick a device, run the Diafon scheme
+
+Running on your own device needs only a free Apple ID as the team, but the
+build then has to be re-signed every 7 days. TestFlight and the App Store
+need the Apple Developer Program.
+
+Then on the device: Settings → General → Keyboard → Keyboards → Add New
+Keyboard… → Diafon, and in a field pick it with the globe or the switcher.
+
+## Not yet
+
+- The device pass above, and the default tail mode it decides.
+- A Shortcuts action (App Intent) and a share-sheet action for converting text.
+- Key previews on press; haptics (these need full access, so probably never).
+- Release: privacy label (Data Not Collected), screenshots, the listing at
+  about one dollar (remarks.md, 2026-09-27).

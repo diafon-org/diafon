@@ -1,0 +1,139 @@
+# diafon-v1: the Diafon typing. Every letter of the alphabet on a plain
+# keyboard, with two operator keys: y and q, the two letters the alphabet
+# leaves out.
+#
+# Consonants
+# - y is the anchor (sy ș, ly l̦), q the dot (tq ṭ, sq ṣ, mq ṃ), yq the double
+#   dot below (tyq t̤, kyq k̤, hyq h̤).
+# - On r and w the y is the double dot above: ry is r̈, wy is ẅ. The soft r̦
+#   is ryq.
+# - A doubled consonant is the long one, and an operator after it applies
+#   to both: ssy is șș.
+# Vowels
+# - y is the double dot (uy ü, oy ö), q is length (aq á), yq both (oyq ő).
+# - qy is the dot below (eqy ẹ, oqy ọ), and qyq the dot below, long (oqyq ọ́).
+# - On a the two trade places: ay is the schwa ạ, aqy the front ä (aqyq a̋).
+# - A nasal vowel is the vowel and mq: amq aṃ.
+# Everything else
+# - A doubled operator is the plain letter: syy is sy, tqq is tq. An
+#   operator with nothing to apply to is the plain letter too: you, quick.
+#   (my and by are m̦ and b̦ here: every consonant takes the anchor; the plain words are myy, byy.)
+# - A digit after a letter is its tone (ni3 kqaw3); doubled, it is the plain
+#   digit (h22o is h2o). A digit anywhere else is the digit.
+# - A letter commits when the next one starts.
+#
+# Immutable once released: a change to this file is then diafon-v2.
+id: diafon-v1
+name: Diafon
+alphabet: 1
+segment:
+  kind: key-table
+  operators: yq
+  double: long              # a doubled consonant key: the long letter
+  escape: double            # a doubled operator: the plain letter
+case: base
+commit: segment
+tones: digits             # a digit after a letter is its tone number
+
+keys:
+  p: p                        # p
+  py: pʲ                      # p̓
+  pq: p+dot                   # ṗ
+  pyq: p+twodots              # p̈
+  b: b                        # b
+  by: bʲ                      # b̦
+  bq: b+dot                   # ḅ
+  byq: b+twodots              # b̤
+  t: t                        # t
+  ty: c                       # ț
+  tq: θ                       # ṭ
+  tyq: ʈ                      # t̤
+  d: d                        # d
+  dy: ɟ                       # d̦
+  dq: ð                       # ḍ
+  dyq: ɖ                      # d̤
+  k: k                        # k
+  ky: kʲ                      # k̦
+  kq: x                       # ḳ
+  kyq: q                      # k̤
+  g: g                        # g
+  gy: gʲ                      # g̓
+  gq: ɣ                       # ġ
+  gyq: ʕ                      # g̈
+  f: f                        # f
+  fy: fʲ                      # f̦
+  fq: f+dot                   # f̣
+  v: v                        # v
+  vy: vʲ                      # v̦
+  vq: v+dot                   # ṿ
+  vyq: v+twodots              # v̤
+  s: s                        # s
+  sy: ʃ                       # ș
+  sq: ɕ                       # ṣ
+  syq: sˤ                     # s̤
+  z: z                        # z
+  zy: ʒ                       # z̦
+  zq: ʑ                       # ẓ
+  zyq: ðˤ                     # z̤
+  c: ts                       # c
+  cy: tʃ                      # c̦
+  cq: tɕ                      # c̣
+  cyq: c+twodots              # c̤
+  x: dz                       # x
+  xy: dʒ                      # x̦
+  xq: dʑ                      # x̣
+  xyq: x+twodots              # x̤
+  h: h                        # h
+  hy: h+anchor                # h̦
+  hq: ʔ                       # ḥ
+  hyq: ħ                      # h̤
+  m: m                        # m
+  my: mʲ                      # m̦
+  mq: ⁿ                       # ṃ
+  myq: m+twodots              # m̤
+  n: n                        # n
+  ny: ɲ                       # n̦
+  nq: ŋ                       # ṇ
+  nyq: ɳ                      # n̤
+  l: l                        # l
+  ly: ʎ                       # l̦
+  lq: ɭ                       # ḷ
+  r: r                        # r
+  ry: ɝ                       # r̈
+  rq: ɾ                       # ṛ
+  ryq: rʲ                     # r̦
+  j: j                        # j
+  jq: j+dot                   # j̇
+  w: w                        # w
+  wy: ɥ                       # ẅ
+  wq: w+dot                   # ẉ
+  a: a                        # a
+  aq: aː                      # á
+  aqy: æ                      # ä
+  ay: ə                       # ạ
+  aqyq: æː                    # a̋
+  ayq: əː                     # ạ́
+  e: e                        # e
+  eq: eː                      # é
+  ey: ɤ                       # ë
+  eqy: ɛ                      # ẹ
+  eyq: ɤː                     # e̋
+  eqyq: ɛː                    # ẹ́
+  i: i                        # i
+  iq: iː                      # í
+  iy: ɯ                       # ï
+  iqy: ɪ                      # ị
+  iyq: ɯː                     # i̋
+  iqyq: ɪː                    # ị́
+  o: o                        # o
+  oq: oː                      # ó
+  oy: ø                       # ö
+  oqy: ɔ                      # ọ
+  oyq: øː                     # ő
+  oqyq: ɔː                    # ọ́
+  u: u                        # u
+  uq: uː                      # ú
+  uy: y                       # ü
+  uqy: u+underdot             # ụ
+  uyq: yː                     # ű
+  uqyq: u+underdotː           # ụ́

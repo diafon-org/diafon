@@ -1,0 +1,154 @@
+# universal-v1: the typing Diafon had before the alphabet and the input were
+# split. Every language, plain ASCII.
+#
+# A segment is a base letter, then at most two operators, then w once for a
+# long point, then tone digits. An operator never starts a segment. Each key
+# sequence types one letter of the script, and each letter is typed one way.
+# A target is a point of the alphabet by name (ʃ), or, for a letter no
+# language uses yet, its letter and marks (b+twodots).
+#
+# Immutable: a change to this file is universal-v2.
+id: universal-v1
+name: Universal (every language)
+alphabet: 1                 # the alphabet major this profile targets
+segment:
+  kind: base-operators
+  bases: abdefghiklmnoprstuvz
+  operators: cjqxy
+  max_operators: 2
+  length: w                 # after the operators, once: the long point
+  tones: digits             # trailing digits are tone numbers
+case: base                  # an uppercase base capitalizes the point; operators read the same in either case
+commit: segment             # a segment commits when the next one starts
+
+keys:
+  p: p                            # p
+  pj: pʲ                          # p̓
+  px: p+dot                       # ṗ
+  py: p+twodots                   # p̈
+
+  t: t                            # t
+  tc: ts                          # c
+  tj: c                           # ț
+  tq: tʃ                          # c̦
+  tx: θ                           # ṭ
+  ty: ʈ                           # t̤
+  tcx: tɕ                         # c̣
+  tqy: c+twodots                  # c̤
+
+  k: k                            # k
+  kj: kʲ                          # k̦
+  kx: x                           # ḳ
+  ky: q                           # k̤
+
+  b: b                            # b
+  bj: bʲ                          # b̦
+  bx: b+dot                       # ḅ
+  by: b+twodots                   # b̤
+
+  d: d                            # d
+  dc: dz                          # x
+  dj: ɟ                           # d̦
+  dq: dʒ                          # x̦
+  dx: ð                           # ḍ
+  dy: ɖ                           # d̤
+  dcx: dʑ                         # x̣
+  dqy: x+twodots                  # x̤
+
+  g: g                            # g
+  gj: gʲ                          # g̓
+  gx: ɣ                           # ġ
+  gy: ʕ                           # g̈
+
+  f: f                            # f
+  fj: fʲ                          # f̦
+  fx: f+dot                       # f̣
+
+  v: v                            # v
+  vj: vʲ                          # v̦
+  vx: v+dot                       # ṿ
+  vy: v+twodots                   # v̤
+
+  s: s                            # s
+  sj: ʃ                           # ș
+  sx: ɕ                           # ṣ
+  sjy: sˤ                         # s̤
+
+  z: z                            # z
+  zj: ʒ                           # z̦
+  zx: ʑ                           # ẓ
+  zjy: ðˤ                         # z̤
+
+  m: m                            # m
+  mj: mʲ                          # m̦
+  mx: m+dot                       # ṃ
+  my: m+twodots                   # m̤
+
+  n: n                            # n
+  nj: ɲ                           # n̦
+  nx: ŋ                           # ṇ
+  ny: ɳ                           # n̤
+
+  l: l                            # l
+  lj: ʎ                           # l̦
+  lx: ɭ                           # ḷ
+
+  r: r                            # r
+  rc: ɾ                           # ṛ
+  rj: rʲ                          # r̦
+
+  h: h                            # h
+  hj: h+anchor                    # h̦
+  hx: ʔ                           # ḥ
+  hy: ħ                           # h̤
+
+  a: a                            # a
+  ac: æ                           # ä
+  aj: ə                           # ạ
+  aq: ɝ                           # r̈
+  ay: ã                           # à
+  acy: a+flip+grave               # ä̀
+  ajy: a+underdot+grave           # ạ̀
+  aqx: {to: r+dot+flip, long: false}# ṛ̈
+
+  e: e                            # e
+  ec: ø                           # ö
+  ej: ɛ                           # ẹ
+  eq: œ                           # ọ̈
+  ey: ẽ                           # è
+  ecy: o+flip+grave               # ö̀
+  ejy: ɛ̃                         # ẹ̀
+  eqy: o+flip+underdot+grave      # ọ̈̀
+
+  i: i                            # i
+  ic: y                           # ü
+  ij: ɪ                           # ị
+  iq: ʏ                           # ụ̈
+  ix: j                           # j
+  iy: ĩ                           # ì
+  icx: ɥ                          # ẅ: the glide of ü (ic), drawn on w as ü is on u
+  icy: u+flip+grave               # ǜ
+  ijy: i+underdot+grave           # ị̀
+  iqy: u+flip+underdot+grave      # ụ̈̀
+  ixx: {to: j+dot, long: false}   # j̇
+
+  o: o                            # o
+  oc: ɤ                           # ë
+  oj: ɔ                           # ọ
+  oq: e+flip+underdot             # ẹ̈
+  oy: õ                           # ò
+  ocy: e+flip+grave               # ë̀
+  ojy: ɔ̃                         # ọ̀
+  oqy: e+flip+underdot+grave      # ẹ̈̀
+
+  u: u                            # u
+  uc: ɯ                           # ï
+  uj: ʊ                           # ụ
+  uq: i+flip+underdot             # ị̈
+  ux: w                           # w
+  uy: ũ                           # ù
+  ucx: j+flip                     # j̈
+  ucy: i+flip+grave               # ï̀
+  ujy: u+underdot+grave           # ụ̀
+  uqy: i+flip+underdot+grave      # ị̈̀
+  uxx: {to: w+dot, long: false}   # ẉ
