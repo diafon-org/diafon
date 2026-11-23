@@ -17,6 +17,13 @@ NSSetUncaughtExceptionHandler { e in
     }
 }
 
+// `DiafonIM --check`: the bundle's own alphabet and typing, loaded and used once; no server.
+if CommandLine.arguments.contains("--check") {
+    let d = Diafon.shared
+    print(d.failure.map { "FAILED: \($0)" } ?? "\(d.render("sy cy aq"))  ·  alphabet \(d.version), typing \(d.typing), \(Prefs.languages.count) languages")
+    exit(d.failure == nil ? 0 : 1)
+}
+
 let connectionName = (Bundle.main.infoDictionary?["InputMethodConnectionName"] as? String) ?? "Diafon_1_Connection"
 let server = IMKServer(name: connectionName, bundleIdentifier: Bundle.main.bundleIdentifier)
 // the candidate window (the one the CJK input methods use): the pending
