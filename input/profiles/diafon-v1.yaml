@@ -134,6 +134,6 @@ keys:
   u: u                        # u
   uq: uː                      # ú
   uy: y                       # ü
-  uqy: u+underdot             # ụ
+  uqy: ʊ                      # ụ
   uyq: yː                     # ű
-  uqyq: u+underdotː           # ụ́
+  uqyq: ʊː                    # ụ́

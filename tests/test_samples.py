@@ -28,6 +28,7 @@ LEFTOVER = {
     'hu': [r'sz', r'cs', r'zs', r'gy', r'ny', r'ty', r'ly'],
     'sw': [r'ch', r'sh', r'dh', r'th', r'gh', r'ny', r"ng'"],
     'tr': [],
+    'ig': [r'ch', r'sh', r'gh', r'ny', r'nw'],
     'en': [r"\w['’]\w", 'r\u0308[aeiou]'],            # an elision left over; r̈ before a vowel is ër
     'zh': [],
 }

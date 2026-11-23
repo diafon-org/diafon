@@ -1498,7 +1498,7 @@
     "u",
     "underdot"
    ],
-   "point": null,
+   "point": "ʊ",
    "long": false,
    "writes": {
     "glyph": "ụ",
@@ -1526,7 +1526,7 @@
     "u",
     "underdot"
    ],
-   "point": null,
+   "point": "ʊ",
    "long": true,
    "writes": {
     "glyph": "ụ",
@@ -1571,6 +1571,7 @@
   "hi",
   "hu",
   "id",
+  "ig",
   "it",
   "ja",
   "ka",

@@ -54,9 +54,10 @@ BASE = {
  'ɒ': 'open back rounded vowel',
  'r̝': 'raised alveolar trill',
  't͈ɕ': 'fortis alveolo-palatal affricate',
+ 'k͡p': 'voiceless labial–velar plosive', 'g͡b': 'voiced labial–velar plosive',
 }
 MODS = {
- 'ʰ': 'aspirated', 'ʱ': 'breathy-voiced', 'ʲ': 'palatalized',
+ 'ʰ': 'aspirated', 'ʱ': 'breathy-voiced', 'ʲ': 'palatalized', 'ʷ': 'labialized',
  'ˤ': 'pharyngealized', 'ʼ': 'ejective', 'ː': 'long',
  '̃': 'nasalized', '̪': 'dental', '͈': 'fortis',
  '͡': '',  # tie bar: cosmetic

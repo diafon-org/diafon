@@ -43,6 +43,9 @@ TEXTS = [
     ('sw', 'Swahili', 'Universal Declaration of Human Rights, Article 1',
      "Watu wote wamezaliwa huru, hadhi na haki zao ni sawa. Wote wamejaliwa akili na dhamiri, hivyo yapasa watendeane "
      "kindugu."),
+    ('ig', 'Igbo', 'Universal Declaration of Human Rights, Article 1',
+     "A mụrụ mmadụ nile n'ohere nakwa nha anya ugwu na ikike. E nyere ha uche na mmụọ ime ihe ziri ezi nke na ha "
+     "kwesiri ịkpaso ibe ha agwa n'obi nwanne na nwanne."),
     ('zh', 'Mandarin (pinyin)', 'Universal Declaration of Human Rights, Article 1',
      "ren2ren2 sheng1 er2 zi4you2, zai4 zun1yan2 he2 quan2li4 shang4 yi1lü4 ping2deng3. ta1men fu4you3 li3xing4 he2 "
      "liang2xin1, bing4 ying1 yi3 xiong1di4 guan1xi4 de jing1shen2 xiang1 dui4dai4."),

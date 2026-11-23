@@ -1,0 +1,45 @@
+# Igbo spelling stage: the point stream rendered in today's Igbo orthography
+# (the Ọnwụ alphabet). Render-only, like every stage.
+#
+# Igbo is written as it sounds, with the same dot below on ị ọ ụ. Its
+# digraphs are its own: ch sh gh ny, and nw for ṇw. Tone is not normally
+# written in Igbo and is not written here. Losses: none known.
+code: ig
+name: Igbo
+state: draft
+long: double
+letters: a b ch d e f g gb gh gw h i ị j k kp kw l m n ṅ nw ny o ọ p r s sh t u ụ v w y z
+sample: nnọ, kedụ ka ị mere      # nnọ, kedụ ka ị mere
+pairs: {ṇw: nw}
+points:
+  p: p
+  b: b
+  t: t
+  d: d
+  k: k
+  g: g
+  f: f
+  v: v
+  s: s
+  z: z
+  ʃ: sh
+  tʃ: ch
+  dʒ: j
+  ɣ: gh
+  ɲ: ny
+  ŋ: ṅ
+  h: h
+  m: m
+  n: n
+  l: l
+  r: r
+  j: y
+  w: w
+  a: a
+  e: e
+  i: i
+  ɪ: ị
+  o: o
+  ɔ: ọ
+  u: u
+  ʊ: ụ

@@ -1,0 +1,53 @@
+# Igbo; phoneme metadata only (IPA inventory, coarse frequency,
+# speakers). No point mapping. freq: L frequent · M ordinary ·
+# S infrequent · X marginal/loan. See data/README.md.
+# Standard Igbo (Igbo izugbe), after the Ọnwụ alphabet's values (Wikipedia:
+# Igbo language, Igbo alphabet; the vowels after Ikekeonwu 1999). Two vowel
+# sets in harmony: i e o u and ɪ a ɔ ʊ; no vowel length. The nasal vowels
+# and the Central dialects' extra series are left out. Downstep, the third
+# tone, has no sign yet: high and low only.
+code: ig
+name: Igbo
+native_name: Asụsụ Igbo
+speakers: {native: 34, total: 34}   # millions (2023)
+tones:   # input digit -> standard contour (defined in data/README.md)
+  1: high
+  6: low
+consonants:
+  p: M
+  b: M
+  t: M
+  d: M
+  k: L
+  g: M
+  k͡p: M
+  g͡b: M
+  kʷ: M
+  gʷ: M
+  tʃ: M
+  dʒ: M
+  f: M
+  v: S
+  s: M
+  z: M
+  ʃ: S
+  ɣ: M
+  ɦ: M
+  m: L
+  n: L
+  ɲ: M
+  ŋ: M
+  ŋʷ: M
+  l: M
+  ɹ: L
+  j: M
+  w: L
+vowels:
+  i: L
+  ɪ: L
+  e: L
+  a: L
+  u: L
+  ʊ: L
+  o: L
+  ɔ: L

@@ -110,6 +110,11 @@ consonants:
   ɽ: ɾ        # tap and flap contrast nowhere; Indic writes ṛ
   # aspiration
   pʰ: [p, h]        # aspiration is always the sequence with h
+  k͡p: [k, p]       # the labial-velars and the rounded velars (Igbo kp gb kw gw nw): sequences too;
+  g͡b: [g, b]       #   Igbo has no clusters they could be taken for
+  kʷ: [k, w]
+  gʷ: [g, w]
+  ŋʷ: [ŋ, w]
   tʰ: [t, h]
   kʰ: [k, h]
   tsʰ: [ts, h]
@@ -208,7 +213,7 @@ vowels:
 # two ways. `core` is the area's reference value.
 areas:
   i:  {core: i, split: {ɪ: [ɪ]}}
-  u:  {core: u}                          # ʊ keeps the area: no language here contrasts it with u at one length
+  u:  {core: u, split: {ʊ: [ʊ]}}         # only Igbo sets ʊ against u at one length; elsewhere length tells them apart
   e:  {core: e, split: {ɛ: [ɛ]}}
   o:  {core: o, split: {ɔ: [ɔ]}}
   a:  {core: a, split: {æ: [æ]}}         # the front a, ä; ɑ ɒ keep the area (Finnish and Estonian a ä)

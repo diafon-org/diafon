@@ -79,7 +79,8 @@ Each of these is used by one to three of the languages Diafon covers.
 | <span class="ug">a̋</span> | `ayq` | Estonian, Finnish |
 | <span class="ug">e̋</span> | `eyq` | Estonian, Thai, Vietnamese |
 | <span class="ug">i̋</span> | `iyq` | Japanese, Thai |
-| <span class="ug">ị</span> | `iqy` | Dutch, Ukrainian |
+| <span class="ug">ị</span> | `iqy` | Dutch, Igbo, Ukrainian |
+| <span class="ug">ụ</span> | `uqy` | Igbo |
 | <span class="ug">ẹ́</span> | `eqyq` | Thai |
 | <span class="ug">ọ́</span> | `oqyq` | Thai |
 

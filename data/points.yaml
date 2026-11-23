@@ -7,7 +7,7 @@ b:
   glyph: b
   capital: B
   readings:
-    b: [ar, bn, cs, de, en, es, fa, fr, he, hi, hu, id, it, ja, ka, la, nl, pl, pt, ro, ru, sw, th, tr, uk]
+    b: [ar, bn, cs, de, en, es, fa, fr, he, hi, hu, id, ig, it, ja, ka, la, nl, pl, pt, ro, ru, sw, th, tr, uk]
     ɓ: [vi]
 bʲ:
   letter: b
@@ -35,7 +35,7 @@ tʃ:
   readings:
     tɕ: [ja, ko, ru, th, vi]
     tʂ: [pl, zh]
-    tʃ: [bn, cs, de, en, es, fa, hi, hu, id, it, ro, sw, ta, tr, uk]
+    tʃ: [bn, cs, de, en, es, fa, hi, hu, id, ig, it, ro, sw, ta, tr, uk]
     tʃʼ: [ka]
 tʃː:
   letter: c
@@ -61,7 +61,7 @@ d:
   glyph: d
   capital: D
   readings:
-    d: [ar, cs, de, en, es, fa, fi, fr, he, hu, id, it, ja, ka, la, nl, pl, pt, ro, ru, sw, th, tr, uk]
+    d: [ar, cs, de, en, es, fa, fi, fr, he, hu, id, ig, it, ja, ka, la, nl, pl, pt, ro, ru, sw, th, tr, uk]
     d̪: [bn, hi]
     ɗ: [vi]
 ɟ:
@@ -98,7 +98,7 @@ f:
   glyph: f
   capital: F
   readings:
-    f: [ar, cs, de, el, en, es, fa, fr, he, hu, it, la, nl, pl, pt, ro, ru, sw, th, tr, vi, zh]
+    f: [ar, cs, de, el, en, es, fa, fr, he, hu, ig, it, la, nl, pl, pt, ro, ru, sw, th, tr, vi, zh]
 fʲ:
   letter: f
   marks: [anchor]
@@ -114,7 +114,7 @@ g:
   glyph: g
   capital: G
   readings:
-    g: [bn, de, en, es, fa, fr, he, hi, hu, id, it, ja, ka, la, pl, pt, ro, ru, sw, tr]
+    g: [bn, de, en, es, fa, fr, he, hi, hu, id, ig, it, ja, ka, la, pl, pt, ro, ru, sw, tr]
 gʲ:
   letter: g
   marks: [anchor]
@@ -130,7 +130,7 @@ gʲ:
   glyph: ġ
   capital: G̣
   readings:
-    ɣ: [el, vi]
+    ɣ: [el, ig, vi]
     ʁ: [ar, de, fr, he, ka, pt]
 ʕ:
   letter: g
@@ -148,7 +148,7 @@ h:
   capital: H
   readings:
     h: [ar, bn, de, en, et, fa, fi, he, hi, hu, id, ja, ka, ko, la, nl, ro, sw, th, tr, vi]
-    ɦ: [cs, uk]
+    ɦ: [cs, ig, uk]
 ʔ:
   letter: h
   marks: [dot]
@@ -172,7 +172,7 @@ j:
   glyph: j
   capital: J
   readings:
-    j: [ar, bn, cs, de, en, et, fa, fi, fr, he, hi, hu, id, ja, ko, la, nl, pl, pt, ro, ru, sw, ta, th, tr, uk, vi]
+    j: [ar, bn, cs, de, en, et, fa, fi, fr, he, hi, hu, id, ig, ja, ko, la, nl, pl, pt, ro, ru, sw, ta, th, tr, uk, vi]
 k:
   letter: k
   marks: []
@@ -180,7 +180,7 @@ k:
   glyph: k
   capital: K
   readings:
-    k: [ar, bn, cs, de, el, en, es, et, fa, fi, fr, he, hi, hu, id, it, ja, ko, la, nl, pl, pt, ro, ru, sw, ta, th, tr, uk, vi, zh]
+    k: [ar, bn, cs, de, el, en, es, et, fa, fi, fr, he, hi, hu, id, ig, it, ja, ko, la, nl, pl, pt, ro, ru, sw, ta, th, tr, uk, vi, zh]
     kʼ: [ka]
 kː:
   letter: k
@@ -223,7 +223,7 @@ l:
   glyph: l
   capital: L
   readings:
-    l: [ar, bn, cs, de, el, en, es, et, fa, fi, fr, he, hi, hu, id, it, ka, ko, la, nl, pl, pt, ro, ru, sw, ta, th, tr, uk, vi, zh]
+    l: [ar, bn, cs, de, el, en, es, et, fa, fi, fr, he, hi, hu, id, ig, it, ka, ko, la, nl, pl, pt, ro, ru, sw, ta, th, tr, uk, vi, zh]
 ʎ:
   letter: l
   marks: [anchor]
@@ -248,7 +248,7 @@ m:
   glyph: m
   capital: M
   readings:
-    m: [ar, bn, cs, de, el, en, es, et, fa, fi, fr, he, hi, hu, id, it, ja, ka, ko, la, nl, pl, pt, ro, ru, sw, ta, th, tr, uk, vi, zh]
+    m: [ar, bn, cs, de, el, en, es, et, fa, fi, fr, he, hi, hu, id, ig, it, ja, ka, ko, la, nl, pl, pt, ro, ru, sw, ta, th, tr, uk, vi, zh]
 mʲ:
   letter: m
   marks: [anchor]
@@ -271,7 +271,7 @@ n:
   glyph: n
   capital: N
   readings:
-    n: [ar, bn, cs, de, el, en, es, et, fa, fi, fr, he, hi, hu, id, it, ja, ka, ko, la, nl, pl, pt, ro, ru, sw, ta, th, tr, uk, vi, zh]
+    n: [ar, bn, cs, de, el, en, es, et, fa, fi, fr, he, hi, hu, id, ig, it, ja, ka, ko, la, nl, pl, pt, ro, ru, sw, ta, th, tr, uk, vi, zh]
 ɲ:
   letter: n
   marks: [anchor]
@@ -280,7 +280,7 @@ n:
   capital: N̦
   readings:
     nʲ: [et, ru, uk]
-    ɲ: [cs, es, fr, hu, id, it, pl, pt, sw, ta, vi]
+    ɲ: [cs, es, fr, hu, id, ig, it, pl, pt, sw, ta, vi]
 ŋ:
   letter: n
   marks: [dot]
@@ -288,7 +288,7 @@ n:
   glyph: ṇ
   capital: Ṇ
   readings:
-    ŋ: [bn, de, en, fi, id, ko, nl, sw, th, vi, zh]
+    ŋ: [bn, de, en, fi, id, ig, ko, nl, sw, th, vi, zh]
     ɴ: [ja]
 ɳ:
   letter: n
@@ -305,7 +305,7 @@ p:
   glyph: p
   capital: P
   readings:
-    p: [bn, cs, de, el, en, es, et, fa, fi, fr, he, hi, hu, id, it, ja, ko, la, nl, pl, pt, ro, ru, sw, ta, th, tr, uk, zh]
+    p: [bn, cs, de, el, en, es, et, fa, fi, fr, he, hi, hu, id, ig, it, ja, ko, la, nl, pl, pt, ro, ru, sw, ta, th, tr, uk, zh]
     pʼ: [ka]
 pː:
   letter: p
@@ -331,7 +331,7 @@ r:
   capital: R
   readings:
     r: [ar, bn, cs, el, es, et, fa, fi, hi, hu, id, it, ja, ka, la, nl, pl, ro, ru, sw, ta, th, uk]
-    ɹ: [en]
+    ɹ: [en, ig]
 rʲ:
   letter: r
   marks: [anchor]
@@ -367,7 +367,7 @@ s:
   glyph: s
   capital: S
   readings:
-    s: [ar, cs, de, el, en, es, et, fa, fi, fr, he, hi, hu, id, it, ja, ka, ko, la, nl, pl, pt, ro, ru, sw, th, tr, uk, vi, zh]
+    s: [ar, cs, de, el, en, es, et, fa, fi, fr, he, hi, hu, id, ig, it, ja, ka, ko, la, nl, pl, pt, ro, ru, sw, th, tr, uk, vi, zh]
 sː:
   letter: s
   marks: []
@@ -385,7 +385,7 @@ sː:
   readings:
     ɕ: [ja]
     ʂ: [pl, ru, zh]
-    ʃ: [ar, bn, cs, de, en, fa, fr, he, hi, hu, it, ka, pt, ro, sw, tr, uk]
+    ʃ: [ar, bn, cs, de, en, fa, fr, he, hi, hu, ig, it, ka, pt, ro, sw, tr, uk]
 ɕ:
   letter: s
   marks: [dot]
@@ -418,7 +418,7 @@ t:
   glyph: t
   capital: T
   readings:
-    t: [ar, cs, de, el, en, es, et, fa, fi, fr, he, hu, id, it, ja, ko, la, nl, pl, pt, ro, ru, sw, th, tr, uk, vi, zh]
+    t: [ar, cs, de, el, en, es, et, fa, fi, fr, he, hu, id, ig, it, ja, ko, la, nl, pl, pt, ro, ru, sw, th, tr, uk, vi, zh]
     tʼ: [ka]
     t̪: [bn, hi, ta]
 tː:
@@ -462,7 +462,7 @@ v:
   glyph: v
   capital: V
   readings:
-    v: [cs, de, el, en, et, fa, fi, fr, he, hu, it, ka, nl, pl, pt, ro, ru, sw, ta, tr, uk, vi]
+    v: [cs, de, el, en, et, fa, fi, fr, he, hu, ig, it, ka, nl, pl, pt, ro, ru, sw, ta, tr, uk, vi]
     ʋ: [hi]
 vʲ:
   letter: v
@@ -479,7 +479,7 @@ w:
   glyph: w
   capital: W
   readings:
-    w: [ar, en, fr, id, ja, ko, la, nl, pl, pt, ro, sw, th, vi]
+    w: [ar, en, fr, id, ig, ja, ko, la, nl, pl, pt, ro, sw, th, vi]
 ɥ:
   letter: w
   marks: [flip]
@@ -505,7 +505,7 @@ dʒ:
   readings:
     dʐ: [pl]
     dʑ: [ja]
-    dʒ: [ar, bn, en, fa, hi, id, it, ka, ro, tr, uk]
+    dʒ: [ar, bn, en, fa, hi, id, ig, it, ka, ro, tr, uk]
 dʑ:
   letter: x
   marks: [dot]
@@ -521,7 +521,7 @@ z:
   glyph: z
   capital: Z
   readings:
-    z: [ar, cs, de, el, en, fa, fr, he, hu, it, ja, ka, nl, pl, pt, ro, ru, sw, tr, uk, vi]
+    z: [ar, cs, de, el, en, fa, fr, he, hu, ig, it, ja, ka, nl, pl, pt, ro, ru, sw, tr, uk, vi]
 ʒ:
   letter: z
   marks: [anchor]
@@ -555,7 +555,7 @@ a:
   glyph: a
   capital: A
   readings:
-    a: [ar, bn, cs, de, el, es, fr, he, id, it, ja, ka, ko, la, pl, pt, ro, ru, ta, th, tr, uk, vi, zh]
+    a: [ar, bn, cs, de, el, es, fr, he, id, ig, it, ja, ka, ko, la, pl, pt, ro, ru, ta, th, tr, uk, vi, zh]
     æ: [en]
     ɐ: [pt]
     ɑ: [et, fi, nl, sw]
@@ -592,7 +592,7 @@ e:
   glyph: e
   capital: E
   readings:
-    e: [bn, el, es, et, fa, fi, fr, he, id, it, ja, ka, ko, la, pt, ro, ru, ta, th, tr, vi]
+    e: [bn, el, es, et, fa, fi, fr, he, id, ig, it, ja, ka, ko, la, pt, ro, ru, ta, th, tr, vi]
     ɛ: [cs, de, en, hu, ko, nl, pl, sw, uk]
 eː:
   letter: e
@@ -645,7 +645,7 @@ i:
   glyph: i
   capital: I
   readings:
-    i: [ar, bn, cs, el, es, et, fa, fi, fr, he, hu, id, it, ja, ka, ko, la, nl, pl, pt, ro, ru, sw, ta, th, tr, uk, vi, zh]
+    i: [ar, bn, cs, el, es, et, fa, fi, fr, he, hu, id, ig, it, ja, ka, ko, la, nl, pl, pt, ro, ru, sw, ta, th, tr, uk, vi, zh]
     ɪ: [de, en, hi]
 iː:
   letter: i
@@ -679,7 +679,7 @@ iː:
   glyph: ị
   capital: Ị
   readings:
-    ɪ: [nl, uk]
+    ɪ: [ig, nl, uk]
 o:
   letter: o
   marks: []
@@ -687,7 +687,7 @@ o:
   glyph: o
   capital: O
   readings:
-    o: [bn, cs, el, es, et, fa, fi, fr, he, hu, id, it, ja, ka, ko, la, pt, ro, ru, ta, th, tr, vi]
+    o: [bn, cs, el, es, et, fa, fi, fr, he, hu, id, ig, it, ja, ka, ko, la, pt, ro, ru, ta, th, tr, vi]
     ɔ: [de, nl, pl, sw, uk]
 oː:
   letter: o
@@ -723,7 +723,7 @@ oː:
   glyph: ọ
   capital: Ọ
   readings:
-    ɔ: [bn, fr, it, pt, th, vi]
+    ɔ: [bn, fr, ig, it, pt, th, vi]
 ɔː:
   letter: o
   marks: [underdot]
@@ -739,7 +739,7 @@ u:
   glyph: u
   capital: U
   readings:
-    u: [ar, bn, cs, el, es, et, fa, fi, fr, he, hu, id, it, ka, ko, la, nl, pl, pt, ro, ru, sw, ta, th, tr, uk, vi, zh]
+    u: [ar, bn, cs, el, es, et, fa, fi, fr, he, hu, id, ig, it, ka, ko, la, nl, pl, pt, ro, ru, sw, ta, th, tr, uk, vi, zh]
     ʊ: [de, en, hi]
 uː:
   letter: u
@@ -749,6 +749,14 @@ uː:
   capital: Ú
   readings:
     uː: [ar, cs, de, en, et, fi, hi, hu, la, ta, th]
+ʊ:
+  letter: u
+  marks: [underdot]
+  long: false
+  glyph: ụ
+  capital: Ụ
+  readings:
+    ʊ: [ig]
 y:
   letter: u
   marks: [flip]

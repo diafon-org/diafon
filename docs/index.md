@@ -111,8 +111,9 @@ each area and write it bare.
 A few languages have two vowels inside one area. Only they write the second
 one, with a mark that means the same in all of them:
 <span class="ug">ẹ ọ</span> /ɛ ɔ/ in French, Italian, Portuguese, Bengali,
-Vietnamese and Thai; <span class="ug">ị</span> /ɪ/ in Dutch and Ukrainian. The
-mark means the more open vowel of the two. Finnish, Estonian and Persian
+Vietnamese and Thai; <span class="ug">ị</span> /ɪ/ in Dutch and Ukrainian; and
+<span class="ug">ị ọ ụ</span> /ɪ ɔ ʊ/ in Igbo, whose own spelling marks them the same way.
+The mark means the more open vowel of the two. Finnish, Estonian and Persian
 have a front a beside the back one: <span class="ug">ä</span> /æ/, the double dot as on
 <span class="ug">ö</span> and <span class="ug">ü</span>. A
 language that makes the split writes it in its long vowels and diphthongs
