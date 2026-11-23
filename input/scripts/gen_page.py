@@ -50,17 +50,25 @@ def langs(v, use):
     return use.get(v['point'] + (alphabet.LONG if v['long'] else ''), []) if v['point'] else []
 
 
+CODES = ['', 'y', 'q', 'yq', 'qy', 'qyq']      # the keys after a letter, the simplest first
+
+
 def grid(c, letters, use):
-    out = []
-    for key, v in c['keys'].items():
-        if key[0] in letters and len(langs(v, use)) > FEW:
-            out.append(tile(key, v))
-    return '<div class="keys-grid" markdown="0">' + ''.join(out) + '</div>'
+    """The letters by what is typed after them: one row per code, the simplest first."""
+    rows = []
+    for code in CODES:
+        tiles = [tile(key, v) for key, v in c['keys'].items()
+                 if key[0] in letters and key[1:] == code and len(langs(v, use)) > FEW]
+        if tiles:
+            label = f'<code>{code}</code>' if code else 'alone'
+            rows.append(f'<div class="keys-row"><span class="keys-op">{label}</span>'
+                        f'<div class="keys-grid">{"".join(tiles)}</div></div>')
+    return '<div class="keys-rows" markdown="0">' + ''.join(rows) + '</div>'
 
 
 def few(c, use):
     rows = ['| Letter | Keys | Languages |', '|---|---|---|']
-    for key, v in c['keys'].items():
+    for key, v in sorted(c['keys'].items(), key=lambda kv: CODES.index(kv[0][1:]) if kv[0][1:] in CODES else len(CODES)):
         if 0 < len(langs(v, use)) <= FEW:
             g = v['writes']['long' if v['long'] else 'glyph']
             rows.append(f'| <span class="ug">{html.escape(g)}</span> | `{key}` | {", ".join(sorted(langs(v, use)))} |')
@@ -104,8 +112,10 @@ they put its mark on.
 
 ## Every letter and its keys
 
-The letters most languages share, with the keys that type each. The
-letters of only a few languages follow in their own table.
+The letters most languages share, with the keys that type each: first the
+letters typed alone, then a row for each thing typed after a letter, the
+simplest first. The letters of only a few languages follow in their own
+table, in the same order.
 
 ### Consonants
 
