@@ -91,9 +91,9 @@ CONSONANTS = (['labial', 'dental', 'alveolar', 'postalveolar', 'palatal', 'velar
 MARK_CLASS = {(): 'base', ('anchor',): 'j', ('dot',): 'x', ('twodots',): 'y', ('flip',): 'c', ('underdot',): 'j'}
 MARK_GLOSS = [   # (class, on a consonant, on a vowel)
     ('base', 'no mark', 'no mark'),
-    ('j', 'the anchor: hushed or soft', 'the dot below: more open; on a, the schwa'),
+    ('j', 'the anchor: hushed or soft', 'the dot below: more open'),
     ('x', 'the dot: a fixed nearby sound', None),
-    ('c', None, 'the double dot: lip rounding swapped; on a, the front a'),
+    ('c', None, 'the double dot: front and back swapped'),
     ('y', "the double dot below: the language's own variant, further back", None),
 ]
 
@@ -154,16 +154,18 @@ def mouth(place):
             f'<path d="{MOUTH_BACK}"/><circle cx="{x}" cy="{y}" r="7"/></svg>')
 
 
-# ---- the vowel triangle: front on the left (the lips' side), close at the
-# top; each area a chip where its reference vowel sits, its split a small
-# dashed chip where the split vowel sits, a soft band between the two
-VT_POS = {   # area or split point -> (x, y) in the 840 x 600 figure
-    'i': (114, 76), 'y': (208, 76), 'ɯ': (632, 76), 'u': (726, 76),
-    'ɪ': (152, 158),
-    'e': (218, 306), 'ø': (312, 306), 'ɤ': (480, 306), 'o': (622, 306),
-    'ɛ': (266, 392), 'ɔ': (590, 392),
-    'a': (420, 530), 'æ': (326, 466),          # the front a towards the front, a little closer
-}
+# ---- the vowel chart: a grid, as the consonants. Front on the left, close
+# at the top; the two outer columns are the plain letters, the two inner ones
+# their partners under the double dot; a vowel only some languages write (a
+# split of an area) sits in a row of its own, dashed
+VOWEL_COLS = ['front', 'front, rounded', 'back, unrounded', 'back, rounded']
+VOWEL_ROWS = [   # (label, the area or split in each column)
+    ('close', ['i', 'y', 'ɯ', 'u']),
+    ('more open', ['ɪ', None, None, None]),
+    ('mid', ['e', 'ø', 'ɤ', 'o']),
+    ('more open', ['ɛ', None, None, 'ɔ']),
+    ('open', ['æ', None, 'a', None]),
+]
 
 
 def chip(glyphs, sounds, kind, cls=''):
@@ -187,30 +189,29 @@ def chip_svg(names, cls=''):
     return f'<svg class="chips card" viewBox="-44.6 -36.6 89.2 75.2" width="89" height="75" aria-hidden="true">{g}</svg>'
 
 
-def vowel_triangle(areas):
-    out = ['<div class="scroll vt-frame"><div class="chart-cap">vowels</div>'          # framed and titled as the consonants
-           '<figure class="vt" markdown="0"><svg class="chips" viewBox="0 0 840 600" role="img" '
-           'aria-label="The vowel areas in the vowel triangle, front on the left, close at the top, with their splits">',
-           '<polygon class="edge" points="40,30 800,30 540,570 300,570"/>',
-           '<text class="axis" x="40" y="22">front</text><text class="axis" x="800" y="22" text-anchor="end">back</text>'
-           '<text class="axis" x="30" y="76" text-anchor="end">close</text><text class="axis" x="290" y="560" text-anchor="end">open</text>']
-    chips = []
+def vowel_table(areas):
+    """The vowels as a grid of cards: an area's card names every sound the letter covers,
+    a split's card (dashed) the one sound it is written for."""
+    cards = {}
     for area, (covers, splits) in areas.items():
-        if area not in VT_POS:
-            continue
-        k = kind(area)
-        ax, ay = VT_POS[area]
+        if script.POINTS[area][0] not in script.VOWELS:
+            continue                                       # the vocalic r is a consonant letter's: on the home page beside r
+        cards[area] = chip(glyph(area), ' '.join(covers), kind(area))
         for sf, (reading, users) in splits.items():
-            sx, sy = VT_POS[sf]
-            if not users:
-                continue                                   # a split no language writes is left out
-            out.append(f'<line class="band k-{k}" x1="{ax}" y1="{ay}" x2="{sx}" y2="{sy}"/>')
-            chips.append(f'<g transform="translate({sx},{sy})">'
-                         + chip(glyph(sf), reading, kind(sf), 'split') + '</g>')
-        chips.append(f'<g transform="translate({ax},{ay})">'
-                     + chip(glyph(area), ' '.join(covers), k) + '</g>')
-    out += chips
-    out.append('</svg></figure></div>')
+            if users:                                      # a split no language writes is left out
+                cards[sf] = chip(glyph(sf), reading, kind(sf), 'cmp')
+    placed = {n for _, row in VOWEL_ROWS for n in row if n}
+    assert set(cards) <= placed, f'no place on the vowel chart for {set(cards) - placed}'
+    svg = lambda g: f'<svg class="chips card" viewBox="-44.6 -36.6 89.2 75.2" width="89" height="75" aria-hidden="true">{g}</svg>'
+    out = ['<div class="scroll" markdown="0"><table class="grid pts vowels"><caption>vowels</caption>'
+           '<thead><tr><th></th>' + ''.join(f'<th>{c}</th>' for c in VOWEL_COLS) + '</tr></thead><tbody>']
+    for label, row in VOWEL_ROWS:
+        if not any(n in cards for n in row):
+            continue
+        sub = ' class="sub"' if label == 'more open' else ''
+        tds = ''.join(f'<td><div class="cell">{svg(cards[n])}</div></td>' if n in cards else '<td></td>' for n in row)
+        out.append(f'<tr{sub}><th>{label}</th>{tds}</tr>')
+    out.append('</tbody></table></div>')
     return ''.join(out)
 
 
@@ -310,13 +311,13 @@ def added_table():
 
 
 def vowel_chart():
-    return '<div class="chart vt-chart" markdown="0">' + vowel_triangle(vowel_areas()) + key([
-        ('front · back', 'front on the left, back on the right, close at the top, open at the bottom'),
-        (f'<span class="chipkey area k-base">{EDGE}a</span>', 'an area: the plain letter, and every sound it covers'),
-        (f'<span class="chipkey split cmp k-j">{EDGE}ẹ</span>', 'a split: written only by a language with two vowels in that area '
-         '(rule 2 on the Reference page)'),
+    return '<div class="chart" markdown="0">' + vowel_table(vowel_areas()) + key([
+        (chip_svg(['a']), 'a card: the letter, and every sound it covers'),
+        ('front → back', 'the columns: where the tongue is and whether the lips are round; the double dot moves a letter to the other side'),
         ('edge colour', 'the mark the letter wears' + colours(vowels=True)),
-    ], cls='vt-key') + '</div>'
+        (chip_svg(['ɛ'], 'cmp'), 'dashed: written only by a language with two vowels in that area '
+         '(rule 2 on the Reference page)'),
+    ]) + '</div>'
 
 
 def main():
