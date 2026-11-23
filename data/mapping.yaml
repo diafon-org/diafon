@@ -211,7 +211,8 @@ areas:
   u:  {core: u}                          # ʊ keeps the area: no language here contrasts it with u at one length
   e:  {core: e, split: {ɛ: [ɛ]}}
   o:  {core: o, split: {ɔ: [ɔ]}}
-  a:  {core: a, split: {æ: [æ]}}         # the front vowel; ɑ ɒ keep the area (Finnish and Estonian a ä)
+  a:  {core: a}                          # no split: where a language has a front and a back a, the front /æ/
+                                         #   is the open vowel of the e area, ẹ (overrides: fi, et, fa)
   y: {core: y}                           # no splits on the rounded front vowels: French œ is ö with ø,
   ø: {core: ø}                           #   Dutch ʏ is the short ö beside the long ő (overrides, merges)
   ɯ: {core: ɯ}
@@ -264,9 +265,14 @@ overrides:
     ɔː: [a, w]
     ɛ̃: [a, j, ⁿ]
     ɔ̃: [a, w, ⁿ]
-  th:            # แ is very open (romanised ae): the front a, short and long, not a dotted e
-    ɛ: æ
-    ɛː: æː
+  fi:            # ä beside a: the open vowel of the e area (no language here has e, ɛ and æ apart)
+    æ: ɛ
+    æː: ɛː
+  et:
+    æ: ɛ
+    æː: ɛː
+  fa:
+    æ: ɛ
   nl:            # hut: the short partner of the long ő (neus), not a second ü
     ʏ: ø
   pl:            # three-way sibilants: plain s, the hush sz on the anchor, the soft ś on the dot
@@ -429,6 +435,15 @@ shares:
     rʲ: primary
     r̝:
       cs: ř, its soft r
+  ɛ:
+    æ:
+      fi: ä, its front a, beside e and a
+      et: ä, its front a, beside e and a
+      fa: its front a, beside e and the back a
+  ɛː:
+    æː:
+      fi: ää
+      et: ää
   ʎ:
     ʎ: primary
     lʲ:

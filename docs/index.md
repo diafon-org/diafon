@@ -110,10 +110,10 @@ each area and write it bare.
 
 A few languages have two vowels inside one area. Only they write the second
 one, with a mark that means the same in all of them:
-<span class="ug">ẹ ọ</span> /ɛ ɔ/ in French, Italian, Portuguese, Bengali
-and Vietnamese, and <span class="ug">ọ</span> in Thai;
-<span class="ug">ị</span> /ɪ/ in Dutch and Ukrainian;
-<span class="ug">ạ</span> /æ/ in Finnish, Estonian, Persian and Thai. A
+<span class="ug">ẹ ọ</span> /ɛ ɔ/ in French, Italian, Portuguese, Bengali,
+Vietnamese and Thai; <span class="ug">ị</span> /ɪ/ in Dutch and Ukrainian. The
+mark means the more open vowel of the two. Finnish, Estonian and Persian
+have a front /æ/ beside e and a: it is their open e, <span class="ug">ẹ</span>. A
 language that makes the split writes it in its long vowels and diphthongs
 too: Thai /ɔ/ is <span class="ug">ọ</span> short and
 <span class="ug">ọ́</span> long.
@@ -132,10 +132,6 @@ is its stressed schwa, <span class="ug">ä</span> ([rule 3](reference.md#rule-3)
 one phoneme, one letter).
 
 --8<-- "sounds-vowels.html"
-
-<span class="ug">ạ</span> is made like <span class="ug">ẹ</span> and
-<span class="ug">ọ</span>: a split inside the a area, written only by a
-language with both a front and a back a. Everywhere else a is a.
 
 ### The limit
 

@@ -1,7 +1,7 @@
 # Finnish spelling stage: the point stream rendered in today's Finnish
 # orthography. Render-only, like every stage.
 #
-# Finnish is written as it sounds: length doubles the letter, front a is ä.
+# Finnish is written as it sounds: length doubles the letter, the open e is ä.
 # Finnish ng is the long /ŋː/ (hengessä), read as ṇṇ. Losses, one-way and
 # stated: a single /ŋ/ before k is written n in Finnish (kenkä), here ng.
 code: fi
@@ -9,7 +9,7 @@ name: Finnish
 state: draft
 letters: a aa ä ää b d e ee f g h i ii j k l m n ng o oo ö öö p r s š t u uu v y yy
 long: double            # a long consonant doubles its letter: tt, kk, ss
-sample: hüvạ́ üötạ ja kaunista kesạ́      # hyvää yötä ja kaunista kesää
+sample: hüvẹ́ üötẹ ja kaunista kesẹ́      # hyvää yötä ja kaunista kesää
 read:                   # read back but never written: the loan letters
   x: ks
   w: v
@@ -35,11 +35,11 @@ points:
   l: l
   r: r
   j: j
-  # vowels: the front a is ä, the back a is a; length doubles the letter
+  # vowels: the the open e is ä, the back a is a; length doubles the letter
   a: a
   aː: aa
-  æ: ä
-  æː: ää
+  ɛ: ä
+  ɛː: ää
   e: e
   eː: ee
   ø: ö

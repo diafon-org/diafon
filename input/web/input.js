@@ -151,7 +151,7 @@ function body(k){
     if (c.some(f => f.k === 'y')) t += `<li>After a consonant ${code('yq')} adds the <b>double dot below</b>: ${name}'s own sound, made further back.</li>`;
     if (c.some(f => f.f === 'ryq')) t += `<li>${code('ryq')} is the soft ${ug('r̦')}, since ${code('ry')} is taken by ${ug('r̈')}.</li>`;
     if (v.some(f => /yq$/.test(f.f) && !/qyq$/.test(f.f))) t += `<li>After a vowel ${code('yq')} is the double dot and length together: ${code('oyq')} is ${ug('ő')}.</li>`;
-    if (v.some(f => /qyq?$/.test(f.f))) t += `<li>After a vowel ${code('qy')} adds the <b>dot below</b>: the more open vowel, and on a the front one, ${ug('ạ')}. With one more ${code('q')} it is long.</li>`;
+    if (v.some(f => /qyq?$/.test(f.f))) t += `<li>After a vowel ${code('qy')} adds the <b>dot below</b>: the more open vowel. With one more ${code('q')} it is long.</li>`;
     return [t + '</ul>' + groups(v, c), l];
   }
   if (k === 'seq'){

@@ -1793,45 +1793,6 @@
    }
   },
   {
-   "id": "æ",
-   "letter": "a",
-   "marks": [
-    "underdot"
-   ],
-   "long": false,
-   "glyph": "ạ",
-   "capital": "Ạ",
-   "readings": {
-    "æ": [
-     "et",
-     "fa",
-     "fi"
-    ],
-    "ɛ": [
-     "th"
-    ]
-   }
-  },
-  {
-   "id": "æː",
-   "letter": "a",
-   "marks": [
-    "underdot"
-   ],
-   "long": true,
-   "glyph": "ạ́",
-   "capital": "Ạ́",
-   "readings": {
-    "æː": [
-     "et",
-     "fi"
-    ],
-    "ɛː": [
-     "th"
-    ]
-   }
-  },
-  {
    "id": "ə",
    "letter": "a",
    "marks": [
@@ -1976,12 +1937,37 @@
    "glyph": "ẹ",
    "capital": "Ẹ",
    "readings": {
+    "æ": [
+     "et",
+     "fa",
+     "fi"
+    ],
     "ɛ": [
      "bn",
      "fr",
      "it",
      "pt",
+     "th",
      "vi"
+    ]
+   }
+  },
+  {
+   "id": "ɛː",
+   "letter": "e",
+   "marks": [
+    "underdot"
+   ],
+   "long": true,
+   "glyph": "ẹ́",
+   "capital": "Ẹ́",
+   "readings": {
+    "æː": [
+     "et",
+     "fi"
+    ],
+    "ɛː": [
+     "th"
     ]
    }
   },
@@ -3099,17 +3085,6 @@
   {
    "letter": "a",
    "marks": [
-    "underdot"
-   ],
-   "id": "æ",
-   "glyph": "ạ",
-   "capital": "Ạ",
-   "long": "ạ́",
-   "long_capital": "Ạ́"
-  },
-  {
-   "letter": "a",
-   "marks": [
     "flip"
    ],
    "id": "ə",
@@ -3413,6 +3388,17 @@
    "long_capital": "X̤x̤",
    "joined": "x̤‍x̤",
    "joined_capital": "X̤‍x̤"
+  },
+  {
+   "letter": "a",
+   "marks": [
+    "underdot"
+   ],
+   "id": null,
+   "glyph": "ạ",
+   "capital": "Ạ",
+   "long": "ạ́",
+   "long_capital": "Ạ́"
   },
   {
    "letter": "u",
@@ -5153,7 +5139,7 @@
     },
     "æ": {
      "points": [
-      "æ"
+      "ɛ"
      ],
      "frequency": "M"
     },
@@ -5207,7 +5193,7 @@
     },
     "æː": {
      "points": [
-      "æː"
+      "ɛː"
      ],
      "frequency": "M"
     },
@@ -5374,7 +5360,7 @@
     },
     "æ": {
      "points": [
-      "æ"
+      "ɛ"
      ],
      "frequency": "M"
     },
@@ -5541,7 +5527,7 @@
     },
     "æ": {
      "points": [
-      "æ"
+      "ɛ"
      ],
      "frequency": "L"
     },
@@ -5589,7 +5575,7 @@
     },
     "æː": {
      "points": [
-      "æː"
+      "ɛː"
      ],
      "frequency": "M"
     },
@@ -9364,7 +9350,7 @@
     },
     "ɛ": {
      "points": [
-      "æ"
+      "ɛ"
      ],
      "frequency": "M"
     },
@@ -9418,7 +9404,7 @@
     },
     "ɛː": {
      "points": [
-      "æː"
+      "ɛː"
      ],
      "frequency": "M"
     },
@@ -10473,8 +10459,8 @@
     "j": "j",
     "a": "a",
     "aː": "aa",
-    "æ": "ä",
-    "æː": "ää",
+    "ɛ": "ä",
+    "ɛː": "ää",
     "e": "e",
     "eː": "ee",
     "ø": "ö",
@@ -10489,7 +10475,7 @@
     "uː": "uu"
    },
    "caps": {},
-   "sample": "hüvạ́ üötạ ja kaunista kesạ́",
+   "sample": "hüvẹ́ üötẹ ja kaunista kesẹ́",
    "read": {
     "x": "ks",
     "w": "v",
@@ -10987,7 +10973,7 @@
     "choices": 1384
    },
    "file": "data/lexicon/zh.json",
-   "sha256": "da95efc2cba46f5fed33c3c4d17a2d7ec4e257c819ce734818ef457d74452d4f"
+   "sha256": "abd1e8578121dee575abd9eb2f8c32bbbd8959ad31d6796e5c62091a071c2a76"
   }
  },
  "vectors": {
@@ -11984,36 +11970,6 @@
    ],
    [
     [
-     "æ"
-    ],
-    "ạ"
-   ],
-   [
-    [
-     {
-      "p": "æ",
-      "caps": true
-     }
-    ],
-    "Ạ"
-   ],
-   [
-    [
-     "æː"
-    ],
-    "ạ́"
-   ],
-   [
-    [
-     {
-      "p": "æː",
-      "caps": true
-     }
-    ],
-    "Ạ́"
-   ],
-   [
-    [
      "ə"
     ],
     "ä"
@@ -12101,6 +12057,21 @@
      }
     ],
     "Ẹ"
+   ],
+   [
+    [
+     "ɛː"
+    ],
+    "ẹ́"
+   ],
+   [
+    [
+     {
+      "p": "ɛː",
+      "caps": true
+     }
+    ],
+    "Ẹ́"
    ],
    [
     [
@@ -12655,6 +12626,29 @@
     [
      {
       "c": [
+       "a",
+       "underdot"
+      ]
+     }
+    ],
+    "ạ"
+   ],
+   [
+    [
+     {
+      "c": [
+       "a",
+       "underdot"
+      ],
+      "caps": true
+     }
+    ],
+    "Ạ"
+   ],
+   [
+    [
+     {
+      "c": [
        "u",
        "underdot"
       ]
@@ -13025,7 +13019,12 @@
    ],
    [
     [
-     "æ",
+     {
+      "c": [
+       "a",
+       "underdot"
+      ]
+     },
      {
       "raw": " "
      },
@@ -14670,7 +14669,12 @@
    [
     "ạ ẹ ị ọ ụ aṃ eṃ",
     [
-     "æ",
+     {
+      "c": [
+       "a",
+       "underdot"
+      ]
+     },
      {
       "raw": " "
      },
@@ -16134,7 +16138,12 @@
     ],
     [
      [
-      "æ",
+      {
+       "c": [
+        "a",
+        "underdot"
+       ]
+      },
       {
        "raw": " "
       },
@@ -16583,7 +16592,12 @@
     ],
     [
      [
-      "æ",
+      {
+       "c": [
+        "a",
+        "underdot"
+       ]
+      },
       {
        "raw": " "
       },
@@ -17251,14 +17265,14 @@
     ],
     [
      [
-      "æ"
+      "ɛ"
      ],
      "ä"
     ],
     [
      [
       {
-       "p": "æ",
+       "p": "ɛ",
        "caps": true
       }
      ],
@@ -17266,14 +17280,14 @@
     ],
     [
      [
-      "æː"
+      "ɛː"
      ],
      "ää"
     ],
     [
      [
       {
-       "p": "æː",
+       "p": "ɛː",
        "caps": true
       }
      ],
@@ -17810,7 +17824,12 @@
     ],
     [
      [
-      "æ",
+      {
+       "c": [
+        "a",
+        "underdot"
+       ]
+      },
       {
        "raw": " "
       },
@@ -17843,7 +17862,7 @@
       "e",
       "ⁿ"
      ],
-     "ä ẹ ị ọ ụ aṃ eṃ"
+     "ạ ä ị ọ ụ aṃ eṃ"
     ],
     [
      [
@@ -17882,14 +17901,14 @@
       "h",
       "y",
       "v",
-      "æː",
+      "ɛː",
       {
        "raw": " "
       },
       "y",
       "ø",
       "t",
-      "æ",
+      "ɛ",
       {
        "raw": " "
       },
@@ -17912,7 +17931,7 @@
       "k",
       "e",
       "s",
-      "æː"
+      "ɛː"
      ],
      "hyvää yötä ja kaunista kesää"
     ]
@@ -19214,7 +19233,12 @@
     ],
     [
      [
-      "æ",
+      {
+       "c": [
+        "a",
+        "underdot"
+       ]
+      },
       {
        "raw": " "
       },
@@ -20571,7 +20595,12 @@
     ],
     [
      [
-      "æ",
+      {
+       "c": [
+        "a",
+        "underdot"
+       ]
+      },
       {
        "raw": " "
       },
@@ -21844,7 +21873,12 @@
     ],
     [
      [
-      "æ",
+      {
+       "c": [
+        "a",
+        "underdot"
+       ]
+      },
       {
        "raw": " "
       },
@@ -23029,7 +23063,12 @@
     ],
     [
      [
-      "æ",
+      {
+       "c": [
+        "a",
+        "underdot"
+       ]
+      },
       {
        "raw": " "
       },
@@ -23491,7 +23530,12 @@
     ],
     [
      [
-      "æ",
+      {
+       "c": [
+        "a",
+        "underdot"
+       ]
+      },
       {
        "raw": " "
       },
@@ -23953,7 +23997,12 @@
     [
      "ạ ẹ ị ọ ụ aṃ eṃ",
      [
-      "æ",
+      {
+       "c": [
+        "a",
+        "underdot"
+       ]
+      },
       {
        "raw": " "
       },
@@ -24365,10 +24414,10 @@
       {
        "raw": " "
       },
-      "æ",
+      "ɛ",
       "l",
       "m",
-      "æ"
+      "ɛ"
      ]
     ],
     [
@@ -24546,9 +24595,14 @@
      ]
     ],
     [
-     "ä ẹ ị ọ ụ aṃ eṃ",
+     "ạ ä ị ọ ụ aṃ eṃ",
      [
-      "æ",
+      {
+       "c": [
+        "a",
+        "underdot"
+       ]
+      },
       {
        "raw": " "
       },
@@ -24620,14 +24674,14 @@
       "h",
       "y",
       "v",
-      "æː",
+      "ɛː",
       {
        "raw": " "
       },
       "y",
       "ø",
       "t",
-      "æ",
+      "ɛ",
       {
        "raw": " "
       },
@@ -24650,7 +24704,7 @@
       "k",
       "e",
       "s",
-      "æː"
+      "ɛː"
      ]
     ],
     [
@@ -25105,7 +25159,12 @@
     [
      "ạ ẹ ị ọ ụ aṃ eṃ",
      [
-      "æ",
+      {
+       "c": [
+        "a",
+        "underdot"
+       ]
+      },
       {
        "raw": " "
       },
@@ -25673,7 +25732,12 @@
     [
      "ạ ẹ ị ọ ụ aṃ ę",
      [
-      "æ",
+      {
+       "c": [
+        "a",
+        "underdot"
+       ]
+      },
       {
        "raw": " "
       },
@@ -26231,7 +26295,12 @@
     [
      "ạ ẹ ị ọ ụ aṃ eṃ",
      [
-      "æ",
+      {
+       "c": [
+        "a",
+        "underdot"
+       ]
+      },
       {
        "raw": " "
       },
@@ -26780,7 +26849,12 @@
     [
      "ạ ẹ ị ọ ụ aṃ eṃ",
      [
-      "æ",
+      {
+       "c": [
+        "a",
+        "underdot"
+       ]
+      },
       {
        "raw": " "
       },
@@ -27089,19 +27163,19 @@
     "hyvää yötä ja kaunista kesää",
     "stage:fi",
     "script",
-    "hüvạ́ üötạ ja kaunista kesạ́"
+    "hüvẹ́ üötẹ ja kaunista kesẹ́"
    ],
    [
     "hyvää yötä ja kaunista kesää",
     "stage:fi",
     "stage:cs",
-    "hüvạ́ üötạ ja kaunista kesạ́"
+    "hüvẹ́ üötẹ ja kaunista kesẹ́"
    ],
    [
     "hyvää yötä ja kaunista kesää",
     "stage:fi",
     "stage:en",
-    "hüvạ́ üötạ yeah kaunista kesạ́"
+    "hüvẹ́ üötẹ yeah kaunista kesẹ́"
    ],
    [
     "hyvää yötä ja kaunista kesää",
@@ -27113,31 +27187,31 @@
     "hyvää yötä ja kaunista kesää",
     "stage:fi",
     "stage:hu",
-    "hüvạ́ üötạ ja kauniszta keszạ́"
+    "hüvẹ́ üötẹ ja kauniszta keszẹ́"
    ],
    [
     "hyvää yötä ja kaunista kesää",
     "stage:fi",
     "stage:pl",
-    "hüwạ́ üötạ ja kaunista kesạ́"
+    "hüwẹ́ üötẹ ja kaunista kesẹ́"
    ],
    [
     "hyvää yötä ja kaunista kesää",
     "stage:fi",
     "stage:sw",
-    "hüvạ́ üötạ ya kaunista kesạ́"
+    "hüvẹ́ üötẹ ya kaunista kesẹ́"
    ],
    [
     "hyvää yötä ja kaunista kesää",
     "stage:fi",
     "stage:tr",
-    "hüvạ́ üötạ ya kaunista kesạ́"
+    "hüvẹ́ üötẹ ya kaunista kesẹ́"
    ],
    [
     "hyvää yötä ja kaunista kesää",
     "stage:fi",
     "stage:zh",
-    "hüvạ́ üötạ ja kaunista kesạ́"
+    "hüvẹ́ üötẹ ja kaunista kesẹ́"
    ],
    [
     "sok szép nyár, hosszú alma",

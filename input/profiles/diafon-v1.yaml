@@ -12,7 +12,7 @@
 # Vowels
 # - y is the double dot (uy ü, oy ö), q is length (aq á), yq both (oyq ő).
 # - qy is the dot below (eqy ẹ, oqy ọ), and qyq the dot below, long (oqyq ọ́).
-# - On a as on every vowel: ay is the schwa ä, aqy the front ạ (aqyq ạ́).
+# - On a as on every vowel: ay is the schwa ä.
 # - A nasal vowel is the vowel and mq: amq aṃ.
 # Everything else
 # - A doubled operator is the plain letter: syy is sy, tqq is tq. An
@@ -110,9 +110,9 @@ keys:
   a: a                        # a
   aq: aː                      # á
   ay: ə                       # ä
-  aqy: æ                      # ạ
+  aqy: a+underdot             # ạ
   ayq: əː                     # a̋
-  aqyq: æː                    # ạ́
+  aqyq: a+underdotː           # ạ́
   e: e                        # e
   eq: eː                      # é
   ey: ɤ                       # ë

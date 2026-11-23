@@ -1170,7 +1170,7 @@
     "a",
     "underdot"
    ],
-   "point": "æ",
+   "point": null,
    "long": false,
    "writes": {
     "glyph": "ạ",
@@ -1198,7 +1198,7 @@
     "a",
     "underdot"
    ],
-   "point": "æ",
+   "point": null,
    "long": true,
    "writes": {
     "glyph": "ạ",

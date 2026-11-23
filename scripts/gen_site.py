@@ -162,7 +162,7 @@ VT_POS = {   # area or split point -> (x, y) in the 840 x 600 figure
     'ɪ': (152, 158),
     'e': (218, 306), 'ø': (312, 306), 'ə': (420, 352), 'ɤ': (528, 306), 'o': (622, 306),
     'ɛ': (266, 392), 'ɔ': (590, 392),
-    'a': (420, 530), 'æ': (326, 466),          # the schwa straight above a; the front a towards the front, a little closer
+    'a': (420, 530),                           # the schwa straight above a
 }
 
 
