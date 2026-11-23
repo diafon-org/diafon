@@ -1151,12 +1151,12 @@
     "long_capital": "Á"
    }
   },
-  "aqy": {
+  "ay": {
    "to": [
     "a",
     "flip"
    ],
-   "point": "æ",
+   "point": "ə",
    "long": false,
    "writes": {
     "glyph": "ä",
@@ -1165,12 +1165,12 @@
     "long_capital": "A̋"
    }
   },
-  "ay": {
+  "aqy": {
    "to": [
     "a",
     "underdot"
    ],
-   "point": "ə",
+   "point": "æ",
    "long": false,
    "writes": {
     "glyph": "ạ",
@@ -1179,12 +1179,12 @@
     "long_capital": "Ạ́"
    }
   },
-  "aqyq": {
+  "ayq": {
    "to": [
     "a",
     "flip"
    ],
-   "point": "æ",
+   "point": "ə",
    "long": true,
    "writes": {
     "glyph": "ä",
@@ -1193,12 +1193,12 @@
     "long_capital": "A̋"
    }
   },
-  "ayq": {
+  "aqyq": {
    "to": [
     "a",
     "underdot"
    ],
-   "point": "ə",
+   "point": "æ",
    "long": true,
    "writes": {
     "glyph": "ạ",
@@ -1601,19 +1601,19 @@
    ],
    [
     "aqy",
-    "ä"
-   ],
-   [
-    "aqyq",
-    "a̋"
-   ],
-   [
-    "ay",
     "ạ"
    ],
    [
-    "ayq",
+    "aqyq",
     "ạ́"
+   ],
+   [
+    "ay",
+    "ä"
+   ],
+   [
+    "ayq",
+    "a̋"
    ],
    [
     "b",
@@ -2005,19 +2005,19 @@
    ],
    [
     "Aqy",
-    "Ä"
-   ],
-   [
-    "Aqyq",
-    "A̋"
-   ],
-   [
-    "Ay",
     "Ạ"
    ],
    [
-    "Ayq",
+    "Aqyq",
     "Ạ́"
+   ],
+   [
+    "Ay",
+    "Ä"
+   ],
+   [
+    "Ayq",
+    "A̋"
    ],
    [
     "B",
@@ -2733,7 +2733,7 @@
    ],
    [
     "say sayy, they theyy",
-    "sạ say, thë they"
+    "sä say, thë they"
    ],
    [
     "aqq yy qq y q",
@@ -2745,7 +2745,7 @@
    ],
    [
     "ray ry rry",
-    "rạ r̈ r̈r̈"
+    "rä r̈ r̈r̈"
    ],
    [
     "tqink dqis sinq kqan",
@@ -2757,7 +2757,7 @@
    ],
    [
     "aay aaq aa",
-    "aạ aá aa"
+    "aä aá aa"
    ],
    [
     "syy1 sy1y",
@@ -2777,7 +2777,7 @@
    ],
    [
     "eqy oqy oqyq aqy aqyq, pqyq",
-    "ẹ ọ ọ́ ä a̋, ṗyq"
+    "ẹ ọ ọ́ ạ ạ́, ṗyq"
    ],
    [
     "ryqeka wyit, bry-d",
@@ -3087,7 +3087,7 @@
    ],
    [
     "ray ry rry",
-    "rạ r̈ r̈‍r̈"
+    "rä r̈ r̈‍r̈"
    ],
    [
     "dobozz, add; eddy.",
@@ -3883,7 +3883,7 @@
     ],
     [
      "aqy ",
-     "ä ",
+     "ạ ",
      ""
     ],
     [
@@ -3908,7 +3908,7 @@
     ],
     [
      "aqyq,",
-     "a̋,",
+     "ạ́,",
      ""
     ],
     [

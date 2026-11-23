@@ -571,28 +571,28 @@ aː:
     ɑː: [en, et, fi, hi]
 æ:
   letter: a
-  marks: [flip]
+  marks: [underdot]
   long: false
-  glyph: ä
-  capital: Ä
+  glyph: ạ
+  capital: Ạ
   readings:
     æ: [et, fa, fi]
     ɛ: [th]
 æː:
   letter: a
-  marks: [flip]
+  marks: [underdot]
   long: true
-  glyph: a̋
-  capital: A̋
+  glyph: ạ́
+  capital: Ạ́
   readings:
     æː: [et, fi]
     ɛː: [th]
 ə:
   letter: a
-  marks: [underdot]
+  marks: [flip]
   long: false
-  glyph: ạ
-  capital: Ạ
+  glyph: ä
+  capital: Ä
   readings:
     ə: [de, en, fr, hi, id, nl, ro, vi]
     ʌ: [en]

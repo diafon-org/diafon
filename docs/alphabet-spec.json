@@ -1796,11 +1796,11 @@
    "id": "æ",
    "letter": "a",
    "marks": [
-    "flip"
+    "underdot"
    ],
    "long": false,
-   "glyph": "ä",
-   "capital": "Ä",
+   "glyph": "ạ",
+   "capital": "Ạ",
    "readings": {
     "æ": [
      "et",
@@ -1816,11 +1816,11 @@
    "id": "æː",
    "letter": "a",
    "marks": [
-    "flip"
+    "underdot"
    ],
    "long": true,
-   "glyph": "a̋",
-   "capital": "A̋",
+   "glyph": "ạ́",
+   "capital": "Ạ́",
    "readings": {
     "æː": [
      "et",
@@ -1835,11 +1835,11 @@
    "id": "ə",
    "letter": "a",
    "marks": [
-    "underdot"
+    "flip"
    ],
    "long": false,
-   "glyph": "ạ",
-   "capital": "Ạ",
+   "glyph": "ä",
+   "capital": "Ä",
    "readings": {
     "ə": [
      "de",
@@ -3099,24 +3099,24 @@
   {
    "letter": "a",
    "marks": [
-    "flip"
-   ],
-   "id": "æ",
-   "glyph": "ä",
-   "capital": "Ä",
-   "long": "a̋",
-   "long_capital": "A̋"
-  },
-  {
-   "letter": "a",
-   "marks": [
     "underdot"
    ],
-   "id": "ə",
+   "id": "æ",
    "glyph": "ạ",
    "capital": "Ạ",
    "long": "ạ́",
    "long_capital": "Ạ́"
+  },
+  {
+   "letter": "a",
+   "marks": [
+    "flip"
+   ],
+   "id": "ə",
+   "glyph": "ä",
+   "capital": "Ä",
+   "long": "a̋",
+   "long_capital": "A̋"
   },
   {
    "letter": "e",
@@ -10405,7 +10405,7 @@
    "long": "double",
    "points": {},
    "caps": {},
-   "sample": "wạn kíbórd, wạn skript, mení langwạx̦ạz",
+   "sample": "wän kíbórd, wän skript, mení langwäx̦äz",
    "read": {},
    "before_i": {},
    "i_softens": false,
@@ -10489,7 +10489,7 @@
     "uː": "uu"
    },
    "caps": {},
-   "sample": "hüvá üöta jä käunistä kesá",
+   "sample": "hüvạ́ üötạ ja kaunista kesạ́",
    "read": {
     "x": "ks",
     "w": "v",
@@ -10911,14 +10911,14 @@
    "loans": false,
    "foreign": null,
    "lengthen": {},
-   "sample": "wạn kíbórd, wạn skript, mení langwạx̦ạz",
+   "sample": "wän kíbórd, wän skript, mení langwäx̦äz",
    "output": true,
    "sizes": {
     "read": 126053,
     "write": 114882
    },
    "file": "data/lexicon/en.json",
-   "sha256": "42e1805be8ff6fc1c06d1ca11c9f5f242438ba0de2310046538218c62ac4f381"
+   "sha256": "b560cd0a5f6601e97bd528cc3ce9abf5a8f104cb92644c6ba0d46c835c295561"
   },
   "hu": {
    "name": "Hungarian",
@@ -10938,7 +10938,7 @@
     "native": 84830
    },
    "file": "data/lexicon/hu.json",
-   "sha256": "14f3b13fb520d70f1f09e7fa75cfc107d97432e734ecdca7de71c704bc442392"
+   "sha256": "16caadfe922c1da3647fc90fc6511ddb8b1620337e37255a0bdd9fcefb9a17bb"
   },
   "la": {
    "name": "Latin",
@@ -10970,7 +10970,7 @@
     "write": 41293
    },
    "file": "data/lexicon/loans.json",
-   "sha256": "27e12e0cf812f91127bfde5ef2632e4e44b7edc46fdf2c2df657e7c0db3239f5"
+   "sha256": "8669aef16dd006be2d80bc830b7358194b164da8fcb3a98b219e136de8c102bb"
   },
   "zh": {
    "name": "Mandarin",
@@ -10987,7 +10987,7 @@
     "choices": 1384
    },
    "file": "data/lexicon/zh.json",
-   "sha256": "089a40f04b98593bca56041de3b9b2a7c1ee1ad08fdf139e96ef6618806976fa"
+   "sha256": "da95efc2cba46f5fed33c3c4d17a2d7ec4e257c819ce734818ef457d74452d4f"
   }
  },
  "vectors": {
@@ -11986,7 +11986,7 @@
     [
      "æ"
     ],
-    "ä"
+    "ạ"
    ],
    [
     [
@@ -11995,13 +11995,13 @@
       "caps": true
      }
     ],
-    "Ä"
+    "Ạ"
    ],
    [
     [
      "æː"
     ],
-    "a̋"
+    "ạ́"
    ],
    [
     [
@@ -12010,13 +12010,13 @@
       "caps": true
      }
     ],
-    "A̋"
+    "Ạ́"
    ],
    [
     [
      "ə"
     ],
-    "ạ"
+    "ä"
    ],
    [
     [
@@ -12025,7 +12025,7 @@
       "caps": true
      }
     ],
-    "Ạ"
+    "Ä"
    ],
    [
     [
@@ -12842,10 +12842,10 @@
      {
       "raw": " "
      },
-     "æ",
+     "ə",
      "l",
      "m",
-     "æ"
+     "ə"
     ],
     "hossú älmä"
    ],
@@ -13025,7 +13025,7 @@
    ],
    [
     [
-     "ə",
+     "æ",
      {
       "raw": " "
      },
@@ -14487,10 +14487,10 @@
      {
       "raw": " "
      },
-     "æ",
+     "ə",
      "l",
      "m",
-     "æ"
+     "ə"
     ]
    ],
    [
@@ -14670,7 +14670,7 @@
    [
     "ạ ẹ ị ọ ụ aṃ eṃ",
     [
-     "ə",
+     "æ",
      {
       "raw": " "
      },
@@ -15951,10 +15951,10 @@
       {
        "raw": " "
       },
-      "æ",
+      "ə",
       "l",
       "m",
-      "æ"
+      "ə"
      ],
      "hossú älmä"
     ],
@@ -16134,7 +16134,7 @@
     ],
     [
      [
-      "ə",
+      "æ",
       {
        "raw": " "
       },
@@ -16400,10 +16400,10 @@
       {
        "raw": " "
       },
-      "æ",
+      "ə",
       "l",
       "m",
-      "æ"
+      "ə"
      ],
      "hossú älmä"
     ],
@@ -16583,7 +16583,7 @@
     ],
     [
      [
-      "ə",
+      "æ",
       {
        "raw": " "
       },
@@ -16616,7 +16616,7 @@
       "e",
       "ⁿ"
      ],
-     "a ẹ ị ọ ụ aṃ eṃ"
+     "ạ ẹ ị ọ ụ aṃ eṃ"
     ],
     [
      [
@@ -17627,10 +17627,10 @@
       {
        "raw": " "
       },
-      "æ",
+      "ə",
       "l",
       "m",
-      "æ"
+      "ə"
      ],
      "hossuu älmä"
     ],
@@ -17810,7 +17810,7 @@
     ],
     [
      [
-      "ə",
+      "æ",
       {
        "raw": " "
       },
@@ -17843,7 +17843,7 @@
       "e",
       "ⁿ"
      ],
-     "ạ ẹ ị ọ ụ aṃ eṃ"
+     "ä ẹ ị ọ ụ aṃ eṃ"
     ],
     [
      [
@@ -17882,39 +17882,39 @@
       "h",
       "y",
       "v",
-      "aː",
+      "æː",
       {
        "raw": " "
       },
       "y",
       "ø",
       "t",
-      "a",
+      "æ",
       {
        "raw": " "
       },
       "j",
-      "æ",
+      "a",
       {
        "raw": " "
       },
       "k",
-      "æ",
+      "a",
       "u",
       "n",
       "i",
       "s",
       "t",
-      "æ",
+      "a",
       {
        "raw": " "
       },
       "k",
       "e",
       "s",
-      "aː"
+      "æː"
      ],
-     "hyvaa yöta jä käunistä kesaa"
+     "hyvää yötä ja kaunista kesää"
     ]
    ],
    "hu": [
@@ -19031,10 +19031,10 @@
       {
        "raw": " "
       },
-      "æ",
+      "ə",
       "l",
       "m",
-      "æ"
+      "ə"
      ],
      "hosszú älmä"
     ],
@@ -19214,7 +19214,7 @@
     ],
     [
      [
-      "ə",
+      "æ",
       {
        "raw": " "
       },
@@ -20388,10 +20388,10 @@
       {
        "raw": " "
       },
-      "æ",
+      "ə",
       "l",
       "m",
-      "æ"
+      "ə"
      ],
      "hossú älmä"
     ],
@@ -20571,7 +20571,7 @@
     ],
     [
      [
-      "ə",
+      "æ",
       {
        "raw": " "
       },
@@ -21661,10 +21661,10 @@
       {
        "raw": " "
       },
-      "æ",
+      "ə",
       "l",
       "m",
-      "æ"
+      "ə"
      ],
      "hossú älmä"
     ],
@@ -21844,7 +21844,7 @@
     ],
     [
      [
-      "ə",
+      "æ",
       {
        "raw": " "
       },
@@ -22846,10 +22846,10 @@
       {
        "raw": " "
       },
-      "æ",
+      "ə",
       "l",
       "m",
-      "æ"
+      "ə"
      ],
      "hossú älmä"
     ],
@@ -23029,7 +23029,7 @@
     ],
     [
      [
-      "ə",
+      "æ",
       {
        "raw": " "
       },
@@ -23308,10 +23308,10 @@
       {
        "raw": " "
       },
-      "æ",
+      "ə",
       "l",
       "m",
-      "æ"
+      "ə"
      ],
      "hossú älmä"
     ],
@@ -23491,7 +23491,7 @@
     ],
     [
      [
-      "ə",
+      "æ",
       {
        "raw": " "
       },
@@ -23770,10 +23770,10 @@
       {
        "raw": " "
       },
-      "æ",
+      "ə",
       "l",
       "m",
-      "æ"
+      "ə"
      ]
     ],
     [
@@ -23953,7 +23953,7 @@
     [
      "ạ ẹ ị ọ ụ aṃ eṃ",
      [
-      "ə",
+      "æ",
       {
        "raw": " "
       },
@@ -24546,9 +24546,9 @@
      ]
     ],
     [
-     "ạ ẹ ị ọ ụ aṃ eṃ",
+     "ä ẹ ị ọ ụ aṃ eṃ",
      [
-      "ə",
+      "æ",
       {
        "raw": " "
       },
@@ -24615,42 +24615,42 @@
      ]
     ],
     [
-     "hyvaa yöta jä käunistä kesaa",
+     "hyvää yötä ja kaunista kesää",
      [
       "h",
       "y",
       "v",
-      "aː",
+      "æː",
       {
        "raw": " "
       },
       "y",
       "ø",
       "t",
-      "a",
+      "æ",
       {
        "raw": " "
       },
       "j",
-      "æ",
+      "a",
       {
        "raw": " "
       },
       "k",
-      "æ",
+      "a",
       "u",
       "n",
       "i",
       "s",
       "t",
-      "æ",
+      "a",
       {
        "raw": " "
       },
       "k",
       "e",
       "s",
-      "aː"
+      "æː"
      ]
     ],
     [
@@ -24922,10 +24922,10 @@
       {
        "raw": " "
       },
-      "æ",
+      "ə",
       "l",
       "m",
-      "æ"
+      "ə"
      ]
     ],
     [
@@ -25105,7 +25105,7 @@
     [
      "ạ ẹ ị ọ ụ aṃ eṃ",
      [
-      "ə",
+      "æ",
       {
        "raw": " "
       },
@@ -25490,10 +25490,10 @@
       {
        "raw": " "
       },
-      "æ",
+      "ə",
       "l",
       "m",
-      "æ"
+      "ə"
      ]
     ],
     [
@@ -25673,7 +25673,7 @@
     [
      "ạ ẹ ị ọ ụ aṃ ę",
      [
-      "ə",
+      "æ",
       {
        "raw": " "
       },
@@ -26048,10 +26048,10 @@
       {
        "raw": " "
       },
-      "æ",
+      "ə",
       "l",
       "m",
-      "æ"
+      "ə"
      ]
     ],
     [
@@ -26231,7 +26231,7 @@
     [
      "ạ ẹ ị ọ ụ aṃ eṃ",
      [
-      "ə",
+      "æ",
       {
        "raw": " "
       },
@@ -26597,10 +26597,10 @@
       {
        "raw": " "
       },
-      "æ",
+      "ə",
       "l",
       "m",
-      "æ"
+      "ə"
      ]
     ],
     [
@@ -26780,7 +26780,7 @@
     [
      "ạ ẹ ị ọ ụ aṃ eṃ",
      [
-      "ə",
+      "æ",
       {
        "raw": " "
       },
@@ -27086,58 +27086,58 @@
     "dobrí den, pr̦átelé"
    ],
    [
-    "hyvaa yöta jä käunistä kesaa",
+    "hyvää yötä ja kaunista kesää",
     "stage:fi",
     "script",
-    "hüvá üöta jä käunistä kesá"
+    "hüvạ́ üötạ ja kaunista kesạ́"
    ],
    [
-    "hyvaa yöta jä käunistä kesaa",
+    "hyvää yötä ja kaunista kesää",
     "stage:fi",
     "stage:cs",
-    "hüvá üöta jä käunistä kesá"
+    "hüvạ́ üötạ ja kaunista kesạ́"
    ],
    [
-    "hyvaa yöta jä käunistä kesaa",
+    "hyvää yötä ja kaunista kesää",
     "stage:fi",
     "stage:en",
-    "hüvá üöta jä käunistä kesá"
+    "hüvạ́ üötạ yeah kaunista kesạ́"
    ],
    [
-    "hyvaa yöta jä käunistä kesaa",
+    "hyvää yötä ja kaunista kesää",
     "stage:fi",
     "stage:fi",
-    "hyvaa yöta jä käunistä kesaa"
+    "hyvää yötä ja kaunista kesää"
    ],
    [
-    "hyvaa yöta jä käunistä kesaa",
+    "hyvää yötä ja kaunista kesää",
     "stage:fi",
     "stage:hu",
-    "hüvá üöta jä käunisztä keszá"
+    "hüvạ́ üötạ ja kauniszta keszạ́"
    ],
    [
-    "hyvaa yöta jä käunistä kesaa",
+    "hyvää yötä ja kaunista kesää",
     "stage:fi",
     "stage:pl",
-    "hüwá üöta jä käunistä kesá"
+    "hüwạ́ üötạ ja kaunista kesạ́"
    ],
    [
-    "hyvaa yöta jä käunistä kesaa",
+    "hyvää yötä ja kaunista kesää",
     "stage:fi",
     "stage:sw",
-    "hüvá üöta yä käunistä kesá"
+    "hüvạ́ üötạ ya kaunista kesạ́"
    ],
    [
-    "hyvaa yöta jä käunistä kesaa",
+    "hyvää yötä ja kaunista kesää",
     "stage:fi",
     "stage:tr",
-    "hüvâ üöta yä käunistä kesâ"
+    "hüvạ́ üötạ ya kaunista kesạ́"
    ],
    [
-    "hyvaa yöta jä käunistä kesaa",
+    "hyvää yötä ja kaunista kesää",
     "stage:fi",
     "stage:zh",
-    "hüvá üöta jä käunistä kesá"
+    "hüvạ́ üötạ ja kaunista kesạ́"
    ],
    [
     "sok szép nyár, hosszú alma",
@@ -27435,7 +27435,7 @@
     [
      "en",
      "the",
-     "ḍạ"
+     "ḍä"
     ],
     [
      "en",
@@ -27556,7 +27556,7 @@
    "write": [
     [
      "en",
-     "ḍạ",
+     "ḍä",
      "the"
     ],
     [
@@ -27594,7 +27594,7 @@
     ],
     [
      "hu",
-     "gäjj",
+     "gạjj",
      null
     ],
     [
@@ -27712,7 +27712,7 @@
     [
      "hu",
      "jamaicai",
-     "x̦ạmejkại"
+     "x̦ämejkäi"
     ],
     [
      "hu",
@@ -27727,7 +27727,7 @@
     [
      "hu",
      "Jamaicában",
-     "X̦ạmejkạban"
+     "X̦ämejkäban"
     ],
     [
      "hu",
@@ -27767,7 +27767,7 @@
     [
      "hu",
      "Bela",
-     "Belạ"
+     "Belä"
     ],
     [
      "hu",
@@ -27882,7 +27882,7 @@
     [
      "stage:hu",
      "Jamaicai franchise-ba, akinek traumái; Bach, pech, technika, chat.",
-     "X̦ạmejkại franc̦ajz-ba, akinek traumái; Baḳ, peh, technika, c̦at."
+     "X̦ämejkäi franc̦ajz-ba, akinek traumái; Baḳ, peh, technika, c̦at."
     ],
     [
      "stage:hu",
@@ -27892,7 +27892,7 @@
     [
      "stage:hu",
      "Cudjoe East, Ocho Rios.",
-     "Kạx̦ow Íst, Oc̦o Ríows."
+     "Käx̦ow Íst, Oc̦o Ríows."
     ],
     [
      "stage:hu",
@@ -27902,12 +27902,12 @@
     [
      "stage:en",
      "The quick brown fox jumps over the lazy dog.",
-     "Ḍạ kwik brawn fáks x̦ạmps owvr̈ ḍạ lejzí dóg."
+     "Ḍä kwik brawn fáks x̦ämps owvr̈ ḍä lejzí dóg."
     ],
     [
      "stage:en",
      "Shakespeare wrote Hamlet; Diafon reads it.",
-     "Șejkspír rowt Hamlạt; Diafon rídz it."
+     "Șejkspír rowt Hamlät; Diafon rídz it."
     ],
     [
      "stage:zh",

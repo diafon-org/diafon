@@ -103,7 +103,6 @@ they put its mark on.
 | a vowel | the double dot: `uy` <span class="ug">ü</span> | long: `aq` <span class="ug">á</span> | both: `oyq` <span class="ug">ő</span> | the dot below: `eqy` <span class="ug">ẹ</span> |
 
 - On r and w the `y` is the double dot above: `ry` is <span class="ug">r̈</span>, `wy` is <span class="ug">ẅ</span>. The anchor on r, <span class="ug">r̦</span> (Czech ř, the Russian soft r), is `ryq`.
-- On a, `ay` is the schwa <span class="ug">ạ</span> and `aqy` the front <span class="ug">ä</span>.
 - A dotted vowel is made long with one more `q`: `oqyq` is <span class="ug">ọ́</span>.
 - A nasal vowel is the vowel and `mq`: `bomq` is <span class="ug">boṃ</span>.
 - A doubled consonant is the long one, and the key after it marks both: `ssy` is <span class="ug">șș</span>.

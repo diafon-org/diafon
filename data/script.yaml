@@ -18,10 +18,10 @@ marks:
   anchor:        {below: "̦", above: "̓"}   # the anchor: the hush, the soft consonants
   dot:           {below: "̣", above: "̇"}   # the fricative shift
   twodots:       {below: "̤", above: "̈"}   # the double dot below: the tongue pulled back (retroflex, emphatic, pharyngeal)
-  underdot:      {below: "̣"}                    # on a vowel: the lax split (ɪ ɛ ɔ), and the schwa area ə
+  underdot:      {below: "̣"}                    # on a vowel: the more open split of an area (ɪ ɛ ɔ, and the front a /æ/)
   acute:         {above: "́"}                    # a long vowel
   double_acute:  {above: "̋"}                    # the flip and the acute, fused
-  flip:          {above: "̈"}                    # the front rounded and back unrounded vowels; on a, the front split /æ/;
+  flip:          {above: "̈"}                    # the front rounded and back unrounded vowels; on a, the schwa /ə/;
                                                  #   on j w r, the rounded glides and the vocalic r
 
 # The points, by name (the canonical IPA value, split.md): letter, then marks.
@@ -90,8 +90,8 @@ points:
   ðˤ: z twodots
   # vowels
   a: a
-  æ: a flip
-  ə: a underdot
+  æ: a underdot
+  ə: a flip
   e: e
   ɤ: e flip
   ɛ: e underdot

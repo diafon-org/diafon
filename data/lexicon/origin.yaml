@@ -9,10 +9,10 @@
 #   spell  how the host writes the word back, and reads it (Czech Jamajka)
 # Matched as a stem (jamaicai, Jamaicában), ahead of the host's dictionary.
 # Built by scripts/gen_lexicon.py into loans.json; each host builds its stems.
-jamaica: {lang: en, t: x̦ạmejkạ, spell: {cs: Jamajka}}
+jamaica: {lang: en, t: x̦ämejkä, spell: {cs: Jamajka}}
 bach:    {lang: de, t: baḳ}
 live:    {lang: en, t: lajv}         # the sense the hosts borrow (live stream)
-cudjoe:  {lang: en, t: kạx̦ow}
+cudjoe:  {lang: en, t: käx̦ow}
 ocho:    {lang: es, t: oc̦o}
 meeting: {lang: en, also: {hu: míting}}
 like:    {lang: en, spell: {hu: lájk}}  # Hungarian writes it lájk (lájkol); like reads the same

@@ -184,7 +184,7 @@ def gen_en(cfg):
         if m:
             word, variant = m.group(1), int(m.group(2))
         # an unstressed ER before a vowel is a schwa and an r that starts the next syllable:
-        # around is ạrawnd, not r̈awnd
+        # around is ärawnd, not r̈awnd
         split = [i for i, p in enumerate(phones[:-1]) if p == 'ER0' and re.sub(r'\d', '', phones[i + 1]) in vowels]
         phones = [re.sub(r'\d', '', p) for p in phones]
         for i in reversed(split):
@@ -199,7 +199,7 @@ def gen_en(cfg):
         if variant == prefer or (variant == 0 and word not in read) or \
                 (word in r_split and not split and word not in (cfg.get('prefer') or {})):
             read[word] = t                      # the first reading, or the one en.yaml prefers, or one
-            r_split.discard(word)               # without the split schwa (every: evrí, not evạrí)
+            r_split.discard(word)               # without the split schwa (every: evrí, not evärí)
             if split and variant == 0:
                 r_split.add(word)
         # the commonest spelling of a word: no digits or apostrophes, shortest, first

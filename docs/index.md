@@ -113,7 +113,7 @@ one, with a mark that means the same in all of them:
 <span class="ug">ẹ ọ</span> /ɛ ɔ/ in French, Italian, Portuguese, Bengali
 and Vietnamese, and <span class="ug">ọ</span> in Thai;
 <span class="ug">ị</span> /ɪ/ in Dutch and Ukrainian;
-<span class="ug">ä</span> /æ/ in Finnish, Estonian, Persian and Thai. A
+<span class="ug">ạ</span> /æ/ in Finnish, Estonian, Persian and Thai. A
 language that makes the split writes it in its long vowels and diphthongs
 too: Thai /ɔ/ is <span class="ug">ọ</span> short and
 <span class="ug">ọ́</span> long.
@@ -122,19 +122,19 @@ When long and short vowels also differ in quality, length is enough. German
 *Ofen* is <span class="ug">ó</span> /oː/ and *offen* is o /ɔ/, so German
 needs no split. English is the same: *bit* i, *beat* í.
 
-The schwa has its own area, <span class="ug">ạ</span> /ə/. It sits next to
-both a and e in too many languages to belong to either.
+The schwa has its own area, <span class="ug">ä</span> /ə/. It sits next to
+both a and e in too many languages to belong to either, and it wears the
+double dot like the other vowels without a letter of their own, <span class="ug">ë</span>
+and <span class="ug">ï</span>.
 
 Two sounds that are one phoneme in a language share one letter: English /ʌ/
-is its stressed schwa, <span class="ug">ạ</span> ([rule 3](reference.md#rule-3),
+is its stressed schwa, <span class="ug">ä</span> ([rule 3](reference.md#rule-3),
 one phoneme, one letter).
 
 --8<-- "sounds-vowels.html"
 
-<span class="ug">ä</span> is made like <span class="ug">ü</span> and
-<span class="ug">ö</span>, but it is a split inside the a area: any
-language with a front rounded vowel writes <span class="ug">ü</span> or
-<span class="ug">ö</span>, while <span class="ug">ä</span> is written only by a
+<span class="ug">ạ</span> is made like <span class="ug">ẹ</span> and
+<span class="ug">ọ</span>: a split inside the a area, written only by a
 language with both a front and a back a. Everywhere else a is a.
 
 ### The limit

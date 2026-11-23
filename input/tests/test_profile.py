@@ -60,7 +60,7 @@ def test_vectors():
     eng = make(profile.compiled('diafon-v1'))
     for typed, want in [('cyak a joq soq', 'c̦ak a jó só'), ('anyy cityy boyy', 'any city boy'), ('ssy', 'șș'), ('syy', 'sy'),
                         ('you myy byy quick', 'you my by quick'), ('my by', 'm̦ b̦'), ('cyunq1kuo2', 'c̦uṇˉkuoˊ'), ('ni3 kqaw3', 'niˇ ḳawˇ'), ('2x', '2x'),
-                        ('bomq vemq', 'boṃ veṃ'), ('kyqalb', 'k̤alb'), ('oqyq', 'ọ́'), ('ay aqy', 'ạ ä'), ('ry wy ryq', 'r̈ ẅ r̦'),
+                        ('bomq vemq', 'boṃ veṃ'), ('kyqalb', 'k̤alb'), ('oqyq', 'ọ́'), ('ay aqy', 'ä ạ'), ('ry wy ryq', 'r̈ ẅ r̦'),
                         ('h22o', 'h2o')]:
         assert eng.render(typed) == want, (typed, eng.render(typed), want)
 

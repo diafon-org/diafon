@@ -40,7 +40,6 @@ language of the alphabet in full.
 | vowel | double dot: `uy` ü | long: `aq` á | both: `oyq` ő | dot below: `eqy` ẹ | dot below, long: `oqyq` ọ́ |
 
 - On r and w the `y` is the double dot above: `ry` r̈, `wy` ẅ. The soft r̦ is `ryq`.
-- On a the two vowel codes trade places: `ay` is the schwa ạ, `aqy` the front ä.
 - A nasal vowel is the vowel and `mq`: `bomq` boṃ.
 - A doubled consonant is the long one, and an operator after it applies to
   both: `ssy` șș.

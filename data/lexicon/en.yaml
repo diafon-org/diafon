@@ -19,13 +19,13 @@ prefer:                      # homographs whose commoner reading is not CMUdict'
   read: 2                    #   /riːd/ (the present)
   wound: 2                   #   the injury /wuːnd/
 pron:                        # words whose CMUdict readings are all off: word -> ARPAbet
-  towards: T UH W AO R D Z   #   tu-, not the schwa tạwórdz or the clipped tórdz
+  towards: T UH W AO R D Z   #   tu-, not the schwa täwórdz or the clipped tórdz
   toward: T UH W AO R D
   untrimmed: AH0 N T R IH1 M D   #   not in CMUdict; Sonnet 18's untrimm'd
 arpabet:                     # ARPAbet -> script text (stress digits stripped)
   AA: á
   AE: a
-  AH: ạ        # ə and ʌ, merged (mapping.yaml: STRUT is the stressed schwa)
+  AH: ä        # ə and ʌ, merged (mapping.yaml: STRUT is the stressed schwa)
   AO: ó
   AW: aw
   AY: aj
