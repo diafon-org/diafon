@@ -3,6 +3,9 @@
 Decision rationale lives here, never in the main docs; the docs state only
 the current system. A superseded decision is deleted, not kept.
 
+- A syllabic consonant takes no mark (Igbo mmadụ, Swahili mtu, Czech vlk): its place tells, and no
+  language here has a doubled consonant that could be either long or syllabic. Reserved for the day one
+  does: the double dot above, as r̈ already is (m̈ n̈ l̈; typed qy after the consonant). 2026-11-23.
 - The unit is named "point" (over unit, sign, diaphone): short, composes well
   (point set, point inventory, a point's band).
 - Russian's soft f and v ride the special (fxy vxy) with its s and z: only

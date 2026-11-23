@@ -4,6 +4,9 @@
 # Igbo is written as it sounds, with the same dot below on ị ọ ụ. Its
 # digraphs are its own: ch sh gh ny, and nw for ṇw. Tone is not normally
 # written in Igbo and is not written here. Losses: none known.
+# A doubled nasal (mmadụ, nne) is a syllabic nasal and the consonant after it, two
+# syllables; the script writes it as it writes a long consonant, and a tone sign
+# after the first one sets them apart (mˍmaˉdụˍ).
 code: ig
 name: Igbo
 state: draft
