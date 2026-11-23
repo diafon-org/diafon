@@ -113,7 +113,8 @@ one, with a mark that means the same in all of them:
 <span class="ug">ẹ ọ</span> /ɛ ɔ/ in French, Italian, Portuguese, Bengali,
 Vietnamese and Thai; <span class="ug">ị</span> /ɪ/ in Dutch and Ukrainian. The
 mark means the more open vowel of the two. Finnish, Estonian and Persian
-have a front /æ/ beside e and a: it is their open e, <span class="ug">ẹ</span>. A
+have a front a beside the back one: <span class="ug">ä</span> /æ/, the double dot as on
+<span class="ug">ö</span> and <span class="ug">ü</span>. A
 language that makes the split writes it in its long vowels and diphthongs
 too: Thai /ɔ/ is <span class="ug">ọ</span> short and
 <span class="ug">ọ́</span> long.
@@ -122,13 +123,12 @@ When long and short vowels also differ in quality, length is enough. German
 *Ofen* is <span class="ug">ó</span> /oː/ and *offen* is o /ɔ/, so German
 needs no split. English is the same: *bit* i, *beat* í.
 
-The schwa has its own area, <span class="ug">ä</span> /ə/. It sits next to
-both a and e in too many languages to belong to either, and it wears the
-double dot like the other vowels without a letter of their own, <span class="ug">ë</span>
-and <span class="ug">ï</span>.
+The schwa /ə/ is <span class="ug">ë</span>, the mid vowel that is neither front nor
+rounded: English *about*, German *bitte*, French *le*, and the same letter as
+Mandarin and Korean use for theirs.
 
 Two sounds that are one phoneme in a language share one letter: English /ʌ/
-is its stressed schwa, <span class="ug">ä</span> ([rule 3](reference.md#rule-3),
+is its stressed schwa, <span class="ug">ë</span> ([rule 3](reference.md#rule-3),
 one phoneme, one letter).
 
 --8<-- "sounds-vowels.html"

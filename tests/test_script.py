@@ -54,7 +54,7 @@ def test_normalized():
         assert cap == ud.normalize('NFC', cap), (comp, cap)
     assert script.glyph('ʃ') == 'ș' and len(script.glyph('ʃ')) == 1         # precomposed by NFC
     assert script.glyph('ʈ') == 't̤' and len(script.glyph('ʈ')) == 2          # a sequence: none exists
-    assert script.glyph('kʲ') == 'k̦' and script.glyph('ə') == 'ä'
+    assert script.glyph('kʲ') == 'k̦' and script.glyph('æ') == 'ä'
     assert script.glyph('yː') == 'ű' and script.glyph('aː') == 'á' and script.glyph('ʃː') == 'șș'
 
 

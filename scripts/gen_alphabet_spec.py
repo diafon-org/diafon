@@ -49,7 +49,7 @@ LEX_READ = {'en': ['the', 'quick', 'Shakespeare', 'meeting', 'facebook', 'nosuch
             'zh': ['ni', 'hao3', 'Ni3hao3', 'nihao', 'you', 'lü4', 'zhong1', 'xi1', 'shi4', 'si1'],
             'la': ['hoc', 'vitae', 'quo'],
             'hu': ['jamaica', 'Bach', 'tea', 'Cudjoe', 'nosuchword']}
-LEX_WRITE = {'en': ['ḍä', 'kwịk', 'rid', 'rẹd', 'Șejkspir', 'zzz'],
+LEX_WRITE = {'en': ['ḍë', 'kwịk', 'rid', 'rẹd', 'Șejkspir', 'zzz'],
              'hu': ['fojók', 'gạjj', 'hẹjẹș', 'fọt', 'Hẹjẹs'],
              'zh': ['ni', 'ḳaw', 'c̤uṇ', 's̤ï']}
 LEX_LOAN = {'hu': ['meeting', 'like', 'house', 'taxi', 'team', 'tagja', 'meetingen', 'Facebook', 'show', 'think', 'alma',

@@ -569,15 +569,22 @@ aː:
   readings:
     aː: [ar, cs, de, hu, ja, la, nl, ta, th, vi]
     ɑː: [en, et, fi, hi]
-ə:
+æ:
   letter: a
   marks: [flip]
   long: false
   glyph: ä
   capital: Ä
   readings:
-    ə: [de, en, fr, hi, id, nl, ro, vi]
-    ʌ: [en]
+    æ: [et, fa, fi]
+æː:
+  letter: a
+  marks: [flip]
+  long: true
+  glyph: a̋
+  capital: A̋
+  readings:
+    æː: [et, fi]
 e:
   letter: e
   marks: []
@@ -603,9 +610,9 @@ eː:
   glyph: ë
   capital: Ë
   readings:
-    ə: [zh]
-    ɤ: [et, th, vi, zh]
-    ʌ: [ko]
+    ə: [de, en, fr, hi, id, nl, ro, vi, zh]
+    ɤ: [et, th, zh]
+    ʌ: [en, ko]
 ɤː:
   letter: e
   marks: [flip]
@@ -613,6 +620,7 @@ eː:
   glyph: e̋
   capital: E̋
   readings:
+    ɤ: [vi]
     ɤː: [et, th]
 ɛ:
   letter: e
@@ -621,7 +629,6 @@ eː:
   glyph: ẹ
   capital: Ẹ
   readings:
-    æ: [et, fa, fi]
     ɛ: [bn, fr, it, pt, th, vi]
 ɛː:
   letter: e
@@ -630,7 +637,6 @@ eː:
   glyph: ẹ́
   capital: Ẹ́
   readings:
-    æː: [et, fi]
     ɛː: [th]
 i:
   letter: i

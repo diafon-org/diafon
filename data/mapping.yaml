@@ -159,8 +159,8 @@ vowels:
   ɨ: ɯ
   ɤ: ɤ
   ʌ: ɤ
-  ə: ə
-  ɐ: ə
+  ə: ɤ          # the schwa is the ë area's: the mid vowel that is neither front nor rounded
+  ɐ: ɤ
   ɚ: ɝ
   ɝ: ɝ
   # long (w)
@@ -211,13 +211,11 @@ areas:
   u:  {core: u}                          # ʊ keeps the area: no language here contrasts it with u at one length
   e:  {core: e, split: {ɛ: [ɛ]}}
   o:  {core: o, split: {ɔ: [ɔ]}}
-  a:  {core: a}                          # no split: where a language has a front and a back a, the front /æ/
-                                         #   is the open vowel of the e area, ẹ (overrides: fi, et, fa)
+  a:  {core: a, split: {æ: [æ]}}         # the front a, ä; ɑ ɒ keep the area (Finnish and Estonian a ä)
   y: {core: y}                           # no splits on the rounded front vowels: French œ is ö with ø,
   ø: {core: ø}                           #   Dutch ʏ is the short ö beside the long ő (overrides, merges)
   ɯ: {core: ɯ}
   ɤ: {core: ɤ}
-  ə: {core: ə}
   ɝ: {core: ɝ}
 
 # Review state of each language's mapping: reviewed (checked against the
@@ -227,8 +225,6 @@ review:
   zh: reviewed
 
 overrides:
-  en:            # STRUT is the stressed schwa (merges below), not the ɤ area
-    ʌ: ə
   ka:            # the ejectives are the bare letters: aspirates are Ch,
     pʼ: p        #   and an outsider's plain reading is the licensed approximation
     tʼ: t
@@ -251,7 +247,6 @@ overrides:
     ɴ: ŋ        #   nasal's slot, ŋ being no phoneme of Japanese
   zh:            # one mid vowel (pinyin e): ë alone and before n ŋ, [ɤ] [ə]; after u it is [o],
                  #   and the lexicon writes it o there (guo kuo, wo uo)
-    ə: ɤ
                  # two series, as Polish: zh ch sh the hush on the anchor, j q x the soft one on
                  #   the dot (c̣ c̣h ṣ), though the vowel alone would tell them apart
     ɕ: ɕ
@@ -265,14 +260,8 @@ overrides:
     ɔː: [a, w]
     ɛ̃: [a, j, ⁿ]
     ɔ̃: [a, w, ⁿ]
-  fi:            # ä beside a: the open vowel of the e area (no language here has e, ɛ and æ apart)
-    æ: ɛ
-    æː: ɛː
-  et:
-    æ: ɛ
-    æː: ɛː
-  fa:
-    æ: ɛ
+  vi:            # â is the short partner of ơ (length 1:2, the short one only in closed syllables):
+    ɤ: ɤː        #   ë and e̋, as its ă and a are a and á
   nl:            # hut: the short partner of the long ő (neus), not a second ü
     ʏ: ø
   pl:            # three-way sibilants: plain s, the hush sz on the anchor, the soft ś on the dot
@@ -435,15 +424,6 @@ shares:
     rʲ: primary
     r̝:
       cs: ř, its soft r
-  ɛ:
-    æ:
-      fi: ä, its front a, beside e and a
-      et: ä, its front a, beside e and a
-      fa: its front a, beside e and the back a
-  ɛː:
-    æː:
-      fi: ää
-      et: ää
   ʎ:
     ʎ: primary
     lʲ:
@@ -454,9 +434,6 @@ shares:
     ŋ: primary
     ɴ:
       ja: ん, the moraic nasal; ŋ is no phoneme of Japanese
-  ə:
-    ʌ:
-      en: STRUT is the stressed schwa (merged in the mapping)
   ɝ:
     ɝ: primary
     ɚ:

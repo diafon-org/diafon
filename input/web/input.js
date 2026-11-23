@@ -138,7 +138,7 @@ function body(k){
     if (o === 'y'){
       if (c.some(f => !'rw'.includes(f.f[0]))) t += `<li>After a consonant ${code('y')} adds the <b>anchor</b>, the comma-like stroke below the letter (above on g and p): the hushed and the soft sounds.</li>`;
       if (c.some(f => 'rw'.includes(f.f[0]))) t += `<li>After r and w it adds the double dot above: ${code('ry')} is ${ug('r̈')}, ${code('wy')} is ${ug('ẅ')}.</li>`;
-      if (v.length) t += `<li>After a vowel ${code('y')} adds the <b>double dot</b>: the lip rounding swapped, and on a the schwa, ${ug('ä')}.</li>`;
+      if (v.length) t += `<li>After a vowel ${code('y')} adds the <b>double dot</b>: front and back swapped: ${ug('ü ö ä')} are front, ${ug('ë ï')} back. ${ug('ë')} is also the schwa.</li>`;
     } else {
       if (c.length) t += `<li>After a consonant ${code('q')} adds the <b>dot</b> below the letter (above on g and p): a fixed nearby sound.</li>`;
       if (v.length) t += `<li>After a vowel ${code('q')} makes it <b>long</b>, written with the acute.</li>`;

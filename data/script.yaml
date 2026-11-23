@@ -21,7 +21,7 @@ marks:
   underdot:      {below: "̣"}                    # on a vowel: the more open vowel of an area (ɪ ɛ ɔ)
   acute:         {above: "́"}                    # a long vowel
   double_acute:  {above: "̋"}                    # the flip and the acute, fused
-  flip:          {above: "̈"}                    # the front rounded and back unrounded vowels; on a, the schwa /ə/;
+  flip:          {above: "̈"}                    # front and back swapped: ü ö ä the front ones, ë ï the back ones;
                                                  #   on j w r, the rounded glides and the vocalic r
 
 # The points, by name (the canonical IPA value, split.md): letter, then marks.
@@ -90,7 +90,7 @@ points:
   ðˤ: z twodots
   # vowels
   a: a
-  ə: a flip
+  æ: a flip
   e: e
   ɤ: e flip
   ɛ: e underdot
