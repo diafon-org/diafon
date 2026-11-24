@@ -51,8 +51,9 @@ final class Session {
     private var lastEdit = Date.distantPast
     private var settling: Bool { Date().timeIntervalSince(lastEdit) < Session.settle }
 
-    /// The word being typed, as typed (letters and tone digits since the last
-    /// space or punctuation): its emoji are offered, and one picked takes its place.
+    /// The word being typed, as typed (letters, and the tone digits after them, since
+    /// the last space or punctuation): its emoji are offered, and one picked takes its
+    /// place. A digit before the word's first letter is a number, not the word's.
     private(set) var word = ""
     /// Everything typed since the last space, as typed (`run`) and as it stands in
     /// the editor once the tail is final (`runText`): an emoticon (:D, <3) is read
@@ -84,10 +85,13 @@ final class Session {
         track(ch, plain: true)
     }
 
-    /// The word grows by a letter or digit; anything else ends it.
+    /// The word grows by a letter, or by a digit after one (its tone, with conversion
+    /// on); anything else ends it, and a digit never starts it.
     private func track(_ ch: Character, plain: Bool) {
         if wordPlain != plain { word = ""; wordPlain = plain }
-        if (ch.isLetter && (ch.isASCII || plain)) || ch.isNumber { word.append(ch) } else { word = "" }
+        if ch.isLetter && (ch.isASCII || plain) { word.append(ch) }
+        else if ch.isNumber, !plain, !word.isEmpty { word.append(ch) }
+        else { word = "" }
     }
     /// The word was typed with conversion off: it stands in the text as typed.
     private var wordPlain = false

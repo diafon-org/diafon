@@ -50,5 +50,12 @@ extension Prefs {
         get { defaults.object(forKey: "autoCaps") == nil ? false : defaults.bool(forKey: "autoCaps") }
         set { store(newValue, "autoCaps") }
     }
+    /// Inside a word that has emoji the strip keeps the digits (for tones), the emoji one key
+    /// away; off, the other way round. Set by that key, mid-word, so it tells no one: a
+    /// settings change settles the tail.
+    var stripDigits: Bool {
+        get { defaults.bool(forKey: "stripDigits") }
+        set { defaults.set(newValue, forKey: "stripDigits") }
+    }
     func menuTitle(_ m: String) -> String { m == "off" ? "Off (plain keys)" : label(m) }
 }

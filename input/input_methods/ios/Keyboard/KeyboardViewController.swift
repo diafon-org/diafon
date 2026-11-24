@@ -104,7 +104,9 @@ final class KeyboardViewController: UIInputViewController {
             if id == "settings" { self.showSettings(true) } else { self.session.flush(); self.prefs.setMenuMode(id) }
         }
         keys.globeButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
-        strip.onDigit = { [weak self] d in self?.key(.char(d)) }
+        // a digit pressed while the space bar is still down came after the space
+        strip.onDigit = { [weak self] d in self?.keys.settleSpace(); self?.key(.char(d)) }
+        strip.onSwitch = { [weak self] in guard let self else { return }; self.prefs.stripDigits.toggle(); self.refresh() }
         strip.onEmoji = { [weak self] e in self?.pickEmoji(e) }
         strip.onConvert = { [weak self] in self?.convertSelection() }
         panel.onDone = { [weak self] in self?.showSettings(false) }
@@ -250,26 +252,23 @@ final class KeyboardViewController: UIInputViewController {
             strip.show(.convert(prefs.label()))
             return
         }
-        // inside a word, its suggestions take the digits' place; a tone-aware mode
-        // (Mandarin) keeps the digits, which write the syllable's tone
-        let toneAware = prefs.enabled && prefs.output == "stage:zh"
+        // inside a word, its suggestions take the digits' place, or wait behind the key at
+        // the strip's end for someone who keeps the digits (they write a syllable's tone)
         emoticon = false
         var emoji: [String] = []
-        if !toneAware {
-            // read from the keys typed since the space: the host's context lags, and may
-            // leave out the marked tail (the D of :D)
-            if let list = Emoji.emoticons[session.run] {
-                emoticon = true; emoji = list
-            } else if !keys.symbolsPage {
-                // the word as typed for Diafon, then as usually spelled (read by the person's own
-                // spellings): with conversion on, laza or cool typed as written finds its emoji too
-                let spellings = prefs.preferredSources.filter { $0.hasPrefix("stage:") }.map { String($0.dropFirst(6)) }
-                let plain = Emoji.plain(session.word, spellings: spellings)
-                emoji = prefs.enabled ? Array(NSOrderedSet(array: Emoji.choices(Diafon.shared.render(session.word, tones: false)) + plain).array.prefix(16)) as! [String] : plain
-            }
+        // read from the keys typed since the space: the host's context lags, and may
+        // leave out the marked tail (the D of :D)
+        if let list = Emoji.emoticons[session.run] {
+            emoticon = true; emoji = list
+        } else if !keys.symbolsPage {
+            // the word as typed for Diafon, then as usually spelled (read by the person's own
+            // spellings): with conversion on, laza or cool typed as written finds its emoji too
+            let spellings = prefs.preferredSources.filter { $0.hasPrefix("stage:") }.map { String($0.dropFirst(6)) }
+            let plain = Emoji.plain(session.word, spellings: spellings)
+            emoji = prefs.enabled ? Array(NSOrderedSet(array: Emoji.choices(Diafon.shared.render(session.word, tones: false)) + plain).array.prefix(16)) as! [String] : plain
         }
         Trace.log("strip word \(Trace.q(session.word)) run \(Trace.q(session.run)) pending \(Trace.q(session.pending)) -> \(emoji.prefix(4).joined())")
-        strip.show(emoji.isEmpty ? .digits : .emoji(emoji))
+        strip.show(emoji.isEmpty ? .digits(nil) : prefs.stripDigits ? .digits(emoji[0]) : .emoji(emoji))
     }
 
     /// An emoji from the strip takes the place of the word or the emoticon it came from.

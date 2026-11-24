@@ -1,12 +1,16 @@
 // The strip above the keys, the keyboard's top row. Between words it is the
 // digit row; inside a word, once the word names something (its emoji), the
 // suggestions take the digits' place, and a tap puts one in the word's place.
+// A key at the strip's end then switches between the two (123, or the first
+// emoji), so a tone can always be typed; the side chosen last stays.
 // With text selected in the app, a chip that converts the selection.
 import UIKit
 
 final class StripView: UIView {
     enum Content: Equatable {
-        case digits
+        /// The digit row; with a word's first emoji, the key at the end that brings its emoji back.
+        case digits(String?)
+        /// A word's emoji, and the key at the end that brings the digits back.
         case emoji([String])
         case convert(String)
     }
@@ -14,12 +18,17 @@ final class StripView: UIView {
     var onDigit: ((Character) -> Void)?
     var onEmoji: ((String) -> Void)?
     var onConvert: (() -> Void)?
+    /// The key at the strip's end: the other side (digits, emoji).
+    var onSwitch: (() -> Void)?
 
     private let digits = DigitRow()
     private let scroll = UIScrollView()
     private let row = UIStackView()
+    private let other = UIButton(type: .system)
+    private var digitsEnd: NSLayoutConstraint!, scrollEnd: NSLayoutConstraint!
     private var shown: Content?
     static let height: CGFloat = 44
+    private static let otherWidth: CGFloat = 44
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,16 +37,25 @@ final class StripView: UIView {
         row.axis = .horizontal
         row.spacing = 6
         row.alignment = .center
-        for v in [digits, scroll] as [UIView] { v.translatesAutoresizingMaskIntoConstraints = false; addSubview(v) }
+        other.tintColor = Theme.ink
+        other.accessibilityIdentifier = "strip:switch"
+        other.addAction(UIAction { [weak self] _ in UIDevice.current.playInputClick(); self?.onSwitch?() }, for: .touchDown)
+        for v in [digits, scroll, other] as [UIView] { v.translatesAutoresizingMaskIntoConstraints = false; addSubview(v) }
+        digitsEnd = digits.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -3)
+        scrollEnd = scroll.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -6)
         row.translatesAutoresizingMaskIntoConstraints = false
         scroll.addSubview(row)
         NSLayoutConstraint.activate([
             digits.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 3),
-            digits.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -3),
+            digitsEnd,
+            other.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -3),
+            other.widthAnchor.constraint(equalToConstant: Self.otherWidth),
+            other.topAnchor.constraint(equalTo: topAnchor),
+            other.bottomAnchor.constraint(equalTo: bottomAnchor),
             digits.topAnchor.constraint(equalTo: topAnchor),
             digits.bottomAnchor.constraint(equalTo: bottomAnchor),
             scroll.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 6),
-            scroll.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -6),
+            scrollEnd,
             scroll.topAnchor.constraint(equalTo: topAnchor),
             scroll.bottomAnchor.constraint(equalTo: bottomAnchor),
             row.leadingAnchor.constraint(equalTo: scroll.contentLayoutGuide.leadingAnchor),
@@ -46,15 +64,26 @@ final class StripView: UIView {
             row.bottomAnchor.constraint(equalTo: scroll.contentLayoutGuide.bottomAnchor),
             row.heightAnchor.constraint(equalTo: scroll.frameLayoutGuide.heightAnchor),
         ])
-        show(.digits)
+        show(.digits(nil))
     }
     required init?(coder: NSCoder) { fatalError() }
 
     func show(_ content: Content) {
         guard content != shown else { return }        // the digits keep their touch between keys
         shown = content
-        digits.isHidden = content != .digits
-        scroll.isHidden = content == .digits
+        var onDigits = false, switchTo: String? = nil
+        if case .digits(let e) = content { onDigits = true; switchTo = e }
+        if case .emoji = content { switchTo = "123" }
+        digits.isHidden = !onDigits
+        scroll.isHidden = onDigits
+        other.isHidden = switchTo == nil
+        if let switchTo {
+            other.setTitle(switchTo, for: .normal)
+            other.titleLabel?.font = .systemFont(ofSize: onDigits ? 24 : 15)
+            other.accessibilityLabel = onDigits ? "emoji" : "digits"
+        }
+        digitsEnd.constant = switchTo == nil ? -3 : -(3 + Self.otherWidth)
+        scrollEnd.constant = switchTo == nil ? -6 : -(3 + Self.otherWidth)
         row.arrangedSubviews.forEach { $0.removeFromSuperview() }
         switch content {
         case .digits: break

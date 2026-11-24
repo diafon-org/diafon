@@ -160,6 +160,18 @@ enum SessionCheck {
             s.pick("🔥")                                       // no word: the emoji goes in, nothing is deleted
             expect(ed.display.hasSuffix(" x🔥"), "pick with no word \(mode): \(ed.display.debugDescription)")
         }
+        for mode in modes {   // a number before a word is not the word's: a picked emoji leaves it
+            let ed = StringEditor(), s = session(ed, mode)
+            for c in "ok 5kutya" { s.type(c) }
+            expect(s.word == "kutya", "word after a digit \(mode): \(s.word.debugDescription)")
+            s.pick("🐶")
+            expect(ed.display == "ok 5🐶", "pick after a digit \(mode): \(ed.display.debugDescription)")
+            for c in " ni3" { s.type(c) }
+            expect(s.word == "ni3", "a tone digit stays the word's \(mode): \(s.word.debugDescription)")
+            let plain = StringEditor(), p = session(plain, mode)
+            for c in "b4 kutya2" { p.typePlain(c) }
+            expect(p.word.isEmpty, "conversion off, a digit ends the word \(mode): \(p.word.debugDescription)")
+        }
         for mode in modes {   // the field cleared under the tail (a search field's ✕): flush writes nothing back
             let ed = StringEditor(), s = session(ed, mode)
             for c in "ok ny" { s.type(c) }

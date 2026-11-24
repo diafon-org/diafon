@@ -52,7 +52,9 @@ final class KeyboardView: UIView {
     private var slots: [Slot] = []
     private var down: [ObjectIdentifier: Key] = [:]          // touch → the key it is on
     private var repeatTimer: Timer?
-    private var holdTimer: Timer?
+    /// The logo's hold and the space bar's, each its own: one key's touch never ends the other's wait.
+    private var logoTimer: Timer?
+    private var spaceTimer: Timer?
     /// The logo touch: where it started (letters or signs), whether it slid off the
     /// key, whether its hold opened the menu.
     private var logoTouch: ObjectIdentifier?
@@ -104,9 +106,10 @@ final class KeyboardView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         slots.removeAll()
-        let unit = bounds.width / 10
         for (r, row) in rows.enumerated() {
             let total = row.reduce(0) { $0 + $1.1 }
+            // a row of more than ten units (Dvorak's third: nine letters, shift, delete) narrows its keys to fit
+            let unit = bounds.width / max(10, total)
             var x = (bounds.width - total * unit) / 2
             let top = CGFloat(r) * rowHeight
             for (key, w) in row {
@@ -283,15 +286,7 @@ final class KeyboardView: UIView {
         for t in touches {
             guard let i = slot(at: t.location(in: self)) else { continue }
             let key = slots[i].key
-            // The space bar writes its space when the finger lifts (a hold opens the menu
-            // instead). A key pressed while that finger is still down came after the space:
-            // the space goes in now, first, so two thumbs typing fast keep their order.
-            if let st = spaceTouch, st != ObjectIdentifier(t), !spaceHeld {
-                spaceTouch = nil
-                holdTimer?.invalidate(); holdTimer = nil
-                down.removeValue(forKey: st)
-                emit(.space)
-            }
+            settleSpace()
             down[ObjectIdentifier(t)] = key
             switch key {
             case .logo:
@@ -302,7 +297,8 @@ final class KeyboardView: UIView {
                 logoSlid = false; logoHeld = false
                 if logoFromLetters { symbolsPage = true }
                 let at = t.location(in: self)
-                holdTimer = Timer.scheduledTimer(withTimeInterval: 0.45, repeats: false) { [weak self] _ in
+                logoTimer?.invalidate()
+                logoTimer = Timer.scheduledTimer(withTimeInterval: 0.45, repeats: false) { [weak self] _ in
                     guard let self, !self.logoSlid else { return }
                     self.logoHeld = true
                     if self.logoFromLetters { self.symbolsPage = false }
@@ -311,8 +307,8 @@ final class KeyboardView: UIView {
             case .space:
                 spaceTouch = ObjectIdentifier(t)
                 spaceHeld = false
-                holdTimer?.invalidate()
-                holdTimer = Timer.scheduledTimer(withTimeInterval: 0.45, repeats: false) { [weak self] _ in
+                spaceTimer?.invalidate()
+                spaceTimer = Timer.scheduledTimer(withTimeInterval: 0.45, repeats: false) { [weak self] _ in
                     guard let self, self.spaceTouch != nil else { return }
                     self.spaceHeld = true
                     self.onSpaceHold?()
@@ -338,7 +334,7 @@ final class KeyboardView: UIView {
         if logoHeld { return }
         guard let i = slot(at: p) else { return }
         let key = slots[i].key
-        if key != .logo { logoSlid = true; holdTimer?.invalidate(); holdTimer = nil }
+        if key != .logo { logoSlid = true; logoTimer?.invalidate(); logoTimer = nil }
         if down[ObjectIdentifier(t)] != key { down[ObjectIdentifier(t)] = key; setNeedsDisplay() }
     }
 
@@ -351,7 +347,7 @@ final class KeyboardView: UIView {
             guard let key = down.removeValue(forKey: id) else { continue }
             if id == logoTouch {
                 logoTouch = nil
-                holdTimer?.invalidate(); holdTimer = nil
+                logoTimer?.invalidate(); logoTimer = nil
                 if logoHeld { continue }
                 if logoSlid {
                     // a slide from the logo: the key let go on, once, then back where it started
@@ -368,12 +364,25 @@ final class KeyboardView: UIView {
             }
             if id == spaceTouch {
                 spaceTouch = nil
-                holdTimer?.invalidate(); holdTimer = nil
+                spaceTimer?.invalidate(); spaceTimer = nil
                 if spaceHeld { if fire { onMenuRelease?(t.location(in: self)) } } else if fire { emit(.space) }
                 continue
             }
             if key == .backspace { repeatTimer?.invalidate(); repeatTimer = nil }
         }
+        setNeedsDisplay()
+    }
+
+    /// The space bar writes its space when the finger lifts (a hold opens the menu
+    /// instead). A key pressed while that finger is still down, here or on the strip's
+    /// digit row, came after the space: the space goes in now, first, so two thumbs
+    /// typing fast keep their order.
+    func settleSpace() {
+        guard let st = spaceTouch, !spaceHeld else { return }
+        spaceTouch = nil
+        spaceTimer?.invalidate(); spaceTimer = nil
+        down.removeValue(forKey: st)
+        emit(.space)
         setNeedsDisplay()
     }
 

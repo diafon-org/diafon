@@ -14,8 +14,11 @@ word's own first, then from the third letter those of the words it begins
 usually spelled, with or without accents (`kutya`, `sziv`, `home`), is read
 by your own languages' spellings too, in any mode: in full first, then on its
 base letters, by the letters of those spellings alone (no dictionary: an
-English word in English spelling finds nothing). In
-Mandarin the digits stay, since they write the tones. Select text in any
+English word in English spelling finds nothing). While
+a word's emoji show, a `123` key at the strip's end brings the digits back, so a
+tone can be typed; the digits then stay, with the word's first emoji on that key
+to switch back, and the side chosen last is kept. A number typed before a word
+is not part of it: a picked emoji leaves it. Select text in any
 spelling and the strip offers to convert it. The emoji table (data/emoji.json, 220 KB: 656 emoji, 11,432 words) is the
 only word list the keyboard carries: no dictionary, no prediction, no
 network, no full access.
@@ -104,7 +107,7 @@ the tail as plain text, saved like any other: it is the default since.
 
 | Key | Does |
 |---|---|
-| letters, digits | `Session.type`: the head becomes final, the tail stays provisional; digits (on the strip) are tones |
+| letters, digits | `Session.type`: the head becomes final, the tail stays provisional; digits (on the strip) are tones; a digit pressed while the space bar is still down goes in after the space |
 | ⇧ | next letter capital; double tap locks; on at a sentence start where the field asks, if turned on in the settings (off by default) |
 | ⌫ | edits the tail first, then one grapheme of the field; repeats when held |
 | logo | a tap: the signs (two pages in the system keyboard's order, `1/2` and `2/2`), the key lit; a tap again: the letters; press and slide to a sign: that sign, then the letters again; hold: the settings (what is written: Universal, a language, off; the languages offered; the typing, that is the input profile; the layout) |
