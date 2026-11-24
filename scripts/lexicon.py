@@ -52,9 +52,15 @@ def lex(code):
 
 def recase(out, original):
     """The original's case on the script text: capitalized -> first point up;
-    all caps (more than one letter) -> first point up too."""
+    all in capitals (more than one letter) -> every point up."""
     if not out or not original:
         return out
+    if len(original) > 1 and original.isupper():
+        toks = script.read(out)
+        for t in toks:
+            if t.point:
+                t.caps = True
+        return script.write(toks, join=script.ZWJ in out)
     if original[0].isupper():
         return script.capital(out)
     return out
@@ -100,17 +106,20 @@ def read_word(word, code):
 def word_key(toks):
     """A word's points -> (its lexicon key: the script text, the first point
     small, no tone; the tone numbers the word ends in; whether it began with
-    a capital)."""
+    a capital, or 'all' for a word all in capitals: its key is all small)."""
     if not toks:
         return '', '', False
     first, last = toks[0], toks[-1]
+    up = lambda t: t.caps if t.raw is None else t.raw.isupper()
+    shout = len(toks) > 1 and all(up(t) for t in toks)
     head = script.Tok(first.comp, first.long, False, raw=first.raw and first.raw.lower())
-    body = [script.Tok(t.comp, t.long, t.caps, raw=t.raw) for t in toks[1:]]
-    caps = first.caps if first.raw is None else first.raw.isupper()
-    return script.write([head] + body), (last.tones if last.raw is None else ''), caps
+    body = [script.Tok(t.comp, t.long, t.caps and not shout, raw=t.raw and (t.raw.lower() if shout else t.raw)) for t in toks[1:]]
+    return script.write([head] + body), (last.tones if last.raw is None else ''), 'all' if shout else up(first)
 
 
 def _cased(sp, caps):
+    if caps == 'all' and sp:
+        return ud.normalize('NFC', sp.upper())
     return ud.normalize('NFC', sp[0].upper() + sp[1:]) if caps and sp else sp
 
 
@@ -133,6 +142,8 @@ def write_word(toks, code):
         if best is None:
             return None
         rest = script.read(key[len(best):])
+        if caps == 'all':                                 # the key was all small: the rest takes its capitals back
+            rest = [script.Tok(t.comp, t.long, True) if t.point else script.Tok(raw=t.raw.upper()) for t in rest]
         if rest:
             rest[-1].tones = tones
             return _cased(L['write'][best], caps), rest

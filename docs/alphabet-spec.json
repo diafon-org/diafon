@@ -105,7 +105,7 @@
    "A consonant wears at most one of the anchor, the dot and the double dot below (twodots), below; above on a small letter that descends. No capital descends: a capital wears its mark below.",
    "No double dot on the thin stems l r f; only the dot on j w; the flip stands on w r m n, alone, and on the dotted r.",
    "A vowel wears the flip or the underdot, not both; long, the acute; the flip and the acute fuse into the double acute.",
-   "A long consonant doubles its letter; only the first is capitalized, and the second is the first one small. A joiner (U+200D) between the two marks the fused drawing and nothing else.",
+   "A long consonant doubles its letter. A capital one capitalizes the first, and the second is the first one small; beside another capital, as in a word all in capitals, both are capitals (KUKKA). A joiner (U+200D) between the two marks the fused drawing and nothing else.",
    "Two equal consonant letters in a row are the long point. A nasal that is a syllable before its own letter wears the flip (m̈m, n̈n); a syllabic consonant anywhere else is unmarked.",
    "A tone is a sign after the syllable; the unmarked contour writes nothing. A digit after a point reads as a tone number.",
    "Reading: longest match, and a match never ends before a combining mark, so a letter takes its marks before a doubling."
@@ -11319,10 +11319,10 @@
    "sizes": {
     "read": 3,
     "write": 1890,
-    "native": 84830
+    "native": 84834
    },
    "file": "data/lexicon/hu.json",
-   "sha256": "a9948874b25de9f00ff23ab184ea7558f653c40e3b24af936864e231fc48097d"
+   "sha256": "203065e4632990a0ba303afe8644edbdaf684a18466691c4710affbfc8a0cd4d"
   },
   "la": {
    "name": "Latin",
@@ -16788,7 +16788,7 @@
        "caps": true
       }
      ],
-     "ȘAN"
+     "SHAN"
     ],
     [
      [
@@ -24935,7 +24935,7 @@
        "caps": true
       }
      ],
-     "ȘAN"
+     "SHAN"
     ],
     [
      [
@@ -29801,18 +29801,6 @@
     "SZÉP"
    ],
    [
-    "HOSSZÚ",
-    "stage:hu",
-    "script",
-    "HOSsÚ"
-   ],
-   [
-    "HOSsÚ",
-    "script",
-    "stage:hu",
-    "HOSSZÚ"
-   ],
-   [
     "DZIEŃ",
     "stage:pl",
     "script",
@@ -29852,13 +29840,49 @@
     "KUKKA",
     "stage:fi",
     "script",
-    "KUKkA"
+    "KUKKA"
    ],
    [
-    "KUKkA",
+    "KUKKA",
     "script",
     "stage:fi",
     "KUKKA"
+   ],
+   [
+    "HOSSZÚ",
+    "stage:hu",
+    "script",
+    "HOSSÚ"
+   ],
+   [
+    "HOSSÚ",
+    "script",
+    "stage:hu",
+    "HOSSZÚ"
+   ],
+   [
+    "KEDD",
+    "stage:hu",
+    "script",
+    "KEDD"
+   ],
+   [
+    "KEDD",
+    "script",
+    "stage:hu",
+    "KEDD"
+   ],
+   [
+    "Kedd",
+    "stage:hu",
+    "script",
+    "Kedd"
+   ],
+   [
+    "Kedd",
+    "script",
+    "stage:hu",
+    "Kedd"
    ]
   ],
   "detect": [

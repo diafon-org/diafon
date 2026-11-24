@@ -87,9 +87,12 @@
         }
         var one = function (long) { return core.write([{ c: t.c, long: long, caps: false, tones: '' }]); };
         var k = t.long && byLong[one(true)];
-        if (!k) { k = byGlyph[one(false)]; if (k && t.long) k = k[0] + k; }
+        var doubled = false;
+        if (!k) { k = byGlyph[one(false)]; if (k && t.long) { k = k[0] + k; doubled = true; } }
         if (!k) { out += core.write([t]); letter = false; return; }
-        out += (t.caps ? k[0].toUpperCase() + k.slice(1) : k) + (t.tones || '');
+        // a long capital written with both letters capitals (KK) is typed with both keys capitals
+        var both = doubled && t.caps && t.src && t.src === t.src.toUpperCase();
+        out += (t.caps ? k.slice(0, both ? 2 : 1).toUpperCase() + k.slice(both ? 2 : 1) : k) + (t.tones || '');
         letter = !t.tones;                              // after a tone digit, a y, q or digit is plain already
       });
     });

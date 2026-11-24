@@ -238,6 +238,7 @@ def gen_hu(cfg):
             word = line.split('/')[0].split('\t')[0].strip().lower()
             if re.fullmatch(r'[a-záéíóöőúüű]{2,}', word):
                 native.add(word)
+    native |= {w.lower() for w in cfg.get('own') or []}        # Hungarian forms the stems lack (add, the imperative)
     native -= {w.lower() for w in cfg.get('borrowed') or []}   # English words the dictionary lists as its own
     return {'name': cfg['name'], 'kind': cfg['kind'], 'match': cfg['match'],
             'loans': bool(cfg.get('loans')),

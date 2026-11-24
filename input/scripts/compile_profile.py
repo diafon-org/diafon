@@ -42,7 +42,8 @@ TEXTS = ['cyak a joq soq', 'ni3 kqaw3, syiy4 cqie4', 'anyy cityy boyy', 'the cit
 
 def vectors(eng):
     inv = eng.inventory()
-    texts = inv + [k[0].upper() + k[1:] for k in inv] + [k[0] * 2 + k[1:] for k in inv if k[0] in eng.doubling] + TEXTS
+    texts = inv + [k[0].upper() + k[1:] for k in inv] + [k[0] * 2 + k[1:] for k in inv if k[0] in eng.doubling] \
+        + [(k[0] * 2 + k[1:]).upper() for k in inv if k[0] in eng.doubling] + TEXTS    # KK: both capitals
     return {'render': [[t, eng.render(t)] for t in texts],
             'joined': [[t, eng.render(t, join=True)] for t in texts if eng.render(t, join=True) != eng.render(t)],
             'stream': {t: trace(eng, t) for t in TEXTS[:6] + TEXTS[-5:]}}

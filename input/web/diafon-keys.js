@@ -9,8 +9,8 @@
 //   keys.segments(typed)         -> [{typed, script, letter}]: key by key, for a lesson
 //
 // The rules are the profile's (see its yaml): the text is cut by longest match
-// over the key table; a doubled consonant key is the long letter, and an
-// operator after it applies to both; a doubled operator, or one with nothing
+// over the key table; a doubled consonant key is the long letter (both keys
+// in capitals: both letters capitals), and an operator after it applies to both; a doubled operator, or one with nothing
 // to apply to, is the plain letter; a digit after a letter is its tone, a
 // doubled digit the plain digit.
 (function (root) {
@@ -43,7 +43,7 @@
           if (j + 1 < n && chars[j + 1] === chars[j]) { escaped = chars[j]; break; }
           tone += chars[j]; j++;
         }
-        out.push({ typed: chars.slice(i, j).join(''), key, long: keys[key].long || double, caps: isUpper(chars[i]), tones: tone });
+        out.push({ typed: chars.slice(i, j).join(''), key, long: keys[key].long || double, caps: isUpper(chars[i]), all: double && isUpper(chars[i]) && isUpper(chars[i + 1]), tones: tone });
         if (escaped !== null) { out.push({ typed: chars.slice(j, j + 2).join(''), raw: escaped }); j += 2; }
         i = j;
       }
@@ -54,7 +54,8 @@
       if (s.raw !== undefined) return s.raw;
       const w = keys[s.key].writes;
       let g;
-      if (s.long && join && w.joined) g = s.caps ? w.joined_capital : w.joined;
+      if (s.all && w.joined) g = w.capital + (join ? '\u200d' : '') + w.capital;
+      else if (s.long && join && w.joined) g = s.caps ? w.joined_capital : w.joined;
       else if (s.long) g = s.caps ? w.long_capital : w.long;
       else g = s.caps ? w.capital : w.glyph;
       return g + Array.from(s.tones).map(d => (d in signs ? signs[d] : d)).join('');

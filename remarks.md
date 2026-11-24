@@ -9,6 +9,10 @@ the current system. A superseded decision is deleted, not kept.
   and English (howmmejd), while Igbo and Swahili mm is two syllables. No language needs both inside
   itself; the form does across them. The mark is written only there, so mtu has one spelling. English
   already keeps the two apart on r (bárrúm, berr̈). l̈ stays in reserve. 2026-11-24.
+- A word all in capitals stays all in capitals through every step: a spelling's digraph (SZÉP), a pair
+  (NNE), a long consonant (KUKKA, typed with both keys capital) and a loan (MEETING) each keep every
+  capital, read and written. A capital has one flag per point, so a long capital alone or before small
+  letters is Kk, and beside another capital KK: the neighbour decides, no new state. 2026-11-24.
 - The unit is named "point" (over unit, sign, diaphone): short, composes well
   (point set, point inventory, a point's band).
 - Russian's soft f and v ride the special (fxy vxy) with its s and z: only
@@ -94,7 +98,8 @@ the current system. A superseded decision is deleted, not kept.
   capitalizes its point (Sjan = Șan); operators read the same in either
   case, so all-caps text works point by point (SJAN = ȘAN); the capital
   wears its marks on the same side as its small form (ġ Ġ, p̓ P̓), and a
-  long consonant capitalizes only its first letter (Șș). No new forms, no
+  long consonant capitalizes its first letter (Șș), and both beside another
+  capital (HOȘȘÚ). No new forms, no
   mapping changes: case never carries phonemic weight.
 - The float rule reads the rendered letter, capitals included: no capital in
   the system has a descender, so a capital always wears its mark below
@@ -273,7 +278,7 @@ the current system. A superseded decision is deleted, not kept.
   stated. Detection is coverage, the share of letters a source reads with
   its own spellings, the mode in use breaking ties; the Mac's plain
   service trusts it, the window shows it and lets it be overruled. Limits
-  named: all-caps re-renders as capitalized, and compounds can fool a
+  named: compounds can fool a
   digraph (házszám). The browser extension is the first surface that is
   not an input method at all: it reads a page as written and shows it in
   the script, which is the argument for the script made on every page of

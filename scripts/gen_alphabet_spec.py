@@ -39,8 +39,8 @@ from script import Tok
 VERSION = '1.0.0-pre.1'         # 1.0.0 once the split is done and the names are frozen (split.md)
 OUT = os.path.join(ROOT, 'docs', 'alphabet-spec.json')
 
-CAPITALS = [('ig', 'NNE'), ('ig', 'NWANNE'), ('sw', 'MMOJA'), ('hu', 'SZÉP'), ('hu', 'HOSSZÚ'),
-            ('pl', 'DZIEŃ'), ('pl', 'SIĘ'), ('cs', 'CHLEBA'), ('fi', 'KUKKA')]
+CAPITALS = [('ig', 'NNE'), ('ig', 'NWANNE'), ('sw', 'MMOJA'), ('hu', 'SZÉP'),
+            ('pl', 'DZIEŃ'), ('pl', 'SIĘ'), ('cs', 'CHLEBA'), ('fi', 'KUKKA'), ('hu', 'HOSSZÚ'), ('hu', 'KEDD'), ('hu', 'Kedd')]
 SENTENCES = ['șok sép n̦ár', 'Șanˉ, șok!', 'ȘAN', 'G̦ P̦ G̤ T̤ Ü Șș C̤h Á', 'maˉ maˊ maˇ maˋ', 'hossú älmä',
              'c̦iˇ șïˇ c̦ïˉ', 'Diafon: j i w.', 'k̤ h̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦', 't̤ d̤ n̤ s̤ z̤ c̤ x̤', 'c̣ x̣', 'r̈ r j w ẅ',
              'ạ ẹ ị ọ ụ aṃ eṃ', 't̤h d̤h ṛh pf th kh']
@@ -214,7 +214,7 @@ def build():
                 'A consonant wears at most one of the anchor, the dot and the double dot below (twodots), below; above on a small letter that descends. No capital descends: a capital wears its mark below.',
                 'No double dot on the thin stems l r f; only the dot on j w; the flip stands on w r m n, alone, and on the dotted r.',
                 'A vowel wears the flip or the underdot, not both; long, the acute; the flip and the acute fuse into the double acute.',
-                'A long consonant doubles its letter; only the first is capitalized, and the second is the first one small. A joiner (U+200D) between the two marks the fused drawing and nothing else.',
+                'A long consonant doubles its letter. A capital one capitalizes the first, and the second is the first one small; beside another capital, as in a word all in capitals, both are capitals (KUKKA). A joiner (U+200D) between the two marks the fused drawing and nothing else.',
                 'Two equal consonant letters in a row are the long point. A nasal that is a syllable before its own letter wears the flip (m̈m, n̈n); a syllabic consonant anywhere else is unmarked.',
                 'A tone is a sign after the syllable; the unmarked contour writes nothing. A digit after a point reads as a tone number.',
                 'Reading: longest match, and a match never ends before a combining mark, so a letter takes its marks before a doubling.',

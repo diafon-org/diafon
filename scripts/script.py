@@ -11,8 +11,9 @@ letter for the pair (ș ṭ ä á) it appears, elsewhere the sequence stands
   descend; no capital descends, so a capital wears its mark below (p̓ P̦).
 - A vowel wears the flip or the underdot; long, the acute (the
   flip and the acute fuse into the double acute).
-- A long consonant doubles its letter, and only the first is capitalized
-  (Șș); with join=True a zero width joiner sits between the two, which the
+- A long consonant doubles its letter. A capital one capitalizes the first
+  (Șș), and both beside another capital, as in a word all in capitals
+  (KUKKA); with join=True a zero width joiner sits between the two, which the
   Diafon fonts draw fused. Two equal consonant letters in a row are the long
   point: the joiner marks a drawing, never a meaning. A nasal that is a
   syllable before its own letter wears the double dot above (m̈ma, n̈ne), so
@@ -147,14 +148,17 @@ def compose(comp, long=False, caps=False):
     return ud.normalize('NFC', g[0].upper() + g[1:]) if caps else g
 
 
-def glyph(comp, long=False, caps=False, join=False):
-    """The glyph of a composition (or of a point, by name)."""
+def glyph(comp, long=False, caps=False, join=False, all_caps=False):
+    """The glyph of a composition (or of a point, by name). all_caps: a long
+    capital consonant with both its letters capitals (beside another capital)."""
     if isinstance(comp, str):
         if comp.endswith(LONG):
             comp, long = comp[:-1], True
         comp = POINTS[comp]
     if long and comp[0] not in VOWELS:
         first = compose(comp, caps=caps)             # the second letter is the first one, small: a capital's
+        if caps and all_caps:
+            return first + (ZWJ if join else '') + first
         return first + (ZWJ if join else '') + ud.normalize('NFC', first[0].lower() + first[1:])   # mark stays below (G̦g̦)
     return compose(comp, long, caps)
 
@@ -165,8 +169,17 @@ def tone_signs(numbers):
 
 
 def write(tokens, join=False):
-    return ''.join(t.raw if t.raw is not None else glyph(t.comp, t.long, t.caps, join) + tone_signs(t.tones)
-                   for t in tokens)
+    """Tokens -> text. A long capital consonant beside another capital has both
+    its letters capitals (KUKKA); alone or before small letters, the first (Kkó)."""
+    tokens = list(tokens)
+    out = []
+    for k, t in enumerate(tokens):
+        if t.raw is not None:
+            out.append(t.raw)
+            continue
+        beside = t.caps and t.long and any(n.raw is None and n.caps for n in tokens[max(k - 1, 0):k] + tokens[k + 1:k + 2])
+        out.append(glyph(t.comp, t.long, t.caps, join, beside) + tone_signs(t.tones))
+    return ''.join(out)
 
 
 def compositions():
@@ -192,7 +205,7 @@ _TABLE = None
 def table():
     """The script read back: {glyph: (comp, long, caps)} over every
     composition, short and long, small and capital, a long consonant plain
-    and joined. No two compositions share a glyph (tests/test_script.py)."""
+    and joined, its capital with the first letter a capital and with both. No two compositions share a glyph (tests/test_script.py)."""
     global _TABLE
     if _TABLE is None:
         t = {}
@@ -200,8 +213,8 @@ def table():
             for long in (False, True):
                 for caps in (False, True):
                     for join in ((False, True) if long and comp[0] not in VOWELS else (False,)):
-                        g = glyph(comp, long, caps, join)
-                        assert t.setdefault(g, (comp, long, caps)) == (comp, long, caps), (g, comp, t[g])
+                        for g in {glyph(comp, long, caps, join), glyph(comp, long, caps, join, all_caps=True)}:
+                            assert t.setdefault(g, (comp, long, caps)) == (comp, long, caps), (g, comp, t[g])
         _TABLE = t
     return _TABLE
 

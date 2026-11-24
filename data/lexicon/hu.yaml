@@ -25,6 +25,12 @@ spoken:                      # Hungarian words spelled the old way and read thei
   pech: peh
   cech: céh
   tea: tea                   # team is the loan, tea is not: the shape ea cannot tell them apart
+own:                         # Hungarian word forms the dictionary's stems do not list and English also
+                             #   spells: read as Hungarian (add is ad's imperative, not the English add)
+  - add
+  - fuss
+  - moss
+  - less
 borrowed:                    # loans the Hungarian dictionary lists as its own and no shape betrays: read
                              #   in their own language (se stays Hungarian: neither)
   - online                   # English

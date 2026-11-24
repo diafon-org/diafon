@@ -30,7 +30,9 @@ A lexicon has:
   lengthens (Hungarian á → a, é → e), so the stem of traumái is trauma.
   `spoken` (Hungarian) lists the host's own words in an old spelling it
   reads its own way (pech: peh) and `names` a person's own entries; both
-  matched as stems. `borrowed` names loans the host's dictionary lists as
+  matched as stems. `own` names the host's word forms its stems do
+  not list and another language also spells (Hungarian add, the imperative
+  of ad): they read as the host's. `borrowed` names loans the host's dictionary lists as
   its own and no shape betrays (online, summa): they read in their own
   language.
 

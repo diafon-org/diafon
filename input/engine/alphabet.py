@@ -74,8 +74,13 @@ def target_name(comp):
     return NAME.get(comp) or '+'.join((comp[0],) + comp[1])
 
 
+ALL = 2      # a token's caps: every letter of a long consonant a capital (both its keys were)
+
+
 def glyph(comp, long=False, caps=False, join=False):
     c = COMPS[comp]
+    if long and caps == ALL and 'joined' in c:
+        return c['capital'] + ('\u200d' if join else '') + c['capital']
     if long and join and 'joined' in c:
         return c['joined_capital' if caps else 'joined']
     if long:

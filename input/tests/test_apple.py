@@ -27,7 +27,9 @@ TYPED = [('out:stage:hu', 'syok seqp nyaqr, hossuq alma', 'sok szép nyár, hoss
          ('render', 'mqymaduqy nqyne mma', 'm̈madụ n̈ne mma'), ('convert:stage:ig|script', 'mmadụ nne', 'm̈madụ n̈ne'),
          ('convert:stage:sw|script', 'mmoja mtu', 'm̈mod̦a mtu'), ('keys', 'm̈madụ', 'mqymaduqy'),
          ('out:transport', 'sy tq', 'sy tq'), ('keys', 'Șok sép n̦ár, hossú alma', 'Syok seqp nyaqr, hossuq alma'),
-         ('keys', 'city niˇ h2o', 'cityy ni3 h22o')]
+         ('keys', 'city niˇ h2o', 'cityy ni3 h22o'),
+         ('render', 'KUKKA Kukka HOSSYUQ', 'KUKKA Kukka HOȘȘÚ'), ('keys', 'KUKKA Kukka HOȘȘÚ', 'KUKKA Kukka HOSSyUq'),   # all in capitals
+         ('out:stage:hu', 'ADD HOSSUQ Kedd', 'ADD HOSSZÚ Kedd'), ('convert:stage:hu|script', 'ADD hozzá, KEDD', 'ADD hozzá, KEDD')]
 
 
 def build(out):

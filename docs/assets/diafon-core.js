@@ -135,7 +135,7 @@
     }
 
     /* The glyph of a composition (or of a point, by name). */
-    function glyph(comp, long, caps, join) {
+    function glyph(comp, long, caps, join, allCaps) {
       if (typeof comp === 'string') {
         const p = point(comp);
         comp = p[0];
@@ -143,7 +143,8 @@
       }
       if (long && !VOWELS.has(comp[0])) {
         const first = compose(comp, false, caps);
-        return first + (join ? ZWJ : '') + nfc(lowFirst(first));
+        // beside another capital both letters are capitals (KUKKA); otherwise the first (Kk)
+        return first + (join ? ZWJ : '') + (caps && allCaps ? first : nfc(lowFirst(first)));
       }
       return compose(comp, !!long, !!caps);
     }
@@ -192,7 +193,14 @@
 
     function writeToks(toks, join) {
       let out = '';
-      for (const t of toks) out += isRaw(t) ? t.raw : glyph(t.c, t.long, t.caps, join) + toneSigns(t.tones);
+      const cap = (n) => !!n && !isRaw(n) && n.caps;
+      for (let k = 0; k < toks.length; k++) {
+        const t = toks[k];
+        if (isRaw(t)) { out += t.raw; continue; }
+        // a long capital consonant beside another capital: both its letters capitals
+        const beside = t.caps && t.long && (cap(toks[k - 1]) || cap(toks[k + 1]));
+        out += glyph(t.c, t.long, t.caps, join, beside) + toneSigns(t.tones);
+      }
       return out;
     }
 
@@ -210,8 +218,9 @@
           for (const long of [false, true]) {
             for (const caps of [false, true]) {
               for (const join of (long && !VOWELS.has(comp[0]) ? [false, true] : [false])) {
-                const g = glyph(comp, long, caps, join);
-                if (!t.has(g)) t.set(g, [[comp, long, caps]]);
+                for (const g of [glyph(comp, long, caps, join), glyph(comp, long, caps, join, true)]) {
+                  if (!t.has(g)) t.set(g, [[comp, long, caps]]);
+                }
               }
             }
           }
@@ -337,6 +346,11 @@
 
     function recase(out, original) {
       if (!out || !original) return out;
+      if (original.length > 1 && original === original.toUpperCase() && original !== original.toLowerCase()) {
+        const toks = read(out);                              // all in capitals: every point up
+        for (const t of toks) if (!isRaw(t)) t.caps = true;
+        return writeToks(toks, out.includes(ZWJ));
+      }
       return RE_UPPER.test(chAt(original, 0)) ? capital(out) : out;
     }
 
@@ -391,11 +405,13 @@
       const first = toks[0];
       const last = toks[toks.length - 1];
       const head = isRaw(first) ? { raw: first.raw.toLowerCase() } : { c: first.c, long: first.long, caps: false, tones: '' };
-      const body = toks.slice(1).map((t) => (isRaw(t) ? { raw: t.raw } : { c: t.c, long: t.long, caps: t.caps, tones: '' }));
-      const caps = isRaw(first) ? RE_UPPER.test(first.raw) : !!first.caps;
-      return [writeToks([head].concat(body), false), isRaw(last) ? '' : (last.tones || ''), caps];
+      const up = (t) => (isRaw(t) ? t.raw !== t.raw.toLowerCase() && t.raw === t.raw.toUpperCase() : !!t.caps);
+      const shout = toks.length > 1 && toks.every(up);       // all in capitals: the key is all small
+      const body = toks.slice(1).map((t) => (isRaw(t) ? { raw: shout ? t.raw.toLowerCase() : t.raw }
+        : { c: t.c, long: t.long, caps: t.caps && !shout, tones: '' }));
+      return [writeToks([head].concat(body), false), isRaw(last) ? '' : (last.tones || ''), shout ? 'all' : up(first)];
     }
-    const cased = (sp, caps) => (caps && sp ? nfc(upFirst(sp)) : sp);
+    const cased = (sp, caps) => (!caps || !sp ? sp : caps === 'all' ? nfc(sp.toUpperCase()) : nfc(upFirst(sp)));
 
     /* A word's points -> spelling: a string (an exact lexicon), [stem spelling,
        the remaining tokens] (a prefix lexicon), or null. */
@@ -413,7 +429,10 @@
               !(key.length > stem.length && isMark(chAt(key, stem.length)))) best = stem;      // never inside a letter
         }
         if (best === null) return null;
-        const rest = read(key.slice(best.length));
+        let rest = read(key.slice(best.length));
+        if (wk[2] === 'all') {                               // the key was all small: the rest takes its capitals back
+          rest = rest.map((t) => (isRaw(t) ? { raw: t.raw.toUpperCase() } : { c: t.c, long: t.long, caps: true, tones: '' }));
+        }
         if (rest.length) {
           rest[rest.length - 1].tones = wk[1];
           return [cased(L.write[best], wk[2]), rest];

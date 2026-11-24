@@ -200,7 +200,8 @@ class KeyEngine:
                 tones += text[j]
                 j += 1
             comp, long = self.keys[key]
-            out.append((text[i:j], [Tok(comp, long or double, text[i].isupper(), tones, src=text[i:j])], True))
+            caps = text[i].isupper() and (alphabet.ALL if double and text[i + 1].isupper() else True)   # KK: both capitals
+            out.append((text[i:j], [Tok(comp, long or double, caps, tones, src=text[i:j])], True))
             if escaped:
                 out.append((text[j:j + 2], [Tok(raw=escaped)], False))
                 j += 2
