@@ -20,17 +20,23 @@ in the menu bar and type `sy cy aq`: it streams out as `ș c̦ á`.
 ## What it does
 
 - **Streaming conversion.** Letters, digits, space and punctuation go through
-  `Engine.stream`: everything before the last segment is inserted as final
-  text, the last segment stays underlined until a key settles it. Backspace
-  edits the underlined tail first; Escape drops the tail in as typed; Return,
-  Tab, arrows and any shortcut make the tail final and pass through.
+  the streaming rule (`Diafon.stream`): everything before the last letter is
+  inserted as final text, the last letter stays underlined until a key settles
+  it; in a language's spelling the whole word being typed stays underlined.
+  Backspace edits the underlined tail first; Escape drops the tail in as
+  typed; Return, Tab, arrows and any shortcut make the tail final and pass
+  through.
 - **Each output is a keyboard.** Diafon (the script) and one keyboard per
   language written by its letters (Diafon – Magyar, Diafon – Polski, …) are
   input modes of the one input method, so the system's own switching picks
-  them: the input menu, the Globe key, ⌃Space. Only a chosen few are shown:
-  Diafon, and the languages ticked under Keyboards… in Diafon's menu
-  (`Sources/Keyboards.swift` switches the modes on and off in the system's
-  input sources).
+  them: the input menu, the Globe key, ⌃Space. Diafon is on from the start;
+  a language becomes a keyboard when it is ticked under Keyboards… in
+  Diafon's menu or added in System Settings → Keyboard → Input Sources. The
+  two are the same list: the system's. Diafon keeps none of its own
+  (`Sources/Keyboards.swift` reads and changes the system's input sources).
+  The controller writes what the selected keyboard says, checked each time a
+  field is entered. There is no "off": for plain letters, switch to another
+  keyboard.
 - **The typing.** What the keys mean comes from the compiled profile
   (`../../spec/diafon-v1.json`): `y` and `q` mark the letter before them
   (`sy` ș, `cy` c̦, `oyq` ő), a doubled consonant is long (`ssy` șș), a
@@ -41,24 +47,18 @@ in the menu bar and type `sy cy aq`: it streams out as `ș c̦ á`.
   Mandarin, whose spellings are dictionaries, are not, and come out in the
   script. Hungarian is written by its letters: every /j/ is j, and a loan is
   spelled as it sounds.
-- **The output**: Diafon (one letter per sound, the same in every
-  language; the default) or one language's spelling.
-- **The status menu**, under the input source in the menu bar: Passthrough
-  (conversion off), Diafon, then the quick list of language-specific
-  spellings (by their own names and codes: magyar (hu), suomi (fi)…), the
-  current choice ticked, and **Other language…**, the chooser
-  with every language, filtered as you type by native name, English name or
-  code, and on its right the quick list itself: the box beside a language
-  puts it there, and Up, Down and Remove order and prune it; that order is
-  the menu's. No cap, but past three the chooser warns that the menu gets
-  long. The language in use is
-  always listed, on the quick list or not. Then Setup. Flat by necessity: the menu is shown by a system
-  process that returns only top-level clicks, so a submenu cannot be picked
-  from.
-- **Setup…** opens a window: Diafon or a language's spelling (the
-  language in a popup, its sample beside it), Try it (a typed line in
-  both), the options with a line on each, and How to. It is set in the
-  Diafon fonts, which the app carries.
+- **The status menu**, under the input source in the menu bar: Convert
+  selection to … and Convert selection…, then Keyboards… (the chooser: every
+  language, filtered as you type by native name, English name or code; the
+  box beside one makes it a keyboard, Return or a double click also switches
+  to it; on the right the keyboards as they are now) and Setup…. Flat by
+  necessity: the menu is shown by a system process that returns only
+  top-level clicks, so a submenu cannot be picked from.
+- **Setup…** opens a window: the keyboard in use (Diafon, or a language's
+  spelling, the language in a popup, its sample beside it; a choice here
+  switches the keyboard in the system too), the base layout, Try it (a typed
+  line in both), the options (tones, joined long consonants) with a line on
+  each, and How to. It is set in the Diafon fonts, which the app carries.
 - **Convert selection.** Text in any app, any spelling: select it, then in
   the Diafon menu **Convert selection to …** converts it in place, from the
   source detected in the text (your own languages preferred when the text
@@ -79,7 +79,8 @@ in the menu bar and type `sy cy aq`: it streams out as `ș c̦ á`.
 2. Type a letter, then `y` or `q` for its mark: `sy` → ș, `cy` → c̦,
    `aq` → á; the last sound stays underlined until the next key settles it.
 3. Switch between Diafon and your language keyboards as between any
-   keyboards. Diafon's menu has Keyboards… (which languages are keyboards).
+   keyboards. Diafon's menu has Keyboards… (which languages are keyboards);
+   for plain letters, switch to another keyboard.
 4. Text in any spelling: select it, then Diafon menu → Convert selection
    (or right-click → Services → Convert with Diafon); the … variants let
    you set the source and the target first.
@@ -88,12 +89,12 @@ in the menu bar and type `sy cy aq`: it streams out as `ș c̦ á`.
 
     ../apple/Core/Diafon.swift         the alphabet and the typing: the site's JavaScript, run in JavaScriptCore
     ../apple/Core/diafon-glue.js       what the apps ask of it, as plain functions
-    ../apple/Core/Prefs.swift          the settings (output, language, quick list, tones, join, enabled) and the renderer
+    ../apple/Core/Prefs.swift          the settings (output, language, tones, join) and the renderer
     ../apple/Check/main.swift          stdin/stdout driver used by tests/test_apple.py
     Sources/DiafonInputController.swift  IMKInputController: keystrokes in, streaming rule, insertText / setMarkedText out; the status menu
     Sources/ConvertWindow.swift        the From / To window of Convert with Diafon…
-    Sources/Hud.swift                  the mode label shown for a moment after a switch
-    Sources/Keyboards.swift            which input modes the system shows: Diafon and the chosen languages
+    Sources/Hud.swift                  a small label shown for a moment (nothing selected to convert)
+    Sources/Keyboards.swift            the keyboards: the system's input sources read, switched on and off, selected
     Sources/LanguageChooser.swift      the searchable language list (Keyboards…)
     tools/modes.py                     the Info.plist with one input mode per output
     Sources/SetupWindow.swift          the setup window
@@ -120,12 +121,11 @@ the iOS keyboard (../ios) compiles the same files.
   extras with `lsregister -u <path>` (`lsregister` lives in
   /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/).
   `make install` already unregisters its own build copy.
-- Microsoft Teams sometimes quits (exit code 5, no crash report) while input
-  sources are being cycled in a chat box. In every case seen so far, Teams
-  had just connected to Apple's Pinyin (SCIM), and Diafon was not shown to
-  be involved. That is not yet confirmed: Diafon writes nothing to the system
-  log. To tell, cycle without Pinyin enabled, or with Diafon off. To read the
-  evidence, use `/usr/bin/log` (in zsh a bare `log` is a builtin). runningboardd's
-  `termination reported by launchd` gives the exit, and distnoted's
-  `inputmethodkit.abnormaldeath ... pid:` lines show which input method the
-  app connected to just before.
+- After `make install` or `make enable`, quit and reopen the apps that were
+  running (or log out and in). Both register the input method again, and an
+  app that was already running keeps its old list of input sources: when the
+  cursor badge then lands on Diafon while keyboards are cycled, Apple's badge
+  code looks Diafon up, gets nothing, and the app quits (Teams with exit code
+  5 and no report, Notes with `CFRelease() called with NULL` in
+  TextInputUIMacHelper). An app started after the install is not affected.
+  Switching keyboards on and off (Keyboards…) registers nothing and is safe.

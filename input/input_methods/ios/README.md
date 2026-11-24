@@ -16,7 +16,7 @@ by your own languages' spellings too, in any mode: in full first, then on its
 base letters, by the letters of those spellings alone (no dictionary: an
 English word in English spelling finds nothing). In
 Mandarin the digits stay, since they write the tones. Select text in any
-spelling and the strip offers to convert it. The emoji table (data/emoji.json, 220 KB: 656 emoji, 11,442 words) is the
+spelling and the strip offers to convert it. The emoji table (data/emoji.json, 220 KB: 656 emoji, 11,432 words) is the
 only word list the keyboard carries: no dictionary, no prediction, no
 network, no full access.
 

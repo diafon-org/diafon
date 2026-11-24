@@ -1,10 +1,12 @@
 // The language chooser, in SwiftUI (the look of the system's own settings),
 // two panes. Left: every language with a spelling, filtered as you type by
-// native name, English name or code; the box beside each keeps it on the
-// quick list, Return or a double click picks it (turns conversion on in that
-// spelling). Right: the quick list itself: the languages that are keyboards
-// of their own in the system's list (Keyboards.swift), beside Diafon itself. Opened from the menu's "Keyboards…". The model holds every action, so it can be driven without
-// the window.
+// native name, English name or code; the box beside each makes it a keyboard
+// of its own (Diafon – Magyar), Return or a double click also switches to
+// it. Right: the keyboards as they are now, Diafon first. Both read and
+// change the system's own input sources (Keyboards.swift), so this window
+// and System Settings always agree; the system orders them in its menu.
+// Opened from the menu's "Keyboards…". The model holds every action, so it
+// can be driven without the window.
 import Cocoa
 import SwiftUI
 
@@ -19,7 +21,7 @@ final class ChooserModel: ObservableObject {
         Lang(code: code, native: Locale(identifier: code).localizedString(forLanguageCode: code) ?? name, name: name)
     }
     @Published var query = ""
-    @Published var quick: [String] = Prefs.shared.quickLanguages
+    @Published var keyboards: [String] = Keyboards.languages
     @Published var leftSelection: String?
     @Published var rightSelection: String?
     var onPick: (() -> Void)?
@@ -29,37 +31,27 @@ final class ChooserModel: ObservableObject {
         return q.isEmpty ? Self.all
             : Self.all.filter { $0.code.hasPrefix(q) || $0.native.lowercased().contains(q) || $0.name.lowercased().contains(q) }
     }
-    var quickLangs: [Lang] { quick.compactMap { c in Self.all.first { $0.code == c } } }
-    var long: Bool { quick.count > Prefs.quickComfort }
+    var keyboardLangs: [Lang] { Self.all.filter { keyboards.contains($0.code) } }
+    var long: Bool { keyboards.count > Prefs.quickComfort }
 
     func reload() {
-        quick = Prefs.shared.quickLanguages
+        keyboards = Keyboards.languages
         if leftSelection == nil { leftSelection = Prefs.shared.language }
     }
-    func isQuick(_ code: String) -> Bool { quick.contains(code) }
-    func setQuick(_ code: String, _ on: Bool) {
-        Prefs.shared.setQuick(code, on)
-        quick = Prefs.shared.quickLanguages
-    }
-    func move(from: IndexSet, to: Int) {
-        quick.move(fromOffsets: from, toOffset: to)
-        Prefs.shared.quickLanguages = quick
-    }
-    func shift(_ d: Int) {
-        guard let sel = rightSelection, let i = quick.firstIndex(of: sel), i + d >= 0, i + d < quick.count else { return }
-        quick.swapAt(i, i + d)
-        Prefs.shared.quickLanguages = quick
+    func isKeyboard(_ code: String) -> Bool { keyboards.contains(code) }
+    func setKeyboard(_ code: String, _ on: Bool) {
+        Keyboards.set(code, on)
+        keyboards = Keyboards.languages
     }
     func remove() {
         guard let sel = rightSelection else { return }
-        setQuick(sel, false)
+        setKeyboard(sel, false)
         rightSelection = nil
     }
     func pick(_ code: String?) {
         guard let code = code ?? leftSelection, rows.contains(where: { $0.code == code }) else { return }   // a visible row only
-        Prefs.shared.language = code                        // on the quick list too
-        Prefs.shared.enabled = true
-        quick = Prefs.shared.quickLanguages
+        Keyboards.select("stage:" + code)                   // a keyboard from now on, and the one in use
+        keyboards = Keyboards.languages
         onPick?()
     }
     func moveLeft(_ d: Int) {
@@ -72,7 +64,7 @@ final class ChooserModel: ObservableObject {
 
 struct LanguageChooserView: View {
     @ObservedObject var model: ChooserModel
-    private let hintText = "The box makes a language one of your keyboards: Diafon – Magyar and the like, switched as any keyboard. Return picks a language now."
+    private let hintText = "The box makes a language one of your keyboards: Diafon – Magyar and the like, switched as any keyboard. Return switches to it now."
     private var longText: String { "More than \(Prefs.quickComfort) keyboards make switching long. Fewer is quicker." }
 
     var body: some View {
@@ -86,7 +78,7 @@ struct LanguageChooserView: View {
                     List(selection: $model.leftSelection) {
                         ForEach(model.rows) { l in
                             HStack(spacing: 8) {
-                                Toggle("", isOn: Binding(get: { model.isQuick(l.code) }, set: { model.setQuick(l.code, $0) }))
+                                Toggle("", isOn: Binding(get: { model.isKeyboard(l.code) }, set: { model.setKeyboard(l.code, $0) }))
                                     .toggleStyle(.checkbox).labelsHidden()
                                 row(l)
                             }
@@ -99,31 +91,22 @@ struct LanguageChooserView: View {
                     .frame(width: 320, height: 290)
                 }
                 VStack(alignment: .leading, spacing: 8) {
-                    label("Quick list")
+                    label("Your keyboards")
                     List(selection: $model.rightSelection) {
-                        ForEach(model.quickLangs) { l in
-                            HStack(spacing: 8) {
-                                Text("\(model.quick.firstIndex(of: l.code).map { $0 + 1 } ?? 0).")
-                                    .monospacedDigit().foregroundStyle(.secondary).frame(width: 18, alignment: .trailing)
-                                row(l)
-                            }
-                            .tag(l.code)
-                            .contentShape(Rectangle())
-                            .onTapGesture(count: 2) { model.pick(l.code) }
+                        row(native: "Diafon", name: "the script", code: "").foregroundStyle(.secondary)
+                        ForEach(model.keyboardLangs) { l in
+                            row(l)
+                                .tag(l.code)
+                                .contentShape(Rectangle())
+                                .onTapGesture(count: 2) { model.pick(l.code) }
                         }
-                        .onMove { model.move(from: $0, to: $1) }
                     }
                     .listStyle(.bordered(alternatesRowBackgrounds: true))
                     .frame(width: 250, height: 290 + 8 + 22)
                     HStack(spacing: 6) {
                         Button { model.remove() } label: { Image(systemName: "minus") }
                             .disabled(model.rightSelection == nil)
-                        Button { model.shift(-1) } label: { Image(systemName: "chevron.up") }
-                            .disabled(model.rightSelection == nil || model.quick.first == model.rightSelection)
-                        Button { model.shift(1) } label: { Image(systemName: "chevron.down") }
-                            .disabled(model.rightSelection == nil || model.quick.last == model.rightSelection)
                         Spacer()
-                        Text("Drag to reorder").font(.caption).foregroundStyle(.tertiary)
                     }
                     .controlSize(.small)
                 }
@@ -140,13 +123,16 @@ struct LanguageChooserView: View {
     private func label(_ s: String) -> some View {
         Text(s.uppercased()).font(.system(size: 10, weight: .semibold, design: .monospaced)).foregroundStyle(.secondary)
     }
-    private func row(_ l: Lang) -> some View {
+    private func row(_ l: Lang) -> some View { row(native: l.native, name: l.short, code: l.code) }
+    private func row(native: String, name: String, code: String) -> some View {
         HStack(spacing: 6) {
-            Text(l.native)
+            Text(native)
             Text("·").foregroundStyle(.tertiary)
-            Text(l.short).foregroundStyle(.secondary)
-            Text("·").foregroundStyle(.tertiary)
-            Text(l.code).font(.system(.body, design: .monospaced)).foregroundStyle(.secondary)
+            Text(name).foregroundStyle(.secondary)
+            if !code.isEmpty {
+                Text("·").foregroundStyle(.tertiary)
+                Text(code).font(.system(.body, design: .monospaced)).foregroundStyle(.secondary)
+            }
         }
         .lineLimit(1)
     }

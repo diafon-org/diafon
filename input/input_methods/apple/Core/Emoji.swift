@@ -89,8 +89,11 @@ enum Emoji {
             // the keys are sorted: the ones that begin with the word are one run
             var lo = 0, hi = ix.keys.count
             while lo < hi { let mid = (lo + hi) / 2; if ix.keys[mid] < key { lo = mid + 1 } else { hi = mid } }
-            while lo < ix.keys.count, ix.keys[lo].hasPrefix(key) {
-                if ix.keys[lo] != key { more.formUnion(ix.words[ix.keys[lo]] ?? []) }
+            // the run is by code point, as the order is; a key in it that only shares the
+            // letter under a mark (man̦… for man) is passed over, not taken for the run's end
+            let scalars = key.unicodeScalars
+            while lo < ix.keys.count, ix.keys[lo].unicodeScalars.starts(with: scalars) {
+                if ix.keys[lo] != key, ix.keys[lo].hasPrefix(key) { more.formUnion(ix.words[ix.keys[lo]] ?? []) }
                 lo += 1
             }
         }

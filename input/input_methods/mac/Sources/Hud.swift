@@ -1,6 +1,6 @@
-// A small floating label that names the mode for a moment after a switch
-// (off · Diafon · a language), near the caret when the app tells us where
-// it is, else at the bottom middle of the screen. Non-activating: focus stays.
+// A small floating label shown for a moment (Convert selection with nothing
+// selected), near the caret when a caller gives it, else at the bottom
+// middle of the screen. Non-activating: focus stays.
 import Cocoa
 
 final class Hud {
@@ -34,11 +34,6 @@ final class Hud {
         }
         hideWork = work
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.1, execute: work)
-    }
-
-    func hide() {
-        hideWork?.cancel()
-        panel?.orderOut(nil)
     }
 
     private func build() {

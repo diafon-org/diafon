@@ -16,31 +16,33 @@ public class DiafonInputController: IMKInputController {
     private var output: String { prefs.output }
     private func render() -> (String) -> String { prefs.renderer(output) }
 
-    /// Where the caret is on screen, if the app says.
-    private func caretRect(_ client: IMKTextInput) -> NSRect? {
-        var rect = NSRect.zero
-        _ = client.attributes(forCharacterIndex: 0, lineHeightRectangle: &rect)
-        return rect.width > 0 || rect.height > 0 ? rect : nil
-    }
-
     // MARK: the input modes: each output is an input source of its own (tools/modes.py)
 
     /// The system tells which mode was picked (the input menu, the Globe key, Control-Space):
     /// org.diafon.inputmethod.Diafon.universal is the script, ….<code> a language's spelling.
     public override func setValue(_ value: Any!, forTag tag: Int, client sender: Any!) {
-        guard tag == Int(kTextServiceInputModePropertyTag), let id = value as? String,
-              let mode = id.split(separator: ".").last.map(String.init) else {
+        guard tag == Int(kTextServiceInputModePropertyTag), let id = value as? String, let out = Keyboards.output(id) else {
             super.setValue(value, forTag: tag, client: sender)
             return
         }
-        if let client = sender as? IMKTextInput { flush(client) }      // the tail belongs to the mode before
-        if mode == "universal" { prefs.output = "script" }
-        else if Prefs.spelled(mode) { prefs.language = mode }
-        if !prefs.enabled { prefs.enabled = true }
+        use(out, sender)
     }
 
+    /// Write in a keyboard's output from here on. The tail typed so far belongs to the
+    /// output before, and is made final in it first. A keyboard always converts: the
+    /// plain keys are another keyboard.
+    private func use(_ out: String, _ sender: Any!) {
+        if !prefs.enabled { prefs.enabled = true }
+        guard out != prefs.output else { return }
+        if let client = sender as? IMKTextInput { flush(client) }
+        if out.hasPrefix("stage:") { prefs.language = String(out.dropFirst(6)) } else { prefs.output = out }
+    }
+
+    /// A field is entered. The keyboard selected in the system says what is written,
+    /// whether or not the system sends the mode with the switch (a keyboard kept per document).
     public override func activateServer(_ sender: Any!) {
         pending = ""
+        if let out = Keyboards.current { use(out, sender) }
         if let client = sender as? IMKTextInput { applyLayout(client) }
     }
 

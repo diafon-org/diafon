@@ -1,5 +1,5 @@
-// The setup window: what is written out (Diafon or one language's spelling), a live pane that shows a
-// typed line both ways, the options, and how to use it. Built in code, framework controls only. Diafon text
+// The setup window: the keyboard in use (Diafon or one language's spelling; picking one here switches to
+// it, as the input menu does), a live pane that shows a typed line both ways, the options, and how to use it. Built in code, framework controls only. Diafon text
 // is set in the Diafon fonts, which the app carries (Resources/Fonts), so its marks draw as they should.
 import Cocoa
 import CoreText
@@ -55,7 +55,7 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
 
         // what is written out
         root.addArrangedSubview(gap(10))
-        root.addArrangedSubview(heading("Output"))
+        root.addArrangedSubview(heading("Keyboard"))
         universalRadio = NSButton(radioButtonWithTitle: "Diafon", target: self, action: #selector(pickUniversal(_:)))
         universalRadio.toolTip = "One letter per sound, the same in every language."
         universalSample = sample("")
@@ -103,8 +103,6 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         // options, each with what it does under it
         root.addArrangedSubview(gap(10))
         root.addArrangedSubview(heading("Options"))
-        root.addArrangedSubview(option("Conversion on", p.enabled,
-            "Off, Diafon passes your keys through as plain letters.") { Prefs.shared.enabled = $0 })
         root.addArrangedSubview(option("Tones", p.tones,
             "A digit after a syllable writes its tone, which the Diafon fonts draw above it. Off, tone digits are left out.") { Prefs.shared.tones = $0 })
         root.addArrangedSubview(option("Joined long consonants", p.join,
@@ -114,8 +112,9 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         root.addArrangedSubview(gap(10))
         root.addArrangedSubview(heading("How to"))
         root.addArrangedSubview(howto([
-            "Pick Diafon in the input menu (⌃Space). The letters sit as the base layout above puts them.",
-            "Type a sound as a base, then its operators: sj → \(p.renderer("script")("sj")), tq → \(p.renderer("script")("tq")), aw → \(p.renderer("script")("aw")). The last sound stays underlined until the next key settles it.",
+            "Pick Diafon in the input menu (⌃Space). The letters sit as the base layout above puts them. For plain letters, switch to another keyboard.",
+            "Type a letter, then y or q for its mark: sy → \(p.renderer("script")("sy")), cy → \(p.renderer("script")("cy")), aq → \(p.renderer("script")("aq")). The last sound stays underlined until the next key settles it.",
+            "A language's spelling is a keyboard of its own (Diafon – Magyar): tick it under Keyboards… in Diafon's menu, then switch as between any keyboards.",
             "To convert text already written: select it, then Diafon menu → Convert selection, or right-click → Services → Convert with Diafon.",
         ]))
         root.addArrangedSubview(gap(6))
@@ -131,12 +130,13 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         NotificationCenter.default.addObserver(forName: Prefs.changed, object: nil, queue: .main) { [weak self] _ in self?.refresh() }
     }
 
-    @objc private func pickUniversal(_ sender: NSButton) { Prefs.shared.output = "script" }
+    // a choice here switches the keyboard in the system too, so the input menu and the typing agree
+    @objc private func pickUniversal(_ sender: NSButton) { Keyboards.select("script") }
 
-    @objc private func pickLanguage(_ sender: NSButton) { Prefs.shared.language = Prefs.shared.language }
+    @objc private func pickLanguage(_ sender: NSButton) { Keyboards.select("stage:" + Prefs.shared.language) }
 
     @objc private func languageChosen(_ sender: NSPopUpButton) {
-        if let code = sender.selectedItem?.representedObject as? String { Prefs.shared.language = code }
+        if let code = sender.selectedItem?.representedObject as? String { Keyboards.select("stage:" + code) }
     }
 
     @objc private func layoutChosen(_ sender: NSPopUpButton) {

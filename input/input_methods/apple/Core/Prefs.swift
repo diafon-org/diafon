@@ -1,6 +1,6 @@
 // The settings, shared in name and default with every Diafon input method
-// (input_methods/README.md, Settings): output, language, tones, join,
-// strict, enabled.
+// (input_methods/README.md, Settings): output, language, the quick list,
+// tones, join, enabled.
 import Foundation
 
 final class Prefs {
@@ -39,9 +39,9 @@ final class Prefs {
             set("stage:\(newValue)", "output")
         }
     }
-    /// The quick list: the languages the menu and the switcher show, in
-    /// the order given in the chooser (its right pane). No cap; past `quickComfort` the
-    /// chooser warns that the cycle gets long.
+    /// The quick list: the languages the iOS mode menu offers, in the order given there.
+    /// (On the Mac a language is a keyboard in the system's own list, mac/Sources/Keyboards.swift.)
+    /// No cap; past `quickComfort` the choosers warn that switching gets long.
     static let quickComfort = 3
     var quickLanguages: [String] {
         get {
@@ -57,32 +57,16 @@ final class Prefs {
         quickLanguages = list
     }
 
-    /// The mode as the person sees it: off (a plain keyboard), Diafon, or the language's
-    /// spelling.
-    var modeLabel: String { enabled ? label() : "Conversion off" }
-    /// Off, or back to the last spelling that was on (iOS: a toggle tap after a pause).
+    /// Off, or back to the last spelling that was on (iOS).
     func toggleOff() {
         if !enabled, output == "transport" { d.set("script", forKey: "output") }
         set(!enabled, "enabled")
-    }
-    /// The iOS toggle key: taps within `tapWindow` of each other walk the cycle
-    /// (cycleMode); a tap after a pause is toggleOff.
-    static let tapWindow: TimeInterval = 1.5
-    /// Quick taps: off → Diafon → each language on the quick list → off.
-    func cycleMode() {
-        let quick = offeredLanguages
-        if !enabled { d.set("script", forKey: "output"); set(true, "enabled") }
-        else if universal, let first = quick.first { language = first }
-        else if !universal, let i = quick.firstIndex(of: language), i + 1 < quick.count { language = quick[i + 1] }
-        else { set(false, "enabled") }
     }
     /// Write tones: a digit after a syllable becomes its tone sign; off, tone digits are dropped.
     var tones: Bool { get { bool("tones", true) } set { set(newValue, "tones") } }
     /// Join a long consonant's two letters with a ZWJ (the Diafon fonts draw them
     /// fused); off, a plain double.
     var join: Bool { get { bool("join", false) } set { set(newValue, "join") } }
-    /// Flag ill-formed segments (they still pass through).
-    var strict: Bool { get { bool("strict", false) } set { set(newValue, "strict") } }
 
     /// What was typed, written in an output (the one in use by default).
     func renderer(_ out: String? = nil) -> (String) -> String {

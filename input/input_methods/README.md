@@ -28,10 +28,12 @@ How the typing reaches a text field on each platform.
    whole word being typed stays provisional: a spelling can depend on the
    letter that follows (Polish si, Hungarian ssz).
 4. **Settings**, the same on both platforms: what is written (Diafon, or
-   one language's spelling, the language from the quick list), `tones` (a
+   one language's spelling; on iOS the language comes from the quick list,
+   on the Mac each language is a keyboard in the system's list), `tones` (a
    tone digit writes its tone sign; off leaves it out), `join` (a long
    consonant's two letters joined, which the Diafon fonts draw fused),
-   `enabled` (off is a plain keyboard).
+   `enabled` (off is a plain keyboard; iOS only, on the Mac the plain
+   letters are another keyboard).
 
 The input methods carry no dictionary. A language is offered when its
 spelling is written by its letters alone; English and Mandarin are not.

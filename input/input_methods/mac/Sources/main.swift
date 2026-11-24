@@ -26,18 +26,6 @@ if CommandLine.arguments.contains("--check") {
 
 let connectionName = (Bundle.main.infoDictionary?["InputMethodConnectionName"] as? String) ?? "Diafon_1_Connection"
 let server = IMKServer(name: connectionName, bundleIdentifier: Bundle.main.bundleIdentifier)
-// the candidate window (the one the CJK input methods use): the pending
-// segment in every spelling, opened with Tab or the down arrow. Created on
-// first use: its mere existence involves the client app's candidate UI
-// (TextInputUIMacHelper), which some apps handle badly.
-var candidatePanelIfAny: IMKCandidates? = nil
-func candidatePanelMake() -> IMKCandidates {
-    if candidatePanelIfAny == nil { candidatePanelIfAny = IMKCandidates(server: server, panelType: kIMKSingleColumnScrollingCandidatePanel) }
-    return candidatePanelIfAny!
-}
-// the keyboards the system shows follow the quick list (Keyboards.swift): once now, then on every change
-DispatchQueue.main.asyncAfter(deadline: .now() + 1) { Keyboards.sync() }
-NotificationCenter.default.addObserver(forName: Prefs.changed, object: nil, queue: .main) { _ in Keyboards.sync() }
 let services = Services()
 NSApplication.shared.servicesProvider = services
 NSUpdateDynamicServices()
