@@ -114,7 +114,7 @@ final class SetupWindow: NSObject, NSTextFieldDelegate {
         root.addArrangedSubview(howto([
             "Pick Diafon in the input menu (⌃Space). The letters sit as the base layout above puts them. For plain letters, switch to another keyboard.",
             "Type a letter, then y or q for its mark: sy → \(p.renderer("script")("sy")), cy → \(p.renderer("script")("cy")), aq → \(p.renderer("script")("aq")). The last sound stays underlined until the next key settles it.",
-            "A language's spelling is a keyboard of its own (Diafon – Magyar): tick it under Keyboards… in Diafon's menu, then switch as between any keyboards.",
+            "A language's spelling is a keyboard of its own (Diafon – Magyar): add it in System Settings → Keyboard → Input Sources, then switch as between any keyboards.",
             "To convert text already written: select it, then Diafon menu → Convert selection, or right-click → Services → Convert with Diafon.",
         ]))
         root.addArrangedSubview(gap(6))

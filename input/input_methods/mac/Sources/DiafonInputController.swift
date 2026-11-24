@@ -138,7 +138,6 @@ public class DiafonInputController: IMKInputController {
         m.addItem(conv)
         m.addItem(NSMenuItem(title: "Convert selection…", action: #selector(convertSelectionChoosing(_:)), keyEquivalent: ""))
         m.addItem(.separator())
-        m.addItem(NSMenuItem(title: "Keyboards…", action: #selector(openChooser(_:)), keyEquivalent: ""))
         m.addItem(NSMenuItem(title: "Setup…", action: #selector(openSetup(_:)), keyEquivalent: ""))
         return m
     }
@@ -169,7 +168,5 @@ public class DiafonInputController: IMKInputController {
     }
 
     @objc func openSetup(_ sender: Any!) { SetupWindow.shared.show() }
-
-    @objc func openChooser(_ sender: Any!) { LanguageChooser.shared.show() }
 
 }

@@ -2,8 +2,7 @@
 // (tools/modes.py): Diafon itself, and one per language. The system's own
 // list of input sources is the one record of which are on: this file reads
 // it and changes it, and keeps no list of its own. So a keyboard added or
-// removed in System Settings → Keyboard → Input Sources and one ticked under
-// Keyboards… in Diafon's menu are the same thing.
+// removed in System Settings → Keyboard → Input Sources is all there is.
 import Carbon
 import Foundation
 
@@ -31,28 +30,11 @@ enum Keyboards {
         return CFBooleanGetValue(Unmanaged<CFBoolean>.fromOpaque(p).takeUnretainedValue())
     }
 
-    /// The languages that are keyboards now, in the order every screen lists them.
-    static var languages: [String] {
-        Prefs.languages.map { $0.0 }.filter { code in source(base + "." + code).map { flag($0, kTISPropertyInputSourceIsEnabled) } ?? false }
-    }
-
     /// The output of the keyboard selected in the system; nil when it is not one of Diafon's.
     static var current: String? {
         guard let s = TISCopyCurrentKeyboardInputSource()?.takeRetainedValue(),
               let p = TISGetInputSourceProperty(s, kTISPropertyInputSourceID) else { return nil }
         return output(Unmanaged<CFString>.fromOpaque(p).takeUnretainedValue() as String)
-    }
-
-    /// Make a language a keyboard, or stop it being one. The keyboard in use is left
-    /// first, for Diafon itself, so the system is never asked to drop the selected one.
-    static func set(_ code: String, _ on: Bool) {
-        guard let s = source(base + "." + code), flag(s, kTISPropertyInputSourceIsEnabled) != on else { return }
-        if on { TISEnableInputSource(s) }
-        else {
-            if flag(s, kTISPropertyInputSourceIsSelected) { select("script") }
-            TISDisableInputSource(s)
-        }
-        NotificationCenter.default.post(name: Prefs.changed, object: nil)
     }
 
     /// Switch to an output's keyboard, making it one first. The settings follow at once;

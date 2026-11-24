@@ -121,18 +121,18 @@ def finals(v):
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {S} {S}" width="{S}" height="{S}">'
         f'<g transform="translate({S * (1 - mk) / 2:.0f} {S * (1 - mk) / 2:.0f})">{mark_two(v, TEAL_BRIGHT, "#8a93a3", S / 1000 * mk)}</g></svg>')
     # the input-source icon macOS shows in the input menu and in Input Sources,
-    # in the system's own style: the wide rounded tile of the keyboard-layout
-    # icons (22 x 15 pt), black, with a bold mark cut out of it (only alpha
-    # counts: the system tints it for light and dark menus); a 15 px + 30 px
-    # TIFF (DiafonMenu.tiff, in rasterise)
+    # the bare mark, bold, black on nothing (only alpha counts: the system
+    # tints it for light and dark menus and draws its own frame around a
+    # keyboard's icon, so a tile of ours would show as a blob inside it); a
+    # 15 px + 30 px TIFF (DiafonMenu.tiff, in rasterise), the fallback where
+    # the system does not read the vector one (DiafonBadge.pdf, made by
+    # input/input_methods/mac/tools/badge.swift)
     TW, TH = 1466, 1000                                            # 22 : 15
     bold = dict(v, r=108, apart=300, head=128, foot=148)           # the weight of the tile's letters
     tk = 0.92                                                      # the mark's box against the tile's height
     open(os.path.join(fin, 'icon-template.svg'), 'w').write(
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {TW} {TH}" width="{TW}" height="{TH}">'
-        f'<mask id="cut"><rect width="{TW}" height="{TH}" fill="#fff"/>'
-        f'<g transform="translate({(TW - TH * tk) / 2:.0f} {TH * (1 - tk) / 2:.0f})">{mark_two(bold, "#000", "#000", TH / 1000 * tk)}</g></mask>'
-        f'<rect width="{TW}" height="{TH}" rx="{TH * 0.2:.0f}" fill="#000" mask="url(#cut)"/></svg>')
+        f'<g transform="translate({(TW - TH * tk) / 2:.0f} {TH * (1 - tk) / 2:.0f})">{mark_two(bold, "#000", "#000", TH / 1000 * tk)}</g></svg>')
     mac = S * 824 / 1024
     off = (S - mac) / 2
     open(os.path.join(fin, 'icon-mac.svg'), 'w').write(
