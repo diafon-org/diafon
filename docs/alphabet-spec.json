@@ -20656,7 +20656,7 @@
        "caps": true
       }
      ],
-     "ShAN"
+     "SHAN"
     ],
     [
      [
@@ -22015,7 +22015,7 @@
        "caps": true
       }
      ],
-     "SzAN"
+     "SZAN"
     ],
     [
      [
@@ -23288,7 +23288,7 @@
        "caps": true
       }
      ],
-     "ShAN"
+     "SHAN"
     ],
     [
      [
@@ -27101,7 +27101,7 @@
      ]
     ],
     [
-     "ShAN",
+     "SHAN",
      [
       {
        "p": "ʃ",
@@ -27633,7 +27633,7 @@
      ]
     ],
     [
-     "SzAN",
+     "SZAN",
      [
       {
        "p": "ʃ",
@@ -28191,7 +28191,7 @@
      ]
     ],
     [
-     "ShAN",
+     "SHAN",
      [
       {
        "p": "ʃ",
@@ -29751,6 +29751,114 @@
     "script",
     "stage:hu",
     "hosszú älmä"
+   ],
+   [
+    "NNE",
+    "stage:ig",
+    "script",
+    "N̈NE"
+   ],
+   [
+    "N̈NE",
+    "script",
+    "stage:ig",
+    "NNE"
+   ],
+   [
+    "NWANNE",
+    "stage:ig",
+    "script",
+    "ṆWAN̈NE"
+   ],
+   [
+    "ṆWAN̈NE",
+    "script",
+    "stage:ig",
+    "NWANNE"
+   ],
+   [
+    "MMOJA",
+    "stage:sw",
+    "script",
+    "M̈MOD̦A"
+   ],
+   [
+    "M̈MOD̦A",
+    "script",
+    "stage:sw",
+    "MMOJA"
+   ],
+   [
+    "SZÉP",
+    "stage:hu",
+    "script",
+    "SÉP"
+   ],
+   [
+    "SÉP",
+    "script",
+    "stage:hu",
+    "SZÉP"
+   ],
+   [
+    "HOSSZÚ",
+    "stage:hu",
+    "script",
+    "HOSsÚ"
+   ],
+   [
+    "HOSsÚ",
+    "script",
+    "stage:hu",
+    "HOSSZÚ"
+   ],
+   [
+    "DZIEŃ",
+    "stage:pl",
+    "script",
+    "X̣EN̦"
+   ],
+   [
+    "X̣EN̦",
+    "script",
+    "stage:pl",
+    "DZIEŃ"
+   ],
+   [
+    "SIĘ",
+    "stage:pl",
+    "script",
+    "ṢIEṂ"
+   ],
+   [
+    "ṢIEṂ",
+    "script",
+    "stage:pl",
+    "SIĘ"
+   ],
+   [
+    "CHLEBA",
+    "stage:cs",
+    "script",
+    "ḲLEBA"
+   ],
+   [
+    "ḲLEBA",
+    "script",
+    "stage:cs",
+    "CHLEBA"
+   ],
+   [
+    "KUKKA",
+    "stage:fi",
+    "script",
+    "KUKkA"
+   ],
+   [
+    "KUKkA",
+    "script",
+    "stage:fi",
+    "KUKKA"
    ]
   ],
   "detect": [

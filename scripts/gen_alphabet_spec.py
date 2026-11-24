@@ -39,6 +39,8 @@ from script import Tok
 VERSION = '1.0.0-pre.1'         # 1.0.0 once the split is done and the names are frozen (split.md)
 OUT = os.path.join(ROOT, 'docs', 'alphabet-spec.json')
 
+CAPITALS = [('ig', 'NNE'), ('ig', 'NWANNE'), ('sw', 'MMOJA'), ('hu', 'SZÉP'), ('hu', 'HOSSZÚ'),
+            ('pl', 'DZIEŃ'), ('pl', 'SIĘ'), ('cs', 'CHLEBA'), ('fi', 'KUKKA')]
 SENTENCES = ['șok sép n̦ár', 'Șanˉ, șok!', 'ȘAN', 'G̦ P̦ G̤ T̤ Ü Șș C̤h Á', 'maˉ maˊ maˇ maˋ', 'hossú älmä',
              'c̦iˇ șïˇ c̦ïˉ', 'Diafon: j i w.', 'k̤ h̤ g̈ l̦ r̦ f̦ v̦ L̦ R̦', 't̤ d̤ n̤ s̤ z̤ c̤ x̤', 'c̣ x̣', 'r̈ r j w ẅ',
              'ạ ẹ ị ọ ụ aṃ eṃ', 't̤h d̤h ṛh pf th kh']
@@ -172,6 +174,11 @@ def build():
         text = stages.render(st['sample'], st)
         convert_vec += [[text, f'stage:{code}', t, stages.convert(text, f'stage:{code}', t)] for t in targets]
     convert_vec += [[s, 'script', 'stage:hu', stages.convert(s, 'script', 'stage:hu')] for s in SENTENCES[:6]]
+    # a word all in capitals: every point a capital, read and written back as it stood
+    for code, word in CAPITALS:
+        there = stages.convert(word, f'stage:{code}', 'script')
+        assert stages.convert(there, 'script', f'stage:{code}') == word, (code, word, there)
+        convert_vec += [[word, f'stage:{code}', 'script', there], [there, 'script', f'stage:{code}', word]]
 
     lexicons = {}
     for code in lexicon.codes():

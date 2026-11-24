@@ -153,14 +153,18 @@ def render_letters(text, stage, strict=False):
         nxt = toks[k + 1] if k + 1 < len(toks) else None
         pair = stage['pairs'].get((key(t), key(nxt))) if nxt is not None and nxt.raw is None else None
         if pair is not None:                              # the pair as one letter; the tones of both after it
-            out.append((pair[0].upper() + pair[1:] if t.caps else pair) + t.tones + nxt.tones)
+            # capitals as the points have them: both in capitals writes the pair in capitals (NNE)
+            cased = pair.upper() if t.caps and nxt.caps else pair[0].upper() + pair[1:] if t.caps else pair
+            out.append(cased + t.tones + nxt.tones)
             skip = True
             continue
-        sp = soft_spelling(stage, t, toks[k + 1] if k + 1 < len(toks) else None) or spell(stage, t)
+        sp = soft_spelling(stage, t, nxt) or spell(stage, t)
         if sp is None:
             if strict:
                 raise StageError(f'{script.write([t])}: not spelled in the {stage["code"]} stage')
             sp = script.glyph(t.comp, t.long, t.caps)
+        elif t.caps and any(n is not None and n.raw is None and n.caps for n in (nxt, toks[k - 1] if k else None)):
+            sp = ud.normalize('NFC', sp.upper())          # a capital beside a capital: all its letters (SZÉP, not SzÉP)
         out.append(sp + t.tones)
     return ''.join(out)
 
@@ -251,14 +255,14 @@ def table(stage, fallback=True, aliases=True):
                 t[up] = ((comp, long, True),)
     for pair, sp in stage['pairs'].items():
         t[sp] = tuple(k + (False,) for k in pair)
-        for cap in {sp[0].upper() + sp[1:], sp.upper()}:
-            t[ud.normalize('NFC', cap)] = (pair[0] + (True,),) + tuple(k + (False,) for k in pair[1:])
+        # all in capitals reads every point a capital (NNE is N̈NE, not N̈nE); a capital first, the first
+        t[ud.normalize('NFC', sp.upper())] = tuple(k + (True,) for k in pair)
+        t[ud.normalize('NFC', sp[0].upper() + sp[1:])] = (pair[0] + (True,),) + tuple(k + (False,) for k in pair[1:])
     for sp, toks in (dict(soft_reads(stage), **{s: _entry(v) for s, v in stage['read'].items()}).items()
                      if aliases else ()):
-        up = (toks[0][:2] + (True,),) + toks[1:]
         t[sp] = toks
-        t[sp[0].upper() + sp[1:]] = up
-        t[sp.upper()] = up
+        t[sp.upper()] = tuple(k[:2] + (True,) for k in toks)          # all in capitals: every point (DZIE)
+        t[sp[0].upper() + sp[1:]] = (toks[0][:2] + (True,),) + toks[1:]
     _TABLES[k] = t
     return t
 
@@ -298,7 +302,11 @@ def read_letters(text, table):
             continue
         tones, j = script.read_tones(text, i + len(s))
         entry = table[s]
+        # one capital letter that is several points (Ę): all of them capitals beside another capital (SIĘ)
+        shout = (len(entry) > 1 and s == s.upper() == s[0].upper() + s[1:] and s != s.lower()
+                 and ((i > 0 and text[i - 1].isupper()) or (j < n and text[j].isupper())))
         for k, (comp, long, caps) in enumerate(entry):
+            caps = caps or shout
             out.append(Tok(comp, long, caps, tones if k == len(entry) - 1 else '', src=s if k == 0 else ''))
         i = j
     return out

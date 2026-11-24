@@ -274,9 +274,13 @@
         }
         const r = readTones(text, i + s.length);
         const entry = table.get(s);
+        // one capital letter that is several points (Ę): all of them capitals beside another capital (SIĘ)
+        const isUp = (ch) => !!ch && ch !== ch.toLowerCase() && ch === ch.toUpperCase();
+        const shout = entry.length > 1 && s === s.toUpperCase() && s === upFirst(s) && s !== s.toLowerCase()
+          && (isUp(i > 0 ? text[i - 1] : '') || isUp(r[1] < n ? text[r[1]] : ''));
         for (let k = 0; k < entry.length; k++) {
           const e = entry[k];
-          out.push({ c: e[0], long: e[1], caps: e[2], tones: k === entry.length - 1 ? r[0] : '',
+          out.push({ c: e[0], long: e[1], caps: e[2] || shout, tones: k === entry.length - 1 ? r[0] : '',
                      src: entry.length === 1 || k === 0 ? s : '' });
         }
         i = r[1];
@@ -610,12 +614,16 @@
         const pair = nxt && !isRaw(nxt) && stage.pairs.size
           ? stage.pairs.get(pk(t.c, t.long) + '+' + pk(nxt.c, nxt.long)) : undefined;
         if (pair !== undefined) {                          // the pair as one letter; the tones of both after it
-          out += (t.caps ? upFirst(pair.v) : pair.v) + (t.tones || '') + (nxt.tones || '');
+          // capitals as the points have them: both in capitals writes the pair in capitals (NNE)
+          out += (t.caps && nxt.caps ? pair.v.toUpperCase() : t.caps ? upFirst(pair.v) : pair.v) + (t.tones || '') + (nxt.tones || '');
           k++;
           continue;
         }
         let sp = softSpelling(stage, t, nxt) || spell(stage, t.c, t.long, t.caps);
         if (sp === null) sp = glyph(t.c, t.long, t.caps, false);
+        else if (t.caps && [nxt, k ? toks[k - 1] : null].some((n) => n && !isRaw(n) && n.caps)) {
+          sp = nfc(sp.toUpperCase());                      // a capital beside a capital: all its letters (SZÉP, not SzÉP)
+        }
         out += sp + (t.tones || '');
       }
       return out;
@@ -710,18 +718,17 @@
       }
       for (const p of stage.pairs.values()) {
         t.set(p.v, p.pair.map((x) => [x[0], x[1], false]));
-        for (const cap of new Set([upFirst(p.v), p.v.toUpperCase()])) {
-          t.set(nfc(cap), p.pair.map((x, n) => [x[0], x[1], n === 0]));
-        }
+        // all in capitals reads every point a capital (NNE is N̈NE, not N̈nE); a capital first, the first
+        t.set(nfc(p.v.toUpperCase()), p.pair.map((x) => [x[0], x[1], true]));
+        t.set(nfc(upFirst(p.v)), p.pair.map((x, n) => [x[0], x[1], n === 0]));
       }
       if (aliases) {
         const al = softReads(stage);
         for (const s of Object.keys(stage.read)) al.set(s, entry(stage.read[s]));
         for (const [sp, toks] of al) {
-          const up = [[toks[0][0], toks[0][1], true]].concat(toks.slice(1));
           t.set(sp, toks);
-          t.set(upFirst(sp), up);
-          t.set(sp.toUpperCase(), up);
+          t.set(sp.toUpperCase(), toks.map((x) => [x[0], x[1], true]));   // all in capitals: every point (DZIE)
+          t.set(upFirst(sp), [[toks[0][0], toks[0][1], true]].concat(toks.slice(1)));
         }
       }
       stage.tables.set(k, t);
