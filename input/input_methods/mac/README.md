@@ -49,15 +49,16 @@ in the menu bar and type `sy cy aq`: it streams out as `ș c̦ á`.
   are not carried. Hungarian is written by its letters: every /j/ is j, and a loan is
   spelled as it sounds.
 - **The status menu**, under the input source in the menu bar: Convert
-  selection to … and Convert selection…, then Setup…. Which languages are
-  keyboards is the system's business (Input Sources), not the menu's. Flat by
+  selection to … and Convert selection…, and nothing else: there is nothing
+  to set. Which languages are keyboards is the system's business (Input
+  Sources), and so is where the letters sit (below). Flat by
   necessity: the menu is shown by a system process that returns only
   top-level clicks, so a submenu cannot be picked from.
-- **Setup…** opens a window: the keyboard in use (Diafon, or a language's
-  spelling, the language in a popup, its sample beside it; a choice here
-  switches the keyboard in the system too), the base layout, Try it (a typed
-  line in both), the options (tones, joined long consonants) with a line on
-  each, and How to. It is set in the Diafon fonts, which the app carries.
+- **The letters' placement** follows the Mac's own keyboard: Diafon types on
+  the plain layout (ABC, ABC – QWERTZ, ABC – AZERTY, Dvorak, Colemak) that
+  places the 26 letters as the Latin layout used last does, so a Hungarian
+  or German keyboard gives QWERTZ and a French one AZERTY, with the digits
+  (the tones) unshifted on the top row. No setting.
 - **Convert selection.** Text in any app, any spelling: select it, then in
   the Diafon menu **Convert selection to …** converts it in place, from the
   source detected in the text (your own languages preferred when the text
@@ -70,11 +71,10 @@ in the menu bar and type `sy cy aq`: it streams out as `ș c̦ á`.
   app by app (assign one under System Settings → Keyboard → Keyboard
   Shortcuts → Services if you want one).
 
-## How to (also in Setup…)
+## How to
 
-1. Pick Diafon in the input menu (or ⌃Space). The letters sit as Setup's
-   base layout puts them: QWERTY by default, or QWERTZ, AZERTY, Dvorak,
-   Colemak, whatever layout the Mac had selected before.
+1. Pick Diafon in the input menu (or ⌃Space). The letters sit where your
+   own keyboard has them (QWERTY, QWERTZ, AZERTY, Dvorak, Colemak).
 2. Type a letter, then `y` or `q` for its mark: `sy` → ș, `cy` → c̦,
    `aq` → á; the last sound stays underlined until the next key settles it.
 3. Switch between Diafon and your language keyboards as between any
@@ -94,8 +94,6 @@ in the menu bar and type `sy cy aq`: it streams out as `ș c̦ á`.
     Sources/Hud.swift                  a small label shown for a moment (nothing selected to convert)
     Sources/Keyboards.swift            the keyboards: the system's input sources read, switched on and off, selected
     tools/modes.py                     the Info.plist with one input mode per output
-    Sources/SetupWindow.swift          the setup window
-    Sources/MacPrefs.swift             the base layout under Diafon (overrideKeyboard), from ../apple/Core/Layouts.swift
     Sources/Services.swift             the text service
     Sources/main.swift                 IMKServer bootstrap, services registration
     Info.plist                         the input source, the services, the app icon (docs/logo/Diafon.icns) and

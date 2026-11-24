@@ -46,12 +46,9 @@ public class DiafonInputController: IMKInputController {
         if let client = sender as? IMKTextInput { applyLayout(client) }
     }
 
-    /// The base layout under Diafon (MacPrefs), set on the client when it differs from the last one set.
-    private var appliedLayout = ""
+    /// The layout under Diafon: plain letters and digits, placed as the person's own keyboard places them.
     private func applyLayout(_ client: IMKTextInput) {
-        let id = prefs.keyLayoutID
-        client.overrideKeyboard(withKeyboardNamed: id)
-        appliedLayout = id
+        client.overrideKeyboard(withKeyboardNamed: Keyboards.baseLayout)
     }
 
     public override func recognizedEvents(_ sender: Any!) -> Int {
@@ -62,7 +59,6 @@ public class DiafonInputController: IMKInputController {
         guard let event, let client = sender as? IMKTextInput else { return false }
 
         guard event.type == .keyDown else { return false }
-        if appliedLayout != prefs.keyLayoutID { applyLayout(client) }    // changed in Setup since this field was entered
         if !prefs.enabled { return false }                     // a plain keyboard: touch nothing
 
         // shortcuts and navigation: make the tail final, let the app have the key
@@ -128,8 +124,9 @@ public class DiafonInputController: IMKInputController {
     public override func menu() -> NSMenu! {
         // Shown by a system process, which sends back only top-level clicks (a
         // submenu's never arrive) and greys every item unless enabling is by
-        // hand. So: flat and short. What is written (Diafon, a language's
-        // spelling) is not here: each is an input mode, picked like any keyboard.
+        // hand. So: flat and short, and only the conversions. What is written
+        // (Diafon, a language's spelling) is an input mode, picked like any keyboard; where
+        // the letters sit follows the Mac's own keyboard layout. Nothing is set here.
         let m = NSMenu()
         m.autoenablesItems = false
         let p = prefs
@@ -137,8 +134,6 @@ public class DiafonInputController: IMKInputController {
         let conv = NSMenuItem(title: "Convert selection to \(p.enabled ? p.label() : "Diafon")", action: #selector(convertSelection(_:)), keyEquivalent: "")
         m.addItem(conv)
         m.addItem(NSMenuItem(title: "Convert selection…", action: #selector(convertSelectionChoosing(_:)), keyEquivalent: ""))
-        m.addItem(.separator())
-        m.addItem(NSMenuItem(title: "Setup…", action: #selector(openSetup(_:)), keyEquivalent: ""))
         return m
     }
 
@@ -166,7 +161,5 @@ public class DiafonInputController: IMKInputController {
         guard let (client, range, text) = selection() else { return }
         if let result = ConvertWindow.run(text) { client.insertText(result, replacementRange: range) }
     }
-
-    @objc func openSetup(_ sender: Any!) { SetupWindow.shared.show() }
 
 }

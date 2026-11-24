@@ -10,7 +10,7 @@ APP   := DiafonIM
 SWIFTC := xcrun swiftc -swift-version 5 -O
 CORE  := $(ROOT)/input_methods/apple/Core/Diafon.swift $(ROOT)/input_methods/apple/Core/Prefs.swift $(ROOT)/input_methods/apple/Core/Layouts.swift
 RES   := $(ROOT)/input_methods/apple/Resources
-APPSRC := Sources/MacPrefs.swift Sources/Keyboards.swift Sources/main.swift Sources/Services.swift Sources/ConvertWindow.swift Sources/Hud.swift Sources/SetupWindow.swift Sources/DiafonInputController.swift
+APPSRC := Sources/Keyboards.swift Sources/main.swift Sources/Services.swift Sources/ConvertWindow.swift Sources/Hud.swift Sources/DiafonInputController.swift
 
 .PHONY: data check app install enable clean
 

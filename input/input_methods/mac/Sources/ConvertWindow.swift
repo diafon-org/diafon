@@ -3,6 +3,7 @@
 // default), and a live preview. Modal: the service waits for Convert or
 // Cancel. SwiftUI, hosted in a window.
 import Cocoa
+import CoreText
 import SwiftUI
 
 final class ConvertModel: ObservableObject {
@@ -40,7 +41,7 @@ struct ConvertView: View {
             Divider()
             ScrollView {
                 Text(model.result)
-                    .font(.custom(SetupWindow.fontsRegistered ? "DiafonSerif-Regular" : "Georgia", size: 15))
+                    .font(.custom(ConvertWindow.fontsRegistered ? "DiafonSerif-Regular" : "Georgia", size: 15))
                     .textSelection(.enabled)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
@@ -73,6 +74,13 @@ struct ConvertView: View {
 }
 
 enum ConvertWindow {
+    /// The Diafon fonts the app carries (Resources/Fonts), registered for this process once.
+    static let fontsRegistered: Bool = {
+        guard let dir = Bundle.main.resourceURL?.appendingPathComponent("Fonts"),
+              let files = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil) else { return false }
+        for f in files where f.pathExtension == "ttf" { CTFontManagerRegisterFontsForURL(f as CFURL, .process, nil) }
+        return true
+    }()
     /// Show the window and wait; the converted text, or nil on Cancel.
     static func run(_ text: String) -> String? {
         let model = ConvertModel(text)
