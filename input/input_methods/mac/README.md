@@ -43,9 +43,11 @@ in the menu bar and type `sy cy aq`: it streams out as `ș c̦ á`.
   doubled `y` or `q` is the plain letter (`cityy` city), and a digit after a
   letter is its tone (`ni3 kqaw3`), doubled the plain digit (`h22o`).
 - **No dictionaries.** The input method carries no word list. A language
-  is offered when its spelling is written by its letters alone; English and
-  Mandarin, whose spellings are dictionaries, are not, and come out in the
-  script. Hungarian is written by its letters: every /j/ is j, and a loan is
+  is offered when its spelling is written by its letters alone; English,
+  whose spelling is a dictionary, is not, and comes out in the script.
+  Mandarin's pinyin is a table of syllables, not a dictionary, and is a
+  keyboard (Diafon – Pinyin): `ni3 kqaw3` writes ni3 hao3. The characters
+  are not carried. Hungarian is written by its letters: every /j/ is j, and a loan is
   spelled as it sounds.
 - **The status menu**, under the input source in the menu bar: Convert
   selection to … and Convert selection…, then Keyboards… (the chooser: every

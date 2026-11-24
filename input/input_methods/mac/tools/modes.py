@@ -3,7 +3,8 @@
 
 Each output is an input mode of its own, so the system's keyboard switching
 (the input menu, the Globe key, Control-Space) chooses it: Diafon (the
-script), and one per language written by its letters alone (Diafon – Magyar).
+script), one per language written by its letters alone (Diafon – Magyar), and
+Mandarin's pinyin, a table of syllables the app carries (Diafon – Pinyin).
 The list is fixed at build time, from the alphabet's spec; a mode is switched on
 in System Settings → Keyboard → Input Sources.
 
@@ -16,15 +17,16 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 BASE = 'org.diafon.inputmethod.Diafon'
-NATIVE = {'cs': 'Čeština', 'fi': 'Suomi', 'hu': 'Magyar', 'ig': 'Igbo', 'pl': 'Polski', 'sw': 'Kiswahili', 'tr': 'Türkçe'}
+TABLES = {'zh': 'zh-Hans'}      # scripts/gen_apple.py TABLES: the language the system files the keyboard under
+NATIVE = {'zh': 'Pinyin', 'cs': 'Čeština', 'fi': 'Suomi', 'hu': 'Magyar', 'ig': 'Igbo', 'pl': 'Polski', 'sw': 'Kiswahili', 'tr': 'Türkçe'}
 
 
 def modes():
     """-> [(mode id, name, language)]: Universal first, then the languages by name."""
     spec = json.load(open(os.path.join(os.path.dirname(ROOT), 'docs', 'alphabet-spec.json'), encoding='utf-8'))
-    langs = sorted((c for c, st in spec['stages'].items() if st['state'] != 'lexical'), key=lambda c: spec['stages'][c]['name'])
+    langs = sorted((c for c, st in spec['stages'].items() if st['state'] != 'lexical' or c in TABLES), key=lambda c: spec['stages'][c]['name'])
     return [(f'{BASE}.universal', 'Diafon', 'en')] + \
-        [(f'{BASE}.{c}', f'Diafon – {NATIVE.get(c, spec["stages"][c]["name"])}', c) for c in langs]
+        [(f'{BASE}.{c}', f'Diafon – {NATIVE.get(c, spec["stages"][c]["name"])}', TABLES.get(c, c)) for c in langs]
 
 
 def main():

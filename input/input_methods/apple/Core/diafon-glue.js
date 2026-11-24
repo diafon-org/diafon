@@ -8,16 +8,19 @@
   'use strict';
   var core = null, keys = null, signs = [], spec = null;
 
-  root.diafonInit = function (specJson, profileJson) {
+  root.diafonInit = function (specJson, profileJson, tablesJson) {
     spec = JSON.parse(specJson);
+    var tables = tablesJson ? JSON.parse(tablesJson) : {};
     var profile = JSON.parse(profileJson);
     core = root.DiafonCore.create(spec);
     keys = root.DiafonKeys.create(profile);
+    // a spelling the apps carry as a table (Mandarin's pinyin syllables) is written like a lettered one
+    Object.keys(tables).forEach(function (code) { core.addLexicon(code, tables[code]); });
     signs = Object.keys(profile.tone_signs || {}).map(function (d) { return profile.tone_signs[d]; }).filter(Boolean);
     return JSON.stringify({
       version: spec.version, typing: profile.id, operators: profile.segment.operators,
       stages: Object.keys(spec.stages).map(function (code) {
-        var st = spec.stages[code], lexical = st.state === 'lexical';
+        var st = spec.stages[code], lexical = st.state === 'lexical' && !tables[code];
         return { code: code, name: st.name, lexical: lexical, sample: st.sample || '' };
       }),
     });

@@ -36,7 +36,10 @@ How the typing reaches a text field on each platform.
    letters are another keyboard).
 
 The input methods carry no dictionary. A language is offered when its
-spelling is written by its letters alone; English and Mandarin are not.
+spelling is written by its letters alone; English is not. Mandarin's pinyin
+is no dictionary but a table of some 400 syllables made by rule (12 KB,
+lexicons.json), so it is offered too: `ni3 kqaw3` writes ni3 hao3, the tone
+as its number. The characters are not carried.
 
 ## Checks
 

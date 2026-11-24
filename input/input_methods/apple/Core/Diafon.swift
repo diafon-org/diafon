@@ -14,7 +14,8 @@ import JavaScriptCore
 struct StageInfo {
     let code: String, name: String
     let sample: String                 // a phrase in Diafon letters
-    let lexical: Bool                  // spelled by a dictionary (English, Mandarin): not offered, the apps carry none
+    let lexical: Bool                  // spelled by a dictionary the apps do not carry (English): not offered.
+                                       // Mandarin's pinyin is a table of syllables, bundled (lexicons.json): offered
 }
 
 final class Diafon {
@@ -53,7 +54,7 @@ final class Diafon {
             return
         }
         for script in [core, keys, glue] { ctx.evaluateScript(script) }
-        guard let info = call("diafonInit", [spec, profile])?.toString(), let data = info.data(using: .utf8),
+        guard let info = call("diafonInit", [spec, profile, Diafon.text("lexicons.json") ?? "{}"])?.toString(), let data = info.data(using: .utf8),
               let d = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
             failure = failure ?? "the alphabet did not load"
             return

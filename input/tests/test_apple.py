@@ -29,6 +29,8 @@ TYPED = [('out:stage:hu', 'syok seqp nyaqr, hossuq alma', 'sok szép nyár, hoss
          ('out:transport', 'sy tq', 'sy tq'), ('keys', 'Șok sép n̦ár, hossú alma', 'Syok seqp nyaqr, hossuq alma'),
          ('keys', 'city niˇ h2o', 'cityy ni3 h22o'),
          ('render', 'KUKKA Kukka HOSSYUQ', 'KUKKA Kukka HOȘȘÚ'), ('keys', 'KUKKA Kukka HOȘȘÚ', 'KUKKA Kukka HOSSyUq'),   # all in capitals
+         ('out:stage:zh', 'ni3 kqaw3, cyunq1kuo2', 'ni3 hao3, zhong1guo2'), ('convert:stage:zh|script', 'ni3 hao3', 'niˇ ḳawˇ'),   # pinyin, by its table
+         ('convert:script|stage:zh', 'Niˇ ḳawˇ, șïˋ c̣ieˋ', 'Ni3 hao3, shi4 jie4'),
          ('out:stage:hu', 'ADD HOSSUQ Kedd', 'ADD HOSSZÚ Kedd'), ('convert:stage:hu|script', 'ADD hozzá, KEDD', 'ADD hozzá, KEDD')]
 
 
