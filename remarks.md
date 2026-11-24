@@ -3,9 +3,12 @@
 Decision rationale lives here, never in the main docs; the docs state only
 the current system. A superseded decision is deleted, not kept.
 
-- A syllabic consonant takes no mark (Igbo mmadụ, Swahili mtu, Czech vlk): its place tells, and no
-  language here has a doubled consonant that could be either long or syllabic. Reserved for the day one
-  does: the double dot above, as r̈ already is (m̈ n̈ l̈; typed qy after the consonant). 2026-11-23.
+- A syllabic consonant takes no mark where its place tells (Swahili mtu, Czech vlk). Before its own
+  letter a syllabic nasal wears the double dot above, as r̈ already does (m̈madụ, n̈ne; typed mqy, nqy):
+  a doubled letter must read the same in every language, and mm is one long m in Italian, Hungarian
+  and English (howmmejd), while Igbo and Swahili mm is two syllables. No language needs both inside
+  itself; the form does across them. The mark is written only there, so mtu has one spelling. English
+  already keeps the two apart on r (bárrúm, berr̈). l̈ stays in reserve. 2026-11-24.
 - The unit is named "point" (over unit, sign, diaphone): short, composes well
   (point set, point inventory, a point's band).
 - Russian's soft f and v ride the special (fxy vxy) with its s and z: only

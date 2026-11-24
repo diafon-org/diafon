@@ -36,10 +36,14 @@ already tells two vowels apart there is no mark: English /iː/ and /ɪ/ are
 <p id="rule-3"><b>3. One phoneme, one letter.</b> Two sounds that are one phoneme in a
 language share the letter of its main value: English /ʌ/ is its stressed schwa,
 <span class="ug">ë</span>; Mandarin /ə/ and /ɤ/ are one vowel, <span class="ug">ë</span> too.</p>
-<p id="rule-4"><b>4. A consonant can be a syllable, unmarked.</b> A nasal, an l or an r with no
-vowel beside it is a syllable of its own: Igbo <span class="ug">mmadụ</span> is m-ma-dụ, Swahili
-<span class="ug">mtu</span> is m-tu, Czech <span class="ug">vlk</span> has its l at the centre. It takes no mark; where tone
-is written, its tone sign follows it as after any syllable.</p>
+<p id="rule-4"><b>4. A consonant can be a syllable.</b> A nasal, an l or an r with no
+vowel beside it is a syllable of its own, and takes no mark: Swahili
+<span class="ug">mtu</span> is m-tu, Czech <span class="ug">vlk</span> has its l at the centre.
+Before its own letter a syllabic nasal wears the double dot above, <span class="ug">m̈ n̈</span>:
+Igbo <span class="ug">m̈madụ</span> is m-ma-dụ, Swahili <span class="ug">n̈ne</span> is n-ne. A doubled
+letter is then always one long consonant, in every language: Italian <span class="ug">mamma</span>,
+English <span class="ug">howmmejd</span>. Where tone is written, the syllabic consonant's tone sign
+follows it as after any syllable.</p>
 </div>
 
 <div class="mt-samples" id="mt-samples" markdown="1">

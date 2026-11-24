@@ -14,7 +14,9 @@ letter for the pair (ș ṭ ä á) it appears, elsewhere the sequence stands
 - A long consonant doubles its letter, and only the first is capitalized
   (Șș); with join=True a zero width joiner sits between the two, which the
   Diafon fonts draw fused. Two equal consonant letters in a row are the long
-  point: the joiner marks a drawing, never a meaning.
+  point: the joiner marks a drawing, never a meaning. A nasal that is a
+  syllable before its own letter wears the double dot above (m̈ma, n̈ne), so
+  it is never read as the long one.
 - A tone is a sign after the syllable; the unmarked contour writes nothing.
 
 A text is a list of tokens (Tok): a point, with its length, case and tones,
@@ -86,7 +88,7 @@ class Tok:
 def valid(comp):
     """Whether a letter and marks compose. A consonant wears at most one of
     the anchor, the dot and the double dot below: no double dot on the thin stems l r f,
-    only the dot on j w. The flip stands on w r, alone (and on the
+    only the dot on j w. The flip stands on w r m n, alone (and on the
     dotted r). A vowel wears the flip or the underdot, not both."""
     letter, marks = comp
     if len(set(marks)) != len(marks):
@@ -103,16 +105,17 @@ def valid(comp):
     if rest and rest != ['dot'] and letter in 'jw':
         return False
     if 'flip' in marks:
-        return letter in 'wr' and (not rest or (letter == 'r' and rest == ['dot']))
+        return letter in 'wrmn' and (not rest or (letter == 'r' and rest == ['dot']))
     return True
 
 
 def vocalic(comp):
     """The vowels, and the points that stand with them: the glides on j and
-    w, and the vocalic r (r̈). A spelling's rules for consonants (a doubled
-    letter when long, soft before a vowel) leave these out."""
+    w, the vocalic r (r̈) and the syllabic nasals (m̈ n̈). A spelling's rules
+    for consonants (a doubled letter when long, soft before a vowel) leave
+    these out."""
     letter, marks = comp
-    return letter in VOWELS or letter in 'jw' or (letter == 'r' and 'flip' in marks)
+    return letter in VOWELS or letter in 'jw' or (letter in 'rmn' and 'flip' in marks)
 
 
 def point(name):

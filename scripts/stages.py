@@ -487,8 +487,13 @@ def validate(code):
         seen[sp] = k
     if stage.get('sample'):
         # the sample sentence must be spelled in full by the stage itself
-        for t in script.read(stage['sample']):
-            if t.point and spell(stage, t) is None:
+        toks = script.read(stage['sample'])
+        for i, t in enumerate(toks):
+            if not t.point or spell(stage, t) is not None:
+                continue
+            before = i > 0 and toks[i - 1].point and (key(toks[i - 1]), key(t)) in stage['pairs']
+            after = i + 1 < len(toks) and toks[i + 1].point and (key(t), key(toks[i + 1])) in stage['pairs']
+            if not (before or after):                       # spelled with its neighbour as one letter (m̈m: mm)
                 errors.append(f'{code}: the sample uses {script.write([t])}, which the stage does not spell')
     for k in list(single):
         if not k[1] and not script.vocalic(k[0]) and stage['spell'].get(k) is not None:

@@ -141,7 +141,7 @@ GROUPS = [
     ((False, ('anchor',)), 'consonants', 'the anchor: hushed or soft'),
     ((False, ('dot',)), 'consonants', 'the dot: a fixed nearby sound; on s z c x, the soft one'),
     ((False, ('twodots',)), 'consonants', "the double dot below: the language's own variant, further back"),
-    ((False, ('flip',)), 'consonants', 'the double dot: the rounded glide, the vocalic r'),
+    ((False, ('flip',)), 'consonants', 'the double dot: the rounded glide, the vocalic r, the syllabic nasal before its own letter'),
     ((True, ()), 'vowels', 'plain letters'),
     ((True, ('flip',)), 'vowels', 'the double dot: lip rounding swapped; on a, the front a'),
     ((True, ('underdot',)), 'vowels', 'the dot below: more open, only in languages with both; on a, the schwa'),

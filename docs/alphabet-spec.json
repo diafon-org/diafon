@@ -103,10 +103,10 @@
   "rules": [
    "A point is a letter and its marks; its text is the composition, NFC.",
    "A consonant wears at most one of the anchor, the dot and the double dot below (twodots), below; above on a small letter that descends. No capital descends: a capital wears its mark below.",
-   "No double dot on the thin stems l r f; only the dot on j w; the flip stands on w r, alone, and on the dotted r.",
+   "No double dot on the thin stems l r f; only the dot on j w; the flip stands on w r m n, alone, and on the dotted r.",
    "A vowel wears the flip or the underdot, not both; long, the acute; the flip and the acute fuse into the double acute.",
    "A long consonant doubles its letter; only the first is capitalized, and the second is the first one small. A joiner (U+200D) between the two marks the fused drawing and nothing else.",
-   "Two equal consonant letters in a row are the long point.",
+   "Two equal consonant letters in a row are the long point. A nasal that is a syllable before its own letter wears the flip (m̈m, n̈n); a syllabic consonant anywhere else is unmarked.",
    "A tone is a sign after the syllable; the unmarked contour writes nothing. A digit after a point reads as a tone number.",
    "Reading: longest match, and a match never ends before a combining mark, so a letter takes its marks before a doubling."
   ]
@@ -3353,6 +3353,19 @@
   {
    "letter": "m",
    "marks": [
+    "flip"
+   ],
+   "id": null,
+   "glyph": "m̈",
+   "capital": "M̈",
+   "long": "m̈m̈",
+   "long_capital": "M̈m̈",
+   "joined": "m̈‍m̈",
+   "joined_capital": "M̈‍m̈"
+  },
+  {
+   "letter": "m",
+   "marks": [
     "twodots"
    ],
    "id": null,
@@ -3362,6 +3375,19 @@
    "long_capital": "M̤m̤",
    "joined": "m̤‍m̤",
    "joined_capital": "M̤‍m̤"
+  },
+  {
+   "letter": "n",
+   "marks": [
+    "flip"
+   ],
+   "id": null,
+   "glyph": "n̈",
+   "capital": "N̈",
+   "long": "n̈n̈",
+   "long_capital": "N̈n̈",
+   "joined": "n̈‍n̈",
+   "joined_capital": "N̈‍n̈"
   },
   {
    "letter": "p",
@@ -10948,13 +10974,15 @@
     "ʊ": "ụ"
    },
    "caps": {},
-   "sample": "nnọ, kedụ ka ị mere",
+   "sample": "n̈nọ, kedụ ka ị mere",
    "read": {},
    "before_i": {},
    "i_softens": false,
    "before_vowel": {},
    "pairs": {
-    "ṇw": "nw"
+    "ṇw": "nw",
+    "m̈m": "mm",
+    "n̈n": "nn"
    },
    "lexical": false
   },
@@ -11150,7 +11178,10 @@
    "before_i": {},
    "i_softens": false,
    "before_vowel": {},
-   "pairs": {},
+   "pairs": {
+    "m̈m": "mm",
+    "n̈n": "nn"
+   },
    "lexical": false
   },
   "tr": {
@@ -12838,6 +12869,29 @@
      {
       "c": [
        "m",
+       "flip"
+      ]
+     }
+    ],
+    "m̈"
+   ],
+   [
+    [
+     {
+      "c": [
+       "m",
+       "flip"
+      ],
+      "caps": true
+     }
+    ],
+    "M̈"
+   ],
+   [
+    [
+     {
+      "c": [
+       "m",
        "twodots"
       ]
      }
@@ -12855,6 +12909,29 @@
      }
     ],
     "M̤"
+   ],
+   [
+    [
+     {
+      "c": [
+       "n",
+       "flip"
+      ]
+     }
+    ],
+    "n̈"
+   ],
+   [
+    [
+     {
+      "c": [
+       "n",
+       "flip"
+      ],
+      "caps": true
+     }
+    ],
+    "N̈"
    ],
    [
     [
@@ -14487,6 +14564,31 @@
      {
       "c": [
        "m",
+       "flip"
+      ],
+      "long": true
+     }
+    ],
+    "m̈‍m̈"
+   ],
+   [
+    [
+     {
+      "c": [
+       "m",
+       "flip"
+      ],
+      "long": true,
+      "caps": true
+     }
+    ],
+    "M̈‍m̈"
+   ],
+   [
+    [
+     {
+      "c": [
+       "m",
        "twodots"
       ],
       "long": true
@@ -14506,6 +14608,31 @@
      }
     ],
     "M̤‍m̤"
+   ],
+   [
+    [
+     {
+      "c": [
+       "n",
+       "flip"
+      ],
+      "long": true
+     }
+    ],
+    "n̈‍n̈"
+   ],
+   [
+    [
+     {
+      "c": [
+       "n",
+       "flip"
+      ],
+      "long": true,
+      "caps": true
+     }
+    ],
+    "N̈‍n̈"
    ],
    [
     [
@@ -20888,7 +21015,13 @@
     ],
     [
      [
-      "nː",
+      {
+       "c": [
+        "n",
+        "flip"
+       ]
+      },
+      "n",
       "ɔ",
       {
        "raw": ","
@@ -27342,7 +27475,13 @@
     [
      "nnọ, kedụ ka ị mere",
      [
-      "nː",
+      {
+       "c": [
+        "n",
+        "flip"
+       ]
+      },
+      "n",
       "ɔ",
       {
        "raw": ","
@@ -29341,31 +29480,31 @@
     "nnọ, kedụ ka ị mere",
     "stage:ig",
     "script",
-    "nnọ, kedụ ka ị mere"
+    "n̈nọ, kedụ ka ị mere"
    ],
    [
     "nnọ, kedụ ka ị mere",
     "stage:ig",
     "stage:cs",
-    "nnọ, kedụ ka ị mere"
+    "n̈nọ, kedụ ka ị mere"
    ],
    [
     "nnọ, kedụ ka ị mere",
     "stage:ig",
     "stage:en",
-    "nnọ, kedụ ka ị mere"
+    "n̈nọ, kedụ ka ị mere"
    ],
    [
     "nnọ, kedụ ka ị mere",
     "stage:ig",
     "stage:fi",
-    "nnọ, kedụ ka ị mere"
+    "n̈nọ, kedụ ka ị mere"
    ],
    [
     "nnọ, kedụ ka ị mere",
     "stage:ig",
     "stage:hu",
-    "nnọ, kedụ ka ị mere"
+    "n̈nọ, kedụ ka ị mere"
    ],
    [
     "nnọ, kedụ ka ị mere",
@@ -29377,7 +29516,7 @@
     "nnọ, kedụ ka ị mere",
     "stage:ig",
     "stage:pl",
-    "nnọ, kedụ ka ị mere"
+    "n̈nọ, kedụ ka ị mere"
    ],
    [
     "nnọ, kedụ ka ị mere",
@@ -29389,13 +29528,13 @@
     "nnọ, kedụ ka ị mere",
     "stage:ig",
     "stage:tr",
-    "nnọ, kedụ ka ị mere"
+    "n̈nọ, kedụ ka ị mere"
    ],
    [
     "nnọ, kedụ ka ị mere",
     "stage:ig",
     "stage:zh",
-    "nnọ, kedụ ga ị mere"
+    "n̈nọ, kedụ ga ị mere"
    ],
    [
     "dobra noc, kochani",

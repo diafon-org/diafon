@@ -874,6 +874,22 @@
     "joined_capital": "M̤‍m̤"
    }
   },
+  "mqy": {
+   "to": [
+    "m",
+    "flip"
+   ],
+   "point": null,
+   "long": false,
+   "writes": {
+    "glyph": "m̈",
+    "capital": "M̈",
+    "long": "m̈m̈",
+    "long_capital": "M̈m̈",
+    "joined": "m̈‍m̈",
+    "joined_capital": "M̈‍m̈"
+   }
+  },
   "n": {
    "to": [
     "n"
@@ -935,6 +951,22 @@
     "long_capital": "N̤n̤",
     "joined": "n̤‍n̤",
     "joined_capital": "N̤‍n̤"
+   }
+  },
+  "nqy": {
+   "to": [
+    "n",
+    "flip"
+   ],
+   "point": null,
+   "long": false,
+   "writes": {
+    "glyph": "n̈",
+    "capital": "N̈",
+    "long": "n̈n̈",
+    "long_capital": "N̈n̈",
+    "joined": "n̈‍n̈",
+    "joined_capital": "N̈‍n̈"
    }
   },
   "l": {
@@ -1801,6 +1833,10 @@
     "ṃ"
    ],
    [
+    "mqy",
+    "m̈"
+   ],
+   [
     "my",
     "m̦"
    ],
@@ -1815,6 +1851,10 @@
    [
     "nq",
     "ṇ"
+   ],
+   [
+    "nqy",
+    "n̈"
    ],
    [
     "ny",
@@ -2205,6 +2245,10 @@
     "Ṃ"
    ],
    [
+    "Mqy",
+    "M̈"
+   ],
+   [
     "My",
     "M̦"
    ],
@@ -2219,6 +2263,10 @@
    [
     "Nq",
     "Ṇ"
+   ],
+   [
+    "Nqy",
+    "N̈"
    ],
    [
     "Ny",
@@ -2537,6 +2585,10 @@
     "ṃṃ"
    ],
    [
+    "mmqy",
+    "m̈m̈"
+   ],
+   [
     "mmy",
     "m̦m̦"
    ],
@@ -2551,6 +2603,10 @@
    [
     "nnq",
     "ṇṇ"
+   ],
+   [
+    "nnqy",
+    "n̈n̈"
    ],
    [
     "nny",
@@ -2927,6 +2983,10 @@
     "ṃ‍ṃ"
    ],
    [
+    "mmqy",
+    "m̈‍m̈"
+   ],
+   [
     "mmy",
     "m̦‍m̦"
    ],
@@ -2941,6 +3001,10 @@
    [
     "nnq",
     "ṇ‍ṇ"
+   ],
+   [
+    "nnqy",
+    "n̈‍n̈"
    ],
    [
     "nny",

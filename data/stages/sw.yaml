@@ -4,11 +4,14 @@
 # Swahili is written as it sounds; the digraphs are its own. Losses, one-way
 # and stated: the velar nasal before g is written n in Swahili (ngoma), here
 # always ng'.
+# A doubled nasal (mmoja, nne) is a syllabic nasal before its own letter: the
+# script marks the first one (m̈moja, n̈ne), the spelling writes mm, nn.
 code: sw
 name: Swahili
 state: draft
 letters: a b ch d dh e f g gh h i j k kh l m n ng' ny o p r s sh t th u v w y z
 long: double
+pairs: {m̈m: mm, n̈n: nn}      # mmoja, nne: a syllabic nasal and the consonant after it, never a long one
 sample: habari za asubuhi, karibu sana      # habari za asubuhi, karibu sana
 read:                   # read back but never written: the loan letters
   x: ks

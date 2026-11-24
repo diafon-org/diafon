@@ -64,10 +64,13 @@ own: French *bon* is <span class="ug">boṃ</span>, Hindi *hā̃* is
 <span class="ug">haṃ</span>. Aspiration works the same way with h:
 <span class="ug">th</span> is an aspirated t.
 
-Two consonant letters take the double dot too. On r it gives the vocalic r,
+Four consonant letters take the double dot too. On r it gives the vocalic r,
 <span class="ug">r̈</span> /ɝ/, the vowel of English *bird*. On w it gives
 <span class="ug">ẅ</span> /ɥ/, the glide of ü, as j is the glide of i and
-w the glide of u.
+w the glide of u. On m and n it marks a nasal that is a syllable before its
+own letter: Igbo *mmadụ* is <span class="ug">m̈madụ</span>, m-ma-dụ. A
+doubled letter is always one long consonant, as in Italian
+<span class="ug">mamma</span>.
 
 ## Each letter covers an area
 

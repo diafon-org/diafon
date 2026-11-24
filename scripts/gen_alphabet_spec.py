@@ -205,10 +205,10 @@ def build():
             'rules': [
                 'A point is a letter and its marks; its text is the composition, NFC.',
                 'A consonant wears at most one of the anchor, the dot and the double dot below (twodots), below; above on a small letter that descends. No capital descends: a capital wears its mark below.',
-                'No double dot on the thin stems l r f; only the dot on j w; the flip stands on w r, alone, and on the dotted r.',
+                'No double dot on the thin stems l r f; only the dot on j w; the flip stands on w r m n, alone, and on the dotted r.',
                 'A vowel wears the flip or the underdot, not both; long, the acute; the flip and the acute fuse into the double acute.',
                 'A long consonant doubles its letter; only the first is capitalized, and the second is the first one small. A joiner (U+200D) between the two marks the fused drawing and nothing else.',
-                'Two equal consonant letters in a row are the long point.',
+                'Two equal consonant letters in a row are the long point. A nasal that is a syllable before its own letter wears the flip (m̈m, n̈n); a syllabic consonant anywhere else is unmarked.',
                 'A tone is a sign after the syllable; the unmarked contour writes nothing. A digit after a point reads as a tone number.',
                 'Reading: longest match, and a match never ends before a combining mark, so a letter takes its marks before a doubling.',
             ],

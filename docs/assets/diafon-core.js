@@ -102,10 +102,10 @@
 
     const hasMark = (comp, m) => comp.indexOf(m, 1) > 0;
 
-    /* The vowels, and the points that stand with them: the glides on j and w, and the vocalic r. */
+    /* The vowels, and the points that stand with them: the glides on j and w, the vocalic r, the syllabic nasals (m̈ n̈). */
     function vocalic(comp) {
       const letter = comp[0];
-      return VOWELS.has(letter) || letter === 'j' || letter === 'w' || (letter === 'r' && hasMark(comp, 'flip'));
+      return VOWELS.has(letter) || letter === 'j' || letter === 'w' || ((letter === 'r' || letter === 'm' || letter === 'n') && hasMark(comp, 'flip'));
     }
 
     /* A point by name -> [composition, long]. */

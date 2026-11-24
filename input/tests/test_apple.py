@@ -23,7 +23,9 @@ APPLE = os.path.join(ROOT, 'input_methods', 'apple')
 FIELD, STEP, NL = '\x1e', '\x1f', '\x1d'
 TYPED = [('out:stage:hu', 'syok seqp nyaqr, hossuq alma', 'sok szép nyár, hosszú alma'),      # typed, in a spelling
          ('out:stage:cs', 'dobriq den, pryqaqteleq', 'dobrí den, přátelé'),
-         ('out:stage:ig', 'nnoqy, keduqy ka iqy mere', 'nnọ, kedụ ka ị mere'),
+         ('out:stage:ig', 'nqynoqy, keduqy ka iqy mere', 'nnọ, kedụ ka ị mere'),
+         ('render', 'mqymaduqy nqyne mma', 'm̈madụ n̈ne mma'), ('convert:stage:ig|script', 'mmadụ nne', 'm̈madụ n̈ne'),
+         ('convert:stage:sw|script', 'mmoja mtu', 'm̈mod̦a mtu'), ('keys', 'm̈madụ', 'mqymaduqy'),
          ('out:transport', 'sy tq', 'sy tq'), ('keys', 'Șok sép n̦ár, hossú alma', 'Syok seqp nyaqr, hossuq alma'),
          ('keys', 'city niˇ h2o', 'cityy ni3 h22o')]
 

@@ -5,15 +5,15 @@
 # digraphs are its own: ch sh gh ny, and nw for ṇw. Tone is not normally
 # written in Igbo and is not written here. Losses: none known.
 # A doubled nasal (mmadụ, nne) is a syllabic nasal and the consonant after it, two
-# syllables; the script writes it as it writes a long consonant, and a tone sign
-# after the first one sets them apart (mˍmaˉdụˍ).
+# syllables, never a long consonant: the script marks the first one (m̈madụ, n̈ne),
+# and the spelling writes the pair as it always has.
 code: ig
 name: Igbo
 state: draft
 long: double
 letters: a b ch d e f g gb gh gw h i ị j k kp kw l m n ṅ nw ny o ọ p r s sh t u ụ v w y z
-sample: nnọ, kedụ ka ị mere      # nnọ, kedụ ka ị mere
-pairs: {ṇw: nw}
+sample: n̈nọ, kedụ ka ị mere      # nnọ, kedụ ka ị mere
+pairs: {ṇw: nw, m̈m: mm, n̈n: nn}
 points:
   p: p
   b: b

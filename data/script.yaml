@@ -4,7 +4,8 @@
 # floats above on the letters that descend (the float rule); no capital
 # descends, so a capital always wears its mark below. A vowel wears at most
 # one mark above and one below, and the acute when long (the flip and the
-# acute fuse into the double acute). A long consonant doubles its letter.
+# acute fuse into the double acute). A long consonant doubles its letter, and
+# a doubled letter is always the long one.
 # The combining marks are approximations until the Diafon fonts carry the
 # true attached anchor.
 
@@ -22,7 +23,8 @@ marks:
   acute:         {above: "́"}                    # a long vowel
   double_acute:  {above: "̋"}                    # the flip and the acute, fused
   flip:          {above: "̈"}                    # front and back swapped: ü ö ä the front ones, ë ï the back ones;
-                                                 #   on j w r, the rounded glides and the vocalic r
+                                                 #   on w r, the rounded glide and the vocalic r; on m n, the nasal that is a
+                                                 #   syllable before its own letter (m̈ma, n̈ne: an open composition, no point name)
 
 # The points, by name (the canonical IPA value, split.md): letter, then marks.
 # Every point has a long partner, named with ː: a vowel takes the acute, a

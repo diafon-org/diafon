@@ -7,6 +7,9 @@
 #   dot below (tyq t̤, kyq k̤, hyq h̤).
 # - On r and w the y is the double dot above: ry is r̈, wy is ẅ. The soft r̦
 #   is ryq.
+# - On m and n the double dot above is qy: mqy is m̈, nqy is n̈, the nasal that
+#   is a syllable before its own letter (mqymaduqy m̈madụ, nqyne n̈ne).
+#   mm and nn stay the long ones.
 # - A doubled consonant is the long one, and an operator after it applies
 #   to both: ssy is șș.
 # Vowels
@@ -91,10 +94,12 @@ keys:
   my: mʲ                      # m̦
   mq: ⁿ                       # ṃ
   myq: m+twodots              # m̤
+  mqy: m+flip                 # m̈
   n: n                        # n
   ny: ɲ                       # n̦
   nq: ŋ                       # ṇ
   nyq: ɳ                      # n̤
+  nqy: n+flip                 # n̈
   l: l                        # l
   ly: ʎ                       # l̦
   lq: ɭ                       # ḷ
