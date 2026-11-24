@@ -25,7 +25,9 @@ def modes():
     """-> [(mode id, name, language)]: Universal first, then the languages by name."""
     spec = json.load(open(os.path.join(os.path.dirname(ROOT), 'docs', 'alphabet-spec.json'), encoding='utf-8'))
     langs = sorted((c for c, st in spec['stages'].items() if st['state'] != 'lexical' or c in TABLES), key=lambda c: spec['stages'][c]['name'])
-    return [(f'{BASE}.universal', 'Diafon', 'en')] + \
+    # Diafon itself belongs to no one language: 'mul' (ISO 639, multiple languages), so the system
+    # does not file it under English
+    return [(f'{BASE}.universal', 'Diafon', 'mul')] + \
         [(f'{BASE}.{c}', f'Diafon – {NATIVE.get(c, spec["stages"][c]["name"])}', TABLES.get(c, c)) for c in langs]
 
 

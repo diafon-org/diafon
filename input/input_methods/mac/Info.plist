@@ -40,7 +40,7 @@
 	<key>TISInputSourceID</key>
 	<string>org.diafon.inputmethod.Diafon</string>
 	<key>TISIntendedLanguage</key>
-	<string>en</string>
+	<string>mul</string>
 	<key>tsInputMethodCharacterRepertoireKey</key>
 	<array>
 		<string>Latn</string>
