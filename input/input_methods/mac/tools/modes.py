@@ -8,6 +8,11 @@ Mandarin's pinyin, a table of syllables the app carries (Diafon – Pinyin).
 The list is fixed at build time, from the alphabet's spec; a mode is switched on
 in System Settings → Keyboard → Input Sources.
 
+Each mode has its own icon, drawn by the system from TISIconLabels as it draws
+its own keyboards' (so it follows the menu's highlight and the dark menu bar):
+Diafon the mark (DiafonBadge.pdf), a language its code with a small D beside
+it (HU D), which tells Diafon – Magyar from the system's Hungarian keyboard.
+
 Usage: modes.py <Info.plist template> <the app's Contents directory>
 """
 import json
@@ -18,6 +23,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 BASE = 'org.diafon.inputmethod.Diafon'
 TABLES = {'zh': 'zh-Hans'}      # scripts/gen_apple.py TABLES: the language the system files the keyboard under
+LABEL = {'zh': 'PY'}             # the icon's letters where the language code is not what people know it by
 NATIVE = {'zh': 'Pinyin', 'cs': 'Čeština', 'fi': 'Suomi', 'hu': 'Magyar', 'ig': 'Igbo', 'pl': 'Polski', 'sw': 'Kiswahili', 'tr': 'Türkçe'}
 
 
@@ -38,6 +44,8 @@ def main():
     for k, (mid, name, lang) in enumerate(modes()):
         listed[mid] = {
             'TISInputSourceID': mid, 'TISIntendedLanguage': lang,
+            'TISIconLabels': {'CustomIcon': 'DiafonBadge.pdf'} if k == 0 else
+                             {'Primary': LABEL.get(mid.rsplit('.', 1)[1], mid.rsplit('.', 1)[1].upper()), 'Secondary': 'D'},
             'tsInputModeDefaultStateKey': k == 0, 'tsInputModeIsVisibleKey': True,
             'tsInputModePrimaryInScriptKey': k == 0, 'tsInputModeScriptKey': 'smRoman',
             'tsInputModeCharacterRepertoireKey': ['Latn'],
