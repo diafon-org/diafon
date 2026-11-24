@@ -324,7 +324,7 @@
         code: code, name: data.name, kind: data.kind, output: data.output === undefined ? true : data.output,
         read: data.read || {}, write: data.write || {}, loans: data.loans || false, choices: data.choices || {},
         match: data.match || 'word', lengthen: data.lengthen || {}, foreign: data.foreign || null,
-        native: new Set(data.native || []), sample: data.sample,
+        native: new Set(data.native || []), sample: data.sample, tones: data.tones || 'numbers',
         hand: data.hand || {}, hosts: data.hosts || {},
         foreignRe: null, sortedKeys: null,
       };
@@ -364,11 +364,88 @@
       return [word, digits];
     }
 
-    /* spelling (tone digits allowed after it) -> script text, the tone as its sign, or null. */
+    // pinyin's tone marks: ā á ǎ à
+    const TONE_MARK = { 1: '\u0304', 2: '\u0301', 3: '\u030c', 4: '\u0300' };
+    const MARK_TONE = { '\u0304': '1', '\u0301': '2', '\u030c': '3', '\u0300': '4' };
+
+    /* A pinyin syllable with its tone as the mark over its vowel: a or e, the o of ou, otherwise
+       the last vowel. A tone pinyin has no mark for, or a syllable with no vowel, keeps the number. */
+    function toneMarked(sp, tones) {
+      if (!tones) return sp;
+      const low = sp.toLowerCase();
+      let i = low.indexOf('a');
+      if (i < 0) i = low.indexOf('e');
+      if (i < 0) i = low.indexOf('ou');
+      if (i < 0) i = Math.max(low.lastIndexOf('i'), low.lastIndexOf('o'), low.lastIndexOf('u'), low.lastIndexOf('ü'));
+      if (!TONE_MARK[tones] || i < 0) return sp + tones;
+      return nfc(sp.slice(0, i + 1) + TONE_MARK[tones] + sp.slice(i + 1));
+    }
+
+    /* A spelling without pinyin's tone marks, and where they were: [bare word, Map(index -> tone)]. */
+    function toneStripped(word) {
+      let out = '';
+      const marks = new Map();
+      for (const ch of word) {
+        const d = ch.normalize('NFD');
+        let tone = null, rest = '';
+        for (let k = 0; k < d.length; k++) {
+          if (k > 0 && MARK_TONE[d[k]] && tone === null) tone = MARK_TONE[d[k]]; else if (!(k > 0 && MARK_TONE[d[k]])) rest += d[k];
+        }
+        if (tone !== null) { marks.set(out.length, tone); out += nfc(rest); } else out += ch;
+      }
+      return [out, marks];
+    }
+
+    /* A run of syllables written together -> [[start, syllable]], the longest first, stepping back
+       where that leaves a rest no syllable reads. An apostrophe parts two; a syllable after another
+       begins with no a, o or e (henan is he nan), unless nothing else reads. */
+    function syllables(key, L) {
+      if (!L.top) { L.top = 0; for (const k in L.read) if (own(L.read, k) !== undefined) L.top = Math.max(L.top, k.length); }
+      const go = (i, end, first, strict) => {
+        if (i === end) return [];
+        for (let n = Math.min(L.top, end - i); n > 0; n--) {
+          const s = key.slice(i, i + n);
+          if (own(L.read, s) !== undefined && (first || !strict || !'aoe'.includes(s[0]))) {
+            const rest = go(i + n, end, false, strict);
+            if (rest !== null) return [[i, s]].concat(rest);
+          }
+        }
+        return null;
+      };
+      let out = [], i = 0;
+      for (const part of key.split(/(['’])/)) {
+        if (part && part !== "'" && part !== '’') {
+          const hit = go(i, i + part.length, true, true) || go(i, i + part.length, true, false);
+          if (hit === null) return null;
+          out = out.concat(hit);
+        }
+        i += part.length;
+      }
+      return out;
+    }
+
+    /* spelling (tone digits allowed after it) -> script text, the tone as its sign, or null. A
+       syllable lexicon also reads syllables written together and pinyin's tone marks (nǐhǎo, Xī'ān). */
     function lexRead(word, code) {
       const L = lex(code);
       if (!L) return null;
       word = nfc(String(word));
+      if (L.kind === 'syllable') {
+        const sm = toneStripped(word);
+        if (sm[1].size) {                                    // nǐhǎo: each syllable with its own tone
+          const wd = splitTones(sm[0]);
+          const syls = syllables(wd[0].toLowerCase(), L);
+          if (syls === null) return null;
+          let t = '';
+          syls.forEach((s, n) => {
+            const end = n + 1 < syls.length ? syls[n + 1][0] : wd[0].length;
+            let tone = '';
+            for (const [k, d] of sm[1]) if (k >= s[0] && k < end && !tone) tone = d;
+            t += L.read[s[1]] + toneSigns(tone);
+          });
+          return recase(t, wd[0]) + toneSigns(wd[1]);
+        }
+      }
       if (L.kind === 'syllable' && RE_DIGIT_NONDIGIT.test(word)) {      // ni3hao3: syllable by syllable
         let out = '';
         for (const p of word.match(RE_SYLLABLES) || []) {
@@ -384,17 +461,9 @@
       let t = own(L.read, key);
       if (t === undefined && RE_ELIDED.test(key)) t = own(L.read, key.slice(0, -2) + 'ed');
       if (t === undefined && L.kind === 'syllable' && key) {
-        if (!L.sortedKeys) L.sortedKeys = Object.keys(L.read).sort((a, b) => b.length - a.length);
-        let out = '';
-        let i = 0;
-        while (i < key.length) {
-          let hit = null;
-          for (const k of L.sortedKeys) if (key.startsWith(k, i)) { hit = k; break; }
-          if (hit === null || !hit.length) return null;
-          out += L.read[hit];
-          i += hit.length;
-        }
-        t = out;
+        const syls = syllables(key, L);
+        if (syls === null) return null;
+        t = syls.map((s) => L.read[s[1]]).join('');
       }
       return t !== undefined ? recase(t, word) + toneSigns(st[1]) : null;
     }
@@ -440,7 +509,14 @@
         return [cased(L.write[best], wk[2]), Array.from(wk[1], (d) => ({ raw: d }))];
       }
       const sp = own(L.write, key);
+      if (sp !== undefined && L.tones === 'marks') return toneMarked(cased(sp, wk[2]), wk[1]);
       return sp !== undefined ? cased(sp, wk[2]) + wk[1] : null;
+    }
+
+    /* The apostrophe pinyin puts before a syllable that begins with a, o or e right after another (Xī'ān). */
+    function apostrophe(before, sp, code) {
+      const L = lex(code);
+      return L && L.tones === 'marks' && before && /\p{L}$/u.test(before) && sp && 'aoe'.includes(sp.normalize('NFD')[0].toLowerCase()) ? "'" : '';
     }
 
     /* script text (or tokens) of one word -> spelling: a string, [stem spelling,
@@ -681,7 +757,7 @@
           const sp = renderLetters(w, stage);
           out += writeLoan(w, stage.code, sp) || sp;
         } else if (Array.isArray(hit)) out += hit[0] + renderLetters(hit[1], stage);
-        else out += hit;
+        else out += apostrophe(out, hit, stage.code) + hit;
       }
       return out;
     }

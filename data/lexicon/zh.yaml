@@ -13,6 +13,9 @@
 code: zh
 name: Mandarin
 kind: syllable
+tones: marks            # written as pinyin writes them, a mark over the syllable's vowel (nǐ hǎo): on a or e, on
+                        #   the o of ou, otherwise on the last vowel; a syllable inside a word that begins with
+                        #   a, o or e takes an apostrophe (Xī'ān). Read both ways: the mark, or the number (ni3)
 match: word
 sources:
   - sources/Unihan_Readings.txt    # https://www.unicode.org/Public/UCD/latest/ucd/Unihan.zip

@@ -11371,7 +11371,7 @@
     "choices": 1384
    },
    "file": "data/lexicon/zh.json",
-   "sha256": "b1a6d05e363f77b29ea170d8833b74182d8b93901a1455cb2c6e48a45af03b12"
+   "sha256": "5146723090ba6ae8bff6b47c2b4ec7218136ac694060f9794763412cb708bf13"
   }
  },
  "vectors": {
@@ -24918,7 +24918,7 @@
        "raw": "!"
       }
      ],
-     "Shan1, șok!"
+     "Shān, șok!"
     ],
     [
      [
@@ -25031,7 +25031,7 @@
        "tones": "4"
       }
      ],
-     "ma1 ma2 ma3 ma4"
+     "mā má mǎ mà"
     ],
     [
      [
@@ -25073,7 +25073,7 @@
        "tones": "1"
       }
      ],
-     "c̦i3 shi3 zhi1"
+     "c̦i3 shǐ zhī"
     ],
     [
      [
@@ -25329,7 +25329,7 @@
        "tones": "4"
       }
      ],
-     "ni3 hao3, shi4 jie4"
+     "nǐ hǎo, shì jiè"
     ]
    ]
   },
@@ -30006,6 +30006,51 @@
      "sïˉ"
     ],
     [
+     "zh",
+     "nǐ",
+     "niˇ"
+    ],
+    [
+     "zh",
+     "Nǐhǎo",
+     "Niˇḳawˇ"
+    ],
+    [
+     "zh",
+     "zhōngguó",
+     "c̦uṇˉkuoˊ"
+    ],
+    [
+     "zh",
+     "Xī'ān",
+     "Ṣiˉanˉ"
+    ],
+    [
+     "zh",
+     "Hénán",
+     "Ḳëˊnanˊ"
+    ],
+    [
+     "zh",
+     "henan",
+     "ḳënan"
+    ],
+    [
+     "zh",
+     "lǜ",
+     "lüˋ"
+    ],
+    [
+     "zh",
+     "wǒ",
+     "uoˇ"
+    ],
+    [
+     "zh",
+     "BĚIJĪNG",
+     "PEJˇC̣IṆˉ"
+    ],
+    [
      "la",
      "hoc",
      "hok"
@@ -30124,6 +30169,46 @@
      "zh",
      "s̤ï",
      null
+    ],
+    [
+     "zh",
+     "niˇ",
+     "nǐ"
+    ],
+    [
+     "zh",
+     "ḳawˇ",
+     "hǎo"
+    ],
+    [
+     "zh",
+     "liowˊ",
+     "liú"
+    ],
+    [
+     "zh",
+     "kuejˋ",
+     "guì"
+    ],
+    [
+     "zh",
+     "lüˋ",
+     "lǜ"
+    ],
+    [
+     "zh",
+     "uoˇ",
+     "wǒ"
+    ],
+    [
+     "zh",
+     "Ṣiˉ",
+     "Xī"
+    ],
+    [
+     "zh",
+     "r̈ˋ",
+     "èr"
     ]
    ],
    "loan": [
@@ -30411,6 +30496,11 @@
      "stage:zh",
      "nihao ma",
      "niḳaw ma"
+    ],
+    [
+     "stage:zh",
+     "Nǐ hǎo, shìjiè! Xī'ān, Běijīng huānyíng nǐ.",
+     "Niˇ ḳawˇ, șïˋc̣ieˋ! Ṣiˉanˉ, Pejˇc̣iṇˉ ḳuanˉiṇˊ niˇ."
     ]
    ],
    "roundtrip": [
@@ -30457,12 +30547,17 @@
     [
      "stage:zh",
      "Ni3 hao3, shi4 jie4!",
-     "Ni3 hao3, shi4 jie4!"
+     "Nǐ hǎo, shì jiè!"
     ],
     [
      "stage:zh",
      "nihao ma",
      "niḳaw ma"
+    ],
+    [
+     "stage:zh",
+     "Nǐ hǎo, shìjiè! Xī'ān, Běijīng huānyíng nǐ.",
+     "Nǐ hǎo, shìjiè! Xī'ān, Běijīng huānyíng nǐ."
     ]
    ],
    "detect": [
@@ -30505,6 +30600,10 @@
     [
      "nihao ma",
      "script"
+    ],
+    [
+     "Nǐ hǎo, shìjiè! Xī'ān, Běijīng huānyíng nǐ.",
+     "stage:zh"
     ]
    ]
   }

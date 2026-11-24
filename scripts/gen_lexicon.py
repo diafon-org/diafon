@@ -318,7 +318,7 @@ def gen_zh(cfg):
     standard = set(tghz) | set(pinlu)
     read, write, choices, unknown = {}, {}, {}, set()
     scored = []                                     # (script text + tone, char, -freq, order)
-    for ch in standard:
+    for ch in sorted(standard):                     # in order: the same file on every run
         readings = {}
         for r, f in pinlu.get(ch, {}).items():
             readings[r] = max(readings.get(r, 0), f)
@@ -334,7 +334,8 @@ def gen_zh(cfg):
                 continue
             check(t + script.tone_signs(tone))
             read.setdefault(bare, t)
-            write.setdefault(t, bare)
+            if t not in write or len(bare) > len(write[t]):    # uo is wo, not the interjection o
+                write[t] = bare
             scored.append((t + script.tone_signs(tone), ch, -f, tghz.get(ch, 1e9), ord(ch)))
     for key, ch, *_ in sorted(scored, key=lambda s: (s[0], s[2], s[3], s[4])):
         lst = choices.setdefault(key, [])
@@ -342,7 +343,7 @@ def gen_zh(cfg):
             lst.append(ch)
     if unknown:
         print('  pinyin syllables without a rule:', ' '.join(sorted(unknown)))
-    return {'name': cfg['name'], 'kind': cfg['kind'], 'match': cfg['match'],
+    return {'name': cfg['name'], 'kind': cfg['kind'], 'match': cfg['match'], 'tones': cfg.get('tones', 'numbers'),
             'read': read, 'write': write, 'choices': choices}
 
 

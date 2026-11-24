@@ -74,14 +74,88 @@ def split_tones(word):
     return word, digits
 
 
+TONE_MARK = {'1': '\u0304', '2': '\u0301', '3': '\u030c', '4': '\u0300'}     # pinyin's: ā á ǎ à
+MARK_TONE = {m: d for d, m in TONE_MARK.items()}
+
+
+def tone_marked(sp, tones):
+    """A pinyin syllable with its tone as the mark over its vowel: a or e, the
+    o of ou, otherwise the last vowel (hǎo, guó, liú, lǜ). A tone pinyin has no
+    mark for, or a syllable with no vowel, keeps the number."""
+    if not tones:
+        return sp
+    low = sp.lower()
+    i = next((low.index(v) for v in 'ae' if v in low), -1)
+    if i < 0 and 'ou' in low:
+        i = low.index('ou')
+    if i < 0:
+        i = max(low.rfind(v) for v in 'iouü')
+    if tones not in TONE_MARK or i < 0:
+        return sp + tones
+    return ud.normalize('NFC', sp[:i + 1] + TONE_MARK[tones] + sp[i + 1:])
+
+
+def tone_stripped(word):
+    """A spelling without pinyin's tone marks, and where they were: (bare word,
+    {index of the marked letter: tone number}). ü keeps its dots."""
+    out, marks = '', {}
+    for ch in word:
+        d = ud.normalize('NFD', ch)
+        hit = [MARK_TONE[m] for m in d[1:] if m in MARK_TONE]
+        if hit:
+            marks[len(out)] = hit[0]
+            ch = ud.normalize('NFC', ''.join(m for m in d if m not in MARK_TONE))
+        out += ch
+    return out, marks
+
+
+def syllables(key, read):
+    """A run of syllables written together -> [(start, syllable)], the longest
+    first, stepping back where that leaves a rest no syllable reads. An
+    apostrophe parts two; a syllable after another begins with no a, o or e
+    (that is what the apostrophe is for: henan is he nan), unless nothing else reads."""
+    top = max(map(len, read), default=0)
+
+    def go(i, end, first, strict):
+        if i == end:
+            return []
+        for n in range(min(top, end - i), 0, -1):
+            s = key[i:i + n]
+            if s in read and (first or not strict or s[0] not in 'aoe'):
+                rest = go(i + n, end, False, strict)
+                if rest is not None:
+                    return [(i, s)] + rest
+        return None
+    out, i = [], 0
+    for part in re.split(r"(['’])", key):
+        if part and part not in "'’":
+            hit = go(i, i + len(part), True, True) or go(i, i + len(part), True, False)
+            if hit is None:
+                return None
+            out += hit
+        i += len(part)
+    return out
+
+
 def read_word(word, code):
     """spelling (tone digits allowed after it) -> script text, the tone as
     its sign, or None. A syllable lexicon also reads a run of syllables
-    written together (nihao), greedily, longest syllable first."""
+    written together (nihao, henan), and pinyin's tone marks (nǐhǎo, Xī'ān)."""
     L = lex(code)
     if not L:
         return None
     word = ud.normalize('NFC', word)
+    if L.get('kind') == 'syllable':
+        bare, marks = tone_stripped(word)
+        if marks:                                                    # nǐhǎo: each syllable with its own tone
+            w, digits = split_tones(bare)
+            syls = syllables(w.lower(), L['read'])
+            if syls is None:
+                return None
+            ends = [i for i, _ in syls[1:]] + [len(w)]
+            t = ''.join(L['read'][s] + script.tone_signs(next((d for k, d in marks.items() if i <= k < e), ''))
+                        for (i, s), e in zip(syls, ends))
+            return recase(t, w) + script.tone_signs(digits)
     if L.get('kind') == 'syllable' and re.search(r'\d\D', word):     # ni3hao3: syllable by syllable
         parts = re.findall(r'\D+\d*', word)
         outs = [read_word(p, code) for p in parts]
@@ -92,14 +166,10 @@ def read_word(word, code):
     if t is None and re.search(r"['’]d$", key):            # poetry's elided -ed: dimm'd reads as dimmed
         t = L['read'].get(key[:-2] + 'ed')
     if t is None and L.get('kind') == 'syllable' and key:
-        out, i, keys = [], 0, sorted(L['read'], key=len, reverse=True)
-        while i < len(key):
-            hit = next((k for k in keys if key.startswith(k, i)), None)
-            if hit is None:
-                return None
-            out.append(L['read'][hit])
-            i += len(hit)
-        t = ''.join(out)
+        syls = syllables(key, L['read'])
+        if syls is None:
+            return None
+        t = ''.join(L['read'][s] for _, s in syls)
     return recase(t, word) + script.tone_signs(digits) if t is not None else None
 
 
@@ -149,7 +219,19 @@ def write_word(toks, code):
             return _cased(L['write'][best], caps), rest
         return _cased(L['write'][best], caps), [script.Tok(raw=d) for d in tones]
     sp = L['write'].get(key)
+    if sp is not None and L.get('tones') == 'marks':
+        return tone_marked(_cased(sp, caps), tones)
     return _cased(sp, caps) + tones if sp is not None else None
+
+
+def apostrophe(before, sp, code):
+    """The apostrophe pinyin puts before a syllable that begins with a, o or e
+    right after another (Xī'ān), or nothing."""
+    L = lex(code)
+    if L and L.get('tones') == 'marks' and before and before[-1].isalpha() and sp \
+            and ud.normalize('NFD', sp)[0].lower() in 'aoe':
+        return "'"
+    return ''
 
 
 def spoken_stem(key, L):

@@ -213,7 +213,7 @@ def render(text, code, strict=False):
         elif isinstance(hit, tuple):
             out.append(hit[0] + render_letters(hit[1], stage, strict))
         else:
-            out.append(hit)
+            out.append(lexicon.apostrophe(out[-1] if out else '', hit, stage['code']) + hit)
     return ''.join(out)
 
 

@@ -48,12 +48,13 @@ READ_ONLY = ['dd̦', 'kkk', 'tt', 't‍t', 'Șș', 'Ș‍ș', 'jj', 'x-ray: y', 
 DETECT = ['Șok sép n̦ár, hossú älmä', 'sok szép nyár, hosszú alma', 'dobrý den, přátelé', 'hyvää yötä kaikille',
           'Dobra noc, kochani', 'günaydın', 'habari za asubuhi', 'ma1 ma2 ma3', 'K̤ Ẹ̀']
 LEX_READ = {'en': ['the', 'quick', 'Shakespeare', 'meeting', 'facebook', 'nosuchword'],
-            'zh': ['ni', 'hao3', 'Ni3hao3', 'nihao', 'you', 'lü4', 'zhong1', 'xi1', 'shi4', 'si1'],
+            'zh': ['ni', 'hao3', 'Ni3hao3', 'nihao', 'you', 'lü4', 'zhong1', 'xi1', 'shi4', 'si1',
+                   'nǐ', 'Nǐhǎo', 'zhōngguó', "Xī'ān", 'Hénán', 'henan', 'lǜ', 'wǒ', 'BĚIJĪNG'],
             'la': ['hoc', 'vitae', 'quo'],
             'hu': ['jamaica', 'Bach', 'tea', 'Cudjoe', 'nosuchword']}
 LEX_WRITE = {'en': ['ḍë', 'kwịk', 'rid', 'rẹd', 'Șejkspir', 'zzz'],
              'hu': ['fojók', 'gạjj', 'hẹjẹș', 'fọt', 'Hẹjẹs'],
-             'zh': ['ni', 'ḳaw', 'c̤uṇ', 's̤ï']}
+             'zh': ['ni', 'ḳaw', 'c̤uṇ', 's̤ï', 'niˇ', 'ḳawˇ', 'liowˊ', 'kuejˋ', 'lüˋ', 'uoˇ', 'Ṣiˉ', 'r̈ˋ']}
 LEX_LOAN = {'hu': ['meeting', 'like', 'house', 'taxi', 'team', 'tagja', 'meetingen', 'Facebook', 'show', 'think', 'alma',
                    'hoc', 'sok', 'traumái', 'traumát', 'jamaicai', 'hazai', 'pizzát', 'Jamaicában', 'akinek', 'amiket',
                    'franchise', 'chat', 'technika', 'streamingajánlójában', 'meetingjén', 'Bela', 'felkerült', 'vele',
@@ -64,7 +65,7 @@ LEX_TEXTS = {'stage:hu': ['Sok szép nyár. Folyó, gally, hely; helyes.', 'Meet
                           'Streamingajánlójában online teaház, felkerült; tea, team.', 'Cudjoe East, Ocho Rios.',
                           'Míting és meeting; lájk, like, lájkol.'],
              'stage:en': ['The quick brown fox jumps over the lazy dog.', 'Shakespeare wrote Hamlet; Diafon reads it.'],
-             'stage:zh': ['Ni3 hao3, shi4 jie4!', 'nihao ma']}
+             'stage:zh': ['Ni3 hao3, shi4 jie4!', 'nihao ma', "Nǐ hǎo, shìjiè! Xī'ān, Běijīng huānyíng nǐ."]}
 
 
 def plain(tok):

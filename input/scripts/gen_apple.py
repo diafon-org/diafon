@@ -26,7 +26,7 @@ OUT = os.path.join(ROOT, 'input_methods', 'apple', 'Resources')
 PROFILE = 'diafon-v1'
 # A spelling made by rule that the alphabet keeps as a table: bundled, so it is a keyboard like the
 # lettered ones. Only the syllables: `choices` (the characters of each) stays out.
-TABLES = {'zh': ('name', 'kind', 'match', 'read', 'write', 'sample')}
+TABLES = {'zh': ('name', 'kind', 'match', 'tones', 'read', 'write', 'sample')}
 
 
 def main():
