@@ -49,7 +49,8 @@ function build(c){
   $note.innerHTML = `<span class="badge ${L.review === 'reviewed' ? 'st-rev' : 'st-non'}">${esc(L.review)}</span>` +
     (L.review === 'reviewed' ? ' Its sounds have been checked against published descriptions.'
       : ' Its sounds have not been reviewed yet and may change.') +
-    (L.words ? '' : ` There are no example words for ${esc(L.name)} yet: the lessons show its letters.`);
+    (L.words ? '' : ` There are no example words for ${esc(L.name)} yet: the lessons show its letters.`) +
+    (c === 'zh' ? ' <a href="pinyin/">The pinyin table</a> has every syllable with its keys.' : '');
 }
 
 function tiles(forms){
