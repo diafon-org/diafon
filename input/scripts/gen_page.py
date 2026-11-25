@@ -29,6 +29,50 @@ def tile(key, v):
             f'<span class="lab">{html.escape(key)}</span></div>')
 
 
+# --- Mandarin: pinyin by its parts ---
+
+INITIALS = ['b', 'p', 'm', 'f', 'd', 't', 'n', 'l', 'g', 'k', 'h', 'j', 'q', 'x', 'zh', 'ch', 'sh', 'r', 'z', 'c', 's']
+# a final and how pinyin spells it as a syllable of its own (none: it has no such syllable)
+FINALS = [('a', 'a'), ('o', 'o'), ('e', 'e'), ('ai', 'ai'), ('ei', 'ei'), ('ao', 'ao'), ('ou', 'ou'), ('an', 'an'), ('en', 'en'),
+          ('ang', 'ang'), ('eng', None), ('ong', None), ('er', 'er'),
+          ('i', 'yi'), ('ia', 'ya'), ('ie', 'ye'), ('iao', 'yao'), ('iu', 'you'), ('ian', 'yan'), ('in', 'yin'),
+          ('iang', 'yang'), ('ing', 'ying'), ('iong', 'yong'),
+          ('u', 'wu'), ('ua', 'wa'), ('uo', 'wo'), ('uai', 'wai'), ('ui', 'wei'), ('uan', 'wan'), ('un', 'wen'),
+          ('uang', 'wang'), ('ueng', 'weng'),
+          ('ü', 'yu'), ('üe', 'yue'), ('üan', 'yuan'), ('ün', 'yun')]
+SAMPLE = {'eng': 'deng', 'ong': 'dong'}       # a syllable that shows a final with no syllable of its own, after d
+
+
+def pinyin():
+    """-> the page's tables for Mandarin (initials, finals, every syllable), from the alphabet's
+    own table of syllables (data/lexicon/zh.json) and the keys that type each."""
+    sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+    import gen_lessons
+    read = gen_lessons.lexicon.lex('zh')['read']
+    keys = lambda d: gen_lessons.typed(gen_lessons.script.read(d))
+    ug = lambda d: f'<span class="ug">{html.escape(d)}</span>'
+    split = lambda py: next(((i, py[len(i):]) for i in sorted(INITIALS, key=len, reverse=True) if py.startswith(i)), ('', py))
+    first = {}
+    for i in INITIALS:                         # an initial's letters: what its syllables share at the start
+        first[i] = os.path.commonprefix([d for py, d in read.items() if split(py)[0] == i])
+    rows = ['| Pinyin | Diafon | Keys |', '|---|---|---|']
+    rows += [f'| {i} | {ug(first[i])} | `{keys(first[i])}` |' for i in INITIALS]
+    initials = '\n'.join(rows)
+    rows = ['| Pinyin | Alone | Diafon | Keys |', '|---|---|---|---|']
+    for f, alone in FINALS:
+        d = read[alone] if alone else read[SAMPLE[f]][len(first['d']):]
+        rows.append(f'| {f} | {alone or ""} | {ug(d)} | `{keys(d)}` |')
+    finals = '\n'.join(rows)
+    groups = {}
+    for py in sorted(read):
+        groups.setdefault(split(py)[0], []).append(py)
+    out = []
+    for i in [''] + INITIALS:
+        cells = ' '.join(f'<span class="py-syl">{py} <code>{html.escape(keys(read[py]))}</code></span>' for py in groups[i])
+        out.append(f'<div class="py-row"><span class="py-ini">{i or "–"}</span><div class="py-syls">{cells}</div></div>')
+    return initials, finals, '<div class="py-all" markdown="0">' + ''.join(out) + '</div>', len(read)
+
+
 FEW = 3     # a letter of at most this many languages is listed apart, with its languages
 
 
@@ -150,6 +194,45 @@ language. Example words use only what the lessons so far have taught.
   </div>
 </div>
 
+## Pinyin
+
+Mandarin is typed in Diafon's letters, with a digit after each syllable for
+its tone. The Diafon – Pinyin keyboard writes pinyin from the same keys:
+`ni3 kqaw3` is <span class="ug">niˇ ḳawˇ</span> in Diafon and nǐ hǎo in pinyin.
+
+A syllable is an initial and a final, and each is typed the same way in every
+syllable. hǎo is h `kq`, ao `aw` and the third tone `3`.
+
+### Initials
+
+@PY_INITIALS@
+
+### Finals
+
+The second column is how pinyin spells the final as a syllable of its own.
+
+@PY_FINALS@
+
+- After z, c, s, zh, ch, sh and r the i is <span class="ug">ï</span>, `iy`: shi is `syiy`.
+- After j, q, x and y pinyin writes ü as u. It is still <span class="ug">ü</span>, `uy`: xu is `squy`.
+- After b, p, m and f pinyin writes uo as o: bo is `puo`.
+
+### Tones
+
+| Tone | Key | Diafon | Pinyin |
+|---|---|---|---|
+| first, high | `1` | <span class="ug">maˉ</span> | mā |
+| second, rising | `2` | <span class="ug">maˊ</span> | má |
+| third, low | `3` | <span class="ug">maˇ</span> | mǎ |
+| fourth, falling | `4` | <span class="ug">maˋ</span> | mà |
+| neutral | none | <span class="ug">ma</span> | ma |
+
+### Every syllable
+
+All @PY_COUNT@ syllables of pinyin with their keys, by initial. The tone's digit follows.
+
+@PY_ALL@
+
 ## Other ways of typing
 
 This is the only typing Diafon has now. An older one, with five mark keys,
@@ -172,6 +255,9 @@ def main():
     use = usage()
     page = (PAGE.replace('@CONSONANTS@', grid(c, 'pbtdkgfvszcxhmnlrjw', use)).replace('@VOWELS@', grid(c, 'aeiou', use))
             .replace('@FEW@', few(c, use)))
+    initials, finals, every, count = pinyin()
+    page = (page.replace('@PY_INITIALS@', initials).replace('@PY_FINALS@', finals).replace('@PY_ALL@', every)
+            .replace('@PY_COUNT@', str(count)))
     with open(os.path.join(WEB, 'index.md'), 'w', encoding='utf-8') as f:
         f.write(page)
     print(f'web/index.md, web/input-data.js: {len(c["keys"])} keys')

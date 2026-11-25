@@ -61,3 +61,11 @@
 .md-typeset .keys-row:first-child{border-top:0}
 .md-typeset .keys-row .keys-op{flex:0 0 2.6rem;padding-top:.9rem;color:var(--muted);font-size:.8rem}
 .md-typeset .keys-row .keys-grid{margin:0;flex:1}
+/* every pinyin syllable with its keys, a row per initial */
+.md-typeset .py-all{margin:.4rem 0 1rem;font-size:.72rem}
+.md-typeset .py-row{display:flex;align-items:baseline;gap:.6rem;padding:.3rem 0;border-top:1px solid var(--line)}
+.md-typeset .py-row:first-child{border-top:0}
+.md-typeset .py-ini{flex:0 0 1.6rem;font-weight:600;color:var(--muted)}
+.md-typeset .py-syls{display:flex;flex-wrap:wrap;gap:.2rem .9rem}
+.md-typeset .py-syl{white-space:nowrap}
+.md-typeset .py-syl code{font-size:.95em}
