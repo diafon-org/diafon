@@ -29,12 +29,7 @@
 	<key>InputMethodServerControllerClass</key>
 	<string>DiafonInputController</string>
 	<key>tsInputMethodIconFileKey</key>
-	<string>DiafonMenu.tiff</string>
-	<key>TISIconLabels</key>
-	<dict>
-		<key>CustomIcon</key>
-		<string>DiafonBadge.pdf</string>
-	</dict>
+	<string>Diafon-universal.pdf</string>
 	<key>TISIconIsTemplate</key>
 	<true/>
 	<key>TISInputSourceID</key>

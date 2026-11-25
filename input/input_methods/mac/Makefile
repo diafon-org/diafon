@@ -25,10 +25,8 @@ app: check
 	$(SWIFTC) $(CORE) $(APPSRC) -framework Cocoa -framework InputMethodKit -framework JavaScriptCore \
 		-o $(BUILD)/$(APP).app/Contents/MacOS/$(APP)
 	cp $(RES)/alphabet.json $(RES)/typing.json $(RES)/lexicons.json $(RES)/diafon-core.js $(RES)/diafon-keys.js $(RES)/diafon-glue.js $(BUILD)/$(APP).app/Contents/Resources/
-	python3 tools/modes.py Info.plist $(BUILD)/$(APP).app/Contents      # Info.plist with one input mode per output
+	python3 tools/modes.py Info.plist $(BUILD)/$(APP).app/Contents      # Info.plist with one input mode per output, and each mode's icon (tools/badge.swift)
 	cp $(ROOT)/../docs/logo/Diafon.icns $(BUILD)/$(APP).app/Contents/Resources/Diafon.icns
-	cp $(ROOT)/../docs/logo/DiafonMenu.tiff $(BUILD)/$(APP).app/Contents/Resources/DiafonMenu.tiff
-	cp $(ROOT)/../docs/logo/DiafonBadge.pdf $(BUILD)/$(APP).app/Contents/Resources/DiafonBadge.pdf
 	mkdir -p $(BUILD)/$(APP).app/Contents/Resources/Fonts && cp $(ROOT)/../fonts/Diafon*-Regular.ttf $(BUILD)/$(APP).app/Contents/Resources/Fonts/
 	codesign --force --sign - $(BUILD)/$(APP).app
 

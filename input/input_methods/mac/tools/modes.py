@@ -8,16 +8,17 @@ Mandarin's pinyin, a table of syllables the app carries (Diafon – Pinyin).
 The list is fixed at build time, from the alphabet's spec; a mode is switched on
 in System Settings → Keyboard → Input Sources.
 
-Each mode has its own icon, drawn by the system from TISIconLabels as it draws
-its own keyboards' (so it follows the menu's highlight and the dark menu bar):
-Diafon the mark (DiafonBadge.pdf), a language its code with a small D beside
-it (HU D), which tells Diafon – Magyar from the system's Hungarian keyboard.
+Each mode has its own icon, drawn whole by tools/badge.swift (the system draws
+nothing around an input method's icon): a filled frame with Diafon's mark cut
+out of it, and for a language the mark's two dots over its code (HU), one
+colour, which the system tints for the highlight and the dark menu bar.
 
 Usage: modes.py <Info.plist template> <the app's Contents directory>
 """
 import json
 import os
 import plistlib
+import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -40,18 +41,23 @@ def modes():
 def main():
     template, contents = sys.argv[1], sys.argv[2]
     plist = plistlib.load(open(template, 'rb'))
-    listed = {}
+    listed, icons = {}, []
     for k, (mid, name, lang) in enumerate(modes()):
+        code = mid.rsplit('.', 1)[1]
+        icon = f'Diafon-{code}'
+        icons.append(icon + '=' + ('' if k == 0 else LABEL.get(code, code.upper())))
         listed[mid] = {
-            'TISInputSourceID': mid, 'TISIntendedLanguage': lang,
-            'TISIconLabels': {'CustomIcon': 'DiafonBadge.pdf'} if k == 0 else
-                             {'Primary': LABEL.get(mid.rsplit('.', 1)[1], mid.rsplit('.', 1)[1].upper()), 'Secondary': 'D'},
+            'TISInputSourceID': mid, 'TISIntendedLanguage': lang, 'TISIconIsTemplate': True,
             'tsInputModeDefaultStateKey': k == 0, 'tsInputModeIsVisibleKey': True,
             'tsInputModePrimaryInScriptKey': k == 0, 'tsInputModeScriptKey': 'smRoman',
             'tsInputModeCharacterRepertoireKey': ['Latn'],
-            'tsInputModeMenuIconFileKey': 'DiafonMenu.tiff', 'tsInputModeAlternateMenuIconFileKey': 'DiafonMenu.tiff',
-            'tsInputModePaletteIconFileKey': 'DiafonMenu.tiff',
+            'tsInputModeMenuIconFileKey': icon + '.pdf', 'tsInputModeAlternateMenuIconFileKey': icon + '.pdf',
+            'tsInputModePaletteIconFileKey': icon + '.pdf',
         }
+    plist['tsInputMethodIconFileKey'] = 'Diafon-universal.pdf'
+    plist.pop('TISIconLabels', None)
+    subprocess.run(['swift', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'badge.swift'),
+                    os.path.join(contents, 'Resources')] + icons, check=True)
     plist['ComponentInputModeDict'] = {'tsInputModeListKey': listed,
                                        'tsVisibleInputModeOrderedArrayKey': [m[0] for m in modes()]}
     plistlib.dump(plist, open(os.path.join(contents, 'Info.plist'), 'wb'))

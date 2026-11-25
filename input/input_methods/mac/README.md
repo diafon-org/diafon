@@ -97,9 +97,10 @@ in the menu bar and type `sy cy aq`: it streams out as `ș c̦ á`.
     Sources/Services.swift             the text service
     Sources/main.swift                 IMKServer bootstrap, services registration
     Info.plist                         the input source, the services, the app icon (docs/logo/Diafon.icns) and
-                                       the icons: Diafon's is the bare mark (TISIconLabels CustomIcon → docs/logo/DiafonBadge.pdf,
-                                       made by tools/badge.swift; the system draws the frame and tints it), a language's
-                                       its code with a small D (tools/modes.py); DiafonMenu.tiff is the fallback for old systems
+                                       the icons' keys
+    tools/badge.swift                  the keyboards' icons, drawn whole (the system draws no frame around an input
+                                       method's icon): a filled frame with the mark cut out for Diafon, the mark's two
+                                       dots over its code for a language (HU, CS, PY); one colour, tinted by the system
     tools/enable.swift                 enable + select the input source (make enable)
 
 The files in ../apple/Core are pure Swift with no AppKit dependency; that is

@@ -120,13 +120,9 @@ def finals(v):
     open(os.path.join(fin, 'icon-menubar.svg'), 'w').write(
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {S} {S}" width="{S}" height="{S}">'
         f'<g transform="translate({S * (1 - mk) / 2:.0f} {S * (1 - mk) / 2:.0f})">{mark_two(v, TEAL_BRIGHT, "#8a93a3", S / 1000 * mk)}</g></svg>')
-    # the input-source icon macOS shows in the input menu and in Input Sources,
-    # the bare mark, bold, black on nothing (only alpha counts: the system
-    # tints it for light and dark menus and draws its own frame around a
-    # keyboard's icon, so a tile of ours would show as a blob inside it); a
-    # 15 px + 30 px TIFF (DiafonMenu.tiff, in rasterise), the fallback where
-    # the system does not read the vector one (DiafonBadge.pdf, made by
-    # input/input_methods/mac/tools/badge.swift)
+    # the bare mark, bold, black on nothing, as a template (only alpha counts).
+    # The Mac keyboards' own icons are drawn whole, frame included, by
+    # input/input_methods/mac/tools/badge.swift
     TW, TH = 1466, 1000                                            # 22 : 15
     bold = dict(v, r=108, apart=300, head=128, foot=148)           # the weight of the tile's letters
     tk = 0.92                                                      # the mark's box against the tile's height
@@ -238,10 +234,6 @@ def rasterise():
             shutil.copy(os.path.join(png, f'{src}-{s_}.png'), os.path.join(iconset, f'icon_{s_}x{s_}.png'))
             shutil.copy(os.path.join(png, f'{src}-{s_ * 2}.png'), os.path.join(iconset, f'icon_{s_}x{s_}@2x.png'))
         subprocess.run(['iconutil', '-c', 'icns', iconset, '-o', os.path.join(fin, 'Diafon.icns')], capture_output=True)
-    if shutil.which('tiffutil'):       # the input-source icon: 16 px and its @2x in one TIFF
-        subprocess.run(['tiffutil', '-cathidpicheck', os.path.join(png, 'icon-template-15.png'),
-                        os.path.join(png, 'icon-template-30.png'), '-out', os.path.join(fin, 'DiafonMenu.tiff')],
-                       capture_output=True)
     shutil.rmtree(tmp)
 
 
