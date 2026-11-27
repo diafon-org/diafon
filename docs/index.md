@@ -69,22 +69,13 @@ before it nasal. French *bon* is <span class="ug">boṃ</span> and Hindi *hā̃*
 
 Aspiration is written the same way, with h. <span class="ug">th</span> is an aspirated t, /tʰ/.
 
-### The double dot on consonants
-
-Four consonants take the double dot above.
-
-- <span class="ug">r̈</span> /ɝ/ is the r that is a vowel, as in English *bird*, <span class="ug">br̈d</span>.
-- <span class="ug">ẅ</span> /ɥ/ is the glide that goes with ü, as j goes with i and w with u.
-- <span class="ug">m̈</span> and <span class="ug">n̈</span> are a nasal that is a syllable in front of its own letter.
-  Igbo *mmadụ* is <span class="ug">m̈madụ</span>, said m-ma-dụ.
-
-Without the mark, a doubled letter is always one long consonant, as in
-Italian <span class="ug">mamma</span>.
+Four consonants take the double dot too, above the letter: <span class="ug">r̈ ẅ m̈ n̈</span>. They are
+in the table of [added letters](#consonants).
 
 ## Length, capitals and tones
 
 A long vowel takes the acute, <span class="ug">á</span>. A long consonant is written twice,
-<span class="ug">șș</span>.
+<span class="ug">șș</span>, in every language: Italian <span class="ug">mamma</span>.
 
 ### Capitals
 

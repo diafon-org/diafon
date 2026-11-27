@@ -299,19 +299,30 @@ def added_table():
                 rows[label][0].setdefault(comp, set()).add(ipa.rstrip('ʰʱːʼ'))
                 rows[label][1].add(langs[code]['name'].split(' (')[0].replace('Hindi-Urdu', 'Hindi').replace('Mandarin Chinese', 'Mandarin'))
     order = lambda c: ('pbfvmtdnszcxrlkgh'.index(c[0]), c[1])           # lips to throat, as the chart
+    short = lambda code: langs[code]['name'].split(' (')[0].replace('Hindi-Urdu', 'Hindi').replace('Mandarin Chinese', 'Mandarin')
+    letter = lambda c: nfc(script.glyph(script.NAME[c]) if c in script.NAME else script.write([script.Tok(c, False, False)]))
+    pair = lambda g, sounds: f'<span class="pair">{ug(g)}<i>/{esc(sounds)}/</i></span>'          # a letter over its sounds
     out = ['<div class="opswrap"><table class="ops marks added">',
-           '<tr><th>Letters</th><th>What they are</th><th>Sounds</th><th>Where</th></tr>']
+           '<tr><th>Letters</th><th>What they are</th><th>Where</th></tr>']
+
+    def row(pairs, label, where):
+        out.append(f'<tr><td class="ex">{"".join(pairs)}</td><td>{label}</td><td>{", ".join(sorted(where))}</td></tr>')
     for label, _ in ADDED:
         comps, where = rows[label]
-        cs = sorted(comps, key=order)
-        letters = ' '.join(nfc(script.glyph(script.NAME[c]) if c in script.NAME else script.write([script.Tok(c, False, False)])) for c in cs)
-        sounds = ' '.join(dict.fromkeys(i for c in cs for i in sorted(comps[c])))        # in the letters' order
-        out.append(f'<tr><td class="ex">{ug(letters)}</td><td>{label}</td><td>/{esc(sounds)}/</td>'
-                   f'<td>{", ".join(sorted(where))}</td></tr>')
-    nasal = sorted({langs[c]['name'].split(' (')[0].replace('Hindi-Urdu', 'Hindi') for c in langs
-                    for pts in mapping.language_points(c) if any(comp == script.POINTS['ⁿ'] for comp, _ in pts)})
-    out.append(f'<tr><td class="ex">{ug(nfc(script.glyph("ⁿ")))}</td><td>the nasal letter, which makes the vowel before it nasal</td>'
-               f'<td>/◌̃/</td><td>{", ".join(nasal)}</td></tr>')
+        row([pair(letter(c), ' '.join(sorted(comps[c]))) for c in sorted(comps, key=order)], label, where)
+    # the double dot above on a consonant: the r that is a vowel, the glide of ü
+    for comp, label in [(script.POINTS['ɝ'], 'the r that is a vowel'), (script.POINTS['ɥ'], 'the glide that goes with ü')]:
+        sounds, where = [], set()
+        for c in langs:
+            for pts, reads in mapping.language_points(c).items():
+                if pts[0][0] == comp:
+                    sounds += [i for i, _ in reads if i not in sounds]
+                    where.add(short(c))
+        row([pair(letter(comp), ' '.join(sorted(sounds)))], label, where)
+    # the syllabic nasal before its own letter is a spelling of m and n, not a sound of its own (rule 4)
+    row([pair('m\u0308', 'm'), pair('n\u0308', 'n')], 'a nasal that is a syllable before its own letter', {'Igbo', 'Swahili'})
+    nasal = {short(c) for c in langs for pts in mapping.language_points(c) if any(comp == script.POINTS['ⁿ'] for comp, _ in pts)}
+    row([pair(nfc(script.glyph("ⁿ")), '◌̃')], 'the nasal letter, which makes the vowel before it nasal', nasal)
     out.append('</table></div>')
     return '\n'.join(out)
 

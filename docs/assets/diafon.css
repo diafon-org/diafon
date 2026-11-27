@@ -81,7 +81,9 @@
 .md-typeset .ops.marks td.ex .ug{font-size:1.4rem;line-height:1.2;color:var(--ink);word-spacing:.25em;white-space:nowrap}
 .md-typeset .ops.marks td.ex{white-space:nowrap}
 .md-typeset .ops.marks td.ex .pair{display:inline-flex;flex-direction:column;align-items:center;gap:.35rem;width:2.6rem}
-.md-typeset .ops.marks td.ex .pair i{font:400 .68rem/1 var(--mono);font-style:normal;color:var(--muted)}
+.md-typeset .ops.added td.ex{white-space:normal;line-height:1}
+.md-typeset .ops.added td.ex .pair{width:auto;min-width:2.6rem;padding:.2rem .15rem}
+.md-typeset .ops.marks td.ex .pair i{font-size:.72rem;line-height:1;font-style:normal;color:var(--muted);white-space:nowrap}
 .md-typeset .ops.marks span.op{font:600 .95rem/1 var(--mono)}
 .md-typeset .ops.marks span.op-j{color:var(--j-c)} .md-typeset .ops.marks span.op-x{color:var(--x-c)}
 .md-typeset .ops.marks span.op-c{color:var(--c-c)} .md-typeset .ops.marks span.op-q{color:var(--q-c)}
