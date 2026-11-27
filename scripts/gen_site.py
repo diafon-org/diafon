@@ -317,6 +317,7 @@ def added_table():
             for pts, reads in mapping.language_points(c).items():
                 if pts[0][0] == comp:
                     sounds += [i for i, _ in reads if i not in sounds]
+                if any(p[0] == comp for p in pts):          # the second half of a diphthong too (Dutch ui, German eu)
                     where.add(short(c))
         row([pair(letter(comp), ' '.join(sorted(sounds)))], label, where)
     # the syllabic nasal before its own letter is a spelling of m and n, not a sound of its own (rule 4)
