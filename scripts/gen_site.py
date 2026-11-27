@@ -310,8 +310,8 @@ def added_table():
     for label, _ in ADDED:
         comps, where = rows[label]
         row([pair(letter(c), ' '.join(sorted(comps[c]))) for c in sorted(comps, key=order)], label, where)
-    # the double dot above on a consonant: the r that is a vowel, the glide of ü
-    for comp, label in [(script.POINTS['ɝ'], 'the r that is a vowel'), (script.POINTS['ɥ'], 'the glide that goes with ü')]:
+    # the double dot above on a consonant: the r with the tongue curled back, the glide of ü
+    for comp, label in [(script.POINTS['ɝ'], 'the r made with the tongue curled back'), (script.POINTS['ɥ'], 'the glide that goes with ü')]:
         sounds, where = [], set()
         for c in langs:
             for pts, reads in mapping.language_points(c).items():
