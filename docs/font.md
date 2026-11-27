@@ -30,7 +30,7 @@ Other fonts show Diafon too, but place the marks less exactly.
     </select></label>
     <label>size <input type="range" id="tf-size" min="14" max="72" value="30"></label>
   </div>
-  <div class="tf-text" id="tf-text" contenteditable="true" spellcheck="false">Ḍë Nórṭ Wind ënd ḍë Sën wr̈ dispjútiṇ wic̦ wáz ḍạ stróṇr̈. Șok sép n̦ár, hossú alma. Niˇ ḳawˇ, c̦uṇˉkuoˊ. Boṃ veṃ blaṃ.</div>
+  <div class="tf-text" id="tf-text" contenteditable="true" spellcheck="false">Ḍë Nórṭ Wind ënd ḍë Sën wr̈ dispjútiṇ wic̦ wáz ḍạ stróṇr̈. Hüva̋ päiva̋, kítos. Niˇ ḳawˇ, c̦uṇˉkuoˊ. Boṃ veṃ blaṃ.</div>
   <p class="tryout-help">Edit the text, or paste your own from the converter below.</p>
 </div>
 

@@ -36,7 +36,7 @@ def write(name, body):
 
 # ---- the hero: what the system is for, and one sound in the spellings of a few languages
 HERO = [('stage:cs', 'Czech', 'čokoláda', 'č'), ('stage:tr', 'Turkish', 'çikolata', 'ç'),
-        ('stage:hu', 'Hungarian', 'csokoládé', 'cs'), ('stage:sw', 'Swahili', 'chokoleti', 'ch'),
+        ('stage:pl', 'Polish', 'czekolada', 'cz'), ('stage:sw', 'Swahili', 'chokoleti', 'ch'),
         ('stage:en', 'English', 'chocolate', 'ch')]
 USES = [('One sound, one letter', 'A sound has the same letter in every language that has it.'),
         ('To and from usual spelling', 'A text converts between Diafon and the usual spelling of each supported '
