@@ -16,8 +16,8 @@ Most consonants sound as they do in English. Four do not.
 
 | Letter | Sound | Example |
 |---|---|---|
-| <span class="ug">c</span> | /t͡s/ | Hungarian *cukor*, <span class="ug">cukor</span> |
-| <span class="ug">x</span> | /d͡z/ | Hungarian *edző*, <span class="ug">exő</span> |
+| <span class="ug">c</span> | /t͡s/ | Czech *cena*, <span class="ug">cena</span> |
+| <span class="ug">x</span> | /d͡z/ | Polish *dzwon*, <span class="ug">xvon</span> |
 | <span class="ug">j</span> | /j/ | English *yes*, <span class="ug">jes</span> |
 | <span class="ug">w</span> | /w/ | English *wet*, <span class="ug">wet</span> |
 
@@ -131,7 +131,7 @@ language reads its letters.
 
 ### Consonants
 
-A consonant's area is narrow. t is made at the teeth in Hungarian and a
+A consonant's area is narrow. t is made at the teeth in French and a
 little further back in English. r is the trilled /r/ and also the English
 /ɹ/. <span class="ug">ṛ</span> is both the tap and the flap, /ɾ ɽ/, which languages hardly ever
 tell apart.

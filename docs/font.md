@@ -67,7 +67,7 @@ get wrong.
 ## The loanword registry
 
 A word keeps the sounds of the language it comes from. *Meeting* is English
-wherever it is used, so Diafon writes it <span class="ug">mítiṇ</span> in a Hungarian text and in
+wherever it is used, so Diafon writes it <span class="ug">mítiṇ</span> in a German text and in
 an English one. The registry is the list of such words, shared by every
 language. A word has one written form there in place of many national
 spellings, and the form shows how the word is said where it comes from.

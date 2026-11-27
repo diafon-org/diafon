@@ -14,7 +14,7 @@ put a mark on it.
 
 <div class="keys-try" markdown="0">
   <textarea id="keys-in" spellcheck="false" autocomplete="off" autocapitalize="off"
-    placeholder="type here: cyak a joq soq, ni3 kqaw3, bomq"></textarea>
+    placeholder="type here: syip, ni3 kqaw3, bomq"></textarea>
   <div class="keys-out ug" id="keys-out" data-empty="what you type appears here in Diafon"></div>
 </div>
 
