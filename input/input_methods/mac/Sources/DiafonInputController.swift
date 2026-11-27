@@ -1,8 +1,11 @@
 // The input controller: keystrokes in, converted text out, by the streaming
-// rule. The only state is `pending`, the typed tail whose reading can still
-// change; it shows as underlined marked text in the app. Everything before it
-// is inserted as final text the moment the keystroke stream can no longer
-// change it.
+// rule. The state is `pending`, the typed tail whose reading can still
+// change. The tail is written into the app as ordinary text and rewritten
+// in place when a key changes it (sy: s, then ș over it), so the app has
+// every letter the moment it is typed: its autocompletion, search fields and
+// spell check see the word as it grows. An app that cannot say what is
+// before the caret gets the tail as underlined marked text instead, as does
+// everyone with `defaults write org.diafon.inputmethod.Diafon underline -bool true`.
 import Carbon
 import Cocoa
 import InputMethodKit
@@ -10,6 +13,10 @@ import InputMethodKit
 @objc(DiafonInputController)
 public class DiafonInputController: IMKInputController {
     private var pending = ""                 // the typed tail still composing, as typed
+    private var shown = ""                   // the tail as it stands in the app's text, before the caret; "" while it is marked text
+    private var direct = true                // this tail is written as ordinary text (decided where a tail starts)
+    /// Apps that take the tail as marked text: they cannot give back the text before the caret.
+    private static var markedOnly: Set<String> = ["com.apple.Terminal", "com.googlecode.iterm2"]
     private let anyRange = NSRange(location: NSNotFound, length: NSNotFound)
     private var prefs: Prefs { Prefs.shared }
 
@@ -42,6 +49,7 @@ public class DiafonInputController: IMKInputController {
     /// whether or not the system sends the mode with the switch (a keyboard kept per document).
     public override func activateServer(_ sender: Any!) {
         pending = ""
+        shown = ""
         if let out = Keyboards.current { use(out, sender) }
         if let client = sender as? IMKTextInput { applyLayout(client) }
     }
@@ -65,11 +73,19 @@ public class DiafonInputController: IMKInputController {
         if !event.modifierFlags.intersection([.command, .control, .option]).isEmpty { flush(client); return false }
         switch event.keyCode {
         case 51:                                               // backspace edits the tail first
-            if !pending.isEmpty { pending.removeLast(); mark(client); return true }
-            return false
+            if pending.isEmpty { return false }
+            if !direct { pending.removeLast(); mark(client); return true }
+            // a tail of one key is one plain letter: the app deletes it itself
+            guard pending.count > 1, let caret = tailEnd(client) else { pending = ""; shown = ""; return false }
+            pending.removeLast()
+            rewrite(client, caret, render()(pending))
+            return true
         case 53:                                               // escape: the tail goes in as typed
-            if !pending.isEmpty { insert(client, pending); pending = ""; mark(client); return true }
-            return false
+            if pending.isEmpty { return false }
+            if !direct { insert(client, pending); pending = ""; mark(client); return true }
+            if let caret = tailEnd(client) { rewrite(client, caret, pending) }
+            pending = ""; shown = ""
+            return true
         case 36, 76, 48, 123, 124, 125, 126:                   // return, enter, tab, arrows
             flush(client); return false
         default: break
@@ -84,10 +100,59 @@ public class DiafonInputController: IMKInputController {
 
     /// One character in: the streaming rule decides what is final.
     private func type(_ client: IMKTextInput, _ ch: Character) {
+        if pending.isEmpty { direct = writesDirect(client) }
+        guard direct else {
+            let (committed, tail) = prefs.stream(pending + String(ch))
+            if !committed.isEmpty { insert(client, committed) }
+            pending = tail
+            mark(client)
+            return
+        }
+        var caret = 0
+        if !pending.isEmpty {
+            if let c = tailEnd(client) { caret = c } else { pending = ""; shown = "" }      // the caret has moved: what was typed is final
+        }
         let (committed, tail) = prefs.stream(pending + String(ch))
-        if !committed.isEmpty { insert(client, committed) }
         pending = tail
-        mark(client)
+        rewrite(client, caret, committed + (tail.isEmpty ? "" : render()(tail)))
+        shown = tail.isEmpty ? "" : render()(tail)
+    }
+
+    // MARK: the tail as ordinary text
+
+    /// Whether a new tail is written as ordinary text: unless it is turned off, or the app
+    /// is known not to give back its text, or it does not say where the caret is.
+    private func writesDirect(_ client: IMKTextInput) -> Bool {
+        if UserDefaults.standard.bool(forKey: "underline") { return false }
+        if let id = client.bundleIdentifier(), Self.markedOnly.contains(id) { return false }
+        return client.selectedRange().location != NSNotFound
+    }
+
+    /// Where the tail ends, if it still stands right before the caret as it was written; nil if
+    /// the caret has moved or the text has changed. An app that gives no text back is remembered.
+    private func tailEnd(_ client: IMKTextInput) -> Int? {
+        let n = (shown as NSString).length
+        let sel = client.selectedRange()
+        guard n > 0, sel.location != NSNotFound, sel.length == 0, sel.location >= n else { return nil }
+        guard let got = client.attributedSubstring(from: NSRange(location: sel.location - n, length: n))?.string else {
+            if let id = client.bundleIdentifier() { Self.markedOnly.insert(id) }
+            return nil
+        }
+        return got == shown ? sel.location : nil
+    }
+
+    /// The tail standing before the caret becomes `text`: only what differs is touched, by
+    /// whole letters, so a letter that only follows the tail is a plain insertion.
+    private func rewrite(_ client: IMKTextInput, _ caret: Int, _ text: String) {
+        let keep = zip(shown, text).prefix { $0 == $1 }.count
+        let gone = (String(shown.dropFirst(keep)) as NSString).length
+        let new = String(text.dropFirst(keep))
+        if gone == 0 {
+            if !new.isEmpty { client.insertText(new, replacementRange: anyRange) }
+        } else {
+            client.insertText(new, replacementRange: NSRange(location: caret - gone, length: gone))
+        }
+        shown = text
     }
 
     /// Final text replaces whatever is marked; the mark is redrawn after.
@@ -106,6 +171,7 @@ public class DiafonInputController: IMKInputController {
     /// Make the composing tail final as it stands.
     private func flush(_ client: IMKTextInput) {
         guard !pending.isEmpty else { return }
+        if direct { pending = ""; shown = ""; return }       // it stands in the text already, as it would be made final
         insert(client, render()(pending))
         pending = ""
         mark(client)

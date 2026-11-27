@@ -2,9 +2,9 @@
 
 An input method for macOS 13 and later. Pick it in the input menu and type
 the input form in any app; it converts as you type, by the streaming rule:
-each segment is inserted the moment the keystroke stream can no longer change
-it, and only the undecidable tail shows as underlined text in place. No
-compose step and no network.
+every letter is in the text the moment it is typed, and a key that changes
+the letter before it rewrites it in place. No compose step, nothing
+underlined, and no network.
 
 ## Build and install (the Command Line Tools are enough, no Xcode)
 
@@ -21,11 +21,18 @@ in the menu bar and type `sy cy aq`: it streams out as `ș c̦ á`.
 
 - **Streaming conversion.** Letters, digits, space and punctuation go through
   the streaming rule (`Diafon.stream`): everything before the last letter is
-  inserted as final text, the last letter stays underlined until a key settles
-  it; in a language's spelling the whole word being typed stays underlined.
-  Backspace edits the underlined tail first; Escape drops the tail in as
-  typed; Return, Tab, arrows and any shortcut make the tail final and pass
-  through.
+  final, and the last letter can still change with the next key; in a
+  language's spelling the whole word being typed can. This tail is written
+  into the app as ordinary text and rewritten in place (`sy`: s, then ș
+  over it), so the app's own autocompletion, search and spell check see the
+  word as it grows. Before rewriting, the tail is read back from before the
+  caret; if it is not there (the caret was moved), what was typed is final.
+  An app that cannot give its text back (Terminal, iTerm, any found so
+  while typing) gets the tail as underlined marked text, and
+  `defaults write org.diafon.inputmethod.Diafon underline -bool true` does
+  that everywhere. Backspace takes the last key off the tail first; Escape
+  puts the tail in as typed; Return, Tab, arrows and any shortcut make the
+  tail final and pass through.
 - **Each output is a keyboard.** Diafon (the script) and one keyboard per
   language written by its letters (Diafon – Magyar, Diafon – Polski, …) are
   input modes of the one input method, so the system's own switching picks
