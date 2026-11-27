@@ -9,8 +9,8 @@ hide:
 <link rel="stylesheet" href="input.css">
 
 Diafon is typed on a plain keyboard. Twenty-four keys are its letters. The
-other two, `y` and `q`, are not letters of Diafon: typed after a letter,
-they put its mark on.
+other two, `y` and `q`, are not Diafon letters. Typed after a letter, they
+put a mark on it.
 
 <div class="keys-try" markdown="0">
   <textarea id="keys-in" spellcheck="false" autocomplete="off" autocapitalize="off"
@@ -25,9 +25,9 @@ they put its mark on.
 | a consonant | the anchor: `sy` <span class="ug">ș</span> | the dot: `tq` <span class="ug">ṭ</span> | the double dot below: `tyq` <span class="ug">t̤</span> | |
 | a vowel | the double dot: `uy` <span class="ug">ü</span> | long: `aq` <span class="ug">á</span> | both: `oyq` <span class="ug">ő</span> | the dot below: `eqy` <span class="ug">ẹ</span> |
 
-- On r and w the `y` is the double dot above: `ry` is <span class="ug">r̈</span>, `wy` is <span class="ug">ẅ</span>. The anchor on r, <span class="ug">r̦</span> (Czech ř, the Russian soft r), is `ryq`.
-- On m and n the double dot above is `qy`: `mqy` is <span class="ug">m̈</span>, `nqy` is <span class="ug">n̈</span>, the nasal that is a syllable before its own letter: `mqymaduqy` is <span class="ug">m̈madụ</span>. `mm` stays the long m.
-- A dotted vowel is made long with one more `q`: `oqyq` is <span class="ug">ọ́</span>.
+- On r and w, `y` is the double dot above: `ry` is <span class="ug">r̈</span>, `wy` is <span class="ug">ẅ</span>. The anchor on r, <span class="ug">r̦</span> (Czech ř, the Russian soft r), is `ryq`.
+- On m and n the double dot above is `qy`: `mqy` is <span class="ug">m̈</span>, `nqy` is <span class="ug">n̈</span>, the nasal that is a syllable before its own letter. `mqymaduqy` is <span class="ug">m̈madụ</span>, and `mm` is still the long m.
+- One more `q` makes a dotted vowel long: `oqyq` is <span class="ug">ọ́</span>.
 - A nasal vowel is the vowel and `mq`: `bomq` is <span class="ug">boṃ</span>.
 - A doubled consonant is the long one, and the key after it marks both: `ssy` is <span class="ug">șș</span>.
 - A digit after a letter is its tone: `ni3 kqaw3` is <span class="ug">niˇ ḳawˇ</span>.
@@ -35,10 +35,10 @@ they put its mark on.
 
 ## Every letter and its keys
 
-The letters most languages share, with the keys that type each: first the
-letters typed alone, then a row for each thing typed after a letter, the
-simplest first. The letters of only a few languages follow in their own
-table, in the same order.
+These are the letters most languages share, each with the keys that type
+it. The first row has the letters typed alone. Every row after it has the
+letters that take the same keys after them, the simplest first. The letters
+of only a few languages are in a table of their own, in the same order.
 
 ### Consonants
 
@@ -50,14 +50,14 @@ table, in the same order.
 
 ### Letters of a few languages
 
-Each of these is used by one to three of the languages Diafon covers, named under its keys.
+Each of these is used by at most three of the languages Diafon covers. They are named under its keys.
 
 <div class="keys-rows keys-few" markdown="0"><div class="keys-row"><span class="keys-op"><code>y</code></span><div class="keys-grid"><div class="pt k-j"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">p̓</span><span class="lab">py</span><span class="pt-langs"><span>Polish</span><span>Russian</span></span></div><div class="pt k-j"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">b̦</span><span class="lab">by</span><span class="pt-langs"><span>Polish</span><span>Russian</span></span></div><div class="pt k-j"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">k̦</span><span class="lab">ky</span><span class="pt-langs"><span>Polish</span><span>Russian</span></span></div><div class="pt k-j"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">g̓</span><span class="lab">gy</span><span class="pt-langs"><span>Polish</span><span>Russian</span></span></div><div class="pt k-j"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">f̦</span><span class="lab">fy</span><span class="pt-langs"><span>Polish</span><span>Russian</span></span></div><div class="pt k-j"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">v̦</span><span class="lab">vy</span><span class="pt-langs"><span>Polish</span><span>Russian</span></span></div><div class="pt k-j"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">m̦</span><span class="lab">my</span><span class="pt-langs"><span>Polish</span><span>Russian</span></span></div><div class="pt k-c"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">r̈</span><span class="lab">ry</span><span class="pt-langs"><span>English</span><span>Mandarin Chinese</span><span>Tamil</span></span></div><div class="pt k-c"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">ẅ</span><span class="lab">wy</span><span class="pt-langs"><span>Dutch</span><span>French</span><span>German</span></span></div><div class="pt k-c"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">ä</span><span class="lab">ay</span><span class="pt-langs"><span>Estonian</span><span>Finnish</span><span>Persian</span></span></div></div></div><div class="keys-row"><span class="keys-op"><code>q</code></span><div class="keys-grid"><div class="pt k-x"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">ḍ</span><span class="lab">dq</span><span class="pt-langs"><span>Arabic (MSA)</span><span>English</span><span>Modern Greek</span></span></div><div class="pt k-x"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">ẓ</span><span class="lab">zq</span><span class="pt-langs"><span>Polish</span><span>Russian</span><span>Ukrainian</span></span></div><div class="pt k-x"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">c̣</span><span class="lab">cq</span><span class="pt-langs"><span>Mandarin Chinese</span><span>Polish</span><span>Ukrainian</span></span></div><div class="pt k-x"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">x̣</span><span class="lab">xq</span><span class="pt-langs"><span>Polish</span></span></div><div class="pt k-x"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">ḷ</span><span class="lab">lq</span><span class="pt-langs"><span>Tamil</span></span></div></div></div><div class="keys-row"><span class="keys-op"><code>yq</code></span><div class="keys-grid"><div class="pt k-y"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">d̤</span><span class="lab">dyq</span><span class="pt-langs"><span>Arabic (MSA)</span><span>Bengali</span><span>Hindi-Urdu</span></span></div><div class="pt k-y"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">k̤</span><span class="lab">kyq</span><span class="pt-langs"><span>Arabic (MSA)</span><span>Georgian</span><span>Persian</span></span></div><div class="pt k-y"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">g̈</span><span class="lab">gyq</span><span class="pt-langs"><span>Arabic (MSA)</span></span></div><div class="pt k-y"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">s̤</span><span class="lab">syq</span><span class="pt-langs"><span>Arabic (MSA)</span></span></div><div class="pt k-y"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">z̤</span><span class="lab">zyq</span><span class="pt-langs"><span>Arabic (MSA)</span></span></div><div class="pt k-y"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">h̤</span><span class="lab">hyq</span><span class="pt-langs"><span>Arabic (MSA)</span></span></div><div class="pt k-y"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">n̤</span><span class="lab">nyq</span><span class="pt-langs"><span>Hindi-Urdu</span><span>Tamil</span></span></div><div class="pt k-j"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">r̦</span><span class="lab">ryq</span><span class="pt-langs"><span>Czech</span><span>Russian</span><span>Ukrainian</span></span></div><div class="pt k-c"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">a̋</span><span class="lab">ayq</span><span class="pt-langs"><span>Estonian</span><span>Finnish</span></span></div><div class="pt k-c"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">e̋</span><span class="lab">eyq</span><span class="pt-langs"><span>Estonian</span><span>Thai</span><span>Vietnamese</span></span></div><div class="pt k-c"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">i̋</span><span class="lab">iyq</span><span class="pt-langs"><span>Japanese</span><span>Thai</span></span></div></div></div><div class="keys-row"><span class="keys-op"><code>qy</code></span><div class="keys-grid"><div class="pt k-c"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">m̈</span><span class="lab">mqy</span><span class="pt-langs"><span>Igbo</span><span>Swahili</span></span></div><div class="pt k-c"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">n̈</span><span class="lab">nqy</span><span class="pt-langs"><span>Igbo</span><span>Swahili</span></span></div><div class="pt k-j"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">ị</span><span class="lab">iqy</span><span class="pt-langs"><span>Dutch</span><span>Igbo</span><span>Ukrainian</span></span></div><div class="pt k-j"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">ụ</span><span class="lab">uqy</span><span class="pt-langs"><span>Igbo</span></span></div></div></div><div class="keys-row"><span class="keys-op"><code>qyq</code></span><div class="keys-grid"><div class="pt k-j"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">ẹ́</span><span class="lab">eqyq</span><span class="pt-langs"><span>Thai</span></span></div><div class="pt k-j"><svg class="edge" aria-hidden="true"><rect width="100%" height="100%" rx="8"/></svg><span class="nat">ọ́</span><span class="lab">oqyq</span><span class="pt-langs"><span>Thai</span></span></div></div></div></div>
 
 ## Learn it in your language
 
-The lessons teach the typing one idea at a time, in the sounds of one
-language. Example words use only what the lessons so far have taught.
+The lessons teach the typing one step at a time, with the sounds of one
+language. The example words use only what earlier lessons have taught.
 
 <div class="learn-bar" markdown="0">
   <label>language <select id="ln-lang" autocomplete="off"></select></label>
@@ -73,11 +73,11 @@ language. Example words use only what the lessons so far have taught.
   </div>
 </div>
 
-## Other ways of typing
+## Keyboards
 
-This is the only typing Diafon has now. An older one, with five mark keys,
-is no longer offered. The keyboards for the Mac, the iPhone and Android
-still use it and are being rebuilt on this one.
+This is the only typing Diafon has. The Mac and iPhone keyboards use it. The
+Android keyboard still has an older typing with five mark keys, and is
+being rebuilt on this one.
 
 <script src="input-data.js"></script>
 <script src="diafon-keys.js"></script>

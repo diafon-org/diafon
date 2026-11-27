@@ -128,7 +128,7 @@ function body(k){
     const odd = l.forms.filter(f => !f.ipa.includes(f.f));
     return [`<p>${l.forms.length} of ${name}'s sounds are one plain letter, typed as it is. The table gives
       ${name}'s own reading of each, and a letter reads the same in every word.</p>` +
-      (odd.length ? `<p>Watch ${odd.map(f => code(f.f)).join(', ')}: in Diafon ${odd.length > 1 ? 'they read' : 'it reads'} as shown below.</p>` : '') +
+      (odd.length ? `<p>Watch ${odd.map(f => code(f.f)).join(', ')}. In Diafon ${odd.length > 1 ? 'they read' : 'it reads'} as shown below.</p>` : '') +
       groups(v, c), l];
   }
   if (k === 'op:y' || k === 'op:q'){
@@ -137,11 +137,11 @@ function body(k){
     let t = first ? `<p>${code('y')} and ${code('q')} are the two keys that are not letters of Diafon. Typed after a letter, they change it.</p>` : '';
     t += '<ul>';
     if (o === 'y'){
-      if (c.some(f => !'rw'.includes(f.f[0]))) t += `<li>After a consonant ${code('y')} adds the <b>anchor</b>, the comma-like stroke below the letter (above on g and p): the hushed and the soft sounds.</li>`;
+      if (c.some(f => !'rw'.includes(f.f[0]))) t += `<li>After a consonant ${code('y')} adds the <b>anchor</b>, the comma-like stroke below the letter (above on g and p). It writes the hushed and the soft sounds.</li>`;
       if (c.some(f => 'rw'.includes(f.f[0]))) t += `<li>After r and w it adds the double dot above: ${code('ry')} is ${ug('r̈')}, ${code('wy')} is ${ug('ẅ')}.</li>`;
-      if (v.length) t += `<li>After a vowel ${code('y')} adds the <b>double dot</b>: front and back swapped: ${ug('ü ö ä')} are front, ${ug('ë ï')} back. ${ug('ë')} is also the schwa.</li>`;
+      if (v.length) t += `<li>After a vowel ${code('y')} adds the <b>double dot</b>, which moves the vowel front or back. ${ug('ü ö ä')} are front, ${ug('ë ï')} are back, and ${ug('ë')} is also the schwa.</li>`;
     } else {
-      if (c.length) t += `<li>After a consonant ${code('q')} adds the <b>dot</b> below the letter (above on g and p): a fixed nearby sound.</li>`;
+      if (c.length) t += `<li>After a consonant ${code('q')} adds the <b>dot</b> below the letter (above on g and p). It writes a neighbouring sound.</li>`;
       if (v.length) t += `<li>After a vowel ${code('q')} makes it <b>long</b>, written with the acute.</li>`;
     }
     return [t + '</ul>' + groups(v, c), l];
@@ -149,10 +149,10 @@ function body(k){
   if (k === 'two'){
     const l = lessonOf(k), [v, c] = split(l);
     let t = '<p>Some letters take two keys after them, and a few take three.</p><ul>';
-    if (c.some(f => f.k === 'y')) t += `<li>After a consonant ${code('yq')} adds the <b>double dot below</b>: ${name}'s own sound, made further back.</li>`;
+    if (c.some(f => f.k === 'y')) t += `<li>After a consonant ${code('yq')} adds the <b>double dot below</b>, for a sound of ${name} made further back.</li>`;
     if (c.some(f => f.f === 'ryq')) t += `<li>${code('ryq')} is the soft ${ug('r̦')}, since ${code('ry')} is taken by ${ug('r̈')}.</li>`;
     if (v.some(f => /yq$/.test(f.f) && !/qyq$/.test(f.f))) t += `<li>After a vowel ${code('yq')} is the double dot and length together: ${code('oyq')} is ${ug('ő')}.</li>`;
-    if (v.some(f => /qyq?$/.test(f.f))) t += `<li>After a vowel ${code('qy')} adds the <b>dot below</b>: the more open vowel. With one more ${code('q')} it is long.</li>`;
+    if (v.some(f => /qyq?$/.test(f.f))) t += `<li>After a vowel ${code('qy')} adds the <b>dot below</b>, for the more open vowel. One more ${code('q')} makes it long.</li>`;
     return [t + '</ul>' + groups(v, c), l];
   }
   if (k === 'seq'){
@@ -165,13 +165,13 @@ function body(k){
     if (dip.length) t += `<li>A diphthong is a vowel followed by a glide: ${code(dip[0].f)} is ${ug(dip[0].g)}.</li>`;
     t += '</ul>';
     if ($lang.value === 'en' && dip.length)
-      t += `<p>In Diafon ${ug('now')} is English <i>no</i> and ${ug('awt')} is English <i>out</i>: w is always the glide.</p>`;
+      t += `<p>In Diafon ${ug('now')} is English <i>no</i> and ${ug('awt')} is English <i>out</i>. w is always the glide.</p>`;
     return [t + tiles(l.forms), l];
   }
   if (k === 'tones'){
     const ts = Object.entries(L.tones);
     const ex = L.lessons.flatMap(l => l.words).find(w => /\d$/.test(w.t));
-    return [`<p>${name} has ${ts.length} tones. Type each as a digit after its syllable; Diafon writes it as a small sign:
+    return [`<p>${name} has ${ts.length} tones. Type a tone as a digit after its syllable, and Diafon writes it as a small sign. The digits are
       ${ts.map(([n, t]) => `<b>${n}</b> ${esc(t)}`).join(', ')}.` + (ex ? ` So ${code(ex.t)} is ${ug(ex.g)}.` : '') + '</p>' +
       `<p>A doubled digit is the plain digit: ${code('h22o')} is ${ug(render('h22o'))}.</p>`, null];
   }
@@ -184,7 +184,7 @@ function body(k){
       const cap = t[0].toUpperCase() + t.slice(1);
       ex = `<p>${code(cap)} is ${ug(render(cap))}.</p>`;
     }
-    return [`<p>A capital is the letter typed in upper case; ${code('y')} and ${code('q')} after it work in either case. A long
+    return [`<p>A capital is the letter typed in upper case. The ${code('y')} and ${code('q')} after it work in either case. A long
       consonant capitalises only its first letter. A mark that floats above g or p goes below on the capital.</p>` + ex +
       `<p>To type a plain y or q after a letter, type it twice: ${code('cityy')} is ${ug(render('cityy'))}, ${code('iraqq')} is
       ${ug(render('iraqq'))}. Where there is no letter before it, it is plain already: ${code('you')}, ${code('quick')}.</p>`, null];

@@ -7,17 +7,17 @@ hide:
 # Font
 
 Diafon text is ordinary Unicode, so any app can show it and store it. The
-Diafon fonts draw it as designed.
+Diafon fonts draw it the way it was designed.
 
 ## The fonts
 
-Diafon Serif, Sans and Mono draw every Diafon letter, with the anchor joined
-to its letter. They are built from Noto and free under the SIL Open Font
-License. Download the `.ttf` files from the
+Diafon Serif, Sans and Mono have every Diafon letter, with the anchor joined
+to its letter. They are built on Noto and are free under the SIL Open Font
+License. The `.ttf` files are in the
 [fonts folder](https://github.com/diafon-org/diafon/tree/main/fonts).
 
-Other fonts show Diafon too, with the marks placed less precisely. The font
-check further down shows how any installed font does.
+Other fonts show Diafon too, but place the marks less exactly.
+[Check a font](#check-a-font) shows how any installed font does.
 
 ## Try a font
 
@@ -36,8 +36,8 @@ check further down shows how any installed font does.
 
 ## Convert a text
 
-Paste a text in a language's usual spelling and read it in Diafon, or the
-other way round. It works on long texts. A language's dictionary loads the
+Paste a text in a language's usual spelling to read it in Diafon, or the
+other way round. Long texts work too. A language's dictionary loads the
 first time it is needed.
 
 <div class="convert" markdown="0">
@@ -58,19 +58,19 @@ first time it is needed.
 ## The dictionaries
 
 Most languages are converted by rule, letter by letter. English and
-Mandarin cannot be: their spelling does not say the sound, so each has a
-dictionary. Hungarian has rules and a dictionary for the words the rules
-miss.
+Mandarin spelling does not show the sound, so each of them has a
+dictionary. Hungarian has rules, and a dictionary for the words the rules
+get wrong.
 
 <div class="dicts" id="dicts" markdown="0"></div>
 
 ## The loanword registry
 
-A word keeps the sound of the language it comes from. *Meeting* is English
-wherever it is used, so Diafon writes it one way, <span class="ug">mítiṇ</span>,
-in a Hungarian text as in an English one. The registry is the one list
-every language consults for such words. It makes one written form out of
-many national spellings, and keeps the original pronunciation in view.
+A word keeps the sounds of the language it comes from. *Meeting* is English
+wherever it is used, so Diafon writes it <span class="ug">mítiṇ</span> in a Hungarian text and in
+an English one. The registry is the list of such words, shared by every
+language. A word has one written form there in place of many national
+spellings, and the form shows how the word is said where it comes from.
 
 <div class="loans" markdown="0">
   <div class="mt-bar fontbar">
@@ -85,7 +85,7 @@ many national spellings, and keeps the original pronunciation in view.
 
 <div class="fontcheck" markdown="0">
   <p class="tryout-help">Every Diafon letter in use, in the font you pick. A red outline
-  means the font leaves the mark out; amber means another font steps in.</p>
+  means the font leaves the mark out. Amber means another font steps in.</p>
   <div class="mt-bar fontbar">
     <label>font <select id="fc-font" autocomplete="off">
       <optgroup label="Diafon">
@@ -122,9 +122,9 @@ many national spellings, and keeps the original pronunciation in view.
 
 ## Building your own
 
-Everything that reads or writes Diafon can work from one file,
-[alphabet-spec.json](alphabet-spec.json): every letter with its marks and
-glyphs, the languages, the spellings, and test cases to pass.
+Anything that reads or writes Diafon can work from one file,
+[alphabet-spec.json](alphabet-spec.json). It has every letter with its marks
+and glyphs, the languages, the spellings, and test cases to pass.
 
 <script src="../assets/diafon-core.js"></script>
 <script src="../assets/font.js"></script>

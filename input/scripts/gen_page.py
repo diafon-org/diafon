@@ -153,8 +153,8 @@ hide:
 <link rel="stylesheet" href="input.css">
 
 Diafon is typed on a plain keyboard. Twenty-four keys are its letters. The
-other two, `y` and `q`, are not letters of Diafon: typed after a letter,
-they put its mark on.
+other two, `y` and `q`, are not Diafon letters. Typed after a letter, they
+put a mark on it.
 
 <div class="keys-try" markdown="0">
   <textarea id="keys-in" spellcheck="false" autocomplete="off" autocapitalize="off"
@@ -169,9 +169,9 @@ they put its mark on.
 | a consonant | the anchor: `sy` <span class="ug">ș</span> | the dot: `tq` <span class="ug">ṭ</span> | the double dot below: `tyq` <span class="ug">t̤</span> | |
 | a vowel | the double dot: `uy` <span class="ug">ü</span> | long: `aq` <span class="ug">á</span> | both: `oyq` <span class="ug">ő</span> | the dot below: `eqy` <span class="ug">ẹ</span> |
 
-- On r and w the `y` is the double dot above: `ry` is <span class="ug">r̈</span>, `wy` is <span class="ug">ẅ</span>. The anchor on r, <span class="ug">r̦</span> (Czech ř, the Russian soft r), is `ryq`.
-- On m and n the double dot above is `qy`: `mqy` is <span class="ug">m̈</span>, `nqy` is <span class="ug">n̈</span>, the nasal that is a syllable before its own letter: `mqymaduqy` is <span class="ug">m̈madụ</span>. `mm` stays the long m.
-- A dotted vowel is made long with one more `q`: `oqyq` is <span class="ug">ọ́</span>.
+- On r and w, `y` is the double dot above: `ry` is <span class="ug">r̈</span>, `wy` is <span class="ug">ẅ</span>. The anchor on r, <span class="ug">r̦</span> (Czech ř, the Russian soft r), is `ryq`.
+- On m and n the double dot above is `qy`: `mqy` is <span class="ug">m̈</span>, `nqy` is <span class="ug">n̈</span>, the nasal that is a syllable before its own letter. `mqymaduqy` is <span class="ug">m̈madụ</span>, and `mm` is still the long m.
+- One more `q` makes a dotted vowel long: `oqyq` is <span class="ug">ọ́</span>.
 - A nasal vowel is the vowel and `mq`: `bomq` is <span class="ug">boṃ</span>.
 - A doubled consonant is the long one, and the key after it marks both: `ssy` is <span class="ug">șș</span>.
 - A digit after a letter is its tone: `ni3 kqaw3` is <span class="ug">niˇ ḳawˇ</span>.
@@ -179,10 +179,10 @@ they put its mark on.
 
 ## Every letter and its keys
 
-The letters most languages share, with the keys that type each: first the
-letters typed alone, then a row for each thing typed after a letter, the
-simplest first. The letters of only a few languages follow in their own
-table, in the same order.
+These are the letters most languages share, each with the keys that type
+it. The first row has the letters typed alone. Every row after it has the
+letters that take the same keys after them, the simplest first. The letters
+of only a few languages are in a table of their own, in the same order.
 
 ### Consonants
 
@@ -194,14 +194,14 @@ table, in the same order.
 
 ### Letters of a few languages
 
-Each of these is used by one to three of the languages Diafon covers, named under its keys.
+Each of these is used by at most three of the languages Diafon covers. They are named under its keys.
 
 @FEW@
 
 ## Learn it in your language
 
-The lessons teach the typing one idea at a time, in the sounds of one
-language. Example words use only what the lessons so far have taught.
+The lessons teach the typing one step at a time, with the sounds of one
+language. The example words use only what earlier lessons have taught.
 
 <div class="learn-bar" markdown="0">
   <label>language <select id="ln-lang" autocomplete="off"></select></label>
@@ -217,11 +217,11 @@ language. Example words use only what the lessons so far have taught.
   </div>
 </div>
 
-## Other ways of typing
+## Keyboards
 
-This is the only typing Diafon has now. An older one, with five mark keys,
-is no longer offered. The keyboards for the Mac, the iPhone and Android
-still use it and are being rebuilt on this one.
+This is the only typing Diafon has. The Mac and iPhone keyboards use it. The
+Android keyboard still has an older typing with five mark keys, and is
+being rebuilt on this one.
 
 <script src="input-data.js"></script>
 <script src="diafon-keys.js"></script>

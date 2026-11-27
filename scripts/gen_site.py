@@ -38,11 +38,11 @@ def write(name, body):
 HERO = [('stage:cs', 'Czech', 'čokoláda', 'č'), ('stage:tr', 'Turkish', 'çikolata', 'ç'),
         ('stage:hu', 'Hungarian', 'csokoládé', 'cs'), ('stage:sw', 'Swahili', 'chokoleti', 'ch'),
         ('stage:en', 'English', 'chocolate', 'ch')]
-USES = [('One sound, one letter', 'A sound is written with the same letter in every language that has it.'),
-        ('Converts to and from usual spelling', 'Text can be converted to and from the usual spelling of the supported '
-         'languages, Pinyin included.'),
-        ('Ordinary text', 'Diafon is plain Unicode: Latin letters with standard marks, which any app, file or '
-         'message can carry.')]
+USES = [('One sound, one letter', 'A sound has the same letter in every language that has it.'),
+        ('To and from usual spelling', 'A text converts between Diafon and the usual spelling of each supported '
+         'language, Pinyin included.'),
+        ('Ordinary text', 'Diafon is plain Unicode, Latin letters with standard marks. Any app, file or '
+         'message can carry it.')]
 
 
 def hero():
@@ -62,7 +62,7 @@ def hero():
   <div class="hero-title">{mark}<div><h1>Diafon</h1>
     <p class="hero-tag">One alphabet for the sounds of many languages.</p></div></div>
   <div class="same">
-    <p class="same-k">One sound /t͡ʃ/ spelled 4 ways, Diafon writes it c̦ always.</p>
+    <p class="same-k">One sound, /t͡ʃ/, has four spellings here. Diafon always writes it c̦.</p>
     {''.join(rows)}
   </div>
   <div class="uses">{uses}</div>
@@ -92,9 +92,9 @@ MARK_CLASS = {(): 'base', ('anchor',): 'j', ('dot',): 'x', ('twodots',): 'y', ('
 MARK_GLOSS = [   # (class, on a consonant, on a vowel)
     ('base', 'no mark', 'no mark'),
     ('j', 'the anchor: hushed or soft', 'the dot below: more open'),
-    ('x', 'the dot: a fixed nearby sound', None),
-    ('c', None, 'the double dot: front and back swapped'),
-    ('y', "the double dot below: the language's own variant, further back", None),
+    ('x', 'the dot: a neighbouring sound', None),
+    ('c', None, 'the double dot: moved front or back'),
+    ('y', 'the double dot below: a sound made further back', None),
 ]
 
 
@@ -265,10 +265,10 @@ def key(rows, cls=''):
 
 def consonant_chart():
     return '<div class="chart" markdown="0">' + point_table(CONSONANTS, 'consonants') + key([
-        (chip_svg(['p', 'b']), 'a card: the letters and their sounds; voiceless first, then voiced'),
-        ('lips → throat', 'the columns: where the sound is made, marked in each profile'),
-        ('edge colour', 'the mark the letter wears' + colours()),
-        (chip_svg(['c', 'ɟ'], 'cmp'), 'dashed: letters with a mark, shown where their sound sits '
+        (chip_svg(['p', 'b']), 'a card holds the letters and their sounds, the voiceless one first'),
+        ('lips → throat', 'the columns follow where the sound is made, shown in each small profile'),
+        ('edge colour', 'the mark on the letter' + colours()),
+        (chip_svg(['c', 'ɟ'], 'cmp'), 'a dashed card holds marked letters, placed where their sound is made '
          f'({ug(" ".join(glyph(n) for n in sorted(COMPOSED, key=lambda n: script.POINTS[n])))})'),
     ]) + '</div>'
 
@@ -311,7 +311,7 @@ def added_table():
                    f'<td>{", ".join(sorted(where))}</td></tr>')
     nasal = sorted({langs[c]['name'].split(' (')[0].replace('Hindi-Urdu', 'Hindi') for c in langs
                     for pts in mapping.language_points(c) if any(comp == script.POINTS['ⁿ'] for comp, _ in pts)})
-    out.append(f'<tr><td class="ex">{ug(nfc(script.glyph("ⁿ")))}</td><td>the nasal letter: the vowel before it is nasal</td>'
+    out.append(f'<tr><td class="ex">{ug(nfc(script.glyph("ⁿ")))}</td><td>the nasal letter, which makes the vowel before it nasal</td>'
                f'<td>/◌̃/</td><td>{", ".join(nasal)}</td></tr>')
     out.append('</table></div>')
     return '\n'.join(out)
@@ -319,11 +319,11 @@ def added_table():
 
 def vowel_chart():
     return '<div class="chart vt-chart" markdown="0">' + vowel_triangle(vowel_areas()) + key([
-        ('front · back', 'front on the left, back on the right; the double dot moves a letter to the other side'),
-        (f'<span class="chipkey area k-base">{EDGE}a</span>', 'a card: the letter, and every sound it covers'),
-        (f'<span class="chipkey split cmp k-j">{EDGE}ẹ</span>', 'dashed: written only by a language with two vowels in that area '
+        ('front · back', 'front is on the left and back on the right, and the double dot moves a letter to the other side'),
+        (f'<span class="chipkey area k-base">{EDGE}a</span>', 'a card holds a letter and every sound it covers'),
+        (f'<span class="chipkey split cmp k-j">{EDGE}ẹ</span>', 'a dashed card is written only by languages with two vowels in that area '
          '(rule 2 on the Reference page)'),
-        ('edge colour', 'the mark the letter wears' + colours(vowels=True)),
+        ('edge colour', 'the mark on the letter' + colours(vowels=True)),
     ], cls='vt-key') + '</div>'
 
 
